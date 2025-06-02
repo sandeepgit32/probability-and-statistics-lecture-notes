@@ -5809,7 +5809,51 @@ When we take a random sample from a population, not only the sample mean but als
 \[
 S^2 = \frac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})^2
 \]
-behaves as a random variable. That is, the value of the sample variance \( S^2 \) will vary from one sample to another. In this section, we describe the distribution of \( S^2 \) when the population is normally distributed.
+behaves as a random variable. That is, the value of the sample variance \( S^2 \) will vary from one sample to another. 
+
+\begin{textbox}
+\textbf{Theorem}: If $S^2$ is the variance of a random sample of size $n$ taken (with replacements) from a population of variance $\sigma^2$, then
+\[
+\mathbb{E}(S^2) = \sigma^2
+\]
+\end{textbox}
+
+\textbf{Proof}: Let \( X_1, X_2, \dots, X_n \) be a random sample from a population with mean \( \mu \) and variance \( \sigma^2 \). The sample variance is defined as:
+\[
+S^2 = \frac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})^2
+\]
+
+Now,
+\begin{align*}
+\sum_{i=1}^{n} (X_i - \overline{X})^2 &= \sum_{i=1}^{n} \left( (X_i - \mu) - (\overline{X} - \mu)\right) ^2\\
+&= \sum_{i=1}^{n} (X_i - \mu)^2 - n(\overline{X} - \mu)^2
+\end{align*}
+
+Taking expectations on both sides:
+\[
+\mathbb{E}\left[\sum_{i=1}^{n} (X_i - \overline{X})^2 \right] = \mathbb{E}\left[ \sum_{i=1}^{n} (X_i - \mu)^2 \right] - n \cdot \mathbb{E}\left[(\overline{X} - \mu)^2 \right]
+\]
+
+Now, observe:
+\begin{align*}
+\mathbb{E}\left[\sum_{i=1}^{n} (X_i - \mu)^2 \right] &= \sum_{i=1}^{n} \mathbb{E}(X_i - \mu)^2 = n\sigma^2 \\
+\mathbb{E}\left[(\overline{X} - \mu)^2 \right] &= \text{Var}(\overline{X}) = \frac{\sigma^2}{n}
+\end{align*}
+
+Therefore:
+\[
+\mathbb{E}\left[\sum_{i=1}^{n} (X_i - \overline{X})^2 \right] = n\sigma^2 - n \cdot \frac{\sigma^2}{n} = n\sigma^2 - \sigma^2 = (n - 1)\sigma^2
+\]
+
+Dividing both sides by \( n - 1 \), we get:
+\[
+\mathbb{E}(S^2) = \frac{1}{n - 1} \cdot (n - 1)\sigma^2 = \sigma^2
+\]
+\hfill $\blacksquare$
+
+Thus the expectation value of the sample variance is the population variance. This result illustrates why the term \( n - 1 \) is used in the denominator of the definition of sample variance, rather than \( n \).
+But we still don't know the exact shape of the sampling distribution. To describe the exact sampling distribution of \( S^2 \), we require the additional assumption that the population is normally distributed. Under this assumption, the following result holds:
+
 
 \begin{textbox}
 \textbf{Theorem}: If $S^2$ is the variance of a random sample of size $n$ taken from a normal population of variance $\sigma^2$, then the statistic
@@ -5898,11 +5942,11 @@ where \( \hat{p} \) is the observed proportion of successes in the sample. Since
 \begin{itemize}
     \item The mean of \( \hat{p} \) is:
     \[
-    \mathbb{E}[\hat{p}] = p
+    \mathbb{E}\left( \hat{p}\right)  = p
     \]
     \item The variance of \( \hat{p} \) is:
     \[
-    \text{Var}(\hat{p}) = \frac{p(q)}{n}, \quad \text{where } q = 1 - p
+    \text{Var}(\hat{p}) = \frac{pq}{n}, \quad \text{where } q = 1 - p
     \]
 \end{itemize}
 
@@ -5922,46 +5966,168 @@ which follows the standard normal distribution $\mathcal{N}\left(0, 1\right)$ fo
 
 \textbf{Example}: Suppose the true population proportion is \( p = 0.6 \) and a sample of size \( n = 100 \) is taken. Then:
 \begin{align*}
-\mathbb{E}[\hat{p}] &= 0.6 \\
+\mathbb{E}\left( \hat{p}\right) &= 0.6 \\
 \textrm{Var}(\hat{p}) &= \frac{0.6 \cdot 0.4}{100} = 0.0024
 \end{align*}
 Thus, the distribution of \( \hat{p} \) can be approximated as \( N(0.6, 0.0024) \).
 
 
-
-\section{Sample Size Determination}
-Sample size affects the accuracy and reliability of estimates. It depends on the desired confidence level, margin of error, and population variability.
-
-
-
 \chapter{Theory of Estimation}
 
 \section{Introduction}
-Estimation is a fundamental aspect of statistical inference. It involves using sample data to estimate unknown population parameters such as the population mean, variance, or proportion. Estimation techniques are broadly classified into two types: \textit{point estimation} and \textit{interval estimation}.
-
-\section{Point Estimation}
-\subsection{Definition}
-A \textbf{point estimator} is a single value, derived from sample data, that serves as a best guess or estimate of an unknown population parameter.
-
-\subsection{Examples}
-\begin{itemize}
-    \item Sample mean (\( \bar{X} \)) estimates population mean (\( \mu \))
-    \item Sample variance (\( S^2 \)) estimates population variance (\( \sigma^2 \))
-    \item Sample proportion (\( \hat{p} \)) estimates population proportion (\( p \))
-\end{itemize}
-
-\subsection{Properties of a Good Estimator}
-An estimator should satisfy the following desirable properties:
+Estimation is a fundamental component of \textbf{statistical inference}, which deals with drawing conclusions about population parameters from the analysis of sample data. There are two primary types of statistical inference:
 
 \begin{enumerate}
-    \item \textbf{Unbiasedness:} An estimator \( \hat{\theta} \) is unbiased if
+    \item \textbf{Estimation of parameters}: The true value of a population parameter is an unknown constant. The goal of estimation is to make informed guesses about this parameter using sample data, along with an assessment of the accuracy of these guesses.
+    
+    \item \textbf{Hypothesis testing}: Sometimes, preliminary or tentative information about a population parameter is available. The objective of hypothesis testing is to use sample data to either support or reject such information about the parameter.
+\end{enumerate}
+
+In this chapter, we focus on the first type—{estimation of parameters}. Hypothesis testing will be addressed in the next chapter.
+
+Statistical estimation techniques are broadly classified into two categories:
+
+\begin{enumerate}
+    \item \textbf{Point estimation}: A point estimation provides a single best guess of the unknown population parameter.
+    
+    \item \textbf{Interval estimation}: An interval estimation gives a range of plausible values for the parameter, along with a specified level of confidence that the interval contains the true value.
+\end{enumerate}
+
+Both point and interval estimation play crucial roles in quantifying uncertainty and guiding decision-making in the presence of incomplete information.
+
+
+\section{Point Estimation}
+Let $\theta$ ne an unknown parameter (e.g. the population mean) associated with a particular variable. For estimating $\theta$ on the basis of random samples $X_1, X_2, \dots, X_n$, we may use a particular statistic $ T $. This statistic $T$ is called the \textbf{point estimator} of $\theta$ and the value of $T$ obtained from a given sample is referred to as an \textbf{estimate} of $\theta$.
+
+\textbf{Example}: When we estimate the population mean $\theta = \mu$, the most intuitive estimator is the sample mean $\overline{X} = \dfrac{1}{N}\sum_{i=1}^{n}X_i$. Similarly sample variance (\( S^2 \)) estimates population variance (\( \sigma^2 \)) and sample proportion (\( \hat{p} \)) estimates population proportion (\( p \))
+
+
+\subsection{Desirable Properties of a Good Estimator}
+There are often multiple point estimates available for any given parameter. So it is important to develop some evaluating criteria to judge the performance of each estimator and compare their performance. A good estimator should possess following desirable properties that make it reliable in estimating the true parameter value.
+
+\begin{enumerate}
+    \item \textbf{Unbiasedness}: 
+    \begin{textbox}
+    An estimator \( T \) is said to be an \textbf{unbiased} estimator of $\theta$ if
     \[
-    \mathbb{E}[\hat{\theta}] = \theta
+        \mathbb{E}(T) = \theta
+        \]
+    \end{textbox}
+    Otherwise, $T$ is said to be biased. The \textbf{bias} ($\mathcal{B}$) is given by
+    $$\mathcal{B} = \mathbb{E}(T) - \theta$$
+    
+    \textbf{Example}: The sample mean $\overline{X}$ and sample variance $S^2$ are unbiased estimator of the population mean $\mu$ and population variance $\sigma^2$ respectively, because
+    $$\mathbb{E}\left( \overline{X}\right) = \mu, \quad \mathbb{E}\left( S^2\right) = \sigma^2$$
+    
+    \begin{textbox}
+    The \textbf{mean-square-error} of the estimator $T$, denoted by $\textrm{MSE}(T)$ is defined as
+        $$\mathrm{MSE}(T) = \mathbb{E}\left[\left( T-\theta\right) ^2\right]$$
+    \end{textbox}
+    
+    MSE measures, on average, how close an estimator comes to the true value of the parameter.
+    
+    \begin{textbox}
+    \textbf{Theorem}: Let \( T \) be an estimator of a population parameter \( \theta \). Then, the \textbf{Mean Squared Error (MSE)} of \( T \) is given by:
+    \[
+    \mathrm{MSE}(T) = \mathrm{Var}(T) + \mathcal{B}^2(T)
     \]
+    \end{textbox}
+    \textbf{Proof}:
+    \begin{align*}
+    \mathrm{MSE}(T) &= \mathbb{E}\left[(T - \theta)^2\right] \\
+    &= \mathbb{E}\left[\left((T - \mathbb{E}(T)) + (\mathbb{E}(T) - \theta)\right)^2\right] \\
+    &= \mathbb{E}\left[(T - \mathbb{E}(T))^2 + 2(T - \mathbb{E}(T))(\mathbb{E}(T) - \theta) + (\mathbb{E}(T) - \theta)^2\right] \\
+    &= \mathbb{E}[(T - \mathbb{E}(T))^2] + \underbrace{2(\mathbb{E}(T) - \mathbb{E}(T))}_{= 0}\mathbb{E}\left( T - \mathbb{E}(T)\right)  + (\mathbb{E}(T) - \theta)^2 \\
+    &= \mathrm{Var}(T) + \mathcal{B}^2(T)
+    \end{align*}
+    \hfill $\blacksquare$
+    
+    For an unbiased estimator $\mathcal{B} = 0$, and therefore $\mathrm{MSE}(T) = \mathrm{Var}(T)$.
 
-    \item \textbf{Consistency:} \( \hat{\theta} \) is consistent if \( \hat{\theta} \to \theta \) in probability as sample size \( n \to \infty \).
+    \item \textbf{Consistency}:
+    
+    It is desirable that the estimator should behave more and more satisfactorily as the sample size $n$ becomes larger. Consistency provides the criteria.
+    
+    \begin{textbox}
+    An estimator \(T_n\) (from a sample of size $n$) of a parameter \(\theta\) is said to be \textbf{consistent} if, as the sample size \(n\) grows, \(T_n\) converges in probability to the true parameter value. Which means that for every \(\varepsilon > 0\),
+        \[
+        P\bigl(|T_n - \theta| > \varepsilon\bigr) \to 0 \quad \text{as} \quad n \to \infty
+        \]
+    \end{textbox}
+    
+    Consistency as defined above is sometimes called \textbf{weak consistency}. If we replace convergence in probability with almost sure convergence, i.e. $$ P\left(\lim_{n \to \infty}T_n - \theta\right) = 1 \quad \text{as} \quad n \to \infty, $$
+    then the estimator is said to be \textbf{strongly consistent}\footnote{\textbf{Weak consistency} says “in the long run, most of your estimates will be good,” but allows for occasional wildly bad estimates—even when \(n\) is very large.
+    
+    \textbf{Strong consistency} rules out even those rare catastrophes: it guarantees that once you’ve accumulated enough data, your estimator will stay arbitrarily close to \(\theta\) for every subsequent sample.
+    }.
+    
+    \begin{textbox}
+    \textbf{Sufficient Conditions for Consistency}: An estimator \(T_n\) of a parameter \(\theta\) is said to be {consistent} if it satisfies the following two conditions:
+    \begin{enumerate}
+      \item If $T_n$ is an \textit{asymptotically unbiased} estimator of $\theta$ i.e.
+      \[
+        \mathbb{E}(T_n) \to \theta \quad \text{as } n \to \infty
+      \]
+      \item The variance of estimator $ T_n $ decreases with increasing sample size i.e.
+      \[
+        \mathrm{Var}(T_n) \to 0 \quad \text{as } n \to \infty
+      \]
+    \end{enumerate}
+    \end{textbox}
+    \textbf{Proof}: By Chebyshev’s inequality, if both conditions hold, then
+    \begin{align*}
+    P\bigl(|T_n - \theta| \ge \varepsilon\bigr) 
+        &\le \frac{\mathbb{E}(T_n-\theta)^2}{\varepsilon^2}, \quad \text{for every } \varepsilon > 0\\
+        &= \frac{1}{\varepsilon^2}\left(\mathbb{E}\left[\left( T_n-\mathbb{E}(T_n)\right) + \left(\mathbb{E}(T_n)-\theta) \right)  \right]^2\right)\\
+        &= \frac{1}{\varepsilon^2}\left(\underbrace{\mathbb{E}\left( T_n-\mathbb{E}(T_n)\right)^2}_{\mathrm{Var}(T_n)} +\left(\mathbb{E}(T_n)-\theta)\right) ^2 \right) \\
+        &= \frac{1}{\varepsilon^2}\left( \mathrm{Var}(T_n)+\left(\mathbb{E}(T_n)-\theta)\right) ^2
+        \right)\\
+        &\to 0 \quad \text{as} \quad n \to \infty
+     \end{align*}
+    \hfill $\blacksquare$
+    
+    An estimator can be consistent even if it is biased for each finite \(n\), provided the bias vanishes as \(n \to \infty\).
+    
+    \textbf{Example}: Let \(X_1, X_2, \dots, X_n\) be i.i.d.\ with mean \(\mu\) and finite variance \(\sigma^2\). The sample mean
+    \[
+    \overline{X}_n = \frac{1}{n}\sum_{i=1}^n X_i
+    \]
+    satisfies
+    \[
+    \mathbb{E}[\overline{X}_n] = \mu,
+    \qquad
+    \mathrm{Var}(\overline{X}_n) = \frac{\sigma^2}{n} \;\longrightarrow\; 0.
+    \]
+    Hence, by the two conditions above, \(\overline{X}_n\) is a consistent estimator of \(\mu\).
 
-    \item \textbf{Efficiency:} Among all unbiased estimators, the one with the smallest variance is said to be most efficient.
+    \item \textbf{Efficiency}:
+    
+    \begin{textbox}
+    Among all unbiased estimators, the one with the smallest variance is said to be most \textbf{efficient}.
+    \end{textbox}
+    
+    Unbiasedness is certainly a desirable property for point estimators but the criterion of unbiasedness does not generally provide a unique statistic for a given problem of estimation. For example, for symmetric population distribution, the sample median is also unbiased estimator for all sample sizes. Clearly, we need a further criterion to decide among different candidates.
+        
+        One natural refinement is to compare their variances. Although both the sample mean and the sample median of a normal population are unbiased and have bell‐shaped sampling distributions centered at \(\mu\), the variance of the sample mean is
+        \[
+        \mathrm{Var}\bigl(\overline{X}\bigr) = \frac{\sigma^2}{n},
+        \]
+        whereas the variance of the sample median is approximately
+        \[
+        \mathrm{Var}\bigl(X_{\text{median}}\bigr) \approx 1.5708\,\frac{\sigma^2}{n}.
+        \]
+        Because the mean’s distribution is more concentrated around \(\mu\), it will, on average, provide estimates closer to the truth. In other words, among unbiased estimators we favor the one with the smaller variance—and we call it, the most \textbf{efficient} estimator.
+        
+        This leads to the concept of the \emph{Minimum Variance Unbiased Estimator (MVUE)}.
+        
+        \begin{textbox}     
+        The unbiased estimator $T^*$ is a \textbf{Minimum Variance Unbiased Estimator (MVUE)} of a parameter if it has the smallest variance among all unbiased estimators of the parameter.
+        
+        Formally, if \(\mathcal{U}\) is the class of all unbiased estimators of \(\theta\), then the MVUE \(T^*\) satisfies
+                \[
+                \mathrm{Var}\bigl(T^*\bigr) \;=\; \inf_{T \in \mathcal{U}} \mathrm{Var}\bigl(T\bigr)
+                \]
+            \end{textbox}
 
     \item \textbf{Sufficiency:} An estimator is sufficient if it captures all the information in the data about the parameter.
 
@@ -6036,6 +6202,12 @@ If \( \bar{X} = 50 \), \( \sigma = 10 \), \( n = 100 \), 95\% CI is:
 \[
 50 \pm 1.96 \cdot \frac{10}{\sqrt{100}} = (48.04, 51.96)
 \]
+
+
+\section{Sample Size Determination}
+Sample size affects the accuracy and reliability of estimates. It depends on the desired confidence level, margin of error, and population variability.
+
+
 
 \section{Conclusion}
 Estimation is essential for making inferences about population parameters using sample data. Point estimation provides a single best guess, while interval estimation provides a range with a confidence level. Properties like unbiasedness and consistency ensure the quality of estimators, and methods like MLE and method of moments offer practical ways to derive them.
