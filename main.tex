@@ -3924,12 +3924,29 @@ If $X$ is a continuous random variable with probability density function (PDF) $
 
 \subsubsection*{Monotonic Transformation}
 
-If $g$ is a strictly monotonic and differentiable function, and $Y = g(X)$, then the PDF of $Y$ is:
-
 \begin{textbox}
+\textbf{Theorem}: If $g$ is a strictly monotonic and differentiable function, and $Y = g(X)$, then the PDF of $Y$ is:
 \[
 f_Y(y) = f_X\big(g^{-1}(y)\big) \cdot \left| \frac{d}{dy}g^{-1}(y) \right|
 \]
+\end{textbox}
+
+Or equivalently:
+
+\begin{textbox}
+\textbf{Theorem.} If $g$ is a strictly monotonic and differentiable function, and $Y = g(X)$, then the CDF of $Y$ given by:
+
+\begin{itemize}
+  \item If \( g \) is strictly increasing, then
+  \[
+  F_Y(y) = F_X\left(g^{-1}(y)\right)
+  \]
+  
+  \item If \( g \) is strictly decreasing, then
+  \[
+  F_Y(y) = 1 - F_X\left(g^{-1}(y)\right)
+  \]
+\end{itemize}
 \end{textbox}
 
 This formula ensures that the total probability is preserved under the transformation.
@@ -3954,7 +3971,7 @@ This formula ensures that the total probability is preserved under the transform
     \[
       g(X)\le y 
       \quad\Longleftrightarrow\quad
-      X \le g^{-1}(y).
+      X \le g^{-1}(y)
     \]
     Hence
     \[
@@ -5105,137 +5122,6 @@ Let $X \sim \text{Uniform}(a, b)$.
 
 \section{Normal Distribution}
 
-The {Normal distribution} is a continuous probability distribution that arises naturally in many real-world situations, especially when modeling the sum or average of many independent random variables (via the Central Limit Theorem). It is commonly used in natural and social sciences for modeling quantities such as test scores, measurement errors, or biological characteristics.
-
-Let $X$ be a continuous random variable that follows a \textbf{Normal distribution} with mean $\mu$ and standard deviation $\sigma > 0$. Then:
-\[
-X \sim \mathcal{N}(\mu, \sigma^2)
-\]
-
-The probability density function (PDF) of $X$ is given by:
-\begin{textbox}
-\[
-f_X(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right), \quad x \in \mathbb{R}
-\]
-\end{textbox}
-
-This function is symmetric about the mean $\mu$ and has a bell-shaped curve. The parameters control:
-\begin{itemize}
-    \item $\mu$: the center of the distribution.
-    \item $\sigma$: the spread or width of the distribution.
-\end{itemize}
-
-\subsection*{Standard Normal Distribution}
-
-A special case of the normal distribution is when $\mu = 0$ and $\sigma = 1$, known as the \textbf{Standard Normal distribution}, denoted:
-\[
-Z \sim \mathcal{N}(0, 1)
-\]
-
-Its PDF is:
-\[
-f_Z(z) = \frac{1}{\sqrt{2\pi}} \exp\left( -\frac{z^2}{2} \right)
-\]
-
-Any normally distributed variable can be transformed into a standard normal variable by:
-\begin{textbox}
-\[
-Z = \frac{X - \mu}{\sigma} \sim \mathcal{N}(0, 1)
-\]
-\end{textbox}
-
-This transformation (called \emph{standardization}) allows for probability calculations using standard normal tables or software.
-
-\vspace{2mm}
-
-\textbf{Example:} Suppose body temperatures are normally distributed with mean $\mu = 98.6^\circ$F and standard deviation $\sigma = 0.7^\circ$F. What is the probability that a person has a temperature above $99.5^\circ$F?
-
-Let $X \sim \mathcal{N}(98.6, 0.7^2)$. Standardize:
-\[
-Z = \frac{99.5 - 98.6}{0.7} = \frac{0.9}{0.7} \approx 1.29
-\]
-
-Using the standard normal table:
-\[
-P(X > 99.5) = P(Z > 1.29) \approx 0.0985
-\]
-
-\vspace{2mm}
-
-\textbf{Example:} Exam scores are normally distributed with mean $\mu = 500$ and standard deviation $\sigma = 100$. What score is needed to be in the top 5\%?
-
-We seek $x$ such that $P(X > x) = 0.05$. This corresponds to:
-\[
-P\left( Z > \frac{x - 500}{100} \right) = 0.05 \Rightarrow Z = 1.645
-\]
-
-Solving:
-\[
-\frac{x - 500}{100} = 1.645 \Rightarrow x = 500 + 100 \cdot 1.645 = 664.5
-\]
-
-So a score of about 664.5 is required to be in the top 5\%.
-
-\subsection{Mean and Variance of the Normal Distribution}
-
-Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
-
-\begin{itemize}
-    \item \textbf{Mean:}
-    \begin{textbox}
-    \[
-    \mathbb{E}(X) = \mu
-    \]
-    \end{textbox}
-    This is the center of symmetry of the distribution.
-
-    \item \textbf{Variance:}
-    \begin{textbox}
-    \[
-    \text{Var}(X) = \sigma^2
-    \]
-    \end{textbox}
-    This determines the spread of the distribution.
-\end{itemize}
-
-\subsection{Empirical Rule (68–95–99.7 Rule)}
-
-For a normal distribution:
-\begin{itemize}
-    \item Approximately 68\% of data falls within 1 standard deviation of the mean ($\mu \pm \sigma$).
-    \item Approximately 95\% falls within 2 standard deviations ($\mu \pm 2\sigma$).
-    \item Approximately 99.7\% falls within 3 standard deviations ($\mu \pm 3\sigma$).
-\end{itemize}
-
-This rule helps understand how data is distributed in a normal population.
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    width=12cm,
-    height=6cm,
-    domain=-4:4,
-    samples=100,
-    xlabel={$x$},
-    ylabel={$f_X(x)$},
-    title={Standard Normal Distribution},
-    ymin=0,
-    axis lines=middle,
-    xtick={-3,-2,-1,0,1,2,3},
-    ytick=\empty,
-]
-\addplot [blue, thick] {1/sqrt(2*pi)*exp(-x^2/2)};
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-\begin{textbox}
-    Prove the kurtosis of normal distribution is 3.
-\end{textbox}
-
-
-\section{Normal Distribution}
-
 The \textbf{Normal distribution}, also known as the \textbf{Gaussian distribution}, is one of the most important continuous probability distributions in statistics. It models many naturally occurring phenomena such as heights, test scores, measurement errors, etc. When a continuous random variable $X$ is said to follow a {Normal distribution} with parameter $\mu$ and $\sigma^2$, we denote it as:
 \[
 X \sim \mathcal{N}(\mu, \sigma^2)
@@ -5244,7 +5130,7 @@ X \sim \mathcal{N}(\mu, \sigma^2)
 The probability density function (PDF) of the Normal distribution is given by:
 \begin{textbox}
 \[
-f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right), \quad \text{for } x \in \mathbb{R}
+f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right), \quad \text{for } -\infty \leq x \leq \infty 
 \]
 \end{textbox}
 
@@ -5396,6 +5282,156 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
 \end{itemize}
 
 
+\subsection{Properties of the Normal Distribution}
+
+\begin{enumerate}
+  \item The \textbf{support} of a normal random variable \(X \sim N(\mu,\sigma^2)\) is the entire real line:
+    \[
+	(-\infty \leq X \leq,\,+\infty)
+    \]
+    This reflects that, however unlikely, arbitrarily large positive or negative values can occur.
+    
+  \item The probability density function is perfectly \textbf{symmetric} about its mean \(\mu\) since,
+    \[
+      f_X(\mu + x_0) = f_X(\mu - x_0) =  \frac{1}{\sigma\sqrt{2\pi }} \exp\left( -\frac{x_0^2}{2\sigma^2} \right)
+      \quad\forall\,x_0\in\mathbb{R}.
+    \]
+    As a result, the left and right tails of the distribution mirror each other.
+    
+  \item Since the distribution is symmetrical about $\mu$, its mean and median coincide.To get the mode, we need to calculate the peak point of the distribution.
+  \begin{align*}
+  f_X(x) &= \frac{1}{\sigma\sqrt{2\pi}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2}\right)  \\[6pt]
+  \frac{d}{dx}f_X(x)
+  &= \frac{1}{\sigma\sqrt{2\pi}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2}\right)
+     \cdot \frac{d}{dx}\left( -\tfrac{(x-\mu)^2}{2\sigma^2}\right)  \\[6pt]
+  &= f_X(x)\,\Bigl(-\tfrac{2(x-\mu)}{2\sigma^2}\Bigr)
+  = -\frac{x-\mu}{\sigma^2}\,f_X(x)
+  \end{align*}
+  Setting the derivative to zero for a stationary point:
+  \begin{align*}
+  -\frac{x-\mu}{\sigma^2}\,f_X(x) = 0
+  \quad &\Longrightarrow\quad x - \mu = 0 \\[4pt]
+  &\Longrightarrow\quad x = \mu
+  \end{align*}
+  
+  Now, 
+  \begin{align*}
+  f_X''(x)
+  &= -\frac{1}{\sigma^2}\,f_X(x)
+     + \Bigl(-\frac{x-\mu}{\sigma^2}\Bigr)\,f_X'(x)
+  \\
+  &= -\frac{1}{\sigma^2}\,f_X(x)
+     + \Bigl(-\frac{x-\mu}{\sigma^2}\Bigr)\Bigl(-\frac{x-\mu}{\sigma^2}f_X(x)\Bigr)
+  \\
+  &= -\frac{1}{\sigma^2}\,f_X(x)
+     + \frac{(x-\mu)^2}{\sigma^4}\,f_X(x)
+  \\
+  &= \frac{(x-\mu)^2 - \sigma^2}{\sigma^4}\,f_X(x)
+  \end{align*}
+  Evaluating at the stationary point \(x=\mu\):
+  \[
+  f_X''(\mu)
+  = \frac{(\mu-\mu)^2 - \sigma^2}{\sigma^4}\,f_X(\mu)
+  = -\frac{1}{\sigma^2}\,f_X(\mu)
+  < 0,
+  \]
+  
+  Hence the peak (mode) of the normal density occurs at \(x=\mu\).  
+  \begin{textbox}
+  For normal distribution, all measures of central tendency coincide:
+      \[
+        \text{Mean} = \text{Median} = \text{Mode} = \mu.
+      \]
+  \end{textbox}
+    
+    
+  \item The normal distribution curve has two \textbf{points of inflection}\footnote{A \textbf{point of inflection} of a function $f$ is a point $x = a$ such that
+  \[
+  f''(a) = 0,
+  \]
+  At the point of inflexion, the second derivative $f''(x)$ changes sign as $x$ passes through $a$, meaning the curve switches between concave‐up and concave‐down at $x = a$.} at a distance $\sigma$ on either side of $\mu$ i.e. at
+    \[
+      x = \mu \pm \sigma.
+    \]
+    At these points the second derivative of \(f_X(x)\) vanishes, marking the transition between “concave down” near the center and “concave up” in the tails. To show that let's take the second derivative of $f_X(x)$ and equate it to zero:
+   \begin{align*}
+   f_X''(x) &= \frac{(x-\mu)^2 - \sigma^2}{\sigma^4}\,f_X(x) = 0 \\
+   &\Rightarrow (x-\mu)^2 = \sigma^2 \\
+   &\Rightarrow x-\mu = \pm\sigma \\
+   &\Rightarrow x = \mu \pm\sigma \\
+   \end{align*}
+    
+  \item All odd central moments are zero (due to symmetry), and the even central moments have closed‐form expressions:
+    \[
+      E\bigl[(X-\mu)^{2n+1}\bigr] = 0,
+      \qquad
+      E\bigl[(X-\mu)^{2n}\bigr] = \sigma^{2n}\,(2n - 1)!!,
+      \quad n = 1,2,\dots
+    \]
+    In particular, the variance is \(E[(X-\mu)^2]=\sigma^2\), and the fourth central moment is \(3\sigma^4\), etc.
+    
+   \item The kurtosis of normal distribution is 3. (prove it)
+    
+  \item A normal distribution \(X\sim N(\mu,\sigma^2)\) satisfies the following empirical rules:
+
+  \begin{textbox}
+  \textbf{Empirical Rule (68-95-99.7 Rule)}:
+    \begin{itemize}
+        \item About 68.27\% of the values lie within $\sigma$ of the mean ($\mu \pm \sigma$).
+        \item About 95.45\% of the values lie within $2\sigma$ of the mean ($\mu \pm 2\sigma$).
+        \item About 99.73\% of the values lie within $3\sigma$ of mean ($\mu \pm 3\sigma$).
+    \end{itemize}
+  \end{textbox}
+  
+  \begin{center}   
+    \begin{tikzpicture}
+        \begin{axis}[
+            no markers, domain=-4:4, samples=100,
+            axis lines=center,
+            xlabel={$x/\sigma$}, ylabel={$f_X(x)$},
+            ymin=0, ymax=0.5,
+            xmin=-4, xmax=4,
+            height=6cm, width=14cm,
+            ytick=\empty
+          ]
+          % PDF curve
+          \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
+          % Shaded right-tail for z>1.5
+          
+          
+          \addplot [draw=none, fill=red!20, domain=-3:3] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+          % Vertical guide line
+          \draw[dashed] (axis cs:-3,0) -- (axis cs:-3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+          \draw[dashed] (axis cs:3,0) -- (axis cs:3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+                    
+          
+          \addplot [draw=none, fill=green!20, domain=-2:2] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+          % Vertical guide line
+          \draw[dashed] (axis cs:-2,0) -- (axis cs:-2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+          \draw[dashed] (axis cs:2,0) -- (axis cs:2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+          
+          \addplot [draw=none, fill=blue!20, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+          % Vertical guide line
+          \draw[dashed] (axis cs:-1,0) -- (axis cs:-1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+          \draw[dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+          
+          \node at (axis cs:0,0.3) {\small $68.27\%$};
+          \node at (axis cs:0,0.2) {\small $95.45\%$};
+          \node at (axis cs:0,0.1) {\small $97.73\%$};
+          
+          \draw[black] (axis cs:-3,0.07) -- (axis cs:3,0.07);
+          \draw[black] (axis cs:-2,0.17) -- (axis cs:2,0.17);
+          \draw[black] (axis cs:-1,0.27) -- (axis cs:1,0.27);
+        \end{axis}
+      \end{tikzpicture}
+  \end{center}
+  
+
+
+\end{enumerate}
+
+
+
 \subsection{Standard Normal Distribution:}
 
 When $\mu = 0$ and $\sigma^2 = 1$, the Normal distribution is called the \textbf{standard normal distribution}, denoted as:
@@ -5410,10 +5446,6 @@ f_Z(z) = \frac{1}{\sqrt{2\pi}} \exp\left( -\frac{z^2}{2} \right)
 \]
 \end{textbox}
 
-Any normal random variable $X \sim \mathcal{N}(\mu, \sigma^2)$ can be converted to a standard normal variable using the transformation:
-\[
-Z = \frac{X - \mu}{\sigma}
-\]
 
 Cumulative PDF:
 \begin{textbox}
@@ -5421,47 +5453,104 @@ $$F_Z(z) = P(Z \leq z) = \int_{-\infty}^z f_Z(t)dt$$
 \end{textbox}
 
 \vspace{2mm}
+
 \begin{center}
 \begin{tikzpicture}
-    \begin{axis}[
-        no markers, domain=-6:6, samples=100,
-        axis lines=center,
-        xlabel={$z$}, ylabel={$f_Z(z)$},
-        ymin=0, ymax=0.5,
-        xmin=-5, xmax=5,
-        height=5cm, width=14cm,
-        xtick=\empty, ytick=\empty
-      ]
-      % PDF curve
-      \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
-      % Shaded right-tail for z>1.5
-      \addplot [draw=none, fill=blue!30, domain=1.5:4] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
-      % Vertical guide line
-      \draw[dashed] (axis cs:1.5,0) -- (axis cs:1.5,{1/sqrt(2*pi)*exp(-1.5^2/2)});
-      \node at (axis cs:3,0.1) {\small $F_Z(z) = P(Z>z)$};
-    \end{axis}
-  \end{tikzpicture}
+      \begin{axis}[
+          no markers, domain=-6:6, samples=100,
+          axis lines=center,
+          xlabel={$t$}, ylabel={$f_Z(t)$},
+          ymin=0, ymax=0.5,
+          xmin=-5, xmax=5,
+          height=5cm, width=14cm,
+          xtick=\empty, ytick=\empty
+        ]
+        % PDF curve
+        \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
+        % Shaded right-tail for z>1.5
+        \addplot [draw=none, fill=blue!20, domain=-4:1] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+        % Vertical guide line
+        \draw[dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-1^2/2)});
+        \node at (axis cs:-0.3,0.1) {\small $F_Z(z) = P(Z\leq z)$};
+      \end{axis}
+    \end{tikzpicture}
 \end{center}
 
-Further, since $f_Z(z)$ is symmetrical about zero, so for any $k$
 \begin{textbox}
-$$f_Z(-k) = -f_Z(k)$$
+\textbf{Theorem.} Let \( X \sim N(\mu, \sigma^2) \) be a normally distributed random variable and let \( Z \sim N(0, 1) \) be a standard normal random variable. Then, for any real number \( k \),
+\[
+F_X(k) = F_Z\left( \frac{k - \mu}{\sigma} \right)
+\]
+where \( F_X \) and \( F_Z \) denote the cumulative distribution functions of \( X \) and \( Z \), respectively.
 \end{textbox}
-and,
+
+\textbf{Proof}: Define the function
+\[
+z = g(x) \;=\; \frac{x - \mu}{\sigma}, 
+\]
+which is strictly increasing (since \(\sigma>0\)) and differentiable, with inverse
+\[
+g^{-1}(y) = x \;=\; \sigma z + \mu
+\]
+Set 
+\[
+Y \;=\; g(X) \;=\; \frac{X - \mu}{\sigma}
+\]
+Then \(Y\) has the same distribution as \(Z\), i.e.\ \(Y\sim N(0,1)\).  By the change‐of‐variable theorem for CDFs (strictly increasing case),
+\[
+F_Z(z)
+\;=\;
+P\bigl(Z \le z\bigr)
+\;=\;
+F_X\!\bigl(g^{-1}(z)\bigr)
+\]
+Hence,
+\[
+F_Z(z)
+\;=\;
+F_X\!\bigl(\sigma z + \mu\bigr)
+\]
+Now replace \(z\) by \(\tfrac{k-\mu}{\sigma}\).  Since
+\(\sigma\cdot\tfrac{k-\mu}{\sigma} + \mu = k\), we obtain
+\[
+F_Z\!\left( \dfrac{k - \mu}{\sigma}\right)  = F_X(k)
+\]
+as required.
+
+
+\hfill $\blacksquare$
+
+Any normal random variable $X \sim \mathcal{N}(\mu, \sigma^2)$ can be converted to a \textbf{standard normal variable} using the transformation:
+\[
+Z = \dfrac{X - \mu}{\sigma}
+\]
+
+\begin{textbox}
+\textbf{Theorem}: Let \( Z \sim N(0,1) \) be a standard normal random variable with CDF \( F_Z(z) \). Then, for any real number \( k \),
+\[
+F_Z(-k) = 1 - F_Z(k)
+\]
+\end{textbox}
+
+Since $f_Z(z)$ is symmetrical about zero, so for any $k$
+$$f_Z(-k) = f_Z(k)$$
+Now,
 \begin{align*}
 F_Z(-k)
 &= P(Z \le -k) \\
 &= \int_{-\infty}^{-k} f_Z(z)dz\\
 \intertext{Change variable $t=-z$, so when $z=-\infty\to t=+\infty$, and $z=-k\to t=k$, with $dz=-dt$:}
 F_Z(-k) &= \int_{\infty}^{k} f_Z(-t)\,(-dt) \\
-&= \int_{k}^{\infty} f_Z(t)dt \\
+&= -\int_{\infty}^{k} f_Z(t)\,dt \\
+&= \int_{k}^{\infty} f_Z(t)dt\\
 &= P(Z \ge k)\\
 &= 1 - P(Z < k)\\
 &= 1 - F_Z(k)
 \end{align*}
-\begin{textbox}
-$$F_Z(-k) = 1-F_Z(k)$$
-\end{textbox}
+
+\hfill $\blacksquare$
+
+\subsection{Standard Normal Table}
 
 The \textbf{standard normal table} (or $Z$-table)  shown in Table~\ref{table:Ztable} is used to quickly find cumulative probabilities for the standard normal distribution \(Z\sim\mathcal{N}(0,1)\) without evaluating the integral $$\int_{-\infty}^z \frac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt$$ by hand.  By converting any normal random variable \(X\sim N(\mu,\sigma^2)\) into the standard form \(Z=(X-\mu)/\sigma\), one can look up probabilities such as \(P(X\le x)\) in a single, universal table, greatly simplifying calculations in statistical inference and hypothesis testing.
 
@@ -5521,10 +5610,10 @@ z   & 0       & 0.01    & 0.02    & 0.03    & 0.04    & 0.05    & 0.06    & 0.07
 \end{tabular}
 \end{table}
 
-To look up \(F_Z(a)\), follow the following steps:
+To look up \(F_Z(k)\), follow the following steps:
 
 \begin{enumerate}
-  \item Write \(a\) to two decimal places, e.g.\ \(a=1.23\).
+  \item Write \(k\) to \textbf{two decimal places}, e.g.\ \(k=1.23\).
   \item Split into
     \[
       \text{row part} = 1.2,\quad
@@ -5537,13 +5626,15 @@ To look up \(F_Z(a)\), follow the following steps:
     \]
   \item For negative \(z\), use symmetry:
     \[
-      F_Z(-a) = P(Z\le -a)
-      = 1 - P(Z\le a) = 1 - F_Z(a)
+      F_Z(-k) = P(Z\le -k)
+      = 1 - P(Z\le k) = 1 - F_Z(k)
     \]
   \item For right‐tail probabilities,
     \[
-      P(Z>z) = 1 - F_Z(z)
+      P(Z>k) = 1 - F_Z(k)
     \]
+  \item For probabilities within a specified interval of $ Z $ values,
+  $$P(k_1 \leq Z \leq k_2) = P(Z \leq k_2) - P(Z \leq k_1) = F_Z(k_2) - F_Z(k_1)$$
 \end{enumerate}
 
 \textbf{Example:} Suppose the heights of adult males are normally distributed with mean $\mu = 175$ cm and standard deviation $\sigma = 10$ cm. Let $X$ denote the height of a randomly chosen male. Then:
@@ -5619,16 +5710,6 @@ Thus, approximately $6.68\%$ of adult males are taller than 190 cm.
     \end{axis}
   \end{tikzpicture}
 \end{figure}
-
-
-\subsection*{Empirical Rule (68-95-99.7 Rule)}
-
-For a normal distribution:
-\begin{itemize}
-    \item About 68\% of the values lie within 1 standard deviation of the mean ($\mu \pm \sigma$).
-    \item About 95\% of the values lie within 2 standard deviations ($\mu \pm 2\sigma$).
-    \item About 99.7\% of the values lie within 3 standard deviations ($\mu \pm 3\sigma$).
-\end{itemize}
 
 
 
