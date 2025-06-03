@@ -5345,7 +5345,7 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
   \end{textbox}
     
     
-  \item The normal distribution curve has two \textbf{points of inflection}\footnote{A \textbf{point of inflection} of a function $f$ is a point $x = a$ such that
+  \item The normal distribution curve has two \textbf{points of inflection}\footnote{A \textbf{point of inflection} of a function $f(x)$ is a point $x = a$ such that
   \[
   f''(a) = 0,
   \]
@@ -5417,7 +5417,7 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
           
           \node at (axis cs:0,0.3) {\small $68.27\%$};
           \node at (axis cs:0,0.2) {\small $95.45\%$};
-          \node at (axis cs:0,0.1) {\small $97.73\%$};
+          \node at (axis cs:0,0.1) {\small $99.73\%$};
           
           \draw[black] (axis cs:-3,0.07) -- (axis cs:3,0.07);
           \draw[black] (axis cs:-2,0.17) -- (axis cs:2,0.17);
@@ -6186,10 +6186,9 @@ follows a \textbf{t-distribution} with \( \nu = n - 1 \) degrees of freedom.
 As illustrated in the figure above, the overall shape of the \( t \)-distribution closely resembles that of the standard normal distribution: both are bell-shaped and symmetric about the mean. Like the standard normal distribution, the \( t \)-distribution has a mean of 0. However, its variance depends on the parameter \( \nu \), known as the \textbf{degrees of freedom}. The variance of the \( t \)-distribution is greater than 1 but decreases as \( \nu \) increases, approaching 1 in the limit. 
 
 \begin{textbox}
-The \( t \)-distribution with \( \nu \) degrees of freedom converges to the standard normal distribution as \( \nu \to \infty \).
+The \( t \)-distribution with \( \nu \) degrees of freedom converges to the standard normal distribution as \( \nu \to \infty \). As a general rule of thumb, the standard normal distribution provides a good approximation to the \( t \)-distribution when the sample size is 30 or larger.
 \end{textbox}
 
-As a general rule of thumb, the standard normal distribution provides a good approximation to the \( t \)-distribution when the sample size is 30 or larger.
 
 \begin{center}
 \begin{tikzpicture}
