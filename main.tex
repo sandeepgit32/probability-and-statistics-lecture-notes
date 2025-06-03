@@ -7,6 +7,8 @@
     bottom=3cm
 ]{geometry}
 \usepackage[hidelinks]{hyperref} 
+%\usepackage{mathpazo}
+%\usepackage{newtxtext,newtxmath}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{tikz}
@@ -56,7 +58,80 @@
 
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+    
+    \begin{tikzpicture}[remember picture,overlay]
+        % Draw a thin decorative frame around the page content area
+        \draw[line width=1.5pt]
+            ($(current page.north west)+(4cm,-3cm)$) rectangle ($(current page.south east)+(-3.5cm,3cm)$);
+        \draw[line width=1.5pt]
+            ($(current page.north west)+(3.7cm,-2.7cm)$) rectangle ($(current page.south east)+(-3.2cm,2.7cm)$);
+            
+    \end{tikzpicture}
+    
+    {\fontsize{24pt}{28pt}\bfseries\scshape Basics of Probability and Statistics\par}
+    \vspace{1.2cm}
+    
+    
+    {\Large\itshape An In-Depth Exploration of Core Concepts and Methods\par}
+    
+    \vspace{2cm}
+    
+    {\large\bfseries Sandip Karar\par}
+    \vspace{0.5cm}
+    
+    {\normalsize\today\par}
+    \vspace{2cm}
+    
+      \begin{center}   
+        \begin{tikzpicture}
+            \begin{axis}[
+                no markers, domain=-4:4, samples=100,
+                axis lines=center,
+                xlabel={$x/\sigma$}, 
+                axis y line=none,
+                ymin=0, ymax=0.5,
+                xmin=-4, xmax=4,
+                height=8cm, width=14cm,
+                ytick=\empty
+              ]
+              % PDF curve
+              \addplot [very thick, black] {1/sqrt(2*pi)*exp(-x^2/2)};
+              % Shaded right-tail for z>1.5
+              
+              
+              \addplot [draw=none, fill=red!20, domain=-3:3] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+              % Vertical guide line
+              \draw[thick, dashed] (axis cs:-3,0) -- (axis cs:-3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+              \draw[thick, dashed] (axis cs:3,0) -- (axis cs:3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+                        
+              
+              \addplot [draw=none, fill=green!20, domain=-2:2] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+              % Vertical guide line
+              \draw[thick, dashed] (axis cs:-2,0) -- (axis cs:-2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+              \draw[thick, dashed] (axis cs:2,0) -- (axis cs:2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+              
+              \addplot [draw=none, fill=blue!20, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+              % Vertical guide line
+              \draw[thick, dashed] (axis cs:-1,0) -- (axis cs:-1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+              \draw[thick, dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+              
+              \node at (axis cs:0,0.3) {\large $68.27\%$};
+              \node at (axis cs:0,0.2) {\large $95.45\%$};
+              \node at (axis cs:0,0.1) {\large $99.73\%$};
+              
+              \draw[ thick, black] (axis cs:-3,0.07) -- (axis cs:3,0.07);
+              \draw[ thick, black] (axis cs:-2,0.17) -- (axis cs:2,0.17);
+              \draw[ thick, black] (axis cs:-1,0.27) -- (axis cs:1,0.27);
+            \end{axis}
+          \end{tikzpicture}
+      \end{center}
+       
+\end{titlepage}
+
+%\maketitle
 
 \tableofcontents
 
@@ -5388,7 +5463,8 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
         \begin{axis}[
             no markers, domain=-4:4, samples=100,
             axis lines=center,
-            xlabel={$x/\sigma$}, ylabel={$f_X(x)$},
+            xlabel={$x/\sigma$}, 
+            axis y line=none,
             ymin=0, ymax=0.5,
             xmin=-4, xmax=4,
             height=6cm, width=14cm,
