@@ -94,26 +94,26 @@
                 axis y line=none,
                 ymin=0, ymax=0.5,
                 xmin=-4, xmax=4,
-                height=8cm, width=14cm,
+                height=8cm, width=12cm,
                 ytick=\empty
               ]
               % PDF curve
-              \addplot [very thick, black] {1/sqrt(2*pi)*exp(-x^2/2)};
+              \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
               % Shaded right-tail for z>1.5
               
               
-              \addplot [draw=none, fill=red!20, domain=-3:3] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+              \addplot [draw=none, fill=red!20, domain=-3:3] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
               % Vertical guide line
               \draw[thick, dashed] (axis cs:-3,0) -- (axis cs:-3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
               \draw[thick, dashed] (axis cs:3,0) -- (axis cs:3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
                         
               
-              \addplot [draw=none, fill=green!20, domain=-2:2] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+              \addplot [draw=none, fill=green!20, domain=-2:2] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
               % Vertical guide line
               \draw[thick, dashed] (axis cs:-2,0) -- (axis cs:-2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
               \draw[thick, dashed] (axis cs:2,0) -- (axis cs:2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
               
-              \addplot [draw=none, fill=blue!20, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+              \addplot [draw=none, fill=blue!20, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
               % Vertical guide line
               \draw[thick, dashed] (axis cs:-1,0) -- (axis cs:-1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
               \draw[thick, dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
@@ -377,8 +377,7 @@ The mean (or average) is the most commonly used measure of central tendency and 
 \textbf{Proof:}
 \begin{align*}
 \overline{x} &= \frac{1}{n} \sum_{i=1}^n x_i 
-       = \frac{1}{n} \sum_{i=1}^n a \\
-       &= \frac{1}{n} \cdot n a = a
+       = \frac{1}{n} \sum_{i=1}^n a = \frac{1}{n} \cdot n a = a
 \end{align*}
 \hfill $\blacksquare$
 
@@ -391,10 +390,8 @@ The mean (or average) is the most commonly used measure of central tendency and 
 
 \textbf{Proof:}
 \begin{align*}
-\overline{y} &= \frac{1}{n} \sum_{i=1}^n y_i = \frac{1}{n} \sum_{i=1}^n (a + x_i) \\
-       &= \frac{1}{n} \left( \sum_{i=1}^n a + \sum_{i=1}^n x_i \right) \\
-       &= \frac{1}{n} \left( n a + \sum_{i=1}^n x_i \right) \\
-       &= a + \overline{x}.
+\overline{y} &= \frac{1}{n} \sum_{i=1}^n y_i = \frac{1}{n} \sum_{i=1}^n (a + x_i) = \frac{1}{n} \left( \sum_{i=1}^n a + \sum_{i=1}^n x_i \right) \\
+       &= \frac{1}{n} \left( n a + \sum_{i=1}^n x_i \right) = a + \overline{x}.
 \end{align*}
 \hfill $\blacksquare$
 
@@ -412,9 +409,7 @@ Then, the arithmetic mean \( \overline{x} \) of the combined dataset (of size \(
 \]
 \end{textbox}
 
-\textbf{Proof:}
-
-\text{Total sum of group 1} is $n_1 \overline{x}_1$ and \text{total sum of group 2} is $n_2 \overline{x}_2$.
+\textbf{Proof}: \text{Total sum of group 1} is $n_1 \overline{x}_1$ and \text{total sum of group 2} is $n_2 \overline{x}_2$.
 
 Then total sum = $n_1 \overline{x}_1 + n_2 \overline{x}_2$
 
@@ -452,8 +447,7 @@ Therefore, combined AM = $\overline{x} = \dfrac{\text{Total sum}}{\text{Total nu
 \textbf{Proof:}
 \begin{align*}
 \mathrm{GM} &= \left( \prod_{i=1}^n x_i \right)^{1/n} = \exp\left( \log \left( \prod_{i=1}^n x_i \right)^{1/n} \right) \\
-            &= \exp\left( \frac{1}{n} \log \left( \prod_{i=1}^n x_i \right) \right) \\
-            &= \exp\left( \frac{1}{n} \sum_{i=1}^n \log x_i \right)
+            &= \exp\left( \frac{1}{n} \log \left( \prod_{i=1}^n x_i \right) \right) = \exp\left( \frac{1}{n} \sum_{i=1}^n \log x_i \right)
 \end{align*}
 \hfill $\blacksquare$
 
@@ -486,8 +480,7 @@ P = P_1 \cdot P_2 = x_{G_1}^{N_1} \cdot x_{G_2}^{N_2}
 
 The combined GM is:
 \begin{align*}
-\mathrm{GM} &= \left( P \right)^{1/(N_1 + N_2)} \\
-            &= \left( x_{G_1}^{N_1} \cdot x_{G_2}^{N_2} \right)^{1/(N_1 + N_2)}
+\mathrm{GM} &= \left( P \right)^{1/(N_1 + N_2)} = \left( x_{G_1}^{N_1} \cdot x_{G_2}^{N_2} \right)^{1/(N_1 + N_2)}
 \end{align*}
 
 \hfill $\blacksquare$
@@ -542,12 +535,13 @@ Now where to use the HM? The harmonic mean is particularly useful when dealing w
 
 \medskip
 
-\noindent
+\begin{textbox}
 \textbf{Rule of Thumb:}
 \begin{itemize}
     \item Use the \textbf{harmonic mean (HM)} when equal quantities of $x$ are involved.
     \item Use the \textbf{arithmetic mean (AM)} when equal quantities of $y$ are involved.
 \end{itemize}
+\end{textbox}
 
 \medskip
 
@@ -589,9 +583,7 @@ which is the \textbf{arithmetic mean (AM)} of the given speeds.
 \]
 \end{textbox}
 
-\textbf{Proof:}
-
-Let \( S(A) = \sum_{i=1}^n (x_i - A)^2 \). Expand this:
+\textbf{Proof}: Let \( S(A) = \sum_{i=1}^n (x_i - A)^2 \). Expand this:
 
 \[
 S(A) = \sum_{i=1}^n (x_i^2 - 2Ax_i + A^2) 
@@ -632,7 +624,7 @@ Compute right-hand side:
 \text{AM} \times \text{HM} = \left( \frac{a + b}{2} \right) \left( \frac{2ab}{a + b} \right) = ab
 \]
 
-Hence, \( \text{GM}^2 = \text{AM} \times \text{HM} \)
+Hence, \[ \text{GM}^2 = \text{AM} \times \text{HM} \]
 \hfill $\blacksquare$
 
 \begin{textbox}
@@ -1013,6 +1005,7 @@ Consider the marks obtained by 5 students:
 \[
 \text{Scores} = \{10, 70, 75, 80, 90\}
 \]
+
 \[\textbf{Mean} = \frac{70 + 75 + 80 + 85 + 90}{5} = \frac{400}{5} = 80; \quad \textbf{Median} = \text{Middle value} = 75
 \]
 
@@ -1022,6 +1015,7 @@ Now suppose one student scored unusually low:
 \[
 \text{Scores} = \{10, 70, 75, 80, 90\}
 \]
+
 \[\textbf{Mean} = \frac{10 + 70 + 75 + 80 + 90}{5} = \frac{325}{5} = 65; \quad \textbf{Median} = \text{Middle value} = 75
 \]
 
@@ -1032,7 +1026,7 @@ The mean drops to 65 due to the outlier (10), even though most students scored 7
 The \textbf{mode} of a given set of observations is the value which occurs with maximum frequency. It represents the highest peak in the frequency distribution. 
     \end{textbox}
 
-It is denoted by \( M_o \).
+The mode is generally denoted by \( M_o \).
 
 \begin{enumerate}
 
@@ -3366,7 +3360,7 @@ Since \( X \) is always equal to \( a \),
 \begin{textbox}
 \textbf{Theorem}: If \( Y = bX \), where \( b \in \mathbb{R} \), then  
 \[
-\mathbb{E}(Y) = b \cdot \mathbb{E}(X).
+\mathbb{E}(Y) = b \cdot \mathbb{E}(X)
 \]
 \end{textbox}
 
@@ -3389,8 +3383,8 @@ Since \( X \) is always equal to \( a \),
 The \textbf{variance} of a random variable \( X \), denoted as $\sigma_X^2$ or \( \text{Var}(X) \), measures the spread or dispersion of the random variable around its mean. It is defined as the expected squared deviation from the mean:
 \begin{align*}
 \text{Var}(X) &= \mathbb{E}[(X - \mathbb{E}(X))^2] \\
-&=\mathbb{E}(X^2 - 2X\mathbb{E}(X) + (\mathbb{E}(X))^2) \\
-&=\mathbb{E}(X^2)- 2(\mathbb{E}(X)^2 + (\mathbb{E}(X))^2] \\
+&=\mathbb{E}\left[ X^2 - 2X\mathbb{E}(X) + (\mathbb{E}(X))^2\right]  \\
+&=\mathbb{E}(X^2)- 2(\mathbb{E}(X)^2 + (\mathbb{E}(X))^2 \\
 &= \mathbb{E}(X^2) - (\mathbb{E}(X))^2
 \end{align*}
 
@@ -5475,18 +5469,18 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
           % Shaded right-tail for z>1.5
           
           
-          \addplot [draw=none, fill=red!20, domain=-3:3] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+          \addplot [draw=none, fill=red!20, domain=-3:3] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
           % Vertical guide line
           \draw[dashed] (axis cs:-3,0) -- (axis cs:-3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
           \draw[dashed] (axis cs:3,0) -- (axis cs:3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
                     
           
-          \addplot [draw=none, fill=green!20, domain=-2:2] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+          \addplot [draw=none, fill=green!20, domain=-2:2] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
           % Vertical guide line
           \draw[dashed] (axis cs:-2,0) -- (axis cs:-2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
           \draw[dashed] (axis cs:2,0) -- (axis cs:2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
           
-          \addplot [draw=none, fill=blue!20, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+          \addplot [draw=none, fill=blue!20, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
           % Vertical guide line
           \draw[dashed] (axis cs:-1,0) -- (axis cs:-1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
           \draw[dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
@@ -5533,18 +5527,18 @@ $$F_Z(z) = P(Z \leq z) = \int_{-\infty}^z f_Z(t)dt$$
 \begin{center}
 \begin{tikzpicture}
       \begin{axis}[
-          no markers, domain=-6:6, samples=100,
+          no markers, domain=-5:5, samples=100,
           axis lines=center,
           xlabel={$t$}, ylabel={$f_Z(t)$},
           ymin=0, ymax=0.5,
-          xmin=-5, xmax=5,
-          height=5cm, width=14cm,
+          xmin=-4, xmax=4,
+          height=5cm, width=12cm,
           xtick=\empty, ytick=\empty
         ]
         % PDF curve
         \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
         % Shaded right-tail for z>1.5
-        \addplot [draw=none, fill=blue!20, domain=-4:1] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+        \addplot [draw=none, fill=blue!20, domain=-4:1] {1/sqrt(2*pi)*exp(-x^2/2)-0.005} \closedcycle;
         % Vertical guide line
         \draw[dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-1^2/2)});
         \node at (axis cs:-0.3,0.1) {\small $F_Z(z) = P(Z\leq z)$};
@@ -5779,7 +5773,7 @@ Thus, approximately $6.68\%$ of adult males are taller than 190 cm.
       % PDF curve
       \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
       % Shaded right-tail for z>1.5
-      \addplot [draw=none, fill=blue!30, domain=1.5:4] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+      \addplot [draw=none, fill=blue!30, domain=1.5:4] {1/sqrt(2*pi)*exp(-x^2/2)-0.005} \closedcycle;
       % Vertical guide line
       \draw[dashed] (axis cs:1.5,0) -- (axis cs:1.5,{1/sqrt(2*pi)*exp(-1.5^2/2)});
       \node at (axis cs:3,0.1) {\small $P(Z>1.5)=0.0668$};
