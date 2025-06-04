@@ -4475,6 +4475,9 @@ Thus,
 \end{align*}
 \hfill\(\blacksquare\)
 
+
+\chapter{Common Ditributions}
+
 \section{Bernoulli Distribution}
 
 A \textbf{Bernoulli trial} is a random experiment that has exactly two possible outcomes:
@@ -6577,7 +6580,7 @@ There are often multiple point estimates available for any given parameter. So i
     MSE measures, on average, how close an estimator comes to the true value of the parameter.
     
     \begin{textbox}
-    \textbf{Theorem}: Let \( T \) be an estimator of a population parameter \( \theta \). Then, the \textbf{Mean Squared Error (MSE)} of \( T \) is given by:
+    \textbf{Theorem}: Let \( T \) be an estimator of a population parameter \( \theta \). Then, the {Mean Squared Error (MSE)} of \( T \) is given by:
     \[
     \mathrm{MSE}(T) = \mathrm{Var}(T) + \mathcal{B}^2(T)
     \]
@@ -6594,7 +6597,7 @@ There are often multiple point estimates available for any given parameter. So i
     
     For an unbiased estimator $\mathcal{B} = 0$, and therefore $\mathrm{MSE}(T) = \mathrm{Var}(T)$.
     
-    In this context, the \textbf{standard error (SE)} of $T$ is defined as the standard deviation of $T$ i.e. $ \sqrt{\operatorname{Var}(T)} $ which is deffierent from MSE($T$).
+    In this context, the \textbf{standard error (SE)} of $T$ is defined as the standard deviation of $T$ i.e. $ \sqrt{\operatorname{Var}(T)} $ which is diffierent from MSE($T$).
 
     \item \textbf{Consistency}:
     
@@ -6700,12 +6703,18 @@ There are often multiple point estimates available for any given parameter. So i
     
     Sufficiency is a key concept because it allows us to summarize the data without losing any relevant information about the parameter of interest.
     
-    Let $\mathbf{X} = (X_1, X_2, \ldots, X_n)$ be a random sample from a distribution with conditional joint probability density function (or joint probability mass function) $$f_{\mathbf{X}}(x_1, x_2, \dots, x_n | \theta),$$ where $\theta$ is an unknown parameter. 
+    Let $\mathbf{X} = (X_1, X_2, \ldots, X_n)$ be a random sample from a distribution with conditional joint probability density function (or joint probability mass function) $$f_{\mathbf{X}}(x_1, x_2, \dots, x_n ; \theta),$$ where $\theta$ is an unknown parameter\footnote{\textbf{Why we write the joint PDF in the form $f_{\mathbf{X}}(x_1, x_2, \dots, x_n; \theta)$ and not $f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid \theta)$}? 
+    
+    \noindent Because in frequentist statistics, the parameter $\theta$ is treated as a fixed (but unknown) constant, while the data $\mathbf{X} = (X_1, X_2, \dots, X_n)$ are considered random variables. Therefore, we write the joint probability density (or mass) function as
+        $ f_{\mathbf{X}}(x_1, x_2, \dots, x_n; \theta) $
+        which emphasizes that this is a function of the data and a given fixed parameter. 
+        
+        On the other hand, the notation $f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid \theta)$ is typically reserved for conditional distributions, where $\theta$ is treated as a random variable—as in Bayesian statistics. In the frequentist context, $\theta$ is not random, so we avoid the conditional notation.}. 
     
    \begin{textbox}
     A statistic $T(\mathbf{X})$ is said to be \textbf{sufficient} for $\theta$ if the conditional distribution of $X_1,X_2,\dots, X_n$ given $T(\mathbf{X}) = t$ does not depend on $\theta$. That is,
        \[
-       f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid T = t, \theta) = f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid T = t)
+       f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid T = t; \theta) = f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid T = t)
        \]
        $ \text{for all } \theta $.
    \end{textbox}
@@ -6718,12 +6727,13 @@ There are often multiple point estimates available for any given parameter. So i
     \begin{textbox}
     \textbf{Neyman–Fisher Factorization Theorem}: A necessary and sufficient condition for the statistic $T(\textbf{X})$ to be a sufficient statistic for $\theta$ is that the joint PDF (or joint PMF) function of the sample can be factorized as:
         \[
-         f_{\mathbf{X}}(x_1, x_2, \ldots, x_n| \theta) = g(T| \theta) \cdot h(x_1, x_2, \ldots, x_n)
+         f_{\mathbf{X}}(x_1, x_2, \ldots, x_n| \theta) = g(T;\theta) \cdot h(x_1, x_2, \ldots, x_n)
         \]
         where
         \begin{itemize}
-            \item $g(T| \theta)$ is a non negative function of $T$ and on $\theta$,
-            \item $h(x_1, x_2, \ldots, x_n)$ is a function of the data that does not depend on $\theta$.
+            \item $g(T;\theta)$ is a function that depends on the data 
+             $ (x_1, x_2, \ldots, x_n) $ only through the function $T(x_1, x_2, \ldots, x_n)$.
+            \item $h(x_1, x_2, \ldots ,x_n)$ is a function of the data that does not depend on the parameter $\theta$.
         \end{itemize}
     \end{textbox}
     
@@ -6747,7 +6757,7 @@ There are often multiple point estimates available for any given parameter. So i
     
     The joint probability mass function of the sample \(\textbf{X} = (X_1,X_2,\dots,X_n)\) is
     \[
-    f_{\textbf{X}}(x_1,x_2,\dots,x_n|\,p) = \prod_{i=1}^{n} p^{x_i}(1-p)^{1-x_i}
+    f_{\textbf{X}}(x_1,x_2,\dots,x_n;\,p) = \prod_{i=1}^{n} p^{x_i}(1-p)^{1-x_i}
     =
     p^{\sum_{i=1}^n x_i}
     \,(1 - p)^{\,n - \sum_{i=1}^n x_i}
@@ -6755,7 +6765,7 @@ There are often multiple point estimates available for any given parameter. So i
       
     Observe that this can be written in the form
     \[
-    f(x_1,x_2,\dots,x_n|\,p)
+    f(x_1,x_2,\dots,x_n;\,p)
     =
     \underbrace{p^{nT(\textbf{x})} \,(1-p)^{\,n - nT(\textbf{x})}}_{g\bigl(T(\textbf{x}),p\bigr)}
     \;\times\;
@@ -6767,7 +6777,7 @@ There are often multiple point estimates available for any given parameter. So i
     \]
     Here:
     \begin{itemize}
-      \item \(g\bigl(T(\textbf{x}),p\bigr) = p^{T(\textbf{x})} (1-p)^{\,n - T(\textbf{x})}\) depends only on the statistic \(T(\textbf{x})\) and the parameter \(p\).
+      \item \(g\bigl(T(\textbf{x});p\bigr) = p^{T(\textbf{x})} (1-p)^{\,n - T(\textbf{x})}\) depends only on the statistic \(T(\textbf{x})\) and the parameter \(p\).
       \item \(h(x) = 1\) depends on the full data \(\mathbf{x} = (x_1,x_2,\dots,x_n)\) but not on \(p\).
     \end{itemize}
     
@@ -6781,7 +6791,7 @@ There are often multiple point estimates available for any given parameter. So i
     \]
     so each density is
     \[
-    f_{X_i}(x_i \mid \mu)
+    f_{X_i}(x_i ; \mu)
     =
     \frac{1}{\sqrt{2\pi\,\sigma^2}}
     \exp\!\Bigl(-\tfrac{1}{2\sigma^2}(x_i - \mu)^2\Bigr).
@@ -6796,7 +6806,7 @@ There are often multiple point estimates available for any given parameter. So i
     The joint density of the sample \(\mathbf{X}=(X_1,X_2,\dots,X_n)\) is
     \[
     \begin{aligned}
-    f_{\mathbf{X}}(x_1,x_2,\dots,x_n \mid \mu)
+    f_{\mathbf{X}}(x_1,x_2,\dots,x_n ; \mu)
     &=
     \prod_{i=1}^{n}
     \frac{1}{\sqrt{2\pi\,\sigma^2}}
@@ -6826,7 +6836,7 @@ There are often multiple point estimates available for any given parameter. So i
     Hence the joint density factors as
     \[
     \begin{aligned}
-    f_{\textbf{X}}(x_1,x_2,\dots,x_n \mid \mu)
+    f_{\textbf{X}}(x_1,x_2,\dots,x_n ; \mu)
     &=
     \underbrace{%
     \exp\!\left( \tfrac{n\mu}{\sigma^2}\,T(\textbf{x})
@@ -6850,11 +6860,11 @@ There are often multiple point estimates available for any given parameter. So i
     \]
     The probability mass function of a Poisson random variable is given by
     \[
-    P(X_i = x_i) = \frac{e^{-\lambda} \lambda^{x_i}}{x_i!}, \quad x_i = 0, 1, 2, \dots
+    P(X_i = x_i; \lambda) = \frac{e^{-\lambda} \lambda^{x_i}}{x_i!}, \quad x_i = 0, 1, 2, \dots
     \]
     Since \(X_1\) and \(X_2\) are independent, the joint PMF of the sample is
     \[
-    f_{X_1,X_2}(x_1, x_2 \mid \lambda) = \frac{e^{-\lambda} \lambda^{x_1}}{x_1!} \cdot \frac{e^{-\lambda} \lambda^{x_2}}{x_2!} 
+    p_{X_1,X_2}(x_1, x_2 ; \lambda) = \frac{e^{-\lambda} \lambda^{x_1}}{x_1!} \cdot \frac{e^{-\lambda} \lambda^{x_2}}{x_2!} 
     = \frac{e^{-2\lambda} \lambda^{x_1 + x_2}}{x_1! x_2!}
     \]
     
@@ -6865,13 +6875,13 @@ There are often multiple point estimates available for any given parameter. So i
     
     To apply the Neyman–Fisher Factorization Theorem, we attempt to factor the joint PMF in the form
     \[
-    f_{X_1,X_2}(x_1, x_2 \mid \lambda) = g\bigl(T(x_1, x_2), \lambda\bigr) \cdot h(x_1, x_2)
+    p_{X_1,X_2}(x_1, x_2 ; \lambda) = g\bigl(T(x_1, x_2), \lambda\bigr) \cdot h(x_1, x_2)
     \]
     i.e., express the \(\lambda\)-dependence entirely through the statistic \(T\).
     
     However, in our case the joint PMF is
     \[
-    f_{X_1,X_2}(x_1, x_2 \mid \lambda) = \frac{e^{-2\lambda} \lambda^{x_1 + x_2}}{x_1! x_2!} = = \frac{e^{-2\lambda} \lambda^{T(x_1, x_2) - x_2}}{x_1! x_2!}
+    p_{X_1,X_2}(x_1, x_2 ; \lambda) = \frac{e^{-2\lambda} \lambda^{x_1 + x_2}}{x_1! x_2!} = \frac{e^{-2\lambda} \lambda^{T(x_1, x_2) - x_2}}{x_1! x_2!}
     \]
     where the \(\lambda\)-dependent part is \(\lambda^{T(x_1, x_2) - x_2}\), not only a function of $T(x_1, x_2)$ but also a function of $x_2$. 
     Therefore, the statistic \(T = X_1 + 2X_2\) is not sufficient.
@@ -6886,9 +6896,9 @@ There are often multiple point estimates available for any given parameter. So i
 
 {Maximum Likelihood Estimation} is one of the most widely used methods for estimating the parameters of a statistical model. The basic idea is to choose the parameter values that make the observed data most probable.
 
-Let \(\textbf{X} = ( X_1, X_2, \dots, X_n) \) be a random sample from a population with joint probability density function (or probability mass function) \( f_{\textbf{X}}(x_1, x_2, \dots, x_n | \theta) \), where \( \theta \) is the unknown parameter to be estimated. Given $\textbf{x} = (x_1, x_2, \dots, x_n)$, it may be looked upon as a function of $\theta$, called the \textbf{likelihood function} of $\theta$ and is denoted by $L(\theta)$. 
+Let \(\textbf{X} = ( X_1, X_2, \dots, X_n) \) be a random sample from a population with joint probability density function (or probability mass function) \( f_{\textbf{X}}(x_1, x_2, \dots, x_n ; \theta) \), where \( \theta \) is the unknown parameter to be estimated. Given $\textbf{x} = (x_1, x_2, \dots, x_n)$, it may be looked upon as a function of $\theta$, called the \textbf{likelihood function} of $\theta$ and is denoted by $L(\theta)$. 
 \[
-L(\theta) = f_{\textbf{X}}(x_1, x_2, \dots, x_n | \theta)
+L(\theta) = f_{\textbf{X}}(x_1, x_2, \dots, x_n ; \theta)
 \]
 
 The value of \( \theta \) that maximizes this function is called the \textbf{maximum likelihood estimator (MLE)} of \( \theta \):
@@ -6898,7 +6908,7 @@ The value of \( \theta \) that maximizes this function is called the \textbf{max
 
 In practice, it is often more convenient to work with the \textbf{log-likelihood function}:
 \[
-\ell(\theta) = \log L(\theta) = \log f_{\textbf{X}}(x_1, x_2, \dots, x_n | \theta)
+\log L(\theta) = \log f_{\textbf{X}}(x_1, x_2, \dots, x_n ; \theta)
 \]
 Maximizing the log-likelihood yields the same estimator as maximizing the likelihood.
 
@@ -6918,12 +6928,12 @@ L(\lambda) &= f_{\textbf{X}}(x_1, x_2, \dots, x_n | \lambda)\\
 
 The log-likelihood is:
 \[
-\ell(\lambda) = \log L(\lambda) = -n\lambda + \left(\sum_i x_i\right) \log \lambda - \sum_i \log(x_i!)
+\log L(\lambda) = -n\lambda + \left(\sum_i x_i\right) \log \lambda - \sum_i \log(x_i!)
 \]
 
 Differentiating and setting the derivative to zero:
 \[
-\frac{d\ell}{d\lambda} = -n + \frac{1}{\lambda}\sum_i x_i = 0 \Rightarrow \hat{\lambda}  = \frac{1}{n} \sum x_i = \overline{x}
+\frac{d}{d\lambda}\log L(\lambda) = -n + \frac{1}{\lambda}\sum_i x_i = 0 \Rightarrow \hat{\lambda}  = \frac{1}{n} \sum_i x_i = \overline{x}
 \]
 
 Hence, the MLE of $\lambda$ is $\hat{\lambda} = \overline{X}$.
@@ -6932,16 +6942,16 @@ Hence, the MLE of $\lambda$ is $\hat{\lambda} = \overline{X}$.
 
 Assume \( X_1, X_2, \dots, X_n \overset{iid}{\sim} N(\mu, \sigma^2) \). The PDF is:
 \[
-f(x| \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right)
+f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right)
 \]
 
 Likelihood function:
 \[
-L(\mu, \sigma) = \prod_{i=1}^{n}f(x_i| \mu, \sigma) =  (2\pi\sigma^2)^{-\tfrac{n}{2}} \exp \left( - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2\right) 
+L(\mu, \sigma^2) = \prod_{i=1}^{n}f(x_i; \mu, \sigma) =  (2\pi\sigma^2)^{-\tfrac{n}{2}} \exp \left( - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2\right) 
 \]
 Log-likelihood function:
 \[
-\ell(\mu, \sigma) = \log L(\mu,\sigma)= -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
+\log L(\mu,\sigma^2)= -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
 \]
 
 
@@ -6950,12 +6960,12 @@ Log-likelihood function:
 
 Log-likelihood function:
 \[
-\ell(\mu) = -\frac{n}{2} \log(2\pi\sigma_0^2) - \frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2
+\log L(\mu) = -\frac{n}{2} \log(2\pi\sigma_0^2) - \frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2
 \]
 
 Taking derivative and setting to zero:
 \[
-\frac{d\ell}{d\mu} = \frac{1}{\sigma_0^2} \sum_{i=1}^n (x_i - \mu) = 0 \Rightarrow \hat{\mu} = \bar{x}
+\frac{d}{d\mu}\log L(\mu) = \frac{1}{\sigma_0^2} \sum_{i=1}^n (x_i - \mu) = 0 \Rightarrow \hat{\mu} = \overline{x}
 \]
 
 Hence, the MLE of $\mu$ is $\hat{\mu} = \overline{X}$.
@@ -6964,33 +6974,45 @@ Hence, the MLE of $\mu$ is $\hat{\mu} = \overline{X}$.
 
 Log-likelihood:
 \[
-\ell(\sigma) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum (x_i - \mu_0)^2
+\log L(\sigma^2) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_i (x_i - \mu_0)^2
 \]
 
-Taking derivative w.r.t. \( \sigma^2 \) and solving:
+Taking derivative w.r.t. \( \sigma^2 \) and setting to zero:
+\begin{align*}
+\frac{d}{d\sigma^2}\log L(\sigma^2) = -\frac{n}{2\sigma^2}+\frac{1}{2\sigma^4}\sum_i (x_i - \mu_0)^2= 0
+\end{align*}
 \[
-\hat{\sigma}^2 = \frac{1}{n} \sum (x_i - \mu_0)^2
+\Rightarrow \hat{\sigma}^2 = \frac{1}{n} \sum_i (x_i - \mu_0)^2
 \]
 
-Hence, the MLE of $\sigma^2$ is $\hat{\sigma^2} = \frac{1}{n} \sum (x_i - \mu_0)^2$.
+Hence, the MLE of $\sigma^2$ is $\hat{\sigma^2} = \frac{1}{n} \sum_i (x_i - \mu_0)^2$.
 
 \item \textbf{Case 3: \( \mu \) and \( \sigma \) both unknown}
 
 Log-likelihood:
 \[
-\ell(\mu, \sigma) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum (x_i - \mu)^2
+\log L(\mu,\sigma^2) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_i (x_i - \mu)^2
 \]
 
 Taking partial derivatives and solving the system:
 \begin{align*}
-\frac{\partial}{\partial \mu} \ell(\mu, \sigma) = 0 &\Rightarrow \hat{\mu} = \bar{x} \\
-\frac{\partial}{\partial \mu} \ell(\mu, \sigma) = 0 &\Rightarrow \hat{\sigma}^2 = \frac{1}{n} \sum_i (x_i - \bar{x})^2
+\frac{\partial}{\partial \mu} \log L(\mu,\sigma^2) = 0 &\Rightarrow \hat{\mu} = \overline{x} \\
+\frac{\partial}{\partial \mu} \log L(\mu,\sigma^2) = 0 &\Rightarrow \hat{\sigma}^2 = \frac{1}{n} \sum_i (x_i - \overline{x})^2
 \end{align*}
 Thus, the MLEs for \( \mu \) and \( \sigma^2 \) are the sample mean $\overline{X}$ and sample variance $\frac{1}{n} \sum_i (x_i - \bar{x})^2$ (without Bessel's correction), respectively.
 
 \end{enumerate}
 
+It is important to note that the maximum likelihood estimator (MLE) of the population variance \( \sigma^2 \) is \textbf{not an unbiased estimator}. The MLE is given by
+\[
+\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2,
+\]
+where \( \bar{X} \) is the sample mean. Buit we have already seen that the unbiased estimator of $\sigma^2$ is:
+\[
+S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2 = \frac{n-1}{n}\hat{\sigma}^2
+\]
 
+The MLE estimator tends to underestimate the true variance.
 
 
 \subsection{Method of Moments}
