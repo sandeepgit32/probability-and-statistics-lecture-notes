@@ -13,6 +13,7 @@
 \usepackage{amssymb}
 \usepackage{tikz}
 \usepackage{fancyhdr}
+\usepackage{enumitem}
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage[utf8]{inputenc}
@@ -6927,38 +6928,53 @@ Differentiating and setting the derivative to zero:
 
 Hence, the MLE of $\lambda$ is $\hat{\lambda} = \overline{X}$.
 
-\subsubsection*{Example 2: Normal Distribution}
+\subsubsection*{Example: Normal Distribution}
 
-Assume \( X_1, X_2, \dots, X_n \sim N(\mu, \sigma^2) \). The PDF is:
+Assume \( X_1, X_2, \dots, X_n \overset{iid}{\sim} N(\mu, \sigma^2) \). The PDF is:
 \[
-f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right)
+f(x| \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right)
 \]
 
-\textbf{(i) Case 1: \( \mu \) unknown, \( \sigma \) known}
-
-Log-likelihood:
+Likelihood function:
 \[
-\ell(\mu) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
+L(\mu, \sigma) = \prod_{i=1}^{n}f(x_i| \mu, \sigma) =  (2\pi\sigma^2)^{-\tfrac{n}{2}} \exp \left( - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2\right) 
+\]
+Log-likelihood function:
+\[
+\ell(\mu, \sigma) = \log L(\mu,\sigma)= -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
+\]
+
+
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Case 1: \( \mu \) unknown, \( \sigma \) known ($=\sigma_0$)}
+
+Log-likelihood function:
+\[
+\ell(\mu) = -\frac{n}{2} \log(2\pi\sigma_0^2) - \frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2
 \]
 
 Taking derivative and setting to zero:
 \[
-\frac{d\ell}{d\mu} = \frac{1}{\sigma^2} \sum (x_i - \mu) = 0 \Rightarrow \hat{\mu} = \bar{X}
+\frac{d\ell}{d\mu} = \frac{1}{\sigma_0^2} \sum_{i=1}^n (x_i - \mu) = 0 \Rightarrow \hat{\mu} = \bar{x}
 \]
 
-\textbf{(ii) Case 2: \( \mu \) known, \( \sigma \) unknown}
+Hence, the MLE of $\mu$ is $\hat{\mu} = \overline{X}$.
+
+\item \textbf{Case 2: \( \mu \) known ($=\mu_0$), \( \sigma \) unknown}
 
 Log-likelihood:
 \[
-\ell(\sigma) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum (x_i - \mu)^2
+\ell(\sigma) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum (x_i - \mu_0)^2
 \]
 
 Taking derivative w.r.t. \( \sigma^2 \) and solving:
 \[
-\hat{\sigma}^2 = \frac{1}{n} \sum (x_i - \mu)^2
+\hat{\sigma}^2 = \frac{1}{n} \sum (x_i - \mu_0)^2
 \]
 
-\textbf{(iii) Case 3: \( \mu \) and \( \sigma \) both unknown}
+Hence, the MLE of $\sigma^2$ is $\hat{\sigma^2} = \frac{1}{n} \sum (x_i - \mu_0)^2$.
+
+\item \textbf{Case 3: \( \mu \) and \( \sigma \) both unknown}
 
 Log-likelihood:
 \[
@@ -6967,11 +6983,12 @@ Log-likelihood:
 
 Taking partial derivatives and solving the system:
 \begin{align*}
-\hat{\mu} &= \bar{X} \\
-\hat{\sigma}^2 &= \frac{1}{n} \sum (x_i - \bar{X})^2
+\frac{\partial}{\partial \mu} \ell(\mu, \sigma) = 0 &\Rightarrow \hat{\mu} = \bar{x} \\
+\frac{\partial}{\partial \mu} \ell(\mu, \sigma) = 0 &\Rightarrow \hat{\sigma}^2 = \frac{1}{n} \sum_i (x_i - \bar{x})^2
 \end{align*}
+Thus, the MLEs for \( \mu \) and \( \sigma^2 \) are the sample mean $\overline{X}$ and sample variance $\frac{1}{n} \sum_i (x_i - \bar{x})^2$ (without Bessel's correction), respectively.
 
-Thus, the MLEs for \( \mu \) and \( \sigma^2 \) are the sample mean and sample variance (without Bessel's correction), respectively.
+\end{enumerate}
 
 
 
