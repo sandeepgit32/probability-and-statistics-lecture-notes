@@ -6737,9 +6737,9 @@ There are often multiple point estimates available for any given parameter. So i
     \end{cases}
     \]
     
-    We wish to show that the total number of successes,
+    We wish to show that the total proportion of successes in the sample,
     \[
-    T(\mathbf{X}) \;=\; \sum_{i=1}^n X_i
+    T(\mathbf{X}) \;=\; \frac{1}{n}\sum_{i=1}^n X_i
     \]
     is a sufficient statistic for \(p\).
     
@@ -6756,7 +6756,7 @@ There are often multiple point estimates available for any given parameter. So i
     \[
     f(x_1,x_2,\dots,x_n|\,p)
     =
-    \underbrace{p^{T(\textbf{x})} \,(1-p)^{\,n - T(\textbf{x})}}_{g\bigl(T(\textbf{x}),p\bigr)}
+    \underbrace{p^{nT(\textbf{x})} \,(1-p)^{\,n - nT(\textbf{x})}}_{g\bigl(T(\textbf{x}),p\bigr)}
     \;\times\;
     \underbrace{1}_{h(x)}
     \]
@@ -6770,7 +6770,7 @@ There are often multiple point estimates available for any given parameter. So i
       \item \(h(x) = 1\) depends on the full data \(\mathbf{x} = (x_1,x_2,\dots,x_n)\) but not on \(p\).
     \end{itemize}
     
-    Therefore, the statistic \(T(\textbf{X})=\sum_{i=1}^n X_i\) is sufficient for the parameter \(p\).
+    Therefore, the statistic \(T(\textbf{X})=\frac{1}{n}\sum_{i=1}^n X_i\) is sufficient for the parameter \(p\).
     
     \bigskip
     
@@ -6841,27 +6841,165 @@ There are often multiple point estimates available for any given parameter. So i
     where \(T(\textbf{x})=\sum_{i=1}^n x_i\). Therefore, by the Neyman–Fisher factorization theorem, because the statistic
     \(\displaystyle T(\mathbf{X})=\frac{1}{n}\sum_{i=1}^n X_i\) is sufficient for \(\mu\).
     
+    \bigskip 
+    
+    \textbf{Example}: Let \( X_1 \) and \( X_2 \) be two independent and identically distributed random variables from the Poisson distribution with parameter \(\lambda > 0\), i.e., 
+    \[
+    X_1, X_2 \overset{iid}{\sim} \text{Poisson}(\lambda).
+    \]
+    The probability mass function of a Poisson random variable is given by
+    \[
+    P(X_i = x_i) = \frac{e^{-\lambda} \lambda^{x_i}}{x_i!}, \quad x_i = 0, 1, 2, \dots
+    \]
+    Since \(X_1\) and \(X_2\) are independent, the joint PMF of the sample is
+    \[
+    f_{X_1,X_2}(x_1, x_2 \mid \lambda) = \frac{e^{-\lambda} \lambda^{x_1}}{x_1!} \cdot \frac{e^{-\lambda} \lambda^{x_2}}{x_2!} 
+    = \frac{e^{-2\lambda} \lambda^{x_1 + x_2}}{x_1! x_2!}
+    \]
+    
+    Now consider the statistic
+    \[
+    T = X_1 + 2X_2
+    \]
+    
+    To apply the Neyman–Fisher Factorization Theorem, we attempt to factor the joint PMF in the form
+    \[
+    f_{X_1,X_2}(x_1, x_2 \mid \lambda) = g\bigl(T(x_1, x_2), \lambda\bigr) \cdot h(x_1, x_2)
+    \]
+    i.e., express the \(\lambda\)-dependence entirely through the statistic \(T\).
+    
+    However, in our case the joint PMF is
+    \[
+    f_{X_1,X_2}(x_1, x_2 \mid \lambda) = \frac{e^{-2\lambda} \lambda^{x_1 + x_2}}{x_1! x_2!} = = \frac{e^{-2\lambda} \lambda^{T(x_1, x_2) - x_2}}{x_1! x_2!}
+    \]
+    where the \(\lambda\)-dependent part is \(\lambda^{T(x_1, x_2) - x_2}\), not only a function of $T(x_1, x_2)$ but also a function of $x_2$. 
+    Therefore, the statistic \(T = X_1 + 2X_2\) is not sufficient.
+    
+    
 \end{enumerate}
 
 \section{Methods of Estimation}
+
+
+\subsection{Maximum Likelihood Estimation (MLE)}
+
+{Maximum Likelihood Estimation} is one of the most widely used methods for estimating the parameters of a statistical model. The basic idea is to choose the parameter values that make the observed data most probable.
+
+Let \(\textbf{X} = ( X_1, X_2, \dots, X_n) \) be a random sample from a population with joint probability density function (or probability mass function) \( f_{\textbf{X}}(x_1, x_2, \dots, x_n | \theta) \), where \( \theta \) is the unknown parameter to be estimated. Given $\textbf{x} = (x_1, x_2, \dots, x_n)$, it may be looked upon as a function of $\theta$, called the \textbf{likelihood function} of $\theta$ and is denoted by $L(\theta)$. 
+\[
+L(\theta) = f_{\textbf{X}}(x_1, x_2, \dots, x_n | \theta)
+\]
+
+The value of \( \theta \) that maximizes this function is called the \textbf{maximum likelihood estimator (MLE)} of \( \theta \):
+\[
+\hat{\theta} = \arg\max_{\theta} L(\theta)
+\]
+
+In practice, it is often more convenient to work with the \textbf{log-likelihood function}:
+\[
+\ell(\theta) = \log L(\theta) = \log f_{\textbf{X}}(x_1, x_2, \dots, x_n | \theta)
+\]
+Maximizing the log-likelihood yields the same estimator as maximizing the likelihood.
+
+\subsubsection*{Example: Poisson Distribution}
+
+Suppose \( X_1, X_2, \dots, X_n \) are i.i.d. from a Poisson distribution with parameter \( \lambda > 0 \). The PMF for the Poisson distribution is:
+\[
+f(x | \lambda) = \frac{e^{-\lambda} \lambda^x}{x!}, \quad x = 0, 1, 2, \dots
+\]
+
+The likelihood function is:
+\begin{align*}
+L(\lambda) &= f_{\textbf{X}}(x_1, x_2, \dots, x_n | \lambda)\\
+&= \prod_{i=1}^n f(x_i | \lambda) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^{x_i}}{x_i!} \\
+&= e^{-n\lambda} \lambda^{\sum_i x_i} \prod_{i=1}^n \frac{1}{x_i!}
+\end{align*}
+
+The log-likelihood is:
+\[
+\ell(\lambda) = \log L(\lambda) = -n\lambda + \left(\sum_i x_i\right) \log \lambda - \sum_i \log(x_i!)
+\]
+
+Differentiating and setting the derivative to zero:
+\[
+\frac{d\ell}{d\lambda} = -n + \frac{1}{\lambda}\sum_i x_i = 0 \Rightarrow \hat{\lambda}  = \frac{1}{n} \sum x_i = \overline{x}
+\]
+
+Hence, the MLE of $\lambda$ is $\hat{\lambda} = \overline{X}$.
+
+\subsubsection*{Example 2: Normal Distribution}
+
+Assume \( X_1, X_2, \dots, X_n \sim N(\mu, \sigma^2) \). The PDF is:
+\[
+f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right)
+\]
+
+\textbf{(i) Case 1: \( \mu \) unknown, \( \sigma \) known}
+
+Log-likelihood:
+\[
+\ell(\mu) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
+\]
+
+Taking derivative and setting to zero:
+\[
+\frac{d\ell}{d\mu} = \frac{1}{\sigma^2} \sum (x_i - \mu) = 0 \Rightarrow \hat{\mu} = \bar{X}
+\]
+
+\textbf{(ii) Case 2: \( \mu \) known, \( \sigma \) unknown}
+
+Log-likelihood:
+\[
+\ell(\sigma) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum (x_i - \mu)^2
+\]
+
+Taking derivative w.r.t. \( \sigma^2 \) and solving:
+\[
+\hat{\sigma}^2 = \frac{1}{n} \sum (x_i - \mu)^2
+\]
+
+\textbf{(iii) Case 3: \( \mu \) and \( \sigma \) both unknown}
+
+Log-likelihood:
+\[
+\ell(\mu, \sigma) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum (x_i - \mu)^2
+\]
+
+Taking partial derivatives and solving the system:
+\begin{align*}
+\hat{\mu} &= \bar{X} \\
+\hat{\sigma}^2 &= \frac{1}{n} \sum (x_i - \bar{X})^2
+\end{align*}
+
+Thus, the MLEs for \( \mu \) and \( \sigma^2 \) are the sample mean and sample variance (without Bessel's correction), respectively.
+
+
+
+
 \subsection{Method of Moments}
 Equates sample moments to population moments:
 \[
 \mu_k = \mathbb{E}[X^k] \approx \frac{1}{n} \sum_{i=1}^n X_i^k
 \]
 
-\subsection{Maximum Likelihood Estimation (MLE)}
-MLE chooses the parameter value that maximizes the likelihood function:
+\subsection{Bayesian Estimation}
+
+Bayesian estimation is a method of statistical inference in which the unknown parameter is treated as a random variable with a probability distribution, known as the \textbf{prior distribution}. This approach combines prior beliefs about the parameter with information from observed data through the use of Bayes' Theorem.
+
+Let \(\theta\) be the parameter of interest and \(\mathbf{X} = (X_1, X_2, \dots, X_n)\) be the observed data. Given a prior distribution \( \pi(\theta) \) and the likelihood function \( L(\theta \mid \mathbf{X}) = f(\mathbf{X} \mid \theta) \), the \textbf{posterior distribution} of \(\theta\) is given by
 \[
-L(\theta) = \prod_{i=1}^n f(X_i;\theta)
+\pi(\theta \mid \mathbf{X}) = \frac{f(\mathbf{X} \mid \theta) \pi(\theta)}{\int f(\mathbf{X} \mid \theta) \pi(\theta) \, d\theta}.
 \]
 
-\textbf{Steps:}
-\begin{enumerate}
-    \item Write the likelihood function.
-    \item Take the natural log to obtain the log-likelihood.
-    \item Differentiate and solve for \( \theta \) by setting derivative to zero.
-\end{enumerate}
+The posterior distribution reflects our updated belief about the parameter after seeing the data. A common point estimate in Bayesian estimation is the \textbf{posterior mean}:
+\[
+\hat{\theta}_{\text{Bayes}} = \mathbb{E}[\theta \mid \mathbf{X}],
+\]
+although other summaries such as the posterior median or mode can also be used depending on the context.
+
+Bayesian methods are particularly useful when prior information is available or when data are limited. They also provide a full distribution of the parameter estimate, which is useful for constructing credible intervals and making probabilistic statements about the parameter.
+
+
 
 \section{Interval Estimation}
 \subsection{Definition}
