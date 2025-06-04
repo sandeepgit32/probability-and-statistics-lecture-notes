@@ -321,7 +321,7 @@ Line graphs depict data trends over time.
 
 \section{Measures of Central Tendency}
 
-Quite often, data exhibit a tendency to cluster around a central value. Measures of central tendency are numerical indicators that describe this central value of a data set. The most common measures include the mean, median, and mode. Each has its own application depending on the nature of the data.
+Quite often, data exhibit a tendency to cluster around a central value. Measures of central tendency are numerical indicators that describe this central value of a data set. The most common measures include the mean, median, and mode. Each measure tells us something different about our data, and knowing when to use each one can really help us make sense of the numbers.
 
 % \begin{center}
 % \begin{tikzpicture}[
@@ -6592,6 +6592,8 @@ There are often multiple point estimates available for any given parameter. So i
     \hfill $\blacksquare$
     
     For an unbiased estimator $\mathcal{B} = 0$, and therefore $\mathrm{MSE}(T) = \mathrm{Var}(T)$.
+    
+    In this context, the \textbf{standard error (SE)} of $T$ is defined as the standard deviation of $T$ i.e. $ \sqrt{\operatorname{Var}(T)} $ which is deffierent from MSE($T$).
 
     \item \textbf{Consistency}:
     
@@ -6657,7 +6659,8 @@ There are often multiple point estimates available for any given parameter. So i
     
     Unbiasedness is certainly a desirable property for point estimators but the criterion of unbiasedness does not generally provide a unique statistic for a given problem of estimation. For example, for symmetric population distribution, the sample median is also unbiased estimator for all sample sizes. Clearly, we need a further criterion to decide among different candidates.
         
-        One natural refinement is to compare their variances. Although both the sample mean and the sample median of a normal population are unbiased and have bell‐shaped sampling distributions centered at \(\mu\), the variance of the sample mean is
+    One natural refinement is to compare their variances which measures the spread
+     of the sampling distribution. Although both the sample mean and the sample median of a normal population are unbiased and have bell‐shaped sampling distributions centered at \(\mu\), the variance of the sample mean is
         \[
         \mathrm{Var}\bigl(\overline{X}\bigr) = \frac{\sigma^2}{n},
         \]
@@ -6677,9 +6680,167 @@ There are often multiple point estimates available for any given parameter. So i
                 \mathrm{Var}\bigl(T^*\bigr) \;=\; \inf_{T \in \mathcal{U}} \mathrm{Var}\bigl(T\bigr)
                 \]
             \end{textbox}
+                               
+        If two unbiased estimators $T_1$ and $T_2$ estimate the same parameter $\theta$, the \textbf{relative efficiency} of $T_1$ with respect to $T_2$ is defined as:
+        
+        \begin{textbox}
+        \[
+                \text{Relative Efficiency} = \frac{\operatorname{Var}(T_2)}{\operatorname{Var}(T_1)}.
+                \]
+        \end{textbox}
+        
+        An estimator is more efficient if it has a smaller variance. If the relative efficiency is close to 1, both estimators are equally good in terms of variance.
 
-    \item \textbf{Sufficiency:} An estimator is sufficient if it captures all the information in the data about the parameter.
-
+    \item \textbf{Sufficiency}: 
+    
+    \begin{textbox}
+    A statistic is said to be \textbf{sufficient} for a parameter if it captures all the information in the sample about that parameter.
+    \end{textbox} 
+    
+    Sufficiency is a key concept because it allows us to summarize the data without losing any relevant information about the parameter of interest.
+    
+    Let $\mathbf{X} = (X_1, X_2, \ldots, X_n)$ be a random sample from a distribution with conditional joint probability density function (or joint probability mass function) $$f_{\mathbf{X}}(x_1, x_2, \dots, x_n | \theta),$$ where $\theta$ is an unknown parameter. 
+    
+   \begin{textbox}
+    A statistic $T(\mathbf{X})$ is said to be \textbf{sufficient} for $\theta$ if the conditional distribution of $X_1,X_2,\dots, X_n$ given $T(\mathbf{X}) = t$ does not depend on $\theta$. That is,
+       \[
+       f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid T = t, \theta) = f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid T = t)
+       \]
+       $ \text{for all } \theta $.
+   \end{textbox}
+   
+   In other words, once you know \(T = t\), the probability (or density) of seeing any particular arrangement of the raw observations does not depends on \(\theta\). After you condition on \(T = t\), you look at the probability of different possible datasets that all share that same \(T\)-value. If that conditional probability still changes with \(\theta\), then those leftover items are carrying extra clues about \(\theta\). 
+   
+   
+   A useful tool to verify sufficiency is the {Neyman–Fisher Factorization Theorem}, which states:
+    
+    \begin{textbox}
+    \textbf{Neyman–Fisher Factorization Theorem}: A necessary and sufficient condition for the statistic $T(\textbf{X})$ to be a sufficient statistic for $\theta$ is that the joint PDF (or joint PMF) function of the sample can be factorized as:
+        \[
+         f_{\mathbf{X}}(x_1, x_2, \ldots, x_n| \theta) = g(T| \theta) \cdot h(x_1, x_2, \ldots, x_n)
+        \]
+        where
+        \begin{itemize}
+            \item $g(T| \theta)$ is a non negative function of $T$ and on $\theta$,
+            \item $h(x_1, x_2, \ldots, x_n)$ is a function of the data that does not depend on $\theta$.
+        \end{itemize}
+    \end{textbox}
+    
+    \bigskip
+    
+    \textbf{Example}: Let \(X_1, X_2, \dots, X_n\) be independent Bernoulli random variables with common success probability \(p\). Therefore  
+    \[
+    X_i =
+    \begin{cases}
+    1, & \text{with probability } p\\
+    0, & \text{with probability } 1 - p
+    \end{cases}
+    \]
+    
+    We wish to show that the total number of successes,
+    \[
+    T(\mathbf{X}) \;=\; \sum_{i=1}^n X_i
+    \]
+    is a sufficient statistic for \(p\).
+    
+    
+    The joint probability mass function of the sample \(\textbf{X} = (X_1,X_2,\dots,X_n)\) is
+    \[
+    f_{\textbf{X}}(x_1,x_2,\dots,x_n|\,p) = \prod_{i=1}^{n} p^{x_i}(1-p)^{1-x_i}
+    =
+    p^{\sum_{i=1}^n x_i}
+    \,(1 - p)^{\,n - \sum_{i=1}^n x_i}
+    \]
+      
+    Observe that this can be written in the form
+    \[
+    f(x_1,x_2,\dots,x_n|\,p)
+    =
+    \underbrace{p^{T(\textbf{x})} \,(1-p)^{\,n - T(\textbf{x})}}_{g\bigl(T(\textbf{x}),p\bigr)}
+    \;\times\;
+    \underbrace{1}_{h(x)}
+    \]
+    where
+    \[
+    T(\textbf{x}) = \sum_{i=1}^n x_i
+    \]
+    Here:
+    \begin{itemize}
+      \item \(g\bigl(T(\textbf{x}),p\bigr) = p^{T(\textbf{x})} (1-p)^{\,n - T(\textbf{x})}\) depends only on the statistic \(T(\textbf{x})\) and the parameter \(p\).
+      \item \(h(x) = 1\) depends on the full data \(\mathbf{x} = (x_1,x_2,\dots,x_n)\) but not on \(p\).
+    \end{itemize}
+    
+    Therefore, the statistic \(T(\textbf{X})=\sum_{i=1}^n X_i\) is sufficient for the parameter \(p\).
+    
+    \bigskip
+    
+    \textbf{Example}: Let \(X_1, X_2, \dots, X_n\) be independent random variables drawn from a normal distribution with unknown mean \(\mu\) and known variance \(\sigma^2\).  That is,
+    \[
+    X_i \sim \mathcal{N}(\mu,\sigma^2),
+    \]
+    so each density is
+    \[
+    f_{X_i}(x_i \mid \mu)
+    =
+    \frac{1}{\sqrt{2\pi\,\sigma^2}}
+    \exp\!\Bigl(-\tfrac{1}{2\sigma^2}(x_i - \mu)^2\Bigr).
+    \]
+    
+    We wish to show that the sample mean
+    \[
+    T(\mathbf{X}) \;=\; \frac{1}{n}\sum_{i=1}^n X_i
+    \]
+    is a sufficient statistic for \(\mu\).
+       
+    The joint density of the sample \(\mathbf{X}=(X_1,X_2,\dots,X_n)\) is
+    \[
+    \begin{aligned}
+    f_{\mathbf{X}}(x_1,x_2,\dots,x_n \mid \mu)
+    &=
+    \prod_{i=1}^{n}
+    \frac{1}{\sqrt{2\pi\,\sigma^2}}
+    \exp\!\left( -\tfrac{1}{2\sigma^2}(x_i - \mu)^2\right) \\
+    &=
+    (2\pi\,\sigma^2)^{-\tfrac{n}{2}}
+    \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_{i=1}^n (x_i - \mu)^2\right)
+    \end{aligned}
+    \]
+    
+    Rewrite the exponential term:
+    \[
+    \sum_{i=1}^n (x_i - \mu)^2
+    =
+    \sum_{i=1}^n x_i^2
+    \;-\;2\mu\sum_{i=1}^n x_i
+    \;+\;n\,\mu^2 = \sum_{i=1}^n x_i^2\;-\;n\,\mu^2
+    \]
+    Thus
+    \[
+    \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_i (x_i - \mu)^2\right) 
+    =
+    \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_i x_i^2\right) 
+    \;\times\;
+    \exp\!\left( \tfrac{\mu}{\sigma^2}\sum_i x_i \;-\;\tfrac{n\mu^2}{2\sigma^2}\right) 
+    \]
+    Hence the joint density factors as
+    \[
+    \begin{aligned}
+    f_{\textbf{X}}(x_1,x_2,\dots,x_n \mid \mu)
+    &=
+    \underbrace{%
+    \exp\!\left( \tfrac{n\mu}{\sigma^2}\,T(\textbf{x})
+         \;-\;\tfrac{n\mu^2}{2\sigma^2}\right) 
+    }_{g\bigl(T(\textbf{x}),\mu\bigr)}
+    \;\times\;
+    \underbrace{%
+    (2\pi\,\sigma^2)^{-\tfrac{n}{2}}
+    \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_i x_i^2\right) 
+    }_{h(x)}
+    \end{aligned}
+    \]
+    where \(T(\textbf{x})=\sum_{i=1}^n x_i\). Therefore, by the Neyman–Fisher factorization theorem, because the statistic
+    \(\displaystyle T(\mathbf{X})=\frac{1}{n}\sum_{i=1}^n X_i\) is sufficient for \(\mu\).
+    
 \end{enumerate}
 
 \section{Methods of Estimation}
