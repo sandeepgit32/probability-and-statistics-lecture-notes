@@ -7053,7 +7053,70 @@ Thus,
 \underbrace{\pi_{\Theta}(\theta)}_{\text{prior}}
 \]
 
-In practice the constant of proportionality chosen in such a way that it makes the total mass of the posterior distribution equal to one. The posterior distribution reflects our updated belief about the parameter after seeing the data. 
+In practice the constant of proportionality chosen in such a way that it makes the total mass of the posterior distribution equal to one. The posterior distribution reflects our updated belief about the parameter after seeing the data.
+
+\textbf{Example}: Suppose you have three coins in your pocket:
+
+\begin{itemize}
+    \item Coin 1: Biased in favour of tails with head probability $\theta = 0.25$
+    \item Coin 2: A fair coin with $\theta = 0.5$
+    \item Coin 3: Biased in favour of heads with $\theta = 0.75$
+\end{itemize}
+
+You randomly select one coin and flip it once. You observe a head. What is the posterior probability that you chose Coin 3?
+
+This is a classic example of Bayesian inference with a discrete parameter space.  
+The \textbf{population} consists of three types of coins, each with a fixed probability of producing a head: $\theta \in \{0.25, 0.5, 0.75\}$. 
+
+
+We assume one of these coins is selected at random. The \textbf{sample} is a single coin toss from the selected coin, which results in observing a head.  
+Using this one data point, we update our belief (prior distribution) over the possible values of $\theta$ to obtain a posterior distribution.
+
+Let $X = 1$ denote the event that you observe a head, and $X = 0$ for a tail.
+
+Let $\theta$ denote the probability of heads. Then $\theta \in \{0.25, 0.5, 0.75\}$.
+
+The \textbf{prior probabilities} are:
+\[
+P(\theta = 0.25) = P(\theta = 0.5) = P(\theta = 0.75) = \frac{1}{3}
+\]
+
+The \textbf{likelihood} is given by the Bernoulli probability mass function:
+\[
+P(X = x | \theta) = \theta^x (1 - \theta)^{1 - x}
+\]
+Since we observed $X = 1$, the likelihood becomes $P(X=1 | \theta) = \theta$.
+
+We now calculate the unnormalized and normalized posterior probabilities using Bayes' Theorem:
+
+\[
+\underbrace{P(\theta | X = 1)}_{\text{posterior}} \underbrace{\propto P(X=1 | \theta)}_{\text{likelihood}} \cdot \underbrace{P(\theta)}_{\text{prior}}
+\]
+
+\begin{center}
+\begin{tabular}{cc|cccc}
+\toprule
+Coin & $\theta$ & Prior & Likelihood & Unnorm. Posterior & Norm. Posterior \\
+ &  & $P(\theta)$ & $P(X=1 | \theta)$ & $P(\theta | X = 1)$ & $\dfrac{P(\theta | X = 1)}{\sum P(\theta | X = 1)}$\\
+\midrule
+1 & 0.25 & 0.33 & 0.25 & $0.0825$ & $0.167$ \\
+2 & 0.50 & 0.33 & 0.50 & $0.1650$ & $0.333$ \\
+3 & 0.75 & 0.33 & 0.75 & $0.2475$ & $0.500$ \\
+\midrule
+ &  Sum & 1.00 &  & $0.495$ & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The posterior probability that the coin chosen was Coin 3, given that a head was observed, is:
+\[
+P(\theta = 0.75 \mid X = 1) = 0.5
+\]
+
+This illustrates how Bayesian estimation updates our belief about which coin was selected based on the observed outcome.
+
+\hfill $\blacksquare$
+
 
 When you have your posterior density $\pi_{\Theta}(\theta|\mathbf{X})$, you still need a single “best‐guess” $\hat{\theta}$. Bayesian decision theory tells us that the choice of $\hat{\theta}$ depends on a loss function $L(\theta, \hat{\theta})$, which quantifies how “bad” it is to decide $\hat{\theta}$ when the true parameter is $\theta$. When our estimate is $\hat{\theta}$, the \textbf{expected posterior loss} is
 $$h(\hat{\theta}) = \int_{\theta} L(\theta, \hat{\theta}) \pi_{\Theta}(\theta|\mathbf{X}) d\theta$$
@@ -7139,13 +7202,13 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
     = \int_{-\infty}^{\hat{\theta}} \pi_{\Theta}(\theta|\mathbf{X})\,d\theta
       \;-\;
       \int_{\hat{\theta}}^{\infty} \pi_{\Theta}(\theta|\mathbf{X})\,d\theta
-    = F_{\Theta}(\hat{\theta}) - \bigl(1 - F_{\Theta}(\hat{\theta})\bigr),
+    = \Pi_{\Theta}(\hat{\theta}) - \bigl(1 - \Pi_{\Theta}(\hat{\theta})\bigr),
   \]
-  where \(F_{\Theta}(t)=\int_{-\infty}^{t}\pi_{\Theta}(\theta|\mathbf{X})\,d\theta\) is the posterior CDF.  Setting this derivative to zero:
+  where \(\Pi_{\Theta}(t)=\int_{-\infty}^{t}\pi_{\Theta}(\theta|\mathbf{X})\,d\theta\) is the posterior CDF.  Setting this derivative to zero:
   \[
-    F_{\Theta}(\hat{\theta}) - \bigl(1 - F_{\Theta}(\hat{\theta})\bigr) = 0
+    \Pi_{\Theta}(\hat{\theta}) - \bigl(1 - \Pi_{\Theta}(\hat{\theta})\bigr) = 0
     \quad\Longrightarrow\quad
-    F_{\Theta}(\hat{\theta}) = \tfrac12
+    \Pi_{\Theta}(\hat{\theta}) = \tfrac12
   \]
   Hence the Bayes estimator \(\hat{\theta}\) under absolute‐error loss is the \textbf{median (midpoint of the CDF) of the posterior distribution}, satisfying
   \[
@@ -7170,22 +7233,22 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
   
   The expected posterior loss:
   \[
-    h(\hat{\theta}) = \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta.
+    h(\hat{\theta}) = \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta| \mathbf{X})\,d\theta.
   \]
   
   Since \(L(\theta, \hat{\theta}) = 0\) only at \(\theta = \hat{\theta}\) and equals 1 elsewhere, we can simplify the expected posterior loss:
   \begin{align*}
-  h(\hat{\theta}) &= \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta \\
-  &= \int_{\theta \neq \hat{\theta}} \pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta\\ &
-      = 1 - \pi_{\Theta}(\hat{\theta} \mid \mathbf{X})
+  h(\hat{\theta}) &= \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta| \mathbf{X})\,d\theta \\
+  &= \int_{\theta \neq \hat{\theta}} \pi_{\Theta}(\theta| \mathbf{X})\,d\theta\\ &
+      = 1 - \pi_{\Theta}(\hat{\theta} | \mathbf{X})
   \end{align*}
     
   
   
   Therefore,
   \[
-    \hat{\theta} = \arg\min_{\hat{\theta}} \left(1 - \pi_{\Theta}(\hat{\theta} \mid \mathbf{X})\right) 
-    = \arg\max_{\hat{\theta}} \pi_{\Theta}(\hat{\theta} \mid \mathbf{X}).
+    \hat{\theta} = \arg\min_{\hat{\theta}} \left(1 - \pi_{\Theta}(\hat{\theta} | \mathbf{X})\right) 
+    = \arg\max_{\hat{\theta}} \pi_{\Theta}(\hat{\theta} | \mathbf{X})
   \]
   
   Hence, the Bayes estimator under zero–one loss is the value of \(\theta\) that maximizes the posterior density, i.e., the \textbf{maximum a posteriori (MAP)} estimator. In other words, it is the \textbf{mode of the posterior distribution}.
@@ -7194,34 +7257,66 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
 
 \textbf{Example}: Suppose we have:
 \begin{itemize}
-  \item Observations: \( X_1, X_2, \dots, X_n \overset{\text{iid}}{\sim} \mathcal{N}(\mu, \sigma^2) \), where \(\sigma^2\) is known,
-  \item Prior distribution: \( \mu \sim \mathcal{N}(\mu_0, \tau^2) \)
+  \item Observations: \( X_1, X_2, \dots, X_n \overset{\text{iid}}{\sim} \mathcal{N}(\mu, 1) \),
+  \item Prior distribution: \( \mu \sim \mathcal{N}(0, \tau^{-2}) \)
 \end{itemize}
 
 Likelihood:
 
-$$f_{\textbf{X}}(\textbf{x}|\mu) = \frac{1}{\sigma \sqrt{2\pi}}\exp \left(-\sum_i\frac{(x_i - \mu)^2}{2\sigma^2} \right) $$
+$$f_{\textbf{X}}(\textbf{x}|\mu) = \frac{1}{\sqrt{2\pi}}\exp \left(-\sum_i\frac{(x_i - \mu)^2}{2} \right) $$
 
-Then the posterior is given by
+Prior distribution:
+$$\pi_M(\mu) = \frac{1}{\tau\sqrt{2\pi}}\exp \left(-\frac{\mu^2\tau^2}{2} \right)$$
+
+Then the posterior distribution is given by
 
 \begin{align*}
 \pi_M(\mu | \textbf{x}) &\propto f_{\textbf{X}}(\textbf{x}|\mu) \cdot \pi_M(\mu) \\
-&\propto \left(-\sum_i\frac{(x_i - \mu)^2}{2\sigma^2} \right) \cdot \left(-\frac{(\mu - \mu_0)^2}{2\tau^2} \right)
+&\propto \exp\left(-\frac{1}{2}\sum_i(x_i - \mu)^2 \right) \cdot \exp \left(-\frac{\mu^2\tau^2}{2} \right)
 \end{align*}
- of \(\mu\) given data \(\mathbf{X} = (X_1, \dots, X_n)\) is also Normal:
-\[
-\mu \mid \mathbf{X} \sim \mathcal{N}(\mu_n, \tau_n^2)
-\]
-where
-\[
-\mu_n = \frac{\bar{X} \cdot \frac{n}{\sigma^2} + \mu_0 \cdot \frac{1}{\tau^2}}{\frac{n}{\sigma^2} + \frac{1}{\tau^2}}, \quad
-\tau_n^2 = \left( \frac{n}{\sigma^2} + \frac{1}{\tau^2} \right)^{-1}
-\]
 
-Thus, the Bayes estimator under squared-error loss is:
-\[
-\hat{\mu}_{\text{Bayes}} = \mu_n
-\]
+Now expand the squared term in the sum:
+\begin{align*}
+\sum_i (x_i - \mu)^2 &= \sum_i x_i^2 - 2\mu \sum_i x_i + n\mu^2
+\end{align*}
+
+Ignoring terms not involving $\mu$, we write:
+\begin{align*}
+\pi_M(\mu | \textbf{x})&\propto \exp\left(  \mu \sum_i x_i - \frac{n}{2} \mu^2 \right)  
+         \cdot \exp\left(  -\frac{1}{2} \mu^2 \tau^2 \right) \\
+&\propto \exp\left[ 
+  \mu \sum_i x_i 
+  - \frac{1}{2}(n + \tau^2)\mu^2 
+\right]    
+\end{align*}
+
+Now,
+\begin{align*}
+\mu \sum_i x_i - \frac{1}{2}(n + \tau^2)\mu^2 
+&= -\frac{1}{2}(n + \tau^2) \left[ 
+  \mu^2 - \frac{2 \sum_i x_i}{n + \tau^2} \mu 
+\right] \\
+&= -\frac{1}{2}(n + \tau^2) \left[ 
+  \left( \mu - \frac{\sum_i x_i}{n + \tau^2} \right)^2 
+  - \left( \frac{\sum_i x_i}{n + \tau^2} \right)^2 
+\right]
+\end{align*}
+
+Drop the constant term (independent of $\mu$):
+\begin{align*}
+\pi_M(\mu | \textbf{x})\propto \exp\left[ 
+  -\frac{1}{2}(n + \tau^2) \left( 
+    \mu - \frac{\sum_i x_i}{n + \tau^2} 
+  \right)^2 
+\right]
+\end{align*}
+
+So the posterior distribution of $\mu$ given data $ \textbf{x} $ is a Normal distribution with mean and variance given by:
+$$\text{Mean} = \frac{\sum_i x_i}{n^2+\tau^2} = \frac{n \overline{X}}{n^2+\tau^2}, \quad \text{Variance} = \frac{1}{n^2+\tau^2}$$
+
+
+The normal density is symmetric, and so the posterior mean, median and mode have the same value. Thus the optimal Bayes estimate of $\mu$ under squared, absolute and zero-one error loss is given by
+$$\hat{\theta} =  \frac{n\overline{X}}{n^2+\tau^2}$$
 
 
 % Bayesian methods are particularly useful when prior information is available or when data are limited. They also provide a full distribution of the parameter estimate, which is useful for constructing credible intervals and making probabilistic statements about the parameter.
