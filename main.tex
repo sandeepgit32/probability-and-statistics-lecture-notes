@@ -7023,20 +7023,208 @@ Equates sample moments to population moments:
 
 \subsection{Bayesian Estimation}
 
-Bayesian estimation is a method of statistical inference in which the unknown parameter is treated as a random variable with a probability distribution, known as the \textbf{prior distribution}. This approach combines prior beliefs about the parameter with information from observed data through the use of Bayes' Theorem.
+Bayesian estimation is a method of statistical inference in which the unknown parameter $\theta$ is modeled as a random variable $\Theta$ with a probability distribution $\pi_{\Theta}(\theta)$, known as the \textbf{prior distribution}. It is  intended to reflect our knowledge of the parameter $\theta$, before we gather data.
 
-Let \(\theta\) be the parameter of interest and \(\mathbf{X} = (X_1, X_2, \dots, X_n)\) be the observed data. Given a prior distribution \( \pi(\theta) \) and the likelihood function \( L(\theta \mid \mathbf{X}) = f(\mathbf{X} \mid \theta) \), the \textbf{posterior distribution} of \(\theta\) is given by
+Let \(\mathbf{X} = (X_1, X_2, \dots, X_n)\) be random variables representing the observations in the sample data with joint PDF (PMF) given $\Theta = \theta$ is given by $f_{\textbf{X}}(\textbf{x} | \theta)$ which is also known as the \textbf{likelihood}. When data $ \textbf{X}=\textbf{x} $ are observed, the extra information about $ \theta $ is combined with the prior distribution to obtain the \textbf{posterior distribution} $\pi_{\Theta}(\theta | \textbf{x})$ for $ θ $ given $ \textbf{X}=\textbf{x} $ using Bayes theorem as follows:
+
 \[
-\pi(\theta \mid \mathbf{X}) = \frac{f(\mathbf{X} \mid \theta) \pi(\theta)}{\int f(\mathbf{X} \mid \theta) \pi(\theta) \, d\theta}.
+\pi_{\Theta}(\theta|\mathbf{X}) = \frac{f_{\textbf{X}}(\mathbf{x}|\theta) \pi_{\Theta}(\theta)}{f_{\textbf{X}}(\mathbf{x})}
 \]
 
-The posterior distribution reflects our updated belief about the parameter after seeing the data. A common point estimate in Bayesian estimation is the \textbf{posterior mean}:
+where, 
 \[
-\hat{\theta}_{\text{Bayes}} = \mathbb{E}[\theta \mid \mathbf{X}],
+f_{\textbf{X}}(\mathbf{x}) =
+\begin{cases}
+\displaystyle
+\sum_{\theta} f_{\textbf{X}}(\mathbf{x} | \theta) \pi_{\Theta}(\theta),
+& \text{in the discrete case},\\[8pt]
+\displaystyle
+\int_{-\infty}^{\infty} f_{\textbf{X}}(\mathbf{x} | \theta) \pi_{\Theta}(\theta) \, d\theta,
+& \text{in the continuous case}.
+\end{cases}
 \]
-although other summaries such as the posterior median or mode can also be used depending on the context.
 
-Bayesian methods are particularly useful when prior information is available or when data are limited. They also provide a full distribution of the parameter estimate, which is useful for constructing credible intervals and making probabilistic statements about the parameter.
+Thus,
+\[
+\underbrace{\pi_{\Theta}(\theta | \textbf{x})}_{\text{posterior}}
+\;\propto\;
+\underbrace{f_{\textbf{X}}(\textbf{x} | \theta)}_{\text{likelihood}}
+\;\times\;
+\underbrace{\pi_{\Theta}(\theta)}_{\text{prior}}
+\]
+
+In practice the constant of proportionality chosen in such a way that it makes the total mass of the posterior distribution equal to one. The posterior distribution reflects our updated belief about the parameter after seeing the data. 
+
+When you have your posterior density $\pi_{\Theta}(\theta|\mathbf{X})$, you still need a single “best‐guess” $\hat{\theta}$. Bayesian decision theory tells us that the choice of $\hat{\theta}$ depends on a loss function $L(\theta, \hat{\theta})$, which quantifies how “bad” it is to decide $\hat{\theta}$ when the true parameter is $\theta$. When our estimate is $\hat{\theta}$, the \textbf{expected posterior loss} is
+$$h(\hat{\theta}) = \int_{\theta} L(\theta, \hat{\theta}) \pi_{\Theta}(\theta|\mathbf{X}) d\theta$$
+
+The Bayes estimator $ \hat{\theta} $ minimises the expected posterior loss i.e.
+\begin{align*}
+\hat{\theta} &= \arg \min_{\hat{\theta}} h(\hat{\theta})\\ &= \arg \min_{\hat{\theta}} \int_{\theta} L(\theta, \hat{\theta}) \pi_{\Theta}(\theta|\mathbf{X}) d\theta
+\end{align*}
+
+The form of the minimiser depends on the choice of \(L\). Some common cases are:
+\begin{enumerate}
+  \item \textbf{Squared‐error loss:} 
+    \[
+      L(\theta,\hat{\theta}) = (\theta - \hat{\theta})^2
+    \]
+    The posterior expected loss
+    \begin{align*}
+      h(\hat{\theta})
+      &= \int (\theta - \hat{\theta})^2 \,\pi_{\Theta}(\theta | \mathbf{X})\,d\theta\\
+      &= \int \bigl(\theta^2 - 2\hat{\theta}\,\theta + \hat{\theta}^2\bigr)\,\pi_{\Theta}(\theta|\mathbf{X})\,d\theta \\[6pt]
+      &= \int \theta^2\,\pi_{\Theta}(\theta|\mathbf{X})\,d\theta
+        \;-\; 2\hat{\theta}\int \theta\,\pi_{\Theta}(\theta|\mathbf{X})\,d\theta
+        \;+\; \hat{\theta}^2\int \pi_{\Theta}(\theta|\mathbf{X})\,d\theta \\[4pt]
+      &= \mathbb{E}[\Theta^2|\mathbf{X}]
+        \;-\; 2\hat{\theta}\,\mathbb{E}[\Theta|\mathbf{X}]
+        \;+\; \hat{\theta}^2,
+    \end{align*}
+    using \(\int\pi(\theta|\mathbf{X})\,d\theta=1\)
+    
+    To find the minimiser, differentiate \(h(\hat{\theta})\) with respect to \(\hat{\theta}\):
+    \[
+      \frac{dh(\hat{\theta})}{d\hat{\theta}}\,
+      = -2\,\mathbb{E}[\Theta|\mathbf{X}]
+        \;+\; 2\,\hat{\theta}.
+    \]
+    Setting this derivative to zero gives
+    \[
+      -2\,\mathbb{E}[\Theta|\mathbf{X}] + 2\,\hat{\theta}
+      = 0
+      \quad\Longrightarrow\quad
+      \hat{\theta}
+      = \mathbb{E}[\Theta|\mathbf{X}]
+    \]
+    Finally, check the second derivative:
+    \[
+      \frac{d^2h(\hat{\theta})}{d\hat{\theta}^2}\
+      = 2 > 0,
+    \]
+    so this critical point is indeed a minimum.
+    
+    Hence, the Bayes estimator \(\hat{\theta}\) under absolute‐error loss is the \textbf{mean of the posterior distribution}:
+    \[
+      \hat{\theta} = \mathbb{E}[\Theta | \mathbf{X}]
+    \]
+
+  \item \textbf{Absolute‐error loss:} 
+  \[
+    L(\theta,\hat{\theta}) = \lvert \theta - \hat{\theta} \rvert
+  \]
+  The posterior expected loss
+  \[
+    h(\hat{\theta})
+    = \int_{\Theta} \lvert \theta - \hat{\theta} \rvert \,\pi_{\Theta}(\theta | \mathbf{X})\,d\theta
+  \]
+  Split the integral at \(\hat{\theta}\):
+  \[
+    h(\hat{\theta})
+    = \int_{-\infty}^{\hat{\theta}} (\hat{\theta} - \theta)\,\pi_{\Theta}(\theta|\mathbf{X})\,d\theta
+      \;+\;
+      \int_{\hat{\theta}}^{\infty} (\theta - \hat{\theta})\,\pi_{\Theta}(\theta|\mathbf{X})\,d\theta
+  \]
+  Differentiate with respect to \(\hat{\theta}\).  By Leibniz’s rule\footnote{The \textbf{Leibniz integral rule} (differentiation under the integral sign) states that if 
+  $$\displaystyle H(t) = \int_{a(t)}^{b(t)} g(x,t)\,dx,$$
+  then
+  \[
+  \frac{d}{dt}\int_{a(t)}^{b(t)} g(x,t)\,dx
+  = g\bigl(b(t),t\bigr)\,b'(t)
+  - g\bigl(a(t),t\bigr)\,a'(t)
+  + \int_{a(t)}^{b(t)} \frac{\partial}{\partial t}\,g(x,t)\,dx.
+  \]}:
+  \[
+    \frac{d\,h(\hat{\theta})}{d \hat{\theta}}
+    = \int_{-\infty}^{\hat{\theta}} \pi_{\Theta}(\theta|\mathbf{X})\,d\theta
+      \;-\;
+      \int_{\hat{\theta}}^{\infty} \pi_{\Theta}(\theta|\mathbf{X})\,d\theta
+    = F_{\Theta}(\hat{\theta}) - \bigl(1 - F_{\Theta}(\hat{\theta})\bigr),
+  \]
+  where \(F_{\Theta}(t)=\int_{-\infty}^{t}\pi_{\Theta}(\theta|\mathbf{X})\,d\theta\) is the posterior CDF.  Setting this derivative to zero:
+  \[
+    F_{\Theta}(\hat{\theta}) - \bigl(1 - F_{\Theta}(\hat{\theta})\bigr) = 0
+    \quad\Longrightarrow\quad
+    F_{\Theta}(\hat{\theta}) = \tfrac12
+  \]
+  Hence the Bayes estimator \(\hat{\theta}\) under absolute‐error loss is the \textbf{median (midpoint of the CDF) of the posterior distribution}, satisfying
+  \[
+    \int_{-\infty}^{\hat{\theta}}\pi_{\Theta}(\theta|\mathbf{X})\,d\theta = \tfrac12
+  \]
+  Finally, the second derivative is
+  \[
+    \frac{d^2\,h(\hat{\theta})}{d \hat{\theta}^2}
+    = 2\,\pi_{\Theta}(\hat{\theta}|\mathbf{X}) \;\ge\; 0,
+  \]
+  so \(h(\hat{\theta})\) is convex at the solution, confirming that \(\hat{\theta}\) indeed minimizes the expected loss.  
+  
+
+  \item \textbf{Zero–one loss:}
+  \[
+    L(\theta,\hat{\theta}) = 
+    \begin{cases}
+      0, & \theta = \hat{\theta},\\
+      1, & \theta \neq \hat{\theta}.
+    \end{cases}
+  \]
+  
+  The expected posterior loss:
+  \[
+    h(\hat{\theta}) = \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta.
+  \]
+  
+  Since \(L(\theta, \hat{\theta}) = 0\) only at \(\theta = \hat{\theta}\) and equals 1 elsewhere, we can simplify the expected posterior loss:
+  \begin{align*}
+  h(\hat{\theta}) &= \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta \\
+  &= \int_{\theta \neq \hat{\theta}} \pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta\\ &
+      = 1 - \pi_{\Theta}(\hat{\theta} \mid \mathbf{X})
+  \end{align*}
+    
+  
+  
+  Therefore,
+  \[
+    \hat{\theta} = \arg\min_{\hat{\theta}} \left(1 - \pi_{\Theta}(\hat{\theta} \mid \mathbf{X})\right) 
+    = \arg\max_{\hat{\theta}} \pi_{\Theta}(\hat{\theta} \mid \mathbf{X}).
+  \]
+  
+  Hence, the Bayes estimator under zero–one loss is the value of \(\theta\) that maximizes the posterior density, i.e., the \textbf{maximum a posteriori (MAP)} estimator. In other words, it is the \textbf{mode of the posterior distribution}.
+  
+\end{enumerate}
+
+\textbf{Example}: Suppose we have:
+\begin{itemize}
+  \item Observations: \( X_1, X_2, \dots, X_n \overset{\text{iid}}{\sim} \mathcal{N}(\mu, \sigma^2) \), where \(\sigma^2\) is known,
+  \item Prior distribution: \( \mu \sim \mathcal{N}(\mu_0, \tau^2) \)
+\end{itemize}
+
+Likelihood:
+
+$$f_{\textbf{X}}(\textbf{x}|\mu) = \frac{1}{\sigma \sqrt{2\pi}}\exp \left(-\sum_i\frac{(x_i - \mu)^2}{2\sigma^2} \right) $$
+
+Then the posterior is given by
+
+\begin{align*}
+\pi_M(\mu | \textbf{x}) &\propto f_{\textbf{X}}(\textbf{x}|\mu) \cdot \pi_M(\mu) \\
+&\propto \left(-\sum_i\frac{(x_i - \mu)^2}{2\sigma^2} \right) \cdot \left(-\frac{(\mu - \mu_0)^2}{2\tau^2} \right)
+\end{align*}
+ of \(\mu\) given data \(\mathbf{X} = (X_1, \dots, X_n)\) is also Normal:
+\[
+\mu \mid \mathbf{X} \sim \mathcal{N}(\mu_n, \tau_n^2)
+\]
+where
+\[
+\mu_n = \frac{\bar{X} \cdot \frac{n}{\sigma^2} + \mu_0 \cdot \frac{1}{\tau^2}}{\frac{n}{\sigma^2} + \frac{1}{\tau^2}}, \quad
+\tau_n^2 = \left( \frac{n}{\sigma^2} + \frac{1}{\tau^2} \right)^{-1}
+\]
+
+Thus, the Bayes estimator under squared-error loss is:
+\[
+\hat{\mu}_{\text{Bayes}} = \mu_n
+\]
+
+
+% Bayesian methods are particularly useful when prior information is available or when data are limited. They also provide a full distribution of the parameter estimate, which is useful for constructing credible intervals and making probabilistic statements about the parameter.
 
 
 
@@ -7096,8 +7284,46 @@ Sample size affects the accuracy and reliability of estimates. It depends on the
 
 
 
-\section{Conclusion}
-Estimation is essential for making inferences about population parameters using sample data. Point estimation provides a single best guess, while interval estimation provides a range with a confidence level. Properties like unbiasedness and consistency ensure the quality of estimators, and methods like MLE and method of moments offer practical ways to derive them.
+\section{Information and Efficiency of a Random Sample}
+
+In estimation theory, the concepts of \textbf{Fisher information} and \textbf{efficiency} play a crucial role in assessing the quality of an estimator derived from a random sample.
+
+
+\subsection{Fisher Information}
+
+Let $X_1, X_2, \dots, X_n$ be a random sample from a distribution with probability density (or mass) function $f(x; \theta)$, where $\theta$ is the parameter to be estimated. The \textbf{Fisher information} contained in a single observation $X$ is defined as
+\[
+I(\theta) = \mathbb{E} \left[ \left( \frac{\partial}{\partial\theta} \log f(X; \theta) \right)^2 \right]
+\]
+provided certain regularity conditions are met. An alternative but equivalent form is
+\[
+I(\theta) = -\mathbb{E} \left[ \frac{\partial^2}{\partial\theta^2} \log f(X; \theta) \right]
+\]
+
+For $n$ independent and identically distributed (i.i.d.) observations, the total Fisher information is
+\[
+I_n(\theta) = n \cdot I(\theta)
+\]
+
+Fisher information quantifies the amount of information the sample carries about the parameter $\theta$. More information generally leads to a more precise estimation.
+
+\subsection{Cramér-Rao Inequality}
+
+The \textbf{Cramér-Rao Inequality} (or Cramér-Rao Lower Bound) provides a theoretical lower bound on the variance of any unbiased estimator of a parameter $\theta$. It states that for any unbiased estimator $\hat{\theta}$ of $\theta$,
+\[
+\mathrm{Var}(\hat{\theta}) \geq \frac{1}{I_n(\theta)}.
+\]
+
+This bound implies that no unbiased estimator can have a variance smaller than the reciprocal of the Fisher information. If an estimator attains this bound, it is said to be \textbf{efficient}.
+
+\subsection{Efficiency of an Estimator}
+
+The \textbf{efficiency} of an unbiased estimator $\hat{\theta}$ is the ratio of the minimum achievable variance (given by the Cramér-Rao bound) to the actual variance of the estimator:
+\[
+\text{Efficiency}(\hat{\theta}) = \frac{1 / I_n(\theta)}{\mathrm{Var}(\hat{\theta})}.
+\]
+
+An estimator with efficiency equal to 1 is called \textbf{efficient}, meaning it achieves the Cramér-Rao Lower Bound. While exact efficiency is rare for finite samples, maximum likelihood estimators (MLEs) are asymptotically efficient—they approach the Cramér-Rao bound as the sample size increases.
 
 
 
