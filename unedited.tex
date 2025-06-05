@@ -543,6 +543,43 @@ coordinates {
 };
 \end{axis}
 \end{tikzpicture}
+
+\subsection{Fisher Information}
+
+Let $X_1, X_2, \dots, X_n$ be a random sample from a distribution with probability density (or mass) function $f(x; \theta)$, where $\theta$ is the parameter to be estimated. The \textbf{Fisher information} contained in a single observation $X$ is defined as
+\[
+I(\theta) = \mathbb{E} \left[ \left( \frac{\partial}{\partial\theta} \log f(X; \theta) \right)^2 \right]
+\]
+provided certain regularity conditions are met. An alternative but equivalent form is
+\[
+I(\theta) = -\mathbb{E} \left[ \frac{\partial^2}{\partial\theta^2} \log f(X; \theta) \right]
+\]
+
+For $n$ independent and identically distributed (i.i.d.) observations, the total Fisher information is
+\[
+I_n(\theta) = n \cdot I(\theta)
+\]
+
+Fisher information quantifies the amount of information the sample carries about the parameter $\theta$. More information generally leads to a more precise estimation.
+
+\subsection{Cramér-Rao Inequality}
+
+The \textbf{Cramér-Rao Inequality} (or Cramér-Rao Lower Bound) provides a theoretical lower bound on the variance of any unbiased estimator of a parameter $\theta$. It states that for any unbiased estimator $\hat{\theta}$ of $\theta$,
+\[
+\mathrm{Var}(\hat{\theta}) \geq \frac{1}{I_n(\theta)}.
+\]
+
+This bound implies that no unbiased estimator can have a variance smaller than the reciprocal of the Fisher information. If an estimator attains this bound, it is said to be \textbf{efficient}.
+
+\subsection{Efficiency of an Estimator}
+
+The \textbf{efficiency} of an unbiased estimator $\hat{\theta}$ is the ratio of the minimum achievable variance (given by the Cramér-Rao bound) to the actual variance of the estimator:
+\[
+\text{Efficiency}(\hat{\theta}) = \frac{1 / I_n(\theta)}{\mathrm{Var}(\hat{\theta})}.
+\]
+
+An estimator with efficiency equal to 1 is called \textbf{efficient}, meaning it achieves the Cramér-Rao Lower Bound. While exact efficiency is rare for finite samples, maximum likelihood estimators (MLEs) are asymptotically efficient—they approach the Cramér-Rao bound as the sample size increases.
+
 \end{center}
 
 

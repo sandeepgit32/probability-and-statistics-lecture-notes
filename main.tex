@@ -57,6 +57,7 @@
 \author{Sandip Karar}
 \date{\today}
 
+
 \begin{document}
 
 \begin{titlepage}
@@ -139,6 +140,9 @@
 \chapter{Descriptive Statistics}
 
 \section{Introduction}
+
+\href{https://bookdown.org/egarpor/inference/estmeth-mm.html}{https://bookdown.org/egarpor/inference/estmeth-mm.html}
+
 Statistics is a branch of mathematics that deals with the collection, organization, analysis, interpretation, and presentation of data. It provides tools for making informed decisions in the presence of uncertainty.
 
 \subsection{Uses of Statistics}
@@ -6997,7 +7001,7 @@ Log-likelihood:
 Taking partial derivatives and solving the system:
 \begin{align*}
 \frac{\partial}{\partial \mu} \log L(\mu,\sigma^2) = 0 &\Rightarrow \hat{\mu} = \overline{x} \\
-\frac{\partial}{\partial \mu} \log L(\mu,\sigma^2) = 0 &\Rightarrow \hat{\sigma}^2 = \frac{1}{n} \sum_i (x_i - \overline{x})^2
+\frac{\partial}{\partial \sigma^2} \log L(\mu,\sigma^2) = 0 &\Rightarrow \hat{\sigma}^2 = \frac{1}{n} \sum_i (x_i - \overline{x})^2
 \end{align*}
 Thus, the MLEs for \( \mu \) and \( \sigma^2 \) are the sample mean $\overline{X}$ and sample variance $\frac{1}{n} \sum_i (x_i - \bar{x})^2$ (without Bessel's correction), respectively.
 
@@ -7014,12 +7018,6 @@ S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2 = \frac{n-1}{n}\hat{\sigma}^2
 
 The MLE estimator tends to underestimate the true variance.
 
-
-\subsection{Method of Moments}
-Equates sample moments to population moments:
-\[
-\mu_k = \mathbb{E}[X^k] \approx \frac{1}{n} \sum_{i=1}^n X_i^k
-\]
 
 \subsection{Bayesian Estimation}
 
@@ -7091,14 +7089,14 @@ Since we observed $X = 1$, the likelihood becomes $P(X=1 | \theta) = \theta$.
 We now calculate the unnormalized and normalized \textbf{posterior probabilities} using Bayes' Theorem:
 
 \[
-\underbrace{P(\theta | X = 1)}_{\text{posterior}} \underbrace{\propto P(X=1 | \theta)}_{\text{likelihood}} \cdot \underbrace{P(\theta)}_{\text{prior}}
+\underbrace{P(\theta | X = 1)}_{\text{posterior}} \quad \propto \quad \underbrace{ P(X=1 | \theta)}_{\text{likelihood}} \times \underbrace{P(\theta)}_{\text{prior}}
 \]
 
 \begin{center}
 \begin{tabular}{cc|cccc}
 \toprule
 Coin & $\theta$ & Prior & Likelihood & Unnorm. Posterior & Norm. Posterior \\
- &  & $P(\theta)$ & $P(X=1 | \theta)$ & $P(\theta | X = 1)$ & $\dfrac{P(\theta | X = 1)}{\sum P(\theta | X = 1)}$\\
+ &  & $P(\theta)$ & $P(X=1 | \theta)$ & $P(\theta | X = 1)$ & $\dfrac{P(\theta | X = 1)}{\sum_{\theta} P(\theta | X = 1)}$\\
 \midrule
 1 & 0.25 & 0.33 & 0.25 & $0.0825$ & $0.167$ \\
 2 & 0.50 & 0.33 & 0.50 & $0.1650$ & $0.333$ \\
@@ -7322,8 +7320,80 @@ $$\hat{\theta} =  \frac{n\overline{X}}{n^2+\tau^2}$$
 % Bayesian methods are particularly useful when prior information is available or when data are limited. They also provide a full distribution of the parameter estimate, which is useful for constructing credible intervals and making probabilistic statements about the parameter.
 
 
+\subsection{Method of Moments}
+The \textbf{method of moments} is a classical technique used to estimate unknown parameters of a probability distribution using sample data. The core idea is simple: it equates the theoretical moments of a distribution (which depend on the parameters) to the corresponding sample moments computed from the data.
+
+Let \( X_1, X_2, \dots, X_n \) be a random sample from a population with a distribution that depends on one or more parameters \( \theta_1, \theta_2, \dots, \theta_k \).
+
+\begin{itemize}
+    \item The \textbf{r-th population moment} about the origin is defined as:
+    \[
+    \mu'_r = \mathbb{E}\left( X^r\right) 
+    \]
+    which is a function of the unknown parameters \( \theta_1, \dots, \theta_k \).
+
+    \item The \textbf{r-th sample moment} about the origin is defined as:
+    \[
+    m'_r = \frac{1}{n} \sum_{i=1}^n x_i^r
+    \]
+    which is computable from observed data.
+\end{itemize}
+
+The \textbf{method of moments estimator} \( \hat{\theta} \) is obtained by equating the sample moment to the corresponding population moment. Let's equate the first sample moment to the first population moment:
+\[
+m'_1 = \mu(\theta)
+\]
+Solving this equation for \( \theta \) yields the estimator:
+\[
+\hat{\theta} = \mu^{-1}(m'_1)
+\]
+assuming \( \mu(\theta) \) is invertible.
+
+\medskip
+
+\noindent This approach can be extended to multiple parameters. If the distribution depends on multiple parameters \( \theta_1, \dots, \theta_k \), then the first \( k \) theoretical moments are equated to the first \( k \) sample moments:
+\begin{align*}
+m'_1 &= \mu'_1(\theta_1,\theta_2, \dots, \theta_k), \\
+m'_2 &= \mu'_2(\theta_1,\theta_2, \dots, \theta_k), \\ 
+&\quad \vdots \\
+m'_k &= \mu'_k(\theta_1,\theta_2, \dots, \theta_k)
+\end{align*}
+Solving these \( k \) equations yields the method of moments estimators \( \hat{\theta}_1,\theta_2, \dots, \hat{\theta}_k \).
+
+\subsubsection*{Example: Exponential Distribution}
+
+Suppose \( X_1,X_2, \dots, X_n \) is a sample from an exponential distribution with parameter \( \lambda > 0 \), having density
+\[
+f_{X}(x; \lambda) = \lambda e^{-\lambda x}, \quad x \geq 0
+\]
+
+The first population moment (mean) is:
+\[
+\mu'_1 = \mathbb{E}\left( X\right)  = \frac{1}{\lambda}
+\]
+
+The first sample moment is:
+\[
+m'_1 = \frac{1}{n} \sum_{i=1}^n x_i = \overline{X}
+\]
+where $x_i$ is the observation of the random variable $X_i$.
+
+Equating the moments:
+\[
+\overline{X} = \frac{1}{\lambda}
+\quad \Rightarrow \quad
+\hat{\lambda} = \frac{1}{\overline{X}}
+\]
+
+Hence, the method of moments estimator for \( \lambda \) is:
+\[
+\hat{\lambda} = \frac{1}{\overline{X}}
+\]
+
+
 
 \section{Interval Estimation}
+
 \subsection{Definition}
 An \textbf{interval estimator} provides a range (interval) of values that is believed to contain the true value of the parameter with a certain level of confidence.
 
@@ -7382,44 +7452,6 @@ Sample size affects the accuracy and reliability of estimates. It depends on the
 \section{Information and Efficiency of a Random Sample}
 
 In estimation theory, the concepts of \textbf{Fisher information} and \textbf{efficiency} play a crucial role in assessing the quality of an estimator derived from a random sample.
-
-
-\subsection{Fisher Information}
-
-Let $X_1, X_2, \dots, X_n$ be a random sample from a distribution with probability density (or mass) function $f(x; \theta)$, where $\theta$ is the parameter to be estimated. The \textbf{Fisher information} contained in a single observation $X$ is defined as
-\[
-I(\theta) = \mathbb{E} \left[ \left( \frac{\partial}{\partial\theta} \log f(X; \theta) \right)^2 \right]
-\]
-provided certain regularity conditions are met. An alternative but equivalent form is
-\[
-I(\theta) = -\mathbb{E} \left[ \frac{\partial^2}{\partial\theta^2} \log f(X; \theta) \right]
-\]
-
-For $n$ independent and identically distributed (i.i.d.) observations, the total Fisher information is
-\[
-I_n(\theta) = n \cdot I(\theta)
-\]
-
-Fisher information quantifies the amount of information the sample carries about the parameter $\theta$. More information generally leads to a more precise estimation.
-
-\subsection{Cramér-Rao Inequality}
-
-The \textbf{Cramér-Rao Inequality} (or Cramér-Rao Lower Bound) provides a theoretical lower bound on the variance of any unbiased estimator of a parameter $\theta$. It states that for any unbiased estimator $\hat{\theta}$ of $\theta$,
-\[
-\mathrm{Var}(\hat{\theta}) \geq \frac{1}{I_n(\theta)}.
-\]
-
-This bound implies that no unbiased estimator can have a variance smaller than the reciprocal of the Fisher information. If an estimator attains this bound, it is said to be \textbf{efficient}.
-
-\subsection{Efficiency of an Estimator}
-
-The \textbf{efficiency} of an unbiased estimator $\hat{\theta}$ is the ratio of the minimum achievable variance (given by the Cramér-Rao bound) to the actual variance of the estimator:
-\[
-\text{Efficiency}(\hat{\theta}) = \frac{1 / I_n(\theta)}{\mathrm{Var}(\hat{\theta})}.
-\]
-
-An estimator with efficiency equal to 1 is called \textbf{efficient}, meaning it achieves the Cramér-Rao Lower Bound. While exact efficiency is rare for finite samples, maximum likelihood estimators (MLEs) are asymptotically efficient—they approach the Cramér-Rao bound as the sample size increases.
-
 
 
 \chapter{Test of Hypothesis}
