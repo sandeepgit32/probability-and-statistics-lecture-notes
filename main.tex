@@ -7066,7 +7066,7 @@ In practice the constant of proportionality chosen in such a way that it makes t
 You randomly select one coin and flip it once. You observe a head. What is the posterior probability that you chose Coin 3?
 
 This is a classic example of Bayesian inference with a discrete parameter space.  
-The \textbf{population} consists of three types of coins, each with a fixed probability of producing a head: $\theta \in \{0.25, 0.5, 0.75\}$. 
+The \textbf{population} consists of three types of coins, each with a different probability of producing a head: $\theta \in \{0.25, 0.5, 0.75\}$. 
 
 
 We assume one of these coins is selected at random. The \textbf{sample} is a single coin toss from the selected coin, which results in observing a head.  
@@ -7080,6 +7080,7 @@ The \textbf{prior probabilities} are:
 \[
 P(\theta = 0.25) = P(\theta = 0.5) = P(\theta = 0.75) = \frac{1}{3}
 \]
+Because the probability of selecting any coin at random is same before we have the knowledge of the sample observation.
 
 The \textbf{likelihood} is given by the Bernoulli probability mass function:
 \[
@@ -7087,7 +7088,7 @@ P(X = x | \theta) = \theta^x (1 - \theta)^{1 - x}
 \]
 Since we observed $X = 1$, the likelihood becomes $P(X=1 | \theta) = \theta$.
 
-We now calculate the unnormalized and normalized posterior probabilities using Bayes' Theorem:
+We now calculate the unnormalized and normalized \textbf{posterior probabilities} using Bayes' Theorem:
 
 \[
 \underbrace{P(\theta | X = 1)}_{\text{posterior}} \underbrace{\propto P(X=1 | \theta)}_{\text{likelihood}} \cdot \underbrace{P(\theta)}_{\text{prior}}
@@ -7115,8 +7116,7 @@ P(\theta = 0.75 \mid X = 1) = 0.5
 
 This illustrates how Bayesian estimation updates our belief about which coin was selected based on the observed outcome.
 
-\hfill $\blacksquare$
-
+\subsubsection{Bayesian approach to point estimation}
 
 When you have your posterior density $\pi_{\Theta}(\theta|\mathbf{X})$, you still need a single “best‐guess” $\hat{\theta}$. Bayesian decision theory tells us that the choice of $\hat{\theta}$ depends on a loss function $L(\theta, \hat{\theta})$, which quantifies how “bad” it is to decide $\hat{\theta}$ when the true parameter is $\theta$. When our estimate is $\hat{\theta}$, the \textbf{expected posterior loss} is
 $$h(\hat{\theta}) = \int_{\theta} L(\theta, \hat{\theta}) \pi_{\Theta}(\theta|\mathbf{X}) d\theta$$
