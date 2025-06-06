@@ -5790,6 +5790,109 @@ Thus, approximately $6.68\%$ of adult males are taller than 190 cm.
   \end{tikzpicture}
 \end{figure}
 
+\subsection{Critical Points of the Standard Normal Distribution}
+
+In the standard normal distribution, certain values on the horizontal axis divide the distribution into regions with specified probabilities. These special values are called \textbf{critical points}.
+
+\textbf{One‐sided critical point}: For a given probability \(\alpha\), the one‐sided critical point $z_{\alpha}$ is such that
+\[
+P(Z > z_{\alpha}) = \alpha
+\]
+or equivalently \(P(Z \le z_{\alpha}) = 1 - \alpha\).  
+
+\begin{center}
+	\begin{tikzpicture}
+	\begin{axis}[
+	no markers, domain=-4.5:4.5, samples=200,
+	axis lines=center, axis y line=none,
+	xlabel={$z$}, ylabel={$f_Z(z)$},
+	ymin=0, ymax=0.45, xmin=-4.5, xmax=4.5,
+	height=5cm, width=12cm,
+	xtick={1.645}, xticklabels={\(z_{\alpha}\)},
+	ytick=\empty, clip=false
+	]
+	% PDF curve
+	\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
+	% Shade right tail
+	\addplot [domain=1.645:4.5, draw=none, fill=blue!20] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+	% Dashed line
+	\draw[dashed] (axis cs:1.645,0) -- (axis cs:1.645,{1/sqrt(2*pi)*exp(-1.645^2/2)});
+	% Labels
+	\node[below] at (axis cs:2.2,0.1) {\(\alpha\)};
+	\node[above] at (axis cs:0,0.12) {\(1 - \alpha\)};
+	\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+	\item For \(\alpha = 0.05\), the one‐sided critical point is approximately \(z_{0.05} \approx 1.645\).
+	\item For \(\alpha = 0.01\), the one‐sided critical point is approximately \(z_{0.01} \approx 2.326\).
+\end{itemize}
+
+\textbf{Two‐sided critical points}: For a given probability \(\alpha\), the two‐sided critical points \(\pm z_{\alpha/2}\) are such that
+
+\[
+P(Z > z_{\alpha/2}) = \alpha/2, \quad P(Z < -z_{\alpha/2}) = \alpha/2
+\]
+or equivalently
+\[
+P(-z_{\alpha/2} \le Z \le z_{\alpha/2}) \;=\; 1 - \alpha
+\]
+
+\begin{center}
+	\begin{tikzpicture}
+	\begin{axis}[
+	no markers, domain=-4:4, samples=200,
+	axis lines=center,
+	axis y line=none,
+	xlabel={$z$}, ylabel={$f_Z(z)$},
+	ymin=0, ymax=0.45,
+	xmin=-4.5, xmax=4.5,
+	height=5cm, width=12cm,
+	xtick={-1.96,0,1.96},
+	xticklabels={\(-z_{\alpha/2}\), 0, \(z_{\alpha/2}\)},
+	ytick=\empty,
+	clip=false
+	]
+	% PDF curve of standard normal
+	\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
+	
+	% Shade the confidence interval region [-z_alpha/2, z_alpha/2]
+	\addplot [
+	domain=-4:-1.96, 
+	draw=none, 
+	fill=blue!20,
+	samples=100
+	]
+	{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+	
+	\addplot [
+	domain=1.96:4, 
+	draw=none, 
+	fill=blue!20,
+	samples=100
+	]
+	{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+	
+	% Vertical dashed lines at -z_alpha/2 and z_alpha/2
+	\draw[dashed] (axis cs:-1.96,0) -- (axis cs:-1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
+	\draw[dashed] (axis cs:1.96,0) -- (axis cs:1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
+	
+	% Labels
+	\node[below] at (axis cs:-2.5,0.1) { ${\alpha/2}$};
+	\node[below] at (axis cs:2.5,0.1) { ${\alpha/2}$};
+	\node[above, black] at (axis cs:0,0.1) { \(1-\alpha\)};
+	\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+	\item For \(\alpha = 0.05\), the two-sided critical points are approximately \(\pm 1.96\).
+	\item For \(\alpha = 0.01\), the two-sided critical points are approximately \(\pm 2.576\).
+\end{itemize}
+
+These critical points help us identify how extreme a value is relative to the overall distribution, and they are fundamental when constructing intervals to estimate population parameters. These critical points are used in hypothesis tests and to construct confidence intervals which we will see in future chapters.
+
 
 
 \chapter{Sampling Theory}
@@ -7433,6 +7536,8 @@ We read this as we are $100(1 - \alpha)\%$ confident that $\theta$ lies within t
     \item For a 99\% CI, $\alpha = 0.01$.
 \end{itemize}
 
+A 95\% confidence interval means that if we repeated the sampling procedure many times, approximately 95\% of the calculated intervals would contain the true parameter value.
+
 
 \subsection{Pivotal Method}
 
@@ -7465,41 +7570,146 @@ The steps to construct a confidence interval using the pivotal method are as fol
 
 \bigskip
 
-\textbf{Example: Confidence interval for the mean of a Normal distribution with known variance}
+\subsection{Confidence Interval for the Mean in a Normal Population (Known Variance)}
 
-Suppose $X_1, X_2, \dots, X_n$ is a random sample from a normal distribution $N(\mu, \sigma^2)$, where $\sigma^2$ is known. The sample mean $\bar{X}$ is normally distributed with
+Suppose $X_1, X_2, \dots, X_n$ is a random sample from a normal distribution $N(\mu, \sigma^2)$, where the variance $\sigma^2$ is known. The sample mean $\overline{X}$ follows
 \[
-\bar{X} \sim N\left(\mu, \frac{\sigma^2}{n}\right)
+\overline{X} \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)
 \]
-Then, the quantity
+The pivotal quantity
 \[
-Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}
+Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}
 \]
-is a pivotal quantity since $Z \sim N(0,1)$, and its distribution does not depend on the unknown parameter $\mu$.
+has a standard normal distribution, $Z \sim \mathcal{N}N(0,1)$, independent of the unknown parameter $\mu$.
 
-From the standard normal distribution, we have
+To find the confidence interval, we have to find critical values $a$ and $b$ such that
+$$P\left(a \leq Z \leq b\right) = 1 - \alpha$$
+Since the distribution is symmetric about zero, we can choose the critical values $a = -q, b = q$. For standard normal distribution, $q = z_{\alpha/2}$ represents the value of $z$ with tail area $\alpha/2$.
+
+\begin{center}
+	\begin{tikzpicture}
+	\begin{axis}[
+	no markers, domain=-4:4, samples=200,
+	axis lines=center,
+	axis y line=none,
+	xlabel={$z$}, ylabel={$f_Z(z)$},
+	ymin=0, ymax=0.45,
+	xmin=-4.5, xmax=4.5,
+	height=5cm, width=12cm,
+	xtick={-1.96,0,1.96},
+	xticklabels={\(-z_{\alpha/2}\), 0, \(z_{\alpha/2}\)},
+	ytick=\empty,
+	clip=false
+	]
+	% PDF curve of standard normal
+	\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
+	
+	% Shade the confidence interval region [-z_alpha/2, z_alpha/2]
+	\addplot [
+	domain=-4:-1.96, 
+	draw=none, 
+	fill=blue!20,
+	samples=100
+	]
+	{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+	
+	\addplot [
+	domain=1.96:4, 
+	draw=none, 
+	fill=blue!20,
+	samples=100
+	]
+	{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+	
+	% Vertical dashed lines at -z_alpha/2 and z_alpha/2
+	\draw[dashed] (axis cs:-1.96,0) -- (axis cs:-1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
+	\draw[dashed] (axis cs:1.96,0) -- (axis cs:1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
+	
+	% Labels
+	\node[below] at (axis cs:-2.5,0.1) { ${\alpha/2}$};
+	\node[below] at (axis cs:2.5,0.1) { ${\alpha/2}$};
+	\node[above, black] at (axis cs:0,0.05) { Confidence Level \(1-\alpha\)};
+	\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+
+Thus,
 \[
-P\left(-z_{\alpha/2} \leq \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \leq z_{\alpha/2}\right) = 1 - \alpha
+P\left(-z_{\alpha/2} \leq Z \leq z_{\alpha/2}\right) = 1 - \alpha
 \]
-Solving the inequality for $\mu$, we get
+which translates to
 \[
 P\left(\bar{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\right) = 1 - \alpha
 \]
 
-Thus, the $100(1 - \alpha)\%$ confidence interval for $\mu$ is
+Therefore, the $100(1-\alpha)\%$ confidence interval for $\mu$ is
 \[
-\left[\bar{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \; \bar{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \right]
+\left[\bar{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \quad \bar{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \right]
 \]
 
 \begin{itemize}
-    \item For a 95\% confidence level, $z_{\alpha/2} = 1.96$
-    \item For a 99\% confidence level, $z_{\alpha/2} = 2.576$
+	\item For a 95\% confidence level, $1-\alpha = 0.95$. From table $z_{\alpha/2} = 1.96$.
+	\item For a 99\% confidence level, $1-\alpha = 0.95$. From table $z_{\alpha/2} = 2.576$.
 \end{itemize}
 
-\bigskip
 
-This method is general and can be applied to construct confidence intervals for various parameters, provided a suitable pivotal quantity can be identified.
+\subsection{Confidence Interval for the Mean in a Normal Population (Unknown Variance)}
 
+Let $X_1, X_2, \dots, X_n$ be a random sample from a normal distribution $N(\mu, \sigma^2)$, where both $\mu$ and $\sigma^2$ are unknown. Let $\overline{X}$ be the sample mean and $S^2$ be sample variance.
+
+The pivotal quantity
+\[
+T = \frac{\overline{X} - \mu}{S / \sqrt{n}}
+\]
+follows a Student's $t$-distribution with $\nu = n - 1$ degrees of freedom:
+\[
+T \sim t_{n-1}
+\]
+Let $t_{\alpha/2}, n-1$ be the critical value of the t-distribution such that $P(t > t_{\alpha/2, n-1})=\alpha/2$. Hence, we can write
+\[
+P\left(-t_{\alpha/2, n-1} \leq T \leq t_{\alpha/2, n-1}\right) = 1 - \alpha
+\]
+which implies
+\[
+P\left(\overline{X} - t_{\alpha/2, n-1} \frac{S}{\sqrt{n}} \leq \mu \leq \overline{X} + t_{\alpha/2, n-1} \frac{S}{\sqrt{n}}\right) = 1 - \alpha
+\]
+
+Therefore, the $100(1-\alpha)\%$ confidence interval for $\mu$ is
+\[
+\left[\overline{X} - t_{\alpha/2, n-1} \frac{S}{\sqrt{n}}, \quad \overline{X} + t_{\alpha/2, n-1} \frac{S}{\sqrt{n}} \right]
+\]
+
+
+\subsection{Confidence Interval for the Variance in a Normal Population}
+
+Consider a random sample $X_1, X_2, \dots, X_n$ from a normal distribution $N(\mu, \sigma^2)$ with unknown variance $\sigma^2$. Let $S^2$ be sample variance.
+
+The pivotal quantity
+\[
+\chi^2 = \frac{(n-1) S^2}{\sigma^2}
+\]
+follows a chi-square distribution with $\nu = n-1$ degrees of freedom:
+\[
+\chi^2 \sim \chi^2_{n-1}
+\]
+
+
+
+From the chi-square distribution, we find critical values $\chi^2_{\alpha/2, n-1}$ and $\chi^2_{1-\alpha/2, n-1}$ such that
+\[
+P\left(\chi^2_{\alpha/2, n-1} \leq \frac{(n-1) S^2}{\sigma^2} \leq \chi^2_{1-\alpha/2, n-1}\right) = 1 - \alpha
+\]
+
+Rearranging to solve for $\sigma^2$, we get
+\[
+P\left(\frac{(n-1) S^2}{\chi^2_{1-\alpha/2, n-1}} \leq \sigma^2 \leq \frac{(n-1) S^2}{\chi^2_{\alpha/2, n-1}}\right) = 1 - \alpha
+\]
+
+Therefore, the $100(1-\alpha)\%$ confidence interval for $\sigma^2$ is
+\[
+\left[\frac{(n-1) S^2}{\chi^2_{1-\alpha/2, n-1}}, \quad \frac{(n-1) S^2}{\chi^2_{\alpha/2, n-1}} \right]
+\]
 
 
 \subsection{Confidence Interval}
