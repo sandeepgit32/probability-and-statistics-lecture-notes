@@ -4923,6 +4923,7 @@ Therefore in the limit \( n \to \infty \):
 \]
 
 This matches the PMF of the Poisson distribution with parameter \( \lambda \).
+
 \hfill\(\blacksquare\)
 
 \subsection{Mean and Variance of the Poisson Distribution}
@@ -6916,7 +6917,7 @@ In practice, it is often more convenient to work with the \textbf{log-likelihood
 \]
 Maximizing the log-likelihood yields the same estimator as maximizing the likelihood.
 
-\subsubsection*{Example: Poisson Distribution}
+\subsubsection*{Example: Poisson distribution}
 
 Suppose \( X_1, X_2, \dots, X_n \) are i.i.d. from a Poisson distribution with parameter \( \lambda > 0 \). The PMF for the Poisson distribution is:
 \[
@@ -6942,7 +6943,7 @@ Differentiating and setting the derivative to zero:
 
 Hence, the MLE of $\lambda$ is $\hat{\lambda} = \overline{X}$.
 
-\subsubsection*{Example: Normal Distribution}
+\subsubsection*{Example: Normal distribution}
 
 Assume \( X_1, X_2, \dots, X_n \overset{iid}{\sim} N(\mu, \sigma^2) \). The PDF is:
 \[
@@ -7394,11 +7395,115 @@ Hence, the method of moments estimator for \( \lambda \) is:
 
 \section{Interval Estimation}
 
-\subsection{Definition}
-An \textbf{interval estimator} provides a range (interval) of values that is believed to contain the true value of the parameter with a certain level of confidence.
+A \textbf{point estimate}, being a single number, gives no indication of how accurate or reliable it is. For example, suppose a sample of batteries yields an average lifetime of \( \bar{X} = 218.2 \) hours. While this provides a best guess for the true average lifetime \( \mu \), it says nothing about how close it is to \( \mu \). Due to sampling variability, the point estimate is almost never exactly equal to the true value. A more informative approach is to report an \textbf{interval estimate}, which provides a range of plausible values for \( \mu \) and reflects the uncertainty in the estimation process.
+
+
+Basically, the purpose of interval estimation for a population parameter $\theta$ is to find two values $L$ and $R$ from the random sample such that $$L \leq \theta \leq R$$ with some specific probability. Information about the precision of an interval estimate is conveyed by the
+width of the interval $R-L$. Because $L$ and $R$ depend on sample values, they will be random. The interval $[L,R]$ should have the following properties:
+\begin{enumerate}
+    \item The probability that $\theta$ lies within $[L, R]$, i.e., $P(L \leq \theta \leq R)$, should be high.
+    \item The length of the interval, $R - L$, should be as short as possible to ensure precision.
+\end{enumerate}
+
+In addition to providing the interval $[L, R]$, we also specify a measure of confidence in the accuracy of the estimate. This leads to the concept of a \textbf{confidence interval (CI)}.
+
+\begin{itemize}
+    \item The \textbf{confidence interval} is the interval estimate $[L, R]$ of the parameter $\theta$.
+    \item The \textbf{confidence level} is the probability that the confidence interval contains the true value of $\theta$.
+    \item The endpoints $L$ and $R$ are called the \textbf{lower} and \textbf{upper confidence limits}, respectively.
+\end{itemize}
+
+\begin{textbox}
+\textbf{Definition}:
+\begin{itemize}
+    \item A \textbf{confidence interval} for a parameter is a range of values, computed from sample data, within which the true parameter is believed to lie.
+    \item The \textbf{confidence level} is the probability that the confidence interval contains the true parameter value. It is typically chosen close to 1, such as 0.95 or 0.99.
+\end{itemize}
+\end{textbox}
+\bigskip
+
+We can write for the interval estimate of $\theta$
+\[
+P(L \leq \theta \leq R) = 1 - \alpha
+\]
+We read this as we are $100(1 - \alpha)\%$ confident that $\theta$ lies within the interval $[L, R]$. The interval is called the \textbf{$100(1 - \alpha)\%$ confidence interval} or simply the \textbf{$100(1 - \alpha)\%$ CI}.
+
+\begin{itemize}
+    \item For a 95\% CI, $\alpha = 0.05$,
+    \item For a 99\% CI, $\alpha = 0.01$.
+\end{itemize}
+
+
+\subsection{Pivotal Method}
+
+One of the most widely used methods for constructing confidence intervals is the \textbf{pivotal quantity method}, also known as the \textbf{pivotal method}. This approach is particularly useful when we can identify a function of the sample data and the parameter, called a \emph{pivotal quantity}, whose distribution does not depend on the unknown parameter.
+
+
+\begin{textbox}
+A \textbf{pivotal quantity} is a function $T(X_1, X_2, \dots, X_n; \theta)$ of the sample data and the parameter $\theta$, such that the probability distribution of $T$ is independent of $\theta$.
+\end{textbox}
+
+
+\medskip
+
+The steps to construct a confidence interval using the pivotal method are as follows:
+
+\begin{enumerate}
+    \item Identify a suitable pivotal quantity $T(X_1, \dots, X_n; \theta)$ whose distribution is known and does not depend on $\theta$.
+    \item Find constants $a$ and $b$ such that
+    \[
+    P(a \leq T(X_1, \dots, X_n; \theta) \leq b) = 1 - \alpha
+    \]
+    where $1-\alpha$ is the desired confidence level. The constants $a$ and $b$ are called \textbf{critical values}.
+    \item Solve the inequality to find the interval
+    \[
+    a \leq T(X_1, \dots, X_n; \theta) \leq b
+    \]
+    for $\theta$ in terms of the sample data.
+    \item The resulting interval gives the $100(1-\alpha)\%$ confidence interval for $\theta$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Example: Confidence interval for the mean of a Normal distribution with known variance}
+
+Suppose $X_1, X_2, \dots, X_n$ is a random sample from a normal distribution $N(\mu, \sigma^2)$, where $\sigma^2$ is known. The sample mean $\bar{X}$ is normally distributed with
+\[
+\bar{X} \sim N\left(\mu, \frac{\sigma^2}{n}\right)
+\]
+Then, the quantity
+\[
+Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}
+\]
+is a pivotal quantity since $Z \sim N(0,1)$, and its distribution does not depend on the unknown parameter $\mu$.
+
+From the standard normal distribution, we have
+\[
+P\left(-z_{\alpha/2} \leq \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \leq z_{\alpha/2}\right) = 1 - \alpha
+\]
+Solving the inequality for $\mu$, we get
+\[
+P\left(\bar{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\right) = 1 - \alpha
+\]
+
+Thus, the $100(1 - \alpha)\%$ confidence interval for $\mu$ is
+\[
+\left[\bar{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \; \bar{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \right]
+\]
+
+\begin{itemize}
+    \item For a 95\% confidence level, $z_{\alpha/2} = 1.96$
+    \item For a 99\% confidence level, $z_{\alpha/2} = 2.576$
+\end{itemize}
+
+\bigskip
+
+This method is general and can be applied to construct confidence intervals for various parameters, provided a suitable pivotal quantity can be identified.
+
+
 
 \subsection{Confidence Interval}
-A \textbf{confidence interval (CI)} for a parameter \( \theta \) is an interval \( (L, U) \) such that
+A \textbf{confidence interval (CI)} for a parameter \( \theta \) is an interval \( [L,R] \) such that
 \[
 P(L \leq \theta \leq U) = 1 - \alpha
 \]
