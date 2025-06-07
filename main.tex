@@ -1475,7 +1475,7 @@ The standard deviation of \( y \) is
   \item Group 2: \( n_2 \) observations, mean \( \overline{x}_2 \), standard deviation \( \sigma_2 \).
 \end{itemize}
 
-{Then the combined standard deviation \( \sigma \) of the dataset (size \( n = n_1 + n_2 \)) is given by:}
+{Then the combined (pooled) standard deviation \( \sigma \) of the dataset (size \( n = n_1 + n_2 \)) is given by:}
 
 \[
 \sigma = \sqrt{
@@ -5549,7 +5549,7 @@ This moment generating function exists for all real values of \(t\) and uniquely
       \end{tikzpicture}
   \end{center}
 
-	\item The linear combination of two independent Normal variables is also Normal.
+	\item The linear combination of two independent normal variables is also normal.
 	
 	\begin{textbox}
 		\textbf{Theorem}: Let \( X \sim N(\mu_1, \sigma_1^2) \) and \( Y \sim N(\mu_2, \sigma_2^2) \) be two independent normal random variables. Then for any real constants \( a \) and \( b \), the linear combination
@@ -5600,7 +5600,7 @@ This moment generating function exists for all real values of \(t\) and uniquely
 
 \subsection{Standard Normal Distribution:}
 
-When $\mu = 0$ and $\sigma^2 = 1$, the Normal distribution is called the \textbf{standard normal distribution}, denoted as:
+When $\mu = 0$ and $\sigma^2 = 1$, the normal distribution is called the \textbf{standard normal distribution}, denoted as:
 \[
 Z \sim \mathcal{N}(0, 1)
 \]
@@ -7851,9 +7851,9 @@ Therefore, the $100(1-\alpha)\%$ confidence interval for $\sigma^2$ is
 \left[\frac{(n-1) S^2}{\chi^2_{1-\alpha/2, n-1}}, \quad \frac{(n-1) S^2}{\chi^2_{\alpha/2, n-1}} \right]
 \]
 
-\subsection{Confidence Interval for the Difference of Two Population Means}
+\subsection{Confidence Interval for the Difference of Two Normally Distributed Population Means}
 
-When comparing the means of two populations, it is often of interest to estimate the difference between the population means, say \(\mu_1 - \mu_2\), using data from independent random samples from each population.
+When comparing the means of two normally distributed populations, it is often of interest to estimate the difference between the population means, say \(\mu_1 - \mu_2\), using data from independent random samples from each population.
 
 Let \(X_1, X_2, \dots, X_{n_1}\) be a random sample from population 1 with mean \(\mu_1\) and variance \(\sigma_1^2\), and \(Y_1, Y_2, \dots, Y_{n_2}\) be a random sample from population 2 with mean \(\mu_2\) and variance \(\sigma_2^2\). Let \(\overline{X}\) and \(\overline{Y}\) denote the respective sample means, and \(S_1^2\), \(S_2^2\) the respective sample variances.
 
@@ -7868,22 +7868,23 @@ Assume that \(\sigma_1^2\) and \(\sigma_2^2\) are known. Then the sampling distr
 
 Define the pivotal quantity:
 \[
-Z = \frac{(\overline{X} - \overline{Y}) - (\mu_1 - \mu_2)}{\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}} \sim N(0,1)
+Z = \dfrac{(\overline{X} - \overline{Y}) - (\mu_1 - \mu_2)}{\sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}} \sim N(0,1)
 \]
 
 Then, a \(100(1 - \alpha)\%\) confidence interval for \(\mu_1 - \mu_2\) is given by:
 \[
 \left[
-(\bar{X} - \bar{Y}) - z_{\alpha/2} \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}, \;
-(\bar{X} - \bar{Y}) + z_{\alpha/2} \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}
+(\overline{X} - \overline{Y}) - z_{\alpha/2} \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}, \;
+(\overline{X} - \overline{Y}) + z_{\alpha/2} \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}
 \right]
 \]
 
-\subsubsection*{(ii) Population Variances Unknown (Assume Normality)}
+\subsubsection*{(ii) Population Variances Unknown}
 
 Assume the populations are normally distributed but \(\sigma_1^2\) and \(\sigma_2^2\) are unknown. The confidence interval depends on whether variances can be assumed equal.
 
-\textbf{(a) Equal but Unknown Variances:}
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Equal but Unknown Variances:}
 
 Assume \(\sigma_1^2 = \sigma_2^2 = \sigma^2\), and estimate with pooled variance:
 \[
@@ -7892,27 +7893,27 @@ S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}
 
 Then, the pivotal quantity
 \[
-T = \frac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t_{n_1 + n_2 - 2}
+T = \frac{(\overline{X} - \overline{Y}) - (\mu_1 - \mu_2)}{S_p \sqrt{\dfrac{1}{n_1} + \dfrac{1}{n_2}}} \sim t_{n_1 + n_2 - 2}
 \]
 
 Thus, the confidence interval is:
 \[
 \left[
-(\bar{X} - \bar{Y}) - t_{\alpha/2, \, n_1 + n_2 - 2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}, \;
-(\bar{X} - \bar{Y}) + t_{\alpha/2, \, n_1 + n_2 - 2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
+(\overline{X} - \overline{Y}) - t_{\alpha/2, \, n_1 + n_2 - 2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}, \;
+(\overline{X} - \overline{Y}) + t_{\alpha/2, \, n_1 + n_2 - 2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
 \right]
 \]
 
-\textbf{(b) Unequal and Unknown Variances (Welch's Approximation):}
+\item \textbf{Unequal and Unknown Variances (Welch's Approximation):}
 
 If equal variance cannot be assumed, use:
 \[
-T = \frac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}}
+T = \dfrac{(\overline{X} - \overline{Y}) - (\mu_1 - \mu_2)}{\sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}}
 \]
 
 This approximately follows a \(t\)-distribution with degrees of freedom:
 \[
-\nu \approx \frac{\left( \frac{S_1^2}{n_1} + \frac{S_2^2}{n_2} \right)^2}{\frac{(S_1^2/n_1)^2}{n_1 - 1} + \frac{(S_2^2/n_2)^2}{n_2 - 1}}
+\nu \approx \dfrac{\left( \dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2} \right)^2}{\dfrac{1}{n_1 - 1}\left(\dfrac{S_1^2}{n_1} \right)^2 + \dfrac{1}{n_2 - 1}\left( \dfrac{S_2^2}{n_2}\right)^2}
 \]
 
 Then, the approximate \(100(1 - \alpha)\%\) confidence interval for \(\mu_1 - \mu_2\) is:
@@ -7922,7 +7923,7 @@ Then, the approximate \(100(1 - \alpha)\%\) confidence interval for \(\mu_1 - \m
 (\overline{X} - \overline{Y}) + t_{\alpha/2, \nu} \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}
 \right]
 \]
-
+\end{enumerate}
 
 
 \subsection{Confidence Interval}
