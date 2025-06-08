@@ -6681,20 +6681,19 @@ If two populations have the same variance, the sample variances obtained from th
 
 
 \section{The Sampling Distribution of the Sample Proportion}
-
-Let \( X \) be the number of successes in a random sample of size \( n \) drawn from a population in which the proportion of successes is \( p \). Then the \textbf{sample proportion} is defined as:
+Let $X_1, X_2, \dots, X_n$ be a random sample from a Bernoulli population with proportion parameter $p$. Then the \textbf{sample proportion} is defined as:
 \[
-\hat{p} = \frac{X}{n}
+\hat{p} = \frac{1}{n} \sum_{i=1}^{n} X_i = \frac{X}{n}
 \]
-where \( \hat{p} \) is the observed proportion of successes in the sample. Since \( X \) is a binomial random variable with parameters \( n \) and \( p \), i.e., \( X \sim \text{Bin}(n, p) \), it follows that:
+where $X$ is the number of successes in the sample of size $n$. Since \( X \) is a binomial random variable with parameters \( n \) and \( p \), i.e., \( X \sim \text{Bin}(n, p) \), it follows that:
 \begin{itemize}
     \item The mean of \( \hat{p} \) is:
     \[
-    \mathbb{E}\left( \hat{p}\right)  = p
+    \mathbb{E}\left( \hat{p}\right) = \frac{1}{n}\mathbb{E}(X) = \frac{np}{n} = p
     \]
     \item The variance of \( \hat{p} \) is:
     \[
-    \text{Var}(\hat{p}) = \frac{pq}{n}, \quad \text{where } q = 1 - p
+    \text{Var}(\hat{p}) = \frac{1}{n^2}\text{Var}(X) = \frac{npq}{n^2}=\frac{pq}{n}, \quad \text{where } q = 1 - p
     \]
 \end{itemize}
 
@@ -7730,14 +7729,42 @@ P\left(\bar{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + z_
 \]
 
 Therefore, the $100(1-\alpha)\%$ confidence interval for $\mu$ is
+\begin{textbox}
 \[
 \left[\bar{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \quad \bar{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \right]
 \]
+\end{textbox}
 
 \begin{itemize}
 	\item For a 95\% confidence level, $1-\alpha = 0.95$. From table $z_{\alpha/2} = 1.96$.
 	\item For a 99\% confidence level, $1-\alpha = 0.95$. From table $z_{\alpha/2} = 2.576$.
 \end{itemize}
+
+
+\textbf{Example}: Suppose the lifetimes of a certain type of battery are normally distributed with unknown mean $\mu$ and known standard deviation $\sigma = 10$ hours. A random sample of $n = 25$ batteries yields a sample mean of $\overline{X} = 100$ hours. Construct a 95\% confidence interval for the population mean lifetime.
+
+
+\begin{itemize}
+	\item Given: $\sigma = 10$, $n = 25$, $\overline{X} = 100$, and confidence level = 95\%
+	\item For 95\% confidence, $z_{\alpha/2} = 1.96$
+\end{itemize}
+
+Compute the standard error:
+\[
+\frac{\sigma}{\sqrt{n}} = \frac{10}{\sqrt{25}} = \frac{10}{5} = 2
+\]
+
+Compute the margin of error:
+\[
+z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} = 1.96 \times 2 = 3.92
+\]
+
+Construct the confidence interval:
+\[
+\left[100 - 3.92, \quad 100 + 3.92\right] = [96.08,\ 103.92]
+\]
+
+We are 95\% confident that the true mean lifetime $\mu$ of the batteries lies between 96.08 and 103.92 hours.
 
 
 \subsection{Confidence Interval for the Mean in a Normal Population (Unknown Variance)}
@@ -7762,9 +7789,11 @@ P\left(\overline{X} - t_{\alpha/2, n-1} \frac{S}{\sqrt{n}} \leq \mu \leq \overli
 \]
 
 Therefore, the $100(1-\alpha)\%$ confidence interval for $\mu$ is
+\begin{textbox}
 \[
 \left[\overline{X} - t_{\alpha/2, n-1} \frac{S}{\sqrt{n}}, \quad \overline{X} + t_{\alpha/2, n-1} \frac{S}{\sqrt{n}} \right]
 \]
+\end{textbox}
 
 
 \subsection{Confidence Interval for the Variance in a Normal Population}
@@ -7847,9 +7876,11 @@ P\left(\frac{(n-1) S^2}{\chi^2_{1-\alpha/2, n-1}} \leq \sigma^2 \leq \frac{(n-1)
 \]
 
 Therefore, the $100(1-\alpha)\%$ confidence interval for $\sigma^2$ is
+\begin{textbox}
 \[
 \left[\frac{(n-1) S^2}{\chi^2_{1-\alpha/2, n-1}}, \quad \frac{(n-1) S^2}{\chi^2_{\alpha/2, n-1}} \right]
 \]
+\end{textbox}
 
 \subsection{Confidence Interval for the Difference of Two Normally Distributed Population Means}
 
@@ -7872,12 +7903,14 @@ Z = \dfrac{(\overline{X} - \overline{Y}) - (\mu_1 - \mu_2)}{\sqrt{\dfrac{\sigma_
 \]
 
 Then, a \(100(1 - \alpha)\%\) confidence interval for \(\mu_1 - \mu_2\) is given by:
+\begin{textbox}
 \[
 \left[
 (\overline{X} - \overline{Y}) - z_{\alpha/2} \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}, \;
 (\overline{X} - \overline{Y}) + z_{\alpha/2} \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}
 \right]
 \]
+\end{textbox}
 
 \subsubsection*{(ii) Population Variances Unknown}
 
@@ -7896,13 +7929,12 @@ Then, the pivotal quantity
 T = \frac{(\overline{X} - \overline{Y}) - (\mu_1 - \mu_2)}{S_p \sqrt{\dfrac{1}{n_1} + \dfrac{1}{n_2}}} \sim t_{n_1 + n_2 - 2}
 \]
 
-Thus, the confidence interval is:
+Thus, the \(100(1 - \alpha)\%\) confidence limits is:
+\begin{textbox}
 \[
-\left[
-(\overline{X} - \overline{Y}) - t_{\alpha/2, \, n_1 + n_2 - 2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}, \;
-(\overline{X} - \overline{Y}) + t_{\alpha/2, \, n_1 + n_2 - 2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
-\right]
+(\overline{X} - \overline{Y}) \pm t_{\alpha/2, \, n_1 + n_2 - 2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
 \]
+\end{textbox}
 
 \item \textbf{Unequal and Unknown Variances (Welch's Approximation):}
 
@@ -7917,70 +7949,100 @@ This approximately follows a \(t\)-distribution with degrees of freedom:
 \]
 
 Then, the approximate \(100(1 - \alpha)\%\) confidence interval for \(\mu_1 - \mu_2\) is:
-\[
+\begin{textbox}
+\begin{align*}
 \left[
 (\overline{X} - \overline{Y}) - t_{\alpha/2, \nu} \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}, \;
 (\overline{X} - \overline{Y}) + t_{\alpha/2, \nu} \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}
 \right]
-\]
+\end{align*}
+\end{textbox}
 \end{enumerate}
 
 
-\subsection{Confidence Interval}
-A \textbf{confidence interval (CI)} for a parameter \( \theta \) is an interval \( [L,R] \) such that
+\subsection{Confidence Interval for a Population Proportion}
+
+Let $X_1, X_2, \dots, X_n$ be a random sample from a Bernoulli population with unknown proportion parameter $p$. Define the sample proportion as
 \[
-P(L \leq \theta \leq U) = 1 - \alpha
+\hat{p} = \frac{1}{n} \sum_{i=1}^{n} X_i = \frac{X}{n}
 \]
-where \( 1 - \alpha \) is the confidence level (e.g., 95\%).
+where $X$ is the number of successes in the sample of size $n$.
 
-\subsection{Confidence Interval for Mean}
+For large $n$, the sampling distribution of $\hat{p}$ is approximately normal by the Central Limit Theorem:
+\[
+\hat{p} \sim N\left(p, \frac{p(1 - p)}{n}\right)
+\]
+
+Since $p$ is unknown, we approximate the standard deviation using $\hat{p}$, leading to the following pivotal quantity:
+\[
+Z = \frac{\hat{p} - p}{\sqrt{\dfrac{\hat{p}(1 - \hat{p})}{n}}}
+\]
+
+For sufficiently large $n$, $Z$ approximately follows the standard normal distribution:
+\[
+Z \sim N(0, 1)
+\]
+This approximation is generally considered valid when both \( n\hat{p} \geq 5 \) and \( n(1-\hat{p}) \geq 5 \).
+
+Let $z_{\alpha/2}$ be the critical value from the standard normal distribution such that
+\[
+P(Z > z_{\alpha/2}) = \frac{\alpha}{2}
+\]
+
+Then,
+\[
+P\left(-z_{\alpha/2} \leq Z \leq z_{\alpha/2}\right) = 1 - \alpha
+\]
+
+This implies
+\[
+P\left(\hat{p} - z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} \leq p \leq \hat{p} + z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}\right) = 1 - \alpha
+\]
+
+Therefore, the $100(1 - \alpha)\%$ confidence interval for the population proportion $p$ is
+\begin{textbox}
+\[
+\left[ \hat{p} - z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}, \quad \hat{p} + z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} \right]
+\]
+\end{textbox}
+
+\bigskip
+
+\textbf{Example}: A political poll surveys $n = 400$ registered voters to estimate the proportion who support Proposition~X. Out of the 400 respondents, $X = 180$ say they support the measure. Construct a 95\% confidence interval for the true support proportion $p$.
+
 \begin{itemize}
-    \item \textbf{Known Variance:}
-    \[
-    \bar{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
-    \]
-
-    \item \textbf{Unknown Variance:}
-    \[
-    \bar{X} \pm t_{\alpha/2, n-1} \cdot \frac{S}{\sqrt{n}}
-    \]
+	\item Sample size: $n = 400$
+	\item Number of successes: $X = 180$
+	\item Sample proportion:
+	\[
+	\hat{p} \;=\; \frac{X}{n} \;=\; \frac{180}{400} \;=\; 0.45
+	\]
+	\item Check normal approximation conditions:
+	\[
+	n\hat{p} = 400 \times 0.45 = 180 \;\ge 5, 
+	\quad
+	n(1 - \hat{p}) = 400 \times 0.55 = 220 \;\ge 5.
+	\]
+	\item For 95\% confidence, $z_{\alpha/2} = z_{0.025} = 1.96$.
 \end{itemize}
 
-\subsection{Confidence Interval for Proportion}
+Compute the margin of error:
 \[
-\hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
+z_{\alpha/2} \times \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
+= 1.96 \times \sqrt{\frac{0.45 \times 0.55}{400}}
+\approx 1.96 \times 0.0249
+\approx 0.0488
 \]
 
-\subsection{Interpretation of Confidence Intervals}
-A 95\% confidence interval means that if we repeated the sampling procedure many times, approximately 95\% of the calculated intervals would contain the true parameter value.
-
-\section{Estimation in Large Samples}
-For large samples (\( n \to \infty \)), estimators often follow a normal distribution by the Central Limit Theorem, making interval estimation easier even with unknown distributions.
-
-\section{Illustrative Examples}
-\subsection*{Example 1: Point Estimation}
-Given sample data: 5, 7, 9, 10, 6
-
-Estimate the mean:
+Thus the 95\% confidence interval for $p$ is
 \[
-\bar{X} = \frac{5 + 7 + 9 + 10 + 6}{5} = 7.4
+\bigl[\,0.45 - 0.0488,\;0.45 + 0.0488\bigr]
+\;=\;
+[\,0.4012,\;0.4988\,]
 \]
 
-\subsection*{Example 2: Confidence Interval for Mean}
-If \( \bar{X} = 50 \), \( \sigma = 10 \), \( n = 100 \), 95\% CI is:
-\[
-50 \pm 1.96 \cdot \frac{10}{\sqrt{100}} = (48.04, 51.96)
-\]
+We are 95\% confident that the true proportion of all registered voters who support Proposition~X lies between 40.12\% and 49.88\%.
 
-
-\section{Sample Size Determination}
-Sample size affects the accuracy and reliability of estimates. It depends on the desired confidence level, margin of error, and population variability.
-
-
-
-\section{Information and Efficiency of a Random Sample}
-
-In estimation theory, the concepts of \textbf{Fisher information} and \textbf{efficiency} play a crucial role in assessing the quality of an estimator derived from a random sample.
 
 
 \chapter{Test of Hypothesis}
