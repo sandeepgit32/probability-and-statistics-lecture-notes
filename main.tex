@@ -11,6 +11,9 @@
 %\usepackage{newtxtext,newtxmath}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{rotating}
+\usepackage{booktabs}
+\usepackage{rotating} 
 \usepackage{tikz}
 \usepackage{fancyhdr}
 \usepackage{enumitem}
@@ -7736,8 +7739,8 @@ Therefore, the $100(1-\alpha)\%$ confidence interval for $\mu$ is
 \end{textbox}
 
 \begin{itemize}
-	\item For a 95\% confidence level, $1-\alpha = 0.95$. From table $z_{\alpha/2} = 1.96$.
-	\item For a 99\% confidence level, $1-\alpha = 0.95$. From table $z_{\alpha/2} = 2.576$.
+	\item For a 95\% confidence level, $1-\alpha = 0.95$. From table $z_{\alpha/2} = z_{0.025}= 1.96$.
+	\item For a 99\% confidence level, $1-\alpha = 0.99$. From table $z_{\alpha/2} = z_{0.005} = 2.576$.
 \end{itemize}
 
 
@@ -7746,7 +7749,7 @@ Therefore, the $100(1-\alpha)\%$ confidence interval for $\mu$ is
 
 \begin{itemize}
 	\item Given: $\sigma = 10$, $n = 25$, $\overline{X} = 100$, and confidence level = 95\%
-	\item For 95\% confidence, $z_{\alpha/2} = 1.96$
+	\item For 95\% confidence, $z_{\alpha/2}= z_{0.025} = 1.96$
 \end{itemize}
 
 Compute the standard error:
@@ -7960,6 +7963,61 @@ Then, the approximate \(100(1 - \alpha)\%\) confidence interval for \(\mu_1 - \m
 \end{enumerate}
 
 
+\subsection{Confidence Interval for the Ratio of Two Normally Distributed Population Variances}
+
+Let \(X_1, X_2, \dots, X_{n_1}\) be a random sample from population 1 with mean \(\mu_1\) and variance \(\sigma_1^2\), and \(Y_1, Y_2, \dots, Y_{n_2}\) be a random sample from population 2 with mean \(\mu_2\) and variance \(\sigma_2^2\). Let \(S_1^2\), \(S_2^2\) denote the respective sample variances.
+
+The pivotal quantity
+\[
+F \;=\;
+\dfrac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2} = \dfrac{S_1^2}{S_2^2}\cdot \dfrac{\sigma_2^2}{\sigma_1^2}
+\]
+follows an $F$–distribution with $(n_1-1,n_2-1)$ degrees of freedom.
+\[
+F \sim F_{\,n_1-1,\;n_2-1}
+\]
+
+Let $F_{1-\alpha/2;\,n_1-1,n_2-1}$ and $F_{\alpha/2;\,n_1-1,n_2-1}$ be the lower and upper $\alpha/2$–quantiles of this $F$–distribution:
+
+\[
+P\bigl(F_{1-\alpha/2;\,n_1-1,n_2-1}\le F\le F_{\alpha/2;\,n_1-1,n_2-1}\bigr) \;=\; 1-\alpha
+\]
+
+or,
+
+\[
+P\left( F_{1-\alpha/2;\,n_1-1,n_2-1}\le \dfrac{S_1^2}{S_2^2}\cdot \dfrac{\sigma_2^2}{\sigma_1^2} \leq F_{\alpha/2;\,n_1-1,n_2-1} \right) \;=\; 1-\alpha
+\]
+
+Rewriting in terms of $\sigma_1^2/\sigma_2^2$ gives
+
+\[
+P\left( 
+\frac{1}{F_{\alpha/2;\,n_1-1,n_2-1}}\frac{S_1^2}{S_2^2}
+\;\le\;
+\frac{\sigma_1^2}{\sigma_2^2}
+\;\le\;
+\frac{1}{F_{1-\alpha/2;\,n_1-1,n_2-1}}\frac{S_1^2}{S_2^2}
+\right) 
+=1-\alpha
+\]
+
+Since for $ F $-distribution,
+$$F_{1-\alpha/2;\,n_1-1,n_2-1} = \dfrac{1}{F_{\alpha/2;\,n_2-1,n_1-1}}$$
+
+Therefore, a $100(1-\alpha)\%$ confidence interval for the ratio $\sigma_1^2/\sigma_2^2$ is
+
+\begin{textbox}
+	\[
+	\left[
+	\frac{1}{F_{\alpha/2;\,n_1-1,n_2-1}}\frac{S_1^2}{S_2^2}
+	\;,\;
+	{F_{\alpha/2;\,n_2-1,n_1-1}}\frac{S_1^2}{S_2^2}
+	\right]
+	\]
+\end{textbox}
+
+
 \subsection{Confidence Interval for a Population Proportion}
 
 Let $X_1, X_2, \dots, X_n$ be a random sample from a Bernoulli population with unknown proportion parameter $p$. Define the sample proportion as
@@ -8043,6 +8101,202 @@ Thus the 95\% confidence interval for $p$ is
 
 We are 95\% confident that the true proportion of all registered voters who support Proposition~X lies between 40.12\% and 49.88\%.
 
+\section{Determination of Sample Size}
+
+Sample size determination is a fundamental aspect of planning any statistical study. If the sample is too small, the results may not be trustworthy. But if the sample is too large, it can waste time, money, and effort. The goal is to find a sample size that is just right: big enough to give accurate and useful results, but not bigger than necessary. There is no universal ideal sample size for all problems. The required sample size depends on:
+\begin{itemize}
+	\item The \textbf{parameter} being estimated,
+	\item A specified \textbf{margin of error (E)},
+	\item A desired \textbf{confidence level} (commonly 90\%, 95\%, or 99\%).
+\end{itemize}
+
+\subsection{Determining Sample Size for Estimating a Population Mean}
+
+Let \(\mu\) denote the population mean and \(\sigma\) the population standard deviation (assumed known). To estimate \(\mu\) within a margin of error \(E\) at confidence level \(1 - \alpha\), the sample size \(n\) must satisfy:
+
+\[
+z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \leq E
+\]
+
+Solving for \(n\):
+
+\[
+n \geq \left( \frac{z_{\alpha/2} \cdot \sigma}{E} \right)^2
+\]
+
+\textbf{Example:} A researcher wants to estimate the average height of adult males in a city with a 95\% confidence level and a margin of error of 2 cm. Suppose previous studies suggest \(\sigma = 7\) cm.
+
+\begin{align*}
+z_{0.025} &= 1.96 \\
+n &= \left( \frac{1.96 \cdot 7}{2} \right)^2 = \left( \frac{13.72}{2} \right)^2 = (6.86)^2 = 47.06
+\end{align*}
+
+Thus, a sample size of at least 48 individuals is needed.
+
+\subsection{Determining Sample Size for Estimating a Population Proportion}
+
+Suppose the goal is to estimate a population proportion \(p\). The margin of error in this case must satisfy:
+
+\[
+z_{\alpha/2} \cdot \sqrt{ \frac{p(1 - p)}{n} } \leq E
+\]
+
+Solving for \(n\):
+
+\[
+n \geq \left( \frac{z_{\alpha/2}}{E} \right)^2 \cdot p(1 - p)
+\]
+
+\textbf{Example:} A political analyst wants to estimate the proportion of voters who support a candidate with 95\% confidence and a margin of error of 5\%. If no prior estimate for \(p\) is available, the conservative choice is \(p = 0.5\):
+
+\begin{align*}
+z_{0.025} &= 1.96, \quad E = 0.05, \quad p = 0.5 \\
+n &\geq \left( \frac{1.96}{0.05} \right)^2 \times 0.5 \times 0.5 = 1536.64 \times 0.25 = 384.16
+\end{align*}
+
+Thus, a sample size of at least 385 respondents is needed.
+
+\subsection{Finite Population Correction (FPC)}
+
+When sampling without replacement from a finite population of size \(N\), and the sample size \(n\) exceeds 5\% of the population (\(n > 0.05N\)), the effective sample size should be adjusted using the finite population correction (FPC):
+
+\[
+n_{\text{adj}} = \dfrac{n_0}{1 + \dfrac{n_0 - 1}{N}}
+\]
+
+where \(n_0\) is the sample size calculated assuming an infinite population.
+
+\medskip
+
+\noindent {To prove this formula let us rewrite the formula for the variance of the sample mean:}
+\begin{itemize}
+	\item {Finite population (without replacement):}
+	\[
+	\mathrm{Var}(\overline{X}) = \frac{\sigma^2}{n} \times \frac{N - n}{N - 1}
+	\]
+	\item {Infinite population (or with replacement):}
+	\[
+	\mathrm{Var}(\overline{X}) = \frac{\sigma^2}{n}
+	\]
+\end{itemize}
+
+\medskip
+
+To achieve the same precision (equal variances), set
+\[
+\frac{\sigma^2}{n_0} = \frac{\sigma^2}{n_{\text{adj}}} \times \frac{N - n_{\text{adj}}}{N - 1}
+\]
+where $n_0$ is the sample size required to achieve the variance for the infinite population and $n_{\text{adj}}$ is the sample size required to achieve the variance for the finite population.
+
+Cancel \(\sigma^2\) and rearrange:
+\begin{align*}
+&\frac{1}{n_0} = \frac{1}{n_{\text{adj}}} \times \frac{N - n_{\text{adj}}}{N - 1} \\[6pt]
+\Rightarrow \quad &n_{\text{adj}} \cdot \frac{N - 1}{n_0} = N - n_{\text{adj}}\\
+\Rightarrow \quad &n_{\text{adj}} \left( 1 + \frac{N - 1}{n_0} \right) = N\\
+\Rightarrow \quad &n_{\text{adj}} (n_0 + N - 1) = N n_0
+\end{align*}
+
+Hence, the adjusted sample size is
+\[
+	n_{\text{adj}} = \dfrac{N n_0}{n_0 + N - 1} = \dfrac{n_0}{1 + \dfrac{n_0 - 1}{N}}
+\]
+
+
+
+\textbf{Example:} From the earlier example, if the population consists of only 2,000 individuals:
+
+\[
+n_{\text{adj}} = \frac{384.16}{1 + \frac{384.16 - 1}{2000}} = \frac{384.16}{1 + 0.1916} = \frac{384.16}{1.1916} \approx 322.4
+\]
+
+Thus, only about 323 individuals are needed when the population is finite.
+
+% \begin{sidewaystable}[htbp]
+% 	\centering
+% 	\rotatebox{180}{%
+% 		\begin{minipage}{\textheight}
+% 			\centering
+% 			\caption{Important Confidence Interval Formulas}
+% 			\label{tab:ci_180_rotated}
+% 			\begin{tabular}{@{}lll@{}}
+% 				\toprule
+% 				\textbf{Parameter} & \textbf{Assumptions} & \textbf{Confidence Interval Formula} \\ \midrule
+
+% 				Population mean $\mu$ (known $\sigma$) &
+% 				Normal population or large $n$ (CLT) &
+% 				$\displaystyle \bar{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$ \\[10pt]
+
+% 				Population mean $\mu$ (unknown $\sigma$) &
+% 				Normal population &
+% 				$\displaystyle \bar{X} \pm t_{\alpha/2,\,n-1} \cdot \frac{s}{\sqrt{n}}$ \\[10pt]
+
+% 				Difference of means $\mu_1 - \mu_2$ (equal variances) &
+% 				Normal populations, independent samples &
+% 				$\displaystyle (\bar{X}_1 - \bar{X}_2) \pm t_{\alpha/2,\,n_1+n_2-2} \cdot s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}$ \\
+% 				& & where $\displaystyle s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}$ \\[10pt]
+
+% 				Proportion $p$ &
+% 				Large $n$, with $np \ge 5$, $n(1-p) \ge 5$ &
+% 				$\displaystyle \hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}$ \\[10pt]
+
+% 				Difference of proportions $p_1 - p_2$ &
+% 				Large $n_1, n_2$ &
+% 				$\displaystyle (\hat{p}_1 - \hat{p}_2) \pm z_{\alpha/2} \cdot \sqrt{ \frac{\hat{p}_1(1 - \hat{p}_1)}{n_1} + \frac{\hat{p}_2(1 - \hat{p}_2)}{n_2} }$ \\[10pt]
+
+% 				Population variance $\sigma^2$ &
+% 				Normal population &
+% 				$\displaystyle \left( \frac{(n-1)s^2}{\chi^2_{1-\alpha/2}}, \frac{(n-1)s^2}{\chi^2_{\alpha/2}} \right)$ \\[10pt]
+
+% 				Ratio of variances $\frac{\sigma_1^2}{\sigma_2^2}$ &
+% 				Normal, independent samples &
+% 				$\displaystyle \left( \dfrac{s_1^2 / s_2^2}{F_{1-\alpha/2}}, \dfrac{s_1^2 / s_2^2}{F_{\alpha/2}} \right)$ \\
+
+% 				\bottomrule
+% 			\end{tabular}
+% 		\end{minipage}
+% 	}
+% \end{sidewaystable}
+
+\begin{sidewaystable}
+	\centering
+	\caption{Important Confidence Interval Formulas}
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		\textbf{Parameter} & \textbf{Assumptions} & \textbf{Confidence Interval Formula} \\ \midrule
+		
+		Population mean $\mu$ (known $\sigma$) &
+		Normal population or large $n$ (CLT) &
+		$\displaystyle \bar{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$ \\[10pt]
+		
+		Population mean $\mu$ (unknown $\sigma$) &
+		Normal population &
+		$\displaystyle \bar{X} \pm t_{\alpha/2,\,n-1} \cdot \frac{s}{\sqrt{n}}$ \\[10pt]
+		
+		Difference of means $\mu_1 - \mu_2$ (equal variances) &
+		Normal populations, independent samples &
+		$\displaystyle (\bar{X}_1 - \bar{X}_2) \pm t_{\alpha/2,\,n_1+n_2-2} \cdot s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}$ \\
+		& & where $\displaystyle s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}$ \\[10pt]
+		
+		Proportion $p$ &
+		Large $n$, with $np \ge 5$, $n(1-p) \ge 5$ &
+		$\displaystyle \hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}$ \\[10pt]
+		
+		Difference of proportions $p_1 - p_2$ &
+		Large $n_1, n_2$ &
+		$\displaystyle (\hat{p}_1 - \hat{p}_2) \pm z_{\alpha/2} \cdot \sqrt{ \frac{\hat{p}_1(1 - \hat{p}_1)}{n_1} + \frac{\hat{p}_2(1 - \hat{p}_2)}{n_2} }$ \\[10pt]
+		
+		Population variance $\sigma^2$ &
+		Normal population &
+		$\displaystyle \left( \frac{(n-1)s^2}{\chi^2_{1-\alpha/2}}, \frac{(n-1)s^2}{\chi^2_{\alpha/2}} \right)$ \\[10pt]
+		
+		Ratio of variances $\dfrac{\sigma_1^2}{\sigma_2^2}$ &
+		Normal, independent samples &
+		$\displaystyle \left( \dfrac{s_1^2 / s_2^2}{F_{1-\alpha/2}}, \dfrac{s_1^2 / s_2^2}{F_{\alpha/2}} \right)$ \\
+		
+		\bottomrule
+	\end{tabular}
+	\label{tab:ci_sideways}
+\end{sidewaystable}
 
 
 \chapter{Test of Hypothesis}
