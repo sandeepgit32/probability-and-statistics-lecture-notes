@@ -6655,7 +6655,7 @@ A Chi-squared distribution has the following properties:
     \item The chi-squared distribution is not symmetric; it is skewed to the right, especially for small degrees of freedom.
     \item As the sample size increases (\( n \to \infty \)), the distribution becomes more symmetric and approaches normality.
     \item The expected value of the distribution is \( \mathbb{E}[\chi^2] = n-1 \).
-    \item The critical point \(\chi^2_{\alpha,\nu}\) is defined so that
+    \item The critical point \(\chi^2_{\alpha,\nu}\) is defined as a point such that
 \[
 P\bigl(\chi^2_\nu > \chi^2_{\alpha,\nu}\bigr) \;=\;\alpha
 \]
@@ -6667,20 +6667,62 @@ where \(\chi^2_\nu\) denotes a chi-square random variable with \(\nu\) degrees o
 A problem closely related to that of finding the distribution of the sample variance is that of determining the distribution of the ratio of the variances of two independent random samples. This problem is of considerable importance because it arises in hypothesis testing situations where we want to assess whether two samples come from populations with equal variances.
 
 \begin{textbox}
-\textbf{Theorem}: Let \( S_1^2 \) and \( S_2^2 \) be the sample variances of two independent random samples of sizes \( n_1 \) and \( n_2 \), respectively, drawn from two normal populations with equal variances. Then the statistic
+\textbf{Theorem}: Let \( S_1^2 \) and \( S_2^2 \) be the sample variances of two independent random samples of sizes \( n_1 \) and \( n_2 \), respectively, drawn from two normal populations with equal variances $\sigma_1^2$ and $\sigma_2^2$ respectively. Then the statistic
 \[
-F = \frac{S_1^2}{S_2^2}
+F = \dfrac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2} = \dfrac{S_1^2/S_2^2}{\sigma_1^2/\sigma_2^2}
 \]
-follows an F-distribution with \( \nu_1 = n_1 - 1 \) and \( \nu_2 = n_2 - 1 \) degrees of freedom.
+follows an $ F $-distribution ($F \sim F_{\nu_1, \nu_2}$) with \( \nu_1 = n_1 - 1 \) and \( \nu_2 = n_2 - 1 \) degrees of freedom.
 \end{textbox}
+This theorem tells us how the ration of sample variances \( {S_1^2}/{S_2^2} \) is distributed around the true population variance \( {\sigma_1^2}/{\sigma_2^2} \). 
+% If two populations have the same variance, the sample variances obtained from them should be approximately equal. In such a case, the ratio of the two sample variances should be close to 1.
 
-The F-distribution is characterized by two parameters:
+Properties of $F$-distribution:
+
 \begin{itemize}
-    \item \( \nu_1 \): the \textbf{numerator degrees of freedom} (associated with \( S_1^2 \)),
-    \item \( \nu_2 \): the \textbf{denominator degrees of freedom} (associated with \( S_2^2 \)).
+	\item The $ F $-distribution is characterized by two parameters:
+	\begin{itemize}
+		\item \( \nu_1 \): \textbf{numerator degrees of freedom},
+		\item \( \nu_2 \): \textbf{denominator degrees of freedom}.
+	\end{itemize}
+
+	\item Reciprocal property:
+	\begin{textbox}
+		If $X \sim F_{\nu_1, \nu_2}$, then the reciprocal of $X$ i.e. $Y = \dfrac{1}{X} \sim F_{\nu_2, \nu_1}$.
+	\end{textbox}
+	
+	\item The critical point \(F_{\alpha; \nu_1, \nu_2}\) is defined as a point such that
+	\[
+	P\bigl(X > F_{\alpha; \nu_1, \nu_2}) \;=\;\alpha
+	\]
+	Equivalently\footnote{This inverse relationship is maintained because $f(x) = \dfrac{1}{x}$ is a \textbf{strictly decreasing bijection} on \((0,\infty)\). Hence the event \(\{A < B\}\) is is exactly the same as the event \(\{f(A) > f(B)\}\) or the event \(\left\{\dfrac{1}{A} > \dfrac{1}{B}\right\}\).},
+	\[
+	P\left( \dfrac1X < \dfrac1{F_{\alpha;\nu_1,\nu_2}}\right) =\alpha
+	\]
+	But \(\dfrac1X = Y\sim F(\nu_2,\nu_1)\).  Under the upper‑tail critical point definition convention, if \(F_{1-\alpha}(\nu_2,\nu_1)\) is the critical value satisfying
+	\[
+	P\bigl(Y > F_{1-\alpha;\nu_2,\nu_1}\bigr)=1-\alpha
+	\]
+	then equivalently
+	\[
+	P\bigl(Y \le F_{1-\alpha;\nu_2,\nu_1}\bigr)=\alpha
+	\]
+	Comparison with \(P(Y<1/F_{\alpha;\nu_1,\nu_2})=\alpha\) shows
+	\[
+	\frac1{F_{\alpha;\nu_1,\nu_2}}
+	\;=\;
+	F_{1-\alpha;\nu_2,\nu_1}
+	\]
+	and hence
+	\begin{textbox}
+		\[
+		F_{\alpha;\nu_1,\nu_2}
+		\;=\;
+		\frac1{F_{1-\alpha;\nu_2,\nu_1}}
+		\]
+	\end{textbox}
 \end{itemize}
 
-If two populations have the same variance, the sample variances obtained from them should be approximately equal. In such a case, the ratio of the two sample variances should be close to 1. To formally determine whether this ratio is unusually small or large, we use the \textbf{F-distribution}.
+
 
 
 \section{The Sampling Distribution of the Sample Proportion}
@@ -6720,6 +6762,8 @@ which follows the standard normal distribution $\mathcal{N}\left(0, 1\right)$ fo
 \textrm{Var}(\hat{p}) &= \frac{0.6 \cdot 0.4}{100} = 0.0024
 \end{align*}
 Thus, the distribution of \( \hat{p} \) can be approximated as \( N(0.6, 0.0024) \).
+
+
 
 
 \chapter{Theory of Estimation}
