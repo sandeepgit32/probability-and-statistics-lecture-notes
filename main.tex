@@ -1459,7 +1459,7 @@ The standard deviation is
 
 \textbf{Proof}: The mean of \( y \) is
 \[
-\overline{y} = a + b \overline{x}.
+\overline{y} = a + b \overline{x}
 \]
 The standard deviation of \( y \) is
 \begin{align*}
@@ -1471,7 +1471,7 @@ The standard deviation of \( y \) is
 \hfill $\blacksquare$
 
 \begin{textbox}
-\textbf{Theorem}: Let a dataset be composed of two groups:
+\textbf{Theorem (Pooled standard deviation)}: Let a dataset be composed of two groups:
 
 \begin{itemize}
   \item Group 1: \( n_1 \) observations, mean \( \overline{x}_1 \), standard deviation \( \sigma_1 \),
@@ -1503,7 +1503,7 @@ The variance of the combined data set is
 Expanding the first term:
 \begin{align*}
 \sum_{j=1}^{n_1} (x_{ij} - \overline{x})^2 &= \sum_{j=1}^{n_1} \left[(x_{1j} - \overline{x}_1) + (\overline{x}_1 - \overline{x})\right]^2 \\
-&= \underbrace{\sum_{j=1}^{n_1} (x_{1j} - \overline{x}_1)^2}_{n_1\sigma_1^2} + 2(\overline{x}_1 - \overline{x}) \underbrace{\sum_{j=1}^{n_1} (x_{1j} - \overline{x}_1)}_{0} + \sum_{j=1}^{n_1} (\overline{x}_1 - \overline{x})^2 \\
+&= \underbrace{\sum_{j=1}^{n_1} (x_{1j} - \overline{x}_1)^2}_{= n_1\sigma_1^2} + 2(\overline{x}_1 - \overline{x}) \underbrace{\sum_{j=1}^{n_1} (x_{1j} - \overline{x}_1)}_{= 0} + \sum_{j=1}^{n_1} (\overline{x}_1 - \overline{x})^2 \\
 &= n_1 \sigma_1^2 + n_1 (\overline{x}_1 - \overline{x})^2,
 \end{align*}
 Similarly,
@@ -1513,7 +1513,7 @@ Similarly,
 
 Thus,
 \begin{align*}
-\sigma^2 &= \frac{n_1 \sigma_1^2 + n_2 \sigma_2^2}{n_1 + n_2} + \frac{n_1 (\overline{x}_1 - \overline{x})^2 + n_2 (\overline{x}_2 - \overline{x})^2}{n_1 + n_2}.
+\sigma^2 &= \frac{n_1 \sigma_1^2 + n_2 \sigma_2^2}{n_1 + n_2} + \frac{n_1 (\overline{x}_1 - \overline{x})^2 + n_2 (\overline{x}_2 - \overline{x})^2}{n_1 + n_2}
 \end{align*}
 
 \hfill $\blacksquare$
@@ -6320,10 +6320,10 @@ $X$. In such circumstances, we may appeal to the central limit theorem and obtai
 \textbf{Central Limit Theorem}: If $\overline{X}$ is the mean of a random sample of size $n$ taken from a population having the mean $\mu$ and the finite variance $\sigma^2$, then $\overline{X}$ approximately follows $\mathcal{N}\left(\mu, \dfrac{\sigma^2}{n}\right)$ as $n \to \infty$. 
 
 In other words, the statistic
-$$\dfrac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}}$$
+$$\dfrac{\overline{X}-\mu}{{\sigma}/{\sqrt{n}}}$$
 is a random variable whose distribution function approaches to that of the standard normal distributions as $n \to \infty$.
 \end{textbox}
-\textbf{Proof}: Let $X_1, X_2, \dots, X_n$ be independent and identically distributed (i.i.d.) random variables with mean $\mu = \mathbb{E}[X_i]$ and variance $\sigma^2 = \text{Var}(X_i) < \infty$. Define the standardized sum:
+\textbf{Proof}: Let $X_1, X_2, \dots, X_n$ be independent and identically distributed (i.i.d.) random variables with mean $\mu = \mathbb{E}(X_i)$ and variance $\sigma^2 = \text{Var}(X_i) < \infty$. Define the standardized sum:
 \[
 Z_n = \frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}} = \frac{1}{\sqrt{n}} \sum_{i=1}^n \left( \frac{X_i - \mu}{\sigma} \right)
 \]
@@ -6345,7 +6345,7 @@ Z_n = \frac{1}{\sqrt{n}} \sum_{i=1}^n Y_i
 
 Let $M_Y(t)$ be the moment generating function (MGF) of $Y_i$. Then, since $Y_1, \dots, Y_n$ are i.i.d., the MGF of $Z_n$ is:
 \[
-M_{Z_n}(t) = \mathbb{E}\left[ e^{t Z_n} \right] = \left( M_Y\left( \frac{t}{\sqrt{n}} \right) \right)^n
+M_{Z_n}(t) = \mathbb{E}\left( e^{t Z_n}\right)  = \left( M_Y\left( \frac{t}{\sqrt{n}} \right) \right)^n
 \]
 
 Using a Taylor expansion of $M_Y(t)$ around $t = 0$, we have:
@@ -6419,7 +6419,7 @@ Then the statistic (standardized sample mean)
 t = \frac{\overline{X} - \mu}{S / \sqrt{n}}
 \]
 
-follows a \textbf{t-distribution} with \( \nu = n - 1 \) degrees of freedom.
+follows a $ t $\textbf{-distribution} with \( \nu = n - 1 \) degrees of freedom.
 
 \end{textbox}
 
@@ -6698,7 +6698,7 @@ Properties of $F$-distribution:
 	\[
 	P\left( \dfrac1X < \dfrac1{F_{\alpha;\nu_1,\nu_2}}\right) =\alpha
 	\]
-	But \(\dfrac1X = Y\sim F(\nu_2,\nu_1)\).  Under the upper‑tail critical point definition convention, if \(F_{1-\alpha}(\nu_2,\nu_1)\) is the critical value satisfying
+	But \(\dfrac1X = Y\sim F_{\nu_2,\nu_1}\).  Under the upper‑tail critical point definition convention, if \(F_{1-\alpha;\nu_2,\nu_1}\) is the critical value satisfying
 	\[
 	P\bigl(Y > F_{1-\alpha;\nu_2,\nu_1}\bigr)=1-\alpha
 	\]
@@ -7035,7 +7035,7 @@ There are often multiple point estimates available for any given parameter. So i
     f_{X_i}(x_i ; \mu)
     =
     \frac{1}{\sqrt{2\pi\,\sigma^2}}
-    \exp\!\Bigl(-\tfrac{1}{2\sigma^2}(x_i - \mu)^2\Bigr).
+    \exp\Bigl(-\tfrac{1}{2\sigma^2}(x_i - \mu)^2\Bigr)
     \]
     
     We wish to show that the sample mean
@@ -7097,7 +7097,7 @@ There are often multiple point estimates available for any given parameter. So i
     
     \textbf{Example}: Let \( X_1 \) and \( X_2 \) be two independent and identically distributed random variables from the Poisson distribution with parameter \(\lambda > 0\), i.e., 
     \[
-    X_1, X_2 \overset{iid}{\sim} \text{Poisson}(\lambda).
+    X_1, X_2 \overset{iid}{\sim} \text{Poisson}(\lambda)
     \]
     The probability mass function of a Poisson random variable is given by
     \[
@@ -8171,8 +8171,8 @@ n \geq \left( \frac{z_{\alpha/2} \cdot \sigma}{E} \right)^2
 \textbf{Example:} A researcher wants to estimate the average height of adult males in a city with a 95\% confidence level and a margin of error of 2 cm. Suppose previous studies suggest \(\sigma = 7\) cm.
 
 \begin{align*}
-z_{0.025} &= 1.96 \\
-n &= \left( \frac{1.96 \cdot 7}{2} \right)^2 = \left( \frac{13.72}{2} \right)^2 = (6.86)^2 = 47.06
+z_{\alpha/2} &= z_{0.025} = 1.96 \\
+n &\geq \left( \frac{1.96 \cdot 7}{2} \right)^2 = \left( \frac{13.72}{2} \right)^2 = (6.86)^2 = 47.06
 \end{align*}
 
 Thus, a sample size of at least 48 individuals is needed.
@@ -8194,7 +8194,7 @@ n \geq \left( \frac{z_{\alpha/2}}{E} \right)^2 \cdot p(1 - p)
 \textbf{Example:} A political analyst wants to estimate the proportion of voters who support a candidate with 95\% confidence and a margin of error of 5\%. If no prior estimate for \(p\) is available, the conservative choice is \(p = 0.5\):
 
 \begin{align*}
-z_{0.025} &= 1.96, \quad E = 0.05, \quad p = 0.5 \\
+z_{\alpha/2} &= z_{0.025} = 1.96, \quad E = 0.05, \quad p = 0.5 \\
 n &\geq \left( \frac{1.96}{0.05} \right)^2 \times 0.5 \times 0.5 = 1536.64 \times 0.25 = 384.16
 \end{align*}
 
@@ -8661,14 +8661,14 @@ The main purpose of the test statistic is to provide a measure of how far the sa
 
 Depending on the type of hypothesis test being conducted, the test statistic can take various forms. For instance, a \textbf{z-test statistic} is used to test hypotheses about a population mean when the population standard deviation ($\sigma$) is known and the sample size is large ($n > 30$). The z-test compares the sample mean to the population mean, and the test statistic is given by:
     \[
-    Z = \frac{\overline{X} - \mu}{\frac{\sigma}{\sqrt{n}}}
+    Z = \dfrac{\overline{X} - \mu}{{\sigma}/{\sqrt{n}}}
     \]
     where $\overline{X}$ is the sample mean, $\mu$ is the population mean under the null hypothesis, $\sigma$ is the population standard deviation, and $n$ is the sample size.
 
 For the example with a sample of 50 screws, where the sample mean is $\overline{X} = 4.8$ cm, the population mean under the null hypothesis is $\mu = 5$ cm, and the population standard deviation is $\sigma = 0.3$ cm. The z-test statistic is then calculated as follows:
 
 \[
-Z = \frac{\overline{X} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{4.8 - 5}{\frac{0.3}{\sqrt{50}}} \approx -4.72
+Z = \dfrac{\overline{X} - \mu}{{\sigma}/{\sqrt{n}}} = \frac{4.8 - 5}{{0.3}/{\sqrt{50}}} \approx -4.72
 \]
 In this example, the computed z-value is $-4.72$. 
 
@@ -8956,12 +8956,41 @@ $$\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right) - n\sum_{i=1}^{
 
 Thus we get the expression for $\hat{\beta}_1$
 
+% \begin{align*}
+%     \hat{\beta}_1 &= \dfrac{n\sum_{i=1}^{n} x_i y_i-\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}{n\sum_{i=1}^{n} x_i^2-\left(\sum_{i=1}^{n} x_i\right)^2} \\
+%     &= \dfrac{\sum_{i=1}^{n} x_i y_i-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}{\sum_{i=1}^{n} x_i^2-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2} \\
+%     % &=\dfrac{\frac{1}{n}\sum_{i=1}^{n} x_i y_i-\overline{x}\overline{y}}{\frac{1}{n}\sum_{i=1}^{n} x_i^2-\overline{x}^2} = \dfrac{\frac{1}{n}\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})}{\frac{1}{n}\sum_{i=1}^{n} \left(x_i-\overline{x}\right)^2} \\
+%     % &= \dfrac{\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})}{\sum_{i=1}^{n} \left(x_i-\overline{x}\right)^2}
+% \end{align*}
+
 \begin{align*}
-    \hat{\beta}_1 &= \dfrac{n\sum_{i=1}^{n} x_i y_i-\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}{n\sum_{i=1}^{n} x_i^2-\left(\sum_{i=1}^{n} x_i\right)^2} \\
-    &= \dfrac{\sum_{i=1}^{n} x_i y_i-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}{\sum_{i=1}^{n} x_i^2-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2} \\
-    % &=\dfrac{\frac{1}{n}\sum_{i=1}^{n} x_i y_i-\overline{x}\overline{y}}{\frac{1}{n}\sum_{i=1}^{n} x_i^2-\overline{x}^2} = \dfrac{\frac{1}{n}\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})}{\frac{1}{n}\sum_{i=1}^{n} \left(x_i-\overline{x}\right)^2} \\
-    % &= \dfrac{\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})}{\sum_{i=1}^{n} \left(x_i-\overline{x}\right)^2}
+\hat{\beta}_1 &= 
+\left[
+n\sum_{i=1}^{n} x_i y_i 
+- 
+\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)
+\right]
+\bigg/
+\left[
+n\sum_{i=1}^{n} x_i^2 
+- 
+\left(\sum_{i=1}^{n} x_i\right)^2
+\right]
+\\
+&= 
+\left[
+\sum_{i=1}^{n} x_i y_i 
+- 
+\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right]
+\right)
+\bigg/
+\left[
+\sum_{i=1}^{n} x_i^2 
+- 
+\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2
+\right]
 \end{align*}
+
 
 It is convenient to introduce some notation for the sums of squared deviation from mean and sums of cross-products of deviation.
 
@@ -9013,7 +9042,7 @@ We aim to model the relationship between the number of hours studied (\(X\)) and
 The observed data are as follows:
 
 \begin{center}
-\begin{tabular}{ccc}
+\begin{tabular}{c|c|c}
 \toprule
 \textbf{Student} & \textbf{Hours Studied} (\(x_i\)) & \textbf{Test Score} (\(y_i\)) \\
 \midrule
