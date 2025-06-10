@@ -8777,9 +8777,172 @@ z = \frac{0.6 - 0.5}{\sqrt{0.5 \times 0.5 / 100}} = 2.0
 
 From Z-tables, \( p \approx 0.0455 \). Since \( p < 0.05 \), we reject \( H_0 \). \\
 \textbf{Conclusion:} There is evidence the coin might be biased.
-\chapter{Regression Analysis}
 
-\section{What is Regression Analysis?}
+\chapter{Correlation and Regression}
+
+\section{Correlation}
+
+In statistics, \textbf{correlation} quantifies how closely two numerical variables are related with respect to each other. For example, imagine you record how many hours each of five students studies in a week and their corresponding exam scores:
+
+\begin{table}[h!]
+	\centering
+	\label{tab:study_scores}
+	\begin{tabular}{c|c|c}
+		\toprule
+		\textbf{Student} & \textbf{Hours Studied} ($X$) & \textbf{Exam Score} ($Y$) \\
+		\midrule
+		1 & 2 & 65 \\
+		2 & 3 & 70 \\
+		3 & 4 & 76 \\
+		4 & 5 & 78 \\
+		5 & 6 & 82 \\
+		6 & 7 & 89 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Study Hours and Exam Scores}
+\end{table}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	xlabel={Hours Studied},
+	ylabel={Exam Score},
+	axis lines=left,
+	xmin=1, xmax=8, ymin=60, ymax=95 ,
+	width=10cm,
+	height=5cm,
+	thick,
+	]
+	\addplot[only marks, blue, mark=*, mark size=2pt] coordinates {
+		(2,65) (3,70) (4,76) (5,78) (6,82) (7,89)
+	};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Scatter plot of study time and exam performance}
+\end{figure}
+
+
+
+
+As illustrated in the table and the accompanying scatter plot, exam scores increase as students dedicate more hours to studying. This clear upward pattern reflects a positive correlation: students who invest more time in preparation tend to achieve higher marks.  In general, the direction of correlation can be classified as follows:
+
+\begin{enumerate}
+	\item \textbf{Positive correlation}: An increase in one variable is accompanied by an increase in the other.
+	\item \textbf{Negative correlation}: An increase in one variable is accompanied by a decrease in the other.
+	\item \textbf{No (zero) correlation}: Changes in one variable show no consistent association with changes in the other.
+\end{enumerate}
+
+
+
+
+\subsection{Definition}
+
+Let $(X_1, Y_1), (X_2, Y_2), \dots, (X_n, Y_n)$ be $n$ pairs of observations. The most widely used measure of correlation is the \textbf{Pearson correlation coefficient}, denoted by $r$, and defined as:
+
+\begin{textbox}
+\[
+r = \dfrac{\sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y})}{\sqrt{\sum_{i=1}^{n} (X_i - \overline{X})^2} \sqrt{\sum_{i=1}^{n} (Y_i - \overline{Y})^2}}
+\]
+\end{textbox}
+
+Alternatively, $r$ can be expressed in terms of the sample covariance and sample standard deviations:
+
+\[
+r = \dfrac{S_{XY}}{S_X S_Y}
+\]
+
+where
+\begin{align*}
+S_{XY} &= \dfrac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y}) \quad \text{(sample covariance)} \\
+S_X &= \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})^2} \quad \text{(sample standard deviation of $X$)} \\
+S_Y &= \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (Y_i - \overline{Y})^2} \quad \text{(sample standard deviation of $Y$)}
+\end{align*}
+
+\subsection{Properties of the Correlation Coefficient}
+
+\begin{itemize}
+	\item $-1 \leq r \leq 1$
+	\item $r > 0$ indicates a positive linear relationship.
+	\item $r < 0$ indicates a negative linear relationship.
+	\item $r = 0$ suggests no linear relationship (but not necessarily independence).
+	\item $r = \pm 1$ indicates a perfect linear relationship.
+\end{itemize}
+
+\subsection{Interpretation Guidelines}
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|l|}
+		\hline
+		\textbf{Value of $r$} & \textbf{Strength of Linear Association} \\
+		\hline
+		$0.90$ to $1.00$ or $-0.90$ to $-1.00$ & Very strong \\
+		$0.70$ to $0.89$ or $-0.70$ to $-0.89$ & Strong \\
+		$0.40$ to $0.69$ or $-0.40$ to $-0.69$ & Moderate \\
+		$0.10$ to $0.39$ or $-0.10$ to $-0.39$ & Weak \\
+		$0.00$ to $0.09$ or $-0.00$ to $-0.09$ & Very weak or none \\
+		\hline
+	\end{tabular}
+	\caption{Interpreting the magnitude of correlation coefficient}
+\end{table}
+
+\subsection{Example}
+
+Suppose we have data on students' hours studied ($X$) and exam scores ($Y$) as follows:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Student & Hours Studied ($X$) & Exam Score ($Y$) \\
+		\hline
+		1 & 2 & 65 \\
+		2 & 3 & 70 \\
+		3 & 5 & 75 \\
+		4 & 6 & 78 \\
+		5 & 8 & 85 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+We can compute $\overline{X}$, $\overline{Y}$, and then use the formula above to compute $r$ and determine the strength and direction of the relationship.
+
+\subsection{Limitations of Correlation}
+
+\begin{itemize}
+	\item Correlation measures only linear association.
+	\item A high correlation does not imply causation.
+	\item Outliers can have a strong influence on the value of $r$.
+	\item Nonlinear relationships may exist even if $r \approx 0$.
+\end{itemize}
+
+\subsection{Visualizing Correlation}
+
+Scatter plots are a useful graphical tool to observe the relationship between two variables.
+
+\begin{center}
+	\begin{tikzpicture}
+	\begin{axis}[
+	title={Example Scatter Plot},
+	xlabel={Hours Studied},
+	ylabel={Exam Score},
+	axis lines=left,
+	grid=major,
+	width=10cm,
+	height=6cm,
+	]
+	\addplot[only marks, mark=*, blue] coordinates {
+		(2,65) (3,70) (5,75) (6,78) (8,85)
+	};
+	\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+The upward trend in the points suggests a positive correlation.
+
+
+
+\section{Regression Analysis}
 
 \begin{textbox}
     \textbf{Regression analysis} is a statistical method used to explore and model the relationship between a dependent variable and one or more independent variables.
