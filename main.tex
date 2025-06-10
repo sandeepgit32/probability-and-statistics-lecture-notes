@@ -28,6 +28,7 @@
 \usepackage{pgfplots}
 \usepackage{pgf-pie}
 \pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
 \usetikzlibrary{fillbetween,patterns,shapes,arrows.meta}
 \usetikzlibrary{calc}
 \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=gray!10]
@@ -8782,11 +8783,10 @@ From Z-tables, \( p \approx 0.0455 \). Since \( p < 0.05 \), we reject \( H_0 \)
 
 \section{Correlation}
 
-In statistics, \textbf{correlation} quantifies how closely two numerical variables are related with respect to each other. For example, imagine you record how many hours each of five students studies in a week and their corresponding exam scores:
+In statistics, \textbf{correlation} quantifies how closely two numerical variables are related with respect to each other. For example, imagine you record how many hours each of the six students studies in a week and their corresponding exam scores:
 
 \begin{table}[h!]
 	\centering
-	\label{tab:study_scores}
 	\begin{tabular}{c|c|c}
 		\toprule
 		\textbf{Student} & \textbf{Hours Studied} ($X$) & \textbf{Exam Score} ($Y$) \\
@@ -8799,7 +8799,8 @@ In statistics, \textbf{correlation} quantifies how closely two numerical variabl
 		6 & 7 & 89 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Study Hours and Exam Scores}
+	\caption{Study hours and exam scores of six students}
+	\label{tab:study_scores}
 \end{table}
 
 \begin{figure}[h!]
@@ -8836,7 +8837,7 @@ As illustrated in the table and the accompanying scatter plot, exam scores incre
 
 
 
-\subsection{Definition}
+\subsection{Pearson Correlation Coefficient}
 
 Let $(X_1, Y_1), (X_2, Y_2), \dots, (X_n, Y_n)$ be $n$ pairs of observations. The most widely used measure of correlation is the \textbf{Pearson correlation coefficient}, denoted by $r$, and defined as:
 
@@ -8848,98 +8849,183 @@ r = \dfrac{\sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y})}{\sqrt{\sum_{
 
 Alternatively, $r$ can be expressed in terms of the sample covariance and sample standard deviations:
 
+\begin{textbox}
 \[
-r = \dfrac{S_{XY}}{S_X S_Y}
+r = \dfrac{S_{XY}}{S_X \cdot S_Y}
 \]
+\end{textbox}
 
 where
 \begin{align*}
-S_{XY} &= \dfrac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y}) \quad \text{(sample covariance)} \\
-S_X &= \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})^2} \quad \text{(sample standard deviation of $X$)} \\
-S_Y &= \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (Y_i - \overline{Y})^2} \quad \text{(sample standard deviation of $Y$)}
+S_{XY} &= \text{Sample covariance} = \dfrac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y})\\
+S_X &= \text{Sample standard deviation of $X$}= \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})^2}  \\
+S_Y &= \text{Sample standard deviation of $Y$}= \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (Y_i - \overline{Y})^2} 
 \end{align*}
 
-\subsection{Properties of the Correlation Coefficient}
+We can simplify the formula for $r$ into a form most convenient for computing from raw data by using the identities:
+\begin{align*}
+\sum_i (X_i - \overline{X})(Y_i - \overline{Y}) &= \sum_i X_i Y_i - n\overline{X}\cdot \overline{Y} = \sum_i X_i Y_i - \frac{\sum_i X_i \sum_i Y_i}{n} \\
+\sum_i (X_i - \overline{X})^2 &= \sum_i X_i^2 -n\overline{X}^2= \sum_i X_i^2 - \frac{(\sum_i X_i)^2}{n} \\
+\sum_i (Y_i - \overline{Y})^2 &= \sum_i X_i^2 -n\overline{Y}^2= \sum_i Y_i^2 - \frac{(\sum_i Y_i)^2}{n}
+\end{align*}
 
+Thus we obtain the formula for $r$:
+\begin{textbox}
+\begin{align*}
+r = \frac{n \sum X_i Y_i - \sum X_i \sum Y_i}
+{\sqrt{n \sum X_i^2 - (\sum X_i)^2} \cdot \sqrt{n \sum Y_i^2 - (\sum Y_i)^2}}
+\end{align*}
+\end{textbox}
+
+The value of $r$ lies within -1 and 1 i.e. $-1 \leq r \leq 1$.
+\begin{textbox}
 \begin{itemize}
-	\item $-1 \leq r \leq 1$
-	\item $r > 0$ indicates a positive linear relationship.
-	\item $r < 0$ indicates a negative linear relationship.
-	\item $r = 0$ suggests no linear relationship (but not necessarily independence).
-	\item $r = \pm 1$ indicates a perfect linear relationship.
+	\item $r > 0$ indicates a \textbf{positive correlation}.
+	\item $r < 0$ indicates a \textbf{negative correlation}.
+	\item $r = 0$ suggests \textbf{no correlation} (but not necessarily independence).
+	\item $r = \pm 1$ indicates a \textbf{perfect linear correlation} ($+1$ for positive and $-1$ for negative).
 \end{itemize}
+\end{textbox}
 
-\subsection{Interpretation Guidelines}
+% In your document preamble:
+%   \usepackage{pgfplots}
+%   \pgfplotsset{compat=1.17}
+%   \usepgfplotslibrary{groupplots}
 
-\begin{table}[h!]
+\begin{figure}[h!]
 	\centering
-	\begin{tabular}{|c|l|}
-		\hline
-		\textbf{Value of $r$} & \textbf{Strength of Linear Association} \\
-		\hline
-		$0.90$ to $1.00$ or $-0.90$ to $-1.00$ & Very strong \\
-		$0.70$ to $0.89$ or $-0.70$ to $-0.89$ & Strong \\
-		$0.40$ to $0.69$ or $-0.40$ to $-0.69$ & Moderate \\
-		$0.10$ to $0.39$ or $-0.10$ to $-0.39$ & Weak \\
-		$0.00$ to $0.09$ or $-0.00$ to $-0.09$ & Very weak or none \\
-		\hline
+	\begin{tikzpicture}
+	\begin{groupplot}[
+	group style={
+		group size=2 by 2,
+		horizontal sep=3cm,
+		vertical sep=2cm
+	},
+	width=5cm,
+	height=4cm,
+	axis lines=left,
+	axis line style={thick},
+	xlabel={$X$},
+	ylabel={$Y$},
+	tick align=outside,
+	]
+	% Positive correlation
+	\nextgroupplot[title={Positive Correlation ($r>0$)},xmin=0, xmax=8,	ymin=1]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,1.5) (2,1.9) (3,3.1) (4,4.8) (5,4.9) (6,5.9) (7,7.8)
+	};
+	
+	% Negative correlation
+	\nextgroupplot[title={Negative Correlation ($r<0$)},xmin=0, xmax=8,	ymin=1]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,7.0) (2,6.0) (3,5.0) (4,4.5) (5,3.7) (6,2.2) (7,1.6)
+	};
+	
+	% Zero correlation
+	\nextgroupplot[title={Zero Correlation ($r\approx0$)},xmin=0, xmax=8,	ymin=3, ymax=6]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,4.5) (2,5.8) (3,4.2) (4,4.9) (5,3.9) (6,5.3) (7,4.0)
+	};
+	
+	% Perfect linear correlation
+	\nextgroupplot[title={Perfect Linear Correlation ($r=1$)},xmin=0, xmax=8,ymin=1]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,2) (2,4) (3,6) (4,8) (5,10) (6,12) (7,14)
+	};
+	
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Scatterplots illustrating positive, negative, zero, and perfect linear correlations.}
+	\label{fig:correlation_types}
+\end{figure}
+
+% \begin{table}[h!]
+% 	\centering
+% 	\begin{tabular}{c|l}
+% 		\toprule
+% 		\textbf{Value of $r$} & \textbf{Strength of correlation} \\
+% 		\midrule
+% 		$0.90$ to $1.00$ or $-0.90$ to $-1.00$ & Very strong \\
+% 		$0.70$ to $0.89$ or $-0.70$ to $-0.89$ & Strong \\
+% 		$0.40$ to $0.69$ or $-0.40$ to $-0.69$ & Moderate \\
+% 		$0.10$ to $0.39$ or $-0.10$ to $-0.39$ & Weak \\
+% 		$0.00$ to $0.09$ or $-0.00$ to $-0.09$ & Very weak or none\\ 
+% 		\bottomrule
+% 	\end{tabular}
+% 	\caption{Interpreting the magnitude of correlation coefficient}
+% \end{table}
+
+
+\textbf{Example}: Suppose we have data on students' hours studied ($X$) and exam scores ($Y$) as given in the table \ref{tab:study_scores}. We need to calculate the Pearson corelation coefficient.
+
+The formula we will use:
+
+\[
+r = \frac{n \sum X_i Y_i - \sum X_i \sum Y_i}
+{\sqrt{n \sum X_i^2 - (\sum X_i)^2} \cdot \sqrt{n \sum Y_i^2 - (\sum Y_i)^2}}
+\]
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|c|c|c|c|c}
+		\toprule
+		Student & $X_i$ & $Y_i$ & $X_i^2$ & $Y_i^2$ & $X_iY_i$\\
+		\midrule
+		1 & 2 & 65 & 4 & 4225 & 130\\
+		2 & 3 & 70 & 9 & 4900 & 210\\
+		3 & 4 & 76 & 16 & 5776 & 304\\
+		4 & 5 & 78 & 25 & 6084 & 390\\
+		5 & 6 & 82 & 36 & 6724 & 492\\
+		6 & 7 & 89 & 49 & 7921 & 623\\
+		\midrule
+		\textbf{$n=6$}& $ \sum X_i = 27 $ & $ \sum Y_i = 460 $& $ \sum X_i^2 = 139 $& $ \sum Y_i^2 = 35630 $ & $ \sum X_iY_i = 2149 $ \\
+		\bottomrule
 	\end{tabular}
-	\caption{Interpreting the magnitude of correlation coefficient}
+\caption{Correlation Coefficient Calculation Table}
 \end{table}
 
-\subsection{Example}
+Substituting the values:
+\begin{align*}
+r &= \frac{6 \cdot 2149 - 27 \cdot 460}
+{\sqrt{6 \cdot 139 - 27^2} \cdot \sqrt{6 \cdot 35630 - 460^2}}\\
+&= \frac{12894 - 12420}
+{\sqrt{834 - 729} \cdot \sqrt{213780 - 211600}}\\
+&= \frac{474}
+{\sqrt{105} \cdot \sqrt{2180}}
+\approx \frac{474}{10.247 \cdot 46.690}\\
+&\approx \frac{474}{478.74}
+\approx 0.9907
+\end{align*}
 
-Suppose we have data on students' hours studied ($X$) and exam scores ($Y$) as follows:
+This indicates a very strong positive correlation between hours studied and exam scores.
 
-\begin{center}
-	\begin{tabular}{|c|c|c|}
-		\hline
-		Student & Hours Studied ($X$) & Exam Score ($Y$) \\
-		\hline
-		1 & 2 & 65 \\
-		2 & 3 & 70 \\
-		3 & 5 & 75 \\
-		4 & 6 & 78 \\
-		5 & 8 & 85 \\
-		\hline
-	\end{tabular}
-\end{center}
+\hfill $\blacksquare$
 
-We can compute $\overline{X}$, $\overline{Y}$, and then use the formula above to compute $r$ and determine the strength and direction of the relationship.
+\subsection{Correlation Is Not Causation}
 
-\subsection{Limitations of Correlation}
+It is important to understand that a high correlation between two variables does not necessarily imply that one variable causes the other. Correlation measures the strength and direction of a linear relationship between variables, but it does not provide evidence about causality.
+
+There are several reasons why correlation does not imply causation:
 
 \begin{itemize}
-	\item Correlation measures only linear association.
-	\item A high correlation does not imply causation.
-	\item Outliers can have a strong influence on the value of $r$.
-	\item Nonlinear relationships may exist even if $r \approx 0$.
+	\item \textbf{Confounding variables:} A third variable may influence both variables under study, creating a spurious correlation.
+	\item \textbf{Reverse causality:} The direction of cause and effect may be opposite to what is assumed.
+	\item \textbf{Coincidence:} Sometimes, correlations arise purely by chance.
 \end{itemize}
 
-\subsection{Visualizing Correlation}
+For example, consider a study might that finds a positive correlation between umbrella sales and slipping accidents. This doesn't mean umbrellas cause slips or vice versa. Instead, rainy weather acts as the common factor: rain simultaneously drives people to buy umbrellas and makes sidewalks slippery, creating the illusion of a direct relationship between the two variables.
 
-Scatter plots are a useful graphical tool to observe the relationship between two variables.
+This example illustrates why it is crucial to use careful experimental design, statistical controls, and domain knowledge before concluding causal relationships from correlated data.
 
-\begin{center}
-	\begin{tikzpicture}
-	\begin{axis}[
-	title={Example Scatter Plot},
-	xlabel={Hours Studied},
-	ylabel={Exam Score},
-	axis lines=left,
-	grid=major,
-	width=10cm,
-	height=6cm,
-	]
-	\addplot[only marks, mark=*, blue] coordinates {
-		(2,65) (3,70) (5,75) (6,78) (8,85)
-	};
-	\end{axis}
-	\end{tikzpicture}
-\end{center}
 
-The upward trend in the points suggests a positive correlation.
+% \subsection{Limitations of Correlation}
 
+% \begin{itemize}
+% 	\item Correlation measures only linear association.
+% 	\item A high correlation does not imply causation.
+% 	\item Outliers can have a strong influence on the value of $r$.
+% 	\item Nonlinear relationships may exist even if $r \approx 0$.
+% \end{itemize}
 
 
 \section{Regression Analysis}
