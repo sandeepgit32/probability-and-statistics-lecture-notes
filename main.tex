@@ -8783,7 +8783,10 @@ From Z-tables, \( p \approx 0.0455 \). Since \( p < 0.05 \), we reject \( H_0 \)
 
 \section{Correlation}
 
-In statistics, \textbf{correlation} quantifies how closely two numerical variables are related with respect to each other. For example, imagine you record how many hours each of the six students studies in a week and their corresponding exam scores:
+\begin{textbox}
+In statistics, \textbf{correlation} between two random variables is a measure of the degree of linear association between them.
+\end{textbox}
+ For example, imagine you record how many hours each of the six students studies in a week and their corresponding exam scores:
 
 \begin{table}[h!]
 	\centering
@@ -8835,44 +8838,49 @@ As illustrated in the table and the accompanying scatter plot, exam scores incre
 \end{enumerate}
 
 
-
-
 \subsection{Pearson Correlation Coefficient}
 
-Let $(X_1, Y_1), (X_2, Y_2), \dots, (X_n, Y_n)$ be $n$ pairs of observations. The most widely used measure of correlation is the \textbf{Pearson correlation coefficient}, denoted by $r$, and defined as:
+Pearson's correlation coefficient for a population, commonly denoted by the Greek letter \(\rho\) (rho), is also known as the \textbf{population correlation coefficient}. Given a pair of random variables \(X\) and \(Y\), the population correlation coefficient \(\rho_{XY}\) is defined as
 
 \begin{textbox}
 \[
-r = \dfrac{\sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y})}{\sqrt{\sum_{i=1}^{n} (X_i - \overline{X})^2} \sqrt{\sum_{i=1}^{n} (Y_i - \overline{Y})^2}}
+\rho_{XY} = \frac{\operatorname{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\mathbb{E}\big[(X - \mu_X)(Y - \mu_Y)\big]}{\sigma_X \sigma_Y}
 \]
 \end{textbox}
+where \(\mu_X = \mathbb{E}[X]\) and \(\mu_Y = \mathbb{E}[Y]\) are the means of \(X\) and \(Y\), \(\sigma_X\) and \(\sigma_Y\) are their standard deviations, and \(\operatorname{Cov}(X,Y)\) is the covariance between \(X\) and \(Y\).
 
-Alternatively, $r$ can be expressed in terms of the sample covariance and sample standard deviations:
+Like all population parameters, The value of $\rho_{XY}$ is not known to us. We may need to estimate it from the random sample observation pairs $(X,Y)$. Let $$ (X_1, Y_1), (X_2, Y_2), \dots,(X_n, Y_n) $$ be $n$ pairs of observations with respective means $\overline{X}, \overline{Y}$ and variances $S_X^2, S_X^2$ respectively. It turns out that a sample estimator of $\text{Cov}(X,Y)$ is the sample covariance: 
+$$ S_{XY} = \dfrac{\sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y})}{n-1} $$
+The estimator of $\sigma_X$ is sample standard deviation of $X$:
+$$S_X = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})^2}$$
+The estimator of $\sigma_Y$ is sample standard deviation of $Y$:
+$$S_Y = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (Y_i - \overline{Y})^2}$$
+
+Substituting these estimators for their ppulation counterparts, we get the \textbf{sample correlation coefficient} as
 
 \begin{textbox}
+	\[
+	r_{XY} = \dfrac{S_{XY}}{S_X \cdot S_Y}
+	\]
+\end{textbox}
+Alternatively, $r_{XY}$ can be expressed as
+\begin{textbox}
 \[
-r = \dfrac{S_{XY}}{S_X \cdot S_Y}
+r_{XY} = \dfrac{\sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y})}{\sqrt{\sum_{i=1}^{n} (X_i - \overline{X})^2} \sqrt{\sum_{i=1}^{n} (Y_i - \overline{Y})^2}}
 \]
 \end{textbox}
 
-where
-\begin{align*}
-S_{XY} &= \text{Sample covariance} = \dfrac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y})\\
-S_X &= \text{Sample standard deviation of $X$}= \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})^2}  \\
-S_Y &= \text{Sample standard deviation of $Y$}= \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (Y_i - \overline{Y})^2} 
-\end{align*}
-
-We can simplify the formula for $r$ into a form most convenient for computing from raw data by using the identities:
+We can simplify the formula for $r_{XY}$ into a form most convenient for computing from raw data by using the identities:
 \begin{align*}
 \sum_i (X_i - \overline{X})(Y_i - \overline{Y}) &= \sum_i X_i Y_i - n\overline{X}\cdot \overline{Y} = \sum_i X_i Y_i - \frac{\sum_i X_i \sum_i Y_i}{n} \\
 \sum_i (X_i - \overline{X})^2 &= \sum_i X_i^2 -n\overline{X}^2= \sum_i X_i^2 - \frac{(\sum_i X_i)^2}{n} \\
 \sum_i (Y_i - \overline{Y})^2 &= \sum_i X_i^2 -n\overline{Y}^2= \sum_i Y_i^2 - \frac{(\sum_i Y_i)^2}{n}
 \end{align*}
 
-Thus we obtain the formula for $r$:
+Thus we obtain the formula for $r_{XY}$:
 \begin{textbox}
 \begin{align*}
-r = \frac{n \sum X_i Y_i - \sum X_i \sum Y_i}
+r_{XY} = \frac{n \sum X_i Y_i - \sum X_i \sum Y_i}
 {\sqrt{n \sum X_i^2 - (\sum X_i)^2} \cdot \sqrt{n \sum Y_i^2 - (\sum Y_i)^2}}
 \end{align*}
 \end{textbox}
@@ -8999,7 +9007,68 @@ r &= \frac{6 \cdot 2149 - 27 \cdot 460}
 
 This indicates a very strong positive correlation between hours studied and exam scores.
 
-\hfill $\blacksquare$
+\subsection{Effect of Linear Transformations on Correlation Coefficient}
+
+Suppose we have two random variables \(X\) and \(Y\) with correlation coefficient $r_{XY}$. Now define new variables
+
+\[
+U = a + bX, \quad V = c + dY
+\]
+
+where \(a, c\) are constants (shifts) and \(b, d \neq 0\) are scaling factors.
+
+The correlation coefficient between \(U\) and \(V\) is
+
+\begin{align*}
+r_{UV} =  \dfrac{\mathrm{Cov}(U,V)}{\sigma_U \sigma_V} = \dfrac{\mathrm{Cov}(a + bX, c + dY)}{\sqrt{\mathrm{Var}(a + bX)} \cdot \sqrt{\mathrm{Var}(c + dY)}}
+\end{align*}
+
+Now,
+\begin{align*}
+\mathrm{Cov}(a + bX, c + dY) &= bd\, \mathrm{Cov}(X,Y)\\
+\mathrm{Var}(a + bX) &= c^2 \mathrm{Var}(X)\\
+\mathrm{Var}(c + dY) &= d^2 \mathrm{Var}(Y)
+\end{align*}
+
+Thus,
+
+$$r_{UV}
+= \frac{\mathrm{Cov}(bX, dY)}{\sqrt{\mathrm{Var}(bX)}\cdot \sqrt{\mathrm{Var}(dY)}}
+= \frac{bd \, \mathrm{Cov}(X, Y)}{|b| \sigma_X \cdot |d| \sigma_Y}
+= \frac{bd}{|b||d|} \cdot \frac{\mathrm{Cov}(X, Y)}{\sigma_X \sigma_Y}$$
+
+Since
+
+\[
+\frac{bd}{|b||d|} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d)
+\]
+
+where \(\operatorname{sgn}(\cdot)\) is the sign function\footnote{The \textbf{sign function}, denoted by \(\operatorname{sgn}(x)\), is defined as:
+	
+	\[
+	\operatorname{sgn}(x) =
+	\begin{cases}
+	-1, & \text{if } x < 0, \\
+	\phantom{-}0, & \text{if } x = 0, \\
+	\phantom{-}1, & \text{if } x > 0.
+	\end{cases}
+	\]
+	
+	It extracts the sign of a real number \(x\).}, it follows that
+
+\begin{textbox}
+\[
+r_{UV} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot r_{XY}
+\]
+\end{textbox}
+
+This shows that linear transformations preserve the magnitude of the correlation coefficient but may reverse its sign depending on the scaling factors.
+\begin{itemize}
+	\item If \(b\) and \(d\) have the same sign, then \(r_{UV} = r_{XY}\).
+	\item If \(b\) and \(d\) have opposite signs, then \(r_{UV} = -r_{XY}\).
+	\item Adding constants \(a\) and \(c\) has no effect on the value of the correlation.
+\end{itemize}
+
 
 \subsection{Correlation Is Not Causation}
 
