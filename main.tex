@@ -96,12 +96,18 @@
             \begin{axis}[
                 no markers, domain=-4:4, samples=100,
                 axis lines=center,
-                xlabel={$x/\sigma$}, 
+                xlabel={$x$}, 
                 axis y line=none,
                 ymin=0, ymax=0.5,
                 xmin=-4, xmax=4,
-                height=8cm, width=12cm,
-                ytick=\empty
+                height=8cm, width=12.8cm,
+                ytick=\empty,
+                xtick={-3,-2,-1,0,1,2,3},
+                xticklabels={-3$\sigma$,-2$\sigma$,-$\sigma$,0,$\sigma$,2$\sigma$,3$\sigma$},
+                xticklabel style={
+                	text height=2ex,
+                	text depth=0.25ex
+                },
               ]
               % PDF curve
               \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
@@ -128,9 +134,9 @@
               \node at (axis cs:0,0.2) {\large $95.45\%$};
               \node at (axis cs:0,0.1) {\large $99.73\%$};
               
-              \draw[ thick, black] (axis cs:-3,0.07) -- (axis cs:3,0.07);
-              \draw[ thick, black] (axis cs:-2,0.17) -- (axis cs:2,0.17);
-              \draw[ thick, black] (axis cs:-1,0.27) -- (axis cs:1,0.27);
+              \draw[<->, thick, black] (axis cs:-3,0.08) -- (axis cs:3,0.08);
+              \draw[<->, thick, black] (axis cs:-2,0.18) -- (axis cs:2,0.18);
+              \draw[<->, thick, black] (axis cs:-1,0.28) -- (axis cs:1,0.28);
             \end{axis}
           \end{tikzpicture}
       \end{center}
@@ -824,21 +830,25 @@ In a simple frequency distribution, each data value is associated with a frequen
 
 \textbf{Example}: Consider the following table containing the values, frequencies and cumulative frequencies.
 
+\begin{table}[H]
 \begin{center}
-\begin{tabular}{c|c|c}
-\hline
-Value & Frequency & Cumulative Frequency\\
-\hline
-2 & 3 & 3\\ 
-4 & 5 & 8\\
-6 & 7 & 15\\
-8 & 5 & 20\\
-\hline
-\end{tabular}
+	\begin{tabular}{c|c|c}
+		\toprule
+		\textbf{Value} & \textbf{Frequency} & \textbf{Cumulative Frequency}\\
+		\midrule
+		2 & 3 & 3\\ 
+		4 & 5 & 8\\
+		6 & 7 & 15\\
+		8 & 5 & 20\\
+		\bottomrule
+	\end{tabular}
 \end{center}
+\caption{\textit{Simple frequency distribution table to calculate median.}}
+\end{table}
+
 
 \[
-N = 3 + 5 + 7 + 5 = 20 \quad \Rightarrow \frac{N}{2} = 10
+N = 3 + 5 + 7 + 5 = 20 \quad \Rightarrow \dfrac{N}{2} = 10
 \]
 Since 10 is between 8 and 15, the Median is 6. This works regardless of whether $N$ is odd or even.
 
@@ -849,12 +859,12 @@ For a grouped frequency distribution, the cumulative frequencies are used to loc
 \begin{itemize}
     \item Compute cumulative frequencies.
     \item Find \( N = \sum f_i \), the total number of observations.
-    \item Find \( \frac{N}{2} \).
-    \item Locate the median class (the class whose cumulative frequency is greater than or equal to \( \frac{N}{2} \)).
+    \item Find \( \dfrac{N}{2} \).
+    \item Locate the median class (the class whose cumulative frequency is greater than or equal to \( \dfrac{N}{2} \)).
     \item Use the formula:
     \begin{textbox}
     \[
-    \text{Median} = L + \left( \frac{\frac{N}{2} - F}{f} \right) \cdot h
+    \text{Median} = L + \left( \dfrac{\dfrac{N}{2} - F}{f} \right) \cdot h
     \]
     \end{textbox}
     where:
@@ -868,7 +878,7 @@ For a grouped frequency distribution, the cumulative frequencies are used to loc
 \end{itemize}
 
 To arrive at this formula we assume that the cumulative frequency if a linear function of $x$ within the class $L$ and $L+h$. Then
-$$\dfrac{\text{Median} - L}{h} = \dfrac{\frac{N}{2}-F}{f} \quad \Rightarrow \text{Median} = L + \left( \frac{\frac{N}{2} - F}{f} \right) \cdot h$$
+$$\dfrac{\text{Median} - L}{h} = \dfrac{\dfrac{N}{2}-F}{f} \quad \Rightarrow \text{Median} = L + \left( \dfrac{\frac{N}{2} - F}{f} \right) \cdot h$$
 
 \begin{center}
 \begin{tikzpicture}[scale=1.1]
@@ -913,19 +923,23 @@ $$\dfrac{\text{Median} - L}{h} = \dfrac{\frac{N}{2}-F}{f} \quad \Rightarrow \tex
 \end{center}
 
 \textbf{Example}: Consider the following table containing the class values, frequencies and cumulative frequencies.
+
+
+\begin{table}[H]	
 \begin{center}
 \begin{tabular}{c|c|c}
-\hline
-Class Interval & Frequency & Cumulative Frequency \\
-\hline
-0--10 & 5 & 5\\
-10--20 & 8 & 13\\
-20--30 & 12 & 25\\
-30--40 & 6 & 31\\
-\hline
+	\toprule
+	\textbf{Class Interval} & \textbf{Frequency} & \textbf{Cumulative Frequency} \\
+	\midrule
+	0--10 & 5 & 5\\
+	10--20 & 8 & 13\\
+	20--30 & 12 & 25\\
+	30--40 & 6 & 31\\
+	\bottomrule
 \end{tabular}
+\caption{\textit{Grouped frequency distribution table for calculating the median.}}
 \end{center}
-
+\end{table}
 
 \[
 N = 5 + 8 + 12 + 6 = 31,\quad \frac{N}{2} = 15.5
@@ -1062,18 +1076,21 @@ In a simple frequency distribution, the mode is the data value corresponding to 
 
 \textbf{Example:} Consider the table:
 
+\begin{table}[H]
 \begin{center}
-\begin{tabular}{c|c}
-\hline
-Value & Frequency \\
-\hline
-4 & 3 \\
-5 & 7 \\
-6 & 5 \\
-7 & 2 \\
-\hline
-\end{tabular}
+	\begin{tabular}{c|c}
+		\toprule
+		\textbf{Value} & \textbf{Frequency} \\
+		\midrule
+		4 & 3 \\
+		5 & 7 \\
+		6 & 5 \\
+		7 & 2 \\
+		\bottomrule
+	\end{tabular}
 \end{center}
+\caption{\textit{Simple frequency distribution table for calculating mode.}}
+\end{table}
 
 The highest frequency is 7, corresponding to the value 5. Hence:
 \[
@@ -1165,18 +1182,21 @@ Hence, the mode is:
 
 \textbf{Example:} Consider the following grouped data:
 
+\begin{table}[H]
 \begin{center}
-\begin{tabular}{c|c}
-\hline
-Class Interval & Frequency \\
-\hline
-0--10 & 4 \\
-10--20 & 6 \\
-20--30 & 10 \\
-30--40 & 8 \\
-\hline
-\end{tabular}
+	\begin{tabular}{c|c}
+		\toprule
+		\textbf{Class Interval} & \textbf{Frequency} \\
+		\midrule
+		0--10 & 4 \\
+		10--20 & 6 \\
+		20--30 & 10 \\
+		30--40 & 8 \\
+		\bottomrule
+	\end{tabular}
 \end{center}
+\caption{\textit{Grouped frequency distribution table for calculating the mode.}}
+\end{table}
 
 Here, the modal class is 20--30 because it has the highest frequency (\( f_1 = 10 \)). The required values are:
 \[
@@ -2819,7 +2839,7 @@ This is different from mutually exclusive events, where the sets do not overlap 
 Reliability analysis is the branch of engineering concerned with estimating the failure
 rates of systems. If a machine has a reliability of $0.95$ over $1$ year, it means there is a $95\%$ chance that it will work without failure for the entire year. In many systems, components are arranged either in \textit{series} or in \textit{parallel}, and the system's reliability depends on the configuration.
 
-\begin{itemize}
+\begin{enumerate}
     
 \item \textbf{System with Components in Series}: 
 
@@ -2895,7 +2915,7 @@ P(\text{System functions}) &= P(C \cup D) \\
 \]
 
 In parallel systems, the system is more reliable than the individual components. This configuration adds redundancy, improving fault tolerance.
-\end{itemize}
+\end{enumerate}
 
 \chapter{Random Variables and Probability Distributions}
 \section{What is a Random Variable?}
@@ -4430,7 +4450,7 @@ moment generating function.
 \begin{textbox}
 The \textbf{moment generating function} (MGF) of a random variable $X$ is a function $M_X:\mathbb{R} \to [0, \infty)$ given by
     \[
-      M_X(t) \;=\; \mathbb{E}\bigl[e^{tX}\bigr]
+      M_X(t) \;=\; \mathbb{E}\left( e^{tX} \right) 
     \]
 provided the expectation exists in an open neighborhood\footnote{An \textbf{open neighborhood} of \( t = 0 \) is an open interval around 0, say \( (-\varepsilon, \varepsilon) \) for some \( \varepsilon > 0 \). The condition says that the expectation \( \mathbb{E}[e^{tX}] \) must \emph{converge} (i.e., be finite) for all values of \( t \) in some interval around 0.} of $t=0$.
 \end{textbox}
@@ -4464,12 +4484,12 @@ e^{tX} = \sum_{n=0}^{\infty} \frac{(tX)^n}{n!} = \sum_{n=0}^{\infty} \frac{t^n X
 
 Taking expectation on both sides:
 \[
-M_X(t) = \mathbb{E}[e^{tX}] = \mathbb{E} \left[ \sum_{n=0}^{\infty} \frac{t^n X^n}{n!} \right]
+M_X(t) = \mathbb{E}\left( e^{tX}\right)  = \mathbb{E} \left(  \sum_{n=0}^{\infty} \frac{t^n X^n}{n!} \right) 
 \]
 
 We can interchange summation and expectation\footnote{Provided the series converges absolutely which it does in some neighborhood around \( t = 0 \) due to the MGF assumption.}:
 \begin{align*}
-    M_X(t) &= \sum_{n=0}^{\infty} \frac{t^n}{n!} \mathbb{E}[X^n] = \sum_{n=0}^{\infty} \frac{t^n}{n!} \mu'_n\\
+    M_X(t) &= \sum_{n=0}^{\infty} \frac{t^n}{n!} \mathbb{E}(X^n)  = \sum_{n=0}^{\infty} \frac{t^n}{n!} \mu'_n\\
 &=1+ \frac{t}{1}\mu'_1 + \frac{t^2}{2!}\mu'_2+ \frac{t^3}{3!}\mu'_3 + \dots + \frac{t^k}{k!}\mu'_k +\frac{t^{k+1}}{(k+1)!}\mu'_{k+1} + \dots 
 \end{align*}
 
@@ -5514,12 +5534,18 @@ This moment generating function exists for all real values of \(t\) and uniquely
         \begin{axis}[
             no markers, domain=-4:4, samples=100,
             axis lines=center,
-            xlabel={$x/\sigma$}, 
+            xlabel={$x$}, 
             axis y line=none,
             ymin=0, ymax=0.5,
             xmin=-4, xmax=4,
-            height=6cm, width=14cm,
-            ytick=\empty
+            height=7cm, width=14cm,
+            ytick=\empty,
+            xtick={-4, -3,-2,-1,0,1,2,3, 4},
+            xticklabels={-4$\sigma$,-3$\sigma$,-2$\sigma$,-$\sigma$,0,$\sigma$,2$\sigma$,3$\sigma$,4$\sigma$},
+            xticklabel style={
+            	text height=2ex,
+            	text depth=0.25ex
+            },
           ]
           % PDF curve
           \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
@@ -5542,13 +5568,13 @@ This moment generating function exists for all real values of \(t\) and uniquely
           \draw[dashed] (axis cs:-1,0) -- (axis cs:-1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
           \draw[dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
           
-          \node at (axis cs:0,0.3) {\small $68.27\%$};
-          \node at (axis cs:0,0.2) {\small $95.45\%$};
-          \node at (axis cs:0,0.1) {\small $99.73\%$};
+          \node at (axis cs:0,0.3) { $68.27\%$};
+          \node at (axis cs:0,0.2) { $95.45\%$};
+          \node at (axis cs:0,0.1) { $99.73\%$};
           
-          \draw[black] (axis cs:-3,0.07) -- (axis cs:3,0.07);
-          \draw[black] (axis cs:-2,0.17) -- (axis cs:2,0.17);
-          \draw[black] (axis cs:-1,0.27) -- (axis cs:1,0.27);
+          \draw[<->, black] (axis cs:-3,0.08) -- (axis cs:3,0.08);
+          \draw[<->, black] (axis cs:-2,0.18) -- (axis cs:2,0.18);
+          \draw[<->, black] (axis cs:-1,0.28) -- (axis cs:1,0.28);
         \end{axis}
       \end{tikzpicture}
   \end{center}
