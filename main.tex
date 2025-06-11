@@ -7131,12 +7131,10 @@ There are often multiple point estimates available for any given parameter. So i
     
 \end{enumerate}
 
-\section{Methods of Estimation}
 
+\section{Maximum Likelihood Estimation (MLE)}
 
-\subsection{Maximum Likelihood Estimation (MLE)}
-
-{Maximum Likelihood Estimation} is one of the most widely used methods for estimating the parameters of a statistical model. The basic idea is to choose the parameter values that make the observed data most probable.
+{Maximum Likelihood Estimation (MLE)} is one of the most widely used methods for estimating the parameters of a statistical model. The basic idea is to choose the parameter values that make the observed data most probable.
 
 Let \(\textbf{X} = ( X_1, X_2, \dots, X_n) \) be a random sample from a population with joint probability density function (or probability mass function) \( f_{\textbf{X}}(x_1, x_2, \dots, x_n ; \theta) \), where \( \theta \) is the unknown parameter to be estimated. Given $\textbf{x} = (x_1, x_2, \dots, x_n)$, it may be looked upon as a function of $\theta$, called the \textbf{likelihood function} of $\theta$ and is denoted by $L(\theta)$. 
 \[
@@ -7257,7 +7255,7 @@ S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2 = \frac{n-1}{n}\hat{\sigma}^2
 The MLE estimator tends to underestimate the true variance.
 
 
-\subsection{Bayesian Estimation}
+\section{Bayesian Estimation}
 
 Bayesian estimation is a method of statistical inference in which the unknown parameter $\theta$ is modeled as a random variable $\Theta$ with a probability distribution $\pi_{\Theta}(\theta)$, known as the \textbf{prior distribution}. It is  intended to reflect our knowledge of the parameter $\theta$, before we gather data.
 
@@ -7331,18 +7329,21 @@ We now calculate the unnormalized and normalized \textbf{posterior probabilities
 \]
 
 \begin{center}
+\begin{table}[H]
 \begin{tabular}{cc|cccc}
-\toprule
-Coin & $\theta$ & Prior & Likelihood & Unnorm. Posterior & Norm. Posterior \\
- &  & $P(\theta)$ & $P(X=1 | \theta)$ & $P(\theta | X = 1)$ & $\dfrac{P(\theta | X = 1)}{\sum_{\theta} P(\theta | X = 1)}$\\
-\midrule
-1 & 0.25 & 0.33 & 0.25 & $0.0825$ & $0.167$ \\
-2 & 0.50 & 0.33 & 0.50 & $0.1650$ & $0.333$ \\
-3 & 0.75 & 0.33 & 0.75 & $0.2475$ & $0.500$ \\
-\midrule
- &  Sum & 1.00 &  & $0.495$ & 1.000 \\
-\bottomrule
+	\toprule
+	\textbf{Coin} & $\theta$ & \textbf{Prior} & \textbf{Likelihood} & \textbf{Unnorm. Posterior} & \textbf{Norm. Posterior} \\
+	&  & $P(\theta)$ & $P(X=1 | \theta)$ & $P(\theta | X = 1)$ & $\dfrac{P(\theta | X = 1)}{\sum_{\theta} P(\theta | X = 1)}$\\
+	\midrule
+	1 & 0.25 & 0.33 & 0.25 & $0.0825$ & $0.167$ \\
+	2 & 0.50 & 0.33 & 0.50 & $0.1650$ & $0.333$ \\
+	3 & 0.75 & 0.33 & 0.75 & $0.2475$ & $0.500$ \\
+	\midrule
+	&  Sum & 1.00 &  & $0.495$ & 1.000 \\
+	\bottomrule
 \end{tabular}
+\caption{\textit{Table for calculating the posterior probabilities.}}
+\end{table}
 \end{center}
 
 The posterior probability that the coin chosen was Coin 3, given that a head was observed, is:
@@ -7352,7 +7353,7 @@ P(\theta = 0.75 \mid X = 1) = 0.5
 
 This illustrates how Bayesian estimation updates our belief about which coin was selected based on the observed outcome.
 
-\subsubsection{Bayesian approach to point estimation}
+\subsection{Bayesian Approach to Point Estimation}
 
 When you have your posterior density $\pi_{\Theta}(\theta|\mathbf{X})$, you still need a single “best‐guess” $\hat{\theta}$. Bayesian decision theory tells us that the choice of $\hat{\theta}$ depends on a loss function $L(\theta, \hat{\theta})$, which quantifies how “bad” it is to decide $\hat{\theta}$ when the true parameter is $\theta$. When our estimate is $\hat{\theta}$, the \textbf{expected posterior loss} is
 $$h(\hat{\theta}) = \int_{\theta} L(\theta, \hat{\theta}) \pi_{\Theta}(\theta|\mathbf{X}) d\theta$$
@@ -7558,7 +7559,7 @@ $$\hat{\theta} =  \frac{n\overline{X}}{n^2+\tau^2}$$
 % Bayesian methods are particularly useful when prior information is available or when data are limited. They also provide a full distribution of the parameter estimate, which is useful for constructing credible intervals and making probabilistic statements about the parameter.
 
 
-\subsection{Method of Moments}
+\section{Estimation using Method of Moments}
 The \textbf{method of moments} is a classical technique used to estimate unknown parameters of a probability distribution using sample data. The core idea is simple: it equates the theoretical moments of a distribution (which depend on the parameters) to the corresponding sample moments computed from the data.
 
 Let \( X_1, X_2, \dots, X_n \) be a random sample from a population with a distribution that depends on one or more parameters \( \theta_1, \theta_2, \dots, \theta_k \).
@@ -8802,7 +8803,7 @@ In statistics, \textbf{correlation} between two random variables is a measure of
 		6 & 7 & 89 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Study hours and exam scores of six students}
+	\caption{\textit{Study hours and exam scores of six students.}}
 	\label{tab:study_scores}
 \end{table}
 
@@ -8823,7 +8824,7 @@ In statistics, \textbf{correlation} between two random variables is a measure of
 	};
 	\end{axis}
 	\end{tikzpicture}
-	\caption{Scatter plot of study time and exam performance}
+	\caption{\textit{Scatter plot of study time and exam performance.}}
 \end{figure}
 
 
@@ -8838,7 +8839,7 @@ As illustrated in the table and the accompanying scatter plot, exam scores incre
 \end{enumerate}
 
 
-\subsection{Pearson Correlation Coefficient}
+\section{Pearson Correlation Coefficient}
 
 Pearson's correlation coefficient for a population, commonly denoted by the Greek letter \(\rho\) (rho), is also known as the \textbf{population correlation coefficient}. Given a pair of random variables \(X\) and \(Y\), the population correlation coefficient \(\rho_{XY}\) is defined as
 
@@ -8849,14 +8850,14 @@ Pearson's correlation coefficient for a population, commonly denoted by the Gree
 \end{textbox}
 where \(\mu_X = \mathbb{E}[X]\) and \(\mu_Y = \mathbb{E}[Y]\) are the means of \(X\) and \(Y\), \(\sigma_X\) and \(\sigma_Y\) are their standard deviations, and \(\operatorname{Cov}(X,Y)\) is the covariance between \(X\) and \(Y\).
 
-Like all population parameters, The value of $\rho_{XY}$ is not known to us. We may need to estimate it from the random sample observation pairs $(X,Y)$. Let $$ (X_1, Y_1), (X_2, Y_2), \dots,(X_n, Y_n) $$ be $n$ pairs of observations with respective means $\overline{X}, \overline{Y}$ and variances $S_X^2, S_X^2$ respectively. It turns out that a sample estimator of $\text{Cov}(X,Y)$ is the sample covariance: 
-$$ S_{XY} = \dfrac{\sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y})}{n-1} $$
-The estimator of $\sigma_X$ is sample standard deviation of $X$:
-$$S_X = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})^2}$$
-The estimator of $\sigma_Y$ is sample standard deviation of $Y$:
-$$S_Y = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (Y_i - \overline{Y})^2}$$
+Like all population parameters, The value of $\rho_{XY}$ is not known to us. We may need to estimate it from the random sample observation pairs $(X,Y)$. Let $$ (x_1, y_1), (x_2, y_2), \dots,(x_n, y_n) $$ be $n$ pairs of observations with respective means $\overline{X}, \overline{Y}$ and variances $S_X^2, S_X^2$ respectively. It turns out that a point estimate of $\text{Cov}(X,Y)$ is the sample covariance: 
+$$ S_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{n-1} $$
+The point estimate of $\sigma_X$ is sample standard deviation of $X$:
+$$S_X = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (x_i - \overline{x})^2}$$
+The point estimate of $\sigma_Y$ is sample standard deviation of $Y$:
+$$S_Y = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (y_i - \overline{y})^2}$$
 
-Substituting these estimators for their ppulation counterparts, we get the \textbf{sample correlation coefficient} as
+Substituting these estimates for their population counterparts, we get the formula for the \textbf{sample correlation coefficient} as
 
 \begin{textbox}
 	\[
@@ -8866,26 +8867,26 @@ Substituting these estimators for their ppulation counterparts, we get the \text
 Alternatively, $r_{XY}$ can be expressed as
 \begin{textbox}
 \[
-r_{XY} = \dfrac{\sum_{i=1}^{n} (X_i - \overline{X})(Y_i - \overline{Y})}{\sqrt{\sum_{i=1}^{n} (X_i - \overline{X})^2} \sqrt{\sum_{i=1}^{n} (Y_i - \overline{Y})^2}}
+r_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}
 \]
 \end{textbox}
 
 We can simplify the formula for $r_{XY}$ into a form most convenient for computing from raw data by using the identities:
 \begin{align*}
-\sum_i (X_i - \overline{X})(Y_i - \overline{Y}) &= \sum_i X_i Y_i - n\overline{X}\cdot \overline{Y} = \sum_i X_i Y_i - \frac{\sum_i X_i \sum_i Y_i}{n} \\
-\sum_i (X_i - \overline{X})^2 &= \sum_i X_i^2 -n\overline{X}^2= \sum_i X_i^2 - \frac{(\sum_i X_i)^2}{n} \\
-\sum_i (Y_i - \overline{Y})^2 &= \sum_i X_i^2 -n\overline{Y}^2= \sum_i Y_i^2 - \frac{(\sum_i Y_i)^2}{n}
+\sum_i (x_i - \overline{x})(y_i - \overline{y}) &= \sum_i x_i y_i - n\overline{x}\cdot \overline{y} = \sum_i x_i y_i - \frac{\sum_i x_i \sum_i y_i}{n} \\
+\sum_i (x_i - \overline{x})^2 &= \sum_i x_i^2 -n\overline{x}^2= \sum_i x_i^2 - \frac{(\sum_i x_i)^2}{n} \\
+\sum_i (y_i - \overline{y})^2 &= \sum_i y_i^2 -n\overline{y}^2= \sum_i y_i^2 - \frac{(\sum_i y_i)^2}{n}
 \end{align*}
 
 Thus we obtain the formula for $r_{XY}$:
 \begin{textbox}
 \begin{align*}
-r_{XY} = \frac{n \sum X_i Y_i - \sum X_i \sum Y_i}
-{\sqrt{n \sum X_i^2 - (\sum X_i)^2} \cdot \sqrt{n \sum Y_i^2 - (\sum Y_i)^2}}
+r_{XY} = \frac{n \sum x_i y_i - \sum x_i \sum y_i}
+{\sqrt{n \sum x_i^2 - (\sum x_i)^2} \cdot \sqrt{n \sum y_i^2 - (\sum y_i)^2}}
 \end{align*}
 \end{textbox}
 
-The value of $r$ lies within -1 and 1 i.e. $-1 \leq r \leq 1$.
+The value of $r_{XY}$ lies within -1 and 1 i.e. $-1 \leq r_{XY} \leq 1$.
 \begin{textbox}
 \begin{itemize}
 	\item $r > 0$ indicates a \textbf{positive correlation}.
@@ -8943,7 +8944,7 @@ The value of $r$ lies within -1 and 1 i.e. $-1 \leq r \leq 1$.
 	
 	\end{groupplot}
 	\end{tikzpicture}
-	\caption{Scatterplots illustrating positive, negative, zero, and perfect linear correlations.}
+	\caption{\textit{Scatterplots illustrating positive, negative, zero, and perfect linear correlations.}}
 	\label{fig:correlation_types}
 \end{figure}
 
@@ -8969,15 +8970,15 @@ The value of $r$ lies within -1 and 1 i.e. $-1 \leq r \leq 1$.
 The formula we will use:
 
 \[
-r = \frac{n \sum X_i Y_i - \sum X_i \sum Y_i}
-{\sqrt{n \sum X_i^2 - (\sum X_i)^2} \cdot \sqrt{n \sum Y_i^2 - (\sum Y_i)^2}}
+r_{XY} = \frac{n \sum x_i y_i - \sum x_i \sum y_i}
+{\sqrt{n \sum x_i^2 - (\sum x_i)^2} \cdot \sqrt{n \sum y_i^2 - (\sum y_i)^2}}
 \]
 
 \begin{table}[H]
 	\centering
 	\begin{tabular}{c|c|c|c|c|c}
 		\toprule
-		Student & $X_i$ & $Y_i$ & $X_i^2$ & $Y_i^2$ & $X_iY_i$\\
+		Student & $x_i$ & $y_i$ & $x_i^2$ & $y_i^2$ & $x_iy_i$\\
 		\midrule
 		1 & 2 & 65 & 4 & 4225 & 130\\
 		2 & 3 & 70 & 9 & 4900 & 210\\
@@ -8986,15 +8987,15 @@ r = \frac{n \sum X_i Y_i - \sum X_i \sum Y_i}
 		5 & 6 & 82 & 36 & 6724 & 492\\
 		6 & 7 & 89 & 49 & 7921 & 623\\
 		\midrule
-		\textbf{$n=6$}& $ \sum X_i = 27 $ & $ \sum Y_i = 460 $& $ \sum X_i^2 = 139 $& $ \sum Y_i^2 = 35630 $ & $ \sum X_iY_i = 2149 $ \\
+		\textbf{$n=6$}& $ \sum x_i = 27 $ & $ \sum y_i = 460 $& $ \sum x_i^2 = 139 $& $ \sum y_i^2 = 35630 $ & $ \sum x_iy_i = 2149 $ \\
 		\bottomrule
 	\end{tabular}
-\caption{Correlation Coefficient Calculation Table}
+\caption{\textit{Correlation coefficient calculation table.}}
 \end{table}
 
 Substituting the values:
 \begin{align*}
-r &= \frac{6 \cdot 2149 - 27 \cdot 460}
+r_{XY} &= \frac{6 \cdot 2149 - 27 \cdot 460}
 {\sqrt{6 \cdot 139 - 27^2} \cdot \sqrt{6 \cdot 35630 - 460^2}}\\
 &= \frac{12894 - 12420}
 {\sqrt{834 - 729} \cdot \sqrt{213780 - 211600}}\\
@@ -9007,20 +9008,24 @@ r &= \frac{6 \cdot 2149 - 27 \cdot 460}
 
 This indicates a very strong positive correlation between hours studied and exam scores.
 
-\subsection{Effect of Linear Transformations on Correlation Coefficient}
+\section{Effect of Linear Transformations on Correlation Coefficient}
 
-Suppose we have two random variables \(X\) and \(Y\) with correlation coefficient $r_{XY}$. Now define new variables
+\begin{textbox}
+\textbf{Theorem}: Suppose we have two random variables \(X\) and \(Y\) with correlation coefficient $\rho_{XY}$. Define new variables
 
 \[
 U = a + bX, \quad V = c + dY
 \]
 
-where \(a, c\) are constants (shifts) and \(b, d \neq 0\) are scaling factors.
-
-The correlation coefficient between \(U\) and \(V\) is
+where \(a, c\) are constants (shifts) and \(b, d \neq 0\) are scaling factors. Then the population correlation coefficient between \(U\) and \(V\) is
 
 \begin{align*}
-r_{UV} =  \dfrac{\mathrm{Cov}(U,V)}{\sigma_U \sigma_V} = \dfrac{\mathrm{Cov}(a + bX, c + dY)}{\sqrt{\mathrm{Var}(a + bX)} \cdot \sqrt{\mathrm{Var}(c + dY)}}
+\rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY}
+\end{align*}
+\end{textbox}
+\textbf{Proof}: 
+\begin{align*}
+\rho_{UV} =  \dfrac{\mathrm{Cov}(U,V)}{\sigma_U \sigma_V} = \dfrac{\mathrm{Cov}(a + bX, c + dY)}{\sqrt{\mathrm{Var}(a + bX)} \cdot \sqrt{\mathrm{Var}(c + dY)}}
 \end{align*}
 
 Now,
@@ -9032,15 +9037,15 @@ Now,
 
 Thus,
 
-$$r_{UV}
-= \frac{\mathrm{Cov}(bX, dY)}{\sqrt{\mathrm{Var}(bX)}\cdot \sqrt{\mathrm{Var}(dY)}}
-= \frac{bd \, \mathrm{Cov}(X, Y)}{|b| \sigma_X \cdot |d| \sigma_Y}
-= \frac{bd}{|b||d|} \cdot \frac{\mathrm{Cov}(X, Y)}{\sigma_X \sigma_Y}$$
+$$\rho_{UV}
+= \dfrac{\mathrm{Cov}(bX, dY)}{\sqrt{\mathrm{Var}(bX)}\cdot \sqrt{\mathrm{Var}(dY)}}
+= \dfrac{bd \, \mathrm{Cov}(X, Y)}{|b| \sigma_X \cdot |d| \sigma_Y}
+= \dfrac{bd}{|b||d|} \cdot \frac{\mathrm{Cov}(X, Y)}{\sigma_X \sigma_Y}$$
 
 Since
 
 \[
-\frac{bd}{|b||d|} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d)
+\dfrac{bd}{|b||d|} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d)
 \]
 
 where \(\operatorname{sgn}(\cdot)\) is the sign function\footnote{The \textbf{sign function}, denoted by \(\operatorname{sgn}(x)\), is defined as:
@@ -9056,21 +9061,25 @@ where \(\operatorname{sgn}(\cdot)\) is the sign function\footnote{The \textbf{si
 	
 	It extracts the sign of a real number \(x\).}, it follows that
 
-\begin{textbox}
 \[
-r_{UV} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot r_{XY}
+\rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot \rho_{XY}
 \]
-\end{textbox}
+\hfill $\blacksquare$
 
 This shows that linear transformations preserve the magnitude of the correlation coefficient but may reverse its sign depending on the scaling factors.
 \begin{itemize}
-	\item If \(b\) and \(d\) have the same sign, then \(r_{UV} = r_{XY}\).
-	\item If \(b\) and \(d\) have opposite signs, then \(r_{UV} = -r_{XY}\).
+	\item If \(b\) and \(d\) have the same sign, then \(\rho_{UV} = \rho_{XY}\).
+	\item If \(b\) and \(d\) have opposite signs, then \(\rho_{UV} = -\rho_{XY}\).
 	\item Adding constants \(a\) and \(c\) has no effect on the value of the correlation.
 \end{itemize}
 
+The sample correlation coefficient also satisfies the same transformation relation:
+\[
+r_{UV} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot r_{XY}
+\]
 
-\subsection{Correlation Is Not Causation}
+
+\section{Correlation Is Not Causation}
 
 It is important to understand that a high correlation between two variables does not necessarily imply that one variable causes the other. Correlation measures the strength and direction of a linear relationship between variables, but it does not provide evidence about causality.
 
