@@ -6995,7 +6995,7 @@ There are often multiple point estimates available for any given parameter. So i
     \begin{textbox}
     \textbf{Neyman–Fisher Factorization Theorem}: A necessary and sufficient condition for the statistic $T(\textbf{X})$ to be a sufficient statistic for $\theta$ is that the joint PDF (or joint PMF) function of the sample can be factorized as:
         \[
-         f_{\mathbf{X}}(x_1, x_2, \ldots, x_n| \theta) = g(T;\theta) \cdot h(x_1, x_2, \ldots, x_n)
+         f_{\mathbf{X}}(x_1, x_2, \ldots, x_n; \theta) = g(T;\theta) \cdot h(x_1, x_2, \ldots, x_n)
         \]
         where
         \begin{itemize}
@@ -7182,13 +7182,13 @@ Maximizing the log-likelihood yields the same estimator as maximizing the likeli
 
 Suppose \( X_1, X_2, \dots, X_n \) are i.i.d. from a Poisson distribution with parameter \( \lambda > 0 \). The PMF for the Poisson distribution is:
 \[
-f(x | \lambda) = \frac{e^{-\lambda} \lambda^x}{x!}, \quad x = 0, 1, 2, \dots
+f(x; \lambda) = \frac{e^{-\lambda} \lambda^x}{x!}, \quad x = 0, 1, 2, \dots
 \]
 
 The likelihood function is:
 \begin{align*}
-L(\lambda) &= f_{\textbf{X}}(x_1, x_2, \dots, x_n | \lambda)\\
-&= \prod_{i=1}^n f(x_i | \lambda) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^{x_i}}{x_i!} \\
+L(\lambda) &= f_{\textbf{X}}(x_1, x_2, \dots, x_n ; \lambda)\\
+&= \prod_{i=1}^n f(x_i ; \lambda) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^{x_i}}{x_i!} \\
 &= e^{-n\lambda} \lambda^{\sum_i x_i} \prod_{i=1}^n \frac{1}{x_i!}
 \end{align*}
 
@@ -7285,10 +7285,10 @@ The MLE estimator tends to underestimate the true variance.
 
 Bayesian estimation is a method of statistical inference in which the unknown parameter $\theta$ is modeled as a random variable $\Theta$ with a probability distribution $\pi_{\Theta}(\theta)$, known as the \textbf{prior distribution}. It is  intended to reflect our knowledge of the parameter $\theta$, before we gather data.
 
-Let \(\mathbf{X} = (X_1, X_2, \dots, X_n)\) be random variables representing the observations in the sample data with joint PDF (PMF) given $\Theta = \theta$ is given by $f_{\textbf{X}}(\textbf{x} | \theta)$ which is also known as the \textbf{likelihood}. When data $ \textbf{X}=\textbf{x} $ are observed, the extra information about $ \theta $ is combined with the prior distribution to obtain the \textbf{posterior distribution} $\pi_{\Theta}(\theta | \textbf{x})$ for $ θ $ given $ \textbf{X}=\textbf{x} $ using Bayes theorem as follows:
+Let \(\mathbf{X} = (X_1, X_2, \dots, X_n)\) be random variables representing the observations in the sample data with joint PDF (PMF) given $\Theta = \theta$ is given by $f_{\textbf{X}}(\textbf{x} \mid \theta)$ which is also known as the \textbf{likelihood}. When data $ \textbf{X}=\textbf{x} $ are observed, the extra information about $ \theta $ is combined with the prior distribution to obtain the \textbf{posterior distribution} $\pi_{\Theta}(\theta \mid \textbf{x})$ for $ θ $ given $ \textbf{X}=\textbf{x} $ using Bayes theorem as follows:
 
 \[
-\pi_{\Theta}(\theta|\mathbf{X}) = \frac{f_{\textbf{X}}(\mathbf{x}|\theta) \pi_{\Theta}(\theta)}{f_{\textbf{X}}(\mathbf{x})}
+\pi_{\Theta}(\theta\mid\mathbf{X}) = \frac{f_{\textbf{X}}(\mathbf{x}\mid\theta) \pi_{\Theta}(\theta)}{f_{\textbf{X}}(\mathbf{x})}
 \]
 
 where, 
@@ -7296,19 +7296,19 @@ where,
 f_{\textbf{X}}(\mathbf{x}) =
 \begin{cases}
 \displaystyle
-\sum_{\theta} f_{\textbf{X}}(\mathbf{x} | \theta) \pi_{\Theta}(\theta),
+\sum_{\theta} f_{\textbf{X}}(\mathbf{x} \mid \theta) \pi_{\Theta}(\theta),
 & \text{in the discrete case},\\[8pt]
 \displaystyle
-\int_{-\infty}^{\infty} f_{\textbf{X}}(\mathbf{x} | \theta) \pi_{\Theta}(\theta) \, d\theta,
+\int_{-\infty}^{\infty} f_{\textbf{X}}(\mathbf{x} \mid \theta) \pi_{\Theta}(\theta) \, d\theta,
 & \text{in the continuous case}.
 \end{cases}
 \]
 
 Thus,
 \[
-\underbrace{\pi_{\Theta}(\theta | \textbf{x})}_{\text{posterior}}
+\underbrace{\pi_{\Theta}(\theta \mid \textbf{x})}_{\text{posterior}}
 \;\propto\;
-\underbrace{f_{\textbf{X}}(\textbf{x} | \theta)}_{\text{likelihood}}
+\underbrace{f_{\textbf{X}}(\textbf{x} \mid \theta)}_{\text{likelihood}}
 \;\times\;
 \underbrace{\pi_{\Theta}(\theta)}_{\text{prior}}
 \]
@@ -7344,14 +7344,14 @@ Because the probability of selecting any coin at random is same before we have t
 
 The \textbf{likelihood} is given by the Bernoulli probability mass function:
 \[
-P(X = x | \theta) = \theta^x (1 - \theta)^{1 - x}
+P(X = x \mid \theta) = \theta^x (1 - \theta)^{1 - x}
 \]
-Since we observed $X = 1$, the likelihood becomes $P(X=1 | \theta) = \theta$.
+Since we observed $X = 1$, the likelihood becomes $P(X=1 \mid \theta) = \theta$.
 
 We now calculate the unnormalized and normalized \textbf{posterior probabilities} using Bayes' Theorem:
 
 \[
-\underbrace{P(\theta | X = 1)}_{\text{posterior}} \quad \propto \quad \underbrace{ P(X=1 | \theta)}_{\text{likelihood}} \times \underbrace{P(\theta)}_{\text{prior}}
+\underbrace{P(\theta \mid X = 1)}_{\text{posterior}} \quad \propto \quad \underbrace{ P(X=1 \mid \theta)}_{\text{likelihood}} \times \underbrace{P(\theta)}_{\text{prior}}
 \]
 
 \begin{center}
@@ -7359,7 +7359,7 @@ We now calculate the unnormalized and normalized \textbf{posterior probabilities
 \begin{tabular}{cc|cccc}
 	\toprule
 	\textbf{Coin} & $\theta$ & \textbf{Prior} & \textbf{Likelihood} & \textbf{Unnorm. Posterior} & \textbf{Norm. Posterior} \\
-	&  & $P(\theta)$ & $P(X=1 | \theta)$ & $P(\theta | X = 1)$ & $\dfrac{P(\theta | X = 1)}{\sum_{\theta} P(\theta | X = 1)}$\\
+	&  & $P(\theta)$ & $P(X=1 \mid \theta)$ & $P(\theta \mid X = 1)$ & $\dfrac{P(\theta \mid X = 1)}{\sum_{\theta} P(\theta \mid X = 1)}$\\
 	\midrule
 	1 & 0.25 & 0.33 & 0.25 & $0.0825$ & $0.167$ \\
 	2 & 0.50 & 0.33 & 0.50 & $0.1650$ & $0.333$ \\
@@ -7381,12 +7381,12 @@ This illustrates how Bayesian estimation updates our belief about which coin was
 
 \subsection{Bayesian Approach to Point Estimation}
 
-When you have your posterior density $\pi_{\Theta}(\theta|\mathbf{X})$, you still need a single “best‐guess” $\hat{\theta}$. Bayesian decision theory tells us that the choice of $\hat{\theta}$ depends on a loss function $L(\theta, \hat{\theta})$, which quantifies how “bad” it is to decide $\hat{\theta}$ when the true parameter is $\theta$. When our estimate is $\hat{\theta}$, the \textbf{expected posterior loss} is
-$$h(\hat{\theta}) = \int_{\theta} L(\theta, \hat{\theta}) \pi_{\Theta}(\theta|\mathbf{X}) d\theta$$
+When you have your posterior density $\pi_{\Theta}(\theta\mid\mathbf{X})$, you still need a single “best‐guess” $\hat{\theta}$. Bayesian decision theory tells us that the choice of $\hat{\theta}$ depends on a loss function $L(\theta, \hat{\theta})$, which quantifies how “bad” it is to decide $\hat{\theta}$ when the true parameter is $\theta$. When our estimate is $\hat{\theta}$, the \textbf{expected posterior loss} is
+$$h(\hat{\theta}) = \int_{\theta} L(\theta, \hat{\theta}) \pi_{\Theta}(\theta\mid\mathbf{X}) d\theta$$
 
 The Bayes estimator $ \hat{\theta} $ minimises the expected posterior loss i.e.
 \begin{align*}
-\hat{\theta} &= \arg \min_{\hat{\theta}} h(\hat{\theta})\\ &= \arg \min_{\hat{\theta}} \int_{\theta} L(\theta, \hat{\theta}) \pi_{\Theta}(\theta|\mathbf{X}) d\theta
+\hat{\theta} &= \arg \min_{\hat{\theta}} h(\hat{\theta})\\ &= \arg \min_{\hat{\theta}} \int_{\theta} L(\theta, \hat{\theta}) \pi_{\Theta}(\theta\mid\mathbf{X}) d\theta
 \end{align*}
 
 The form of the minimiser depends on the choice of \(L\). Some common cases are:
@@ -7398,30 +7398,30 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
     The posterior expected loss
     \begin{align*}
       h(\hat{\theta})
-      &= \int (\theta - \hat{\theta})^2 \,\pi_{\Theta}(\theta | \mathbf{X})\,d\theta\\
-      &= \int \bigl(\theta^2 - 2\hat{\theta}\,\theta + \hat{\theta}^2\bigr)\,\pi_{\Theta}(\theta|\mathbf{X})\,d\theta \\[6pt]
-      &= \int \theta^2\,\pi_{\Theta}(\theta|\mathbf{X})\,d\theta
-        \;-\; 2\hat{\theta}\int \theta\,\pi_{\Theta}(\theta|\mathbf{X})\,d\theta
-        \;+\; \hat{\theta}^2\int \pi_{\Theta}(\theta|\mathbf{X})\,d\theta \\[4pt]
-      &= \mathbb{E}[\Theta^2|\mathbf{X}]
-        \;-\; 2\hat{\theta}\,\mathbb{E}[\Theta|\mathbf{X}]
+      &= \int (\theta - \hat{\theta})^2 \,\pi_{\Theta}(\theta \mid \mathbf{X})\,d\theta\\
+      &= \int \bigl(\theta^2 - 2\hat{\theta}\,\cdot\theta + \hat{\theta}^2\bigr)\,\pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta \\[6pt]
+      &= \int \theta^2\,\pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta
+        \;-\; 2\hat{\theta}\int \theta\,\pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta
+        \;+\; \hat{\theta}^2\int \pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta \\[4pt]
+      &= \mathbb{E}[\Theta^2\mid\mathbf{X}]
+        \;-\; 2\hat{\theta}\,\mathbb{E}[\Theta\mid\mathbf{X}]
         \;+\; \hat{\theta}^2,
     \end{align*}
-    using \(\int\pi(\theta|\mathbf{X})\,d\theta=1\)
+    using \(\int\pi(\theta\mid\mathbf{X})\,d\theta=1\)
     
     To find the minimiser, differentiate \(h(\hat{\theta})\) with respect to \(\hat{\theta}\):
     \[
       \frac{dh(\hat{\theta})}{d\hat{\theta}}\,
-      = -2\,\mathbb{E}[\Theta|\mathbf{X}]
+      = -2\,\mathbb{E}[\Theta\mid\mathbf{X}]
         \;+\; 2\,\hat{\theta}.
     \]
     Setting this derivative to zero gives
     \[
-      -2\,\mathbb{E}[\Theta|\mathbf{X}] + 2\,\hat{\theta}
+      -2\,\mathbb{E}[\Theta\mid\mathbf{X}] + 2\,\hat{\theta}
       = 0
       \quad\Longrightarrow\quad
       \hat{\theta}
-      = \mathbb{E}[\Theta|\mathbf{X}]
+      = \mathbb{E}[\Theta\mid\mathbf{X}]
     \]
     Finally, check the second derivative:
     \[
@@ -7432,7 +7432,7 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
     
     Hence, the Bayes estimator \(\hat{\theta}\) under absolute‐error loss is the \textbf{mean of the posterior distribution}:
     \[
-      \hat{\theta} = \mathbb{E}[\Theta | \mathbf{X}]
+      \hat{\theta} = \mathbb{E}[\Theta\mid \mathbf{X}]
     \]
 
   \item \textbf{Absolute‐error loss:} 
@@ -7442,14 +7442,14 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
   The posterior expected loss
   \[
     h(\hat{\theta})
-    = \int_{\Theta} \lvert \theta - \hat{\theta} \rvert \,\pi_{\Theta}(\theta | \mathbf{X})\,d\theta
+    = \int_{\Theta} \lvert \theta - \hat{\theta} \rvert \,\pi_{\Theta}(\theta \mid \mathbf{X})\,d\theta
   \]
   Split the integral at \(\hat{\theta}\):
   \[
     h(\hat{\theta})
-    = \int_{-\infty}^{\hat{\theta}} (\hat{\theta} - \theta)\,\pi_{\Theta}(\theta|\mathbf{X})\,d\theta
+    = \int_{-\infty}^{\hat{\theta}} (\hat{\theta} - \theta)\,\pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta
       \;+\;
-      \int_{\hat{\theta}}^{\infty} (\theta - \hat{\theta})\,\pi_{\Theta}(\theta|\mathbf{X})\,d\theta
+      \int_{\hat{\theta}}^{\infty} (\theta - \hat{\theta})\,\pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta
   \]
   Differentiate with respect to \(\hat{\theta}\).  By Leibniz’s rule\footnote{The \textbf{Leibniz integral rule} (differentiation under the integral sign) states that if 
   $$\displaystyle H(t) = \int_{a(t)}^{b(t)} g(x,t)\,dx,$$
@@ -7462,12 +7462,12 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
   \]}:
   \[
     \frac{d\,h(\hat{\theta})}{d \hat{\theta}}
-    = \int_{-\infty}^{\hat{\theta}} \pi_{\Theta}(\theta|\mathbf{X})\,d\theta
+    = \int_{-\infty}^{\hat{\theta}} \pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta
       \;-\;
-      \int_{\hat{\theta}}^{\infty} \pi_{\Theta}(\theta|\mathbf{X})\,d\theta
+      \int_{\hat{\theta}}^{\infty} \pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta
     = \Pi_{\Theta}(\hat{\theta}) - \bigl(1 - \Pi_{\Theta}(\hat{\theta})\bigr),
   \]
-  where \(\Pi_{\Theta}(t)=\int_{-\infty}^{t}\pi_{\Theta}(\theta|\mathbf{X})\,d\theta\) is the posterior CDF.  Setting this derivative to zero:
+  where \(\Pi_{\Theta}(t)=\int_{-\infty}^{t}\pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta\) is the posterior CDF.  Setting this derivative to zero:
   \[
     \Pi_{\Theta}(\hat{\theta}) - \bigl(1 - \Pi_{\Theta}(\hat{\theta})\bigr) = 0
     \quad\Longrightarrow\quad
@@ -7475,12 +7475,12 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
   \]
   Hence the Bayes estimator \(\hat{\theta}\) under absolute‐error loss is the \textbf{median (midpoint of the CDF) of the posterior distribution}, satisfying
   \[
-    \int_{-\infty}^{\hat{\theta}}\pi_{\Theta}(\theta|\mathbf{X})\,d\theta = \tfrac12
+    \int_{-\infty}^{\hat{\theta}}\pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta = \tfrac12
   \]
   Finally, the second derivative is
   \[
     \frac{d^2\,h(\hat{\theta})}{d \hat{\theta}^2}
-    = 2\,\pi_{\Theta}(\hat{\theta}|\mathbf{X}) \;\ge\; 0,
+    = 2\,\pi_{\Theta}(\hat{\theta}\mid\mathbf{X}) \;\ge\; 0,
   \]
   so \(h(\hat{\theta})\) is convex at the solution, confirming that \(\hat{\theta}\) indeed minimizes the expected loss.  
   
@@ -7496,22 +7496,22 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
   
   The expected posterior loss:
   \[
-    h(\hat{\theta}) = \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta| \mathbf{X})\,d\theta.
+    h(\hat{\theta}) = \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta.
   \]
   
   Since \(L(\theta, \hat{\theta}) = 0\) only at \(\theta = \hat{\theta}\) and equals 1 elsewhere, we can simplify the expected posterior loss:
   \begin{align*}
-  h(\hat{\theta}) &= \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta| \mathbf{X})\,d\theta \\
-  &= \int_{\theta \neq \hat{\theta}} \pi_{\Theta}(\theta| \mathbf{X})\,d\theta\\ &
-      = 1 - \pi_{\Theta}(\hat{\theta} | \mathbf{X})
+  h(\hat{\theta}) &= \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta \\
+  &= \int_{\theta \neq \hat{\theta}} \pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta\\ &
+      = 1 - \pi_{\Theta}(\hat{\theta} \mid \mathbf{X})
   \end{align*}
     
   
   
   Therefore,
   \[
-    \hat{\theta} = \arg\min_{\hat{\theta}} \left(1 - \pi_{\Theta}(\hat{\theta} | \mathbf{X})\right) 
-    = \arg\max_{\hat{\theta}} \pi_{\Theta}(\hat{\theta} | \mathbf{X})
+    \hat{\theta} = \arg\min_{\hat{\theta}} \left(1 - \pi_{\Theta}(\hat{\theta}\mid \mathbf{X})\right) 
+    = \arg\max_{\hat{\theta}} \pi_{\Theta}(\hat{\theta} \mid \mathbf{X})
   \]
   
   Hence, the Bayes estimator under zero–one loss is the value of \(\theta\) that maximizes the posterior density, i.e., the \textbf{maximum a posteriori (MAP)} estimator. In other words, it is the \textbf{mode of the posterior distribution}.
@@ -7526,7 +7526,7 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
 
 Likelihood:
 
-$$f_{\textbf{X}}(\textbf{x}|\mu) = \frac{1}{\sqrt{2\pi}}\exp \left(-\sum_i\frac{(x_i - \mu)^2}{2} \right) $$
+$$f_{\textbf{X}}(\textbf{x}\mid\mu) = \frac{1}{\sqrt{2\pi}}\exp \left(-\sum_i\frac{(x_i - \mu)^2}{2} \right) $$
 
 Prior distribution:
 $$\pi_M(\mu) = \frac{1}{\tau\sqrt{2\pi}}\exp \left(-\frac{\mu^2\tau^2}{2} \right)$$
@@ -7534,7 +7534,7 @@ $$\pi_M(\mu) = \frac{1}{\tau\sqrt{2\pi}}\exp \left(-\frac{\mu^2\tau^2}{2} \right
 Then the posterior distribution is given by
 
 \begin{align*}
-\pi_M(\mu | \textbf{x}) &\propto f_{\textbf{X}}(\textbf{x}|\mu) \cdot \pi_M(\mu) \\
+\pi_M(\mu \mid \textbf{x}) &\propto f_{\textbf{X}}(\textbf{x}\mid\mu) \cdot \pi_M(\mu) \\
 &\propto \exp\left(-\frac{1}{2}\sum_i(x_i - \mu)^2 \right) \cdot \exp \left(-\frac{\mu^2\tau^2}{2} \right)
 \end{align*}
 
@@ -7545,7 +7545,7 @@ Now expand the squared term in the sum:
 
 Ignoring terms not involving $\mu$, we write:
 \begin{align*}
-\pi_M(\mu | \textbf{x})&\propto \exp\left(  \mu \sum_i x_i - \frac{n}{2} \mu^2 \right)  
+\pi_M(\mu \mid \textbf{x})&\propto \exp\left(  \mu \sum_i x_i - \frac{n}{2} \mu^2 \right)  
          \cdot \exp\left(  -\frac{1}{2} \mu^2 \tau^2 \right) \\
 &\propto \exp\left[ 
   \mu \sum_i x_i 
@@ -7567,7 +7567,7 @@ Now,
 
 Drop the constant term (independent of $\mu$):
 \begin{align*}
-\pi_M(\mu | \textbf{x})\propto \exp\left[ 
+\pi_M(\mu \mid \textbf{x})\propto \exp\left[ 
   -\frac{1}{2}(n + \tau^2) \left( 
     \mu - \frac{\sum_i x_i}{n + \tau^2} 
   \right)^2 
@@ -7740,7 +7740,7 @@ The pivotal quantity
 \[
 Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}
 \]
-has a standard normal distribution, $Z \sim \mathcal{N}N(0,1)$, independent of the unknown parameter $\mu$.
+has a standard normal distribution, $Z \sim \mathcal{N}(0,1)$, independent of the unknown parameter $\mu$.
 
 To find the confidence interval, we have to find critical values $a$ and $b$ such that
 $$P\left(a \leq Z \leq b\right) = 1 - \alpha$$
@@ -8374,7 +8374,7 @@ Thus, only about 323 individuals are needed when the population is finite.
 \chapter{Test of Hypothesis}
 \section{What is Hypothesis Testing?}
 
-There are many problems in which, rather than estimate the value of a parameter, we must decide whether a statement concerning a parameter is true or false. Statistically speaking, we test a hypothesis about a parameter.
+There are many problems in which, rather than estimating the value of a parameter, we must decide whether a statement concerning a parameter is true or false. Statistically speaking, we test a hypothesis about a parameter.
 
 % \begin{tcolorbox}[heading={Statistical Hypothesis}]
 % A \textbf{statistical hypothesis} is a statement about the parameter of a population.
@@ -8393,7 +8393,7 @@ For example, a factory produces screws that are supposed to be 5 cm long. A qual
 Based on the sample's average length, the inspector tests whether this difference is simply due to random variation or if the machine requires adjustment.
 
 \begin{textbox}
-\textbf{Hypothesis testing} is a statistical method used to make decisions or inferences about some parameter of a population based on sample data.
+\textbf{Hypothesis testing} is a formal procedure for testing a claim or hypothesis about a population parameter using sample data.
 \end{textbox}
 It helps us to determine whether the evidence in a sample supports a certain belief or hypothesis about the population.
 
@@ -8416,7 +8416,7 @@ In simple expression we write:
 % sample information, if the alternative hypothesis is actually
 % supported by the data. 
 
-The standard procedure is to assume that $H_0$ is true. The burden of proof is placed on those who believe in the alternative claim\footnote{A close analogy can be made to a criminal court trial, where the jury holds to the null hypothesis of ``Not guilty'' unless there is convincing evidence of guilt.  The purpose of the hearing is to establish the assertion that the accused is guilty rather than to prove that he or she is innocent.} (hypothesis). This initially favored claim ($H_0$) will not be rejected in favor of the alternative claim ($H_1$ or $H_a$) unless the sample evidence provides significant support for the alternative claim. If the sample does not strongly contradict $H_0$, we will continue to believe in the plausibility of the null hypothesis.
+The standard procedure is to assume that $H_0$ is true. The burden of proof is placed on those who believe in the alternative claim\footnote{A close analogy can be made to a criminal court trial, where the jury holds to the null hypothesis of ``Not guilty'' unless there is convincing evidence of guilt.  The purpose of the hearing is to establish the assertion that the accused is guilty rather than to prove that he or she is innocent.} (alternative hypothesis). This initially favored claim ($H_0$) will not be rejected in favor of the alternative claim ($H_1$ or $H_a$) unless the sample evidence provides significant support for the alternative claim. If the sample does not strongly contradict $H_0$, we will continue to believe in the plausibility of the null hypothesis.
 
 \vspace{3mm}
 \begin{center}
@@ -8425,8 +8425,8 @@ The standard procedure is to assume that $H_0$ is true. The burden of proof is p
 % Nodes
 % \node (start) [startstop] {Start Hypothesis Test};
 \node (evidence) [startstop] {Is there strong evidence against $H_0$?};
-\node (reject) [startstop, below of=evidence, xshift=-2.0cm] {Reject $H_0$};
-\node (fail) [startstop, below of=evidence, xshift=2.0cm] {Fail to reject $H_0$};
+\node (reject) [startstop, below of=evidence, xshift=-2.5cm] {Reject $H_0$};
+\node (fail) [startstop, below of=evidence, xshift=2.5cm] {Fail to reject $H_0$};
 
 % Arrows
 % \draw [arrow] (start) -- (evidence);
@@ -8436,7 +8436,7 @@ The standard procedure is to assume that $H_0$ is true. The burden of proof is p
 \end{tikzpicture}
 \end{center}
 
-To test the hypothesis, we assume that the
+To test the hypothesis in the above example, we assume that the
 standard deviation $\sigma = 0.3$ is known. Since the sample size is $n = 50$, the sampling distribution of the sample mean is approximately normal: \[
     \overline{X} \sim N\left( \mu, \frac{\sigma}{\sqrt{n}} \right)
     \]
@@ -8444,42 +8444,46 @@ standard deviation $\sigma = 0.3$ is known. Since the sample size is $n = 50$, t
     \overline{X} \sim N\left( 50, 0.042 \right)
     \]
 
+\begin{figure}[H]
 \begin{center}
-\begin{tikzpicture}
-  \begin{axis}[
-    domain=4.8:5.2, samples=200,
-    xlabel={$\overline{X}$}, ylabel={Probability Density},
-    axis lines=left,
-    height=6cm, width=10cm,
-    xtick={4.9177, 5, 5.0823},
-    xticklabels={$4.917$, $5$, $5.082$}
-  ]
-
-    % Plot the normal curve
-    \addplot [very thick, blue] {1/(0.042*sqrt(2*pi)) * exp(-((x-5)^2)/(2*0.042^2))};
-
-    % Shade the left tail
-    \addplot [
-      domain=4.8:4.9177, 
-      fill=gray!40, 
-      draw=none
-    ] {1/(0.042*sqrt(2*pi)) * exp(-((x-5)^2)/(2*0.042^2))} \closedcycle;
-
-    % Shade the right tail
-    \addplot [
-      domain=5.0823:5.2, 
-      fill=gray!40, 
-      draw=none
-    ] {1/(0.042*sqrt(2*pi)) * exp(-((x-5)^2)/(2*0.042^2))} \closedcycle;
-
-    % Add probability text
-    \node at (axis cs:5,3.5) {\small 0.95};
-    \node at (axis cs:4.88,1.2) {\small 0.025};
-    \node at (axis cs:5.12,1.2) {\small 0.025};
-
-  \end{axis}
-\end{tikzpicture}
+	\begin{tikzpicture}
+	\begin{axis}[
+	domain=4.8:5.2, samples=200,
+	xlabel={$\overline{X}$}, ylabel={Probability Density},
+	axis lines=left,
+	height=6cm, width=10cm,
+	xtick={4.9177, 5, 5.0823},
+	xticklabels={$4.917$, $5$, $5.083$}
+	]
+	
+	% Plot the normal curve
+	\addplot [very thick, blue] {1/(0.042*sqrt(2*pi)) * exp(-((x-5)^2)/(2*0.042^2))};
+	
+	% Shade the left tail
+	\addplot [
+	domain=4.8:4.9177, 
+	fill=gray!40, 
+	draw=none
+	] {1/(0.042*sqrt(2*pi)) * exp(-((x-5)^2)/(2*0.042^2))} \closedcycle;
+	
+	% Shade the right tail
+	\addplot [
+	domain=5.0823:5.2, 
+	fill=gray!40, 
+	draw=none
+	] {1/(0.042*sqrt(2*pi)) * exp(-((x-5)^2)/(2*0.042^2))} \closedcycle;
+	
+	% Add probability text
+	\node at (axis cs:5,3.5) {\small 0.95};
+	\node at (axis cs:4.88,1.2) {\small 0.025};
+	\node at (axis cs:5.12,1.2) {\small 0.025};
+	
+	\end{axis}
+	\end{tikzpicture}
 \end{center}
+\caption{\textit{Sampling distribution of sample mean for the screw length.}}
+\label{fig:sampling_dist_screw_mean}
+\end{figure}
 
 % \begin{center}
 % \begin{tikzpicture}
@@ -8520,7 +8524,7 @@ standard deviation $\sigma = 0.3$ is known. Since the sample size is $n = 50$, t
 % \end{center}
 
 
-The distribution of $\overline{X}$ (sampling distribution) is shown in the figure. From the figure, we can see that there is a $95\%$ chance that the value of $\overline{X}$ measured from a random sample will lie in the region $4.917 \leq \overline{X} \leq 5.082$. However, the observed value is 4.8 cm, which falls well outside of this interval. The chance of obtaining such an extreme value when the true mean is actually 5 cm is less than $5\%$.
+The distribution of $\overline{X}$ (sampling distribution) is shown in Figure \ref{fig:sampling_dist_screw_mean}. From the figure, we can see that there is a $95\%$ chance that the value of $\overline{X}$ measured from a random sample will lie in the region $4.917 \leq \overline{X} \leq 5.083$. However, the observed value is 4.8 cm, which falls well outside of this interval. The chance of obtaining such an extreme value when the true mean is actually 5 cm is less than $5\%$.
 
 This provides strong statistical evidence against the null hypothesis. Therefore, we reject the null hypothesis $H_0: \mu = 5$ in favor of the alternative hypothesis $H_1: \mu \ne 5$. It suggests that the mean length of the screws is significantly different from 5 cm, and that the manufacturing process may need to be adjusted.
 
@@ -8535,7 +8539,7 @@ The range of values for which the null hypothesis is
 rejected is called the \textbf{critical region}.    
 \end{textbox}
 
-For the above example, the critical region is characterized by $\overline{X} < 4.917$ and $\overline{X} > 5.082$.
+For the above example, the critical region is characterized by $\overline{X} < 4.917$ and $\overline{X} > 5.083$.
 
 \subsection{One-Sided and Two-Sided Hypothesis Testing}
 
@@ -8616,73 +8620,109 @@ This decision procedure can lead to either of two incorrect conclusions, known a
 For example, suppose the true average length of the screws is indeed 5 cm. However, due to random variation in the sample, we might observe a test statistic that falls into the critical region. In this case, we would reject the null hypothesis $H_0$ in favor of the alternative $H_1$, even though $H_0$ is actually true. This mistake is called a \textbf{Type I error}. The probability of a Type I error is also called the \textbf{level of significance}, denoted by $\alpha$. It is usually set at $\alpha = 0.05$ or $\alpha = 0.01$. 
 
 \begin{textbox}
-    $P$(\text{Type I error})  = $P$(Rejecting $H_0$ $\mid$ $H_0$ is true) = $\alpha$
+    \centering $P$(\text{Type I error})  = $P$(Rejecting $H_0$ $\mid$ $H_0$ is true) = $\alpha$
 \end{textbox}
 
-On the other hand, suppose the true average length of the screws has actually changed (for example, to 4.8 cm), but the observed sample does not provide enough evidence to reject $H_0$. In this case, we fail to reject the null hypothesis, even though it is false. This mistake is called a \textbf{Type II error}. The probability of Type II error is denoted by $\beta$.
+On the other hand, suppose the true average length of the screws has actually changed (for example, to 4.8 cm), but the observed sample does not provide enough evidence (such as 4.92 cm) to reject $H_0$. In this case, we fail to reject the null hypothesis, even though it is false. This mistake is called a \textbf{Type II error}. The probability of Type II error is denoted by $\beta$.
 
 \begin{textbox}
-    $P$(\text{Type II error}) = $P$(Not rejecting $H_0$ $\mid$ $H_0$ is false) = $\beta$
+    \centering $P$(\text{Type II error}) = $P$(Not rejecting $H_0$ $\mid$ $H_0$ is false) = $\beta$
 \end{textbox}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \vspace{0.5em}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{l|c|c}
 
  & $H_0$ is True & $H_1$ is True \\
-\hline
+\midrule
 Reject $H_0$        & \textbf{Type I Error} ($\alpha$) & Correct Decision \\
 Fail to Reject $H_0$ & Correct Decision        & \textbf{Type II Error} ($\beta$) \\
 \end{tabular}
 \end{table}
 
+\begin{figure}[H]
 \begin{center}
-\begin{tikzpicture}
-  \begin{axis}[
-    domain=-3:7, samples=200,
-    xlabel={ }, ylabel={Probability Density},
-    axis lines=left,
-    height=6cm, width=12cm,
-    xtick={0, 1.645, 3},
-    xticklabels={$ \mu $, Threshold, $ \mu_1 $},
-    ytick=\empty,  % <-- remove y-ticks
-    enlargelimits=0.05,
-    legend style={at={(0.85,0.75)}, anchor=south}
-  ]
-
-    % Null hypothesis distribution
-    \addplot [very thick, blue] {1/sqrt(2*pi) * exp(-x^2/2)};
-    \addlegendentry{$H_0$}
-
-    % Alternative hypothesis distribution
-    \addplot [very thick, red, dashed, domain=-1:7] {1/sqrt(2*pi) * exp(-(x-3)^2/2)};
-    \addlegendentry{$H_1$}
-
-    % Type I error region (right tail of H0)
-    \addplot [
-      domain=1.645:4, 
-      fill=gray!40, 
-      draw=none
-    ] {1/sqrt(2*pi) * exp(-x^2/2)} \closedcycle;
-    \node at (axis cs:3.4,0.05) {\small Type I Error ($\alpha$)};
-
-    % Type II error region (left of critical value under H1)
-    \addplot [
-      domain=-1:1.645, 
-      fill=red!20, 
-      draw=none
-    ] {1/sqrt(2*pi) * exp(-(x-3)^2/2)} \closedcycle;
-    \node at (axis cs:0.25,0.07) {\small Type II Error ($\beta$)};
-
-  \end{axis}
-\end{tikzpicture}
+	\begin{tikzpicture}
+	\begin{axis}[
+	domain=-3:7, samples=200,
+	xlabel={ }, ylabel={Probability Density},
+	axis lines=left,
+	height=6cm, width=12cm,
+	xtick={0, 1.645, 3},
+	xticklabels={$ \mu $, Threshold, $ \mu_1 $},
+	ytick=\empty,  % <-- remove y-ticks
+	enlargelimits=0.05,
+	legend style={at={(0.85,0.75)}, anchor=south}
+	]
+	
+	% Null hypothesis distribution
+	\addplot [very thick, blue] {1/sqrt(2*pi) * exp(-x^2/2)};
+	\addlegendentry{$H_0$}
+	
+	% Alternative hypothesis distribution
+	\addplot [very thick, red, dashed, domain=-1:7] {1/sqrt(2*pi) * exp(-(x-3)^2/2)};
+	\addlegendentry{$H_1$}
+	
+	% Type I error region (right tail of H0)
+	\addplot [
+	domain=1.645:4, 
+	fill=gray!40, 
+	draw=none
+	] {1/sqrt(2*pi) * exp(-x^2/2)} \closedcycle;
+	\node at (axis cs:3.4,0.05) {\small Type I Error ($\alpha$)};
+	
+	% Type II error region (left of critical value under H1)
+	\addplot [
+	domain=-1:1.645, 
+	fill=red!20, 
+	draw=none
+	] {1/sqrt(2*pi) * exp(-(x-3)^2/2)} \closedcycle;
+	\node at (axis cs:0.25,0.07) {\small Type II Error ($\beta$)};
+	
+	\end{axis}
+	\end{tikzpicture}
 \end{center}
+\caption{\textit{Type I and Type II error.}}
+\end{figure}
+
+One very important concept that relates to error probabilities is the notion of the power of a test.
+\begin{textbox}
+The \textbf{power} of a test is the probability of rejecting $ H_0 $ given that a speciﬁc alternative is true.
+$$\text{Power of a test} = P(\text{Rejecting }H_0 \mid H_0\text{ is false})=1-\beta$$
+\end{textbox}
+\bigskip
+
+In other words, \textbf{it quantifies your test’s sensitivity to detect real departures from the null hypothesis}. The power of this two‐sided $Z$‐test ($H_0: \mu = 5$ vs.\ $H_1: \mu \neq 5$) with known $\sigma = 0.3$, $n = 50$, and $\alpha = 0.05$ is the probability it will reject $H_0$ when $\mu$ truly equals $4.8$.  Here the critical region is
+\[
+\overline{X} < 4.9168
+\quad\text{or}\quad
+\overline{X} > 5.0832
+\]
+If in reality $\mu = 4.8$, then
+\[
+\overline{X} \sim N\bigl(4.8,\;\mathrm{SE}^2\bigr),
+\]
+and
+\[
+P\bigl(\bar{X} < 4.9168\bigr)
+= F_Z\Bigl(\frac{4.9168 - 4.8}{0.04243}\Bigr)
+\approx 0.9971
+\]
+while
+\[
+P\bigl(\bar{X} > 5.0832\bigr)
+= 1 - F_Z\Bigl(\frac{5.0832 - 4.8}{0.04243}\Bigr)
+\approx 0
+\]
+Thus the test’s power at $\mu = 4.8$ is about $0.9971\ (\approx 99.7\%)$, meaning there’s a 99.7\% chance (very sensitive) of detecting this 0.2‑unit shift.  Higher power can be achieved by increasing the sample size, accepting a larger $\alpha$, or targeting a larger effect size. Before running an experiment, one often conducts a power analysis to choose \(n\) (or \(\alpha\)) so that the power exceeds a desired threshold (commonly 0.8 or 0.9) for a specified effect size.
+
+
 
 \section{Test Statistic}
 \begin{textbox}
-The \textbf{test statistic} is a function of the sample data that forms the basis for making the statistical decision to either reject or fail to reject the null hypothesis.
+The \textbf{test statistic} is a function of the sample data that forms the basis for making the statistical decision to either reject or not reject the null hypothesis.
 \end{textbox}
 
 The main purpose of the test statistic is to provide a measure of how far the sample statistic (such as the sample mean) deviates from the hypothesized value under the null hypothesis. The further this value is from the hypothesized value, the stronger the evidence against the null hypothesis.
