@@ -8752,15 +8752,193 @@ The decision rule can be summarized as follows:
 In general, the larger the magnitude of the test statistic, the stronger the evidence against the null hypothesis. In our example, the computed z-value is $-4.72$, which lies far in the left tail and is less than $-1.96$. Therefore, we reject the null hypothesis $H_0$.
 
 
+\subsection{$p$‐Value in Hypothesis Testing}
 
-\section{P-Value}
+\begin{textbox}
+The $p$\textbf{-value} is the probability, under null hypothesis, that the test statistic takes a value equal to or more extreme than the value actually observed.
+\end{textbox}
+
+Let $T$ be the test statistic used to assess $H_0$ versus $H_1$, and let $t_{\rm obs}$ be its observed value from the sample. Then for \textbf{one-sided test},
+\[
+p\text{-value} = P(T \ge t_{\rm obs}\mid H_0)
+\]
+For a \textbf{two‐sided test} (where both large and small values of $T$ count against $H_0$),
+\begin{align*}
+p\text{-value} &= 
+P(T \ge t_{\rm obs}\mid H_0)
+\;+\;
+P(T \le -\,t_{\rm obs}\mid H_0)
+\end{align*}
+Assuming the null distribution is symmetric:
+\begin{align*}
+p\text{-value} =2P(T \ge t_{\rm obs}\mid H_0)
+\end{align*}
 
 \begin{itemize}
-    \item \textbf{Significance Level (\( \alpha \))}: The probability of rejecting the null hypothesis when it is actually true. Common values are 0.05 (5\%) or 0.01 (1\%).
-    \item \textbf{P-value}: The probability of getting the observed result (or more extreme) if the null hypothesis is true.
-    \item \textbf{Test Statistic}: A standardized value that is calculated from sample data during a hypothesis test.
-    \item \textbf{Critical Region}: The range of values for which the null hypothesis is rejected.
+	\item A \textbf{small} $p-$value (below the chosen significance level~$\alpha$) indicates that observing $t_{\rm obs}$ would be very unlikely if $H_0$ were true, so we \textbf{reject} $H_0$.
+	\item A \textbf{large} $p-$value means the data are consistent with $H_0$, so we \textbf{fail to reject} $H_0$.
 \end{itemize}
+
+\begin{table}[H]
+	\centering
+	\vspace{0.5em}
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{c|c}
+		\toprule
+		\textbf{Condition} & \textbf{Decision} \\
+		\midrule
+		$p\text{-value} \leq \alpha$  & Reject $H_0$ \\
+		$p\text{-value} > \alpha$  & Fail to reject $H_0$ \\
+		\bottomrule
+	\end{tabular}
+\caption{\textit{Decision rule based on $p$-value.}}
+\end{table}
+
+\paragraph{Example.}
+Suppose $X_1,X_2,\dots,X_n\sim N(\mu,\sigma^2)$ with known $\sigma=0.3$, and we test
+\[
+H_0:\,\mu=5
+\quad\text{vs.}\quad
+H_1:\,\mu>5
+\]
+using 
+\[
+T = \frac{\overline X - 5}{\sigma/\sqrt{n}}
+\;\sim\; N(0,1)
+\quad\text{under }H_0
+\]
+If $\overline X=5.1$, $n=36$, and $\sigma=0.3$, then
+\[
+t_{\rm obs}
+= \frac{5.1 - 5}{0.3/\sqrt{36}}
+= 2.00
+\quad
+\Rightarrow p\text{-value} = P(Z \ge 2.00) \approx 0.0228
+\]
+Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance.
+
+% Always report the exact p‐value, not just “$p<0.05$,” to convey the strength of evidence.
+
+\section{The 5 Steps of Hypothesis Testing}
+
+
+	\subsubsection*{Step 1. State the hypotheses}
+	Formulate the {null hypothesis} ($H_0$), which represents the default claim about the population parameter, and the {alternative hypothesis} ($H_1$), which represents the effect or difference you aim to detect.
+	
+	\subsubsection*{Step 2. Choose a significance level}
+	Select a level of significance $\alpha$ (commonly 0.01, 0.05, or 0.10) that defines the maximum probability of committing a Type I error (rejecting $H_0$ when it is true).
+	
+	\subsubsection*{Step 3. Define and calculate the test statistic}
+	Identify an appropriate test statistic based on the hypotheses and assumption of population distribution. Then collect a sample of size $n$ and compute the observed value of the test statistic from the data.
+	
+	\subsubsection*{Step 4. Calculate the $ p $­-value or determine the critical value(s) from data}
+	\begin{itemize}
+		\item \emph{$ P $­-value approach:} Compute the probability, under $H_0$, of observing a test statistic at least as extreme as the one obtained.  
+		\item \emph{Critical value approach:} Identify the cutoff point(s) from the null distribution that correspond to the chosen $\alpha$, and define the rejection region(s).
+	\end{itemize}
+	
+	\subsubsection*{Step 5. Make a decision}
+	\begin{itemize}
+		\item If the $ p $­-value is less than or equal to $\alpha$, \textbf{reject} $H_0$; otherwise, \textbf{do not reject} $H_0$.  
+		\item State the result in context, indicating whether there is sufficient evidence to support the alternative hypothesis at the chosen significance level.
+	\end{itemize}
+
+\section{Statistical Test for a Normally Distributed Population Mean \(\mu\)}
+
+\subsection{Standard Deviation($\sigma$) Known}
+
+\begin{enumerate}
+	\item Hypothesis:  
+	$$H_0: \mu = \mu_0$$
+	\begin{align*}
+	H_1: \begin{cases}
+	\mu \geq \mu_0, & \text{Right tail test}\\[6pt]
+	\mu \leq \mu_0, & \text{Left tail test}\\[6pt]
+	\mu \neq \mu_0, & \text{Two-sede test}\\[6pt]
+	\end{cases}
+	\end{align*}
+	
+	\item Select \(\alpha\) (commonly 0.01, 0.05, or 0.10) as the maximum probability of a Type I error.
+	
+	\item Test statistic  
+	\[
+	Z \;=\;\frac{\overline{X} - \mu_0}{\sigma / \sqrt{n}}
+	\]
+	where \(\overline{X}\) is the sample mean, \(\sigma\) is known, and \(n\) is the sample size.  Under \(H_0\), \(Z \sim N(0,1)\). We then calculate the test statistic from the sample data. Let \(z_{\rm obs}\) is the observed value of \(Z\).
+	
+	\item {We now calculate the \(p\)-value from the distribution of test statistic}:
+		\[
+		p\text{-value} = 
+		\begin{cases}
+		P(Z \ge z_{\rm obs}), & \text{for }H_1:\mu>\mu_0,\\[6pt]
+		P(Z \le z_{\rm obs}), & \text{for }H_1:\mu<\mu_0,\\[6pt]
+		2\,P\bigl(|Z| \ge |z_{\rm obs}|\bigr), & \text{for }H_1:\mu\neq\mu_0,
+		\end{cases}
+		\]
+	
+	\item If \(p \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+\end{enumerate}
+
+
+\subsection{Standard Deviation($ \sigma $) Unknown}
+
+\begin{enumerate}
+	\item Hypothesis:  
+	$$H_0: \mu = \mu_0$$
+	\begin{align*}
+	H_1: \begin{cases}
+	\mu \geq \mu_0, & \text{Right tail test}\\[6pt]
+	\mu \leq \mu_0, & \text{Left tail test}\\[6pt]
+	\mu \neq \mu_0, & \text{Two-sided test}
+	\end{cases}
+	\end{align*}
+	
+	\item Select \(\alpha\) (commonly 0.01, 0.05, or 0.10) as the maximum probability of a Type I error.
+	
+	\item Test statistic:
+	
+	\begin{itemize}
+		\item \textbf{Large sample} (\(n \ge 30\)):  
+		\[
+		Z = \frac{\overline{X} - \mu_0}{S / \sqrt{n}}
+		\]
+		where \(S\) is the sample standard deviation.  
+		By the Central Limit Theorem, \(Z \sim N(0, 1)\) approximately under \(H_0\).
+		
+		\item \textbf{Small sample} (\(n < 30\)):  
+		\[
+		T = \frac{\overline{X} - \mu_0}{S / \sqrt{n}}
+		\]
+		Here, \(T\) follows the \(t\)-distribution with \(n - 1\) degrees of freedom under \(H_0\), assuming normality.
+	\end{itemize}
+	
+	\item We now calculate the \(p\)-value from the distribution of the test statistic:
+	
+	\begin{itemize}
+		\item \textbf{Large sample} (\(n \ge 30\)) — Use standard normal distribution:
+		\[
+		p\text{-value} = 
+		\begin{cases}
+		P(Z \ge z_{\rm obs}), & \text{for }H_1:\mu>\mu_0,\\[6pt]
+		P(Z \le z_{\rm obs}), & \text{for }H_1:\mu<\mu_0,\\[6pt]
+		2\,P(|Z| \ge |z_{\rm obs}|), & \text{for }H_1:\mu\neq\mu_0
+		\end{cases}
+		\]
+		
+		\item \textbf{Small sample} (\(n < 30\)) — Use \(t\)-distribution with \(n-1\) degrees of freedom:
+		\[
+		p\text{-value} = 
+		\begin{cases}
+		P(T \ge t_{\rm obs}), & \text{for }H_1:\mu>\mu_0,\\[6pt]
+		P(T \le t_{\rm obs}), & \text{for }H_1:\mu<\mu_0,\\[6pt]
+		2\,P(|T| \ge |t_{\rm obs}|), & \text{for }H_1:\mu\neq\mu_0
+		\end{cases}
+		\]
+	\end{itemize}
+	
+	\item If \(p \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+\end{enumerate}
+
 
 \section{The 5 Steps of Hypothesis Testing}
 
