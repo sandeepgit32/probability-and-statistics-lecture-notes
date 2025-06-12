@@ -8727,29 +8727,58 @@ The \textbf{test statistic} is a function of the sample data that forms the basi
 
 The main purpose of the test statistic is to provide a measure of how far the sample statistic (such as the sample mean) deviates from the hypothesized value under the null hypothesis. The further this value is from the hypothesized value, the stronger the evidence against the null hypothesis.
 
-Depending on the type of hypothesis test being conducted, the test statistic can take various forms. For instance, a \textbf{z-test statistic} is used to test hypotheses about a population mean when the population standard deviation ($\sigma$) is known and the sample size is large ($n > 30$). The z-test compares the sample mean to the population mean, and the test statistic is given by:
+Depending on the type of hypothesis test being conducted, the test statistic can take various forms. For instance, a \textbf{$ z $-test statistic} is used to test hypotheses about a population mean when the population standard deviation ($\sigma$) is known and the sample size is large ($n > 30$). The $ z $-test compares the sample mean to the population mean, and the test statistic is given by:
     \[
-    Z = \dfrac{\overline{X} - \mu}{{\sigma}/{\sqrt{n}}}
+    Z = \dfrac{\overline{X} - \mu_0}{{\sigma}/{\sqrt{n}}}
     \]
-    where $\overline{X}$ is the sample mean, $\mu$ is the population mean under the null hypothesis, $\sigma$ is the population standard deviation, and $n$ is the sample size.
+where $\overline{X}$ is the sample mean, $\mu_0$ is the population mean under the null hypothesis, $\sigma$ is the population standard deviation, and $n$ is the sample size. If the null hypothesis is true, $ \mathbb{E}(\overline{X}) = \mu_0 $, and it follows that the distribution of $ Z $ is the standard normal distribution i.e. $Z \sim \mathcal{N}(0,1)$.
 
-For the example with a sample of 50 screws, where the sample mean is $\overline{X} = 4.8$ cm, the population mean under the null hypothesis is $\mu = 5$ cm, and the population standard deviation is $\sigma = 0.3$ cm. The z-test statistic is then calculated as follows:
+For the example with a sample of 50 screws, where the sample mean is $\overline{X} = 4.8$ cm, the population mean under the null hypothesis is $\mu_0 = 5$ cm, and the population standard deviation is $\sigma = 0.3$ cm. The $ z $-test statistic is then calculated as follows:
 
 \[
 Z = \dfrac{\overline{X} - \mu}{{\sigma}/{\sqrt{n}}} = \frac{4.8 - 5}{{0.3}/{\sqrt{50}}} \approx -4.72
 \]
-In this example, the computed z-value is $-4.72$. 
 
-Once the test statistic is calculated, it is compared to a \textbf{critical value} from the relevant probability distribution (e.g., the standard normal distribution). The critical value is determined by the level of significance $\alpha$ and the nature of the test (one-tailed or two-tailed). For instance, in a two-tailed test with $\alpha = 0.05$, the critical z-values are $\pm 1.96$.
+Once the test statistic is calculated, it is compared with a \textbf{critical value} calculated from the relevant probability distribution of the test statistic under null hypothesis (e.g., the standard normal distribution). The critical value \(c\) is chosen so that 
+\[
+P(\text{Test Statistic is more extreme than }c \mid H_0) = \alpha
+\]
+where \(\alpha\) is the level of significance.  Equivalently, the set of all values of the test statistic that lead to rejection of \(H_0\) is called the \textbf{critical region} or \textbf{rejection region}. Therefore
 
-The decision rule can be summarized as follows:
+$$P(\text{Test statistic} \in \text{rejection region}\mid H_0) = \alpha$$
 
+\begin{table}[H]
+	\centering
+	\begin{tabular}{@{}l|c|c@{}}
+		\toprule
+		\textbf{Test Type} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+		\midrule
+		Upper‐tailed \(z\)‑test & $ z_{\alpha} $ &
+		\(\{Z>z_{\alpha}\}\) \\[6pt]
+		Lower‐tailed \(z\)‑test &
+		$ -z_{\alpha} $ &
+		\(\{Z<-z_{\alpha}\}\) \\[6pt]
+		Two‐tailed \(z\)‑test &
+		$ \pm\,z_{\alpha/2} $&
+		$\{|Z| > z_{\alpha/2}\}$ \\ 
+		\bottomrule
+	\end{tabular}
+	\caption{Critical values and rejection regions for \(z\)-tests at significance level \(\alpha\).}
+\end{table}
+
+
+%For instance, in a two‐tailed test with \(\alpha = 0.05\), the critical values are \(\pm 1.96\).  
+
+\medskip
+
+\noindent {Now we set the decision rule:}
 \begin{itemize}
-    \item If the absolute value of the test statistic exceeds the critical value ($\left|Z\right| > 1.96$), we reject the null hypothesis.
-    \item If the absolute value of the test statistic is less than or equal to the critical value ($\left|Z\right| \leq 1.96$), we fail to reject the null hypothesis.
+	\item If the observed test statistic \(z_{\rm obs}\) lies in the rejection region, then we reject \(H_0\).
+	\item Otherwise, we fail to reject \(H_0\).
 \end{itemize}
 
-In general, the larger the magnitude of the test statistic, the stronger the evidence against the null hypothesis. In our example, the computed z-value is $-4.72$, which lies far in the left tail and is less than $-1.96$. Therefore, we reject the null hypothesis $H_0$.
+In our example, the computed \(z\)-value is \(-4.72\), which lies in the left‐hand critical region \(\{Z < z_{\alpha/2} = -1.96\}\) for the two-tailed test with $\alpha = 0.05$. Therefore, we reject the null hypothesis \(H_0\). In general, the larger the magnitude of the test statistic, the stronger the evidence against the null hypothesis.
+
 
 
 \subsection{$p$‐Value in Hypothesis Testing}
@@ -8819,10 +8848,10 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 
 % Always report the exact p‐value, not just “$p<0.05$,” to convey the strength of evidence.
 
-\section{The 5 Steps of Hypothesis Testing}
+\section{General Procedure for Hypothesis Testing}
 
 
-	\subsubsection*{Step 1. State the hypotheses}
+	\subsubsection*{Step 1. Formulate the hypotheses}
 	Formulate the {null hypothesis} ($H_0$), which represents the default claim about the population parameter, and the {alternative hypothesis} ($H_1$), which represents the effect or difference you aim to detect.
 	
 	\subsubsection*{Step 2. Choose a significance level}
