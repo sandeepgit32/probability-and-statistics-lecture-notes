@@ -8767,9 +8767,136 @@ $$P(\text{Test statistic} \in \text{rejection region}\mid H_0) = \alpha$$
 \end{table}
 
 
-%For instance, in a two‐tailed test with \(\alpha = 0.05\), the critical values are \(\pm 1.96\).  
+%For instance, in a two‐tailed test with \(\alpha = 0.05\), the critical values are \(\pm 1.96\).
 
-\medskip
+ \begin{figure}[H]
+ 	\begin{center}
+ 		\begin{tikzpicture}
+ 		\begin{axis}[
+ 		no markers, domain=-4:4, samples=200,
+ 		axis lines=center,
+ 		xlabel={$z$}, ylabel={$f_Z(z)$},
+ 		ymin=0, ymax=0.48,
+ 		xmin=-4.5, xmax=4.5,
+ 		height=5cm, width=12cm,
+ 		xtick={-1.64,0,1.64},
+ 		xticklabels={\(-z_{\alpha}\), 0, \(z_{\alpha}\)},
+ 		ytick=\empty,
+ 		clip=false
+ 		]
+ 		% PDF curve of standard normal
+ 		\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
+ 		
+ 		% Shade the critical regions (tails)		
+ 		\addplot [
+ 		domain=1.64:4, 
+ 		draw=none, 
+ 		fill=gray!20,
+ 		samples=100
+ 		]
+ 		{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+ 		
+ 		% Vertical dashed lines
+ 		\draw[dashed] (axis cs:1.64,0) -- (axis cs:1.64,{1/sqrt(2*pi)*exp(-1.64^2/2)});
+ 		
+ 		% Single label with two arrows
+ 		\node (label) at (axis cs:2.2,0.25) {{Rejection region}};
+ 		\draw[->, thick] (label) to[out=-20,in=90] (axis cs: 2.5,0.05);
+ 		\end{axis}
+ 		\end{tikzpicture}
+ 	\end{center}
+ 	\caption{\textit{Rejection region for upper‐tailed \(z\)-test.}}
+ \end{figure}
+
+ \begin{figure}[H]
+	\begin{center}
+		\begin{tikzpicture}
+		\begin{axis}[
+		no markers, domain=-4:4, samples=200,
+		axis lines=center,
+		xlabel={$z$}, ylabel={$f_Z(z)$},
+		ymin=0, ymax=0.48,
+		xmin=-4.5, xmax=4.5,
+		height=5cm, width=12cm,
+		xtick={-1.64,0,1.64},
+		xticklabels={\(-z_{\alpha}\), 0, \(z_{\alpha}\)},
+		ytick=\empty,
+		clip=false
+		]
+		% PDF curve of standard normal
+		\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
+		
+		% Shade the critical regions (tails)		
+		\addplot [
+		domain=-4:-1.64, 
+		draw=none, 
+		fill=gray!20,
+		samples=100
+		]
+		{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+		
+		% Vertical dashed lines
+		\draw[dashed] (axis cs:-1.64,0) -- (axis cs:-1.64,{1/sqrt(2*pi)*exp(-1.64^2/2)});
+		
+		% Single label with two arrows
+		\node (label) at (axis cs:-2.2,0.25) {{Rejection region}};
+		\draw[->, thick] (label) to[out=-120,in=90] (axis cs: -2.5,0.05);
+		\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\caption{\textit{Rejection region for lower‐tailed \(z\)-test.}}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\begin{tikzpicture}
+		\begin{axis}[
+		no markers, domain=-4:4, samples=200,
+		axis lines=center,
+		xlabel={$z$}, ylabel={$f_Z(z)$},
+		ymin=0, ymax=0.48,
+		xmin=-4.5, xmax=4.5,
+		height=5cm, width=12cm,
+		xtick={-1.96,0,1.96},
+		xticklabels={\(-z_{\alpha/2}\), 0, \(z_{\alpha/2}\)},
+		ytick=\empty,
+		clip=false
+		]
+		% PDF curve of standard normal
+		\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
+		
+		% Shade the critical regions (tails)
+		\addplot [
+		domain=-4:-1.96, 
+		draw=none, 
+		fill=gray!20,
+		samples=100
+		]
+		{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+		
+		\addplot [
+		domain=1.96:4, 
+		draw=none, 
+		fill=gray!20,
+		samples=100
+		]
+		{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+		
+		% Vertical dashed lines at -z_alpha/2 and z_alpha/2
+		\draw[dashed] (axis cs:-1.96,0) -- (axis cs:-1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
+		\draw[dashed] (axis cs:1.96,0) -- (axis cs:1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
+		
+		% Single label with two arrows
+		\node (label) at (axis cs:-1.5,0.25) {{Rejection region}};
+		\draw[->, thick] (label) to[out=200,in=90] (axis cs:-2.5,0.05);
+		\draw[->, thick] (label) to[out=-20,in=90] (axis cs: 2.5,0.05);
+		\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\caption{\textit{Rejection region for two‐tailed \(z\)-test.}}
+\end{figure}
+
+
 
 \noindent {Now we set the decision rule:}
 \begin{itemize}
@@ -8862,7 +8989,7 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 	
 	\subsubsection*{Step 4. Calculate the $ p $­-value or determine the critical value(s) from data}
 	\begin{itemize}
-		\item \emph{$ P $­-value approach:} Compute the probability, under $H_0$, of observing a test statistic at least as extreme as the one obtained.  
+		\item \emph{$ p $­-value approach:} Compute the probability, under $H_0$, of observing a test statistic at least as extreme as the one obtained.  
 		\item \emph{Critical value approach:} Identify the cutoff point(s) from the null distribution that correspond to the chosen $\alpha$, and define the rejection region(s).
 	\end{itemize}
 	
@@ -8883,7 +9010,7 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 	H_1: \begin{cases}
 	\mu \geq \mu_0, & \text{Right tail test}\\[6pt]
 	\mu \leq \mu_0, & \text{Left tail test}\\[6pt]
-	\mu \neq \mu_0, & \text{Two-sede test}\\[6pt]
+	\mu \neq \mu_0, & \text{Two-sided test}\\[6pt]
 	\end{cases}
 	\end{align*}
 	
@@ -8893,19 +9020,39 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 	\[
 	Z \;=\;\frac{\overline{X} - \mu_0}{\sigma / \sqrt{n}}
 	\]
-	where \(\overline{X}\) is the sample mean, \(\sigma\) is known, and \(n\) is the sample size.  Under \(H_0\), \(Z \sim N(0,1)\). We then calculate the test statistic from the sample data. Let \(z_{\rm obs}\) is the observed value of \(Z\).
+	where \(\overline{X}\) is the sample mean, \(\sigma\) is known, and \(n\) is the sample size.  Under \(H_0\), \(Z \sim N(0,1)\). We then calculate the test statistic from the sample data. Let \(z_{\rm obs}\) is the observed value of \(Z\) from sample data.
 	
-	\item {We now calculate the \(p\)-value from the distribution of test statistic}:
+	\item We now calculate the \(p\)-value from the distribution of test statistic:
 		\[
 		p\text{-value} = 
 		\begin{cases}
-		P(Z \ge z_{\rm obs}), & \text{for }H_1:\mu>\mu_0,\\[6pt]
-		P(Z \le z_{\rm obs}), & \text{for }H_1:\mu<\mu_0,\\[6pt]
-		2\,P\bigl(|Z| \ge |z_{\rm obs}|\bigr), & \text{for }H_1:\mu\neq\mu_0,
+		P(Z \ge z_{\rm obs}), & \text{for }H_1:\mu>\mu_0\\[6pt]
+		P(Z \le z_{\rm obs}), & \text{for }H_1:\mu<\mu_0\\[6pt]
+		2\,P\bigl(|Z| \ge |z_{\rm obs}|\bigr), & \text{for }H_1:\mu\neq\mu_0
 		\end{cases}
 		\]
+	Alternatively, we can identify the critical values and the rejection region at level $\alpha$:
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{@{}c|c|c@{}}
+			\toprule
+			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+			\midrule
+			$\mu > \mu_0$ & $ z_{\alpha} $ &
+			\(\{Z>z_{\alpha}\}\) \\[6pt]
+			$\mu < \mu_0$ &
+			$ -z_{\alpha} $ &
+			\(\{Z<-z_{\alpha}\}\) \\[6pt]
+			$\mu \neq \mu_0$ &
+			$ \pm\,z_{\alpha/2} $&
+			$\{|Z| > z_{\alpha/2}\}$ \\ 
+			\bottomrule
+		\end{tabular}
+	\end{table}
+
+	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 	
-	\item If \(p \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+	Alternatively, if $z_{obs}$ lies in the rejection region, \textbf{reject} the \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
 
@@ -8932,13 +9079,13 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 		Z = \frac{\overline{X} - \mu_0}{S / \sqrt{n}}
 		\]
 		where \(S\) is the sample standard deviation.  
-		By the Central Limit Theorem, \(Z \sim N(0, 1)\) approximately under \(H_0\).
+		By the Central Limit Theorem, \(Z \sim N(0, 1)\) approximately under \(H_0\). Let \(z_{\rm obs}\) is the observed value of \(Z\) from sample data.
 		
 		\item \textbf{Small sample} (\(n < 30\)):  
 		\[
 		T = \frac{\overline{X} - \mu_0}{S / \sqrt{n}}
 		\]
-		Here, \(T\) follows the \(t\)-distribution with \(n - 1\) degrees of freedom under \(H_0\), assuming normality.
+		Here, \(T\) follows the \(t\)-distribution with \(n - 1\) degrees of freedom under \(H_0\). Let \(t_{\rm obs}\) is the observed value of \(T\) from sample data.
 	\end{itemize}
 	
 	\item We now calculate the \(p\)-value from the distribution of the test statistic:
@@ -8964,8 +9111,47 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 		\end{cases}
 		\]
 	\end{itemize}
+
+Alternatively, identify critical values and rejection regions at level $\alpha$:
+
+	\begin{itemize}
+				
+		\item \textbf{Large sample} (\(n \ge 30\))
+		\begin{table}[H]
+			\centering
+			\begin{tabular}{@{}c|c|c@{}}
+				\toprule
+				\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+				\midrule
+				$\mu > \mu_0$ & $ z_{\alpha} $ &
+				\(\{Z>z_{\alpha}\}\) \\[6pt]
+				$\mu < \mu_0$ &
+				$ -z_{\alpha} $ &
+				\(\{Z<-z_{\alpha}\}\) \\[6pt]
+				$\mu \neq \mu_0$ &
+				$ \pm\,z_{\alpha/2} $&
+				$\{|Z| > z_{\alpha/2}\}$ \\ 
+				\bottomrule
+			\end{tabular}
+		\end{table}
+	\item \textbf{Small sample} (\(n < 30\))
+		\begin{table}[H]
+			\centering
+			\begin{tabular}{@{}c|c|c@{}}
+				\toprule
+				\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\
+				\midrule
+				$\mu > \mu_0$ & $ t_{\alpha,\,n-1} $ & $\{T > t_{\alpha,\,n-1}\}$ \\[6pt]
+				$\mu < \mu_0$ & $ -t_{\alpha,\,n-1} $ & $\{T < -t_{\alpha,\,n-1}\}$ \\[6pt]
+				$\mu \neq \mu_0$ & $ \pm\,t_{\alpha/2,\,n-1} $ & $\{|T| > t_{\alpha/2,\,n-1}\}$ \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+	\end{itemize}
 	
-	\item If \(p \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+	
+	Alternatively, if $z_{obs}$ (for large sample) or $t_{obs}$ (for small sample) lies in the rejection region, \textbf{reject} the \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
 
