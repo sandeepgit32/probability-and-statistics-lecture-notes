@@ -8632,114 +8632,6 @@ The choice between one-sided and two-sided testing depends on the research quest
 %     We reject the null hypothesis $H_0$. There is strong statistical evidence that the true mean length of the screws is not 5 cm. This suggests the machine may be out of adjustment.
 % \end{enumerate}
 
-\section{Type I and Type II Error}
-This decision procedure can lead to either of two incorrect conclusions, known as Type I and Type II errors.
-
-For example, suppose the true average length of the screws is indeed 5 cm. However, due to random variation in the sample, we might observe a test statistic that falls into the critical region. In this case, we would reject the null hypothesis $H_0$ in favor of the alternative $H_1$, even though $H_0$ is actually true. This mistake is called a \textbf{Type I error}. The probability of a Type I error is also called the \textbf{level of significance}, denoted by $\alpha$. It is usually set at $\alpha = 0.05$ or $\alpha = 0.01$. 
-
-\begin{textbox}
-    \centering $P$(\text{Type I error})  = $P$(Rejecting $H_0$ $\mid$ $H_0$ is true) = $\alpha$
-\end{textbox}
-
-On the other hand, suppose the true average length of the screws has actually changed (for example, to 4.8 cm), but the observed sample does not provide enough evidence (such as 4.92 cm) to reject $H_0$. In this case, we fail to reject the null hypothesis, even though it is false. This mistake is called a \textbf{Type II error}. The probability of Type II error is denoted by $\beta$.
-
-\begin{textbox}
-    \centering $P$(\text{Type II error}) = $P$(Not rejecting $H_0$ $\mid$ $H_0$ is false) = $\beta$
-\end{textbox}
-
-\begin{table}[H]
-\centering
-\vspace{0.5em}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{l|c|c}
-
- & $H_0$ is True & $H_1$ is True \\
-\midrule
-Reject $H_0$        & \textbf{Type I Error} ($\alpha$) & Correct Decision \\
-Fail to Reject $H_0$ & Correct Decision        & \textbf{Type II Error} ($\beta$) \\
-\end{tabular}
-\end{table}
-
-\begin{figure}[H]
-\begin{center}
-	\begin{tikzpicture}
-	\begin{axis}[
-	domain=-3:7, samples=200,
-	xlabel={ }, ylabel={Probability Density},
-	axis lines=left,
-	height=6cm, width=12cm,
-	xtick={0, 1.645, 3},
-	xticklabels={$ \mu $, Threshold, $ \mu_1 $},
-	ytick=\empty,  % <-- remove y-ticks
-	enlargelimits=0.05,
-	legend style={at={(0.85,0.75)}, anchor=south}
-	]
-	
-	% Null hypothesis distribution
-	\addplot [very thick, blue] {1/sqrt(2*pi) * exp(-x^2/2)};
-	\addlegendentry{$H_0$}
-	
-	% Alternative hypothesis distribution
-	\addplot [very thick, red, dashed, domain=-1:7] {1/sqrt(2*pi) * exp(-(x-3)^2/2)};
-	\addlegendentry{$H_1$}
-	
-	% Type I error region (right tail of H0)
-	\addplot [
-	domain=1.645:4, 
-	fill=gray!40, 
-	draw=none
-	] {1/sqrt(2*pi) * exp(-x^2/2)} \closedcycle;
-	\node at (axis cs:3.4,0.05) {\small Type I Error ($\alpha$)};
-	
-	% Type II error region (left of critical value under H1)
-	\addplot [
-	domain=-1:1.645, 
-	fill=red!20, 
-	draw=none
-	] {1/sqrt(2*pi) * exp(-(x-3)^2/2)} \closedcycle;
-	\node at (axis cs:0.25,0.07) {\small Type II Error ($\beta$)};
-	
-	\end{axis}
-	\end{tikzpicture}
-\end{center}
-\caption{\textit{Type I and Type II error.}}
-\end{figure}
-
-\section{Power of a Test}
-
-One very important concept that relates to error probabilities is the notion of the power of a test.
-\begin{textbox}
-The \textbf{power} of a test is the probability of rejecting $ H_0 $ given that a speciﬁc alternative is true.
-$$\text{Power of a test} = P(\text{Rejecting }H_0 \mid H_0\text{ is false})=1-\beta$$
-\end{textbox}
-\bigskip
-
-In other words, \textbf{it quantifies your test’s sensitivity to detect real departures from the null hypothesis}. The power of this two‐sided $Z$‐test ($H_0: \mu = 5$ vs.\ $H_1: \mu \neq 5$) with known $\sigma = 0.3$, $n = 50$, and $\alpha = 0.05$ is the probability it will reject $H_0$ when $\mu$ truly equals $4.8$.  Here the critical region is
-\[
-\overline{X} < 4.9168
-\quad\text{or}\quad
-\overline{X} > 5.0832
-\]
-If in reality $\mu = 4.8$, then
-\[
-\overline{X} \sim N\bigl(4.8,\;\mathrm{SE}^2\bigr),
-\]
-and
-\[
-P\bigl(\bar{X} < 4.9168\bigr)
-= F_Z\Bigl(\frac{4.9168 - 4.8}{0.04243}\Bigr)
-\approx 0.9971
-\]
-while
-\[
-P\bigl(\bar{X} > 5.0832\bigr)
-= 1 - F_Z\Bigl(\frac{5.0832 - 4.8}{0.04243}\Bigr)
-\approx 0
-\]
-Thus the test’s power at $\mu = 4.8$ is about $0.9971\ (\approx 99.7\%)$, meaning there’s a 99.7\% chance (very sensitive) of detecting this 0.2‑unit shift.  Higher power can be achieved by increasing the sample size, accepting a larger $\alpha$, or targeting a larger effect size. Before running an experiment, one often conducts a power analysis to choose \(n\) (or \(\alpha\)) so that the power exceeds a desired threshold (commonly 0.8 or 0.9) for a specified effect size.
-
-
-
 \section{Test Statistic}
 \begin{textbox}
 The \textbf{test statistic} is a function of the sample data that forms the basis for making the statistical decision to either reject or not reject the null hypothesis.
@@ -8783,7 +8675,7 @@ $$P(\text{Test statistic} \in \text{rejection region}\mid H_0) = \alpha$$
 		$\{|Z| > z_{\alpha/2}\}$ \\ 
 		\bottomrule
 	\end{tabular}
-	\caption{Critical values and rejection regions for \(z\)-tests at significance level \(\alpha\).}
+	\caption{\textit{Critical values and rejection regions for \(z\)-tests at significance level \(\alpha\)}.}
 \end{table}
 
 
@@ -8926,6 +8818,154 @@ $$P(\text{Test statistic} \in \text{rejection region}\mid H_0) = \alpha$$
 
 In our example, the computed \(z\)-value is \(-4.72\), which lies in the left‐hand critical region \(\{Z < z_{\alpha/2} = -1.96\}\) for the two-tailed test with $\alpha = 0.05$. Therefore, we reject the null hypothesis \(H_0\). In general, the larger the magnitude of the test statistic, the stronger the evidence against the null hypothesis.
 
+
+\section{Type I and Type II Error}
+This decision procedure can lead to either of two incorrect conclusions, known as Type I and Type II errors.
+
+For example, suppose the true average length of the screws is indeed 5 cm. However, due to random variation in the sample, we might observe a test statistic that falls into the critical region. In this case, we would reject the null hypothesis $H_0$ in favor of the alternative $H_1$, even though $H_0$ is actually true. This mistake is called a \textbf{Type I error}. The probability of a Type I error is also called the \textbf{level of significance}, denoted by $\alpha$. It is usually set at $\alpha = 0.05$ or $\alpha = 0.01$. 
+
+\begin{textbox}
+	\centering $P$(\text{Type I error})  = $P$(Rejecting $H_0$ $\mid$ $H_0$ is true) = $\alpha$
+\end{textbox}
+
+On the other hand, suppose the true average length of the screws has actually changed (for example, to 4.8 cm), but the observed sample does not provide enough evidence (such as 4.92 cm) to reject $H_0$. In this case, we fail to reject the null hypothesis, even though it is false. This mistake is called a \textbf{Type II error}. The probability of Type II error is denoted by $\beta$.
+
+\begin{textbox}
+	\centering $P$(\text{Type II error}) = $P$(Not rejecting $H_0$ $\mid$ $H_0$ is false) = $\beta$
+\end{textbox}
+
+\begin{table}[H]
+	\centering
+	\vspace{0.5em}
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{l|c|c}
+		
+		& $H_0$ is True & $H_1$ is True \\
+		\midrule
+		Reject $H_0$        & \textbf{Type I Error} ($\alpha$) & Correct Decision \\
+		Fail to Reject $H_0$ & Correct Decision        & \textbf{Type II Error} ($\beta$) \\
+	\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+	\begin{center}
+		\begin{tikzpicture}
+		\begin{axis}[
+		domain=-3:7, samples=200,
+		xlabel={ }, ylabel={PDF of test statistic},
+		axis lines=left,
+		height=6cm, width=14cm,
+		xtick={0, 1.645, 3},
+		xticklabels={$ \mu $, Critical value, $ \mu_1 $},
+		ytick=\empty,  % <-- remove y-ticks
+		enlargelimits=0.05,
+		legend style={at={(0.85,0.75)}, anchor=south}
+		]
+		
+		% Null hypothesis distribution
+		\addplot [very thick, blue] {1/sqrt(2*pi) * exp(-x^2/2)};
+		\addlegendentry{Under $H_0$}
+		
+		% Alternative hypothesis distribution
+		\addplot [very thick, red, dashed, domain=-1:7] {1/sqrt(2*pi) * exp(-(x-3)^2/2)};
+		\addlegendentry{Under $H_1$}
+		
+		% Type I error region (right tail of H0)
+		\addplot [
+		domain=1.645:4, 
+		fill=gray!40, 
+		draw=none
+		] {1/sqrt(2*pi) * exp(-x^2/2)} \closedcycle;
+		\node at (axis cs:3.4,0.05) {Type I Error ($\alpha$)};
+		
+		% Type II error region (left of critical value under H1)
+		\addplot [
+		domain=-1:1.645, 
+		fill=red!20, 
+		draw=none
+		] {1/sqrt(2*pi) * exp(-(x-3)^2/2)} \closedcycle;
+		\node at (axis cs:0.25,0.07) {Type II Error ($\beta$)};
+		
+		\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\caption{\textit{Type I and Type II error.}}
+	\label{fig:type-i_and_type-ii}
+\end{figure}
+
+These error probabilities are inherently related through the choice of the rejection region. Generally, reducing \(\alpha\) (making the test more stringent) increases \(\beta\) (reduces the power), and vice versa. This trade-off can be visualized by the overlapping distributions of the test statistic under \(H_0\) and \(H_1\) as shown in Figure~\ref{fig:type-i_and_type-ii}.
+
+Mathematically, for a given critical value \(c\):
+\[
+\alpha = P(\text{Reject } H_0 \mid H_0 \text{ true}) = P(T > c \mid H_0)
+\]
+\[
+\beta = P(\text{Fail to reject } H_0 \mid H_1 \text{ true}) = P(T \le c \mid H_1)
+\]
+
+Changing the value of \(c\) affects \(\alpha\) and \(\beta\) in opposite ways, showing the trade-off between making Type I and Type II errors.
+
+
+\begin{itemize}
+	\item If we make the critical value \( c \) higher, the rejection region becomes smaller (more stringent), so \( \alpha \) will \textbf{decrease}, but \( \beta \) will \textbf{increase}.
+	\item If we lower the value \( c \), the rejection region becomes larger (more liberal), so \( \alpha \) will \textbf{increase}, but \( \beta \) will \textbf{decrease}.
+\end{itemize}
+
+The Figure \ref{fig:alpha_beta_tradeoff} shows one typical example of the relationship between $\alpha$ and $\beta$.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=10cm, height=7cm,
+	%	domain=0:0.25, 
+	axis lines=left,
+	xlabel={Significance level \(\alpha\)},
+	ylabel={Type II error rate \(\beta\)},
+	xmin=0, xmax=0.22,
+	ymin=0, ymax=0.5,
+	%tick align=outside,
+	xtick={0.01, 0.05, 0.10, 0.15, 0.20},
+	ytick={0.1, 0.2, 0.3, 0.4},
+	xticklabels={0.01, 0.05, 0.10, 0.15, 0.20},
+	thick
+	%legend pos=north east,
+	]
+	% Plot the beta values directly as coordinates
+	\addplot[smooth, thick, blue] coordinates {
+		(0.01, 0.4310)
+		(0.05, 0.1960)
+		(0.10, 0.1110)
+		(0.20, 0.0485)
+	};
+	%\addlegendentry{Effect size \(\delta = 2.5\)}
+	
+	% Mark points
+	\addplot[only marks, mark=*, mark size=1.8pt, blue, very thick] coordinates {
+		(0.01, 0.4310)
+		(0.05, 0.1960)
+		(0.10, 0.1110)
+		(0.20, 0.0485)
+	};
+	
+	% Annotate values
+	\node[above right, font=\small] at (axis cs:0.01, 0.4310) {\(\beta = 0.431\)};
+	\node[above right, font=\small] at (axis cs:0.05, 0.1960) {\(\beta = 0.196\)};
+	\node[above right, font=\small] at (axis cs:0.10, 0.1110) {\(\beta = 0.111\)};
+	\node[above right, font=\small] at (axis cs:0.18, 0.0485) {\(\beta = 0.048\)};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{\textit{Illustration of the inverse relationship between \(\alpha\) and \(\beta\).}}
+	\label{fig:alpha_beta_tradeoff}
+\end{figure}
+
+Hence, a balance must be struck depending on the consequences of making Type I vs.\ Type II errors. To arrive at a fair compromise we should know the cost of each type of error. In practice, these costs depend on the true (but unknown) parameter and are hard to quantify exactly, so we adopt one of three conventional values—1\%, 5\%, or 10\%—based on the relative severity of each error.
+
+For example, consider the design of an email spam filter. A \textbf{Type~I error} here means flagging a legitimate email as spam, potentially causing the user to miss important messages. A \textbf{Type~II error} would allow a spam message into the inbox, usually a minor nuisance. Thus, in this case, the cost of a Type I error is considered more serious than that of a Type II error, and the filter should be designed to minimize $\alpha$, the probability of Type~I error, even at the expense of a slightly higher $\beta$. A common choice might be $\alpha = 1\%$, to ensure that almost no valid emails are incorrectly filtered out.
+
+On the other hand, imagine a public health agency conducting virus screening at airports during an outbreak of a contagious disease. A \textbf{Type~I error} in this context would mean falsely identifying a healthy traveler as infected, leading to temporary quarantine and inconvenience. A \textbf{Type~II error} would allow an infected traveler to enter the general population, potentially triggering a wider outbreak. In this scenario, the cost of a Type~II error is far more serious. To minimize this risk, we may choose a higher significance level, such as $\alpha = 10\%$, accepting more false positives in order to reduce the probability of missing actual infections.
+
+Finally, in cases where the consequences of Type~I and Type~II errors are either unknown or roughly same, such as in exploratory scientific studiess, a balanced approach is often taken. The conventional significance level $\alpha = 5\%$ serves as a compromise that moderately controls both types of errors in the absence of more specific cost information.
 
 
 \subsection{$p$‐Value in Hypothesis Testing}
@@ -9253,6 +9293,44 @@ P\bigl(\bar{X} > 5.0832\bigr)
 \approx 0
 \]
 Thus the test’s power at $\mu = 4.8$ is about $0.9971\ (\approx 99.7\%)$, meaning there’s a 99.7\% chance (very sensitive) of detecting this 0.2‑unit shift.  Higher power can be achieved by increasing the sample size, accepting a larger $\alpha$, or targeting a larger effect size. Before running an experiment, one often conducts a power analysis to choose \(n\) (or \(\alpha\)) so that the power exceeds a desired threshold (commonly 0.8 or 0.9) for a specified effect size.
+
+
+\subsection{Receiver Operating Characteristic (ROC) Curve}
+
+The ROC curve is a graphical tool that illustrates the trade-off between sensitivity (power) and specificity (1 - \(\alpha\)) for different thresholds of a test statistic.
+
+\begin{itemize}
+	\item \textbf{True Positive Rate (TPR) or Sensitivity:} \(1 - \beta = P(\text{Reject } H_0 \mid H_1 \text{ true})\).
+	\item \textbf{False Positive Rate (FPR):} \(\alpha = P(\text{Reject } H_0 \mid H_0 \text{ true})\).
+\end{itemize}
+
+By varying the critical value \(c\), we obtain different pairs \((\alpha, 1-\beta)\), which can be plotted with \(\alpha\) on the x-axis and power on the y-axis to produce the ROC curve.
+
+\begin{center}
+	\begin{tikzpicture}[scale=1.2]
+	\draw[->] (0,0) -- (5,0) node[right] {False Positive Rate (\(\alpha\))};
+	\draw[->] (0,0) -- (0,5) node[above] {True Positive Rate (Power)};
+	
+	% Diagonal line (random guess line)
+	\draw[dashed, gray] (0,0) -- (4.5,4.5);
+	
+	% Example ROC curve (concave)
+	\draw[thick, blue] plot [smooth] coordinates {(0,0) (0.5,1.0) (1.5,3.2) (2.5,4.0) (4,4.5)};
+	
+	% Points
+	\filldraw (0,0) circle (1.5pt) node[below left] {0};
+	\filldraw (4.5,4.5) circle (1.5pt) node[above right] {1};
+	
+	% Labels
+	\node at (3,1) {ROC Curve};
+	\node[gray] at (2,2) {Random Guess};
+	\end{tikzpicture}
+\end{center}
+
+The closer the ROC curve approaches the top-left corner, the better the test's ability to discriminate between \(H_0\) and \(H_1\).
+
+\bigskip
+The \textbf{Area Under the Curve (AUC)} quantifies overall test performance: an AUC of 1 indicates perfect discrimination, whereas an AUC of 0.5 corresponds to random guessing.
 
 
 \subsection{Most Powerful Tests and the Neyman--Pearson Lemma}
