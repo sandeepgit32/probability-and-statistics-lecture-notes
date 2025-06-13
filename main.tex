@@ -57,6 +57,7 @@
   #1
 }
 
+
 \title{Fundamentals of Probability and Statistics}
 \author{Sandip Karar}
 \date{\today}
@@ -4504,7 +4505,7 @@ Thus,
 \hfill\(\blacksquare\)
 
 
-\chapter{Common Ditributions}
+\chapter{Common Distributions}
 
 \section{Bernoulli Distribution}
 
@@ -8219,6 +8220,23 @@ Solving for \(n\):
 n \geq \left( \frac{z_{\alpha/2}}{E} \right)^2 \cdot p(1 - p)
 \]
 
+If the value of $p$ is known roughly in the neighbourhood of a value $p^*$, then $n$ can be determined as:
+\[
+n \geq \left( \frac{z_{\alpha/2}}{E} \right)^2 \cdot p^*(1 - p^*)
+\]
+
+Without prior knowledge of $p$, $p(1-p)$ can be replaced by its maximum possible value\footnote{To calculate the maximum value of $f=p(1-p) = p-p^2$, we need to differentiate it w.r.t. $p$ and set it to zero.
+	$$\dfrac{df}{dp} = 1-2p = 0 \quad \Rightarrow p =\dfrac{1}{2}$$
+$$\dfrac{d^2f}{dp^2}  = -2$$
+The double derivative is negtive indicating $f$ is maximum at $p=\dfrac{1}{2}$. 
+
+\noindent The maximum value of $f$ is
+$$f_{max} = \dfrac{1}{2}\left(1-\dfrac{1}{2}  \right) = \dfrac{1}{4}$$
+
+} $\dfrac{1}{4}$ corresponding to $p=\dfrac{1}{2}$ and $n$ is determined from the relation:
+\[
+n \geq \dfrac{1}{4}\left( \frac{z_{\alpha/2}}{E} \right)^2
+\]
 \textbf{Example:} A political analyst wants to estimate the proportion of voters who support a candidate with 95\% confidence and a margin of error of 5\%. If no prior estimate for \(p\) is available, the conservative choice is \(p = 0.5\):
 
 \begin{align*}
@@ -8686,6 +8704,8 @@ Fail to Reject $H_0$ & Correct Decision        & \textbf{Type II Error} ($\beta$
 \end{center}
 \caption{\textit{Type I and Type II error.}}
 \end{figure}
+
+\section{Power of a Test}
 
 One very important concept that relates to error probabilities is the notion of the power of a test.
 \begin{textbox}
@@ -9181,50 +9201,6 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
     \textbf{Conclusion:} There is evidence that the average bulb life is not 1,000 hours.
 \end{enumerate}
 
-\section{Types of Hypothesis Tests}
-
-\begin{itemize}
-    \item \textbf{One-sample Z-test:} When population standard deviation is known.
-    \item \textbf{One-sample t-test:} When population standard deviation is unknown.
-    \item \textbf{Proportion test:} For claims about population proportions.
-\end{itemize}
-
-\textbf{Example for t-test:} A teacher claims the average test score is 75. You collect scores from 20 students. \\
-\( H_0: \mu = 75 \) \\
-\( H_1: \mu \neq 75 \)
-
-\textbf{Example for proportion test:} You believe 60\% of voters support a new policy. You survey 100 voters and 54 agree. \\
-\( H_0: p = 0.60 \) \\
-\( H_1: p \neq 0.60 \)
-
-\section*{5. Common Errors in Hypothesis Testing}
-
-\begin{itemize}
-    \item \textbf{Type I Error:} Rejecting \( H_0 \) when it is true (false positive).
-    \item \textbf{Type II Error:} Not rejecting \( H_0 \) when \( H_1 \) is true (false negative).
-\end{itemize}
-
-\textbf{Example:}
-\begin{itemize}
-    \item Type I: Concluding a drug works when it actually doesn’t.
-    \item Type II: Concluding a drug doesn’t work when it actually does.
-\end{itemize}
-
-\section{Summary Table}
-
-\begin{center}
-\begin{tabular}{ll}
-\toprule
-\textbf{Concept} & \textbf{Description} \\
-\midrule
-Null Hypothesis (\( H_0 \)) & Default assumption (no change/difference) \\
-Alternative Hypothesis (\( H_1 \)) & What you want to test \\
-Significance Level (\( \alpha \)) & Threshold for decision-making (e.g., 0.05) \\
-P-value & Probability of getting sample data if \( H_0 \) is true \\
-Reject \( H_0 \) if & \( p < \alpha \) \\
-\bottomrule
-\end{tabular}
-\end{center}
 
 \section*{7. Final Example: Coin Toss}
 
@@ -9238,6 +9214,187 @@ z = \frac{0.6 - 0.5}{\sqrt{0.5 \times 0.5 / 100}} = 2.0
 
 From Z-tables, \( p \approx 0.0455 \). Since \( p < 0.05 \), we reject \( H_0 \). \\
 \textbf{Conclusion:} There is evidence the coin might be biased.
+
+\section{Power of a Test}
+
+One very important concept related to error probabilities is the notion of the \emph{power} of a test. Intuitively, power measures a test's ability to detect when the null hypothesis is false. It is the probability of rejecting $ H_0 $ given that a speciﬁc alternative is true.
+
+\begin{textbox}
+	The \textbf{power} of a test at a specific alternative value $\theta=\theta_1$ is defined as
+	\begin{align*}
+	\mathrm{Power}(\theta_1) &= P(\text{Rejecting }H_0\mid \theta = \theta_1)\\ 
+	&=1-P(\text{Not rejecting }H_0\mid \theta = \theta_1)\\
+	& = 1 - \beta(\theta_1)
+	\end{align*}
+Here $\beta(\theta_1)$ is the probability of a Type~II error when the true parameter equals $\theta_1$.
+\end{textbox}
+\bigskip
+
+In other words, \textbf{it quantifies your test’s sensitivity to detect real departures from the null hypothesis}. The power of this two‐sided $Z$‐test ($H_0: \mu = 5$ vs.\ $H_1: \mu \neq 5$) with known $\sigma = 0.3$, $n = 50$, and $\alpha = 0.05$ is the probability it will reject $H_0$ when $\mu$ truly equals $4.8$.  Here the critical region is
+\[
+\overline{X} < 4.9168
+\quad\text{or}\quad
+\overline{X} > 5.0832
+\]
+If in reality $\mu = 4.8$, then
+\[
+\overline{X} \sim N\bigl(4.8,\;\mathrm{SE}^2\bigr),
+\]
+and
+\[
+P\bigl(\bar{X} < 4.9168\bigr)
+= F_Z\Bigl(\frac{4.9168 - 4.8}{0.04243}\Bigr)
+\approx 0.9971
+\]
+while
+\[
+P\bigl(\bar{X} > 5.0832\bigr)
+= 1 - F_Z\Bigl(\frac{5.0832 - 4.8}{0.04243}\Bigr)
+\approx 0
+\]
+Thus the test’s power at $\mu = 4.8$ is about $0.9971\ (\approx 99.7\%)$, meaning there’s a 99.7\% chance (very sensitive) of detecting this 0.2‑unit shift.  Higher power can be achieved by increasing the sample size, accepting a larger $\alpha$, or targeting a larger effect size. Before running an experiment, one often conducts a power analysis to choose \(n\) (or \(\alpha\)) so that the power exceeds a desired threshold (commonly 0.8 or 0.9) for a specified effect size.
+
+
+\subsection{Most Powerful Tests and the Neyman--Pearson Lemma}
+When choosing among all tests of a fixed size (level) $\alpha$, one may ask: \emph{Which test maximizes power for a given simple alternative?}
+
+The Neyman--Pearson lemma gives a definitive answer for testing a simple null
+\begin{equation}
+H_0: \theta=\theta_0
+\quad\text{against}\quad
+H_1: \theta=\theta_1.
+\end{equation}
+Define the likelihood ratio
+\begin{equation}
+\Lambda(x) = \frac{f(x;\theta_0)}{f(x;\theta_1)}.
+\end{equation}
+The lemma states that the test which rejects $H_0$ when
+\begin{equation}
+\Lambda(x) \le k
+\end{equation}
+is the \emph{most powerful} test of size $\alpha$, where $k$ is chosen so that $P_{\theta_0}(\Lambda(x)\le k)=\alpha$.
+
+\paragraph{Example: Exponential Lifetimes}
+Suppose individual bulb lifetimes $X_i$ are independent and exponentially distributed with density
+\begin{equation}
+f(x;\lambda)=\lambda e^{-\lambda x}, \quad x>0,
+\end{equation}
+where $\lambda=1/\mu$ is the failure rate. We wish to test
+\begin{equation}
+H_0: \lambda=\lambda_0 \quad\text{vs.}\quad H_1: \lambda=\lambda_1 ;(\lambda_1<\lambda_0).
+\end{equation}
+The joint density for a sample of size $n$ is
+\begin{equation}
+L(\lambda) = \lambda^n e^{-\lambda\sum_{i=1}^n X_i}.
+\end{equation}
+The likelihood ratio is
+\begin{equation}
+\Lambda = \frac{L(\lambda_0)}{L(\lambda_1)}
+= \Bigl(\frac{\lambda_0}{\lambda_1}\Bigr)^n
+\exp\Bigl[-(\lambda_0-\lambda_1)\sum_{i=1}^n X_i\Bigr].
+\end{equation}
+Rejecting for small $\Lambda$ is equivalent to rejecting when
+\begin{equation}
+\sum_{i=1}^n X_i > c,
+\end{equation}
+where $c$ solves
+\begin{equation}
+P_{\lambda_0}\bigl(\sum_{i=1}^n X_i>c\bigr)=\alpha.
+\end{equation}
+This test is most powerful of level $\alpha$ for distinguishing $\lambda_0$ vs.\ $\lambda_1$.
+
+Increasing $n$, choosing a larger $\alpha$, or considering a larger separation between $\lambda_0$ and $\lambda_1$ will increase power.
+
+\section{Most Powerful Test, Neyman–Pearson Lemma, and Likelihood Ratio Test}
+
+\subsection{Most Powerful Test}
+A \textbf{most powerful} test between two simple hypotheses 
+\[
+H_0: \theta = \theta_0
+\quad\text{and}\quad
+H_1: \theta = \theta_1
+\]
+is a test of size~$\alpha$ whose power under $H_1$ is at least as large as that of any other test of the same size.  Concretely, if $\phi(X)\in\{0,1\}$ denotes our test function, then for any other test $\psi(X)$ with 
+\[
+\mathbb{E}_{\theta_0}[\psi(X)] \le \alpha,
+\]
+we have
+\[
+\mathbb{E}_{\theta_1}[\phi(X)] \;\ge\; \mathbb{E}_{\theta_1}[\psi(X)].
+\]
+
+\subsection{Neyman–Pearson Lemma}
+\textbf{Theorem.}  (Neyman–Pearson)  
+Let $X$ have density or mass $f(x;\theta)$.  To test
+\[
+H_0: \theta=\theta_0
+\quad\text{versus}\quad
+H_1: \theta=\theta_1,
+\]
+the most powerful test of size~$\alpha$ rejects $H_0$ when the likelihood ratio
+\[
+\Lambda(x)
+=
+\frac{f(x;\theta_1)}{f(x;\theta_0)}
+\]
+exceeds a cutoff~$k>0$ chosen so that
+\[
+\Pr_{\theta_0}\bigl(\Lambda(X)>k\bigr)=\alpha.
+\]
+Equivalently, the test function is
+\[
+\phi(x)=
+\begin{cases}
+1, & \Lambda(x)>k,\\
+\gamma, & \Lambda(x)=k,\\
+0, & \Lambda(x)<k,
+\end{cases}
+\]
+with $\gamma\in[0,1]$ chosen to make $\mathbb{E}_{\theta_0}[\phi(X)]=\alpha$.
+
+\subsection{Likelihood Ratio Test}
+For testing a composite null
+\[
+H_0:\theta\in\Theta_0
+\quad\text{against}\quad
+H_1:\theta\in\Theta \setminus \Theta_0,
+\]
+define the likelihood ratio statistic
+\[
+\lambda(x)
+=
+\frac{\displaystyle\max_{\theta\in\Theta_0}L(\theta;x)}
+{\displaystyle\max_{\theta\in\Theta}L(\theta;x)},
+\]
+where $L(\theta;x)=f(x;\theta)$.  We reject $H_0$ for small values of $\lambda(x)$ (equivalently, large values of $-2\log\lambda(x)$).  
+
+Under standard regularity conditions, as the sample size $n\to\infty$,
+\[
+-2\log\lambda(X)
+\;\xrightarrow{d}\;
+\chi^2_{\,\dim(\Theta)-\dim(\Theta_0)}.
+\]
+
+\subsection{Example: Normal Mean}
+Let $X_1,X_2,\dots,X_n \overset{iid}{\sim} N(\mu,\sigma^2)$ with known $\sigma^2$, and consider
+\[
+H_0:\mu=\mu_0
+\quad\text{vs.}\quad
+H_1:\mu=\mu_1.
+\]
+The Neyman–Pearson ratio test rejects $H_0$ when
+\[
+\frac{L(\mu_1)}{L(\mu_0)}
+=
+\exp\!\Bigl(\tfrac{\mu_1-\mu_0}{\sigma^2}\sum_{i=1}^n X_i
+\;-\;\tfrac{n(\mu_1^2-\mu_0^2)}{2\sigma^2}\Bigr)
+> k.
+\]
+After taking logarithms and rearranging, this reduces to the usual level‑$\alpha$ test
+\[
+\overline X > \mu_0 + z_{1-\alpha}\,\frac{\sigma}{\sqrt n}.
+\]
+
 
 \chapter{Correlation and Regression}
 
