@@ -8454,6 +8454,8 @@ The standard procedure is to assume that $H_0$ is true. The burden of proof is p
 \end{tikzpicture}
 \end{center}
 
+Statisticians avoid saying ``accept $H_0$'' because it wrongly implies that the null hypothesis has been proven true. When there is no strong evidence against $H_0$, we retain it—but this does not confirm its truth; instead, we say we ``fail to reject $H_0$''. On the other hand, when the evidence is strong, we confidently ``reject $H_0$''. Thus, rejecting $H_0$ is a \textbf{strong decision}, supported by sufficient evidence, while retaining $H_0$ is a \textbf{weak decision}, reflecting inconclusive results.
+
 To test the hypothesis in the above example, we assume that the
 standard deviation $\sigma = 0.3$ is known. Since the sample size is $n = 50$, the sampling distribution of the sample mean is approximately normal: \[
     \overline{X} \sim N\left( \mu, \frac{\sigma}{\sqrt{n}} \right)
@@ -8847,16 +8849,20 @@ On the other hand, suppose the true average length of the screws has actually ch
 	\end{tabular}
 \end{table}
 
+\subsection{Tradeoff between Type I and Type II Errors}
+
+These error probabilities are inherently related through the choice of the rejection region. Generally, reducing \(\alpha\) increases \(\beta\), and vice versa. This trade-off can be visualized by the overlapping distributions of the test statistic (sample mean in the picture) under \(H_0\) and \(H_1\) as shown in Figure~\ref{fig:type-i_and_type-ii}.
+
 \begin{figure}[H]
 	\begin{center}
 		\begin{tikzpicture}
 		\begin{axis}[
 		domain=-3:7, samples=200,
-		xlabel={ }, ylabel={PDF of test statistic},
+		xlabel={ Test statistic $\overline{X}$ }, ylabel={PDF of test statistic},
 		axis lines=left,
 		height=6cm, width=14cm,
 		xtick={0, 1.645, 3},
-		xticklabels={$ \mu $, Critical value, $ \mu_1 $},
+		xticklabels={$ \mu_0 $, Critical value, $ \mu_1 $},
 		ytick=\empty,  % <-- remove y-ticks
 		enlargelimits=0.05,
 		legend style={at={(0.85,0.75)}, anchor=south}
@@ -8864,11 +8870,11 @@ On the other hand, suppose the true average length of the screws has actually ch
 		
 		% Null hypothesis distribution
 		\addplot [very thick, blue] {1/sqrt(2*pi) * exp(-x^2/2)};
-		\addlegendentry{Under $H_0$}
+		\addlegendentry{Under $H_0 (\mu = \mu_0)$}
 		
 		% Alternative hypothesis distribution
 		\addplot [very thick, red, dashed, domain=-1:7] {1/sqrt(2*pi) * exp(-(x-3)^2/2)};
-		\addlegendentry{Under $H_1$}
+		\addlegendentry{Under $H_1 (\mu = \mu_1)$}
 		
 		% Type I error region (right tail of H0)
 		\addplot [
@@ -8893,7 +8899,7 @@ On the other hand, suppose the true average length of the screws has actually ch
 	\label{fig:type-i_and_type-ii}
 \end{figure}
 
-These error probabilities are inherently related through the choice of the rejection region. Generally, reducing \(\alpha\) (making the test more stringent) increases \(\beta\) (reduces the power), and vice versa. This trade-off can be visualized by the overlapping distributions of the test statistic under \(H_0\) and \(H_1\) as shown in Figure~\ref{fig:type-i_and_type-ii}.
+Here we assume the population parameter (i.e. population mean $\mu$) under $H_0$ is $\mu_0$ and under $H_1$ is a specific value\footnote{In practice, the specific value $\mu_1$ is unknown when the alternative hypothesis is specified as $H_1: \mu \neq \mu_0$. However, to compute the probability of a Type II error ($\beta$), we must assume a particular value of $\mu$ under the alternative hypothesis. This means that $\beta$ is not a single number, but rather a function of the true value of $\mu$ under $H_1$. For every possible value of $\mu_1$ under $H_1$, there is a corresponding value of $\beta$.} $\mu_1$.
 
 Mathematically, for a given critical value \(c\):
 \[
@@ -8966,6 +8972,63 @@ For example, consider the design of an email spam filter. A \textbf{Type~I error
 On the other hand, imagine a public health agency conducting virus screening at airports during an outbreak of a contagious disease. A \textbf{Type~I error} in this context would mean falsely identifying a healthy traveler as infected, leading to temporary quarantine and inconvenience. A \textbf{Type~II error} would allow an infected traveler to enter the general population, potentially triggering a wider outbreak. In this scenario, the cost of a Type~II error is far more serious. To minimize this risk, we may choose a higher significance level, such as $\alpha = 10\%$, accepting more false positives in order to reduce the probability of missing actual infections.
 
 Finally, in cases where the consequences of Type~I and Type~II errors are either unknown or roughly same, such as in exploratory scientific studiess, a balanced approach is often taken. The conventional significance level $\alpha = 5\%$ serves as a compromise that moderately controls both types of errors in the absence of more specific cost information.
+
+\subsection{How $\beta$ Depends on the True Parameter Value?}
+The probability of a Type II error ($\beta$) is not fixed; it varies depending on how far the actual parameter value is from the hypothesized value under $H_0$. Specifically:
+
+\begin{itemize}
+	\item If the true value is close to $H_0$, then the evidence against $H_0$ is weak, and $\beta$ is high (it’s harder to detect the difference).
+	
+	\item If the true value is far from $H_0$, then the evidence becomes stronger, and $\beta$ is lower (easier to detect the difference).
+\end{itemize}
+We generally write $\beta$ as a function of the parameter value $\theta_1$ under alternative hypothesis denoted by $\beta(\theta)$.
+
+\subsection{Dependence on Sample Size}
+Earlier, we discussed that one can choose a low $\alpha$ or a low $\beta$ depending on which type of error is more serious. But what if both Type I and Type II errors are costly, and we want to minimize both? The only effective way to achieve this is by improving the reliability of the evidence—primarily by increasing the sample size. As the sample size $n$ increases, the sampling distributions under both $H_0$ and $H_1$ become narrower (i.e., have smaller variance), which makes it easier to distinguish between them. This shrinkage leads to a reduction in both $\alpha$ and $\beta$. Therefore, when minimizing both types of error is important, increasing the sample size is the most practical solution.
+
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=10cm, height=6cm,
+	axis lines=left,
+	xlabel={Significance level \(\alpha\)},
+	ylabel={Type II error rate \(\beta\)},
+	xmin=0, xmax=0.22,
+	ymin=0, ymax=0.5,
+	xtick={0.01, 0.05, 0.10, 0.15, 0.20},
+	ytick={0.1, 0.2, 0.3, 0.4},
+	xticklabels={0.01, 0.05, 0.10, 0.15, 0.20},
+	legend style={draw=none, at={(0.95,0.95)}, anchor=north east},
+	thick
+	]
+	
+	% Curve for n = 50
+	\addplot[smooth, very thick, red, dashed] coordinates {
+		(0.01, 0.4310)
+		(0.05, 0.1960)
+		(0.10, 0.1110)
+		(0.20, 0.0485)
+	};
+	\addlegendentry{Sample size $n = 50$}
+	
+	
+	% Curve for n = 75 (lower beta values due to larger sample) 
+	\addplot[smooth, very thick, blue] coordinates {
+		(0.01, 0.3100)
+		(0.05, 0.1200)
+		(0.10, 0.0650)
+		(0.20, 0.0250)
+	};
+	\addlegendentry{Sample size $n = 75$}
+	
+	\end{axis}
+	\end{tikzpicture}
+	\caption{\textit{Effect of sample size on the inverse relationship between \(\alpha\) and \(\beta\). Larger sample size reduces \(\beta\) for the same \(\alpha\).}}
+	\label{fig:alpha_beta_sample_size}
+\end{figure}
+
 
 
 \subsection{$p$‐Value in Hypothesis Testing}
@@ -9260,7 +9323,7 @@ From Z-tables, \( p \approx 0.0455 \). Since \( p < 0.05 \), we reject \( H_0 \)
 One very important concept related to error probabilities is the notion of the \emph{power} of a test. Intuitively, power measures a test's ability to detect when the null hypothesis is false. It is the probability of rejecting $ H_0 $ given that a speciﬁc alternative is true.
 
 \begin{textbox}
-	The \textbf{power} of a test at a specific alternative value $\theta=\theta_1$ is defined as
+	The \textbf{power} of a test at a specific alternative parameter value $\theta=\theta_1$ is defined as
 	\begin{align*}
 	\mathrm{Power}(\theta_1) &= P(\text{Rejecting }H_0\mid \theta = \theta_1)\\ 
 	&=1-P(\text{Not rejecting }H_0\mid \theta = \theta_1)\\
