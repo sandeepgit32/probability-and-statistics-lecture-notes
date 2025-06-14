@@ -6,14 +6,14 @@
     top=3cm,
     bottom=3cm
 ]{geometry}
-\usepackage[hidelinks]{hyperref} 
+\usepackage[hidelinks]{hyperref}
 %\usepackage{mathpazo}
 %\usepackage{newtxtext,newtxmath}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{rotating}
 \usepackage{booktabs}
-\usepackage{rotating} 
+\usepackage{rotating}
 \usepackage{tikz}
 \usepackage{fancyhdr}
 \usepackage{enumitem}
@@ -22,7 +22,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{tcolorbox}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt} 
+\setlength{\parskip}{6pt}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
 \usepackage{pgfplots}
@@ -56,6 +56,31 @@
   colframe=gray!95!white,
   #1
 }
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+	language=Python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily\bfseries},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3,
+	upquote=true,
+	numbers=left,
+	firstnumber=1,
+	numberfirstline=true
+}
 
 
 \title{Fundamentals of Probability and Statistics}
@@ -68,36 +93,36 @@
 \begin{titlepage}
     \centering
     \vspace*{3cm}
-    
+
     \begin{tikzpicture}[remember picture,overlay]
         % Draw a thin decorative frame around the page content area
         \draw[line width=1.5pt]
             ($(current page.north west)+(4cm,-3cm)$) rectangle ($(current page.south east)+(-3.5cm,3cm)$);
         \draw[line width=1.5pt]
             ($(current page.north west)+(3.7cm,-2.7cm)$) rectangle ($(current page.south east)+(-3.2cm,2.7cm)$);
-            
+
     \end{tikzpicture}
-    
+
     {\fontsize{24pt}{28pt}\bfseries\scshape Basics of Probability and Statistics\par}
     \vspace{1.2cm}
-    
-    
+
+
     {\Large\itshape An In-Depth Exploration of Core Concepts and Methods\par}
-    
+
     \vspace{2cm}
-    
+
     {\large\bfseries Sandip Karar\par}
     \vspace{0.5cm}
-    
+
     {\normalsize\today\par}
     \vspace{2cm}
-    
-      \begin{center}   
+
+      \begin{center}
         \begin{tikzpicture}
             \begin{axis}[
                 no markers, domain=-4:4, samples=100,
                 axis lines=center,
-                xlabel={$x$}, 
+                xlabel={$x$},
                 axis y line=none,
                 ymin=0, ymax=0.5,
                 xmin=-4, xmax=4,
@@ -113,35 +138,35 @@
               % PDF curve
               \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
               % Shaded right-tail for z>1.5
-              
-              
+
+
               \addplot [draw=none, fill=red!20, domain=-3:3] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
               % Vertical guide line
               \draw[thick, dashed] (axis cs:-3,0) -- (axis cs:-3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
               \draw[thick, dashed] (axis cs:3,0) -- (axis cs:3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-                        
-              
+
+
               \addplot [draw=none, fill=green!20, domain=-2:2] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
               % Vertical guide line
               \draw[thick, dashed] (axis cs:-2,0) -- (axis cs:-2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
               \draw[thick, dashed] (axis cs:2,0) -- (axis cs:2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-              
+
               \addplot [draw=none, fill=blue!20, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
               % Vertical guide line
               \draw[thick, dashed] (axis cs:-1,0) -- (axis cs:-1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
               \draw[thick, dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-              
+
               \node at (axis cs:0,0.3) {\large $68.27\%$};
               \node at (axis cs:0,0.2) {\large $95.45\%$};
               \node at (axis cs:0,0.1) {\large $99.73\%$};
-              
+
               \draw[<->, thick, black] (axis cs:-3,0.08) -- (axis cs:3,0.08);
               \draw[<->, thick, black] (axis cs:-2,0.18) -- (axis cs:2,0.18);
               \draw[<->, thick, black] (axis cs:-1,0.28) -- (axis cs:1,0.28);
             \end{axis}
           \end{tikzpicture}
       \end{center}
-       
+
 \end{titlepage}
 
 %\maketitle
@@ -367,7 +392,7 @@ Quite often, data exhibit a tendency to cluster around a central value. Measures
 The mean (or average) is the most commonly used measure of central tendency and is defined in several forms:
 
 \begin{itemize}
-    \item \textbf{Arithmetic Mean (AM):} 
+    \item \textbf{Arithmetic Mean (AM):}
     \begin{itemize}
         \item Simple AM: For a dataset \( x_1, x_2, \dots, x_n \), the arithmetic mean is given by:
     \begin{textbox}
@@ -392,7 +417,7 @@ The mean (or average) is the most commonly used measure of central tendency and 
 
 \textbf{Proof:}
 \begin{align*}
-\overline{x} &= \frac{1}{n} \sum_{i=1}^n x_i 
+\overline{x} &= \frac{1}{n} \sum_{i=1}^n x_i
        = \frac{1}{n} \sum_{i=1}^n a = \frac{1}{n} \cdot n a = a
 \end{align*}
 \hfill $\blacksquare$
@@ -541,7 +566,7 @@ But is this correct?
 
 Consider the total distance between $X$ and $Y$ is $1$ km for the sake of simplicity. So the total distance covered = $2$ km. The time taken for the person to go from $X$ to $Y$ is $\frac{1}{20} = 0.05$ hr and the time taken to return is $\frac{1}{24} = 0.04166$ hr.
 
-Therefore average speed = $\dfrac{\text{Total distance}}{\text{Total time}} = \dfrac{2}{0.05+0.04166} = 21.8$ km/h. 
+Therefore average speed = $\dfrac{\text{Total distance}}{\text{Total time}} = \dfrac{2}{0.05+0.04166} = 21.8$ km/h.
 
 Clearly, the AM value of $22$ km/h overestimates the actual average speed. Now consider the harmonic mean (HM) of the two speeds: $$\dfrac{2}{\frac{1}{20}+\frac{1}{24}} = 21.8 \text{ km/h}$$
 
@@ -566,8 +591,8 @@ This principle can be illustrated with the following example.
 \textbf{Example}: Suppose a train covers \textbf{\( n \) equal distances}, each of \( s \) kilometers, with speeds \( v_1, v_2, \dots, v_n \) km/h. The average speed is the total distance divided by the total time taken. Thus,
 
 \[
-\text{Average speed} = \frac{ns}{\frac{s}{v_1} + \frac{s}{v_2} + \dots + \frac{s}{v_n}} 
-= \frac{n}{\frac{1}{v_1} + \frac{1}{v_2} + \dots + \frac{1}{v_n}} 
+\text{Average speed} = \frac{ns}{\frac{s}{v_1} + \frac{s}{v_2} + \dots + \frac{s}{v_n}}
+= \frac{n}{\frac{1}{v_1} + \frac{1}{v_2} + \dots + \frac{1}{v_n}}
 = \frac{n}{\sum_{i=1}^n \frac{1}{v_i}}
 \]
 
@@ -584,7 +609,7 @@ On the other hand, if the train travels for \textbf{\( n \) equal time intervals
 and the total time is \( nt \). So, the average speed is:
 
 \[
-\text{Average speed} = \frac{t(v_1 + v_2 + \dots + v_n)}{nt} = \frac{v_1 + v_2 + \dots + v_n}{n} 
+\text{Average speed} = \frac{t(v_1 + v_2 + \dots + v_n)}{nt} = \frac{v_1 + v_2 + \dots + v_n}{n}
 = \frac{1}{n} \sum_{i=1}^n v_i
 \]
 
@@ -602,7 +627,7 @@ which is the \textbf{arithmetic mean (AM)} of the given speeds.
 \textbf{Proof}: Let \( S(A) = \sum_{i=1}^n (x_i - A)^2 \). Expand this:
 
 \[
-S(A) = \sum_{i=1}^n (x_i^2 - 2Ax_i + A^2) 
+S(A) = \sum_{i=1}^n (x_i^2 - 2Ax_i + A^2)
 = \sum x_i^2 - 2A\sum x_i + nA^2
 \]
 
@@ -792,7 +817,7 @@ with equality throughout if and only if all the \( x_i \) are equal.
 
 \subsection{Median}
 \begin{textbox}
-The \textbf{median} of a set of observation is the middlemost value when the observations are arranged in increasing or decreasing order of magnitude. 
+The \textbf{median} of a set of observation is the middlemost value when the observations are arranged in increasing or decreasing order of magnitude.
     \end{textbox}
 
 It is denoted by $M_i$ or $\tilde{x}$. It divides the dataset into two equal halves: 50\% of the values lie below the median and 50\% lie above.
@@ -809,12 +834,12 @@ For a dataset with \( n \) observations arranged in ascending order:
     \item If \( n \) is even, the median is the arithmetic mean of the values at the \( \left( \frac{n}{2} \right)^\text{th} \) and \( \left( \frac{n}{2} + 1 \right)^\text{th} \) positions.
 \end{itemize}
 
-\textbf{Example:} Find the median of the dataset:  
+\textbf{Example:} Find the median of the dataset:
 \[
 7, 2, 5, 9, 4
-\]  
-Arranging in ascending order: \( 2, 4, 5, 7, 9 \).  
-Since there are 5 values (odd), the median is the 3rd value:  
+\]
+Arranging in ascending order: \( 2, 4, 5, 7, 9 \).
+Since there are 5 values (odd), the median is the 3rd value:
 \[
 \text{Median} = 5
 \]
@@ -837,7 +862,7 @@ In a simple frequency distribution, each data value is associated with a frequen
 		\toprule
 		\textbf{Value} & \textbf{Frequency} & \textbf{Cumulative Frequency}\\
 		\midrule
-		2 & 3 & 3\\ 
+		2 & 3 & 3\\
 		4 & 5 & 8\\
 		6 & 7 & 15\\
 		8 & 5 & 20\\
@@ -926,7 +951,7 @@ $$\dfrac{\text{Median} - L}{h} = \dfrac{\dfrac{N}{2}-F}{f} \quad \Rightarrow \te
 \textbf{Example}: Consider the following table containing the class values, frequencies and cumulative frequencies.
 
 
-\begin{table}[H]	
+\begin{table}[H]
 \begin{center}
 \begin{tabular}{c|c|c}
 	\toprule
@@ -1047,7 +1072,7 @@ The mean drops to 65 due to the outlier (10), even though most students scored 7
 
 \subsection{Mode}
 \begin{textbox}
-The \textbf{mode} of a given set of observations is the value which occurs with maximum frequency. It represents the highest peak in the frequency distribution. 
+The \textbf{mode} of a given set of observations is the value which occurs with maximum frequency. It represents the highest peak in the frequency distribution.
     \end{textbox}
 
 The mode is generally denoted by \( M_o \).
@@ -1315,12 +1340,12 @@ P_k = \left( \frac{k(n+1)}{100} \right)\text{th value}, \quad k = 1, 2, \dots, 9
 Measures of dispersion describe the spread or variability within a data set. While measures of central tendency (such as the mean or median) indicate the typical value, measures of dispersion indicate how much the values in the dataset differ from the central value. A small dispersion means the data points are clustered close to the center, while a large dispersion indicates data points are spread out over a wide range.
 
 Consider the following two data sets, each containing five values:
-$A = \{4, 5, 5, 5, 6\}$ and $B = \{1, 3, 5, 7, 9\}$.  
+$A = \{4, 5, 5, 5, 6\}$ and $B = \{1, 3, 5, 7, 9\}$.
 Both sets have the same mean, which is 5. For set $A$, the mean is
 \[
 \frac{4 + 5 + 5 + 5 + 6}{5} = \frac{25}{5} = 5,
 \]
-and for $B$, the mean is  
+and for $B$, the mean is
 \[
 \frac{1 + 3 + 5 + 7 + 9}{5} = \frac{25}{5} = 5.
 \]
@@ -1348,8 +1373,8 @@ Measures of dispersion are broadly classified into two types:
     \end{textbox}
     where \( L \) is the largest value and \( S \) is the smallest value.
 
-    Consider the data set: \{10, 15, 18, 22, 25\}.  
-Here, the largest value \( L = 25 \) and the smallest value \( S = 10 \).  
+    Consider the data set: \{10, 15, 18, 22, 25\}.
+Here, the largest value \( L = 25 \) and the smallest value \( S = 10 \).
 
 \[
 \text{Range} = 25 - 10 = 15
@@ -1450,11 +1475,11 @@ For weighted data, the standard deviation is calculated as:
 \]
 \end{textbox}
 
-where,  
+where,
 \begin{itemize}
-    \item \(x_i\) are the data values,  
-    \item \(f_i\) are the corresponding frequencies (weights),  
-    \item \(\overline{x} = \dfrac{\sum_{i=1}^n f_i x_i}{\sum_{i=1}^n f_i}\) is the weighted mean,  
+    \item \(x_i\) are the data values,
+    \item \(f_i\) are the corresponding frequencies (weights),
+    \item \(\overline{x} = \dfrac{\sum_{i=1}^n f_i x_i}{\sum_{i=1}^n f_i}\) is the weighted mean,
 \end{itemize}
 
 \begin{textbox}
@@ -1651,19 +1676,19 @@ $$\mu_r = \mu'_r - \binom{r}{1} \mu'_{r-1}\mu'_1 + \binom{r}{2} \mu'_{r-2}{\mu'_
       &= \mu'_1 - \binom{1}{1}\,\mu'_0\,\mu'_1 \\
       &= \mu'_1 - \mu'_1 = 0
     \end{align*}
-    
-  
+
+
   \item \(r=2:\)
     \begin{align*}
       \mu_2
-      &= \mu'_2 
+      &= \mu'_2
          - \binom{2}{1}\,\mu'_1\,\mu'_1
          + \binom{2}{2}\,\mu'_0\,(\mu'_1)^2 \\
       &= \mu'_2 - 2(\mu'_1)^2 + (\mu'_1)^2
       = \mu'_2 - (\mu'_1)^2
     \end{align*}
-    
-  
+
+
   \item \(r=3:\)
     \begin{align*}
       \mu_3
@@ -1674,8 +1699,8 @@ $$\mu_r = \mu'_r - \binom{r}{1} \mu'_{r-1}\mu'_1 + \binom{r}{2} \mu'_{r-2}{\mu'_
       &= \mu'_3 - 3\,\mu'_2\,\mu'_1 + 3(\mu'_1)^3 - (\mu'_1)^3
       = \mu'_3 - 3\,\mu'_2\,\mu'_1 + 2(\mu'_1)^3
     \end{align*}
-    
-  
+
+
   \item \(r=4:\)
     \begin{align*}
       \mu_4
@@ -1687,7 +1712,7 @@ $$\mu_r = \mu'_r - \binom{r}{1} \mu'_{r-1}\mu'_1 + \binom{r}{2} \mu'_{r-2}{\mu'_
       &= \mu'_4 - 4\,\mu'_3\,\mu'_1 + 6\,\mu'_2\,(\mu'_1)^2 - 4(\mu'_1)^4 + (\mu'_1)^4 \\
       &= \mu'_4 - 4\,\mu'_3\,\mu'_1 + 6\,\mu'_2\,(\mu'_1)^2 - 3(\mu'_1)^4
     \end{align*}
-    
+
 \end{itemize}
 
 Now let's derive the inverse relationship. Using the binomial expansion on \(x_i = (x_i - \overline{x}) + \overline{x}\), the \(r\)-th raw moment can be written as
@@ -1726,7 +1751,7 @@ where by convention \(\mu_1 = 0\).
       &= \overline{x} + 0
       = \overline{x}
     \end{align*}
-  
+
   \item \(r=2:\)
     \begin{align*}
       \mu'_2
@@ -1736,7 +1761,7 @@ where by convention \(\mu_1 = 0\).
       &= \overline{x}^2 + 0 + \mu_2
       = \mu_2 + \overline{x}^2
     \end{align*}
-  
+
   \item \(r=3:\)
     \begin{align*}
       \mu'_3
@@ -1747,9 +1772,9 @@ where by convention \(\mu_1 = 0\).
       &= \overline{x}^3 + 0 + 3\,\overline{x}\,\mu_2 + \mu_3
       = \mu_3 + 3\,\overline{x}\,\mu_2 + \overline{x}^3
     \end{align*}
-  
+
   \item \(r=4:\)
-    
+
     \begin{align*}
       \mu'_4
       &= \overline{x}^4\
@@ -1784,7 +1809,7 @@ The value of skewness determines the shape of the frequency curve:
 
 \textbf{How to interpret the formula?}
 
-Skewness uses cubed deviations $(x_i - \overline{x})^3$. Cubing serves two purposes: it preserves the sign of the deviation — meaning values greater than the mean contribute positively and those less than the mean contribute negatively — and it exaggerates the impact of larger deviations, making the measure sensitive to extreme values in the tails. This helps identify whether the data are stretched more to the right or left. 
+Skewness uses cubed deviations $(x_i - \overline{x})^3$. Cubing serves two purposes: it preserves the sign of the deviation — meaning values greater than the mean contribute positively and those less than the mean contribute negatively — and it exaggerates the impact of larger deviations, making the measure sensitive to extreme values in the tails. This helps identify whether the data are stretched more to the right or left.
 
 Dividing by the cube of the standard deviation $\sigma^3$ standardizes the measure, removing units and allowing for meaningful comparisons across datasets with different scales. The result is a dimensionless quantity: positive skewness indicates a long right tail, negative skewness signals a long left tail, and zero skewness implies symmetry around the mean.
 
@@ -1848,7 +1873,7 @@ In most unimodal distributions\footnote{A dataset is said to have a \textbf{unim
     \]
     \\
     Extreme values on the right pull the mean farther out than the median, while the mode remains at the peak of the bulk of the data.
-  
+
   \item \textbf{Negative skew (left‐tailed):}
     \[
       \text{Mean} \;<\; \text{Median} \;<\; \text{Mode}.
@@ -1930,7 +1955,7 @@ Also, dividing the fourth central moment by $\sigma^4$ makes kurtosis a \textbf{
            \approx 41.03.
     \]
   \item \(\displaystyle \text{Kurtosis} (\gamma_2) = \frac{41.03}{(2.058)^4}\approx 2.29,\)
-        \(\text{Relative Kurtosis}\approx -0.71\).  
+        \(\text{Relative Kurtosis}\approx -0.71\).
         This dataset is \textbf{platykurtic}.
 \end{itemize}
 
@@ -1939,7 +1964,7 @@ Also, dividing the fourth central moment by $\sigma^4$ makes kurtosis a \textbf{
 \section{Some Notation and Terminology}
 \subsection{Random Experiment}
 
-An \textbf{experiment} is generally defined as one or more actions that result in a specific outcome. 
+An \textbf{experiment} is generally defined as one or more actions that result in a specific outcome.
 
 \begin{textbox}
 An experiment $E$ is called a \textbf{random experiment} if it satisfies the following conditions:
@@ -1961,10 +1986,10 @@ A common example of a random experiment is the tossing of a coin. The possible o
 
 Each outcome, also known as an \textbf{elementary event point}, is an element of $S$.
 
-For example, in the experiment of tossing a coin, the sample space is  
+For example, in the experiment of tossing a coin, the sample space is
 \[
 S = \{H, T\}
-\]  
+\]
 where $H$ represents `Head’ and $T$ represents `Tail’.
 
 If $E$ is the experiment of rolling a pair of dice, the sample space consists of all ordered pairs of numbers from 1 to 6:
@@ -1999,19 +2024,19 @@ be an event, which can be described as ``an even number appears when the die is 
 
 There are various types of events:
 \begin{itemize}
-    \item \textbf{Impossible Event:}  
+    \item \textbf{Impossible Event:}
     An event that contains no outcomes from the sample space is called an impossible event. For example, $A = \emptyset$ is an impossible event.
 
-    \item \textbf{Certain Event:}  
+    \item \textbf{Certain Event:}
     An event that contains all outcomes of the sample space is called a certain or sure event. For example, $A = S$ is an impossible event.
 
-    \item \textbf{Simple (Elementary) Event:}  
+    \item \textbf{Simple (Elementary) Event:}
     An event consisting of exactly one outcome of the sample space. For example, $A = \{4\}$ is a simple event when rolling a die.
 
-    \item \textbf{Composite (Compound) Event:}  
+    \item \textbf{Composite (Compound) Event:}
     An event that consists of more than one outcome of the sample space. For example, $A = \{2, 4, 6\}$ is a composite event when rolling a die.
 
-    \item \textbf{Dependent and Independent Events:}  
+    \item \textbf{Dependent and Independent Events:}
     Two events are considered dependent if the occurrence of one event influences the probability of the other event occurring. Conversely, they are independent if the occurrence of one event does not affect the probability of the other event.
 \end{itemize}
 
@@ -2021,7 +2046,7 @@ There are various types of events:
     A_1 \cap A_2 = \emptyset
     \]
     When tossing a coin, the events `Head' and `Tail' are mutually exclusive because both cannot occur at the same time. If we get a head, we cannot get a tail in that toss.
-    
+
     \subsection{Exhaustive Set of Events}
     A set of events is said to be \textbf{exhaustive} at least one of the events in the set must occur. The union of all the events in the set equals the entire sample space $S$. Mathematically, if events $A_1, A_2, \dots, A_n$ are exhaustive, then:
     \[
@@ -2032,20 +2057,20 @@ There are various types of events:
 \section{Definition of Probability}
 
 \subsection{A Priori Probability}
-    \textbf{A priori probability}, also known as \textbf{classical probability}, is the probability that is determined before an experiment is conducted. It is based on the knowledge of the system or experiment and is calculated using the total number of equally likely outcomes. 
-    
+    \textbf{A priori probability}, also known as \textbf{classical probability}, is the probability that is determined before an experiment is conducted. It is based on the knowledge of the system or experiment and is calculated using the total number of equally likely outcomes.
+
     \begin{textbox}
         If there are $n$ mutually exclusive, exhaustive and equally likely\footnote{By the phrase `\textbf{equally likely}' it is meant that none of the outcomes is expected to occur in preference to other in any trial of the given random experiment.} outcomes of a random experiment and out of them $m$ outcomes are favorable to an event $A$, then the probability of the event $A$ is defined as $$P(A) = \dfrac{m}{n}$$
     \end{textbox}
     For example, the probability of getting a head in a fair coin toss is $$P(\text{Head}) = \frac{1}{2}$$ based on the assumption of equal likelihood of heads and tails.
 
     \subsection{A Posteriori Probability}
-    \textbf{A posteriori probability}, also known as \textbf{empirical probability}, is the probability that is determined after an experiment is conducted. It is based on observed data or information obtained from the experiment. 
+    \textbf{A posteriori probability}, also known as \textbf{empirical probability}, is the probability that is determined after an experiment is conducted. It is based on observed data or information obtained from the experiment.
 
     \begin{textbox}
         Let $A$ be an event of a given random experiment. Let event $A$ occurs $N(A)$ number of times when the random experiment is repeated $N$ times under identical conditions. The probability of the event $A$ is defined as $$P(A) = \lim_{N\to \infty}\dfrac{N(A)}{N}$$
     \end{textbox}
-    
+
     A posteriori probability can be updated as new evidence becomes available. For example, after observing several rolls of a die, you may update the probability of rolling a particular number based on the outcomes observed.
 
 \section{Axioms of Probability}
@@ -2099,12 +2124,12 @@ $$P(\emptyset) = 1-P(S) = 1-1 = 0$$
     \begin{scope}
         \draw[fill=blue!30, opacity=0.6] (2,2) circle (1.2);
     \end{scope}
-    
+
     % Draw set B
     \begin{scope}
         \draw[fill=red!30, opacity=0.6] (3.4,2) circle (1.2);
     \end{scope}
-    
+
     % Labels
     \node at (2,0.4) {$A$};
     \node at (3.5,0.4) {$B$};
@@ -2162,7 +2187,7 @@ Thus, the probability of rolling a die and getting either an odd number or a num
 
 
 \begin{textbox}
-\textbf{Theorem}: For any three events $A$, $B$ and $C$ (not necessarily mutually exclusive), 
+\textbf{Theorem}: For any three events $A$, $B$ and $C$ (not necessarily mutually exclusive),
 \begin{align*}
     P(A \cup B \cup C) = &P(A) + P(B) +P(C) - P(A \cap B) - P(B \cap C) \\
     &- P(A \cap C)  + P(A \cap B \cap C)
@@ -2242,12 +2267,12 @@ The proof of this theorem is left as an exercise.
     \begin{scope}
         \draw[fill=blue!30, opacity=0.6] (2,2) circle (1.2);
     \end{scope}
-    
+
     % Draw set B
     \begin{scope}
         \draw[fill=red!30, opacity=0.6] (3.4,2) circle (1.2);
     \end{scope}
-    
+
     % Labels
     \node at (2,0.4) {$A$};
     \node at (3.5,0.4) {$B$};
@@ -2370,7 +2395,7 @@ P(B \cap A_{k+1}) \geq \left( \sum_{i=1}^{k} P(A_i) - (k - 1) \right) + P(A_{k+1
 
 Therefore, the inequality holds for \( n = k + 1 \). By induction, it holds for all \( n \in \mathbb{N} \). \
 
-The Bonferroni inequality for intersections provides a lower bound for the probability of the intersection of multiple events. 
+The Bonferroni inequality for intersections provides a lower bound for the probability of the intersection of multiple events.
 \hfill\(\blacksquare\)
 
 \textbf{Example}: Consider three events \( A_1 \), \( A_2 \), and \( A_3 \) with probabilities:
@@ -2433,7 +2458,7 @@ P(B \mid A) = \frac{P(A \cap B)}{P(A)} =\frac{\frac{1}{6}}{\frac{1}{2}} = \frac{
  &= P(B) \cdot P(A \mid B), \quad \text{if } P(B) \neq 0
 \end{align*}
 \end{textbox}
-The second rule follows directly from the definition of conditional probability by multiplying both sides by \( P(B) \).  
+The second rule follows directly from the definition of conditional probability by multiplying both sides by \( P(B) \).
 The first rule is obtained from the second by simply switching the roles of \( A \) and \( B \).
 
 \section{Rule of Total Probability}
@@ -2543,7 +2568,7 @@ The probability that a randomly chosen item is defective is $0.019$ or $1.9$\%.
 
 
 \section{Bayes' Theorem}
-Bayes' Theorem is a fundamental result in probability theory that arises directly from the definition of conditional probability and the Rule of Total Probability. 
+Bayes' Theorem is a fundamental result in probability theory that arises directly from the definition of conditional probability and the Rule of Total Probability.
 \begin{textbox}
     \textbf{Bayes' Theorem}: Let \( B_1, B_2, \ldots, B_n \) be a partition of the sample space (i.e., mutually exclusive and collectively exhaustive events) and none of which has zero probability i.e. \( P(B_i) > 0 \) for all \( i \), then for any event \( A \) with \( P(A) > 0 \), the probability of \( B_r \) given \( A \) is:
 \[
@@ -2689,9 +2714,9 @@ $$P( A \cap B ) = P( A ) \cdot P( B )$$
 
 \textbf{Example}: Consider the experiment of rolling two fair six-sided dice, and consider the following events:
 \begin{itemize}
-    \item \( A \): The first die shows a 1.  
+    \item \( A \): The first die shows a 1.
     \[ A = \{(1,1), (1,2), (1,3), (1,4), (1,5), (1,6)\} \]
-    \item \( B \): The second die shows a 2.  
+    \item \( B \): The second die shows a 2.
     \[ B = \{(1,2), (2,2), (3,2), (4,2), (5,2), (6,2)\} \]
 \end{itemize}
 
@@ -2712,7 +2737,7 @@ P(A \cap B) = P(A) \cdot P(B) = \frac{1}{6} \cdot \frac{1}{6} = \frac{1}{36},
 we conclude that the events \( A \) and \( B \) are \textbf{independent}.
 
 \begin{textbox}
-\textbf{Theorem:}  
+\textbf{Theorem:}
 If the events \( A \) and \( B \) are independent, then the following pairs of events are also independent:
 \[
 \text{(1) } A \text{ and } \overline{B}, \quad \text{(2) } \overline{A} \text{ and } B, \quad \text{(3) } \overline{A} \text{ and } \overline{B}
@@ -2803,7 +2828,7 @@ Let \( A \) and \( B \) be two events in a sample space.
     \[
     A \cap B = \emptyset \quad \Rightarrow \quad P(A \cap B) = 0
     \]
-    
+
     \item If \( A \) and \( B \) are \textbf{independent}, then:
     \[
     P(A \cap B) = P(A) \cdot P(B)
@@ -2821,7 +2846,7 @@ Two events \( A \) and \( B \) cannot be both mutually exclusive and independent
 \end{textbox}
 
 
-In terms of a Venn diagram, the independence of events implies that the overlap between sets \( A \) and \( B \) (i.e., \( A \cap B \)) should be such that its area (probability) equals the product of the areas (probabilities) of each individual circle. 
+In terms of a Venn diagram, the independence of events implies that the overlap between sets \( A \) and \( B \) (i.e., \( A \cap B \)) should be such that its area (probability) equals the product of the areas (probabilities) of each individual circle.
 
 \begin{center}
 \begin{tikzpicture}
@@ -2841,8 +2866,8 @@ Reliability analysis is the branch of engineering concerned with estimating the 
 rates of systems. If a machine has a reliability of $0.95$ over $1$ year, it means there is a $95\%$ chance that it will work without failure for the entire year. In many systems, components are arranged either in \textit{series} or in \textit{parallel}, and the system's reliability depends on the configuration.
 
 \begin{enumerate}
-    
-\item \textbf{System with Components in Series}: 
+
+\item \textbf{System with Components in Series}:
 
 Consider a system with two components, \( A \) and \( B \), connected in \textbf{series}. In this setup, the system will work only if \textbf{both} components function properly.
 
@@ -2885,12 +2910,12 @@ Now consider a system with two components, \( C \) and \( D \), connected in \te
   % Input and output lines
   \draw (-2,0) -- (-1,0);
   \draw (1,0) -- (2,0);
-  
+
   % Top branch with C
   \draw (-1,0) -- (0,0.9);
   \draw (0,0.9) -- (1,0);
   \draw (0,0.5) node[draw, fill=white, minimum size=8mm] {\textbf{C}};
-  
+
   % Bottom branch with D
   \draw (-1,0) -- (0,-0.9);
   \draw (0,-0.9) -- (1,0);
@@ -2925,7 +2950,7 @@ In most cases, we can associate a real number with each elementary event in a sa
 This assignment of numerical values to outcomes allows us to define a function on the sample space. A real-valued function defined on the sample space is called a \textbf{random variable} (also referred to as a \textbf{stochastic variable}).
 
 \begin{textbox}
-    Let \( S \) be a sample space of a random experiment. A \textbf{random variable} is a function  
+    Let \( S \) be a sample space of a random experiment. A \textbf{random variable} is a function
 \[
 X : S \rightarrow \mathbb{R}
 \]
@@ -2941,17 +2966,17 @@ There are two main types:
 
 \begin{enumerate}
     \item \textbf{Discrete Random Variable:} \\
-    A discrete random variable takes on a countable\footnote{This means the values can be finite (like a die roll) or countably infinite (like the number of coin tosses until the first head).} number of distinct values. Let \( X \) be the number of heads obtained when a fair coin is tossed three times. 
+    A discrete random variable takes on a countable\footnote{This means the values can be finite (like a die roll) or countably infinite (like the number of coin tosses until the first head).} number of distinct values. Let \( X \) be the number of heads obtained when a fair coin is tossed three times.
     The possible values of \( X \) are \( 0, 1, 2, 3 \). Since these values are countable and finite, \( X \) is a discrete random variable.
 
     \item \textbf{Continuous Random Variable:} \\
-    A continuous random variable takes any value within a certain range of real numbers. The possible values are uncountable and include fractions and decimals. Let \( Y \) be the amount of time (in minutes) a customer waits in a queue at a bank. 
+    A continuous random variable takes any value within a certain range of real numbers. The possible values are uncountable and include fractions and decimals. Let \( Y \) be the amount of time (in minutes) a customer waits in a queue at a bank.
     The variable \( Y \) can take any real value within a range, such as \( 0 \leq Y \leq 30 \), including fractions like \( 3.5 \) or \( 12.75 \). Hence, \( Y \) is a continuous random variable.
 \end{enumerate}
 
 \section{Probability Distribution}
 
-To each value of a random variable \( X \), there corresponds a definite probability.  
+To each value of a random variable \( X \), there corresponds a definite probability.
 Let \( x_1, x_2, \dots, x_n \) be the possible values of \( X \), and let \( p_1, p_2, \dots, p_n \) be the corresponding probabilities such that:
 \[
 P(X = x_i) = p_i \quad \text{for } i = 1, 2, \dots, n
@@ -2976,7 +3001,7 @@ where \( x_k \) is a specific value of the random variable \( X \). The PMF sati
 
 \textbf{Example}: Consider a discrete random variable \( X \) with the following distribution:
 \[
-p_X(x) = P(X = x) = 
+p_X(x) = P(X = x) =
 \begin{cases}
 \frac{1}{4}, & \text{if } x = 1 \\
 \frac{1}{2}, & \text{if } x = 2 \\
@@ -3036,7 +3061,7 @@ where \( f_X(x) \) is the PDF of \( X \). The PDF satisfies the following proper
 
 \textbf{Example}: Consider a continuous random variable with the following distribution:
 \[
-f_X(x) = 
+f_X(x) =
 \begin{cases}
 1, & 0 \leq x \leq 1 \\
 0, & \text{otherwise}
@@ -3123,8 +3148,8 @@ This sum includes all the probabilities up to and including \( x \).
 
 \textbf{Example:} Consider the random variable \( X \) representing the outcome of a fair six-sided die roll. The CDF for \( X \) is:
 \[
-F_X(x) = 
-\begin{cases} 
+F_X(x) =
+\begin{cases}
 0, & \text{if } x < 1 \\
 \frac{1}{6}, & \text{if } 1 \leq x < 2 \\
 \frac{2}{6}, & \text{if } 2 \leq x < 3 \\
@@ -3365,14 +3390,14 @@ The expected value is:
 \end{enumerate}
 
 \begin{textbox}
-\textbf{Theorem} If \( X = a \), where \( a \in \mathbb{R} \) is a constant, then  
+\textbf{Theorem} If \( X = a \), where \( a \in \mathbb{R} \) is a constant, then
 \[
 \mathbb{E}(X) = a
 \]
 \end{textbox}
 
-\textbf{Proof.}  
-Since \( X \) is always equal to \( a \),  
+\textbf{Proof.}
+Since \( X \) is always equal to \( a \),
 \begin{itemize}
   \item In the discrete case:
   \[
@@ -3388,13 +3413,13 @@ Since \( X \) is always equal to \( a \),
 \vspace{1em}
 
 \begin{textbox}
-\textbf{Theorem}: If \( Y = bX \), where \( b \in \mathbb{R} \), then  
+\textbf{Theorem}: If \( Y = bX \), where \( b \in \mathbb{R} \), then
 \[
 \mathbb{E}(Y) = b \cdot \mathbb{E}(X)
 \]
 \end{textbox}
 
-\textbf{Proof.}  
+\textbf{Proof.}
 \begin{itemize}
   \item Discrete case:
   \[
@@ -3453,13 +3478,13 @@ Alternatively, it can be computed as:
 \end{enumerate}
 
 \begin{textbox}
-\textbf{Theorem}: If \( X = a \), where \( a \in \mathbb{R} \) is constant, then  
+\textbf{Theorem}: If \( X = a \), where \( a \in \mathbb{R} \) is constant, then
 \[
 \mathrm{Var}(X) = 0
 \]
 \end{textbox}
 
-\textbf{Proof.}  
+\textbf{Proof.}
 \[
 \mathrm{Var}(X) = \mathbb{E}[(X - \mathbb{E}(X))^2] = \mathbb{E}[(a - a)^2] = \mathbb{E}[0] = 0
 \]
@@ -3468,13 +3493,13 @@ Alternatively, it can be computed as:
 \vspace{1em}
 
 \begin{textbox}
-\textbf{Theorem}: If \( Y = bX \), where \( b \in \mathbb{R} \), then  
+\textbf{Theorem}: If \( Y = bX \), where \( b \in \mathbb{R} \), then
 \[
 \mathrm{Var}(Y) = b^2 \cdot \mathrm{Var}(X)
 \]
 \end{textbox}
 
-\textbf{Proof.}  
+\textbf{Proof.}
 \begin{align*}
     \mathrm{Var}(Y) &= \mathrm{Var}(bX) = \mathbb{E}[(bX - \mathbb{E}(bX))^2]\\
 &= \mathbb{E}[(bX - b\mathbb{E}(X))^2]
@@ -3576,13 +3601,13 @@ This function gives the probability that the random vector \( (X, Y) \) falls wi
 \end{itemize}
 
 \begin{textbox}
-\textbf{Theorem}: If \( Z = X + Y \), then  
+\textbf{Theorem}: If \( Z = X + Y \), then
 \[
 \mathbb{E}(Z) = \mathbb{E}(X) + \mathbb{E}(Y)
 \]
 \end{textbox}
 
-\textbf{Proof.}  
+\textbf{Proof.}
 \begin{itemize}
   \item Discrete case:
   \begin{align*}
@@ -3651,9 +3676,9 @@ One important feature of the joint distribution of $X$ and $Y$ is their covarian
 \]
 \end{textbox}
 
-Now, 
+Now,
 \begin{align*}
-\mathrm{Cov}(X, Y) 
+\mathrm{Cov}(X, Y)
 &= \mathbb{E}\big[(X - \mathbb{E}(X))\cdot(Y - \mathbb{E}(Y))\big] \\
 &= \mathbb{E}\big[XY - X\cdot \mathbb{E}(Y) - \mathbb{E}(X)\cdot Y + \mathbb{E}(X)\cdot \mathbb{E}(Y)\big] \\
 &= \mathbb{E}(XY) - \mathbb{E}(X)\cdot \mathbb{E}(Y) - \mathbb{E}(X)\cdot \mathbb{E}(Y) + \mathbb{E}(X)\cdot \mathbb{E}(Y) \\
@@ -3702,15 +3727,15 @@ Therefore,
 \hfill $\blacksquare$
 
 \begin{textbox}
-\textbf{Theorem}: If \( X \) and \( Y \) are independent random variables, then  
+\textbf{Theorem}: If \( X \) and \( Y \) are independent random variables, then
 \[
 \mathrm{Cov}(X, Y) = 0
-\] 
+\]
 \end{textbox}
 
 \textbf{Proof}: If $X$ and $Y$ are are independent, then
 $$\mathbb{E}(XY) = \mathbb{E}(X)\cdot \mathbb{E}(Y)$$
-Thus, 
+Thus,
 \begin{align*}
 \mathrm{Cov}(X, Y) &= \mathbb{E}(XY) - \mathbb{E}(X) \cdot \mathbb{E}(Y)\\
 &=\mathbb{E}(X) \cdot \mathbb{E}(Y) - \mathbb{E}(X) \cdot \mathbb{E}(Y)\\
@@ -3727,7 +3752,7 @@ Thus,
 \]
 \end{textbox}
 
-\textbf{Proof}: 
+\textbf{Proof}:
 \begin{align*}
 \mathrm{Cov}(X, X) &= \mathbb{E}(X \cdot X) - \mathbb{E}(X)\cdot \mathbb{E}(X) \\
 &= \mathbb{E}(X^2) - (\mathbb{E}(X))^2 \\
@@ -3742,7 +3767,7 @@ Thus,
 \]
 \end{textbox}
 
-\textbf{Proof.}  
+\textbf{Proof.}
 \begin{align*}
 \mathrm{Cov}(aX, bY) &= \mathbb{E}(aX \cdot bY) - \mathbb{E}(aX)\cdot \mathbb{E}(bY) \\
 &= ab \cdot \mathbb{E}(XY) - ab \cdot \mathbb{E}(X)\cdot \mathbb{E}(Y) \\
@@ -3752,13 +3777,13 @@ Thus,
 \hfill\(\blacksquare\)
 
 \begin{textbox}
-\textbf{Theorem}: If $X$, $Y$ are two random variables, then  
+\textbf{Theorem}: If $X$, $Y$ are two random variables, then
 \[
 \mathrm{Var}(X+Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) + 2 \cdot \mathrm{Cov}(X, Y)
 \]
 \end{textbox}
 
-\textbf{Proof.}  
+\textbf{Proof.}
 \[
 \mathrm{Var}(X + Y) = \mathbb{E}[(X + Y - \mathbb{E}(X + Y))^2]
 \]
@@ -3940,7 +3965,7 @@ This means that the overall expectation of \(X\) can be obtained by first comput
 
 What is the expected lifetime of a randomly chosen bulb?
 
-Let the random variable \( L \) denote the lifetime of a randomly chosen bulb. Let \( F \in \{X, Y\} \) be the factory that produced the bulb. 
+Let the random variable \( L \) denote the lifetime of a randomly chosen bulb. Let \( F \in \{X, Y\} \) be the factory that produced the bulb.
 
 We are asked to find the expected lifetime \( \mathbb{E}[L] \).
 
@@ -3958,7 +3983,7 @@ Using the \textbf{Law of Total Expectation}:
 
 We compute:
 \begin{align*}
-\mathbb{E}[L] 
+\mathbb{E}[L]
 &= P(F = X) \cdot \mathbb{E}[L \mid F = X] + P(F = Y) \cdot \mathbb{E}[L \mid F = Y] \\
 &= 0.7 \times 2000 + 0.3 \times 3000 \\
 &= 1400 + 900 = 2300
@@ -4040,7 +4065,7 @@ Or equivalently:
   \[
   F_Y(y) = F_X\left(g^{-1}(y)\right)
   \]
-  
+
   \item If \( g \) is strictly decreasing, then
   \[
   F_Y(y) = 1 - F_X\left(g^{-1}(y)\right)
@@ -4066,9 +4091,9 @@ This formula ensures that the total probability is preserved under the transform
       = P\bigl(Y \le y\bigr)
       = P\bigl(g(X)\le y\bigr)
     \]
-    Because $g$ is increasing, 
+    Because $g$ is increasing,
     \[
-      g(X)\le y 
+      g(X)\le y
       \quad\Longleftrightarrow\quad
       X \le g^{-1}(y)
     \]
@@ -4087,7 +4112,7 @@ This formula ensures that the total probability is preserved under the transform
     \]
     Since $g^{-1}$ is increasing, its derivative is positive i.e. $\dfrac{d}{dy}\,g^{-1}(y) > 0$, and so
     \[
-      f_Y(y) 
+      f_Y(y)
       = f_X\bigl(g^{-1}(y)\bigr)\;\Bigl|\tfrac{d}{dy}\,g^{-1}(y)\Bigr|
     \]
 
@@ -4095,11 +4120,11 @@ This formula ensures that the total probability is preserved under the transform
 \medskip
 \item \textbf{Case 2: $g$ is strictly decreasing.}
 
- 
+
     Again $g^{-1}$ exists, but now $g^{-1}$ is decreasing.
     For a decreasing $g$,
     \[
-      g(X)\le y 
+      g(X)\le y
       \quad\Longleftrightarrow\quad
       X \ge g^{-1}(y)
     \]
@@ -4214,7 +4239,7 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
 \textbf{Proof}\footnote{An equivalent version of Chebyshev's Inequality states that the probability that $X$ lies within $k\sigma$ is bounded by the inequality:
 \[
 P(|X - \mu| < k\sigma) \geq 1 - \frac{1}{k^2}
-\]}: 
+\]}:
 \begin{itemize}
     \item \textbf{Discrete Random Variables}
 
@@ -4295,7 +4320,7 @@ Moments are quantitative measures that capture various aspects of the shape of a
 
 \subsection{Raw Moments and Central Moments}
 
-Moments can be calculated about the origin (raw moments) or about the mean (central moments). 
+Moments can be calculated about the origin (raw moments) or about the mean (central moments).
 
 The \textbf{$k$-th raw moment} (also called the moment about the origin) of a random variable $X$ is defined as:
 \begin{textbox}
@@ -4359,7 +4384,7 @@ To relate this to the raw moments \(\mu'_r = \mathbb{E}[X^r]\), we expand \((X -
 
 Taking expectations on both sides:
 \[
-\mu_k = \mathbb{E}[(X - \mu)^k] 
+\mu_k = \mathbb{E}[(X - \mu)^k]
 = \mathbb{E}\left[\sum_{r=0}^{k} \binom{k}{r} (-\mu)^{k - r} X^r\right]
 = \sum_{r=0}^{k} (-1)^{k - r}\binom{k}{r} \mu^{k - r} \mathbb{E}[X^r]
 \]
@@ -4377,7 +4402,7 @@ This formula expresses the $k$-th central moment \(\mu_k\) as a linear combinati
 \item \textbf{First central moment}:
 $$\mu_1 = \mu'_1$$
   \item \textbf{Second central moment\footnote{An easier way to calculate the second central moment: \[
-  \mu_2 = \mathbb{E}[(X - \mu)^2] 
+  \mu_2 = \mathbb{E}[(X - \mu)^2]
   = \mathbb{E}[X^2 - 2\mu X + \mu^2]
   = \mathbb{E}[X^2] - 2\mu \mathbb{E}(X) + \mu^2
   = \mu'_2 - \mu^2
@@ -4385,7 +4410,7 @@ $$\mu_1 = \mu'_1$$
   \[
   \mu_2 = \mu'_2 - \mu^2
   \]
-  
+
 
   \item \textbf{Third central moment:}
   \[
@@ -4451,7 +4476,7 @@ moment generating function.
 \begin{textbox}
 The \textbf{moment generating function} (MGF) of a random variable $X$ is a function $M_X:\mathbb{R} \to [0, \infty)$ given by
     \[
-      M_X(t) \;=\; \mathbb{E}\left( e^{tX} \right) 
+      M_X(t) \;=\; \mathbb{E}\left( e^{tX} \right)
     \]
 provided the expectation exists in an open neighborhood\footnote{An \textbf{open neighborhood} of \( t = 0 \) is an open interval around 0, say \( (-\varepsilon, \varepsilon) \) for some \( \varepsilon > 0 \). The condition says that the expectation \( \mathbb{E}[e^{tX}] \) must \emph{converge} (i.e., be finite) for all values of \( t \) in some interval around 0.} of $t=0$.
 \end{textbox}
@@ -4485,13 +4510,13 @@ e^{tX} = \sum_{n=0}^{\infty} \frac{(tX)^n}{n!} = \sum_{n=0}^{\infty} \frac{t^n X
 
 Taking expectation on both sides:
 \[
-M_X(t) = \mathbb{E}\left( e^{tX}\right)  = \mathbb{E} \left(  \sum_{n=0}^{\infty} \frac{t^n X^n}{n!} \right) 
+M_X(t) = \mathbb{E}\left( e^{tX}\right)  = \mathbb{E} \left(  \sum_{n=0}^{\infty} \frac{t^n X^n}{n!} \right)
 \]
 
 We can interchange summation and expectation\footnote{Provided the series converges absolutely which it does in some neighborhood around \( t = 0 \) due to the MGF assumption.}:
 \begin{align*}
     M_X(t) &= \sum_{n=0}^{\infty} \frac{t^n}{n!} \mathbb{E}(X^n)  = \sum_{n=0}^{\infty} \frac{t^n}{n!} \mu'_n\\
-&=1+ \frac{t}{1}\mu'_1 + \frac{t^2}{2!}\mu'_2+ \frac{t^3}{3!}\mu'_3 + \dots + \frac{t^k}{k!}\mu'_k +\frac{t^{k+1}}{(k+1)!}\mu'_{k+1} + \dots 
+&=1+ \frac{t}{1}\mu'_1 + \frac{t^2}{2!}\mu'_2+ \frac{t^3}{3!}\mu'_3 + \dots + \frac{t^k}{k!}\mu'_k +\frac{t^{k+1}}{(k+1)!}\mu'_{k+1} + \dots
 \end{align*}
 
 This is the Taylor expansion of \( M_X(t) \), and by definition of the derivative:
@@ -4520,7 +4545,7 @@ variable, with probability mass function $p_X(x)$ defined by
 
 \begin{textbox}
     \[
-p_X(x) = P(X = x) = 
+p_X(x) = P(X = x) =
 \begin{cases}
 p, & \text{if } x = 1 \\
 1 - p, & \text{if } x = 0 \\
@@ -4542,7 +4567,7 @@ X \sim \text{Bernoulli}(p)
 \]
 \textbf{Example}: In a fair coin toss, the outcomes can be either `Head' or `Tail'. If we define a success as getting `Head', then $p = 0.5$. The PMF of the distribution is then given by
 \[
-f_X(x) = P(X = x) = 
+f_X(x) = P(X = x) =
 \begin{cases}
 0.5, & \text{if } x = 1 \\
 0.5, & \text{if } x = 0 \\
@@ -4578,7 +4603,7 @@ f_X(x) = P(X = x) =
 
 Let $X \sim \text{Bernoulli}(p)$.
 \begin{itemize}
-    \item \textbf{Mean}: 
+    \item \textbf{Mean}:
 \[
 \mathbb{E}(X) = \sum_{x} x \cdot P(X = x) = 0 \cdot (1 - p) + 1 \cdot p = p
 \]
@@ -4591,7 +4616,7 @@ Let $X \sim \text{Bernoulli}(p)$.
 The mean of a Bernoulli distribution is simply the probability of success, $p$.
 
 
-\item \textbf{Variance}: 
+\item \textbf{Variance}:
 \[
 \text{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}(X))^2
 \]
@@ -4626,7 +4651,7 @@ X \sim \text{Binomial}(n, p)
 The probability mass function (PMF) of $X$ is given by:
 \begin{textbox}
 \[
-p_X(x) = P(X = x) = 
+p_X(x) = P(X = x) =
 \begin{cases}
 \binom{n}{x} p^x (1 - p)^{n - x}, & \text{for } x = 0, 1, 2, \ldots, n \\
 0, & \text{otherwise}
@@ -4801,7 +4826,7 @@ X \sim \text{Poisson}(\lambda)
 The probability mass function (PMF) of $X$ is given by:
 \begin{textbox}
 \[
-p_X(x) = P(X = x) = 
+p_X(x) = P(X = x) =
 \begin{cases}
 \displaystyle \frac{e^{-\lambda} \lambda^x}{x!}, & \text{for } x = 0, 1, 2, \ldots \\
 0, & \text{otherwise}
@@ -4881,7 +4906,7 @@ f_X(x) = P(X=x)= \frac{e^{-\lambda} \lambda^x}{x!}
     P(X < 2) = {P}(X = 0) + {P}(X = 1) = f_X(0) + f_X(1)
     \]
     \[
-    f_X(0) = e^{-2.1} \approx 0.1225, \quad 
+    f_X(0) = e^{-2.1} \approx 0.1225, \quad
     f_X(1) = \frac{e^{-2.1} \cdot 2.1}{1!} \approx 0.2573
     \]
     \[
@@ -4933,7 +4958,7 @@ Rewrite the last term as:
 \left(1 - \frac{\lambda}{n}\right)^{n-x} = \left(1 - \frac{\lambda}{n}\right)^n \left(1 - \frac{\lambda}{n}\right)^{-x}
 \]
 
-As \( n \to \infty \), 
+As \( n \to \infty \),
 \[
 \left(1 - \frac{\lambda}{n}\right)^n \to e^{-\lambda}
 \quad \text{and} \quad
@@ -5016,9 +5041,9 @@ Therefore,
     \end{textbox}
 
     \vspace{3mm}
-    
-    There is an alternative way of calculating the variance using the moment generating function (MGF). 
-    
+
+    There is an alternative way of calculating the variance using the moment generating function (MGF).
+
     The moment generating function (MGF) of \( X \) is defined as:
     \[
 M_X(t) = \mathbb{E}[e^{tX}] = \sum_{k=0}^{\infty} e^{t x} \cdot \frac{e^{-\lambda} \lambda^x}{x!}
@@ -5048,7 +5073,7 @@ We compute the first and second raw moments using derivatives of the MGF:
 
 \underline{First raw moment (mean):}
 \[
-M_X'(t) = \frac{d}{dt} \left[ e^{\lambda(e^t - 1)} \right] 
+M_X'(t) = \frac{d}{dt} \left[ e^{\lambda(e^t - 1)} \right]
 = \lambda e^t \cdot e^{\lambda(e^t - 1)}
 \]
 
@@ -5185,11 +5210,11 @@ Let $X \sim \text{Uniform}(a, b)$.
 \begin{itemize}
     \item \textbf{Mean}:
 \begin{align*}
-\mathbb{E}(X) &= \int_a^b x \cdot \frac{1}{b - a} \, dx 
+\mathbb{E}(X) &= \int_a^b x \cdot \frac{1}{b - a} \, dx
 = \frac{1}{b - a} \int_a^b x \, dx \\
-&= \frac{1}{b - a} \cdot \left[ \frac{x^2}{2} \right]_a^b 
+&= \frac{1}{b - a} \cdot \left[ \frac{x^2}{2} \right]_a^b
 = \frac{1}{b - a} \cdot \left( \frac{b^2 - a^2}{2} \right) \\
-&= \frac{1}{b - a} \cdot \frac{(b - a)(b + a)}{2} 
+&= \frac{1}{b - a} \cdot \frac{(b - a)(b + a)}{2}
 = \frac{a + b}{2}
 \end{align*}
 
@@ -5233,13 +5258,13 @@ X \sim \mathcal{N}(\mu, \sigma^2)
 The probability density function (PDF) of the Normal distribution is given by:
 \begin{textbox}
 \[
-f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right), \quad \text{for } -\infty \leq x \leq \infty 
+f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right), \quad \text{for } -\infty \leq x \leq \infty
 \]
 \end{textbox}
 
 The distribution is completely determined by the parameters $\mu$ and $\sigma^2$. In future, we will show that the mean and variance of the normal distribution are those parameters $\mu$ and $\sigma^2$ respectively.
 
-\textbf{Example}: Let $X \sim \mathcal{N}(2, 1^2)$, i.e., a normal distribution with mean $\mu = 2$ and standard deviation $\sigma = 1$. 
+\textbf{Example}: Let $X \sim \mathcal{N}(2, 1^2)$, i.e., a normal distribution with mean $\mu = 2$ and standard deviation $\sigma = 1$.
 We want to compute the value of the probability density function (PDF) at $x = 1.5$.
 
 The PDF of a normal distribution is:
@@ -5287,7 +5312,7 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
 
 \begin{itemize}
     \item \textbf{Mean}:
-    
+
     \begin{align*}
     \mathbb{E}[X]
     &= \int_{-\infty}^{\infty} x \; f_X(x)\,dx
@@ -5311,22 +5336,22 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
     %
     &= \underbrace{\int_{-\infty}^{\infty}
     \sigma u \;\frac{1}{\sqrt{2\pi}}
-    e^{-u^2/2}\,du}_{=\,0\;\text{(odd integrand)}} 
+    e^{-u^2/2}\,du}_{=\,0\;\text{(odd integrand)}}
     \;+\;
     \mu \int_{-\infty}^{\infty}
     \frac{1}{\sqrt{2\pi}}
     e^{-u^2/2}\,du \\[6pt]
     %
-    &= 0 \;+\; \mu \cdot 1 
+    &= 0 \;+\; \mu \cdot 1
     \;=\; \mu.
     \end{align*}
-    
+
     \begin{textbox}
         \[
         \mathbb{E}(X) = \mu
         \]
         \end{textbox}
-    
+
 
     \item \textbf{Variance}:
     \begin{align*}
@@ -5356,7 +5381,7 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
     &= \frac{\sigma^2}{\sqrt{2\pi}} \int_{-\infty}^{\infty} u^2\,e^{-u^2/2}\,du\\
     &= \frac{2\sigma^2}{\sqrt{2\pi}} \int_{0}^{\infty} u^2\,e^{-u^2/2}\,du\
     \end{align*}
-    
+
     Now, using the Gamma integral formula\footnote{Gamma integral formula:
     $$\int_{0}^{\infty} x^n e^{-a x^2}dx
          = \tfrac12\,a^{-\frac{n+1}{2}}\Gamma\!\bigl(\tfrac{n+1}{2}\bigr)$$
@@ -5370,18 +5395,18 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
     &&\bigl((\tfrac12)^{-3/2}=2^{3/2},\ \Gamma(\tfrac32)=\tfrac12\Gamma(\tfrac12) = \tfrac12\sqrt\pi\bigr)\\
     &= \frac{\sqrt{2\pi}}{2}
     \end{align*}
-    
+
     Therefore,
     \[
     \text{Var}(X) = \sigma^2 \frac{2}{\sqrt{2\pi}} \times \frac{\sqrt{2\pi}}{2}
       = \sigma^2
     \]
-    
+
         \begin{textbox}
         \[
         \text{Var}(X) = \sigma^2
         \]
-        \end{textbox}   
+        \end{textbox}
 \end{itemize}
 
 \subsection{Moment Generating Function of the Normal Distribution}
@@ -5437,14 +5462,14 @@ This moment generating function exists for all real values of \(t\) and uniquely
 	(-\infty \leq X \leq\,+\infty)
     \]
     This reflects that, however unlikely, arbitrarily large positive or negative values can occur.
-    
+
   \item The probability density function is perfectly \textbf{symmetric} about its mean \(\mu\) since,
     \[
       f_X(\mu + x_0) = f_X(\mu - x_0) =  \frac{1}{\sigma\sqrt{2\pi }} \exp\left( -\frac{x_0^2}{2\sigma^2} \right)
       \quad\forall\,x_0\in\mathbb{R}.
     \]
     As a result, the left and right tails of the distribution mirror each other.
-    
+
   \item Since the distribution is symmetrical about $\mu$, its mean and median coincide.To get the mode, we need to calculate the peak point of the distribution.
   \begin{align*}
   f_X(x) &= \frac{1}{\sigma\sqrt{2\pi}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2}\right)  \\[6pt]
@@ -5460,8 +5485,8 @@ This moment generating function exists for all real values of \(t\) and uniquely
   \quad &\Longrightarrow\quad x - \mu = 0 \\[4pt]
   &\Longrightarrow\quad x = \mu
   \end{align*}
-  
-  Now, 
+
+  Now,
   \begin{align*}
   f_X''(x)
   &= -\frac{1}{\sigma^2}\,f_X(x)
@@ -5482,16 +5507,16 @@ This moment generating function exists for all real values of \(t\) and uniquely
   = -\frac{1}{\sigma^2}\,f_X(\mu)
   < 0,
   \]
-  
-  Hence the peak (mode) of the normal density occurs at \(x=\mu\).  
+
+  Hence the peak (mode) of the normal density occurs at \(x=\mu\).
   \begin{textbox}
   For normal distribution, all measures of central tendency coincide:
       \[
         \text{Mean} = \text{Median} = \text{Mode} = \mu.
       \]
   \end{textbox}
-    
-    
+
+
   \item The normal distribution curve has two \textbf{points of inflection}\footnote{A \textbf{point of inflection} of a function $f(x)$ is a point $x = a$ such that
   \[
   f''(a) = 0,
@@ -5507,7 +5532,7 @@ This moment generating function exists for all real values of \(t\) and uniquely
    &\Rightarrow x-\mu = \pm\sigma \\
    &\Rightarrow x = \mu \pm\sigma \\
    \end{align*}
-    
+
   \item All odd central moments are zero (due to symmetry), and the even central moments have closed‐form expressions:
     \[
       E\bigl[(X-\mu)^{2n+1}\bigr] = 0,
@@ -5516,9 +5541,9 @@ This moment generating function exists for all real values of \(t\) and uniquely
       \quad n = 1,2,\dots
     \]
     In particular, the variance is \(E[(X-\mu)^2]=\sigma^2\), and the fourth central moment is \(3\sigma^4\), etc.
-    
+
    \item The kurtosis of normal distribution is 3. (prove it)
-    
+
   \item A normal distribution \(X\sim N(\mu,\sigma^2)\) satisfies the following empirical rules:
 
   \begin{textbox}
@@ -5529,13 +5554,13 @@ This moment generating function exists for all real values of \(t\) and uniquely
         \item About 99.73\% of the values lie within $3\sigma$ of mean ($\mu \pm 3\sigma$).
     \end{itemize}
   \end{textbox}
-  
-  \begin{center}   
+
+  \begin{center}
     \begin{tikzpicture}
         \begin{axis}[
             no markers, domain=-4:4, samples=100,
             axis lines=center,
-            xlabel={$x$}, 
+            xlabel={$x$},
             axis y line=none,
             ymin=0, ymax=0.5,
             xmin=-4, xmax=4,
@@ -5551,28 +5576,28 @@ This moment generating function exists for all real values of \(t\) and uniquely
           % PDF curve
           \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
           % Shaded right-tail for z>1.5
-          
-          
+
+
           \addplot [draw=none, fill=red!20, domain=-3:3] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
           % Vertical guide line
           \draw[dashed] (axis cs:-3,0) -- (axis cs:-3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
           \draw[dashed] (axis cs:3,0) -- (axis cs:3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-                    
-          
+
+
           \addplot [draw=none, fill=green!20, domain=-2:2] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
           % Vertical guide line
           \draw[dashed] (axis cs:-2,0) -- (axis cs:-2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
           \draw[dashed] (axis cs:2,0) -- (axis cs:2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-          
+
           \addplot [draw=none, fill=blue!20, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
           % Vertical guide line
           \draw[dashed] (axis cs:-1,0) -- (axis cs:-1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
           \draw[dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-          
+
           \node at (axis cs:0,0.3) { $68.27\%$};
           \node at (axis cs:0,0.2) { $95.45\%$};
           \node at (axis cs:0,0.1) { $99.73\%$};
-          
+
           \draw[<->, black] (axis cs:-3,0.08) -- (axis cs:3,0.08);
           \draw[<->, black] (axis cs:-2,0.18) -- (axis cs:2,0.18);
           \draw[<->, black] (axis cs:-1,0.28) -- (axis cs:1,0.28);
@@ -5581,7 +5606,7 @@ This moment generating function exists for all real values of \(t\) and uniquely
   \end{center}
 
 	\item The linear combination of two independent normal variables is also normal.
-	
+
 	\begin{textbox}
 		\textbf{Theorem}: Let \( X \sim N(\mu_1, \sigma_1^2) \) and \( Y \sim N(\mu_2, \sigma_2^2) \) be two independent normal random variables. Then for any real constants \( a \) and \( b \), the linear combination
 		\[
@@ -5592,7 +5617,7 @@ This moment generating function exists for all real values of \(t\) and uniquely
 		Z \sim N\left( a\mu_1 + b\mu_2,\; a^2 \sigma_1^2 + b^2 \sigma_2^2 \right)
 		\]
 	\end{textbox}
-	
+
 	\textbf{Proof}: Since \( X \sim N(\mu_1, \sigma_1^2) \), its moment generating function (MGF) is
 		\[
 		M_X(t) = \exp\left( \mu_1 t + \frac{1}{2} \sigma_1^2 t^2 \right)
@@ -5601,27 +5626,27 @@ This moment generating function exists for all real values of \(t\) and uniquely
 		\[
 		M_Y(t) = \exp\left( \mu_2 t + \frac{1}{2} \sigma_2^2 t^2 \right)
 		\]
-		
+
 		Consider \( Z = aX + bY \). Since \( X \) and \( Y \) are independent, the MGF of \( Z \) is:
 		\[
 		M_Z(t) = \mathbb{E}\left( e^{t(aX + bY)}\right)  = \mathbb{E}\left( e^{taX}\right)  \cdot \mathbb{E}\left( e^{tbY}\right)  = M_X(at) \cdot M_Y(bt)
 		\]
-		
+
 		Substituting the MGFs:
 		\[
 		M_Z(t) = \exp\left( a\mu_1 t + \frac{1}{2} a^2 \sigma_1^2 t^2 \right) \cdot \exp\left( b\mu_2 t + \frac{1}{2} b^2 \sigma_2^2 t^2 \right)
 		\]
-		
+
 		Combining the exponents:
 		\[
 		M_Z(t) = \exp\left( (a\mu_1 + b\mu_2)t + \frac{1}{2}(a^2 \sigma_1^2 + b^2 \sigma_2^2)t^2 \right)
 		\]
-		
+
 		This is the MGF of a normal distribution with mean \( a\mu_1 + b\mu_2 \) and variance \( a^2 \sigma_1^2 + b^2 \sigma_2^2 \). Therefore,
 		\[
 		Z \sim N\left( a\mu_1 + b\mu_2,\; a^2 \sigma_1^2 + b^2 \sigma_2^2 \right)
 		\]
-		
+
 		\hfill $\blacksquare$
 
 
@@ -5683,13 +5708,13 @@ where \( F_X \) and \( F_Z \) denote the cumulative distribution functions of \(
 
 \textbf{Proof}: Define the function
 \[
-z = g(x) \;=\; \frac{x - \mu}{\sigma}, 
+z = g(x) \;=\; \frac{x - \mu}{\sigma},
 \]
 which is strictly increasing (since \(\sigma>0\)) and differentiable, with inverse
 \[
 g^{-1}(y) = x \;=\; \sigma z + \mu
 \]
-Set 
+Set
 \[
 Y \;=\; g(X) \;=\; \frac{X - \mu}{\sigma}
 \]
@@ -5861,7 +5886,7 @@ Thus, approximately $6.68\%$ of adult males are taller than 190 cm.
 %   \label{tab:Ztable}
 %   \begin{tabular}{l|*{10}{r}}
 %     \toprule
-%     $z$ & 0    & 0.01  & 0.02  & 0.03  & 0.04  & 0.05  & 0.06  & 0.07  & 0.08  & 0.09  \\ 
+%     $z$ & 0    & 0.01  & 0.02  & 0.03  & 0.04  & 0.05  & 0.06  & 0.07  & 0.08  & 0.09  \\
 %     \midrule
 %     0.0 & 0.5000 & 0.50399 & 0.50798 & 0.51197 & 0.51595 & 0.51994 & 0.52392 & 0.52790 & 0.53188 & 0.53586 \\
 %     0.1 & 0.53983 & 0.54380 & 0.54776 & 0.55172 & 0.55567 & 0.55962 & 0.56356 & 0.56749 & 0.57142 & 0.57535 \\
@@ -5916,7 +5941,7 @@ In the standard normal distribution, certain values on the horizontal axis divid
 \[
 P(Z > z_{\alpha}) = \alpha
 \]
-or equivalently \(P(Z \le z_{\alpha}) = 1 - \alpha\).  
+or equivalently \(P(Z \le z_{\alpha}) = 1 - \alpha\).
 
 \begin{center}
 	\begin{tikzpicture}
@@ -5974,28 +5999,28 @@ P(-z_{\alpha/2} \le Z \le z_{\alpha/2}) \;=\; 1 - \alpha
 	]
 	% PDF curve of standard normal
 	\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
-	
+
 	% Shade the confidence interval region [-z_alpha/2, z_alpha/2]
 	\addplot [
-	domain=-4:-1.96, 
-	draw=none, 
+	domain=-4:-1.96,
+	draw=none,
 	fill=blue!20,
 	samples=100
 	]
 	{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
-	
+
 	\addplot [
-	domain=1.96:4, 
-	draw=none, 
+	domain=1.96:4,
+	draw=none,
 	fill=blue!20,
 	samples=100
 	]
 	{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
-	
+
 	% Vertical dashed lines at -z_alpha/2 and z_alpha/2
 	\draw[dashed] (axis cs:-1.96,0) -- (axis cs:-1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
 	\draw[dashed] (axis cs:1.96,0) -- (axis cs:1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
-	
+
 	% Labels
 	\node[below] at (axis cs:-2.5,0.1) { ${\alpha/2}$};
 	\node[below] at (axis cs:2.5,0.1) { ${\alpha/2}$};
@@ -6015,24 +6040,24 @@ These critical points help us identify how extreme a value is relative to the ov
 
 \chapter{Sampling Theory}
 \section{Introduction}
-Sampling theory is a part of statistics that helps us understand how to learn about a large group by looking at just a small part of it. For example, imagine a company makes a new type of battery and wants to know how long the batteries last. Testing every single battery would take too much time and money, so the company picks a few batteries to test. These few batteries are called a \textbf{sample}, and all the batteries made by the company are called the \textbf{population}. 
+Sampling theory is a part of statistics that helps us understand how to learn about a large group by looking at just a small part of it. For example, imagine a company makes a new type of battery and wants to know how long the batteries last. Testing every single battery would take too much time and money, so the company picks a few batteries to test. These few batteries are called a \textbf{sample}, and all the batteries made by the company are called the \textbf{population}.
 
-The company really wants to know the average lifetime of all batteries—this is called a \textbf{parameter}. But since they can’t test them all, they use the average lifetime from the sample—this is called a \textbf{statistic}. 
+The company really wants to know the average lifetime of all batteries—this is called a \textbf{parameter}. But since they can’t test them all, they use the average lifetime from the sample—this is called a \textbf{statistic}.
 
 Sampling theory helps us understand how close this statistic is likely to be to the real average. It also helps us decide how many batteries to test and how to choose them so we get useful, reliable results.
 
 \begin{textbox}
     \textbf{Population}: The entire group of individuals or items that we want to learn about.
     Example: All the batteries produced by a company.
-    
+
     \vspace{3mm}
     \textbf{Sample}: A smaller group taken from the population, which is actually tested or studied.
     Example: 100 batteries chosen from the whole production batch.
-    
+
     \vspace{3mm}
     \textbf{Parameter}: A numerical value that describes a characteristic of the population (usually unknown).
     Example: The true average lifetime of all the batteries.
-    
+
     \vspace{3mm}
     \textbf{Statistic}: A numerical value that describes a characteristic of the sample (used to estimate the parameter).
     Example: The average lifetime of the 100 batteries tested.
@@ -6075,7 +6100,7 @@ There are two main types of simple random sampling:
     \item \textbf{Simple Random Sampling With Replacement (SRSWR)}: This is a method of selecting a sample of size \( n \) from a population of size \( N \) one by one such that after each stage of selection, the element is returned to the population before the next draw. Because each selection is made from the full population, the sample observations \( X_1, X_2, \dots, X_n \) are \textit{independent and identically distributed (i.i.d.)}\footnote{%
     \textbf{Independent and Identically Distributed (i.i.d.)} is a fundamental assumption in statistics. \textit{Identically distributed} means that each random variable \( X_i \) follows the same probability distribution (e.g., normal, binomial). \textit{Independent} means the outcome of one observation does not influence or provide information about the others; knowing \( X_1 \) gives no information about \( X_2, X_3, \) etc.
 } random variables following the population distribution.
-    
+
     \item \textbf{Simple Random Sampling Without Replacement (SRSWOR)}: This is a method of selecting a sample of size \( n \) from a population of size \( N \) one by one such that after each stage of selection, the element is not returned to the population. So there is no chance of a particular item being selected twice in the sample. Although the sample observations \( X_1, X_2, \dots, X_n \) are identically distributed (each has the same marginal distribution), they are \textit{not independent}, due to the changing composition of the population after each draw.
 \end{enumerate}
 
@@ -6087,7 +6112,7 @@ There are two main types of simple random sampling:
 
 \textit{Example:} A company wants to sample employee opinions. Employees are divided into departments (e.g., HR, Sales, R\&D), and a random sample is taken from each department.
 
-\textit{Advantages:} Increases accuracy by reducing variability; ensures important groups are represented.  
+\textit{Advantages:} Increases accuracy by reducing variability; ensures important groups are represented.
 
 \textit{Disadvantages:} Requires knowledge of strata and population characteristics in advance.
 
@@ -6095,7 +6120,7 @@ There are two main types of simple random sampling:
 
 \textit{Example:} If a company has a list of 1,000 employees and wants to survey 100, it selects a random starting point between 1 and 10, then picks every 10th employee on the list.
 
-\textit{Advantages:} Simple and quick to implement; useful when population is ordered.  
+\textit{Advantages:} Simple and quick to implement; useful when population is ordered.
 
 \textit{Disadvantages:} Can introduce bias if there is a hidden pattern in the population that coincides with the sampling interval.
 
@@ -6103,7 +6128,7 @@ There are two main types of simple random sampling:
 
 \textit{Example:} A research team wants to survey households in a city. The city is divided into neighborhoods (clusters), a few neighborhoods are selected at random, and all households in those neighborhoods are surveyed.
 
-\textit{Advantages:} Cost-effective and practical for large, dispersed populations.  
+\textit{Advantages:} Cost-effective and practical for large, dispersed populations.
 
 \textit{Disadvantages:} Can lead to higher sampling error if clusters are not homogeneous.
 
@@ -6111,7 +6136,7 @@ There are two main types of simple random sampling:
 
 \textit{Example:} In a national education survey, schools are randomly selected (cluster sampling), then students within each selected school are randomly chosen (simple random sampling).
 
-\textit{Advantages:} Flexible and practical for large-scale surveys; reduces cost and time.  
+\textit{Advantages:} Flexible and practical for large-scale surveys; reduces cost and time.
 
 \textit{Disadvantages:} More complex design and analysis; potential for increased sampling error if stages are not carefully planned.
 \end{enumerate}
@@ -6223,7 +6248,7 @@ Therefore,
 
 
 % \[
-% \therefore \quad \mathbb{E}(\overline{X}) = \mu \quad \text{and} \quad \mathrm{Var}(\overline{X}) = \frac{\sigma^2}{n} 
+% \therefore \quad \mathbb{E}(\overline{X}) = \mu \quad \text{and} \quad \mathrm{Var}(\overline{X}) = \frac{\sigma^2}{n}
 % \]
 
 \hfill $\blacksquare$
@@ -6345,7 +6370,7 @@ In the previous section, we saw that when we are sampling from a normal distribu
 $X$. In such circumstances, we may appeal to the central limit theorem and obtain an approximate distribution.
 
 \begin{textbox}
-\textbf{Central Limit Theorem}: If $\overline{X}$ is the mean of a random sample of size $n$ taken from a population having the mean $\mu$ and the finite variance $\sigma^2$, then $\overline{X}$ approximately follows $\mathcal{N}\left(\mu, \dfrac{\sigma^2}{n}\right)$ as $n \to \infty$. 
+\textbf{Central Limit Theorem}: If $\overline{X}$ is the mean of a random sample of size $n$ taken from a population having the mean $\mu$ and the finite variance $\sigma^2$, then $\overline{X}$ approximately follows $\mathcal{N}\left(\mu, \dfrac{\sigma^2}{n}\right)$ as $n \to \infty$.
 
 In other words, the statistic
 $$\dfrac{\overline{X}-\mu}{{\sigma}/{\sqrt{n}}}$$
@@ -6483,7 +6508,7 @@ follows a $ t $\textbf{-distribution} with \( \nu = n - 1 \) degrees of freedom.
 \end{axis}
 \end{tikzpicture}
 \end{center}
-As illustrated in the figure above, the overall shape of the \( t \)-distribution closely resembles that of the standard normal distribution: both are bell-shaped and symmetric about the mean. Like the standard normal distribution, the \( t \)-distribution has a mean of 0. However, its variance depends on the parameter \( \nu \), known as the \textbf{degrees of freedom}. The variance of the \( t \)-distribution is greater than 1 but decreases as \( \nu \) increases, approaching 1 in the limit. 
+As illustrated in the figure above, the overall shape of the \( t \)-distribution closely resembles that of the standard normal distribution: both are bell-shaped and symmetric about the mean. Like the standard normal distribution, the \( t \)-distribution has a mean of 0. However, its variance depends on the parameter \( \nu \), known as the \textbf{degrees of freedom}. The variance of the \( t \)-distribution is greater than 1 but decreases as \( \nu \) increases, approaching 1 in the limit.
 
 \begin{textbox}
 The \( t \)-distribution with \( \nu \) degrees of freedom converges to the standard normal distribution as \( \nu \to \infty \). As a general rule of thumb, the standard normal distribution provides a good approximation to the \( t \)-distribution when the sample size is 30 or larger.
@@ -6506,7 +6531,7 @@ The \( t \)-distribution with \( \nu \) degrees of freedom converges to the stan
   ]
     % Full t_5 PDF curve
     \addplot [very thick, blue] {0.379*(1 + x^2/5)^(-3)};
-    
+
     % Shaded right tail beyond t_{0.05} ≈ 2.015
     \addplot [
       domain=2.015:3.5,
@@ -6514,11 +6539,11 @@ The \( t \)-distribution with \( \nu \) degrees of freedom converges to the stan
       draw=none,
       fill=red!30
     ] {0.379*(1 + x^2/5)^(-3)} \closedcycle;
-    
+
     % Vertical line at t_{0.05}
     \addplot [red, dashed, thick] coordinates
       {(2.015,0) (2.015,{0.379*(1 + 2.015^2/5)^(-3)})};
-    
+
     % Annotations
     \node[black, below] at (axis cs:2.015,0) {\(\displaystyle t_{\alpha, \nu}\)};
     \node[black] at (axis cs:2.5,0.07) {\(\alpha\)};
@@ -6526,13 +6551,13 @@ The \( t \)-distribution with \( \nu \) degrees of freedom converges to the stan
 \end{tikzpicture}
 \end{center}
 
-The critical point \(t_{\alpha, \nu}\) is defined as the point so that the area to its right under the \(t\)-distribution with \(\nu\) degrees of freedom equals \(\alpha\) i.e.  
+The critical point \(t_{\alpha, \nu}\) is defined as the point so that the area to its right under the \(t\)-distribution with \(\nu\) degrees of freedom equals \(\alpha\) i.e.
 $$P\left(t > t_{\alpha, \nu} \right)= \alpha$$
 
-By symmetry,  
+By symmetry,
 \[
 t_{1-\alpha, \nu} = -\,t_{\alpha, \nu}
-\]  
+\]
 So the critical point for a left‐tail area of \(\alpha\) is \(-t_{\alpha, \nu}\).
 
 \textbf{Example}: Suppose we take a random sample of \( n = 10 \) measurements of battery lifespans (in hours) from a normally distributed population. The data are:
@@ -6584,11 +6609,11 @@ t = \frac{\overline{X} - \mu}{S / \sqrt{n}} = \frac{39.5 - 40}{2.48 / \sqrt{10}}
 The computed \( t \)-value is approximately \( -0.637 \), and it follows a \( t \)-distribution with \( \nu = 9 \) degrees of freedom. We can compare this value to critical values from the \( t \)-table or compute a \( p \)-value to make inference about \( \mu \).
 
 \section{The Sampling Distribution of the Sample Variance}
-When we take a random sample from a population, not only the sample mean but also the \textbf{sample variance} 
+When we take a random sample from a population, not only the sample mean but also the \textbf{sample variance}
 \[
 S^2 = \frac{1}{n - 1} \sum_{i=1}^{n} (X_i - \overline{X})^2
 \]
-behaves as a random variable. That is, the value of the sample variance \( S^2 \) will vary from one sample to another. 
+behaves as a random variable. That is, the value of the sample variance \( S^2 \) will vary from one sample to another.
 
 \begin{textbox}
 \textbf{Theorem}: If $S^2$ is the variance of a random sample of size $n$ taken (with replacements) from a population of variance $\sigma^2$, then
@@ -6701,7 +6726,7 @@ F = \dfrac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2} = \dfrac{S_1^2/S_2^2}{\sigma_1^2/
 \]
 follows an $ F $-distribution ($F \sim F_{\nu_1, \nu_2}$) with \( \nu_1 = n_1 - 1 \) and \( \nu_2 = n_2 - 1 \) degrees of freedom.
 \end{textbox}
-This theorem tells us how the ration of sample variances \( {S_1^2}/{S_2^2} \) is distributed around the true population variance \( {\sigma_1^2}/{\sigma_2^2} \). 
+This theorem tells us how the ration of sample variances \( {S_1^2}/{S_2^2} \) is distributed around the true population variance \( {\sigma_1^2}/{\sigma_2^2} \).
 % If two populations have the same variance, the sample variances obtained from them should be approximately equal. In such a case, the ratio of the two sample variances should be close to 1.
 
 Properties of $F$-distribution:
@@ -6717,7 +6742,7 @@ Properties of $F$-distribution:
 	\begin{textbox}
 		If $X \sim F_{\nu_1, \nu_2}$, then the reciprocal of $X$ i.e. $Y = \dfrac{1}{X} \sim F_{\nu_2, \nu_1}$.
 	\end{textbox}
-	
+
 	\item The critical point \(F_{\alpha; \nu_1, \nu_2}\) is defined as a point such that
 	\[
 	P\bigl(X > F_{\alpha; \nu_1, \nu_2}) \;=\;\alpha
@@ -6801,7 +6826,7 @@ Estimation is a fundamental component of \textbf{statistical inference}, which d
 
 \begin{enumerate}
     \item \textbf{Estimation of parameters}: The true value of a population parameter is an unknown constant. The goal of estimation is to make informed guesses about this parameter using sample data, along with an assessment of the accuracy of these guesses.
-    
+
     \item \textbf{Hypothesis testing}: Sometimes, preliminary or tentative information about a population parameter is available. The objective of hypothesis testing is to use sample data to either support or reject such information about the parameter.
 \end{enumerate}
 
@@ -6811,7 +6836,7 @@ Statistical estimation techniques are broadly classified into two categories:
 
 \begin{enumerate}
     \item \textbf{Point estimation}: A point estimation provides a single best guess of the unknown population parameter.
-    
+
     \item \textbf{Interval estimation}: An interval estimation gives a range of plausible values for the parameter, along with a specified level of confidence that the interval contains the true value.
 \end{enumerate}
 
@@ -6828,7 +6853,7 @@ Let $\theta$ ne an unknown parameter (e.g. the population mean) associated with 
 There are often multiple point estimates available for any given parameter. So it is important to develop some evaluating criteria to judge the performance of each estimator and compare their performance. A good estimator should possess following desirable properties that make it reliable in estimating the true parameter value.
 
 \begin{enumerate}
-    \item \textbf{Unbiasedness}: 
+    \item \textbf{Unbiasedness}:
     \begin{textbox}
     An estimator \( T \) is said to be an \textbf{unbiased} estimator of $\theta$ if
     \[
@@ -6837,17 +6862,17 @@ There are often multiple point estimates available for any given parameter. So i
     \end{textbox}
     Otherwise, $T$ is said to be biased. The \textbf{bias} ($\mathcal{B}$) is given by
     $$\mathcal{B} = \mathbb{E}(T) - \theta$$
-    
+
     \textbf{Example}: The sample mean $\overline{X}$ and sample variance $S^2$ are unbiased estimator of the population mean $\mu$ and population variance $\sigma^2$ respectively, because
     $$\mathbb{E}\left( \overline{X}\right) = \mu, \quad \mathbb{E}\left( S^2\right) = \sigma^2$$
-    
+
     \begin{textbox}
     The \textbf{mean-square-error} of the estimator $T$, denoted by $\textrm{MSE}(T)$ is defined as
         $$\mathrm{MSE}(T) = \mathbb{E}\left[\left( T-\theta\right) ^2\right]$$
     \end{textbox}
-    
+
     MSE measures, on average, how close an estimator comes to the true value of the parameter.
-    
+
     \begin{textbox}
     \textbf{Theorem}: Let \( T \) be an estimator of a population parameter \( \theta \). Then, the {Mean Squared Error (MSE)} of \( T \) is given by:
     \[
@@ -6863,28 +6888,28 @@ There are often multiple point estimates available for any given parameter. So i
     &= \mathrm{Var}(T) + \mathcal{B}^2(T)
     \end{align*}
     \hfill $\blacksquare$
-    
+
     For an unbiased estimator $\mathcal{B} = 0$, and therefore $\mathrm{MSE}(T) = \mathrm{Var}(T)$.
-    
+
     In this context, the \textbf{standard error (SE)} of $T$ is defined as the standard deviation of $T$ i.e. $ \sqrt{\operatorname{Var}(T)} $ which is diffierent from MSE($T$).
 
     \item \textbf{Consistency}:
-    
+
     It is desirable that the estimator should behave more and more satisfactorily as the sample size $n$ becomes larger. Consistency provides the criteria.
-    
+
     \begin{textbox}
     An estimator \(T_n\) (from a sample of size $n$) of a parameter \(\theta\) is said to be \textbf{consistent} if, as the sample size \(n\) grows, \(T_n\) converges in probability to the true parameter value. Which means that for every \(\varepsilon > 0\),
         \[
         P\bigl(|T_n - \theta| > \varepsilon\bigr) \to 0 \quad \text{as} \quad n \to \infty
         \]
     \end{textbox}
-    
+
     Consistency as defined above is sometimes called \textbf{weak consistency}. If we replace convergence in probability with almost sure convergence, i.e. $$ P\left(\lim_{n \to \infty}T_n - \theta\right) = 1 \quad \text{as} \quad n \to \infty, $$
     then the estimator is said to be \textbf{strongly consistent}\footnote{\textbf{Weak consistency} says “in the long run, most of your estimates will be good,” but allows for occasional wildly bad estimates—even when \(n\) is very large.
-    
+
     \textbf{Strong consistency} rules out even those rare catastrophes: it guarantees that once you’ve accumulated enough data, your estimator will stay arbitrarily close to \(\theta\) for every subsequent sample.
     }.
-    
+
     \begin{textbox}
     \textbf{Sufficient Conditions for Consistency}: An estimator \(T_n\) of a parameter \(\theta\) is said to be {consistent} if it satisfies the following two conditions:
     \begin{enumerate}
@@ -6900,7 +6925,7 @@ There are often multiple point estimates available for any given parameter. So i
     \end{textbox}
     \textbf{Proof}: By Chebyshev’s inequality, if both conditions hold, then
     \begin{align*}
-    P\bigl(|T_n - \theta| \ge \varepsilon\bigr) 
+    P\bigl(|T_n - \theta| \ge \varepsilon\bigr)
         &\le \frac{\mathbb{E}(T_n-\theta)^2}{\varepsilon^2}, \quad \text{for every } \varepsilon > 0\\
         &= \frac{1}{\varepsilon^2}\left(\mathbb{E}\left[\left( T_n-\mathbb{E}(T_n)\right) + \left(\mathbb{E}(T_n)-\theta) \right)  \right]^2\right)\\
         &= \frac{1}{\varepsilon^2}\left(\underbrace{\mathbb{E}\left( T_n-\mathbb{E}(T_n)\right)^2}_{\mathrm{Var}(T_n)} +\left(\mathbb{E}(T_n)-\theta)\right) ^2 \right) \\
@@ -6909,9 +6934,9 @@ There are often multiple point estimates available for any given parameter. So i
         &\to 0 \quad \text{as} \quad n \to \infty
      \end{align*}
     \hfill $\blacksquare$
-    
+
     An estimator can be consistent even if it is biased for each finite \(n\), provided the bias vanishes as \(n \to \infty\).
-    
+
     \textbf{Example}: Let \(X_1, X_2, \dots, X_n\) be i.i.d.\ with mean \(\mu\) and finite variance \(\sigma^2\). The sample mean
     \[
     \overline{X}_n = \frac{1}{n}\sum_{i=1}^n X_i
@@ -6925,13 +6950,13 @@ There are often multiple point estimates available for any given parameter. So i
     Hence, by the two conditions above, \(\overline{X}_n\) is a consistent estimator of \(\mu\).
 
     \item \textbf{Efficiency}:
-    
+
     \begin{textbox}
     Among all unbiased estimators, the one with the smallest variance is said to be most \textbf{efficient}.
     \end{textbox}
-    
+
     Unbiasedness is certainly a desirable property for point estimators but the criterion of unbiasedness does not generally provide a unique statistic for a given problem of estimation. For example, for symmetric population distribution, the sample median is also unbiased estimator for all sample sizes. Clearly, we need a further criterion to decide among different candidates.
-        
+
     One natural refinement is to compare their variances which measures the spread
      of the sampling distribution. Although both the sample mean and the sample median of a normal population are unbiased and have bell‐shaped sampling distributions centered at \(\mu\), the variance of the sample mean is
         \[
@@ -6942,44 +6967,44 @@ There are often multiple point estimates available for any given parameter. So i
         \mathrm{Var}\bigl(X_{\text{median}}\bigr) \approx 1.5708\,\frac{\sigma^2}{n}.
         \]
         Because the mean’s distribution is more concentrated around \(\mu\), it will, on average, provide estimates closer to the truth. In other words, among unbiased estimators we favor the one with the smaller variance—and we call it, the most \textbf{efficient} estimator.
-        
+
         This leads to the concept of the \emph{Minimum Variance Unbiased Estimator (MVUE)}:
-        
-        \begin{textbox}     
+
+        \begin{textbox}
         The unbiased estimator $T^*$ is a \textbf{Minimum Variance Unbiased Estimator (MVUE)} of a parameter if it has the smallest variance among all unbiased estimators of the parameter.
-        
+
         Formally, if \(\mathcal{U}\) is the class of all unbiased estimators of \(\theta\), then the MVUE \(T^*\) satisfies
                 \[
                 \mathrm{Var}\bigl(T^*\bigr) \;=\; \inf_{T \in \mathcal{U}} \mathrm{Var}\bigl(T\bigr)
                 \]
             \end{textbox}
-                               
+
         If two unbiased estimators $T_1$ and $T_2$ estimate the same parameter $\theta$, the \textbf{relative efficiency} of $T_1$ with respect to $T_2$ is defined as:
-        
+
         \begin{textbox}
         \[
                 \text{Relative Efficiency} = \frac{\operatorname{Var}(T_2)}{\operatorname{Var}(T_1)}.
                 \]
         \end{textbox}
-        
+
         An estimator is more efficient if it has a smaller variance. If the relative efficiency is close to 1, both estimators are equally good in terms of variance.
 
-    \item \textbf{Sufficiency}: 
-    
+    \item \textbf{Sufficiency}:
+
     \begin{textbox}
     A statistic is said to be \textbf{sufficient} for a parameter if it captures all the information in the sample about that parameter.
-    \end{textbox} 
-    
+    \end{textbox}
+
     Sufficiency is a key concept because it allows us to summarize the data without losing any relevant information about the parameter of interest.
-    
-    Let $\mathbf{X} = (X_1, X_2, \ldots, X_n)$ be a random sample from a distribution with conditional joint probability density function (or joint probability mass function) $$f_{\mathbf{X}}(x_1, x_2, \dots, x_n ; \theta),$$ where $\theta$ is an unknown parameter\footnote{\textbf{Why we write the joint PDF in the form $f_{\mathbf{X}}(x_1, x_2, \dots, x_n; \theta)$ and not $f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid \theta)$}? 
-    
+
+    Let $\mathbf{X} = (X_1, X_2, \ldots, X_n)$ be a random sample from a distribution with conditional joint probability density function (or joint probability mass function) $$f_{\mathbf{X}}(x_1, x_2, \dots, x_n ; \theta),$$ where $\theta$ is an unknown parameter\footnote{\textbf{Why we write the joint PDF in the form $f_{\mathbf{X}}(x_1, x_2, \dots, x_n; \theta)$ and not $f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid \theta)$}?
+
     \noindent Because in frequentist statistics, the parameter $\theta$ is treated as a fixed (but unknown) constant, while the data $\mathbf{X} = (X_1, X_2, \dots, X_n)$ are considered random variables. Therefore, we write the joint probability density (or mass) function as
         $ f_{\mathbf{X}}(x_1, x_2, \dots, x_n; \theta) $
-        which emphasizes that this is a function of the data and a given fixed parameter. 
-        
-        On the other hand, the notation $f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid \theta)$ is typically reserved for conditional distributions, where $\theta$ is treated as a random variable—as in Bayesian statistics. In the frequentist context, $\theta$ is not random, so we avoid the conditional notation.}. 
-    
+        which emphasizes that this is a function of the data and a given fixed parameter.
+
+        On the other hand, the notation $f_{\mathbf{X}}(x_1, x_2, \dots, x_n \mid \theta)$ is typically reserved for conditional distributions, where $\theta$ is treated as a random variable—as in Bayesian statistics. In the frequentist context, $\theta$ is not random, so we avoid the conditional notation.}.
+
    \begin{textbox}
     A statistic $T(\mathbf{X})$ is said to be \textbf{sufficient} for $\theta$ if the conditional distribution of $X_1,X_2,\dots, X_n$ given $T(\mathbf{X}) = t$ does not depend on $\theta$. That is,
        \[
@@ -6987,12 +7012,12 @@ There are often multiple point estimates available for any given parameter. So i
        \]
        $ \text{for all } \theta $.
    \end{textbox}
-   
-   In other words, once you know \(T = t\), the probability (or density) of seeing any particular arrangement of the raw observations does not depends on \(\theta\). After you condition on \(T = t\), you look at the probability of different possible datasets that all share that same \(T\)-value. If that conditional probability still changes with \(\theta\), then those leftover items are carrying extra clues about \(\theta\). 
-   
-   
+
+   In other words, once you know \(T = t\), the probability (or density) of seeing any particular arrangement of the raw observations does not depends on \(\theta\). After you condition on \(T = t\), you look at the probability of different possible datasets that all share that same \(T\)-value. If that conditional probability still changes with \(\theta\), then those leftover items are carrying extra clues about \(\theta\).
+
+
    A useful tool to verify sufficiency is the {Neyman–Fisher Factorization Theorem}, which states:
-    
+
     \begin{textbox}
     \textbf{Neyman–Fisher Factorization Theorem}: A necessary and sufficient condition for the statistic $T(\textbf{X})$ to be a sufficient statistic for $\theta$ is that the joint PDF (or joint PMF) function of the sample can be factorized as:
         \[
@@ -7000,15 +7025,15 @@ There are often multiple point estimates available for any given parameter. So i
         \]
         where
         \begin{itemize}
-            \item $g(T;\theta)$ is a function that depends on the data 
+            \item $g(T;\theta)$ is a function that depends on the data
              $ (x_1, x_2, \ldots, x_n) $ only through the function $T(x_1, x_2, \ldots, x_n)$.
             \item $h(x_1, x_2, \ldots ,x_n)$ is a function of the data that does not depend on the parameter $\theta$.
         \end{itemize}
     \end{textbox}
-    
+
     \bigskip
-    
-    \textbf{Example}: Let \(X_1, X_2, \dots, X_n\) be independent Bernoulli random variables with common success probability \(p\). Therefore  
+
+    \textbf{Example}: Let \(X_1, X_2, \dots, X_n\) be independent Bernoulli random variables with common success probability \(p\). Therefore
     \[
     X_i =
     \begin{cases}
@@ -7016,14 +7041,14 @@ There are often multiple point estimates available for any given parameter. So i
     0, & \text{with probability } 1 - p
     \end{cases}
     \]
-    
+
     We wish to show that the total proportion of successes in the sample,
     \[
     T(\mathbf{X}) \;=\; \frac{1}{n}\sum_{i=1}^n X_i
     \]
     is a sufficient statistic for \(p\).
-    
-    
+
+
     The joint probability mass function of the sample \(\textbf{X} = (X_1,X_2,\dots,X_n)\) is
     \[
     f_{\textbf{X}}(x_1,x_2,\dots,x_n;\,p) = \prod_{i=1}^{n} p^{x_i}(1-p)^{1-x_i}
@@ -7031,7 +7056,7 @@ There are often multiple point estimates available for any given parameter. So i
     p^{\sum_{i=1}^n x_i}
     \,(1 - p)^{\,n - \sum_{i=1}^n x_i}
     \]
-      
+
     Observe that this can be written in the form
     \[
     f(x_1,x_2,\dots,x_n;\,p)
@@ -7049,11 +7074,11 @@ There are often multiple point estimates available for any given parameter. So i
       \item \(g\bigl(T(\textbf{x});p\bigr) = p^{T(\textbf{x})} (1-p)^{\,n - T(\textbf{x})}\) depends only on the statistic \(T(\textbf{x})\) and the parameter \(p\).
       \item \(h(x) = 1\) depends on the full data \(\mathbf{x} = (x_1,x_2,\dots,x_n)\) but not on \(p\).
     \end{itemize}
-    
+
     Therefore, the statistic \(T(\textbf{X})=\frac{1}{n}\sum_{i=1}^n X_i\) is sufficient for the parameter \(p\).
-    
+
     \bigskip
-    
+
     \textbf{Example}: Let \(X_1, X_2, \dots, X_n\) be independent random variables drawn from a normal distribution with unknown mean \(\mu\) and known variance \(\sigma^2\).  That is,
     \[
     X_i \sim \mathcal{N}(\mu,\sigma^2),
@@ -7065,13 +7090,13 @@ There are often multiple point estimates available for any given parameter. So i
     \frac{1}{\sqrt{2\pi\,\sigma^2}}
     \exp\Bigl(-\tfrac{1}{2\sigma^2}(x_i - \mu)^2\Bigr)
     \]
-    
+
     We wish to show that the sample mean
     \[
     T(\mathbf{X}) \;=\; \frac{1}{n}\sum_{i=1}^n X_i
     \]
     is a sufficient statistic for \(\mu\).
-       
+
     The joint density of the sample \(\mathbf{X}=(X_1,X_2,\dots,X_n)\) is
     \[
     \begin{aligned}
@@ -7085,7 +7110,7 @@ There are often multiple point estimates available for any given parameter. So i
     \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_{i=1}^n (x_i - \mu)^2\right)
     \end{aligned}
     \]
-    
+
     Rewrite the exponential term:
     \[
     \sum_{i=1}^n (x_i - \mu)^2
@@ -7096,11 +7121,11 @@ There are often multiple point estimates available for any given parameter. So i
     \]
     Thus
     \[
-    \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_i (x_i - \mu)^2\right) 
+    \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_i (x_i - \mu)^2\right)
     =
-    \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_i x_i^2\right) 
+    \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_i x_i^2\right)
     \;\times\;
-    \exp\!\left( \tfrac{\mu}{\sigma^2}\sum_i x_i \;-\;\tfrac{n\mu^2}{2\sigma^2}\right) 
+    \exp\!\left( \tfrac{\mu}{\sigma^2}\sum_i x_i \;-\;\tfrac{n\mu^2}{2\sigma^2}\right)
     \]
     Hence the joint density factors as
     \[
@@ -7109,21 +7134,21 @@ There are often multiple point estimates available for any given parameter. So i
     &=
     \underbrace{%
     \exp\!\left( \tfrac{n\mu}{\sigma^2}\,T(\textbf{x})
-         \;-\;\tfrac{n\mu^2}{2\sigma^2}\right) 
+         \;-\;\tfrac{n\mu^2}{2\sigma^2}\right)
     }_{g\bigl(T(\textbf{x}),\mu\bigr)}
     \;\times\;
     \underbrace{%
     (2\pi\,\sigma^2)^{-\tfrac{n}{2}}
-    \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_i x_i^2\right) 
+    \exp\!\left( -\tfrac{1}{2\sigma^2}\sum_i x_i^2\right)
     }_{h(x)}
     \end{aligned}
     \]
     where \(T(\textbf{x})=\sum_{i=1}^n x_i\). Therefore, by the Neyman–Fisher factorization theorem, because the statistic
     \(\displaystyle T(\mathbf{X})=\frac{1}{n}\sum_{i=1}^n X_i\) is sufficient for \(\mu\).
-    
-    \bigskip 
-    
-    \textbf{Example}: Let \( X_1 \) and \( X_2 \) be two independent and identically distributed random variables from the Poisson distribution with parameter \(\lambda > 0\), i.e., 
+
+    \bigskip
+
+    \textbf{Example}: Let \( X_1 \) and \( X_2 \) be two independent and identically distributed random variables from the Poisson distribution with parameter \(\lambda > 0\), i.e.,
     \[
     X_1, X_2 \overset{iid}{\sim} \text{Poisson}(\lambda)
     \]
@@ -7133,29 +7158,29 @@ There are often multiple point estimates available for any given parameter. So i
     \]
     Since \(X_1\) and \(X_2\) are independent, the joint PMF of the sample is
     \[
-    p_{X_1,X_2}(x_1, x_2 ; \lambda) = \frac{e^{-\lambda} \lambda^{x_1}}{x_1!} \cdot \frac{e^{-\lambda} \lambda^{x_2}}{x_2!} 
+    p_{X_1,X_2}(x_1, x_2 ; \lambda) = \frac{e^{-\lambda} \lambda^{x_1}}{x_1!} \cdot \frac{e^{-\lambda} \lambda^{x_2}}{x_2!}
     = \frac{e^{-2\lambda} \lambda^{x_1 + x_2}}{x_1! x_2!}
     \]
-    
+
     Now consider the statistic
     \[
     T = X_1 + 2X_2
     \]
-    
+
     To apply the Neyman–Fisher Factorization Theorem, we attempt to factor the joint PMF in the form
     \[
     p_{X_1,X_2}(x_1, x_2 ; \lambda) = g\bigl(T(x_1, x_2), \lambda\bigr) \cdot h(x_1, x_2)
     \]
     i.e., express the \(\lambda\)-dependence entirely through the statistic \(T\).
-    
+
     However, in our case the joint PMF is
     \[
     p_{X_1,X_2}(x_1, x_2 ; \lambda) = \frac{e^{-2\lambda} \lambda^{x_1 + x_2}}{x_1! x_2!} = \frac{e^{-2\lambda} \lambda^{T(x_1, x_2) - x_2}}{x_1! x_2!}
     \]
-    where the \(\lambda\)-dependent part is \(\lambda^{T(x_1, x_2) - x_2}\), not only a function of $T(x_1, x_2)$ but also a function of $x_2$. 
+    where the \(\lambda\)-dependent part is \(\lambda^{T(x_1, x_2) - x_2}\), not only a function of $T(x_1, x_2)$ but also a function of $x_2$.
     Therefore, the statistic \(T = X_1 + 2X_2\) is not sufficient.
-    
-    
+
+
 \end{enumerate}
 
 
@@ -7163,7 +7188,7 @@ There are often multiple point estimates available for any given parameter. So i
 
 {Maximum Likelihood Estimation (MLE)} is one of the most widely used methods for estimating the parameters of a statistical model. The basic idea is to choose the parameter values that make the observed data most probable.
 
-Let \(\textbf{X} = ( X_1, X_2, \dots, X_n) \) be a random sample from a population with joint probability density function (or probability mass function) \( f_{\textbf{X}}(x_1, x_2, \dots, x_n ; \theta) \), where \( \theta \) is the unknown parameter to be estimated. Given $\textbf{x} = (x_1, x_2, \dots, x_n)$, it may be looked upon as a function of $\theta$, called the \textbf{likelihood function} of $\theta$ and is denoted by $L(\theta)$. 
+Let \(\textbf{X} = ( X_1, X_2, \dots, X_n) \) be a random sample from a population with joint probability density function (or probability mass function) \( f_{\textbf{X}}(x_1, x_2, \dots, x_n ; \theta) \), where \( \theta \) is the unknown parameter to be estimated. Given $\textbf{x} = (x_1, x_2, \dots, x_n)$, it may be looked upon as a function of $\theta$, called the \textbf{likelihood function} of $\theta$ and is denoted by $L(\theta)$.
 \[
 L(\theta) = f_{\textbf{X}}(x_1, x_2, \dots, x_n ; \theta)
 \]
@@ -7214,7 +7239,7 @@ f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^
 
 Likelihood function:
 \[
-L(\mu, \sigma^2) = \prod_{i=1}^{n}f(x_i; \mu, \sigma) =  (2\pi\sigma^2)^{-\tfrac{n}{2}} \exp \left( - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2\right) 
+L(\mu, \sigma^2) = \prod_{i=1}^{n}f(x_i; \mu, \sigma) =  (2\pi\sigma^2)^{-\tfrac{n}{2}} \exp \left( - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2\right)
 \]
 Log-likelihood function:
 \[
@@ -7292,7 +7317,7 @@ Let \(\mathbf{X} = (X_1, X_2, \dots, X_n)\) be random variables representing the
 \pi_{\Theta}(\theta\mid\mathbf{X}) = \frac{f_{\textbf{X}}(\mathbf{x}\mid\theta) \pi_{\Theta}(\theta)}{f_{\textbf{X}}(\mathbf{x})}
 \]
 
-where, 
+where,
 \[
 f_{\textbf{X}}(\mathbf{x}) =
 \begin{cases}
@@ -7326,11 +7351,11 @@ In practice the constant of proportionality chosen in such a way that it makes t
 
 You randomly select one coin and flip it once. You observe a head. What is the posterior probability that you chose Coin 3?
 
-This is a classic example of Bayesian inference with a discrete parameter space.  
-The \textbf{population} consists of three types of coins, each with a different probability of producing a head: $\theta \in \{0.25, 0.5, 0.75\}$. 
+This is a classic example of Bayesian inference with a discrete parameter space.
+The \textbf{population} consists of three types of coins, each with a different probability of producing a head: $\theta \in \{0.25, 0.5, 0.75\}$.
 
 
-We assume one of these coins is selected at random. The \textbf{sample} is a single coin toss from the selected coin, which results in observing a head.  
+We assume one of these coins is selected at random. The \textbf{sample} is a single coin toss from the selected coin, which results in observing a head.
 Using this one data point, we update our belief (prior distribution) over the possible values of $\theta$ to obtain a posterior distribution.
 
 Let $X = 1$ denote the event that you observe a head, and $X = 0$ for a tail.
@@ -7392,7 +7417,7 @@ The Bayes estimator $ \hat{\theta} $ minimises the expected posterior loss i.e.
 
 The form of the minimiser depends on the choice of \(L\). Some common cases are:
 \begin{enumerate}
-  \item \textbf{Squared‐error loss:} 
+  \item \textbf{Squared‐error loss:}
     \[
       L(\theta,\hat{\theta}) = (\theta - \hat{\theta})^2
     \]
@@ -7409,7 +7434,7 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
         \;+\; \hat{\theta}^2,
     \end{align*}
     using \(\int\pi(\theta\mid\mathbf{X})\,d\theta=1\)
-    
+
     To find the minimiser, differentiate \(h(\hat{\theta})\) with respect to \(\hat{\theta}\):
     \[
       \frac{dh(\hat{\theta})}{d\hat{\theta}}\,
@@ -7430,13 +7455,13 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
       = 2 > 0,
     \]
     so this critical point is indeed a minimum.
-    
+
     Hence, the Bayes estimator \(\hat{\theta}\) under absolute‐error loss is the \textbf{mean of the posterior distribution}:
     \[
       \hat{\theta} = \mathbb{E}[\Theta\mid \mathbf{X}]
     \]
 
-  \item \textbf{Absolute‐error loss:} 
+  \item \textbf{Absolute‐error loss:}
   \[
     L(\theta,\hat{\theta}) = \lvert \theta - \hat{\theta} \rvert
   \]
@@ -7452,7 +7477,7 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
       \;+\;
       \int_{\hat{\theta}}^{\infty} (\theta - \hat{\theta})\,\pi_{\Theta}(\theta\mid\mathbf{X})\,d\theta
   \]
-  Differentiate with respect to \(\hat{\theta}\).  By Leibniz’s rule\footnote{The \textbf{Leibniz integral rule} (differentiation under the integral sign) states that if 
+  Differentiate with respect to \(\hat{\theta}\).  By Leibniz’s rule\footnote{The \textbf{Leibniz integral rule} (differentiation under the integral sign) states that if
   $$\displaystyle H(t) = \int_{a(t)}^{b(t)} g(x,t)\,dx,$$
   then
   \[
@@ -7483,40 +7508,40 @@ The form of the minimiser depends on the choice of \(L\). Some common cases are:
     \frac{d^2\,h(\hat{\theta})}{d \hat{\theta}^2}
     = 2\,\pi_{\Theta}(\hat{\theta}\mid\mathbf{X}) \;\ge\; 0,
   \]
-  so \(h(\hat{\theta})\) is convex at the solution, confirming that \(\hat{\theta}\) indeed minimizes the expected loss.  
-  
+  so \(h(\hat{\theta})\) is convex at the solution, confirming that \(\hat{\theta}\) indeed minimizes the expected loss.
+
 
   \item \textbf{Zero–one loss:}
   \[
-    L(\theta,\hat{\theta}) = 
+    L(\theta,\hat{\theta}) =
     \begin{cases}
       0, & \theta = \hat{\theta},\\
       1, & \theta \neq \hat{\theta}.
     \end{cases}
   \]
-  
+
   The expected posterior loss:
   \[
     h(\hat{\theta}) = \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta.
   \]
-  
+
   Since \(L(\theta, \hat{\theta}) = 0\) only at \(\theta = \hat{\theta}\) and equals 1 elsewhere, we can simplify the expected posterior loss:
   \begin{align*}
   h(\hat{\theta}) &= \int_{\Theta} L(\theta,\hat{\theta})\,\pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta \\
   &= \int_{\theta \neq \hat{\theta}} \pi_{\Theta}(\theta\mid \mathbf{X})\,d\theta\\ &
       = 1 - \pi_{\Theta}(\hat{\theta} \mid \mathbf{X})
   \end{align*}
-    
-  
-  
+
+
+
   Therefore,
   \[
-    \hat{\theta} = \arg\min_{\hat{\theta}} \left(1 - \pi_{\Theta}(\hat{\theta}\mid \mathbf{X})\right) 
+    \hat{\theta} = \arg\min_{\hat{\theta}} \left(1 - \pi_{\Theta}(\hat{\theta}\mid \mathbf{X})\right)
     = \arg\max_{\hat{\theta}} \pi_{\Theta}(\hat{\theta} \mid \mathbf{X})
   \]
-  
+
   Hence, the Bayes estimator under zero–one loss is the value of \(\theta\) that maximizes the posterior density, i.e., the \textbf{maximum a posteriori (MAP)} estimator. In other words, it is the \textbf{mode of the posterior distribution}.
-  
+
 \end{enumerate}
 
 \textbf{Example}: Suppose we have:
@@ -7546,32 +7571,32 @@ Now expand the squared term in the sum:
 
 Ignoring terms not involving $\mu$, we write:
 \begin{align*}
-\pi_M(\mu \mid \textbf{x})&\propto \exp\left(  \mu \sum_i x_i - \frac{n}{2} \mu^2 \right)  
+\pi_M(\mu \mid \textbf{x})&\propto \exp\left(  \mu \sum_i x_i - \frac{n}{2} \mu^2 \right)
          \cdot \exp\left(  -\frac{1}{2} \mu^2 \tau^2 \right) \\
-&\propto \exp\left[ 
-  \mu \sum_i x_i 
-  - \frac{1}{2}(n + \tau^2)\mu^2 
-\right]    
+&\propto \exp\left[
+  \mu \sum_i x_i
+  - \frac{1}{2}(n + \tau^2)\mu^2
+\right]
 \end{align*}
 
 Now,
 \begin{align*}
-\mu \sum_i x_i - \frac{1}{2}(n + \tau^2)\mu^2 
-&= -\frac{1}{2}(n + \tau^2) \left[ 
-  \mu^2 - \frac{2 \sum_i x_i}{n + \tau^2} \mu 
+\mu \sum_i x_i - \frac{1}{2}(n + \tau^2)\mu^2
+&= -\frac{1}{2}(n + \tau^2) \left[
+  \mu^2 - \frac{2 \sum_i x_i}{n + \tau^2} \mu
 \right] \\
-&= -\frac{1}{2}(n + \tau^2) \left[ 
-  \left( \mu - \frac{\sum_i x_i}{n + \tau^2} \right)^2 
-  - \left( \frac{\sum_i x_i}{n + \tau^2} \right)^2 
+&= -\frac{1}{2}(n + \tau^2) \left[
+  \left( \mu - \frac{\sum_i x_i}{n + \tau^2} \right)^2
+  - \left( \frac{\sum_i x_i}{n + \tau^2} \right)^2
 \right]
 \end{align*}
 
 Drop the constant term (independent of $\mu$):
 \begin{align*}
-\pi_M(\mu \mid \textbf{x})\propto \exp\left[ 
-  -\frac{1}{2}(n + \tau^2) \left( 
-    \mu - \frac{\sum_i x_i}{n + \tau^2} 
-  \right)^2 
+\pi_M(\mu \mid \textbf{x})\propto \exp\left[
+  -\frac{1}{2}(n + \tau^2) \left(
+    \mu - \frac{\sum_i x_i}{n + \tau^2}
+  \right)^2
 \right]
 \end{align*}
 
@@ -7594,7 +7619,7 @@ Let \( X_1, X_2, \dots, X_n \) be a random sample from a population with a distr
 \begin{itemize}
     \item The \textbf{r-th population moment} about the origin is defined as:
     \[
-    \mu'_r = \mathbb{E}\left( X^r\right) 
+    \mu'_r = \mathbb{E}\left( X^r\right)
     \]
     which is a function of the unknown parameters \( \theta_1, \dots, \theta_k \).
 
@@ -7620,7 +7645,7 @@ assuming \( \mu(\theta) \) is invertible.
 \noindent This approach can be extended to multiple parameters. If the distribution depends on multiple parameters \( \theta_1, \dots, \theta_k \), then the first \( k \) theoretical moments are equated to the first \( k \) sample moments:
 \begin{align*}
 m'_1 &= \mu'_1(\theta_1,\theta_2, \dots, \theta_k), \\
-m'_2 &= \mu'_2(\theta_1,\theta_2, \dots, \theta_k), \\ 
+m'_2 &= \mu'_2(\theta_1,\theta_2, \dots, \theta_k), \\
 &\quad \vdots \\
 m'_k &= \mu'_k(\theta_1,\theta_2, \dots, \theta_k)
 \end{align*}
@@ -7764,28 +7789,28 @@ Since the distribution is symmetric about zero, we can choose the critical value
 	]
 	% PDF curve of standard normal
 	\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
-	
+
 	% Shade the confidence interval region [-z_alpha/2, z_alpha/2]
 	\addplot [
-	domain=-4:-1.96, 
-	draw=none, 
+	domain=-4:-1.96,
+	draw=none,
 	fill=blue!20,
 	samples=100
 	]
 	{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
-	
+
 	\addplot [
-	domain=1.96:4, 
-	draw=none, 
+	domain=1.96:4,
+	draw=none,
 	fill=blue!20,
 	samples=100
 	]
 	{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
-	
+
 	% Vertical dashed lines at -z_alpha/2 and z_alpha/2
 	\draw[dashed] (axis cs:-1.96,0) -- (axis cs:-1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
 	\draw[dashed] (axis cs:1.96,0) -- (axis cs:1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
-	
+
 	% Labels
 	\node[below] at (axis cs:-2.5,0.1) { ${\alpha/2}$};
 	\node[below] at (axis cs:2.5,0.1) { ${\alpha/2}$};
@@ -7905,34 +7930,34 @@ $$P\left(L \leq \frac{(n-1) S^2}{\sigma^2} \leq U\right) = 1 - \alpha$$
 	% grid=major,
 	thick,
 	]
-	
+
 	% ν = 5: f(x) = (1 / (2^{5/2} * Γ(5/2))) * x^{3/2} * exp(-x/2)
 	% Γ(5/2) = 1.3293..., 2^{5/2} = 5.6568...
 	% Constant = 1 / (5.6568 * 1.3293) ≈ 0.133
 	\addplot [blue, very thick,] {0.133 * x^(1.5) * exp(-x/2)};
-	
+
 	% Shade the confidence interval region [-z_alpha/2, z_alpha/2]
 	\addplot [
-	domain=0:2, 
-	draw=none, 
+	domain=0:2,
+	draw=none,
 	fill=blue!20,
 	samples=100
 	]
 	{0.133 * x^(1.5) * exp(-x/2)} \closedcycle;
-	
+
 	\addplot [
-	domain=8:20, 
-	draw=none, 
+	domain=8:20,
+	draw=none,
 	fill=blue!20,
 	samples=100
 	]
 	{0.133 * x^(1.5) * exp(-x/2)} \closedcycle;
-	
+
 	% Labels
 	\node[below] at (axis cs:1.3,0.05) { ${\alpha/2}$};
 	\node[below] at (axis cs:9,0.028) { ${\alpha/2}$};
 	\node[above, black] at (axis cs:4.5,0.05) { \(1-\alpha\)};
-	
+
 	\end{axis}
 	\end{tikzpicture}
 	\caption{\textit{Confidence interval for $\chi^2$ distribution}.}
@@ -8068,13 +8093,13 @@ P\left( F_{1-\alpha/2;\,n_1-1,n_2-1}\le \dfrac{S_1^2}{S_2^2}\cdot \dfrac{\sigma_
 Rewriting in terms of $\sigma_1^2/\sigma_2^2$ gives
 
 \[
-P\left( 
+P\left(
 \frac{1}{F_{\alpha/2;\,n_1-1,n_2-1}}\frac{S_1^2}{S_2^2}
 \;\le\;
 \frac{\sigma_1^2}{\sigma_2^2}
 \;\le\;
 \frac{1}{F_{1-\alpha/2;\,n_1-1,n_2-1}}\frac{S_1^2}{S_2^2}
-\right) 
+\right)
 =1-\alpha
 \]
 
@@ -8153,7 +8178,7 @@ Therefore, the $100(1 - \alpha)\%$ confidence interval for the population propor
 	\]
 	\item Check normal approximation conditions:
 	\[
-	n\hat{p} = 400 \times 0.45 = 180 \;\ge 5, 
+	n\hat{p} = 400 \times 0.45 = 180 \;\ge 5,
 	\quad
 	n(1 - \hat{p}) = 400 \times 0.55 = 220 \;\ge 5.
 	\]
@@ -8231,7 +8256,7 @@ n \geq \left( \frac{z_{\alpha/2}}{E} \right)^2 \cdot p^*(1 - p^*)
 Without prior knowledge of $p$, $p(1-p)$ can be replaced by its maximum possible value\footnote{To calculate the maximum value of $f=p(1-p) = p-p^2$, we need to differentiate it w.r.t. $p$ and set it to zero.
 	$$\dfrac{df}{dp} = 1-2p = 0 \quad \Rightarrow p =\dfrac{1}{2}$$
 $$\dfrac{d^2f}{dp^2}  = -2$$
-The double derivative is negtive indicating $f$ is maximum at $p=\dfrac{1}{2}$. 
+The double derivative is negtive indicating $f$ is maximum at $p=\dfrac{1}{2}$.
 
 \noindent The maximum value of $f$ is
 $$f_{max} = \dfrac{1}{2}\left(1-\dfrac{1}{2}  \right) = \dfrac{1}{4}$$
@@ -8356,36 +8381,36 @@ Thus, only about 323 individuals are needed when the population is finite.
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		\textbf{Parameter} & \textbf{Assumptions} & \textbf{Confidence Interval Formula} \\ \midrule
-		
+
 		Population mean $\mu$ (known $\sigma$) &
 		Normal population or large $n$ (CLT) &
 		$\displaystyle \bar{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$ \\[10pt]
-		
+
 		Population mean $\mu$ (unknown $\sigma$) &
 		Normal population &
 		$\displaystyle \bar{X} \pm t_{\alpha/2,\,n-1} \cdot \frac{s}{\sqrt{n}}$ \\[10pt]
-		
+
 		Difference of means $\mu_1 - \mu_2$ (equal variances) &
 		Normal populations, independent samples &
 		$\displaystyle (\bar{X}_1 - \bar{X}_2) \pm t_{\alpha/2,\,n_1+n_2-2} \cdot s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}$ \\
 		& & where $\displaystyle s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}$ \\[10pt]
-		
+
 		Proportion $p$ &
 		Large $n$, with $np \ge 5$, $n(1-p) \ge 5$ &
 		$\displaystyle \hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}$ \\[10pt]
-		
+
 		Difference of proportions $p_1 - p_2$ &
 		Large $n_1, n_2$ &
 		$\displaystyle (\hat{p}_1 - \hat{p}_2) \pm z_{\alpha/2} \cdot \sqrt{ \frac{\hat{p}_1(1 - \hat{p}_1)}{n_1} + \frac{\hat{p}_2(1 - \hat{p}_2)}{n_2} }$ \\[10pt]
-		
+
 		Population variance $\sigma^2$ &
 		Normal population &
 		$\displaystyle \left( \frac{(n-1)s^2}{\chi^2_{1-\alpha/2}}, \frac{(n-1)s^2}{\chi^2_{\alpha/2}} \right)$ \\[10pt]
-		
+
 		Ratio of variances $\dfrac{\sigma_1^2}{\sigma_2^2}$ &
 		Normal, independent samples &
 		$\displaystyle \left( \dfrac{s_1^2 / s_2^2}{F_{1-\alpha/2}}, \dfrac{s_1^2 / s_2^2}{F_{\alpha/2}} \right)$ \\
-		
+
 		\bottomrule
 	\end{tabular}
 	\label{tab:ci_sideways}
@@ -8405,11 +8430,11 @@ There are many problems in which, rather than estimating the value of a paramete
 A \textbf{statistical hypothesis} is a statement about the parameter of a population.
 \end{textbox}
 
-For example, a factory produces screws that are supposed to be 5 cm long. A quality inspector takes a sample of 50 screws and finds that the average length is 4.8 cm. Here, the hypothesis is the statement: 
+For example, a factory produces screws that are supposed to be 5 cm long. A quality inspector takes a sample of 50 screws and finds that the average length is 4.8 cm. Here, the hypothesis is the statement:
 
 \begin{center}
-``{The average length of the screws is 5 cm.}'' 
-\end{center} 
+``{The average length of the screws is 5 cm.}''
+\end{center}
 
 Based on the sample's average length, the inspector tests whether this difference is simply due to random variation or if the machine requires adjustment.
 
@@ -8435,7 +8460,7 @@ In simple expression we write:
 
 % The objective of hypothesis testing is to decide, based on
 % sample information, if the alternative hypothesis is actually
-% supported by the data. 
+% supported by the data.
 
 The standard procedure is to assume that $H_0$ is true. The burden of proof is placed on those who believe in the alternative claim\footnote{A close analogy can be made to a criminal court trial, where the jury holds to the null hypothesis of ``Not guilty'' unless there is convincing evidence of guilt.  The purpose of the hearing is to establish the assertion that the accused is guilty rather than to prove that he or she is innocent.} (alternative hypothesis). This initially favored claim ($H_0$) will not be rejected in favor of the alternative claim ($H_1$ or $H_a$) unless the sample evidence provides significant support for the alternative claim. If the sample does not strongly contradict $H_0$, we will continue to believe in the plausibility of the null hypothesis.
 
@@ -8478,29 +8503,29 @@ standard deviation $\sigma = 0.3$ is known. Since the sample size is $n = 50$, t
 	xtick={4.9177, 5, 5.0823},
 	xticklabels={$4.917$, $5$, $5.083$}
 	]
-	
+
 	% Plot the normal curve
 	\addplot [very thick, blue] {1/(0.042*sqrt(2*pi)) * exp(-((x-5)^2)/(2*0.042^2))};
-	
+
 	% Shade the left tail
 	\addplot [
-	domain=4.8:4.9177, 
-	fill=gray!40, 
+	domain=4.8:4.9177,
+	fill=gray!40,
 	draw=none
 	] {1/(0.042*sqrt(2*pi)) * exp(-((x-5)^2)/(2*0.042^2))} \closedcycle;
-	
+
 	% Shade the right tail
 	\addplot [
-	domain=5.0823:5.2, 
-	fill=gray!40, 
+	domain=5.0823:5.2,
+	fill=gray!40,
 	draw=none
 	] {1/(0.042*sqrt(2*pi)) * exp(-((x-5)^2)/(2*0.042^2))} \closedcycle;
-	
+
 	% Add probability text
 	\node at (axis cs:5,3.5) {\small 0.95};
 	\node at (axis cs:4.88,1.2) {\small 0.025};
 	\node at (axis cs:5.12,1.2) {\small 0.025};
-	
+
 	\end{axis}
 	\end{tikzpicture}
 \end{center}
@@ -8525,15 +8550,15 @@ standard deviation $\sigma = 0.3$ is known. Since the sample size is $n = 50$, t
 
 %     % Shade the left tail
 %     \addplot [
-%       domain=-3.5:-1.96, 
-%       fill=gray!40, 
+%       domain=-3.5:-1.96,
+%       fill=gray!40,
 %       draw=none
 %     ] {1/sqrt(2*pi) * exp(-x^2/2)} \closedcycle;
 
 %     % Shade the right tail
 %     \addplot [
-%       domain=1.96:3.5, 
-%       fill=gray!40, 
+%       domain=1.96:3.5,
+%       fill=gray!40,
 %       draw=none
 %     ] {1/sqrt(2*pi) * exp(-x^2/2)} \closedcycle;
 
@@ -8553,13 +8578,13 @@ This provides strong statistical evidence against the null hypothesis. Therefore
 
 
 \begin{textbox}
-The probability of the tails of the distribution, which determines the threshold for making a decision, is called the \textbf{level of significance}, denoted by $\alpha$. 
+The probability of the tails of the distribution, which determines the threshold for making a decision, is called the \textbf{level of significance}, denoted by $\alpha$.
 \end{textbox}
 In our example, we chose the level of significance $\alpha = 0.05$, which is equally split between the two tails of the distribution, allocating $0.025$ to each side.
 
 \begin{textbox}
 The range of values for which the null hypothesis is
-rejected is called the \textbf{critical region}.    
+rejected is called the \textbf{critical region}.
 \end{textbox}
 
 For the above example, the critical region is characterized by $\overline{X} < 4.917$ and $\overline{X} > 5.083$.
@@ -8598,15 +8623,15 @@ The choice between one-sided and two-sided testing depends on the research quest
 % Let us take the same previous example where a factory claims that the average length of screws produced by a machine is 5 cm. To verify this claim, a quality inspector takes a random sample of 50 screws and finds that the average length is 4.8 cm. We want to test whether this observed difference is due to random sampling variation or if it indicates that the machine is no longer operating correctly.
 
 % \begin{enumerate}
-%     \item \textbf{State the Hypotheses:} 
+%     \item \textbf{State the Hypotheses:}
 %     \begin{itemize}
 %         \item Null Hypothesis ($H_0$): The true mean length is 5 cm. $$H_0: \mu = 5$$
 %         \item Alternative Hypothesis ($H_1$): The true mean length is not 5 cm. $$H_1: \mu \ne 5$$
 %     \end{itemize}
 
 %     \item \textbf{Compute the Test Statistic} \\
-%     The \textbf{test statistic} is a function of the sample data that will be used to make a decision about whether the null hypothesis should be rejected or not. 
-    
+%     The \textbf{test statistic} is a function of the sample data that will be used to make a decision about whether the null hypothesis should be rejected or not.
+
 %     Assume that the population standard deviation is known to be $\sigma = 0.3$ cm. Since the sample size is $n = 50$, the sampling distribution of the sample mean is approximately normal:
 %     \[
 %     \overline{X} \sim N\left( \mu, \frac{\sigma}{\sqrt{n}} \right)
@@ -8656,7 +8681,7 @@ For the example with a sample of 50 screws, where the sample mean is $\overline{
 Z = \dfrac{\overline{X} - \mu}{{\sigma}/{\sqrt{n}}} = \frac{4.8 - 5}{{0.3}/{\sqrt{50}}} \approx -4.72
 \]
 
-Once the test statistic is calculated, it is compared with a \textbf{critical value} calculated from the relevant probability distribution of the test statistic under null hypothesis (e.g., the standard normal distribution). The critical value \(c\) is chosen so that 
+Once the test statistic is calculated, it is compared with a \textbf{critical value} calculated from the relevant probability distribution of the test statistic under null hypothesis (e.g., the standard normal distribution). The critical value \(c\) is chosen so that
 \[
 P(\text{Test Statistic is more extreme than }c \mid H_0) = \alpha
 \]
@@ -8668,7 +8693,7 @@ $$P(\text{Test statistic} \in \text{rejection region}\mid H_0) = \alpha$$
 	\centering
 	\begin{tabular}{@{}l|c|c@{}}
 		\toprule
-		\textbf{Test Type} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+		\textbf{Test Type} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\
 		\midrule
 		Upper‐tailed \(z\)‑test & $ z_{\alpha} $ &
 		\(\{Z>z_{\alpha}\}\) \\[6pt]
@@ -8677,7 +8702,7 @@ $$P(\text{Test statistic} \in \text{rejection region}\mid H_0) = \alpha$$
 		\(\{Z<-z_{\alpha}\}\) \\[6pt]
 		Two‐tailed \(z\)‑test &
 		$ \pm\,z_{\alpha/2} $&
-		$\{|Z| > z_{\alpha/2}\}$ \\ 
+		$\{|Z| > z_{\alpha/2}\}$ \\
 		\bottomrule
 	\end{tabular}
 	\caption{\textit{Critical values and rejection regions for \(z\)-tests at significance level \(\alpha\)}.}
@@ -8703,19 +8728,19 @@ $$P(\text{Test statistic} \in \text{rejection region}\mid H_0) = \alpha$$
  		]
  		% PDF curve of standard normal
  		\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
- 		
- 		% Shade the critical regions (tails)		
+
+ 		% Shade the critical regions (tails)
  		\addplot [
- 		domain=1.64:4, 
- 		draw=none, 
+ 		domain=1.64:4,
+ 		draw=none,
  		fill=gray!20,
  		samples=100
  		]
  		{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
- 		
+
  		% Vertical dashed lines
  		\draw[dashed] (axis cs:1.64,0) -- (axis cs:1.64,{1/sqrt(2*pi)*exp(-1.64^2/2)});
- 		
+
  		% Single label with two arrows
  		\node (label) at (axis cs:2.2,0.25) {{Rejection region}};
  		\draw[->, thick] (label) to[out=-20,in=90] (axis cs: 2.5,0.05);
@@ -8742,19 +8767,19 @@ $$P(\text{Test statistic} \in \text{rejection region}\mid H_0) = \alpha$$
 		]
 		% PDF curve of standard normal
 		\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
-		
-		% Shade the critical regions (tails)		
+
+		% Shade the critical regions (tails)
 		\addplot [
-		domain=-4:-1.64, 
-		draw=none, 
+		domain=-4:-1.64,
+		draw=none,
 		fill=gray!20,
 		samples=100
 		]
 		{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
-		
+
 		% Vertical dashed lines
 		\draw[dashed] (axis cs:-1.64,0) -- (axis cs:-1.64,{1/sqrt(2*pi)*exp(-1.64^2/2)});
-		
+
 		% Single label with two arrows
 		\node (label) at (axis cs:-2.2,0.25) {{Rejection region}};
 		\draw[->, thick] (label) to[out=-120,in=90] (axis cs: -2.5,0.05);
@@ -8781,28 +8806,28 @@ $$P(\text{Test statistic} \in \text{rejection region}\mid H_0) = \alpha$$
 		]
 		% PDF curve of standard normal
 		\addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
-		
+
 		% Shade the critical regions (tails)
 		\addplot [
-		domain=-4:-1.96, 
-		draw=none, 
+		domain=-4:-1.96,
+		draw=none,
 		fill=gray!20,
 		samples=100
 		]
 		{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
-		
+
 		\addplot [
-		domain=1.96:4, 
-		draw=none, 
+		domain=1.96:4,
+		draw=none,
 		fill=gray!20,
 		samples=100
 		]
 		{1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
-		
+
 		% Vertical dashed lines at -z_alpha/2 and z_alpha/2
 		\draw[dashed] (axis cs:-1.96,0) -- (axis cs:-1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
 		\draw[dashed] (axis cs:1.96,0) -- (axis cs:1.96,{1/sqrt(2*pi)*exp(-1.96^2/2)});
-		
+
 		% Single label with two arrows
 		\node (label) at (axis cs:-1.5,0.25) {{Rejection region}};
 		\draw[->, thick] (label) to[out=200,in=90] (axis cs:-2.5,0.05);
@@ -8827,7 +8852,7 @@ In our example, the computed \(z\)-value is \(-4.72\), which lies in the left‐
 \section{Type I and Type II Error}
 This decision procedure can lead to either of two incorrect conclusions, known as Type I and Type II errors.
 
-For example, suppose the true average length of the screws is indeed 5 cm. However, due to random variation in the sample, we might observe a test statistic that falls into the critical region. In this case, we would reject the null hypothesis $H_0$ in favor of the alternative $H_1$, even though $H_0$ is actually true. This mistake is called a \textbf{Type I error}. The probability of a Type I error is also called the \textbf{level of significance}, denoted by $\alpha$. It is usually set at $\alpha = 0.05$ or $\alpha = 0.01$. 
+For example, suppose the true average length of the screws is indeed 5 cm. However, due to random variation in the sample, we might observe a test statistic that falls into the critical region. In this case, we would reject the null hypothesis $H_0$ in favor of the alternative $H_1$, even though $H_0$ is actually true. This mistake is called a \textbf{Type I error}. The probability of a Type I error is also called the \textbf{level of significance}, denoted by $\alpha$. It is usually set at $\alpha = 0.05$ or $\alpha = 0.01$.
 
 \begin{textbox}
 	\centering $P$(\text{Type I error})  = $P$(Rejecting $H_0$ $\mid$ $H_0$ is true) = $\alpha$
@@ -8844,7 +8869,7 @@ On the other hand, suppose the true average length of the screws has actually ch
 	\vspace{0.5em}
 	\renewcommand{\arraystretch}{1.5}
 	\begin{tabular}{l|c|c}
-		
+
 		& $H_0$ is True & $H_1$ is True \\
 		\midrule
 		Reject $H_0$        & \textbf{Type I Error} ($\alpha$) & Correct Decision \\
@@ -8870,31 +8895,31 @@ These error probabilities are inherently related through the choice of the rejec
 		enlargelimits=0.05,
 		legend style={at={(0.85,0.75)}, anchor=south}
 		]
-		
+
 		% Null hypothesis distribution
 		\addplot [very thick, blue] {1/sqrt(2*pi) * exp(-x^2/2)};
 		\addlegendentry{Under $H_0 (\mu = \mu_0)$}
-		
+
 		% Alternative hypothesis distribution
 		\addplot [very thick, red, dashed, domain=-1:7] {1/sqrt(2*pi) * exp(-(x-3)^2/2)};
 		\addlegendentry{Under $H_1 (\mu = \mu_1)$}
-		
+
 		% Type I error region (right tail of H0)
 		\addplot [
-		domain=1.645:4, 
-		fill=gray!40, 
+		domain=1.645:4,
+		fill=gray!40,
 		draw=none
 		] {1/sqrt(2*pi) * exp(-x^2/2)} \closedcycle;
 		\node at (axis cs:3.4,0.05) {Type I Error ($\alpha$)};
-		
+
 		% Type II error region (left of critical value under H1)
 		\addplot [
-		domain=-1:1.645, 
-		fill=red!20, 
+		domain=-1:1.645,
+		fill=red!20,
 		draw=none
 		] {1/sqrt(2*pi) * exp(-(x-3)^2/2)} \closedcycle;
 		\node at (axis cs:0.25,0.07) {Type II Error ($\beta$)};
-		
+
 		\end{axis}
 		\end{tikzpicture}
 	\end{center}
@@ -8927,7 +8952,7 @@ The Figure \ref{fig:alpha_beta_tradeoff} shows one typical example of the relati
 	\begin{tikzpicture}
 	\begin{axis}[
 	width=10cm, height=7cm,
-	%	domain=0:0.25, 
+	%	domain=0:0.25,
 	axis lines=left,
 	xlabel={Significance level \(\alpha\)},
 	ylabel={Type II error rate \(\beta\)},
@@ -8948,7 +8973,7 @@ The Figure \ref{fig:alpha_beta_tradeoff} shows one typical example of the relati
 		(0.20, 0.0485)
 	};
 	%\addlegendentry{Effect size \(\delta = 2.5\)}
-	
+
 	% Mark points
 	\addplot[only marks, mark=*, mark size=1.8pt, blue, very thick] coordinates {
 		(0.01, 0.4310)
@@ -8956,7 +8981,7 @@ The Figure \ref{fig:alpha_beta_tradeoff} shows one typical example of the relati
 		(0.10, 0.1110)
 		(0.20, 0.0485)
 	};
-	
+
 	% Annotate values
 	\node[above right, font=\small] at (axis cs:0.01, 0.4310) {\(\beta = 0.431\)};
 	\node[above right, font=\small] at (axis cs:0.05, 0.1960) {\(\beta = 0.196\)};
@@ -8981,7 +9006,7 @@ The probability of a Type II error ($\beta$) is not fixed; it varies depending o
 
 \begin{itemize}
 	\item If the true value is close to $H_0$, then the evidence against $H_0$ is weak, and $\beta$ is high (it’s harder to detect the difference).
-	
+
 	\item If the true value is far from $H_0$, then the evidence becomes stronger, and $\beta$ is lower (easier to detect the difference).
 \end{itemize}
 We generally write $\beta$ as a function of the parameter value $\theta_1$ under alternative hypothesis denoted by $\beta(\theta)$.
@@ -9006,7 +9031,7 @@ Earlier, we discussed that one can choose a low $\alpha$ or a low $\beta$ depend
 	legend style={draw=none, at={(0.95,0.95)}, anchor=north east},
 	thick
 	]
-	
+
 	% Curve for n = 50
 	\addplot[smooth, very thick, red, dashed] coordinates {
 		(0.01, 0.4310)
@@ -9015,9 +9040,9 @@ Earlier, we discussed that one can choose a low $\alpha$ or a low $\beta$ depend
 		(0.20, 0.0485)
 	};
 	\addlegendentry{Sample size $n = 50$}
-	
-	
-	% Curve for n = 75 (lower beta values due to larger sample) 
+
+
+	% Curve for n = 75 (lower beta values due to larger sample)
 	\addplot[smooth, very thick, blue] coordinates {
 		(0.01, 0.3100)
 		(0.05, 0.1200)
@@ -9025,7 +9050,7 @@ Earlier, we discussed that one can choose a low $\alpha$ or a low $\beta$ depend
 		(0.20, 0.0250)
 	};
 	\addlegendentry{Sample size $n = 75$}
-	
+
 	\end{axis}
 	\end{tikzpicture}
 	\caption{\textit{Effect of sample size on the inverse relationship between \(\alpha\) and \(\beta\). Larger sample size reduces \(\beta\) for the same \(\alpha\).}}
@@ -9046,7 +9071,7 @@ p\text{-value} = P(T \ge t_{\rm obs}\mid H_0)
 \]
 For a \textbf{two‐sided test} (where both large and small values of $T$ count against $H_0$),
 \begin{align*}
-p\text{-value} &= 
+p\text{-value} &=
 P(T \ge t_{\rm obs}\mid H_0)
 \;+\;
 P(T \le -\,t_{\rm obs}\mid H_0)
@@ -9083,7 +9108,7 @@ H_0:\,\mu=5
 \quad\text{vs.}\quad
 H_1:\,\mu>5
 \]
-using 
+using
 \[
 T = \frac{\overline X - 5}{\sigma/\sqrt{n}}
 \;\sim\; N(0,1)
@@ -9106,22 +9131,22 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 
 	\subsubsection*{Step 1. Formulate the hypotheses}
 	Formulate the {null hypothesis} ($H_0$), which represents the default claim about the population parameter, and the {alternative hypothesis} ($H_1$), which represents the effect or difference you aim to detect.
-	
+
 	\subsubsection*{Step 2. Choose a significance level}
 	Select a level of significance $\alpha$ (commonly 0.01, 0.05, or 0.10) that defines the maximum probability of committing a Type I error (rejecting $H_0$ when it is true).
-	
+
 	\subsubsection*{Step 3. Define and calculate the test statistic}
 	Identify an appropriate test statistic based on the hypotheses and assumption of population distribution. Then collect a sample of size $n$ and compute the observed value of the test statistic from the data.
-	
+
 	\subsubsection*{Step 4. Calculate the $ p $­-value or determine the critical value(s) from data}
 	\begin{itemize}
-		\item \emph{$ p $­-value approach:} Compute the probability, under $H_0$, of observing a test statistic at least as extreme as the one obtained.  
+		\item \emph{$ p $­-value approach:} Compute the probability, under $H_0$, of observing a test statistic at least as extreme as the one obtained.
 		\item \emph{Critical value approach:} Identify the cutoff point(s) from the null distribution that correspond to the chosen $\alpha$, and define the rejection region(s).
 	\end{itemize}
-	
+
 	\subsubsection*{Step 5. Make a decision}
 	\begin{itemize}
-		\item If the $ p $­-value is less than or equal to $\alpha$, \textbf{reject} $H_0$; otherwise, \textbf{do not reject} $H_0$.  
+		\item If the $ p $­-value is less than or equal to $\alpha$, \textbf{reject} $H_0$; otherwise, \textbf{do not reject} $H_0$.
 		\item State the result in context, indicating whether there is sufficient evidence to support the alternative hypothesis at the chosen significance level.
 	\end{itemize}
 
@@ -9130,7 +9155,7 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 \subsection{Variance $\sigma^2$ Known}
 
 \begin{enumerate}
-	\item Hypothesis:  
+	\item Hypothesis:
 	$$H_0: \mu = \mu_0$$
 	\begin{align*}
 	H_1: \begin{cases}
@@ -9139,18 +9164,18 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 	\mu \neq \mu_0, & \text{Two-sided test}\\[6pt]
 	\end{cases}
 	\end{align*}
-	
+
 	\item Select \(\alpha\) (commonly 0.01, 0.05, or 0.10) as the maximum probability of a Type I error.
-	
-	\item Test statistic  
+
+	\item Test statistic
 	\[
 	Z \;=\;\frac{\overline{X} - \mu_0}{\sigma / \sqrt{n}}
 	\]
 	where \(\overline{X}\) is the sample mean, \(\sigma\) is known, and \(n\) is the sample size.  Under \(H_0\), \(Z \sim N(0,1)\). We then calculate the test statistic from the sample data. Let \(z_{\rm obs}\) is the observed value of \(Z\) from sample data.
-	
+
 	\item We now calculate the \(p\)-value from the distribution of test statistic:
 		\[
-		p\text{-value} = 
+		p\text{-value} =
 		\begin{cases}
 		P(Z \ge z_{\rm obs}), & \text{for }H_1:\mu>\mu_0\\[6pt]
 		P(Z \le z_{\rm obs}), & \text{for }H_1:\mu<\mu_0\\[6pt]
@@ -9162,7 +9187,7 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 		\centering
 		\begin{tabular}{@{}c|c|c@{}}
 			\toprule
-			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\
 			\midrule
 			$\mu > \mu_0$ & $ z_{\alpha} $ &
 			\(\{Z>z_{\alpha}\}\) \\[6pt]
@@ -9171,13 +9196,13 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 			\(\{Z<-z_{\alpha}\}\) \\[6pt]
 			$\mu \neq \mu_0$ &
 			$ \pm\,z_{\alpha/2} $&
-			$\{|Z| > z_{\alpha/2}\}$ \\ 
+			$\{|Z| > z_{\alpha/2}\}$ \\
 			\bottomrule
 		\end{tabular}
 	\end{table}
 
 	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
-	
+
 	Alternatively, if $z_{obs}$ lies in the rejection region, \textbf{reject} the \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
@@ -9185,7 +9210,7 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 \subsection{Variance $\sigma^2 $ Unknown}
 
 \begin{enumerate}
-	\item Hypothesis:  
+	\item Hypothesis:
 	$$H_0: \mu = \mu_0$$
 	\begin{align*}
 	H_1: \begin{cases}
@@ -9194,42 +9219,42 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 	\mu \neq \mu_0, & \text{Two-sided test}
 	\end{cases}
 	\end{align*}
-	
+
 	\item Select \(\alpha\) (commonly 0.01, 0.05, or 0.10) as the maximum probability of a Type I error.
-	
+
 	\item Test statistic:
-	
+
 	\begin{itemize}
-		\item \textbf{Large sample} (\(n \ge 30\)):  
+		\item \textbf{Large sample} (\(n \ge 30\)):
 		\[
 		Z = \frac{\overline{X} - \mu_0}{S / \sqrt{n}}
 		\]
-		where \(S\) is the sample standard deviation.  
+		where \(S\) is the sample standard deviation.
 		By the Central Limit Theorem, \(Z \sim N(0, 1)\) approximately under \(H_0\). Let \(z_{\rm obs}\) is the observed value of \(Z\) from sample data.
-		
-		\item \textbf{Small sample} (\(n < 30\)):  
+
+		\item \textbf{Small sample} (\(n < 30\)):
 		\[
 		T = \frac{\overline{X} - \mu_0}{S / \sqrt{n}}
 		\]
 		Here, \(T\) follows the \(t\)-distribution with \(n - 1\) degrees of freedom under \(H_0\). Let \(t_{\rm obs}\) is the observed value of \(T\) from sample data.
 	\end{itemize}
-	
+
 	\item We now calculate the \(p\)-value from the distribution of the test statistic:
-	
+
 	\begin{itemize}
 		\item \textbf{Large sample} (\(n \ge 30\)) — Use standard normal distribution:
 		\[
-		p\text{-value} = 
+		p\text{-value} =
 		\begin{cases}
 		P(Z \ge z_{\rm obs}), & \text{for }H_1:\mu>\mu_0,\\[6pt]
 		P(Z \le z_{\rm obs}), & \text{for }H_1:\mu<\mu_0,\\[6pt]
 		2\,P(|Z| \ge |z_{\rm obs}|), & \text{for }H_1:\mu\neq\mu_0
 		\end{cases}
 		\]
-		
+
 		\item \textbf{Small sample} (\(n < 30\)) — Use \(t\)-distribution with \(n-1\) degrees of freedom:
 		\[
-		p\text{-value} = 
+		p\text{-value} =
 		\begin{cases}
 		P(T \ge t_{\rm obs}), & \text{for }H_1:\mu>\mu_0,\\[6pt]
 		P(T \le t_{\rm obs}), & \text{for }H_1:\mu<\mu_0,\\[6pt]
@@ -9241,13 +9266,13 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 Alternatively, identify critical values and rejection regions at level $\alpha$:
 
 	\begin{itemize}
-				
+
 		\item \textbf{Large sample} (\(n \ge 30\))
 		\begin{table}[H]
 			\centering
 			\begin{tabular}{@{}c|c|c@{}}
 				\toprule
-				\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+				\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\
 				\midrule
 				$\mu > \mu_0$ & $ z_{\alpha} $ &
 				\(\{Z>z_{\alpha}\}\) \\[6pt]
@@ -9256,7 +9281,7 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 				\(\{Z<-z_{\alpha}\}\) \\[6pt]
 				$\mu \neq \mu_0$ &
 				$ \pm\,z_{\alpha/2} $&
-				$\{|Z| > z_{\alpha/2}\}$ \\ 
+				$\{|Z| > z_{\alpha/2}\}$ \\
 				\bottomrule
 			\end{tabular}
 		\end{table}
@@ -9274,17 +9299,17 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 			\end{tabular}
 		\end{table}
 	\end{itemize}
-	
+
 	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
-	
-	Alternatively, if $z_{obs}$ (for large sample) or $t_{obs}$ (for small sample) lies in the rejection region, \textbf{reject} the \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+
+	Alternatively, if $t_{obs}$ (for large sample) or $t_{obs}$ (for small sample) lies in the rejection region, \textbf{reject} the \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
 
 \section{Statistical Test for a Normally Distributed Population Variance \(\sigma^2\)}
 
 \begin{enumerate}
-	\item Hypothesis:  
+	\item Hypothesis:
 	$$H_0: \sigma^2 = \sigma_0^2$$
 	\begin{align*}
 	H_1: \begin{cases}
@@ -9293,15 +9318,15 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 	\sigma^2 \neq \sigma_0^2, & \text{Two-sided test}\\[6pt]
 	\end{cases}
 	\end{align*}
-	
+
 	\item Select \(\alpha\) (commonly 0.01, 0.05, or 0.10) as the maximum probability of a Type I error.
-	
-	\item Test statistic  
+
+	\item Test statistic
 	\[
 	\chi^2 = \frac{(n - 1) S^2}{\sigma_0^2}
 	\]
 	where \(S^2\) is the sample variance and \(n\) is the sample size. Under \(H_0\), \(\chi^2 \sim \chi^2_{n-1}\) (chi-squared distribution with \(n-1\) degrees of freedom). Let \(\chi^2_{\rm obs}\) be the observed value from the sample.
-	
+
 	\begin{figure}[H]
 		\begin{center}
 			\begin{tikzpicture}
@@ -9319,64 +9344,64 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 			% grid=major,
 			thick,
 			]
-			
+
 			% ν = 5: f(x) = (1 / (2^{5/2} * Γ(5/2))) * x^{3/2} * exp(-x/2)
 			% Γ(5/2) = 1.3293..., 2^{5/2} = 5.6568...
 			% Constant = 1 / (5.6568 * 1.3293) ≈ 0.133
 			\addplot [blue, very thick,] {0.133 * x^(1.5) * exp(-x/2)};
-			
+
 			% Shade the confidence interval region [-z_alpha/2, z_alpha/2]
 			\addplot [
-			domain=0:2, 
-			draw=none, 
+			domain=0:2,
+			draw=none,
 			fill=blue!20,
 			samples=100
 			]
 			{0.133 * x^(1.5) * exp(-x/2)} \closedcycle;
-			
+
 			\addplot [
-			domain=8:20, 
-			draw=none, 
+			domain=8:20,
+			draw=none,
 			fill=blue!20,
 			samples=100
 			]
 			{0.133 * x^(1.5) * exp(-x/2)} \closedcycle;
-			
+
 			% Labels
 			\node[below] at (axis cs:1.3,0.05) { ${\alpha/2}$};
 			\node[below] at (axis cs:9,0.028) { ${\alpha/2}$};
 			\node[above, black] at (axis cs:4.5,0.05) { \(1-\alpha\)};
-			
+
 			% Single label with two arrows
 			\node (label) at (axis cs:12,0.15) {{Rejection region}};
 			\draw[->, thick] (label) to[out=200,in=0] (axis cs:2,0.07);
 			\draw[->, thick] (label) to[out=-90,in=90] (axis cs: 10,0.03);
-			
+
 			\end{axis}
 			\end{tikzpicture}
 			\caption{\textit{Critical values and rejection region for $\chi^2$ test statistic for two-sided test}.}
 		\end{center}
 	\end{figure}
-	
+
 	\item We now calculate the \(p\)-value from the distribution of the test statistic:
 	\[
-	p\text{-value} = 
+	p\text{-value} =
 	\begin{cases}
 	P(\chi^2 \ge \chi^2_{\rm obs}), & \text{for } H_1: \sigma^2 > \sigma_0^2 \\[6pt]
 	P(\chi^2 \le \chi^2_{\rm obs}), & \text{for } H_1: \sigma^2 < \sigma_0^2 \\[6pt]
 	2\,\min\bigl\{P(\chi^2 \le \chi^2_{\rm obs}),\; P(\chi^2 \ge \chi^2_{\rm obs})\bigr\}, & \text{for } H_1: \sigma^2 \neq \sigma_0^2
 	\end{cases}
 	\]
-	
+
 	In the two-sided test \( H_1: \sigma^2 \neq \sigma_0^2 \), we are interested in deviations of the sample variance from \( \sigma_0^2 \) in both directions. Since the chi-squared distribution is not symmetric, the two-tailed \( p \)-value is computed by taking the smaller of the two tail probabilities and double it, forming a conservative and valid two-sided p-value.
 	This formula captures the probability of observing a value as extreme as \( \chi^2_{\text{obs}} \) in either tail of the distribution.
-	
+
 	Alternatively, we can use critical values and define the rejection region based on \(\alpha\):
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{@{}c|c|c@{}}
 			\toprule
-			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\
 			\midrule
 			$\sigma^2 > \sigma_0^2$ & $\chi^2_{\alpha,\; n-1}$ &
 			\(\{\chi^2 > \chi^2_{\alpha,\; n-1}\}\) \\[6pt]
@@ -9385,13 +9410,13 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 			\(\{\chi^2 < \chi^2_{\alpha,\; n-1}\}\) \\[6pt]
 			$\sigma^2 \neq \sigma_0^2$ &
 			$\chi^2_{1-\alpha/2,\; n-1},\; \chi^2_{\alpha/2,\; n-1}$ &
-			\(\{\chi^2 < \chi^2_{1-\alpha/2,\; n-1}\} \cup \{\chi^2 > \chi^2_{\alpha/2,\; n-1}\}\) \\ 
+			\(\{\chi^2 < \chi^2_{1-\alpha/2,\; n-1}\} \cup \{\chi^2 > \chi^2_{\alpha/2,\; n-1}\}\) \\
 			\bottomrule
 		\end{tabular}
 	\end{table}
-	
+
 	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
-	
+
 	Alternatively, if \(\chi^2_{\rm obs}\) lies in the rejection region, \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
@@ -9400,7 +9425,7 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 \subsection{Variances $\sigma_1^2$ and $\sigma_2^2$ Known}
 
 \begin{enumerate}
-	\item Hypothesis:  
+	\item Hypothesis:
 	$$H_0: \mu_1 - \mu_2 = \Delta_0$$
 	\begin{align*}
 	H_1: \begin{cases}
@@ -9410,31 +9435,31 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 	\end{cases}
 	\end{align*}
 	where \(\Delta_0\) is the hypothesized difference (often 0).
-	
+
 	\item Select \(\alpha\) (commonly 0.01, 0.05, or 0.10) as the maximum probability of a Type I error.
-	
-	\item Test statistic  
+
+	\item Test statistic
 	\[
 	Z \;=\; \frac{\overline{X}_1 - \overline{X}_2 - \Delta_0}{\sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}}
 	\]
 	where \(\overline{X}_1\) and \(\overline{X}_2\) are the sample means, \(\sigma_1^2\) and \(\sigma_2^2\) are the known population variances, and \(n_1\), \(n_2\) are the respective sample sizes. Under \(H_0\), \(Z \sim N(0,1)\). Let \(z_{\rm obs}\) be the observed value of \(Z\) from the sample data.
-	
+
 	\item We now calculate the \(p\)-value from the distribution of the test statistic:
 	\[
-	p\text{-value} = 
+	p\text{-value} =
 	\begin{cases}
 	P(Z \ge z_{\rm obs}), & \text{for } H_1: \mu_1 - \mu_2 > \Delta_0 \\[6pt]
 	P(Z \le z_{\rm obs}), & \text{for } H_1: \mu_1 - \mu_2 < \Delta_0 \\[6pt]
 	2\,P\left(|Z| \ge |z_{\rm obs}|\right), & \text{for } H_1: \mu_1 - \mu_2 \neq \Delta_0
 	\end{cases}
 	\]
-	
+
 	Alternatively, we can identify the critical values and rejection regions at level \(\alpha\):
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{@{}c|c|c@{}}
 			\toprule
-			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\
 			\midrule
 			$\mu_1 - \mu_2 > \Delta_0$ & $z_{\alpha}$ &
 			\(\{Z > z_{\alpha}\}\) \\[6pt]
@@ -9445,9 +9470,9 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 			\bottomrule
 		\end{tabular}
 	\end{table}
-	
+
 	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
-	
+
 	Alternatively, if \(z_{\rm obs}\) lies in the rejection region, \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
@@ -9455,7 +9480,7 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 \subsection{Variances $\sigma_1^2$ and $\sigma_2^2$ Unknown}
 
 \begin{enumerate}
-	\item Hypothesis:  
+	\item Hypothesis:
 	$$H_0: \mu_1 - \mu_2 = \Delta_0$$
 	\begin{align*}
 	H_1: \begin{cases}
@@ -9465,34 +9490,34 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 	\end{cases}
 	\end{align*}
 	where \(\Delta_0\) is the hypothesized difference (often 0).
-	
+
 	\item Select \(\alpha\) (e.g.\ 0.01, 0.05, 0.10).
-	
+
 	\item Test statistic and degrees of freedom:
-	
+
 	\begin{description}[leftmargin=1cm]
-		\item[(i) Equal variances assumed $\sigma_1^2=\sigma_2^2$ (pooled \(t\)–test)]  
+		\item[(i) Equal variances assumed $\sigma_1^2=\sigma_2^2$ (pooled \(t\)–test)]
 		\begin{align*}
 		T \;&=\;\frac{\overline X_1 - \overline X_2 - \Delta_0}
 		{\,S_p\sqrt{\dfrac1{n_1}+\dfrac1{n_2}}\,}
 		\end{align*}
-		where 
+		where
 		$$S_p^2 \;=\;\dfrac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{\,n_1+n_2-2\,}$$
 		is the pooled variance. Under $H_0$, $T$ follows a \(t\)-distribution with $\nu$ degrees freedom where $\nu=n_1+n_2-2$.
-		
+
 		\bigskip
-		
-		\item[(ii) Unequal variances assumed $\sigma_1^2\neq\sigma_2^2$ (Smith–Satterthwaite test)]  
+
+		\item[(ii) Unequal variances assumed $\sigma_1^2\neq\sigma_2^2$ (Smith–Satterthwaite test)]
 		$$T \;=\;
 		\frac{\overline X_1 - \overline X_2 - \Delta_0}
 		{\sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}}$$
-		
+
 		Under $H_0$, $T$ {approximately} follows a \(t\)-distribution with $\nu$ degrees of freedom (\textbf{Welch approximation}) where
 		$$\nu \approx
 		\dfrac{\left( \dfrac{S_1^2}{n_1}+\dfrac{S_2^2}{n_2}\right)^{2}}
 		{\dfrac{(S_1^2/n_1)^2}{n_1-1} \;+\;\dfrac{(S_2^2/n_2)^2}{n_2-1}}$$
 	\end{description}
-	
+
 	\item We now calculate the \(p\)-value using the appropriate \(t\)-distribution for test statistic:
 	\[
 	p\text{-value} =
@@ -9502,14 +9527,14 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 	2\,P\bigl(|T|\ge |T_{\rm obs}|\bigr), & H_1:\,\mu_1-\mu_2 \neq \Delta_0
 	\end{cases}
 	\]
-	
+
 	Alternatively, we can identify the critical values and rejection regions at level \(\alpha\):
-	
+
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{@{}c|c|c@{}}
 			\toprule
-			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\
 			\midrule
 			\(\mu_1-\mu_2>\Delta_0\) &
 			\(t_{1-\alpha,\;\nu}\) &
@@ -9523,9 +9548,9 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 			\bottomrule
 		\end{tabular}
 	\end{table}
-	
+
 	Here \(\nu = n_1+n_2-2\) for the pooled case, and \(\nu\) is given by the Welch–Satterthwaite formula for unequal variances.
-	
+
 	\item If \(p\text{-value}\le\alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
@@ -9537,20 +9562,20 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
     \textit{Example:} A factory claims their lightbulbs last an average of 1,000 hours. We suspect they don’t.\\
     \( H_0: \mu = 1000 \) hours \\
     \( H_1: \mu \neq 1000 \) hours
-    
+
     \item \textbf{Choose a significance level} \\
     Let’s use \( \alpha = 0.05 \).
-    
+
     \item \textbf{Collect data and calculate the test statistic} \\
     Suppose we test 30 lightbulbs and find the sample mean \( \overline{x} = 980 \), with a standard deviation \( s = 50 \).
-    
+
     \item \textbf{Calculate the p-value or compare the test statistic to a critical value} \\
     Using a Z-test:
     \[
     z = \frac{\overline{x} - \mu}{\sigma / \sqrt{n}} = \frac{980 - 1000}{50 / \sqrt{30}} \approx -2.19
     \]
     From Z-tables, \( p \approx 0.0286 \) (two-tailed).
-    
+
     \item \textbf{Make a decision} \\
     Since \( p < \alpha \), we reject \( H_0 \). \\
     \textbf{Conclusion:} There is evidence that the average bulb life is not 1,000 hours.
@@ -9577,7 +9602,7 @@ One very important concept related to error probabilities is the notion of the \
 \begin{textbox}
 	The \textbf{power} of a test at a specific alternative parameter value $\theta=\theta_1$ is defined as
 	\begin{align*}
-	\mathrm{Power}(\theta_1) &= P(\text{Rejecting }H_0\mid \theta = \theta_1)\\ 
+	\mathrm{Power}(\theta_1) &= P(\text{Rejecting }H_0\mid \theta = \theta_1)\\
 	&=1-P(\text{Not rejecting }H_0\mid \theta = \theta_1)\\
 	& = 1 - \beta(\theta_1)
 	\end{align*}
@@ -9625,17 +9650,17 @@ By varying the critical value \(c\), we obtain different pairs \((\alpha, 1-\bet
 	\begin{tikzpicture}[scale=1.2]
 	\draw[->] (0,0) -- (5,0) node[right] {False Positive Rate (\(\alpha\))};
 	\draw[->] (0,0) -- (0,5) node[above] {True Positive Rate (Power)};
-	
+
 	% Diagonal line (random guess line)
 	\draw[dashed, gray] (0,0) -- (4.5,4.5);
-	
+
 	% Example ROC curve (concave)
 	\draw[thick, blue] plot [smooth] coordinates {(0,0) (0.5,1.0) (1.5,3.2) (2.5,4.0) (4,4.5)};
-	
+
 	% Points
 	\filldraw (0,0) circle (1.5pt) node[below left] {0};
 	\filldraw (4.5,4.5) circle (1.5pt) node[above right] {1};
-	
+
 	% Labels
 	\node at (3,1) {ROC Curve};
 	\node[gray] at (2,2) {Random Guess};
@@ -9701,13 +9726,13 @@ Increasing $n$, choosing a larger $\alpha$, or considering a larger separation b
 \section{Most Powerful Test, Neyman–Pearson Lemma, and Likelihood Ratio Test}
 
 \subsection{Most Powerful Test}
-A \textbf{most powerful} test between two simple hypotheses 
+A \textbf{most powerful} test between two simple hypotheses
 \[
 H_0: \theta = \theta_0
 \quad\text{and}\quad
 H_1: \theta = \theta_1
 \]
-is a test of size~$\alpha$ whose power under $H_1$ is at least as large as that of any other test of the same size.  Concretely, if $\phi(X)\in\{0,1\}$ denotes our test function, then for any other test $\psi(X)$ with 
+is a test of size~$\alpha$ whose power under $H_1$ is at least as large as that of any other test of the same size.  Concretely, if $\phi(X)\in\{0,1\}$ denotes our test function, then for any other test $\psi(X)$ with
 \[
 \mathbb{E}_{\theta_0}[\psi(X)] \le \alpha,
 \]
@@ -9717,7 +9742,7 @@ we have
 \]
 
 \subsection{Neyman–Pearson Lemma}
-\textbf{Theorem.}  (Neyman–Pearson)  
+\textbf{Theorem.}  (Neyman–Pearson)
 Let $X$ have density or mass $f(x;\theta)$.  To test
 \[
 H_0: \theta=\theta_0
@@ -9759,7 +9784,7 @@ define the likelihood ratio statistic
 \frac{\displaystyle\max_{\theta\in\Theta_0}L(\theta;x)}
 {\displaystyle\max_{\theta\in\Theta}L(\theta;x)},
 \]
-where $L(\theta;x)=f(x;\theta)$.  We reject $H_0$ for small values of $\lambda(x)$ (equivalently, large values of $-2\log\lambda(x)$).  
+where $L(\theta;x)=f(x;\theta)$.  We reject $H_0$ for small values of $\lambda(x)$ (equivalently, large values of $-2\log\lambda(x)$).
 
 Under standard regularity conditions, as the sample size $n\to\infty$,
 \[
@@ -9787,6 +9812,121 @@ After taking logarithms and rearranging, this reduces to the usual level‑$\alp
 \[
 \overline X > \mu_0 + z_{1-\alpha}\,\frac{\sigma}{\sqrt n}.
 \]
+
+\section{Exercises}
+\begin{enumerate}
+	\item \textbf{Problem}: A coffee shop claims that their espresso machine dispenses an average of 30ml of espresso
+	per shot with a known population standard deviation of 2.5ml. A quality control inspector
+	randomly samples 36 espresso shots and finds the following volumes (in ml):
+
+	Sample data (ml):
+	\begin{align*}
+	&30.44, 28.85, 30.82, 33.01, 28.61, 28.61, 33.15, 31.12, 28.03, 30.56, 28.04, 28.04,\\
+	&29.8,  24.42, 24.89, 27.79, 26.67, 29.99, 26.93, 25.67, 32.86, 28.64, 29.37, 25.64,\\
+	&27.84, 29.48, 26.32, 30.14, 27.7,  28.47, 27.7, 33.83, 29.17, 26.56, 31.26, 26.15
+	\end{align*}
+
+	At $ \alpha = 0.05 $, test if the machine is dispensing the claimed amount.
+
+	\begin{lstlisting}
+import numpy as np
+import scipy.stats as stats
+
+# Sample data
+espresso_data = np.array([28.99, 26.93, 30.15, 31.72, 28.04, 29.17, 32.15, 30.81, 28.87, 28.09, 28.06, 30.53, 29.45, 30.28, 29.35, 31.22, 28.15, 27.99, 28.75, 29.45, 29.56, 30.95, 29.07, 29.96, 30.46, 30.74, 28.93, 29.78, 29.73, 30.38, 28.66, 30.94, 30.02, 31.95, 28.89, 31.26])
+
+# Given parameters
+mu_0 = 30
+sigma = 2.5
+n = len(espresso_data)
+
+# Significance level
+alpha = 0.05
+sample_mean = np.mean(espresso_data)
+
+# Test statistic calculation
+z_stat = (sample_mean - mu_0) / (sigma / np.sqrt(n))
+print(f"Z = {z_stat:.3f}")
+
+# P-value calculation
+p_value = 2 * (1 - stats.norm.cdf(abs(z_stat)))
+print(f"p-value = {p_value:.6f}")
+
+# Decision based on p-value
+if p_value < alpha:
+    print("REJECT H0")
+    print("Conclusion: Machine does NOT dispense 30ml on average")
+else:
+    print("FAIL TO REJECT H0")
+    print("Conclusion: Insufficient evidence that machine does not dispense 30ml")
+	\end{lstlisting}
+    Output
+    \begin{lstlisting}
+Z = -0.705
+p-value = 0.481018
+FAIL TO REJECT H0
+Conclusion: Insufficient evidence that machine does not dispense 30ml
+    \end{lstlisting}
+
+    \item \textbf{Problem}: A university claims that students spend an average of 15 hours per week studying. A researcher randomly surveys 20 students and records their weekly study hours. The population standard deviation is unknown.
+
+    Sample data (hours per week): [13.5, 11.4, 12.8, 14.9, 13.6, 15.2, 12.1, 16.8, 14.3, 12.7, 13.9, 15.1, 14.6, 13.2, 12.9, 14.8, 13.4, 15.7, 14.2, 13.8]
+
+    At $\alpha$ = 0.01, test if students actually study 15 hours per week on average.
+
+    \begin{lstlisting}
+import numpy as np
+import scipy.stats as stats
+
+# Sample data
+study_hours = np.array([13.5, 11.4, 12.8, 14.9, 13.6, 15.2, 12.1, 16.8, 14.3, 12.7, 13.9, 15.1, 14.6, 13.2, 12.9, 14.8, 13.4, 15.7, 14.2, 13.8])
+
+# Given parameters
+mu_0 = 15          # Claimed population mean
+n = len(study_hours)    # Sample size
+alpha = 0.01       # Significance level
+df = n - 1         # Degrees of freedom
+
+# Calculate test statistic
+sample_mean = np.mean(study_hours)
+sample_std = np.std(study_hours, ddof=1)  # ddof=1 for sample standard deviation
+t_stat = (sample_mean - mu_0) / (sample_std / np.sqrt(n))
+print(f"t-statistic: {t_stat:.3f}, Degrees of freedom: {df}")
+
+# Calculate p-value (two-tailed test)
+p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df))
+print(f"p-value: {p_value:.6f}")
+
+# Make decision
+if p_value < alpha:
+    print("Decision: REJECT H0")
+else:
+    print("Decision: FAIL TO REJECT H0")
+
+## Alternative approach using critical value method
+print("-----------------------------")
+# Find critical value
+t_critical = stats.t.ppf(1-alpha/2, df) # Percent point function (inverse of cdf)
+print(f"Critical values: -{t_critical:.3f}, {t_critical:.3f}")
+
+# Make decision
+if abs(t_stat) > t_critical:
+    print("Decision: REJECT H0")
+else:
+    print("Decision: FAIL TO REJECT H0")
+    \end{lstlisting}
+    Output
+    \begin{lstlisting}
+t-statistic: -3.668, Degrees of freedom: 19
+p-value: 0.001633
+Decision: REJECT H0
+-----------------------------
+Critical values: -2.861, 2.861
+Decision: REJECT H0
+    \end{lstlisting}
+
+
+\end{enumerate}
 
 
 \chapter{Correlation and Regression}
@@ -9859,7 +9999,7 @@ Pearson's correlation coefficient for a population, commonly denoted by the Gree
 \end{textbox}
 where \(\mu_X = \mathbb{E}[X]\) and \(\mu_Y = \mathbb{E}[Y]\) are the means of \(X\) and \(Y\), \(\sigma_X\) and \(\sigma_Y\) are their standard deviations, and \(\operatorname{Cov}(X,Y)\) is the covariance between \(X\) and \(Y\).
 
-Like all population parameters, The value of $\rho_{XY}$ is not known to us. We may need to estimate it from the random sample observation pairs $(X,Y)$. Let $$ (x_1, y_1), (x_2, y_2), \dots,(x_n, y_n) $$ be $n$ pairs of observations with respective means $\overline{X}, \overline{Y}$ and variances $S_X^2, S_X^2$ respectively. It turns out that a point estimate of $\text{Cov}(X,Y)$ is the sample covariance: 
+Like all population parameters, The value of $\rho_{XY}$ is not known to us. We may need to estimate it from the random sample observation pairs $(X,Y)$. Let $$ (x_1, y_1), (x_2, y_2), \dots,(x_n, y_n) $$ be $n$ pairs of observations with respective means $\overline{X}, \overline{Y}$ and variances $S_X^2, S_X^2$ respectively. It turns out that a point estimate of $\text{Cov}(X,Y)$ is the sample covariance:
 $$ S_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{n-1} $$
 The point estimate of $\sigma_X$ is sample standard deviation of $X$:
 $$S_X = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (x_i - \overline{x})^2}$$
@@ -9932,25 +10072,25 @@ The value of $r_{XY}$ lies within -1 and 1 i.e. $-1 \leq r_{XY} \leq 1$.
 	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
 		(1,1.5) (2,1.9) (3,3.1) (4,4.8) (5,4.9) (6,5.9) (7,7.8)
 	};
-	
+
 	% Negative correlation
 	\nextgroupplot[title={Negative Correlation ($r<0$)},xmin=0, xmax=8,	ymin=1]
 	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
 		(1,7.0) (2,6.0) (3,5.0) (4,4.5) (5,3.7) (6,2.2) (7,1.6)
 	};
-	
+
 	% Zero correlation
 	\nextgroupplot[title={Zero Correlation ($r\approx0$)},xmin=0, xmax=8,	ymin=3, ymax=6]
 	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
 		(1,4.5) (2,5.8) (3,4.2) (4,4.9) (5,3.9) (6,5.3) (7,4.0)
 	};
-	
+
 	% Perfect linear correlation
 	\nextgroupplot[title={Perfect Linear Correlation ($r=1$)},xmin=0, xmax=8,ymin=1]
 	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
 		(1,2) (2,4) (3,6) (4,8) (5,10) (6,12) (7,14)
 	};
-	
+
 	\end{groupplot}
 	\end{tikzpicture}
 	\caption{\textit{Scatterplots illustrating positive, negative, zero, and perfect linear correlations.}}
@@ -9967,7 +10107,7 @@ The value of $r_{XY}$ lies within -1 and 1 i.e. $-1 \leq r_{XY} \leq 1$.
 % 		$0.70$ to $0.89$ or $-0.70$ to $-0.89$ & Strong \\
 % 		$0.40$ to $0.69$ or $-0.40$ to $-0.69$ & Moderate \\
 % 		$0.10$ to $0.39$ or $-0.10$ to $-0.39$ & Weak \\
-% 		$0.00$ to $0.09$ or $-0.00$ to $-0.09$ & Very weak or none\\ 
+% 		$0.00$ to $0.09$ or $-0.00$ to $-0.09$ & Very weak or none\\
 % 		\bottomrule
 % 	\end{tabular}
 % 	\caption{Interpreting the magnitude of correlation coefficient}
@@ -10032,7 +10172,7 @@ where \(a, c\) are constants (shifts) and \(b, d \neq 0\) are scaling factors. T
 \rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY}
 \end{align*}
 \end{textbox}
-\textbf{Proof}: 
+\textbf{Proof}:
 \begin{align*}
 \rho_{UV} =  \dfrac{\mathrm{Cov}(U,V)}{\sigma_U \sigma_V} = \dfrac{\mathrm{Cov}(a + bX, c + dY)}{\sqrt{\mathrm{Var}(a + bX)} \cdot \sqrt{\mathrm{Var}(c + dY)}}
 \end{align*}
@@ -10058,7 +10198,7 @@ Since
 \]
 
 where \(\operatorname{sgn}(\cdot)\) is the sign function\footnote{The \textbf{sign function}, denoted by \(\operatorname{sgn}(x)\), is defined as:
-	
+
 	\[
 	\operatorname{sgn}(x) =
 	\begin{cases}
@@ -10067,7 +10207,7 @@ where \(\operatorname{sgn}(\cdot)\) is the sign function\footnote{The \textbf{si
 	\phantom{-}1, & \text{if } x > 0.
 	\end{cases}
 	\]
-	
+
 	It extracts the sign of a real number \(x\).}, it follows that
 
 \[
@@ -10300,29 +10440,29 @@ Thus we get the expression for $\hat{\beta}_1$
 % \end{align*}
 
 \begin{align*}
-\hat{\beta}_1 &= 
+\hat{\beta}_1 &=
 \left[
-n\sum_{i=1}^{n} x_i y_i 
-- 
+n\sum_{i=1}^{n} x_i y_i
+-
 \left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)
 \right]
 \bigg/
 \left[
-n\sum_{i=1}^{n} x_i^2 
-- 
+n\sum_{i=1}^{n} x_i^2
+-
 \left(\sum_{i=1}^{n} x_i\right)^2
 \right]
 \\
-&= 
+&=
 \left[
-\sum_{i=1}^{n} x_i y_i 
-- 
+\sum_{i=1}^{n} x_i y_i
+-
 \frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right]
 \right)
 \bigg/
 \left[
-\sum_{i=1}^{n} x_i^2 
-- 
+\sum_{i=1}^{n} x_i^2
+-
 \frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2
 \right]
 \end{align*}
