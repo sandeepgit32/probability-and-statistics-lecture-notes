@@ -7888,6 +7888,7 @@ follows a chi-square distribution with $\nu = n-1$ degrees of freedom:
 We now need to find the critical values $L$ and $U$ such that
 $$P\left(L \leq \frac{(n-1) S^2}{\sigma^2} \leq U\right) = 1 - \alpha$$
 
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}
 	\begin{axis}[
@@ -7934,7 +7935,9 @@ $$P\left(L \leq \frac{(n-1) S^2}{\sigma^2} \leq U\right) = 1 - \alpha$$
 	
 	\end{axis}
 	\end{tikzpicture}
+	\caption{\textit{Confidence interval for $\chi^2$ distribution}.}
 \end{center}
+\end{figure}
 
 
 We take areas to the left of $L$ and to the right of $R$ to be equal to $\alpha/2$ i.e.
@@ -7943,12 +7946,12 @@ $$L = \chi_{1-\alpha/2, n-1}^2, \quad R = \chi_{\alpha/2, n-1}^2$$
 
 Thus,
 \[
-P\left(\chi^2_{\alpha/2, n-1} \leq \frac{(n-1) S^2}{\sigma^2} \leq \chi^2_{1-\alpha/2, n-1}\right) = 1 - \alpha
+P\left(\chi^2_{1-\alpha/2, n-1} \leq \frac{(n-1) S^2}{\sigma^2} \leq \chi^2_{\alpha/2, n-1}\right) = 1 - \alpha
 \]
 
 Rearranging to solve for $\sigma^2$, we get
 \[
-P\left(\frac{(n-1) S^2}{\chi^2_{1-\alpha/2, n-1}} \leq \sigma^2 \leq \frac{(n-1) S^2}{\chi^2_{\alpha/2, n-1}}\right) = 1 - \alpha
+P\left(\frac{(n-1) S^2}{\chi^2_{\alpha/2, n-1}} \leq \sigma^2 \leq \frac{(n-1) S^2}{\chi^2_{1-\alpha/2, n-1}}\right) = 1 - \alpha
 \]
 
 Therefore, the $100(1-\alpha)\%$ confidence interval for $\sigma^2$ is
@@ -9131,8 +9134,8 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 	$$H_0: \mu = \mu_0$$
 	\begin{align*}
 	H_1: \begin{cases}
-	\mu \geq \mu_0, & \text{Right tail test}\\[6pt]
-	\mu \leq \mu_0, & \text{Left tail test}\\[6pt]
+	\mu > \mu_0, & \text{Right tail test}\\[6pt]
+	\mu < \mu_0, & \text{Left tail test}\\[6pt]
 	\mu \neq \mu_0, & \text{Two-sided test}\\[6pt]
 	\end{cases}
 	\end{align*}
@@ -9186,8 +9189,8 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 	$$H_0: \mu = \mu_0$$
 	\begin{align*}
 	H_1: \begin{cases}
-	\mu \geq \mu_0, & \text{Right tail test}\\[6pt]
-	\mu \leq \mu_0, & \text{Left tail test}\\[6pt]
+	\mu > \mu_0, & \text{Right tail test}\\[6pt]
+	\mu < \mu_0, & \text{Left tail test}\\[6pt]
 	\mu \neq \mu_0, & \text{Two-sided test}
 	\end{cases}
 	\end{align*}
@@ -9276,6 +9279,122 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 	
 	Alternatively, if $z_{obs}$ (for large sample) or $t_{obs}$ (for small sample) lies in the rejection region, \textbf{reject} the \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
+
+
+\section{Statistical Test for a Normally Distributed Population Variance \(\sigma^2\)}
+
+\begin{enumerate}
+	\item Hypothesis:  
+	$$H_0: \sigma^2 = \sigma_0^2$$
+	\begin{align*}
+	H_1: \begin{cases}
+	\sigma^2 > \sigma_0^2, & \text{Right tail test}\\[6pt]
+	\sigma^2 < \sigma_0^2, & \text{Left tail test}\\[6pt]
+	\sigma^2 \neq \sigma_0^2, & \text{Two-sided test}\\[6pt]
+	\end{cases}
+	\end{align*}
+	
+	\item Select \(\alpha\) (commonly 0.01, 0.05, or 0.10) as the maximum probability of a Type I error.
+	
+	\item Test statistic  
+	\[
+	\chi^2 = \frac{(n - 1) S^2}{\sigma_0^2}
+	\]
+	where \(S^2\) is the sample variance and \(n\) is the sample size. Under \(H_0\), \(\chi^2 \sim \chi^2_{n-1}\) (chi-squared distribution with \(n-1\) degrees of freedom). Let \(\chi^2_{\rm obs}\) be the observed value from the sample.
+	
+	\begin{figure}[H]
+		\begin{center}
+			\begin{tikzpicture}
+			\begin{axis}[
+			width=12cm, height=7cm,
+			domain=0:19.7, samples=200,
+			axis lines=left,
+			xlabel={$\chi^2$},
+			ylabel={PDF of $\chi^2$},
+			ymin=0, ymax=0.2,
+			xmin=0, xmax=20,
+			xtick={2,8},
+			xticklabels={\(\chi_{1-\alpha/2, n-1}^2\), \(\chi_{\alpha/2, n-1}^2\)},
+			% title={\small Chi-Squared Distributions for Different Degrees of Freedom},
+			% grid=major,
+			thick,
+			]
+			
+			% ν = 5: f(x) = (1 / (2^{5/2} * Γ(5/2))) * x^{3/2} * exp(-x/2)
+			% Γ(5/2) = 1.3293..., 2^{5/2} = 5.6568...
+			% Constant = 1 / (5.6568 * 1.3293) ≈ 0.133
+			\addplot [blue, very thick,] {0.133 * x^(1.5) * exp(-x/2)};
+			
+			% Shade the confidence interval region [-z_alpha/2, z_alpha/2]
+			\addplot [
+			domain=0:2, 
+			draw=none, 
+			fill=blue!20,
+			samples=100
+			]
+			{0.133 * x^(1.5) * exp(-x/2)} \closedcycle;
+			
+			\addplot [
+			domain=8:20, 
+			draw=none, 
+			fill=blue!20,
+			samples=100
+			]
+			{0.133 * x^(1.5) * exp(-x/2)} \closedcycle;
+			
+			% Labels
+			\node[below] at (axis cs:1.3,0.05) { ${\alpha/2}$};
+			\node[below] at (axis cs:9,0.028) { ${\alpha/2}$};
+			\node[above, black] at (axis cs:4.5,0.05) { \(1-\alpha\)};
+			
+			% Single label with two arrows
+			\node (label) at (axis cs:12,0.15) {{Rejection region}};
+			\draw[->, thick] (label) to[out=200,in=0] (axis cs:2,0.07);
+			\draw[->, thick] (label) to[out=-90,in=90] (axis cs: 10,0.03);
+			
+			\end{axis}
+			\end{tikzpicture}
+			\caption{\textit{Critical values and rejection region for $\chi^2$ test statistic for two-sided test}.}
+		\end{center}
+	\end{figure}
+	
+	\item We now calculate the \(p\)-value from the distribution of the test statistic:
+	\[
+	p\text{-value} = 
+	\begin{cases}
+	P(\chi^2 \ge \chi^2_{\rm obs}), & \text{for } H_1: \sigma^2 > \sigma_0^2 \\[6pt]
+	P(\chi^2 \le \chi^2_{\rm obs}), & \text{for } H_1: \sigma^2 < \sigma_0^2 \\[6pt]
+	2\,\min\bigl\{P(\chi^2 \le \chi^2_{\rm obs}),\; P(\chi^2 \ge \chi^2_{\rm obs})\bigr\}, & \text{for } H_1: \sigma^2 \neq \sigma_0^2
+	\end{cases}
+	\]
+	
+	In the two-sided test \( H_1: \sigma^2 \neq \sigma_0^2 \), we are interested in deviations of the sample variance from \( \sigma_0^2 \) in both directions. Since the chi-squared distribution is not symmetric, the two-tailed \( p \)-value is computed by taking the smaller of the two tail probabilities and double it, forming a conservative and valid two-sided p-value.
+	This formula captures the probability of observing a value as extreme as \( \chi^2_{\text{obs}} \) in either tail of the distribution.
+	
+	Alternatively, we can use critical values and define the rejection region based on \(\alpha\):
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{@{}c|c|c@{}}
+			\toprule
+			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+			\midrule
+			$\sigma^2 > \sigma_0^2$ & $\chi^2_{\alpha,\; n-1}$ &
+			\(\{\chi^2 > \chi^2_{\alpha,\; n-1}\}\) \\[6pt]
+			$\sigma^2 < \sigma_0^2$ &
+			$\chi^2_{\alpha,\; n-1}$ &
+			\(\{\chi^2 < \chi^2_{\alpha,\; n-1}\}\) \\[6pt]
+			$\sigma^2 \neq \sigma_0^2$ &
+			$\chi^2_{1-\alpha/2,\; n-1},\; \chi^2_{\alpha/2,\; n-1}$ &
+			\(\{\chi^2 < \chi^2_{1-\alpha/2,\; n-1}\} \cup \{\chi^2 > \chi^2_{\alpha/2,\; n-1}\}\) \\ 
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+	
+	Alternatively, if \(\chi^2_{\rm obs}\) lies in the rejection region, \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+\end{enumerate}
+
 
 
 \section{The 5 Steps of Hypothesis Testing}
