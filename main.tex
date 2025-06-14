@@ -8022,7 +8022,7 @@ If equal variance cannot be assumed, use:
 T = \dfrac{(\overline{X} - \overline{Y}) - (\mu_1 - \mu_2)}{\sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}}
 \]
 
-This approximately follows a \(t\)-distribution with degrees of freedom:
+This approximately follows a \(t\)-distribution with $\nu$ degrees of freedom, where:
 \[
 \nu \approx \dfrac{\left( \dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2} \right)^2}{\dfrac{1}{n_1 - 1}\left(\dfrac{S_1^2}{n_1} \right)^2 + \dfrac{1}{n_2 - 1}\left( \dfrac{S_2^2}{n_2}\right)^2}
 \]
@@ -9127,7 +9127,7 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 
 \section{Statistical Test for a Normally Distributed Population Mean \(\mu\)}
 
-\subsection{Standard Deviation($\sigma$) Known}
+\subsection{Variance $\sigma^2$ Known}
 
 \begin{enumerate}
 	\item Hypothesis:  
@@ -9182,7 +9182,7 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 \end{enumerate}
 
 
-\subsection{Standard Deviation($ \sigma $) Unknown}
+\subsection{Variance $\sigma^2 $ Unknown}
 
 \begin{enumerate}
 	\item Hypothesis:  
@@ -9395,6 +9395,139 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 	Alternatively, if \(\chi^2_{\rm obs}\) lies in the rejection region, \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
+\section{Statistical Test for the Difference of Two Normally Distributed Population Means \(\mu_1 - \mu_2\)}
+
+\subsection{Variances $\sigma_1^2$ and $\sigma_2^2$ Known}
+
+\begin{enumerate}
+	\item Hypothesis:  
+	$$H_0: \mu_1 - \mu_2 = \Delta_0$$
+	\begin{align*}
+	H_1: \begin{cases}
+	\mu_1 - \mu_2 > \Delta_0, & \text{Right tail test}\\[6pt]
+	\mu_1 - \mu_2 < \Delta_0, & \text{Left tail test}\\[6pt]
+	\mu_1 - \mu_2 \neq \Delta_0, & \text{Two-sided test}
+	\end{cases}
+	\end{align*}
+	where \(\Delta_0\) is the hypothesized difference (often 0).
+	
+	\item Select \(\alpha\) (commonly 0.01, 0.05, or 0.10) as the maximum probability of a Type I error.
+	
+	\item Test statistic  
+	\[
+	Z \;=\; \frac{\overline{X}_1 - \overline{X}_2 - \Delta_0}{\sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}}
+	\]
+	where \(\overline{X}_1\) and \(\overline{X}_2\) are the sample means, \(\sigma_1^2\) and \(\sigma_2^2\) are the known population variances, and \(n_1\), \(n_2\) are the respective sample sizes. Under \(H_0\), \(Z \sim N(0,1)\). Let \(z_{\rm obs}\) be the observed value of \(Z\) from the sample data.
+	
+	\item We now calculate the \(p\)-value from the distribution of the test statistic:
+	\[
+	p\text{-value} = 
+	\begin{cases}
+	P(Z \ge z_{\rm obs}), & \text{for } H_1: \mu_1 - \mu_2 > \Delta_0 \\[6pt]
+	P(Z \le z_{\rm obs}), & \text{for } H_1: \mu_1 - \mu_2 < \Delta_0 \\[6pt]
+	2\,P\left(|Z| \ge |z_{\rm obs}|\right), & \text{for } H_1: \mu_1 - \mu_2 \neq \Delta_0
+	\end{cases}
+	\]
+	
+	Alternatively, we can identify the critical values and rejection regions at level \(\alpha\):
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{@{}c|c|c@{}}
+			\toprule
+			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+			\midrule
+			$\mu_1 - \mu_2 > \Delta_0$ & $z_{\alpha}$ &
+			\(\{Z > z_{\alpha}\}\) \\[6pt]
+			$\mu_1 - \mu_2 < \Delta_0$ & $-z_{\alpha}$ &
+			\(\{Z < -z_{\alpha}\}\) \\[6pt]
+			$\mu_1 - \mu_2 \neq \Delta_0$ & $\pm z_{\alpha/2}$ &
+			\(\{|Z| > z_{\alpha/2}\}\) \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+	
+	Alternatively, if \(z_{\rm obs}\) lies in the rejection region, \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+\end{enumerate}
+
+
+\subsection{Variances $\sigma_1^2$ and $\sigma_2^2$ Unknown}
+
+\begin{enumerate}
+	\item Hypothesis:  
+	$$H_0: \mu_1 - \mu_2 = \Delta_0$$
+	\begin{align*}
+	H_1: \begin{cases}
+	\mu_1 - \mu_2 > \Delta_0, & \text{Right‐tail test}\\[6pt]
+	\mu_1 - \mu_2 < \Delta_0, & \text{Left‐tail test}\\[6pt]
+	\mu_1 - \mu_2 \neq \Delta_0, & \text{Two‐sided test}
+	\end{cases}
+	\end{align*}
+	where \(\Delta_0\) is the hypothesized difference (often 0).
+	
+	\item Select \(\alpha\) (e.g.\ 0.01, 0.05, 0.10).
+	
+	\item Test statistic and degrees of freedom:
+	
+	\begin{description}[leftmargin=1cm]
+		\item[(i) Equal variances assumed $\sigma_1^2=\sigma_2^2$ (pooled \(t\)–test)]  
+		\begin{align*}
+		T \;&=\;\frac{\overline X_1 - \overline X_2 - \Delta_0}
+		{\,S_p\sqrt{\dfrac1{n_1}+\dfrac1{n_2}}\,}
+		\end{align*}
+		where 
+		$$S_p^2 \;=\;\dfrac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{\,n_1+n_2-2\,}$$
+		is the pooled variance. Under $H_0$, $T$ follows a \(t\)-distribution with $\nu$ degrees freedom where $\nu=n_1+n_2-2$.
+		
+		\bigskip
+		
+		\item[(ii) Unequal variances assumed $\sigma_1^2\neq\sigma_2^2$ (Smith–Satterthwaite test)]  
+		$$T \;=\;
+		\frac{\overline X_1 - \overline X_2 - \Delta_0}
+		{\sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}}$$
+		
+		Under $H_0$, $T$ {approximately} follows a \(t\)-distribution with $\nu$ degrees of freedom (\textbf{Welch approximation}) where
+		$$\nu \approx
+		\dfrac{\left( \dfrac{S_1^2}{n_1}+\dfrac{S_2^2}{n_2}\right)^{2}}
+		{\dfrac{(S_1^2/n_1)^2}{n_1-1} \;+\;\dfrac{(S_2^2/n_2)^2}{n_2-1}}$$
+	\end{description}
+	
+	\item We now calculate the \(p\)-value using the appropriate \(t\)-distribution for test statistic:
+	\[
+	p\text{-value} =
+	\begin{cases}
+	P\bigl(T \ge T_{\rm obs}\bigr), & H_1:\,\mu_1-\mu_2 > \Delta_0\\[6pt]
+	P\bigl(T \le T_{\rm obs}\bigr), & H_1:\,\mu_1-\mu_2 < \Delta_0\\[6pt]
+	2\,P\bigl(|T|\ge |T_{\rm obs}|\bigr), & H_1:\,\mu_1-\mu_2 \neq \Delta_0
+	\end{cases}
+	\]
+	
+	Alternatively, we can identify the critical values and rejection regions at level \(\alpha\):
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{@{}c|c|c@{}}
+			\toprule
+			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\ 
+			\midrule
+			\(\mu_1-\mu_2>\Delta_0\) &
+			\(t_{1-\alpha,\;\nu}\) &
+			\(\{T > t_{\alpha,\;\nu}\}\) \\[6pt]
+			\(\mu_1-\mu_2<\Delta_0\) &
+			\(-\,t_{\alpha,\;\nu}\) &
+			\(\{T < -t_{\alpha,\;\nu}\}\) \\[6pt]
+			\(\mu_1-\mu_2\neq\Delta_0\) &
+			\(\pm\,t_{\alpha/2,\;\nu}\) &
+			\(\{|T| > t_{\alpha/2,\;\nu}\}\) \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	Here \(\nu = n_1+n_2-2\) for the pooled case, and \(\nu\) is given by the Welch–Satterthwaite formula for unequal variances.
+	
+	\item If \(p\text{-value}\le\alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+\end{enumerate}
 
 
 \section{The 5 Steps of Hypothesis Testing}
