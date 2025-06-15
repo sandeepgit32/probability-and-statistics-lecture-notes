@@ -9945,6 +9945,113 @@ After taking logarithms and rearranging, this reduces to the usual level‑$\alp
 \overline X > \mu_0 + z_{1-\alpha}\,\frac{\sigma}{\sqrt n}.
 \]
 
+\chapter{Analysis of Variance: One-Factor (One-Way ANOVA)}
+
+% Required packages: amsmath, amssymb, booktabs, float
+
+\section{Introduction}
+Analysis of Variance (ANOVA) is a statistical technique used to compare the means of three or more independent groups. One-way ANOVA, also called single-factor ANOVA, examines the effect of one categorical independent variable (factor) on a continuous dependent variable.
+
+\section{Motivation and Setup}
+Consider an experiment to compare the effectiveness of three teaching methods. Students are randomly assigned to one of three groups (Methods A, B, or C), and their final exam scores are recorded. We wish to test:
+\begin{itemize}
+\item $H_0$: All group means are equal.
+\item $H_1$: At least one group mean differs.
+\end{itemize}
+Let $Y_{ij}$ denote the score of the $j$th student in group $i$, for $i=1,2,3$ and $j=1,2,\dots,n_i$. The total sample size is $N=\sum_{i=1}^3 n\_i$.
+
+\section{Assumptions}
+\begin{enumerate}
+\item Observations are independent and randomly sampled within each group.
+\item Each group is normally distributed: $Y_{ij}\overset{\mathrm{i.i.d.}}{\sim}N(\mu_i,\sigma^2)$.
+\item Homogeneity of variances: all groups share the same variance $\sigma^2$.
+\end{enumerate}
+
+\section{Model}
+The one-way ANOVA model is:
+
+$$
+Y_{ij} = \mu + \tau_i + \varepsilon_{ij},
+$$
+
+where:
+\begin{itemize}
+\item $\mu$ is the overall mean,
+\item $\tau_i$ is the effect of group $i$ with constraint $\sum_{i=1}^3\tau_i=0$,
+\item $\varepsilon_{ij}\sim N(0,\sigma^2)$ are independent errors.
+\end{itemize}
+
+\section{Hypotheses}
+\begin{align*}
+H_0&: \tau_1=\tau_2=\tau_3 =0,\\
+H_1&: \text{At least one }\tau_i \neq 0
+\end{align*}
+
+\section{ANOVA Table}
+Partition total variability into between-group and within-group sums of squares:
+
+$$
+\mathrm{SST}=\sum_{i=1}^3\sum_{j=1}^{n_i}(Y_{ij}-\bar Y_{\cdot\cdot})^2,
+\quad
+\mathrm{SSB}=\sum_{i=1}^3 n_i(\bar Y_{i\cdot}-\bar Y_{\cdot\cdot})^2,
+\quad
+\mathrm{SSW}=\sum_{i=1}^3\sum_{j=1}^{n_i}(Y_{ij}-\bar Y_{i\cdot})^2.
+$$
+
+Here $\bar Y_{i\cdot}=\frac{1}{n_i}\sum\_{j=1}^{n_i}Y_{ij}$ and $\bar Y_{\cdot\cdot}=\frac{1}{N}\sum_{i,j}Y_{ij}$. Then:
+
+$$
+\mathrm{SST}=\mathrm{SSB}+\mathrm{SSW}.
+$$
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccc}
+\toprule
+Source & Sum of Squares & df & Mean Square \\
+\midrule
+Between Groups & $\mathrm{SSB}$ & $k-1$ & $\mathrm{MSB}=\dfrac{\mathrm{SSB}}{k-1}$ \\
+Within Groups & $\mathrm{SSW}$ & $N-k$ & $\mathrm{MSW}=\dfrac{\mathrm{SSW}}{N-k}$ \\
+Total & $\mathrm{SST}$ & $N-1$ &  \\
+\bottomrule
+\end{tabular}
+\caption{One-Way ANOVA Source Table}
+\end{table}
+
+\section{Test Statistic}
+Compute the ratio
+
+$$
+F = \frac{\mathrm{MSB}}{\mathrm{MSW}}.
+$$
+
+Under $H_0$, $F\sim F_{k-1,,N-k}$.
+
+\section{Decision Rule}
+\begin{itemize}
+\item Compute the observed value $F\_{\text{obs}}$.
+\item Reject $H_0$ if $F_{\text{obs}} > F_{\alpha,,k-1,,N-k}$.
+\item Alternatively, compute the $p$-value: $p = P(F_{k-1,,N-k} \ge F_{\text{obs}})$ and reject if $p < \alpha$.
+\end{itemize}
+
+\section{Example}
+Three fertilizers (A, B, and C) are tested on plant growth. Yields (in grams) are listed below:
+\begin{itemize}
+\item Method A: 20, 21, 19
+\item Method B: 23, 22, 24
+\item Method C: 17, 16, 18
+\end{itemize}
+Compute each group mean, the overall mean, SSB, SSW, MSB, MSW, then calculate the $F$-statistic and draw a conclusion.
+
+\section{Post Hoc Analysis}
+If $H_0$ is rejected, use Tukey's HSD or Bonferroni-adjusted pairwise comparisons to identify which means differ.
+
+\section{Conclusion}
+One-way ANOVA provides a single test for equality of multiple means under normality and equal-variance assumptions. When these assumptions are violated, consider alternatives such as Welch's ANOVA or the nonparametric Kruskal–Wallis test.
+
+
+
+
 \chapter{Correlation and Regression}
 
 \section{Correlation}
