@@ -9206,6 +9206,34 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 	Alternatively, if $z_{obs}$ lies in the rejection region, \textbf{reject} the \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
+\textbf{Example}: A factory claims that their lightbulbs last an average of 1,000 hours. To verify this claim, a sample of lightbulbs is tested. The population standard deviation is assumed known as 50 hours.
+
+\begin{itemize}
+	\item Let \(\mu\) be the true mean lifetime of the lightbulbs (in hours).
+
+	\item The null and alternative hypotheses are:
+	\begin{align*}
+	&H_0: \mu = 1000 \quad \text{(the claim is true)} \\
+	&H_1: \mu \neq 1000 \quad \text{(the claim is false)}
+	\end{align*}
+
+	\item A random sample of \(n = 30\) lightbulbs is selected. The sample mean is \(\overline{X} = 980\) and the population standard deviation is assumed known as \(\sigma = 50\).
+
+	\item Under the null hypothesis, the test statistic is:
+	\[
+	z_{\rm obs} = \dfrac{\overline{X} - \mu_0}{\sigma / \sqrt{n}} 
+	= \frac{980 - 1000}{50 / \sqrt{30}} 
+	= \frac{-20}{9.13} \approx -2.19
+	\]
+
+	\item From standard normal distribution tables, the two-tailed \(p\)-value is:
+	\[
+	p = 2 \cdot P(Z < -2.19) \approx 2 \cdot 0.0143 = 0.0286
+	\]
+
+	\item Since \(p < 0.05\), we reject the null hypothesis at the 5\% significance level. Thus there is statistically significant evidence at the 5\% level to suggest that the true average lifetime of the lightbulbs differs from 1,000 hours.
+\end{itemize}
+
 
 \subsection{Variance $\sigma^2 $ Unknown}
 
@@ -9442,7 +9470,7 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 	\[
 	Z \;=\; \frac{\overline{X}_1 - \overline{X}_2 - \Delta_0}{\sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}}
 	\]
-	where \(\overline{X}_1\) and \(\overline{X}_2\) are the sample means, \(\sigma_1^2\) and \(\sigma_2^2\) are the known population variances, and \(n_1\), \(n_2\) are the respective sample sizes. Under \(H_0\), \(Z \sim N(0,1)\). Let \(z_{\rm obs}\) be the observed value of \(Z\) from the sample data.
+	where \(\overline{X}_1\) and \(\overline{X}_2\) are the sample means, \(\sigma_1^2\) and \(\sigma_2^2\) are the known population variances, and \(n_1\), \(n_2\) are the respective sample sizes. Under \(H_0\), \(Z \sim \mathcal{N}(0,1)\). Let \(z_{\rm obs}\) be the observed value of \(Z\) from the sample data.
 
 	\item We now calculate the \(p\)-value from the distribution of the test statistic:
 	\[
@@ -9522,9 +9550,9 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 	\[
 	p\text{-value} =
 	\begin{cases}
-	P\bigl(T \ge T_{\rm obs}\bigr), & H_1:\,\mu_1-\mu_2 > \Delta_0\\[6pt]
-	P\bigl(T \le T_{\rm obs}\bigr), & H_1:\,\mu_1-\mu_2 < \Delta_0\\[6pt]
-	2\,P\bigl(|T|\ge |T_{\rm obs}|\bigr), & H_1:\,\mu_1-\mu_2 \neq \Delta_0
+	P\bigl(T \ge t_{\rm obs}\bigr), & H_1:\,\mu_1-\mu_2 > \Delta_0\\[6pt]
+	P\bigl(T \le t_{\rm obs}\bigr), & H_1:\,\mu_1-\mu_2 < \Delta_0\\[6pt]
+	2\,P\bigl(|T|\ge |t_{\rm obs}|\bigr), & H_1:\,\mu_1-\mu_2 \neq \Delta_0
 	\end{cases}
 	\]
 
@@ -9555,45 +9583,149 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 \end{enumerate}
 
 
-\section{The 5 Steps of Hypothesis Testing}
+\section{Statistical Test for the Ratio of Two Normally Distributed Population Variances}
 
 \begin{enumerate}
-    \item \textbf{State the hypotheses} \\
-    \textit{Example:} A factory claims their lightbulbs last an average of 1,000 hours. We suspect they don’t.\\
-    \( H_0: \mu = 1000 \) hours \\
-    \( H_1: \mu \neq 1000 \) hours
+	\item Let \(\sigma_1^2\) and \(\sigma_2^2\) be the variances of two independent normal populations. We want to test whether the ratio of these variances is equal to a specified positive value \(\delta\). The null and alternative hypotheses are:
+	\[
+	H_0: \frac{\sigma_1^2}{\sigma_2^2} = \delta
+	\]
+	\begin{align*}
+	H_1: \begin{cases}
+	\dfrac{\sigma_1^2}{\sigma_2^2} > \delta, & \text{Right tail test}\\[6pt]
+	\dfrac{\sigma_1^2}{\sigma_2^2} < \delta, & \text{Left tail test}\\[6pt]
+	\dfrac{\sigma_1^2}{\sigma_2^2} \neq \delta, & \text{Two-sided test}
+	\end{cases}
+	\end{align*}
 
-    \item \textbf{Choose a significance level} \\
-    Let’s use \( \alpha = 0.05 \).
+	\item Select \(\alpha\), the level of significance (e.g., 0.01, 0.05, or 0.10).
 
-    \item \textbf{Collect data and calculate the test statistic} \\
-    Suppose we test 30 lightbulbs and find the sample mean \( \overline{x} = 980 \), with a standard deviation \( s = 50 \).
+	\item Let \(S_1^2\) and \(S_2^2\) be the sample variances from independent random samples of sizes \(n_1\) and \(n_2\), respectively. The test statistic is:
+	\[
+	F = \dfrac{S_1^2}{\delta S_2^2}
+	\]
+	Under \(H_0\), \(F \sim F_{\nu_1,\nu_2}\), i.e., an F-distribution with \(\nu_1 = n_1 - 1\) and \(\nu_2 = n_2 - 1\) degrees of freedom. Let \(F_{\rm obs}\) be the observed value of the test statistic from the sample data.
 
-    \item \textbf{Calculate the p-value or compare the test statistic to a critical value} \\
-    Using a Z-test:
-    \[
-    z = \frac{\overline{x} - \mu}{\sigma / \sqrt{n}} = \frac{980 - 1000}{50 / \sqrt{30}} \approx -2.19
-    \]
-    From Z-tables, \( p \approx 0.0286 \) (two-tailed).
+	\item We now calculate the \(p\)-value from the F-distribution:
+	\[
+	p\text{-value} =
+	\begin{cases}
+	P(F \ge F_{\rm obs}), & \text{for } H_1: \dfrac{\sigma_1^2}{\sigma_2^2} > \delta \\[6pt]
+	P(F \le F_{\rm obs}), & \text{for } H_1: \dfrac{\sigma_1^2}{\sigma_2^2} < \delta \\[6pt]
+	2 \cdot \min\{P(F \ge F_{\rm obs}),\, P(F \le F_{\rm obs})\}, & \text{for } H_1: \dfrac{\sigma_1^2}{\sigma_2^2} \neq \delta
+	\end{cases}
+	\]
 
-    \item \textbf{Make a decision} \\
-    Since \( p < \alpha \), we reject \( H_0 \). \\
-    \textbf{Conclusion:} There is evidence that the average bulb life is not 1,000 hours.
+	Alternatively, use the critical values from the F-distribution at level \(\alpha\):
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{@{}c|c|c@{}}
+			\toprule
+			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\
+			\midrule
+			\(\dfrac{\sigma_1^2}{\sigma_2^2} > \delta\) &
+			\(F_{\alpha,\,\nu_1,\nu_2}\) &
+			\(\{F > F_{\alpha}\}\) \\[6pt]
+
+			\(\dfrac{\sigma_1^2}{\sigma_2^2} < \delta\) &
+			\(F_{1-\alpha,\,\nu_1,\nu_2}\) &
+			\(\{F < F_{1-\alpha}\}\) \\[6pt]
+
+			\(\dfrac{\sigma_1^2}{\sigma_2^2} \neq \delta\) &
+			\(F_{1-\alpha/2,\,\nu_1,\nu_2},\, F_{\alpha/2,\,\nu_1,\nu_2}\) &
+			\(\{F < F_{1-\alpha/2,\nu_1,\nu_2}\} \cup \{F > F_{\alpha/2,\nu_1,\nu_2}\}\)
+			\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+
+	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+
+	Alternatively, if \(F_{\rm obs}\) lies in the rejection region, \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
 
-\section*{7. Final Example: Coin Toss}
 
-You suspect a coin is biased. You flip it 100 times and get 60 heads. \\
-\( H_0: p = 0.5 \quad \) (fair coin) \\
-\( H_1: p \neq 0.5 \quad \) (biased coin)
+\section{Statistical Test for a Population Proportion \(p\)}
 
-\[
-z = \frac{0.6 - 0.5}{\sqrt{0.5 \times 0.5 / 100}} = 2.0
-\]
+\begin{enumerate}
+	\item Let \(p\) be the true proportion of success in a Bernoulli population. We need to test whether this population proportion is equal to a specified value \(p_0\). The null and alternative hypotheses can be specified as:
+	\[
+	H_0: p = p_0
+	\]
+	\begin{align*}
+	H_1: \begin{cases}
+	p > p_0, & \text{Right tail test}\\[6pt]
+	p < p_0, & \text{Left tail test}\\[6pt]
+	p \neq p_0, & \text{Two-sided test}
+	\end{cases}
+	\end{align*}
 
-From Z-tables, \( p \approx 0.0455 \). Since \( p < 0.05 \), we reject \( H_0 \). \\
-\textbf{Conclusion:} There is evidence the coin might be biased.
+	\item Select \(\alpha\) (e.g., 0.01, 0.05, or 0.10), the maximum allowable probability of a Type I error.
+
+	\item Let \(\hat{p}\) be the sample proportion, based on a sample of size \(n\). Under \(H_0\), the test statistic is:
+	\[
+	Z = \frac{\hat{p} - p_0}{\sqrt{\dfrac{p_0(1 - p_0)}{n}}}
+	\]
+	which \textbf{approximately} follows the standard normal distribution \(\mathcal{N}(0,1)\) for sufficiently large \(n\) (typically \(np_0 \ge 5\) and \(n(1-p_0) \ge 5\)). Let \(z_{\rm obs}\) be the observed value of the test statistic.
+
+	\item Compute the \(p\)-value using the standard normal distribution:
+	\[
+	p\text{-value} =
+	\begin{cases}
+	P(Z \ge z_{\rm obs}), & \text{for } H_1: p > p_0 \\[6pt]
+	P(Z \le z_{\rm obs}), & \text{for } H_1: p < p_0 \\[6pt]
+	2\,P\bigl(|Z| \ge |z_{\rm obs}|\bigr), & \text{for } H_1: p \neq p_0
+	\end{cases}
+	\]
+
+	Alternatively, determine the rejection region using critical values from the standard normal distribution:
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{@{}c|c|c@{}}
+			\toprule
+			\textbf{$H_1$} & \textbf{Critical Value(s)} & \textbf{Rejection Region} \\
+			\midrule
+			\(p > p_0\) & \(z_{\alpha}\) & \(\{Z > z_{\alpha}\}\) \\[6pt]
+			\(p < p_0\) & \(-z_{\alpha}\) & \(\{Z < -z_{\alpha}\}\) \\[6pt]
+			\(p \neq p_0\) & \(\pm z_{\alpha/2}\) & \(\{|Z| > z_{\alpha/2}\}\) \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+
+	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+
+	Alternatively, if \(z_{\rm obs}\) lies in the rejection region, \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+\end{enumerate}
+
+\textbf{Example}: You suspect that a coin is biased. To test this, you flip the coin 100 times and observe 60 heads.
+
+\begin{itemize}
+	\item Let \(p\) be the true probability of getting heads.
+	\item The null and alternative hypotheses are:
+	\begin{align*}
+	&H_0: p = 0.5 \quad \text{(the coin is fair)} \\
+	&H_1: p \neq 0.5 \quad \text{(the coin is biased)}
+	\end{align*}
+	\item The sample proportion is \(\hat{p} = \dfrac{60}{100} = 0.6\).
+
+	\item Under the null hypothesis, the test statistic is:
+	\[
+	z_{\rm obs} = \frac{\hat{p} - p_0}{\sqrt{\dfrac{p_0(1 - p_0)}{n}}}
+	= \frac{0.6 - 0.5}{\sqrt{\dfrac{0.5 \times 0.5}{100}}}
+	= \frac{0.1}{0.05} = 2.0
+	\]
+
+	\item From standard normal distribution tables, the two-tailed \(p\)-value is:
+	\[
+	p = 2 \cdot P(Z > 2.0) \approx 2 \cdot 0.0228 = 0.0456
+	\]
+
+	\item Since \(p < 0.05\), we reject the null hypothesis at the 5\% significance level. Therefore there is statistically significant evidence at the 5\% level to suggest that the coin may be biased.
+\end{itemize}
+
 
 \section{Power of a Test}
 
@@ -9812,122 +9944,6 @@ After taking logarithms and rearranging, this reduces to the usual level‑$\alp
 \[
 \overline X > \mu_0 + z_{1-\alpha}\,\frac{\sigma}{\sqrt n}.
 \]
-
-\section{Exercises}
-\begin{enumerate}
-	\item \textbf{Problem}: A coffee shop claims that their espresso machine dispenses an average of 30ml of espresso
-	per shot with a known population standard deviation of 2.5ml. A quality control inspector
-	randomly samples 36 espresso shots and finds the following volumes (in ml):
-
-	Sample data (ml):
-	\begin{align*}
-	&30.44, 28.85, 30.82, 33.01, 28.61, 28.61, 33.15, 31.12, 28.03, 30.56, 28.04, 28.04,\\
-	&29.8,  24.42, 24.89, 27.79, 26.67, 29.99, 26.93, 25.67, 32.86, 28.64, 29.37, 25.64,\\
-	&27.84, 29.48, 26.32, 30.14, 27.7,  28.47, 27.7, 33.83, 29.17, 26.56, 31.26, 26.15
-	\end{align*}
-
-	At $ \alpha = 0.05 $, test if the machine is dispensing the claimed amount.
-
-	\begin{lstlisting}
-import numpy as np
-import scipy.stats as stats
-
-# Sample data
-espresso_data = np.array([28.99, 26.93, 30.15, 31.72, 28.04, 29.17, 32.15, 30.81, 28.87, 28.09, 28.06, 30.53, 29.45, 30.28, 29.35, 31.22, 28.15, 27.99, 28.75, 29.45, 29.56, 30.95, 29.07, 29.96, 30.46, 30.74, 28.93, 29.78, 29.73, 30.38, 28.66, 30.94, 30.02, 31.95, 28.89, 31.26])
-
-# Given parameters
-mu_0 = 30
-sigma = 2.5
-n = len(espresso_data)
-
-# Significance level
-alpha = 0.05
-sample_mean = np.mean(espresso_data)
-
-# Test statistic calculation
-z_stat = (sample_mean - mu_0) / (sigma / np.sqrt(n))
-print(f"Z = {z_stat:.3f}")
-
-# P-value calculation
-p_value = 2 * (1 - stats.norm.cdf(abs(z_stat)))
-print(f"p-value = {p_value:.6f}")
-
-# Decision based on p-value
-if p_value < alpha:
-    print("REJECT H0")
-    print("Conclusion: Machine does NOT dispense 30ml on average")
-else:
-    print("FAIL TO REJECT H0")
-    print("Conclusion: Insufficient evidence that machine does not dispense 30ml")
-	\end{lstlisting}
-    Output
-    \begin{lstlisting}
-Z = -0.705
-p-value = 0.481018
-FAIL TO REJECT H0
-Conclusion: Insufficient evidence that machine does not dispense 30ml
-    \end{lstlisting}
-
-    \item \textbf{Problem}: A university claims that students spend an average of 15 hours per week studying. A researcher randomly surveys 20 students and records their weekly study hours. The population standard deviation is unknown.
-
-    Sample data (hours per week): [13.5, 11.4, 12.8, 14.9, 13.6, 15.2, 12.1, 16.8, 14.3, 12.7, 13.9, 15.1, 14.6, 13.2, 12.9, 14.8, 13.4, 15.7, 14.2, 13.8]
-
-    At $\alpha$ = 0.01, test if students actually study 15 hours per week on average.
-
-    \begin{lstlisting}
-import numpy as np
-import scipy.stats as stats
-
-# Sample data
-study_hours = np.array([13.5, 11.4, 12.8, 14.9, 13.6, 15.2, 12.1, 16.8, 14.3, 12.7, 13.9, 15.1, 14.6, 13.2, 12.9, 14.8, 13.4, 15.7, 14.2, 13.8])
-
-# Given parameters
-mu_0 = 15          # Claimed population mean
-n = len(study_hours)    # Sample size
-alpha = 0.01       # Significance level
-df = n - 1         # Degrees of freedom
-
-# Calculate test statistic
-sample_mean = np.mean(study_hours)
-sample_std = np.std(study_hours, ddof=1)  # ddof=1 for sample standard deviation
-t_stat = (sample_mean - mu_0) / (sample_std / np.sqrt(n))
-print(f"t-statistic: {t_stat:.3f}, Degrees of freedom: {df}")
-
-# Calculate p-value (two-tailed test)
-p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df))
-print(f"p-value: {p_value:.6f}")
-
-# Make decision
-if p_value < alpha:
-    print("Decision: REJECT H0")
-else:
-    print("Decision: FAIL TO REJECT H0")
-
-## Alternative approach using critical value method
-print("-----------------------------")
-# Find critical value
-t_critical = stats.t.ppf(1-alpha/2, df) # Percent point function (inverse of cdf)
-print(f"Critical values: -{t_critical:.3f}, {t_critical:.3f}")
-
-# Make decision
-if abs(t_stat) > t_critical:
-    print("Decision: REJECT H0")
-else:
-    print("Decision: FAIL TO REJECT H0")
-    \end{lstlisting}
-    Output
-    \begin{lstlisting}
-t-statistic: -3.668, Degrees of freedom: 19
-p-value: 0.001633
-Decision: REJECT H0
------------------------------
-Critical values: -2.861, 2.861
-Decision: REJECT H0
-    \end{lstlisting}
-
-
-\end{enumerate}
-
 
 \chapter{Correlation and Regression}
 
