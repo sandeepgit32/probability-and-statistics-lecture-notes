@@ -9923,6 +9923,86 @@ meaning there’s a 99.7\% chance (very sensitive) of detecting this 0.2‑unit 
 
 Higher power can be achieved by increasing the sample size, accepting a larger $\alpha$, or targeting a larger effect size. Before running an experiment, one often conducts a power analysis to choose \(n\) (or \(\alpha\)) so that the power exceeds a desired threshold (commonly 0.8 or 0.9) for a specified effect size.
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+      xlabel={Sample size \(n\)},
+      ylabel={Power \(\gamma\)},
+      axis lines=left,
+      xmin=15, xmax=45,
+      ymin=0.7, ymax=1.02,
+      xtick={15,20,25,30,35,40,45},
+      ytick={0.7,0.8,0.9,1.0},
+      width=10cm, height=6cm,
+      thick,
+      mark options={solid, scale=0.5},
+      legend pos=south east,
+    ]
+    \addplot[
+      blue,
+      smooth, very thick
+    ] coordinates {
+      (15,0.7330) (16,0.7601) (17,0.7849) (18,0.8074) (19,0.8279)
+      (20,0.8467) (21,0.8639) (22,0.8797) (23,0.8942) (24,0.9075)
+      (25,0.9197) (26,0.9308) (27,0.9409) (28,0.9500) (29,0.9581)
+      (30,0.9653) (31,0.9716) (32,0.9771) (33,0.9818) (34,0.9858)
+      (35,0.9892) (36,0.9920) (37,0.9942) (38,0.9959) (39,0.9971)
+      (40,0.9980) (41,0.9986) (42,0.9990) (43,0.9993) (44,0.9995)
+      (45,0.9996)
+    };
+    \addlegendentry{\(\mu_1=4.8\)}
+  \end{axis}
+\end{tikzpicture}
+\caption{\textit{Power at $\mu_1 = 4.8$ of the two‑sided \(Z\)‑test in the above example with respect to sample size, with \(\mu_0=5\), \(\mu_1=4.8\), \(\sigma=0.3\), and \(\alpha=0.05\)}.}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+      xlabel={$\mu_1$},
+      ylabel={Power $\gamma(\mu_1)$},
+      axis lines=left,
+      xmin=4.6, xmax=5.4,
+      ymin=0, ymax=1.25,
+      xtick={4.5,4.6,4.7,4.8,4.9,5.0,5.1,5.2,5.3,5.4,5.5},
+      ytick={0,0.2,0.4,0.6,0.8,1.0},
+      width=10cm, height=6cm,
+      thick,
+      mark options={solid, scale=0.6},
+      legend pos=south east,
+    ]
+    \addplot[
+      blue,
+      very thick,
+      smooth
+    ] coordinates {
+      (4.50,1.0000) (4.60,1.0000) (4.70,1.0000)
+      (4.72,1.0000) (4.74,1.0000) (4.76,1.0000) (4.78,1.0000) (4.80,0.9971)
+      (4.82,0.9384) (4.84,0.7291) (4.86,0.4467) (4.88,0.2229) (4.90,0.0669)
+      (4.92,0.0137) (4.94,0.0020) (4.96,0.0002) (4.98,0.0000)
+    };
+    \addplot[
+          blue,
+          very thick,
+          smooth
+        ] coordinates {
+          (5.02,0.0000) (5.04,0.0002) (5.06,0.0020) (5.08,0.0137) (5.10,0.0669)
+          (5.12,0.2229) (5.14,0.4467) (5.16,0.7291) (5.18,0.9384) (5.20,0.9971)
+          (5.22,1.0000) (5.24,1.0000) (5.26,1.0000) (5.28,1.0000) (5.30,1.0000)
+          (5.40,1.0000) (5.50,1.0000)
+        };
+    \draw[dashed, gray] (axis cs:5.0,0) -- (axis cs:5.0,1.05) node[above right]{$\mu_0$};
+    \addlegendentry{\(n=30\)}
+  \end{axis}
+\end{tikzpicture}
+\caption{\textit{Power curve of the two-sided $Z$-test in the above example as the true mean $\mu_1$ varies  with \(\mu_0=5\), \(\sigma=0.3\), and \(\alpha=0.05\). The vertical dashed line marks the null value $\mu_0=5$.}}
+\end{figure}
+
+
+
 \subsection{Required Sample Size for a One-Sample $Z$-Test}
 
 \textbf{One-sided $Z$-test}: When planning a one-sided $Z$-test
