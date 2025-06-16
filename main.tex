@@ -8447,7 +8447,9 @@ It helps us to determine whether the evidence in a sample supports a certain bel
 
 The hypothesis that will actually be tested is called the \textbf{null hypothesis}, denoted by $H_0$. This is a particular claim about a population parameter. The null hypothesis is assumed to be true unless there is any strong evidence to the contrary.
 
-The \textbf{alternative hypothesis}, denoted by $H_1$ or $H_a$, is a hypothesis that contradicts the null hypothesis. For the above example, we define the hypotheses as:
+The \textbf{alternative hypothesis}, denoted by $H_1$ or $H_a$, is a hypothesis that contradicts the null hypothesis. These two hypotheses are mutually exclusive and
+exhaustive so that one is true to the exclusion of the
+other. For the above example, we define the hypotheses as:
 
 \begin{itemize}
     \item \textbf{Null Hypothesis ($H_0$):} The average length of screws is 5 cm.
@@ -8848,6 +8850,50 @@ $$P(\text{Test statistic} \in \text{rejection region}\mid H_0) = \alpha$$
 
 In our example, the computed \(z\)-value is \(-4.72\), which lies in the left‐hand critical region \(\{Z < z_{\alpha/2} = -1.96\}\) for the two-tailed test with $\alpha = 0.05$. Therefore, we reject the null hypothesis \(H_0\). In general, the larger the magnitude of the test statistic, the stronger the evidence against the null hypothesis.
 
+\section{Parametric vs. Non‑Parametric Tests}
+
+In statistical inference, tests are often classified according to the assumptions they make about the population distribution.  Two broad families are \textbf{parametric} and \textbf{non‑parametric} tests.
+\begin{itemize}
+\item \textbf{Parametric Tests}:
+Parametric tests rely on specific assumptions about the form of the underlying population distribution, typically that it belongs to a known family (e.g.\ the normal distribution).  They are characterized by:
+
+
+\item \textbf{Non‑Parametric Tests}:
+Non‑parametric tests make \emph{fewer} assumptions about the population distribution.  They often use the ranking or signs of the data rather than their numerical values.  Key features include:
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{2cm}|p{5cm}|p{5cm}}
+\toprule
+\textbf{Characteristic} & \textbf{Parametric Tests} & \textbf{Non‑Parametric Tests} \\
+\midrule
+Distribution assumption
+  & Assume a known distribution (e.g.\ normal)
+  & Do not assume a specific distribution \\
+\midrule
+Data usage
+  & Use parameters like mean ($\mu$) and variance ($\sigma^2$)
+  & Use ranks, signs, or counts instead of raw values \\
+\midrule
+Data scale
+  & Require interval or ratio data
+  & Work with ordinal or non‑normal interval/ratio data \\
+\midrule
+When to use
+  & For well‑behaved numeric data meeting assumptions
+  & When assumptions fail or data are ordinal \\
+\midrule
+Examples
+  & $Z$-test, $t$‑test, ANOVA, Pearson’s correlation
+  & Mann–Whitney $U$, Wilcoxon signed‑rank, chi‑square \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Comparison of Parametric and Non‑Parametric Tests}}
+\end{table}
+
+In this and the following chapters, we will focus on parametric tests. A dedicated chapter on non-parametric tests will be presented later.
+
 
 \section{Type I and Type II Error}
 This decision procedure can lead to either of two incorrect conclusions, known as Type I and Type II errors.
@@ -9221,8 +9267,8 @@ Since $p\text{-value}=0.0228<0.05$, we reject $H_0$ at 5\% level of significance
 
 	\item Under the null hypothesis, the test statistic is:
 	\[
-	z_{\rm obs} = \dfrac{\overline{X} - \mu_0}{\sigma / \sqrt{n}} 
-	= \frac{980 - 1000}{50 / \sqrt{30}} 
+	z_{\rm obs} = \dfrac{\overline{X} - \mu_0}{\sigma / \sqrt{n}}
+	= \frac{980 - 1000}{50 / \sqrt{30}}
 	= \frac{-20}{9.13} \approx -2.19
 	\]
 
