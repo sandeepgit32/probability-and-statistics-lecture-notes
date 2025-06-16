@@ -9798,8 +9798,6 @@ H_0 : \mu = \mu_0 \quad \text{vs.} \quad H_1 : \mu > \mu_0,
 \]
 with known population standard deviation \( \sigma \), and a significance level \( \alpha \). The rejection region is:
 \[
-Z = \frac{\overline{X} - \mu_0}{\sigma / \sqrt{n}} > z_\alpha,
-\quad\text{or equivalently,}\quad
 \overline{X} > \mu_0 + z_\alpha \cdot \frac{\sigma}{\sqrt{n}}.
 \]
 
@@ -9823,15 +9821,14 @@ H_0 : \mu = \mu_0 \quad \text{vs.} \quad H_1 : \mu \ne \mu_0.
 
 with known population standard deviation \( \sigma \), and a significance level \( \alpha \). The rejection region is:
 \[
-\left| Z \right| > z_{\alpha/2}, \quad \text{or equivalently,} \quad
 \overline{X} < \mu_0 - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \quad \text{or} \quad
-\overline{X} > \mu_0 + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}.
+\overline{X} > \mu_0 + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
 \]
 
 If the true mean is \( \mu = \mu_1 \ne \mu_0 \), then:
 \begin{align*}
 \gamma(\mu_1) &= P\left( \overline{X} < \mu_0 - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right)
-+ P\left( \overline{X} > \mu_0 + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right).
++ P\left( \overline{X} > \mu_0 + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right)
 \end{align*}
 
 Standardizing:
@@ -9840,7 +9837,7 @@ Standardizing:
 &= P\left( Z < -z_{\alpha/2} - \frac{(\mu_1 - \mu_0)\sqrt{n}}{\sigma} \right)
 + P\left( Z > z_{\alpha/2} - \frac{(\mu_1 - \mu_0)\sqrt{n}}{\sigma} \right),
 \end{align*}
-where again \( Z \sim N(0,1) \).
+where again \( Z \sim N(0,1) \)
 
 \medskip
 In both cases, we observed the following factors affecting power in the $Z$-test:
@@ -9876,6 +9873,53 @@ P\bigl(\overline{X} > 5.0832\bigr)
 Thus the test’s power at $\mu = 4.8$ is
 $$\gamma(4.8) = P\bigl(\overline{X} < 4.9168\bigr)+P\bigl(\overline{X} > 5.0832\bigr) = 0.9971\ (\approx 99.7\%)$$
 meaning there’s a 99.7\% chance (very sensitive) of detecting this 0.2‑unit shift.
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+      domain=4.5:5.5, samples=200,
+      axis lines=middle,
+      xlabel={$\overline{X}$}, ylabel={PDF},
+      ymin=0, ymax=12,
+      width=10cm, height=6cm,
+      legend style={at={(0.98,0.98)}, anchor=north east},
+      thick
+    ]
+    % parameters
+    \pgfmathsetmacro\muo{5}
+    \pgfmathsetmacro\mui{4.8}
+    \pgfmathsetmacro\se{0.3/sqrt(50)}
+
+    % H0 density
+    \addplot[blue, very thick] {1/(\se*sqrt(2*pi))*exp(-((x-\muo)^2)/(2*\se^2))};
+    \addlegendentry{$\mathcal{N}(5,\;\sigma^2/n)$}
+
+    % H1 density
+    \addplot[red, very thick] {1/(\se*sqrt(2*pi))*exp(-((x-\mui)^2)/(2*\se^2))};
+    \addlegendentry{$\mathcal{N}(4.8,\;\sigma^2/n)$}
+
+    % critical values
+    \def\cL{4.9168}
+    \def\cU{5.0832}
+    \addplot[dashed, gray, thick] coordinates {(\cL,0) (\cL,12)};
+    \addplot[dashed, gray, thick] coordinates {(\cU,0) (\cU,12)};
+    \node[gray] at (axis cs:\cL,12) [anchor=south] {$4.9168$};
+    \node[gray] at (axis cs:\cU,12) [anchor=south] {$5.0832$};
+
+    % Shade power region under H1 left tail
+    \addplot[red!30, draw=none, domain=4.5:\cL]
+      {1/(\se*sqrt(2*pi))*exp(-((x-\mui)^2)/(2*\se^2))} \closedcycle;
+    % Shade power region under H1 right tail
+    \addplot[red!30, draw=none, domain=\cU:5.5]
+      {1/(\se*sqrt(2*pi))*exp(-((x-\mui)^2)/(2*\se^2))} \closedcycle;
+
+  \end{axis}
+\end{tikzpicture}
+\caption{\textit{Density curves for \(H_0: \mu=5\) and \(H_1: \mu=4.8\) with \(\sigma=0.3\), \(n=50\).  The dashed lines at 4.9168 and 5.0832 are the critical cutoffs; the shaded regions under the \(H_1\) curve indicate the power ($\approx$ 99.7\%).}}
+\end{figure}
+
 
 Higher power can be achieved by increasing the sample size, accepting a larger $\alpha$, or targeting a larger effect size. Before running an experiment, one often conducts a power analysis to choose \(n\) (or \(\alpha\)) so that the power exceeds a desired threshold (commonly 0.8 or 0.9) for a specified effect size.
 
