@@ -82,6 +82,16 @@
 	numberfirstline=true
 }
 
+\usepackage{tocloft}
+
+% adjust the width reserved for the sec‐number, if you need more room:
+\setlength{\cftsecnumwidth}{3em}
+
+% insert a quad (≈1 em) after the number and before the title
+\renewcommand{\cftsecaftersnum}{\quad}
+
+% vertical gap *before* each section entry (here: half a line)
+\setlength{\cftbeforesecskip}{0.5\baselineskip}
 
 \title{Fundamentals of Probability and Statistics}
 \author{Sandip Karar}
@@ -97,9 +107,9 @@
     \begin{tikzpicture}[remember picture,overlay]
         % Draw a thin decorative frame around the page content area
         \draw[line width=1.5pt]
-            ($(current page.north west)+(4cm,-3cm)$) rectangle ($(current page.south east)+(-3.5cm,3cm)$);
+            ($(current page.north west)+(3cm,-2.5cm)$) rectangle ($(current page.south east)+(-2.5cm,2.5cm)$);
         \draw[line width=1.5pt]
-            ($(current page.north west)+(3.7cm,-2.7cm)$) rectangle ($(current page.south east)+(-3.2cm,2.7cm)$);
+            ($(current page.north west)+(2.7cm,-2.2cm)$) rectangle ($(current page.south east)+(-2.2cm,2.2cm)$);
 
     \end{tikzpicture}
 
@@ -10102,112 +10112,570 @@ The ROC curve helps us visualize and compare the effectiveness of tests across d
 The \textbf{Area Under the Curve (AUC)} quantifies overall test performance: an AUC of 1 indicates perfect discrimination, whereas an AUC of 0.5 corresponds to random guessing.
 
 
-
-
 \chapter{Analysis of Variance: One-Factor (One-Way ANOVA)}
 
-% Required packages: amsmath, amssymb, booktabs, float
-
 \section{Introduction}
-Analysis of Variance (ANOVA) is a statistical technique used to compare the means of three or more independent groups. One-way ANOVA, also called single-factor ANOVA, examines the effect of one categorical independent variable (factor) on a continuous dependent variable.
 
-\section{Motivation and Setup}
-Consider an experiment to compare the effectiveness of three teaching methods. Students are randomly assigned to one of three groups (Methods A, B, or C), and their final exam scores are recorded. We wish to test:
-\begin{itemize}
-\item $H_0$: All group means are equal.
-\item $H_1$: At least one group mean differs.
-\end{itemize}
-Let $Y_{ij}$ denote the score of the $j$th student in group $i$, for $i=1,2,3$ and $j=1,2,\dots,n_i$. The total sample size is $N=\sum_{i=1}^3 n\_i$.
+Analysis of Variance (ANOVA) is a statistical technique used to test whether there are statistically significant differences between the means of three or more independent groups. The one-factor ANOVA, also known as one-way ANOVA, examines the effect of a single categorical independent variable (factor) on a continuous dependent variable.
 
-\section{Assumptions}
-\begin{enumerate}
-\item Observations are independent and randomly sampled within each group.
-\item Each group is normally distributed: $Y_{ij}\overset{\mathrm{i.i.d.}}{\sim}N(\mu_i,\sigma^2)$.
-\item Homogeneity of variances: all groups share the same variance $\sigma^2$.
-\end{enumerate}
+The fundamental question addressed by one-way ANOVA is: \textit{Are the population means of several groups equal?} Mathematically, we test the null hypothesis:
 
-\section{Model}
-The one-way ANOVA model is:
+\begin{equation}
+H_0: \mu_1 = \mu_2 = \cdots = \mu_k
+\end{equation}
 
-$$
-Y_{ij} = \mu + \tau_i + \varepsilon_{ij},
-$$
+against the alternative hypothesis:
+
+\begin{equation}
+H_1: \text{At least one } \mu_i \text{ differs from the others}
+\end{equation}
+
+where $k$ represents the number of groups being compared.
+
+\section{Assumptions of One-Way ANOVA}
+
+Before conducting a one-way ANOVA, several critical assumptions must be satisfied:
+
+\subsection{Independence}
+The observations within each group and between groups must be independent. This means that the value of one observation should not influence or be related to any other observation.
+
+\subsection{Normality}
+The dependent variable should be approximately normally distributed for each group. Formally, if $X_{ij}$ represents the $j$-th observation in the $i$-th group, then:
+\begin{equation}
+X_{ij} \sim N(\mu_i, \sigma^2)
+\end{equation}
+
+\subsection{Homogeneity of Variance (Homoscedasticity)}
+The variance of the dependent variable should be approximately equal across all groups. This assumption is also known as homoscedasticity:
+\begin{equation}
+\text{Var}(X_{1j}) = \text{Var}(X_{2j}) = \cdots = \text{Var}(X_{kj}) = \sigma^2
+\end{equation}
+
+\section{Mathematical Framework}
+
+\subsection{Model Specification}
+
+The one-way ANOVA model can be expressed as:
+
+\begin{equation}
+X_{ij} = \mu_i + \epsilon_{ij}
+\end{equation}
 
 where:
 \begin{itemize}
-\item $\mu$ is the overall mean,
-\item $\tau_i$ is the effect of group $i$ with constraint $\sum_{i=1}^3\tau_i=0$,
-\item $\varepsilon_{ij}\sim N(0,\sigma^2)$ are independent errors.
+\item $X_{ij}$ is the $j$-th observation in the $i$-th group
+\item $\mu_i$ is the population mean of the $i$-th group
+\item $\epsilon_{ij}$ is the random error term, where $\epsilon_{ij} \sim N(0, \sigma^2)$
+\item $i = 1, 2, \ldots, k$ (number of groups)
+\item $j = 1, 2, \ldots, n_i$ (number of observations in group $i$)
 \end{itemize}
 
-\section{Hypotheses}
-\begin{align*}
-H_0&: \tau_1=\tau_2=\tau_3 =0,\\
-H_1&: \text{At least one }\tau_i \neq 0
-\end{align*}
+An alternative parameterization uses the grand mean:
+
+\begin{equation}
+X_{ij} = \mu + \alpha_i + \epsilon_{ij}
+\end{equation}
+
+where:
+\begin{itemize}
+\item $\mu$ is the grand mean
+\item $\alpha_i$ is the effect of the $i$-th treatment, with the constraint $\sum_{i=1}^k n_i \alpha_i = 0$
+\item $\epsilon_{ij} \sim N(0, \sigma^2)$
+\end{itemize}
+
+\subsection{Sample Statistics}
+
+Let $n_i$ be the number of observations in group $i$, and let $N = \sum_{i=1}^k n_i$ be the total number of observations.
+
+The sample mean for group $i$ is:
+\begin{equation}
+\bar{X}_{i\cdot} = \frac{1}{n_i} \sum_{j=1}^{n_i} X_{ij}
+\end{equation}
+
+The grand mean (overall mean) is:
+\begin{equation}
+\bar{X}_{\cdot\cdot} = \frac{1}{N} \sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij} = \frac{1}{N} \sum_{i=1}^k n_i \bar{X}_{i\cdot}
+\end{equation}
+
+\section{Partitioning the Total Variation}
+
+The core principle of ANOVA is the partitioning of the total variation in the data into components attributable to different sources.
+
+\subsection{Sum of Squares Decomposition}
+
+The total sum of squares (TSS) can be decomposed as:
+
+\begin{equation}
+\text{TSS} = \text{SSB} + \text{SSW}
+\end{equation}
+
+where:
+\begin{itemize}
+\item TSS = Total Sum of Squares
+\item SSB = Sum of Squares Between groups
+\item SSW = Sum of Squares Within groups
+\end{itemize}
+
+\subsection{Mathematical Derivation}
+
+Starting with the fundamental identity:
+\begin{equation}
+X_{ij} - \bar{X}_{\cdot\cdot} = (\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot}) + (X_{ij} - \bar{X}_{i\cdot})
+\end{equation}
+
+Squaring both sides and summing over all observations:
+
+\begin{align}
+\sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{\cdot\cdot})^2 &= \sum_{i=1}^k \sum_{j=1}^{n_i} [(\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot}) + (X_{ij} - \bar{X}_{i\cdot})]^2 \\
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} (\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})^2 + \sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{i\cdot})^2 \\
+&\quad + 2\sum_{i=1}^k \sum_{j=1}^{n_i} (\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})(X_{ij} - \bar{X}_{i\cdot})
+\end{align}
+
+The cross-product term equals zero because:
+\begin{equation}
+\sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{i\cdot}) = \sum_{j=1}^{n_i} X_{ij} - n_i\bar{X}_{i\cdot} = n_i\bar{X}_{i\cdot} - n_i\bar{X}_{i\cdot} = 0
+\end{equation}
+
+\subsection{Sum of Squares Formulas}
+
+\textbf{Total Sum of Squares (TSS):}
+\begin{equation}
+\text{TSS} = \sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{\cdot\cdot})^2
+\end{equation}
+
+\textbf{Sum of Squares Between groups (SSB):}
+\begin{equation}
+\text{SSB} = \sum_{i=1}^k n_i (\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})^2
+\end{equation}
+
+\textbf{Sum of Squares Within groups (SSW):}
+\begin{equation}
+\text{SSW} = \sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{i\cdot})^2
+\end{equation}
+
+\subsection{Computational Formulas}
+
+For computational efficiency, the following formulas are often preferred:
+
+\begin{equation}
+\text{TSS} = \sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij}^2 - \frac{\left(\sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij}\right)^2}{N}
+\end{equation}
+
+\begin{equation}
+\text{SSB} = \sum_{i=1}^k \frac{\left(\sum_{j=1}^{n_i} X_{ij}\right)^2}{n_i} - \frac{\left(\sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij}\right)^2}{N}
+\end{equation}
+
+\begin{equation}
+\text{SSW} = \text{TSS} - \text{SSB}
+\end{equation}
+
+\section{Degrees of Freedom}
+
+The degrees of freedom associated with each sum of squares are:
+
+\begin{itemize}
+\item $df_{\text{total}} = N - 1$
+\item $df_{\text{between}} = k - 1$
+\item $df_{\text{within}} = N - k$
+\end{itemize}
+
+Note that $df_{\text{total}} = df_{\text{between}} + df_{\text{within}}$.
+
+\section{Mean Squares and the F-Statistic}
+
+\subsection{Mean Squares}
+
+Mean squares are obtained by dividing sums of squares by their respective degrees of freedom:
+
+\textbf{Mean Square Between (MSB):}
+\begin{equation}
+\text{MSB} = \frac{\text{SSB}}{k-1}
+\end{equation}
+
+\textbf{Mean Square Within (MSW):}
+\begin{equation}
+\text{MSW} = \frac{\text{SSW}}{N-k}
+\end{equation}
+
+\subsection{Expected Mean Squares}
+
+Under the null hypothesis $H_0: \mu_1 = \mu_2 = \cdots = \mu_k$:
+
+\begin{equation}
+E[\text{MSW}] = \sigma^2
+\end{equation}
+
+\begin{equation}
+E[\text{MSB}] = \sigma^2
+\end{equation}
+
+Under the alternative hypothesis:
+
+\begin{equation}
+E[\text{MSW}] = \sigma^2
+\end{equation}
+
+\begin{equation}
+E[\text{MSB}] = \sigma^2 + \frac{\sum_{i=1}^k n_i(\mu_i - \mu)^2}{k-1}
+\end{equation}
+
+where $\mu = \frac{\sum_{i=1}^k n_i \mu_i}{N}$ is the weighted grand mean.
+
+\subsection{The F-Statistic}
+
+The test statistic for one-way ANOVA is:
+
+\begin{equation}
+F = \frac{\text{MSB}}{\text{MSW}}
+\end{equation}
+
+Under the null hypothesis, $F$ follows an F-distribution with $(k-1, N-k)$ degrees of freedom:
+
+\begin{equation}
+F \sim F_{k-1, N-k}
+\end{equation}
+
+\section{Hypothesis Testing Procedure}
+
+\textbf{Step 1: State the Hypotheses}
+\begin{align}
+H_0 &: \mu_1 = \mu_2 = \cdots = \mu_k \\
+H_1 &: \text{At least one } \mu_i \text{ differs from the others}
+\end{align}
+
+\textbf{Step 2: Choose the Significance Level}
+Select $\alpha$ (commonly 0.05, 0.01, or 0.10).
+
+\textbf{Step 3: Compute the Test Statistic}
+Calculate $F = \frac{\text{MSB}}{\text{MSW}}$.
+
+\textbf{Step 4: Determine the Critical Value}
+Find $F_{\alpha, k-1, N-k}$ from the F-distribution table.
+
+\textbf{Step 5: Make the Decision}
+\begin{itemize}
+\item If $F > F_{\alpha, k-1, N-k}$, reject $H_0$
+\item If $F \leq F_{\alpha, k-1, N-k}$, fail to reject $H_0$
+\end{itemize}
+
+Alternatively, compare the p-value to $\alpha$:
+\begin{itemize}
+\item If p-value $< \alpha$, reject $H_0$
+\item If p-value $\geq \alpha$, fail to reject $H_0$
+\end{itemize}
 
 \section{ANOVA Table}
-Partition total variability into between-group and within-group sums of squares:
 
-$$
-\mathrm{SST}=\sum_{i=1}^3\sum_{j=1}^{n_i}(Y_{ij}-\bar Y_{\cdot\cdot})^2,
-\quad
-\mathrm{SSB}=\sum_{i=1}^3 n_i(\bar Y_{i\cdot}-\bar Y_{\cdot\cdot})^2,
-\quad
-\mathrm{SSW}=\sum_{i=1}^3\sum_{j=1}^{n_i}(Y_{ij}-\bar Y_{i\cdot})^2.
-$$
+The results of a one-way ANOVA are typically summarized in an ANOVA table:
 
-Here $\bar Y_{i\cdot}=\frac{1}{n_i}\sum\_{j=1}^{n_i}Y_{ij}$ and $\bar Y_{\cdot\cdot}=\frac{1}{N}\sum_{i,j}Y_{ij}$. Then:
-
-$$
-\mathrm{SST}=\mathrm{SSB}+\mathrm{SSW}.
-$$
-
-\begin{table}[H]
+\begin{table}[h]
 \centering
-\begin{tabular}{lccc}
+\begin{tabular}{l|c|c|c|c|c}
 \toprule
-Source & Sum of Squares & df & Mean Square \\
+\textbf{Source} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} & \textbf{p-value} \\
 \midrule
-Between Groups & $\mathrm{SSB}$ & $k-1$ & $\mathrm{MSB}=\dfrac{\mathrm{SSB}}{k-1}$ \\
-Within Groups & $\mathrm{SSW}$ & $N-k$ & $\mathrm{MSW}=\dfrac{\mathrm{SSW}}{N-k}$ \\
-Total & $\mathrm{SST}$ & $N-1$ &  \\
+Between Groups & SSB & $k-1$ & $\dfrac{\text{SSB}}{k-1}$ & $\dfrac{\text{MSB}}{\text{MSW}}$ & $P(F_{k-1,N-k} > F)$ \\
+\midrule
+Within Groups & SSW & $N-k$ & $\dfrac{\text{SSW}}{N-k}$ & & \\
+\midrule
+\textbf{Total} & TSS & $N-1$ & & & \\
 \bottomrule
 \end{tabular}
-\caption{One-Way ANOVA Source Table}
+\caption{One-Way ANOVA Table}
 \end{table}
 
-\section{Test Statistic}
-Compute the ratio
+\section{Worked Example}
 
-$$
-F = \frac{\mathrm{MSB}}{\mathrm{MSW}}.
-$$
+\subsection{Problem Statement}
 
-Under $H_0$, $F\sim F_{k-1,,N-k}$.
+A researcher wants to compare the effectiveness of three different teaching methods on student test scores. Random samples of students were assigned to each teaching method, and their test scores were recorded.
 
-\section{Decision Rule}
+\textbf{Data:}
 \begin{itemize}
-\item Compute the observed value $F\_{\text{obs}}$.
-\item Reject $H_0$ if $F_{\text{obs}} > F_{\alpha,,k-1,,N-k}$.
-\item Alternatively, compute the $p$-value: $p = P(F_{k-1,,N-k} \ge F_{\text{obs}})$ and reject if $p < \alpha$.
+\item Method A: 85, 87, 83, 91, 89
+\item Method B: 79, 82, 78, 85, 81
+\item Method C: 92, 94, 88, 96, 90
 \end{itemize}
 
-\section{Example}
-Three fertilizers (A, B, and C) are tested on plant growth. Yields (in grams) are listed below:
-\begin{itemize}
-\item Method A: 20, 21, 19
-\item Method B: 23, 22, 24
-\item Method C: 17, 16, 18
-\end{itemize}
-Compute each group mean, the overall mean, SSB, SSW, MSB, MSW, then calculate the $F$-statistic and draw a conclusion.
+Test at $\alpha = 0.05$ whether there is a significant difference in mean test scores among the three teaching methods.
 
-\section{Post Hoc Analysis}
-If $H_0$ is rejected, use Tukey's HSD or Bonferroni-adjusted pairwise comparisons to identify which means differ.
+\subsection{Solution}
+
+\textbf{Step 1: Organize the Data}
+
+\begin{table}[h]
+\centering
+\caption{Test Scores by Teaching Method}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Method A} & \textbf{Method B} & \textbf{Method C} \\
+\hline
+85 & 79 & 92 \\
+87 & 82 & 94 \\
+83 & 78 & 88 \\
+91 & 85 & 96 \\
+89 & 81 & 90 \\
+\hline
+$n_1 = 5$ & $n_2 = 5$ & $n_3 = 5$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Step 2: Calculate Sample Statistics}
+
+Group means:
+\begin{align}
+\bar{X}_{1\cdot} &= \frac{85 + 87 + 83 + 91 + 89}{5} = \frac{435}{5} = 87 \\
+\bar{X}_{2\cdot} &= \frac{79 + 82 + 78 + 85 + 81}{5} = \frac{405}{5} = 81 \\
+\bar{X}_{3\cdot} &= \frac{92 + 94 + 88 + 96 + 90}{5} = \frac{460}{5} = 92
+\end{align}
+
+Grand mean:
+\begin{equation}
+\bar{X}_{\cdot\cdot} = \frac{435 + 405 + 460}{15} = \frac{1300}{15} = 86.67
+\end{equation}
+
+\textbf{Step 3: Calculate Sums of Squares}
+
+Total Sum of Squares:
+\begin{align}
+\text{TSS} &= \sum_{i=1}^3 \sum_{j=1}^5 X_{ij}^2 - \frac{(1300)^2}{15} \\
+&= (85^2 + 87^2 + \cdots + 90^2) - \frac{1690000}{15} \\
+&= 112778 - 112666.67 = 111.33
+\end{align}
+
+Sum of Squares Between:
+\begin{align}
+\text{SSB} &= \sum_{i=1}^3 n_i(\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})^2 \\
+&= 5(87 - 86.67)^2 + 5(81 - 86.67)^2 + 5(92 - 86.67)^2 \\
+&= 5(0.33)^2 + 5(-5.67)^2 + 5(5.33)^2 \\
+&= 5(0.11) + 5(32.15) + 5(28.41) \\
+&= 0.55 + 160.75 + 142.05 = 303.35
+\end{align}
+
+Sum of Squares Within:
+\begin{equation}
+\text{SSW} = \text{TSS} - \text{SSB} = 111.33 - 303.35
+\end{equation}
+
+\textit{Note: There appears to be a calculation error. Let me recalculate more carefully.}
+
+Recalculating TSS:
+\begin{align}
+\sum X_{ij}^2 &= 85^2 + 87^2 + 83^2 + 91^2 + 89^2 + 79^2 + 82^2 + 78^2 + 85^2 + 81^2 \\
+&\quad + 92^2 + 94^2 + 88^2 + 96^2 + 90^2 \\
+&= 7225 + 7569 + 6889 + 8281 + 7921 + 6241 + 6724 + 6084 + 7225 + 6561 \\
+&\quad + 8464 + 8836 + 7744 + 9216 + 8100 \\
+&= 113080
+\end{align}
+
+\begin{equation}
+\text{TSS} = 113080 - \frac{(1300)^2}{15} = 113080 - 112666.67 = 413.33
+\end{equation}
+
+\begin{equation}
+\text{SSB} = 5(87 - 86.67)^2 + 5(81 - 86.67)^2 + 5(92 - 86.67)^2 = 303.33
+\end{equation}
+
+\begin{equation}
+\text{SSW} = 413.33 - 303.33 = 110
+\end{equation}
+
+\textbf{Step 4: Calculate Mean Squares}
+
+\begin{align}
+\text{MSB} &= \frac{\text{SSB}}{k-1} = \frac{303.33}{3-1} = \frac{303.33}{2} = 151.67 \\
+\text{MSW} &= \frac{\text{SSW}}{N-k} = \frac{110}{15-3} = \frac{110}{12} = 9.17
+\end{align}
+
+\textbf{Step 5: Calculate F-Statistic}
+
+\begin{equation}
+F = \frac{\text{MSB}}{\text{MSW}} = \frac{151.67}{9.17} = 16.54
+\end{equation}
+
+\textbf{Step 6: Determine Critical Value and Make Decision}
+
+With $\alpha = 0.05$, $df_1 = 2$, and $df_2 = 12$:
+$F_{0.05, 2, 12} = 3.89$
+
+Since $F = 16.54 > 3.89$, we reject $H_0$.
+
+\textbf{Step 7: ANOVA Table}
+
+\begin{table}[h]
+\centering
+\caption{ANOVA Table for Teaching Methods Example}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Source} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} & \textbf{p-value} \\
+\hline
+Between Groups & 303.33 & 2 & 151.67 & 16.54 & $< 0.001$ \\
+\hline
+Within Groups & 110.00 & 12 & 9.17 & & \\
+\hline
+Total & 413.33 & 14 & & & \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Conclusion:} At the 0.05 significance level, there is sufficient evidence to conclude that there is a significant difference in mean test scores among the three teaching methods.
+
+\section{Effect Size and Practical Significance}
+
+\subsection{Eta-squared ($\eta^2$)}
+
+Eta-squared measures the proportion of total variance explained by the treatment:
+
+\begin{equation}
+\eta^2 = \frac{\text{SSB}}{\text{TSS}}
+\end{equation}
+
+For our example:
+\begin{equation}
+\eta^2 = \frac{303.33}{413.33} = 0.734
+\end{equation}
+
+This indicates that approximately 73.4\% of the variance in test scores is explained by the teaching method.
+
+\subsection{Omega-squared ($\omega^2$)}
+
+Omega-squared provides a less biased estimate of effect size:
+
+\begin{equation}
+\omega^2 = \frac{\text{SSB} - (k-1)\text{MSW}}{\text{TSS} + \text{MSW}}
+\end{equation}
+
+For our example:
+\begin{equation}
+\omega^2 = \frac{303.33 - (2)(9.17)}{413.33 + 9.17} = \frac{284.99}{422.50} = 0.675
+\end{equation}
+
+\section{Post-Hoc Analysis}
+
+When the F-test indicates significant differences, post-hoc tests are used to determine which specific groups differ from each other.
+
+\subsection{Tukey's Honestly Significant Difference (HSD)}
+
+For equal sample sizes, the critical difference is:
+
+\begin{equation}
+\text{HSD} = q_{\alpha, k, N-k} \sqrt{\frac{\text{MSW}}{n}}
+\end{equation}
+
+where $q_{\alpha, k, N-k}$ is the critical value from the studentized range distribution.
+
+For our example with $\alpha = 0.05$, $k = 3$, $N-k = 12$, and $n = 5$:
+$q_{0.05, 3, 12} = 3.77$
+
+\begin{equation}
+\text{HSD} = 3.77 \sqrt{\frac{9.17}{5}} = 3.77 \sqrt{1.834} = 3.77 \times 1.354 = 5.10
+\end{equation}
+
+Pairwise comparisons:
+\begin{itemize}
+\item $|\bar{X}_1 - \bar{X}_2| = |87 - 81| = 6 > 5.10$ (Significant)
+\item $|\bar{X}_1 - \bar{X}_3| = |87 - 92| = 5 < 5.10$ (Not significant)
+\item $|\bar{X}_2 - \bar{X}_3| = |81 - 92| = 11 > 5.10$ (Significant)
+\end{itemize}
+
+\section{Checking ANOVA Assumptions}
+
+\subsection{Normality}
+
+Use graphical methods (Q-Q plots, histograms) or formal tests (Shapiro-Wilk, Anderson-Darling) to assess normality within each group.
+
+\subsection{Homogeneity of Variance}
+
+Common tests include:
+\begin{itemize}
+\item Levene's test
+\item Bartlett's test (sensitive to non-normality)
+\item Brown-Forsythe test
+\end{itemize}
+
+\subsection{Independence}
+
+This assumption is primarily addressed through proper experimental design and data collection procedures.
+
+\section{Robust Alternatives}
+
+When ANOVA assumptions are violated, consider:
+
+\subsection{Welch's ANOVA}
+For unequal variances (heteroscedasticity).
+
+\subsection{Kruskal-Wallis Test}
+A non-parametric alternative when normality is violated.
+
+\subsection{Brown-Forsythe Test}
+Uses medians instead of means, more robust to outliers.
+
+\section{Power and Sample Size}
+
+\subsection{Power Analysis}
+
+The power of a one-way ANOVA depends on:
+\begin{itemize}
+\item Effect size
+\item Sample size
+\item Significance level
+\item Number of groups
+\end{itemize}
+
+\subsection{Effect Size Measures}
+
+Cohen's conventions for $\eta^2$:
+\begin{itemize}
+\item Small effect: $\eta^2 = 0.01$
+\item Medium effect: $\eta^2 = 0.06$
+\item Large effect: $\eta^2 = 0.14$
+\end{itemize}
 
 \section{Conclusion}
-One-way ANOVA provides a single test for equality of multiple means under normality and equal-variance assumptions. When these assumptions are violated, consider alternatives such as Welch's ANOVA or the nonparametric Kruskal–Wallis test.
 
+One-way ANOVA is a powerful statistical technique for comparing means across multiple groups. The key steps involve:
+
+\begin{enumerate}
+\item Verifying assumptions (independence, normality, homogeneity of variance)
+\item Partitioning total variation into between-group and within-group components
+\item Computing the F-statistic as the ratio of between-group to within-group variance
+\item Making statistical decisions based on the F-distribution
+\item Conducting post-hoc analyses when significant differences are found
+\item Interpreting results in the context of effect size and practical significance
+\end{enumerate}
+
+Understanding these fundamental concepts provides the foundation for more advanced ANOVA techniques, including two-way ANOVA, repeated measures ANOVA, and mixed-effects models.
+
+\section{Key Formulas Summary}
+
+\begin{table}[h]
+\centering
+\caption{Summary of Key ANOVA Formulas}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Statistic} & \textbf{Formula} \\
+\hline
+Group Mean & $\bar{X}_{i\cdot} = \frac{1}{n_i} \sum_{j=1}^{n_i} X_{ij}$ \\
+\hline
+Grand Mean & $\bar{X}_{\cdot\cdot} = \frac{1}{N} \sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij}$ \\
+\hline
+TSS & $\sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{\cdot\cdot})^2$ \\
+\hline
+SSB & $\sum_{i=1}^k n_i (\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})^2$ \\
+\hline
+SSW & $\sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{i\cdot})^2$ \\
+\hline
+MSB & $\frac{\text{SSB}}{k-1}$ \\
+\hline
+MSW & $\frac{\text{SSW}}{N-k}$ \\
+\hline
+F-statistic & $\frac{\text{MSB}}{\text{MSW}}$ \\
+\hline
+Eta-squared & $\frac{\text{SSB}}{\text{TSS}}$ \\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -10933,5 +11401,502 @@ The observed data are as follows:
 \end{axis}
 \end{tikzpicture}
 \end{center}
+
+\chapter{Time Series Analysis}
+
+\section{Introduction to Time Series}
+
+A \textbf{time series} is a collection of observations $\{X_t\}_{t \in T}$ indexed by time, where $T$ is an index set (typically $\mathbb{Z}$ or $\mathbb{N}$). The fundamental assumption is that these observations are realizations of random variables that evolve over time according to some underlying stochastic process.
+
+Formally, a time series can be represented as:
+\begin{equation}
+X_t = \mu_t + \epsilon_t, \quad t = 1, 2, \ldots, n
+\end{equation}
+where $\mu_t$ represents the systematic component (trend, seasonality, etc.) and $\epsilon_t$ represents the random component.
+
+\subsection{Key Components of Time Series}
+
+Every time series can be decomposed into several components:
+
+\begin{enumerate}
+\item \textbf{Trend} ($T_t$): Long-term movement in the data
+\item \textbf{Seasonal} ($S_t$): Regular, predictable patterns that repeat over fixed periods
+\item \textbf{Cyclical} ($C_t$): Long-term fluctuations with no fixed period
+\item \textbf{Irregular/Random} ($I_t$): Random variations that cannot be attributed to other components
+\end{enumerate}
+
+The decomposition can be either \textbf{additive} or \textbf{multiplicative}:
+
+\textbf{Additive Model:}
+\begin{equation}
+X_t = T_t + S_t + C_t + I_t
+\end{equation}
+
+\textbf{Multiplicative Model:}
+\begin{equation}
+X_t = T_t \times S_t \times C_t \times I_t
+\end{equation}
+
+\section{Stationarity}
+
+\subsection{Strict Stationarity}
+
+A time series $\{X_t\}$ is \textbf{strictly stationary} if the joint distribution of $(X_{t_1}, X_{t_2}, \ldots, X_{t_k})$ is identical to the joint distribution of $(X_{t_1+h}, X_{t_2+h}, \ldots, X_{t_k+h})$ for all $k$, all choices of time points $t_1, t_2, \ldots, t_k$, and all time shifts $h$.
+
+\subsection{Weak Stationarity (Covariance Stationarity)}
+
+A time series $\{X_t\}$ is \textbf{weakly stationary} if:
+
+\begin{enumerate}
+\item $E[X_t] = \mu$ for all $t$ (constant mean)
+\item $\text{Var}(X_t) = \sigma^2 < \infty$ for all $t$ (constant variance)
+\item $\text{Cov}(X_t, X_{t+h}) = \gamma(h)$ depends only on the lag $h$, not on $t$
+\end{enumerate}
+
+The autocovariance function is defined as:
+\begin{equation}
+\gamma(h) = \text{Cov}(X_t, X_{t+h}) = E[(X_t - \mu)(X_{t+h} - \mu)]
+\end{equation}
+
+The autocorrelation function (ACF) is:
+\begin{equation}
+\rho(h) = \frac{\gamma(h)}{\gamma(0)} = \frac{\text{Cov}(X_t, X_{t+h})}{\text{Var}(X_t)}
+\end{equation}
+
+\subsection{Testing for Stationarity}
+
+\subsubsection{Augmented Dickey-Fuller (ADF) Test}
+
+The ADF test examines the null hypothesis that a unit root is present in the time series. The test regression is:
+\begin{equation}
+\Delta X_t = \alpha + \beta t + \gamma X_{t-1} + \sum_{i=1}^{p} \delta_i \Delta X_{t-i} + \epsilon_t
+\end{equation}
+
+where $\Delta X_t = X_t - X_{t-1}$ is the first difference.
+
+\textbf{Hypotheses:}
+\begin{align}
+H_0&: \gamma = 0 \text{ (unit root exists, series is non-stationary)}\\
+H_1&: \gamma < 0 \text{ (no unit root, series is stationary)}
+\end{align}
+
+\section{Autoregressive (AR) Models}
+
+\subsection{AR(1) Model}
+
+An autoregressive model of order 1 is defined as:
+\begin{equation}
+X_t = \phi_1 X_{t-1} + \epsilon_t
+\end{equation}
+where $\epsilon_t \sim \text{WN}(0, \sigma^2)$ (white noise).
+
+For stationarity, we require $|\phi_1| < 1$.
+
+\textbf{Mean:} If $E[X_t] = \mu$, then:
+\begin{equation}
+\mu = \phi_1 \mu \Rightarrow \mu = 0 \text{ (assuming zero mean)}
+\end{equation}
+
+\textbf{Variance:}
+\begin{align}
+\text{Var}(X_t) &= \text{Var}(\phi_1 X_{t-1} + \epsilon_t)\\
+&= \phi_1^2 \text{Var}(X_{t-1}) + \text{Var}(\epsilon_t)\\
+\gamma(0) &= \phi_1^2 \gamma(0) + \sigma^2\\
+\gamma(0) &= \frac{\sigma^2}{1 - \phi_1^2}
+\end{align}
+
+\textbf{Autocovariance:}
+\begin{equation}
+\gamma(h) = \phi_1^h \gamma(0) = \phi_1^h \frac{\sigma^2}{1 - \phi_1^2}
+\end{equation}
+
+\textbf{Autocorrelation:}
+\begin{equation}
+\rho(h) = \phi_1^h
+\end{equation}
+
+\subsection{General AR(p) Model}
+
+The general autoregressive model of order $p$ is:
+\begin{equation}
+X_t = \sum_{i=1}^{p} \phi_i X_{t-i} + \epsilon_t
+\end{equation}
+
+Using the backshift operator $B$ where $BX_t = X_{t-1}$:
+\begin{equation}
+\phi(B) X_t = \epsilon_t
+\end{equation}
+where $\phi(B) = 1 - \phi_1 B - \phi_2 B^2 - \cdots - \phi_p B^p$.
+
+\textbf{Stationarity Condition:} All roots of the characteristic equation $\phi(z) = 0$ must lie outside the unit circle.
+
+\section{Moving Average (MA) Models}
+
+\subsection{MA(1) Model}
+
+A moving average model of order 1 is:
+\begin{equation}
+X_t = \epsilon_t + \theta_1 \epsilon_{t-1}
+\end{equation}
+
+\textbf{Mean:} $E[X_t] = 0$
+
+\textbf{Variance:}
+\begin{equation}
+\gamma(0) = \text{Var}(X_t) = \sigma^2(1 + \theta_1^2)
+\end{equation}
+
+\textbf{Autocovariance:}
+\begin{align}
+\gamma(1) &= \text{Cov}(X_t, X_{t-1}) = \text{Cov}(\epsilon_t + \theta_1 \epsilon_{t-1}, \epsilon_{t-1} + \theta_1 \epsilon_{t-2})\\
+&= \theta_1 \sigma^2\\
+\gamma(h) &= 0 \text{ for } h > 1
+\end{align}
+
+\textbf{Autocorrelation:}
+\begin{equation}
+\rho(h) = \begin{cases}
+1 & \text{if } h = 0\\
+\frac{\theta_1}{1 + \theta_1^2} & \text{if } h = 1\\
+0 & \text{if } h > 1
+\end{cases}
+\end{equation}
+
+\subsection{General MA(q) Model}
+
+\begin{equation}
+X_t = \epsilon_t + \sum_{i=1}^{q} \theta_i \epsilon_{t-i}
+\end{equation}
+
+Using the backshift operator:
+\begin{equation}
+X_t = \theta(B) \epsilon_t
+\end{equation}
+where $\theta(B) = 1 + \theta_1 B + \theta_2 B^2 + \cdots + \theta_q B^q$.
+
+\textbf{Invertibility Condition:} All roots of $\theta(z) = 0$ must lie outside the unit circle.
+
+\section{ARMA Models}
+
+\subsection{ARMA(p,q) Model}
+
+An ARMA model combines autoregressive and moving average components:
+\begin{equation}
+\sum_{i=0}^{p} \phi_i X_{t-i} = \sum_{j=0}^{q} \theta_j \epsilon_{t-j}
+\end{equation}
+where $\phi_0 = 1$ and $\theta_0 = 1$.
+
+In operator form:
+\begin{equation}
+\phi(B) X_t = \theta(B) \epsilon_t
+\end{equation}
+
+\subsection{ARMA(1,1) Example}
+
+Consider the ARMA(1,1) model:
+\begin{equation}
+X_t = \phi_1 X_{t-1} + \epsilon_t + \theta_1 \epsilon_{t-1}
+\end{equation}
+
+\textbf{Autocovariance:}
+\begin{align}
+\gamma(0) &= \frac{\sigma^2[1 + 2\phi_1\theta_1 + \theta_1^2]}{1 - \phi_1^2}\\
+\gamma(1) &= \frac{\sigma^2[(\phi_1 + \theta_1)(1 + \phi_1\theta_1)]}{1 - \phi_1^2}\\
+\gamma(h) &= \phi_1 \gamma(h-1) \text{ for } h \geq 2
+\end{align}
+
+\section{ARIMA Models}
+
+\subsection{Integration and Differencing}
+
+A time series is \textbf{integrated of order d}, denoted $I(d)$, if it becomes stationary after differencing $d$ times.
+
+The first difference is:
+\begin{equation}
+\nabla X_t = X_t - X_{t-1} = (1-B)X_t
+\end{equation}
+
+The $d$-th difference is:
+\begin{equation}
+\nabla^d X_t = (1-B)^d X_t
+\end{equation}
+
+\subsection{ARIMA(p,d,q) Model}
+
+An ARIMA model is defined as:
+\begin{equation}
+\phi(B)(1-B)^d X_t = \theta(B) \epsilon_t
+\end{equation}
+
+This is equivalent to fitting an ARMA(p,q) model to the differenced series $\nabla^d X_t$.
+
+\subsection{Example: ARIMA(1,1,1)}
+
+\begin{equation}
+(1 - \phi_1 B)(1 - B) X_t = (1 + \theta_1 B) \epsilon_t
+\end{equation}
+
+Expanding:
+\begin{equation}
+X_t = (1 + \phi_1) X_{t-1} - \phi_1 X_{t-2} + \epsilon_t + \theta_1 \epsilon_{t-1}
+\end{equation}
+
+\section{Seasonal ARIMA Models}
+
+\subsection{SARIMA(p,d,q)×(P,D,Q)s Model}
+
+For seasonal data with period $s$, the SARIMA model is:
+\begin{equation}
+\phi(B) \Phi(B^s) (1-B)^d (1-B^s)^D X_t = \theta(B) \Theta(B^s) \epsilon_t
+\end{equation}
+
+where:
+\begin{align}
+\phi(B) &= 1 - \phi_1 B - \cdots - \phi_p B^p\\
+\Phi(B^s) &= 1 - \Phi_1 B^s - \cdots - \Phi_P B^{Ps}\\
+\theta(B) &= 1 + \theta_1 B + \cdots + \theta_q B^q\\
+\Theta(B^s) &= 1 + \Theta_1 B^s + \cdots + \Theta_Q B^{Qs}
+\end{align}
+
+\section{Model Identification}
+
+\subsection{Partial Autocorrelation Function (PACF)}
+
+The partial autocorrelation function measures the correlation between $X_t$ and $X_{t+h}$ after removing the linear dependence on $X_{t+1}, X_{t+2}, \ldots, X_{t+h-1}$.
+
+For an AR(p) process, the PACF is:
+\begin{equation}
+\alpha_{hh} = \begin{cases}
+\phi_h & \text{if } h \leq p\\
+0 & \text{if } h > p
+\end{cases}
+\end{equation}
+
+\subsection{Box-Jenkins Methodology}
+
+\begin{enumerate}
+\item \textbf{Identification:} Use ACF and PACF to identify model orders
+\item \textbf{Estimation:} Estimate model parameters
+\item \textbf{Diagnostic Checking:} Verify model adequacy
+\end{enumerate}
+
+\textbf{Model Identification Rules:}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Model & ACF & PACF \\
+\hline
+AR(p) & Decays exponentially & Cuts off after lag p \\
+MA(q) & Cuts off after lag q & Decays exponentially \\
+ARMA(p,q) & Decays exponentially & Decays exponentially \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Parameter Estimation}
+
+\subsection{Maximum Likelihood Estimation}
+
+For a Gaussian ARMA process, the likelihood function is:
+\begin{equation}
+L(\boldsymbol{\theta}) = \frac{1}{(2\pi)^{n/2}} \frac{1}{|\boldsymbol{\Sigma}|^{1/2}} \exp\left(-\frac{1}{2} \mathbf{X}^T \boldsymbol{\Sigma}^{-1} \mathbf{X}\right)
+\end{equation}
+
+where $\boldsymbol{\Sigma}$ is the covariance matrix and $\boldsymbol{\theta}$ contains all model parameters.
+
+The log-likelihood is:
+\begin{equation}
+\ell(\boldsymbol{\theta}) = -\frac{n}{2} \log(2\pi) - \frac{1}{2} \log|\boldsymbol{\Sigma}| - \frac{1}{2} \mathbf{X}^T \boldsymbol{\Sigma}^{-1} \mathbf{X}
+\end{equation}
+
+\subsection{Method of Moments}
+
+For an AR(p) model, the Yule-Walker equations provide moment estimates:
+\begin{equation}
+\begin{bmatrix}
+1 & \rho(1) & \rho(2) & \cdots & \rho(p-1) \\
+\rho(1) & 1 & \rho(1) & \cdots & \rho(p-2) \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+\rho(p-1) & \rho(p-2) & \rho(p-3) & \cdots & 1
+\end{bmatrix}
+\begin{bmatrix}
+\phi_1 \\
+\phi_2 \\
+\vdots \\
+\phi_p
+\end{bmatrix}
+=
+\begin{bmatrix}
+\rho(1) \\
+\rho(2) \\
+\vdots \\
+\rho(p)
+\end{bmatrix}
+\end{equation}
+
+\section{Model Selection Criteria}
+
+\subsection{Akaike Information Criterion (AIC)}
+
+\begin{equation}
+\text{AIC} = -2 \log L(\hat{\boldsymbol{\theta}}) + 2k
+\end{equation}
+where $k$ is the number of parameters.
+
+\subsection{Bayesian Information Criterion (BIC)}
+
+\begin{equation}
+\text{BIC} = -2 \log L(\hat{\boldsymbol{\theta}}) + k \log n
+\end{equation}
+
+\subsection{Hannan-Quinn Information Criterion (HQIC)}
+
+\begin{equation}
+\text{HQIC} = -2 \log L(\hat{\boldsymbol{\theta}}) + 2k \log \log n
+\end{equation}
+
+\section{Diagnostic Checking}
+
+\subsection{Residual Analysis}
+
+After fitting a model, examine the residuals:
+\begin{equation}
+\hat{\epsilon}_t = X_t - \hat{X}_t
+\end{equation}
+
+The residuals should behave like white noise if the model is adequate.
+
+\subsection{Ljung-Box Test}
+
+Tests the null hypothesis that residuals are white noise:
+\begin{equation}
+Q_{LB} = n(n+2) \sum_{h=1}^{H} \frac{\hat{\rho}_h^2}{n-h}
+\end{equation}
+
+Under $H_0$, $Q_{LB} \sim \chi^2_{H-p-q}$.
+
+\section{Forecasting}
+
+\subsection{One-Step-Ahead Forecasting}
+
+For an ARMA(p,q) model:
+\begin{equation}
+\hat{X}_{n+1} = \sum_{i=1}^{p} \phi_i X_{n+1-i} + \sum_{j=1}^{q} \theta_j \epsilon_{n+1-j}
+\end{equation}
+
+\subsection{Multi-Step-Ahead Forecasting}
+
+For $h$-step-ahead forecasting, use the recursive relationship:
+\begin{equation}
+\hat{X}_{n+h} = \sum_{i=1}^{p} \phi_i \hat{X}_{n+h-i} + \sum_{j=h}^{q} \theta_j \epsilon_{n+h-j}
+\end{equation}
+
+\subsection{Forecast Error Variance}
+
+The $h$-step-ahead forecast error variance for an ARMA process is:
+\begin{equation}
+\text{Var}(e_{n+h}) = \sigma^2 \sum_{j=0}^{h-1} \psi_j^2
+\end{equation}
+where $\psi_j$ are the coefficients in the MA($\infty$) representation.
+
+\section{Practical Example}
+
+\subsection{Analyzing Quarterly GDP Data}
+
+Consider quarterly GDP data $\{Y_t\}_{t=1}^{100}$. The analysis proceeds as follows:
+
+\textbf{Step 1: Plot the data and check for trends}
+
+If a trend is present, consider taking first differences:
+\begin{equation}
+\nabla Y_t = Y_t - Y_{t-1}
+\end{equation}
+
+\textbf{Step 2: Examine ACF and PACF}
+
+Suppose the differenced series shows:
+\begin{itemize}
+\item ACF decays slowly with oscillating pattern
+\item PACF cuts off after lag 2
+\end{itemize}
+
+This suggests an AR(2) model for the differenced series, i.e., ARIMA(2,1,0).
+
+\textbf{Step 3: Fit the model}
+
+\begin{equation}
+\nabla Y_t = \phi_1 \nabla Y_{t-1} + \phi_2 \nabla Y_{t-2} + \epsilon_t
+\end{equation}
+
+\textbf{Step 4: Parameter estimation}
+
+Using maximum likelihood, suppose we obtain:
+\begin{align}
+\hat{\phi}_1 &= 0.65 \quad (\text{s.e.} = 0.10)\\
+\hat{\phi}_2 &= -0.28 \quad (\text{s.e.} = 0.10)\\
+\hat{\sigma}^2 &= 1.24
+\end{align}
+
+\textbf{Step 5: Diagnostic checking}
+
+Check residuals for:
+\begin{itemize}
+\item Normality (Jarque-Bera test)
+\item Serial correlation (Ljung-Box test)
+\item Heteroscedasticity (ARCH test)
+\end{itemize}
+
+\textbf{Step 6: Forecasting}
+
+The fitted model gives forecasts:
+\begin{align}
+\hat{Y}_{101} &= Y_{100} + \hat{\phi}_1 \nabla Y_{100} + \hat{\phi}_2 \nabla Y_{99}\\
+&= Y_{100} + 0.65(Y_{100} - Y_{99}) - 0.28(Y_{99} - Y_{98})
+\end{align}
+
+\section{Advanced Topics}
+
+\subsection{Vector Autoregression (VAR)}
+
+For multivariate time series $\mathbf{Y}_t = (Y_{1t}, Y_{2t}, \ldots, Y_{kt})'$:
+\begin{equation}
+\mathbf{Y}_t = \mathbf{c} + \sum_{i=1}^{p} \mathbf{A}_i \mathbf{Y}_{t-i} + \mathbf{u}_t
+\end{equation}
+
+where $\mathbf{A}_i$ are $k \times k$ coefficient matrices.
+
+\subsection{Cointegration}
+
+Two non-stationary series $X_t$ and $Y_t$ are cointegrated if there exists a linear combination:
+\begin{equation}
+Z_t = Y_t - \beta X_t
+\end{equation}
+that is stationary, where $\beta$ is the cointegrating parameter.
+
+\subsection{Error Correction Model}
+
+The Vector Error Correction Model (VECM) for cointegrated variables is:
+\begin{equation}
+\Delta \mathbf{Y}_t = \boldsymbol{\alpha} \boldsymbol{\beta}' \mathbf{Y}_{t-1} + \sum_{i=1}^{p-1} \boldsymbol{\Gamma}_i \Delta \mathbf{Y}_{t-i} + \mathbf{u}_t
+\end{equation}
+
+where $\boldsymbol{\alpha}$ contains adjustment coefficients and $\boldsymbol{\beta}$ contains cointegrating vectors.
+
+\section{Conclusion}
+
+Time series analysis provides a rich framework for understanding temporal dependencies in data. The key steps involve:
+
+\begin{enumerate}
+\item Determining stationarity and applying appropriate transformations
+\item Identifying suitable model structure using ACF and PACF
+\item Estimating parameters using maximum likelihood or method of moments
+\item Validating model adequacy through diagnostic tests
+\item Using the fitted model for forecasting and inference
+\end{enumerate}
+
+The choice between different models (AR, MA, ARMA, ARIMA, SARIMA) depends on the specific characteristics of the data and the underlying generating process. Modern extensions include multivariate methods, nonlinear models, and regime-switching approaches that can capture more complex temporal patterns.
+
+Understanding the mathematical foundations presented in this chapter provides the basis for both theoretical development and practical application of time series methods in econometrics, finance, engineering, and other fields where temporal data analysis is crucial.
+
 
 \end{document}
