@@ -8494,7 +8494,7 @@ standard deviation $\sigma = 0.3$ is known. Since the sample size is $n = 50$, t
     \overline{X} \sim N\left( 50, 0.042 \right)
     \]
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{center}
 	\begin{tikzpicture}
 	\begin{axis}[
@@ -9882,8 +9882,8 @@ meaning there’s a 99.7\% chance (very sensitive) of detecting this 0.2‑unit 
       domain=4.5:5.5, samples=200,
       axis lines=middle,
       xlabel={$\overline{X}$}, ylabel={PDF},
-      ymin=0, ymax=12,
-      width=10cm, height=6cm,
+      ymin=0, ymax=10.5,
+      width=10cm, height=5.5cm,
       legend style={at={(0.98,0.98)}, anchor=north east},
       thick
     ]
@@ -9934,7 +9934,7 @@ Higher power can be achieved by increasing the sample size, accepting a larger $
       ymin=0.5, ymax=1.02,
       xtick={10,15,20,25,30,35,40},
       ytick={0.5,0.6,0.7,0.8,0.9,1.0},
-      width=10cm, height=6cm,
+      width=10cm, height=5.2cm,
       thick,
       legend style={at={(0.98,0.02)}, anchor=south east},
       mark options={solid, scale=0.5},
@@ -9960,9 +9960,6 @@ Higher power can be achieved by increasing the sample size, accepting a larger $
 \end{figure}
 
 
-
-
-
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
@@ -9971,10 +9968,10 @@ Higher power can be achieved by increasing the sample size, accepting a larger $
       ylabel={Power $\gamma(\mu_1)$},
       axis lines=left,
       xmin=4.6, xmax=5.4,
-      ymin=0, ymax=1.25,
+      ymin=0, ymax=1.15,
       xtick={4.5,4.6,4.7,4.8,4.9,5.0,5.1,5.2,5.3,5.4,5.5},
       ytick={0,0.2,0.4,0.6,0.8,1.0},
-      width=10cm, height=6cm,
+      width=10cm, height=5.2cm,
       thick,
       mark options={solid, scale=0.6},
       legend pos=south east,
@@ -9986,6 +9983,15 @@ Higher power can be achieved by increasing the sample size, accepting a larger $
     ] coordinates {
       (4.60, 1.0000) (4.61, 1.0000) (4.62, 1.0000) (4.63, 1.0000) (4.64, 1.0000) (4.65, 1.0000) (4.66, 1.0000) (4.67, 1.0000) (4.68, 0.9999) (4.69, 0.9999) (4.70, 0.9998) (4.71, 0.9996) (4.72, 0.9992) (4.73, 0.9985) (4.74, 0.9973) (4.75, 0.9954) (4.76, 0.9923) (4.77, 0.9874) (4.78, 0.9801) (4.79, 0.9695) (4.80, 0.9546) (4.81, 0.9343) (4.82, 0.9076) (4.83, 0.8736) (4.84, 0.8318) (4.85, 0.7819) (4.86, 0.7244) (4.87, 0.6604) (4.88, 0.5913) (4.89, 0.5193) (4.90, 0.4467) (4.91, 0.3759) (4.92, 0.3091) (4.93, 0.2482) (4.94, 0.1948) (4.95, 0.1496) (4.96, 0.1130) (4.97, 0.0850) (4.98, 0.0654) (4.99, 0.0538)
     };
+    \addlegendentry{\(n=30\)}
+    \addplot[
+                  red,
+                  very thick,
+                  smooth, dashed
+                ] coordinates {
+                  (5.01, 0.0525) (5.02, 0.0602) (5.03, 0.0732) (5.04, 0.0916) (5.05, 0.1157) (5.06, 0.1455) (5.07, 0.1810) (5.08, 0.2222) (5.09, 0.2687) (5.10, 0.3197) (5.11, 0.3746) (5.12, 0.4322) (5.13, 0.4913) (5.14, 0.5506) (5.15, 0.6088) (5.16, 0.6647) (5.17, 0.7171) (5.18, 0.7653) (5.19, 0.8085) (5.20, 0.8465) (5.21, 0.8791) (5.22, 0.9065) (5.23, 0.9290) (5.24, 0.9471) (5.25, 0.9614) (5.26, 0.9723) (5.27, 0.9805) (5.28, 0.9866) (5.29, 0.9909) (5.30, 0.9940) (5.31, 0.9961) (5.32, 0.9975) (5.33, 0.9985) (5.34, 0.9991) (5.35, 0.9994) (5.36, 0.9997) (5.37, 0.9998) (5.38, 0.9999) (5.39, 0.9999) (5.40, 1.0000) (5.41, 1.0000)
+                };
+    \addlegendentry{\(n=20\)}
     \addplot[
           blue,
           very thick,
@@ -9993,8 +9999,7 @@ Higher power can be achieved by increasing the sample size, accepting a larger $
         ] coordinates {
           (5.01, 0.0538) (5.02, 0.0654) (5.03, 0.0850) (5.04, 0.1130) (5.05, 0.1496) (5.06, 0.1948) (5.07, 0.2482) (5.08, 0.3091) (5.09, 0.3759) (5.10, 0.4467) (5.11, 0.5193) (5.12, 0.5913) (5.13, 0.6604) (5.14, 0.7244) (5.15, 0.7819) (5.16, 0.8318) (5.17, 0.8736) (5.18, 0.9076) (5.19, 0.9343) (5.20, 0.9546) (5.21, 0.9695) (5.22, 0.9801) (5.23, 0.9874) (5.24, 0.9923) (5.25, 0.9954) (5.26, 0.9973) (5.27, 0.9985) (5.28, 0.9992) (5.29, 0.9996) (5.30, 0.9998) (5.31, 0.9999) (5.32, 0.9999) (5.33, 1.0000) (5.34, 1.0000) (5.35, 1.0000) (5.36, 1.0000) (5.37, 1.0000) (5.38, 1.0000) (5.39, 1.0000) (5.40, 1.0000) (5.41, 1.0000)
         };
-    \draw[dotted, gray] (axis cs:5.0,0) -- (axis cs:5.0,1.05) node[above right]{$\mu_0$};
-    \addlegendentry{\(n=30\)}
+    \draw[dotted, gray] (axis cs:5.0,0) -- (axis cs:5.0,0.95) node[above right]{$\mu_0$};
 
     \addplot[
           red,
@@ -10003,14 +10008,8 @@ Higher power can be achieved by increasing the sample size, accepting a larger $
         ] coordinates {
           (4.60, 1.0000) (4.61, 0.9999) (4.62, 0.9999) (4.63, 0.9998) (4.64, 0.9997) (4.65, 0.9994) (4.66, 0.9991) (4.67, 0.9985) (4.68, 0.9975) (4.69, 0.9961) (4.70, 0.9940) (4.71, 0.9909) (4.72, 0.9866) (4.73, 0.9805) (4.74, 0.9723) (4.75, 0.9614) (4.76, 0.9471) (4.77, 0.9290) (4.78, 0.9065) (4.79, 0.8791) (4.80, 0.8465) (4.81, 0.8085) (4.82, 0.7653) (4.83, 0.7171) (4.84, 0.6647) (4.85, 0.6088) (4.86, 0.5506) (4.87, 0.4913) (4.88, 0.4322) (4.89, 0.3746) (4.90, 0.3197) (4.91, 0.2687) (4.92, 0.2222) (4.93, 0.1810) (4.94, 0.1455) (4.95, 0.1157) (4.96, 0.0916) (4.97, 0.0732) (4.98, 0.0602) (4.99, 0.0525)
         };
-        \addplot[
-              red,
-              very thick,
-              smooth, dashed
-            ] coordinates {
-              (5.01, 0.0525) (5.02, 0.0602) (5.03, 0.0732) (5.04, 0.0916) (5.05, 0.1157) (5.06, 0.1455) (5.07, 0.1810) (5.08, 0.2222) (5.09, 0.2687) (5.10, 0.3197) (5.11, 0.3746) (5.12, 0.4322) (5.13, 0.4913) (5.14, 0.5506) (5.15, 0.6088) (5.16, 0.6647) (5.17, 0.7171) (5.18, 0.7653) (5.19, 0.8085) (5.20, 0.8465) (5.21, 0.8791) (5.22, 0.9065) (5.23, 0.9290) (5.24, 0.9471) (5.25, 0.9614) (5.26, 0.9723) (5.27, 0.9805) (5.28, 0.9866) (5.29, 0.9909) (5.30, 0.9940) (5.31, 0.9961) (5.32, 0.9975) (5.33, 0.9985) (5.34, 0.9991) (5.35, 0.9994) (5.36, 0.9997) (5.37, 0.9998) (5.38, 0.9999) (5.39, 0.9999) (5.40, 1.0000) (5.41, 1.0000)
-            };
-        \addlegendentry{\(n=30\)}
+
+
   \end{axis}
 \end{tikzpicture}
 \caption{\textit{Power curve of the two-sided $Z$-test in the above example as the true mean $\mu_1$ varies  with \(\mu_0=5\), \(\sigma=0.3\), and \(\alpha=0.05\). The vertical dashed line marks the null value $\mu_0=5$. The value of $\gamma(\mu_1)$ as $\mu_1 \to \mu_0$ is $\alpha =0.05$. Because this is the probability of rejecting $H_0$ when it is actually true which happens when $\mu_1 \to \mu_0$.}}
