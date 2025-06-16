@@ -699,7 +699,145 @@ Decision: REJECT H0
 
 \end{enumerate}
 
+\subsection{Most Powerful Tests and the Neyman--Pearson Lemma}
+When choosing among all tests of a fixed size (level) $\alpha$, one may ask: \emph{Which test maximizes power for a given simple alternative?}
 
+The Neyman--Pearson lemma gives a definitive answer for testing a simple null
+\begin{equation}
+H_0: \theta=\theta_0
+\quad\text{against}\quad
+H_1: \theta=\theta_1.
+\end{equation}
+Define the likelihood ratio
+\begin{equation}
+\Lambda(x) = \frac{f(x;\theta_0)}{f(x;\theta_1)}.
+\end{equation}
+The lemma states that the test which rejects $H_0$ when
+\begin{equation}
+\Lambda(x) \le k
+\end{equation}
+is the \emph{most powerful} test of size $\alpha$, where $k$ is chosen so that $P_{\theta_0}(\Lambda(x)\le k)=\alpha$.
+
+\paragraph{Example: Exponential Lifetimes}
+Suppose individual bulb lifetimes $X_i$ are independent and exponentially distributed with density
+\begin{equation}
+f(x;\lambda)=\lambda e^{-\lambda x}, \quad x>0,
+\end{equation}
+where $\lambda=1/\mu$ is the failure rate. We wish to test
+\begin{equation}
+H_0: \lambda=\lambda_0 \quad\text{vs.}\quad H_1: \lambda=\lambda_1 ;(\lambda_1<\lambda_0).
+\end{equation}
+The joint density for a sample of size $n$ is
+\begin{equation}
+L(\lambda) = \lambda^n e^{-\lambda\sum_{i=1}^n X_i}.
+\end{equation}
+The likelihood ratio is
+\begin{equation}
+\Lambda = \frac{L(\lambda_0)}{L(\lambda_1)}
+= \Bigl(\frac{\lambda_0}{\lambda_1}\Bigr)^n
+\exp\Bigl[-(\lambda_0-\lambda_1)\sum_{i=1}^n X_i\Bigr].
+\end{equation}
+Rejecting for small $\Lambda$ is equivalent to rejecting when
+\begin{equation}
+\sum_{i=1}^n X_i > c,
+\end{equation}
+where $c$ solves
+\begin{equation}
+P_{\lambda_0}\bigl(\sum_{i=1}^n X_i>c\bigr)=\alpha.
+\end{equation}
+This test is most powerful of level $\alpha$ for distinguishing $\lambda_0$ vs.\ $\lambda_1$.
+
+Increasing $n$, choosing a larger $\alpha$, or considering a larger separation between $\lambda_0$ and $\lambda_1$ will increase power.
+
+\section{Most Powerful Test, Neyman–Pearson Lemma, and Likelihood Ratio Test}
+
+\subsection{Most Powerful Test}
+A \textbf{most powerful} test between two simple hypotheses
+\[
+H_0: \theta = \theta_0
+\quad\text{and}\quad
+H_1: \theta = \theta_1
+\]
+is a test of size~$\alpha$ whose power under $H_1$ is at least as large as that of any other test of the same size.  Concretely, if $\phi(X)\in\{0,1\}$ denotes our test function, then for any other test $\psi(X)$ with
+\[
+\mathbb{E}_{\theta_0}[\psi(X)] \le \alpha,
+\]
+we have
+\[
+\mathbb{E}_{\theta_1}[\phi(X)] \;\ge\; \mathbb{E}_{\theta_1}[\psi(X)].
+\]
+
+\subsection{Neyman–Pearson Lemma}
+\textbf{Theorem.}  (Neyman–Pearson)
+Let $X$ have density or mass $f(x;\theta)$.  To test
+\[
+H_0: \theta=\theta_0
+\quad\text{versus}\quad
+H_1: \theta=\theta_1,
+\]
+the most powerful test of size~$\alpha$ rejects $H_0$ when the likelihood ratio
+\[
+\Lambda(x)
+=
+\frac{f(x;\theta_1)}{f(x;\theta_0)}
+\]
+exceeds a cutoff~$k>0$ chosen so that
+\[
+\Pr_{\theta_0}\bigl(\Lambda(X)>k\bigr)=\alpha.
+\]
+Equivalently, the test function is
+\[
+\phi(x)=
+\begin{cases}
+1, & \Lambda(x)>k,\\
+\gamma, & \Lambda(x)=k,\\
+0, & \Lambda(x)<k,
+\end{cases}
+\]
+with $\gamma\in[0,1]$ chosen to make $\mathbb{E}_{\theta_0}[\phi(X)]=\alpha$.
+
+\subsection{Likelihood Ratio Test}
+For testing a composite null
+\[
+H_0:\theta\in\Theta_0
+\quad\text{against}\quad
+H_1:\theta\in\Theta \setminus \Theta_0,
+\]
+define the likelihood ratio statistic
+\[
+\lambda(x)
+=
+\frac{\displaystyle\max_{\theta\in\Theta_0}L(\theta;x)}
+{\displaystyle\max_{\theta\in\Theta}L(\theta;x)},
+\]
+where $L(\theta;x)=f(x;\theta)$.  We reject $H_0$ for small values of $\lambda(x)$ (equivalently, large values of $-2\log\lambda(x)$).
+
+Under standard regularity conditions, as the sample size $n\to\infty$,
+\[
+-2\log\lambda(X)
+\;\xrightarrow{d}\;
+\chi^2_{\,\dim(\Theta)-\dim(\Theta_0)}.
+\]
+
+\subsection{Example: Normal Mean}
+Let $X_1,X_2,\dots,X_n \overset{iid}{\sim} N(\mu,\sigma^2)$ with known $\sigma^2$, and consider
+\[
+H_0:\mu=\mu_0
+\quad\text{vs.}\quad
+H_1:\mu=\mu_1.
+\]
+The Neyman–Pearson ratio test rejects $H_0$ when
+\[
+\frac{L(\mu_1)}{L(\mu_0)}
+=
+\exp\!\Bigl(\tfrac{\mu_1-\mu_0}{\sigma^2}\sum_{i=1}^n X_i
+\;-\;\tfrac{n(\mu_1^2-\mu_0^2)}{2\sigma^2}\Bigr)
+> k.
+\]
+After taking logarithms and rearranging, this reduces to the usual level‑$\alpha$ test
+\[
+\overline X > \mu_0 + z_{1-\alpha}\,\frac{\sigma}{\sqrt n}.
+\]
 
 
 

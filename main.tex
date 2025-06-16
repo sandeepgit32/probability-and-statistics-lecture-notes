@@ -9780,7 +9780,7 @@ One very important concept related to error probabilities is the notion of the \
 \begin{textbox}
 	The \textbf{power} of a test at a specific alternative parameter value $\theta=\theta_1$ is defined as
 	\begin{align*}
-	\mathrm{Power}(\theta_1) &= P(\text{Rejecting }H_0\mid \theta = \theta_1)\\
+	\mathrm{Power}(\theta_1)=\gamma(\theta_1) &= P(\text{Rejecting }H_0\mid \theta = \theta_1)\\
 	&=1-P(\text{Not rejecting }H_0\mid \theta = \theta_1)\\
 	& = 1 - \beta(\theta_1)
 	\end{align*}
@@ -9788,7 +9788,70 @@ Here $\beta(\theta_1)$ is the probability of a Type~II error when the true param
 \end{textbox}
 \bigskip
 
-In other words, \textbf{it quantifies your test’s sensitivity to detect real departures from the null hypothesis}. The power of this two‐sided $Z$‐test ($H_0: \mu = 5$ vs.\ $H_1: \mu \neq 5$) with known $\sigma = 0.3$, $n = 50$, and $\alpha = 0.05$ is the probability it will reject $H_0$ when $\mu$ truly equals $4.8$.  Here the critical region is
+In other words, \textbf{it quantifies your test’s sensitivity to detect real departures from the null hypothesis}.
+
+\subsection{Calculating Power in a One-Sample $Z$-Test}
+
+\noindent\textbf{One-sided $Z$-test:} Consider testing
+\[
+H_0 : \mu = \mu_0 \quad \text{vs.} \quad H_1 : \mu > \mu_0,
+\]
+with known population standard deviation \( \sigma \), and a significance level \( \alpha \). The rejection region is:
+\[
+Z = \frac{\overline{X} - \mu_0}{\sigma / \sqrt{n}} > z_\alpha,
+\quad\text{or equivalently,}\quad
+\overline{X} > \mu_0 + z_\alpha \cdot \frac{\sigma}{\sqrt{n}}.
+\]
+
+\noindent When the true mean is \( \mu = \mu_1 > \mu_0 \), the sampling distribution of \( \overline{X} \sim N(\mu_1, \sigma^2 / n) \), and the power is:
+\[
+\gamma(\mu_1) = P\left( \overline{X} > \mu_0 + z_\alpha \cdot \frac{\sigma}{\sqrt{n}}\right)
+\]
+
+\noindent Standardizing under \( H_1 \), we get:
+\begin{align*}
+\gamma(\mu_1) &=P\left( \dfrac{\overline{X}-\mu_1}{\sigma/\sqrt{n}} > \dfrac{1}{\sigma/\sqrt{n}}\left( \mu_0 + z_\alpha \cdot \frac{\sigma}{\sqrt{n}}-\mu_1\right)  \right) \\
+&= P\left( Z > z_\alpha - \frac{(\mu_1 - \mu_0)\sqrt{n}}{\sigma} \right)
+\end{align*}
+
+\medskip
+
+\noindent\textbf{Two-Sided $Z$-Test}: Now consider the two-sided alternative:
+\[
+H_0 : \mu = \mu_0 \quad \text{vs.} \quad H_1 : \mu \ne \mu_0.
+\]
+
+with known population standard deviation \( \sigma \), and a significance level \( \alpha \). The rejection region is:
+\[
+\left| Z \right| > z_{\alpha/2}, \quad \text{or equivalently,} \quad
+\overline{X} < \mu_0 - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \quad \text{or} \quad
+\overline{X} > \mu_0 + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}.
+\]
+
+If the true mean is \( \mu = \mu_1 \ne \mu_0 \), then:
+\begin{align*}
+\gamma(\mu_1) &= P\left( \overline{X} < \mu_0 - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right)
++ P\left( \overline{X} > \mu_0 + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right).
+\end{align*}
+
+Standardizing:
+\begin{align*}
+\gamma(\mu_1)
+&= P\left( Z < -z_{\alpha/2} - \frac{(\mu_1 - \mu_0)\sqrt{n}}{\sigma} \right)
++ P\left( Z > z_{\alpha/2} - \frac{(\mu_1 - \mu_0)\sqrt{n}}{\sigma} \right),
+\end{align*}
+where again \( Z \sim N(0,1) \).
+
+\medskip
+In both cases, we observed the following factors affecting power in the $Z$-test:
+\begin{itemize}
+  \item \textbf{Significance level \( \alpha \):} Increasing \( \alpha \) increases power.
+  \item \textbf{Effect size \( \mu_1 - \mu_0 \):} Larger differences are easier to detect.
+  \item \textbf{Population standard deviation \( \sigma \):} Smaller \( \sigma \) increases power.
+  \item \textbf{Sample size \( n \):} Increasing \( n \) increases power by reducing standard error.
+\end{itemize}
+
+\textbf{Example}: The power of a two‐sided $Z$‐test ($H_0: \mu = 5$ vs.\ $H_1: \mu \neq 5$) with known $\sigma = 0.3$, $n = 50$, and $\alpha = 0.05$ is the probability it will reject $H_0$ when $\mu$ truly equals $4.8$.  Here the critical region is
 \[
 \overline{X} < 4.9168
 \quad\text{or}\quad
@@ -9800,22 +9863,64 @@ If in reality $\mu = 4.8$, then
 \]
 and
 \[
-P\bigl(\bar{X} < 4.9168\bigr)
+P\bigl(\overline{X} < 4.9168\bigr)
 = F_Z\Bigl(\frac{4.9168 - 4.8}{0.04243}\Bigr)
 \approx 0.9971
 \]
 while
 \[
-P\bigl(\bar{X} > 5.0832\bigr)
+P\bigl(\overline{X} > 5.0832\bigr)
 = 1 - F_Z\Bigl(\frac{5.0832 - 4.8}{0.04243}\Bigr)
 \approx 0
 \]
-Thus the test’s power at $\mu = 4.8$ is about $0.9971\ (\approx 99.7\%)$, meaning there’s a 99.7\% chance (very sensitive) of detecting this 0.2‑unit shift.  Higher power can be achieved by increasing the sample size, accepting a larger $\alpha$, or targeting a larger effect size. Before running an experiment, one often conducts a power analysis to choose \(n\) (or \(\alpha\)) so that the power exceeds a desired threshold (commonly 0.8 or 0.9) for a specified effect size.
+Thus the test’s power at $\mu = 4.8$ is
+$$\gamma(4.8) = P\bigl(\overline{X} < 4.9168\bigr)+P\bigl(\overline{X} > 5.0832\bigr) = 0.9971\ (\approx 99.7\%)$$
+meaning there’s a 99.7\% chance (very sensitive) of detecting this 0.2‑unit shift.
+
+Higher power can be achieved by increasing the sample size, accepting a larger $\alpha$, or targeting a larger effect size. Before running an experiment, one often conducts a power analysis to choose \(n\) (or \(\alpha\)) so that the power exceeds a desired threshold (commonly 0.8 or 0.9) for a specified effect size.
+
+\subsection{Required Sample Size for a One-Sample $Z$-Test}
+
+\textbf{One-sided $Z$-test}: When planning a one-sided $Z$-test
+\[
+H_0: \mu = \mu_0
+\quad\text{versus}\quad
+H_1: \mu > \mu_0,
+\]
+we wish to choose \(n\) so that the power at \(\mu>\mu_1 \neq \mu_0\) is
+\(\gamma = 1-\beta\).  Recall that
+\[
+\gamma(\mu_1)
+= P\Bigl(Z > z_\alpha - \dfrac{(\mu_1-\mu_0)\sqrt{n}}{\sigma}\Bigr)
+\]
+By the definition of \(z_\beta\),
+$$P(Z>z_\beta)=\beta \quad \Longrightarrow 1-\beta = 1-P(Z>z_\beta)=P(Z<z_\beta)=P(Z>-z_\beta)$$
+
+Thus we can write
+\[
+z_\alpha - \frac{(\mu_1-\mu_0)\sqrt{n}}{\sigma} \;=\; -z_\beta
+\]
+Solving for \(n\) gives the minimum sample size needed:
+\[
+n \;=\;
+\left(\frac{z_\alpha + z_\beta}{(\mu_1 - \mu_0)/\sigma}\right)^{\!2}
+\;=\;
+\left(\frac{z_\alpha + z_\beta}{\delta}\right)^2
+\]
+where $\delta = \dfrac{\mu_1-\mu_0}{\sigma}$ is the standardize effect size. The same formula applies when the alternative hypothesis is \(H_1: \mu < \mu_0\).
+
+\noindent Thus, to achieve significance level \(\alpha\) and power \(1-\beta\)
+against a shift of \(\mu_1-\mu_0\), one needs
+\[
+n \;\ge\; \left(\frac{z_\alpha + z_\beta}{\delta}\right)^2
+\]
+
+\textbf{Two-sided $Z$-test}: In two-sided tests, a closed-form expression for the required sample size is generally not available and is therefore best performed using statistical software.
 
 
 \subsection{Receiver Operating Characteristic (ROC) Curve}
 
-The ROC curve is a graphical tool that illustrates the trade-off between sensitivity (power) and specificity (1 - \(\alpha\)) for different thresholds of a test statistic.
+The ROC curve is the plot of the true positive rate (TPR) against the false positive rate (FPR) for different thresholds of a test statistic.
 
 \begin{itemize}
 	\item \textbf{True Positive Rate (TPR) or Sensitivity:} \(1 - \beta = P(\text{Reject } H_0 \mid H_1 \text{ true})\).
@@ -9824,172 +9929,41 @@ The ROC curve is a graphical tool that illustrates the trade-off between sensiti
 
 By varying the critical value \(c\), we obtain different pairs \((\alpha, 1-\beta)\), which can be plotted with \(\alpha\) on the x-axis and power on the y-axis to produce the ROC curve.
 
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}[scale=1.2]
-	\draw[->] (0,0) -- (5,0) node[right] {False Positive Rate (\(\alpha\))};
-	\draw[->] (0,0) -- (0,5) node[above] {True Positive Rate (Power)};
+	\draw[->, thick] (0,0) -- (5,0) node[right] {False Positive Rate (\(\alpha\))};
+	\draw[->, thick] (0,0) -- (0,5) node[above] {True Positive Rate (Power)};
 
 	% Diagonal line (random guess line)
-	\draw[dashed, gray] (0,0) -- (4.5,4.5);
+	\draw[dotted, gray, thick] (0,0) -- (4.5,4.5);
 
 	% Example ROC curve (concave)
-	\draw[thick, blue] plot [smooth] coordinates {(0,0) (0.5,1.0) (1.5,3.2) (2.5,4.0) (4,4.5)};
+	\draw[very thick, blue] plot [smooth] coordinates {(0,0) (0.5,1.2) (1.5,3.1) (2.5,3.8) (4.5,4.5)};
+
+    % Example ROC curve (concave)
+    \draw[very thick, red, dashed] plot [smooth] coordinates {(0,0) (0.5,0.8) (1.5,2.2) (2.5,3.2) (4.5,4.5)};
 
 	% Points
 	\filldraw (0,0) circle (1.5pt) node[below left] {0};
 	\filldraw (4.5,4.5) circle (1.5pt) node[above right] {1};
 
 	% Labels
-	\node at (3,1) {ROC Curve};
-	\node[gray] at (2,2) {Random Guess};
+	\node at (1.9,4) {Large sample};
+    \node at (3.3,3.0) {Small sample};
+	\node[gray] at (3.2,2.0) {Random Guess};
 	\end{tikzpicture}
 \end{center}
+\caption{\textit{ROC curves for two sample sizes.}}
+\label{fig:roc}
+\end{figure}
 
-The closer the ROC curve approaches the top-left corner, the better the test's ability to discriminate between \(H_0\) and \(H_1\).
+The ROC curve helps us visualize and compare the effectiveness of tests across different thresholds. The closer the ROC curve approaches the top-left corner, the better the test's ability to discriminate between \(H_0\) and \(H_1\). From the Figure~\ref{fig:roc}, we can see as the sample size increases, the ROC curve moves closer to the top-left corner, indicating improved test power and discrimination ability.
 
-\bigskip
 The \textbf{Area Under the Curve (AUC)} quantifies overall test performance: an AUC of 1 indicates perfect discrimination, whereas an AUC of 0.5 corresponds to random guessing.
 
 
-\subsection{Most Powerful Tests and the Neyman--Pearson Lemma}
-When choosing among all tests of a fixed size (level) $\alpha$, one may ask: \emph{Which test maximizes power for a given simple alternative?}
 
-The Neyman--Pearson lemma gives a definitive answer for testing a simple null
-\begin{equation}
-H_0: \theta=\theta_0
-\quad\text{against}\quad
-H_1: \theta=\theta_1.
-\end{equation}
-Define the likelihood ratio
-\begin{equation}
-\Lambda(x) = \frac{f(x;\theta_0)}{f(x;\theta_1)}.
-\end{equation}
-The lemma states that the test which rejects $H_0$ when
-\begin{equation}
-\Lambda(x) \le k
-\end{equation}
-is the \emph{most powerful} test of size $\alpha$, where $k$ is chosen so that $P_{\theta_0}(\Lambda(x)\le k)=\alpha$.
-
-\paragraph{Example: Exponential Lifetimes}
-Suppose individual bulb lifetimes $X_i$ are independent and exponentially distributed with density
-\begin{equation}
-f(x;\lambda)=\lambda e^{-\lambda x}, \quad x>0,
-\end{equation}
-where $\lambda=1/\mu$ is the failure rate. We wish to test
-\begin{equation}
-H_0: \lambda=\lambda_0 \quad\text{vs.}\quad H_1: \lambda=\lambda_1 ;(\lambda_1<\lambda_0).
-\end{equation}
-The joint density for a sample of size $n$ is
-\begin{equation}
-L(\lambda) = \lambda^n e^{-\lambda\sum_{i=1}^n X_i}.
-\end{equation}
-The likelihood ratio is
-\begin{equation}
-\Lambda = \frac{L(\lambda_0)}{L(\lambda_1)}
-= \Bigl(\frac{\lambda_0}{\lambda_1}\Bigr)^n
-\exp\Bigl[-(\lambda_0-\lambda_1)\sum_{i=1}^n X_i\Bigr].
-\end{equation}
-Rejecting for small $\Lambda$ is equivalent to rejecting when
-\begin{equation}
-\sum_{i=1}^n X_i > c,
-\end{equation}
-where $c$ solves
-\begin{equation}
-P_{\lambda_0}\bigl(\sum_{i=1}^n X_i>c\bigr)=\alpha.
-\end{equation}
-This test is most powerful of level $\alpha$ for distinguishing $\lambda_0$ vs.\ $\lambda_1$.
-
-Increasing $n$, choosing a larger $\alpha$, or considering a larger separation between $\lambda_0$ and $\lambda_1$ will increase power.
-
-\section{Most Powerful Test, Neyman–Pearson Lemma, and Likelihood Ratio Test}
-
-\subsection{Most Powerful Test}
-A \textbf{most powerful} test between two simple hypotheses
-\[
-H_0: \theta = \theta_0
-\quad\text{and}\quad
-H_1: \theta = \theta_1
-\]
-is a test of size~$\alpha$ whose power under $H_1$ is at least as large as that of any other test of the same size.  Concretely, if $\phi(X)\in\{0,1\}$ denotes our test function, then for any other test $\psi(X)$ with
-\[
-\mathbb{E}_{\theta_0}[\psi(X)] \le \alpha,
-\]
-we have
-\[
-\mathbb{E}_{\theta_1}[\phi(X)] \;\ge\; \mathbb{E}_{\theta_1}[\psi(X)].
-\]
-
-\subsection{Neyman–Pearson Lemma}
-\textbf{Theorem.}  (Neyman–Pearson)
-Let $X$ have density or mass $f(x;\theta)$.  To test
-\[
-H_0: \theta=\theta_0
-\quad\text{versus}\quad
-H_1: \theta=\theta_1,
-\]
-the most powerful test of size~$\alpha$ rejects $H_0$ when the likelihood ratio
-\[
-\Lambda(x)
-=
-\frac{f(x;\theta_1)}{f(x;\theta_0)}
-\]
-exceeds a cutoff~$k>0$ chosen so that
-\[
-\Pr_{\theta_0}\bigl(\Lambda(X)>k\bigr)=\alpha.
-\]
-Equivalently, the test function is
-\[
-\phi(x)=
-\begin{cases}
-1, & \Lambda(x)>k,\\
-\gamma, & \Lambda(x)=k,\\
-0, & \Lambda(x)<k,
-\end{cases}
-\]
-with $\gamma\in[0,1]$ chosen to make $\mathbb{E}_{\theta_0}[\phi(X)]=\alpha$.
-
-\subsection{Likelihood Ratio Test}
-For testing a composite null
-\[
-H_0:\theta\in\Theta_0
-\quad\text{against}\quad
-H_1:\theta\in\Theta \setminus \Theta_0,
-\]
-define the likelihood ratio statistic
-\[
-\lambda(x)
-=
-\frac{\displaystyle\max_{\theta\in\Theta_0}L(\theta;x)}
-{\displaystyle\max_{\theta\in\Theta}L(\theta;x)},
-\]
-where $L(\theta;x)=f(x;\theta)$.  We reject $H_0$ for small values of $\lambda(x)$ (equivalently, large values of $-2\log\lambda(x)$).
-
-Under standard regularity conditions, as the sample size $n\to\infty$,
-\[
--2\log\lambda(X)
-\;\xrightarrow{d}\;
-\chi^2_{\,\dim(\Theta)-\dim(\Theta_0)}.
-\]
-
-\subsection{Example: Normal Mean}
-Let $X_1,X_2,\dots,X_n \overset{iid}{\sim} N(\mu,\sigma^2)$ with known $\sigma^2$, and consider
-\[
-H_0:\mu=\mu_0
-\quad\text{vs.}\quad
-H_1:\mu=\mu_1.
-\]
-The Neyman–Pearson ratio test rejects $H_0$ when
-\[
-\frac{L(\mu_1)}{L(\mu_0)}
-=
-\exp\!\Bigl(\tfrac{\mu_1-\mu_0}{\sigma^2}\sum_{i=1}^n X_i
-\;-\;\tfrac{n(\mu_1^2-\mu_0^2)}{2\sigma^2}\Bigr)
-> k.
-\]
-After taking logarithms and rearranging, this reduces to the usual level‑$\alpha$ test
-\[
-\overline X > \mu_0 + z_{1-\alpha}\,\frac{\sigma}{\sqrt n}.
-\]
 
 \chapter{Analysis of Variance: One-Factor (One-Way ANOVA)}
 
