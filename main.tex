@@ -7756,7 +7756,9 @@ The steps to construct a confidence interval using the pivotal method are as fol
 
 \bigskip
 
-\subsection{Confidence Interval for the Mean in a Normal Population (Known Variance)}
+\section{Confidence Interval for the Mean in a Normal Population}
+
+\subsection{Population Variance Known}
 
 Suppose $X_1, X_2, \dots, X_n$ is a random sample from a normal distribution $N(\mu, \sigma^2)$, where the variance $\sigma^2$ is known. The sample mean $\overline{X}$ follows
 \[
@@ -7867,8 +7869,7 @@ Construct the confidence interval:
 
 We are 95\% confident that the true mean lifetime $\mu$ of the batteries lies between 96.08 and 103.92 hours.
 
-
-\subsection{Confidence Interval for the Mean in a Normal Population (Unknown Variance)}
+\subsection{Population Variance Unknown}
 
 Let $X_1, X_2, \dots, X_n$ be a random sample from a normal distribution $N(\mu, \sigma^2)$, where both $\mu$ and $\sigma^2$ are unknown. Let $\overline{X}$ be the sample mean and $S^2$ be sample variance.
 
@@ -7897,7 +7898,7 @@ Therefore, the $100(1-\alpha)\%$ confidence interval for $\mu$ is
 \end{textbox}
 
 
-\subsection{Confidence Interval for the Variance in a Normal Population}
+\section{Confidence Interval for the Variance in a Normal Population}
 
 Consider a random sample $X_1, X_2, \dots, X_n$ from a normal distribution $N(\mu, \sigma^2)$ with unknown variance $\sigma^2$. Let $S^2$ be sample variance.
 
@@ -7986,7 +7987,7 @@ Therefore, the $100(1-\alpha)\%$ confidence interval for $\sigma^2$ is
 \]
 \end{textbox}
 
-\subsection{Confidence Interval for the Difference of Two Normally Distributed Population Means}
+\section{Confidence Interval for the Difference of Two Normally Distributed Population Means}
 
 When comparing the means of two normally distributed populations, it is often of interest to estimate the difference between the population means, say \(\mu_1 - \mu_2\), using data from independent random samples from each population.
 
@@ -7994,7 +7995,7 @@ Let \(X_1, X_2, \dots, X_{n_1}\) be a random sample from population 1 with mean 
 
 We consider two cases:
 
-\subsubsection*{(i) Population Variances Known}
+\subsection{Population Variances Known}
 
 Assume that \(\sigma_1^2\) and \(\sigma_2^2\) are known. Then the sampling distribution of \(\overline{X} - \overline{Y}\) is normal:
 \[
@@ -8016,11 +8017,11 @@ Then, a \(100(1 - \alpha)\%\) confidence interval for \(\mu_1 - \mu_2\) is given
 \]
 \end{textbox}
 
-\subsubsection*{(ii) Population Variances Unknown}
+\subsection{Population Variances Unknown}
 
 Assume the populations are normally distributed but \(\sigma_1^2\) and \(\sigma_2^2\) are unknown. The confidence interval depends on whether variances can be assumed equal.
 
-\begin{enumerate}[label=(\alph*)]
+\begin{enumerate}[label=(\roman*)]
 	\item \textbf{Equal but Unknown Variances:}
 
 Assume \(\sigma_1^2 = \sigma_2^2 = \sigma^2\), and estimate with pooled variance:
@@ -8064,7 +8065,7 @@ Then, the approximate \(100(1 - \alpha)\%\) confidence interval for \(\mu_1 - \m
 \end{enumerate}
 
 
-\subsection{Confidence Interval for the Ratio of Two Normally Distributed Population Variances}
+\section{Confidence Interval for the Ratio of Two Normally Distributed Population Variances}
 
 Let \(X_1, X_2, \dots, X_{n_1}\) be a random sample from population 1 with mean \(\mu_1\) and variance \(\sigma_1^2\), and \(Y_1, Y_2, \dots, Y_{n_2}\) be a random sample from population 2 with mean \(\mu_2\) and variance \(\sigma_2^2\). Let \(S_1^2\), \(S_2^2\) denote the respective sample variances.
 
@@ -8119,7 +8120,7 @@ Therefore, a $100(1-\alpha)\%$ confidence interval for the ratio $\sigma_1^2/\si
 \end{textbox}
 
 
-\subsection{Confidence Interval for a Population Proportion}
+\section{Confidence Interval for a Population Proportion}
 
 Let $X_1, X_2, \dots, X_n$ be a random sample from a Bernoulli population with unknown proportion parameter $p$. Define the sample proportion as
 \[
