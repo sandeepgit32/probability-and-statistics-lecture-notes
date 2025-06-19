@@ -10117,72 +10117,102 @@ The \textbf{Area Under the Curve (AUC)} quantifies overall test performance: an 
 
 \chapter{Analysis of Variance (ANOVA)}
 
-\section{One-way ANOVA}
+\section{One-Way ANOVA}
 
-Analysis of Variance (ANOVA) is a statistical technique used to test whether there are statistically significant differences (that is unlikely to be due to chance alone) between the means of three or more independent groups. The one-factor ANOVA, also known as one-way ANOVA, examines the effect of a single categorical independent variable (factor) on a continuous dependent variable.
+Analysis of Variance (ANOVA) is a statistical method used to determine whether there are significant differences (that is unlikely to be due to chance alone) between the means of three or more independent groups. Specifically, \textbf{one-way ANOVA}—also called \textbf{one-factor ANOVA}—examines the impact of a single categorical independent variable (called a \textit{factor}) on a continuous dependent variable.
 
-The fundamental question addressed by one-way ANOVA is:
-$$\textbf{Are the population means of several groups equal?}$$
-Mathematically, we formulate the hypothesis as:
+The key question one-way ANOVA addresses is:
+\[
+\textit{Are the population means of all groups equal?}
+\]
 
+This can be stated formally using hypotheses:
 \begin{textbox}
 \begin{align*}
-&H_0: \mu_1 = \mu_2 = \cdots = \mu_k\\
-&H_1: \text{At least one } \mu_i \text{ differs from the others}
+&H_0: \mu_1 = \mu_2 = \cdots = \mu_k \quad \text{(All group means are equal)}\\
+&H_1: \text{At least one } \mu_i \text{ is different} \quad \text{(At least one group differs)}
 \end{align*}
 \end{textbox}
+Here, $\mu_i$ represents the population mean of the $i$-th group, for $i = 1, 2, \dots, k$.
 
-With only two groups, a \textbf{pooled $t$‐test} would suffice to compare means. However, when there are $k>2$ groups, conducting all pairwise pooled $t$‐tests is both cumbersome and problematic. For $k$ groups, there are
+When comparing just two groups, a standard \textbf{pooled $t$-test} is sufficient. However, when there are more than two groups ($k > 2$), performing all possible pairwise $t$-tests becomes inefficient and statistically problematic. This is because the number of comparisons increases rapidly:
 \[
 \binom{k}{2} = \dfrac{k!}{2!(k-2)!}
 \]
-possible comparisons.  For example, with \(k=5\) groups you need \(\binom{5}{2}=10\) pairwise tests, and with \(k=10\) groups it jumps to \(\binom{10}{2}=45\) tests.
+For example, with \(k = 5\) groups, there are \(\binom{5}{2} = 10\) comparisons; with \(k = 10\), there are \(\binom{10}{2} = 45\) comparisons.
 
-Moreover, if each test has a 5\% chance of a false positive, the probability of at least one false alarm across all tests becomes unacceptably high:
+Moreover, each pairwise $t$-test carries a risk of a false positive (Type I error), typically 5\%. When many such tests are conducted, the overall probability of making \textit{at least one} false claim rises dramatically. For $k=10$, the false alarm probability is
 \[
-1 - 0.95^{\binom{k}{2}}\;\approx\;1 - 0.95^{45}\;\approx\;1 - 0.10\;\approx\;0.90
+1 - 0.95^{\binom{k}{2}} \;=\; 1 - 0.95^{45} \;\approx\; 1 - 0.10 \;= 0.90
 \]
-One‐way ANOVA overcomes this by testing all group means simultaneously in a single analysis.
+This means there's a 90\% chance of a false positive if 45 tests are run independently at the 5\% level.
 
-\subsection{Hypotheses}
-Let $\mu_i$ denote the true mean of group $i$, for $i=1,\dots,k$.  The hypotheses are
-\begin{align*}
-  H_0:\;& \mu_1 = \mu_2 = \cdots = \mu_k,
-  \quad\text{(no effect of the factor)}\\
-  H_1:\;& \text{At least one }\mu_i\text{ differs.}
-\end{align*}
+\textbf{One-way ANOVA solves this issue} by combining all comparisons into a single test, controlling the overall error rate and providing a more reliable answer to whether the group means differ.
 
-\subsection{Simple Example}
-Imagine comparing three teaching methods (A, B, C) based on student scores:
-\[
-\begin{aligned}
-  \text{A: }& 70,\,72,\,68,\,75,\\
-  \text{B: }& 80,\,82,\,78,\,85,\\
-  \text{C: }& 65,\,60,\,62,\,63.
-\end{aligned}
-\]
-Rather than performing three separate $t$‐tests (A vs.\ B, B vs.\ C, A vs.\ C), one‐way ANOVA asks in one single test:
+\vspace{0.5em}
+\noindent
+Suppose we want to compare three teaching methods (A, B, and C) using student test scores:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|cccc}
+\toprule
+Method & Student 1 & Student 2 & Student 3 & Student 4 \\
+\midrule
+A      & 70        & 72        & 68        & 75        \\
+B      & 80        & 82        & 78        & 85        \\
+C      & 65        & 60        & 62        & 63        \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Test scores under three teaching methods.}}
+\end{table}
+
+Instead of conducting three separate $t$-tests (A vs.\ B, B vs.\ C, A vs.\ C), we use a single one-way ANOVA to answer:
+
 \begin{quote}
-  “Is there evidence that at least one teaching method yields a different mean score?”
+\textit{Is there evidence that at least one teaching method leads to a different average score?}
 \end{quote}
 
+This approach simplifies analysis, avoids excessive error inflation, and gives a more holistic view of group differences.
 
-\subsection{Assumptions of One-Way ANOVA}
+\subsection{How One-way ANOVA Works?}
+
+\noindent Essentially, one-way ANOVA works by comparing two types of variation:
+
+\begin{itemize}
+  \item \textbf{Between-group variation}, which measures differences among the group means. This variation is attributed to the effect of different \textbf{treatments} or conditions, often referred to as \textit{controlled causes}.
+  \item \textbf{Within-group variation}, which captures the natural variability among individuals within the same group. This variation is considered to be due to random chance.
+\end{itemize}
+
+\noindent In the context of our teaching methods example, the between-group variation arises from using different teaching approaches (Methods A, B, and C), while the within-group variation reflects individual differences among students who received the same method.
+
+\medskip
+\noindent To illustrate:
+\begin{itemize}
+  \item If the average scores of the three groups differ substantially compared to the variation within each group, this suggests that the teaching method has a significant effect.
+  \item On the other hand, if the group means are similar and the within-group variability is large, we are less likely to conclude that the method has any real impact.
+\end{itemize}
+
+\noindent This comparison of between-group and within-group variances forms the basis of the ANOVA test.
+
+
+
+\subsection{Assumptions}
 
 Before conducting a one-way ANOVA, several critical assumptions must be satisfied:
 
 \begin{enumerate}
-\item \textbf{Independence}
-The observations within each group and between groups must be independent. This means that the value of one observation should not influence or be related to any other observation.
+\item \textbf{Independence}:
+The observations within each group and between groups must be independent.
 
-\item \textbf{Normality}
-The dependent variable should be approximately normally distributed for each group. Formally, if $X_{ij}$ represents the $j$-th observation in the $i$-th group, then:
+\item \textbf{Normality}:
+The random variable representing the observations should be approximately normally distributed for each group. Formally, if $X_{ij}$ represents the $j$-th observation in the $i$-th group, then:
 \begin{equation*}
-X_{ij} \sim N(\mu_i, \sigma^2)
+X_{ij} \sim \mathcal{N}(\mu_i, \sigma^2)
 \end{equation*}
 
-\item \textbf{Homogeneity of Variance (Homoscedasticity)}
-The variance of the dependent variable should be approximately equal across all groups. This assumption is also known as homoscedasticity:
+\item \textbf{Homogeneity of Variance (Homoscedasticity)}:
+The variance of the random variable representing the observations should be approximately equal across all groups. This assumption is also known as homoscedasticity:
 \begin{equation*}
 \text{Var}(X_{1j}) = \text{Var}(X_{2j}) = \cdots = \text{Var}(X_{kj}) = \sigma^2
 \end{equation*}
