@@ -10242,23 +10242,23 @@ For valid inference using one-way ANOVA, the following assumptions must be satis
 \noindent Suppose we have $k$ independent treatment groups, each with $n$ observations. The total number of observations is $N = kn$. The following table~\ref{tab:one-way-anova} shows the random sample data for the one-way ANOVA model is shown below:
 \begin{table}[H]
 \centering
-\begin{tabular}{c|ccccc}
+\begin{tabular}{c|ccccc|c|c}
 \toprule
- & \textbf{Treatment 1} & \textbf{Treatment 2} & $\cdots$ &  $\cdots$ & \textbf{Treatment $k$} \\
+ &  &  & & & & \textbf{Total} & \textbf{Mean} \\
 \midrule
-\textbf{Observation 1} & $y_{11}$ & $y_{21}$ & $\cdots$ & $\cdots$ & $y_{k1}$ \\
-\textbf{Observation 2} & $y_{12}$ & $y_{22}$ & $\cdots$ & $\cdots$ & $y_{k2}$ \\
-$\vdots$ & $\vdots$ & $\vdots$ & & $\vdots$ &  $\vdots$ \\
-\textbf{Observation $n$} & $y_{1n}$ & $y_{2n}$ & $\cdots$ & $\cdots$ & $y_{kn}$ \\
+\textbf{Treatment 1} & $y_{11}$ & $y_{12}$ & $y_{13}$ & $\cdots$ & $y_{1n_1}$ & $y_{1\bullet}$ & $\overline{y}_{1\bullet}$ \\
+\textbf{Treatment 2} & $y_{21}$ & $y_{22}$ & $y_{23}$ &$\cdots$ & $y_{2n_2}$ & $y_{2\bullet}$ & $\overline{y}_{2\bullet}$ \\
+\textbf{Treatment 3} & $y_{31}$ & $y_{32}$ & $y_{33}$ &$\cdots$ & $y_{3n_2}$ & $y_{3\bullet}$ & $\overline{y}_{3\bullet}$ \\
+$\vdots$             & $\vdots$ & $\vdots$ &    &     & $\vdots$ & $\vdots$        & $\vdots$        \\
+\textbf{Treatment $k$}& $y_{k1}$ & $y_{k2}$ & $y_{k3}$ &$\cdots$ & $y_{kn_k}$ & $y_{k\bullet}$ & $\overline{y}_{k\bullet}$ \\
 \midrule
-\textbf{Total} $y_{\bullet\bullet}$ & $y_{1\bullet}$ & $y_{2\bullet}$ & $\cdots$ & $\cdots$ & $y_{k\bullet}$ \\
-\midrule
-\textbf{Mean} $\overline{y}_{\bullet\bullet}$ & $\overline{y}_{1\bullet}$ & $\overline{y}_{2\bullet}$ & $\cdots$ & $\cdots$ & $\overline{y}_{k\bullet}$ \\
+\textbf{Overall} & & & & & & $y_{\bullet\bullet}$ & $\overline{y}_{\bullet\bullet}$\\
 \bottomrule
 \end{tabular}
 \caption{\textit{$k$ Random sample data for one-way ANOVA.}}
 \label{tab:one-way-anova}
 \end{table}
+
 
 
 \noindent In this table:
