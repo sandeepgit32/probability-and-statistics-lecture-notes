@@ -11,6 +11,7 @@
 %\usepackage{newtxtext,newtxmath}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\allowdisplaybreaks[1]
 \usepackage{multirow}
 \usepackage{rotating}
 \usepackage{booktabs}
@@ -7304,17 +7305,17 @@ Taking partial derivatives and solving the system:
 \frac{\partial}{\partial \mu} \log L(\mu,\sigma^2) = 0 &\Rightarrow \hat{\mu} = \overline{x} \\
 \frac{\partial}{\partial \sigma^2} \log L(\mu,\sigma^2) = 0 &\Rightarrow \hat{\sigma}^2 = \frac{1}{n} \sum_i (x_i - \overline{x})^2
 \end{align*}
-Thus, the MLEs for \( \mu \) and \( \sigma^2 \) are the sample mean $\overline{X}$ and sample variance $\frac{1}{n} \sum_i (x_i - \bar{x})^2$ (without Bessel's correction), respectively.
+Thus, the MLEs for \( \mu \) and \( \sigma^2 \) are the sample mean $\overline{X}$ and sample variance $\frac{1}{n} \sum_i (x_i - \overline{x})^2$ (without Bessel's correction), respectively.
 
 \end{enumerate}
 
 It is important to note that the maximum likelihood estimator (MLE) of the population variance \( \sigma^2 \) is \textbf{not an unbiased estimator}. The MLE is given by
 \[
-\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2,
+\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2,
 \]
-where \( \bar{X} \) is the sample mean. Buit we have already seen that the unbiased estimator of $\sigma^2$ is:
+where \( \overline{X} \) is the sample mean. Buit we have already seen that the unbiased estimator of $\sigma^2$ is:
 \[
-S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2 = \frac{n-1}{n}\hat{\sigma}^2
+S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2 = \frac{n-1}{n}\hat{\sigma}^2
 \]
 
 The MLE estimator tends to underestimate the true variance.
@@ -7697,7 +7698,7 @@ Hence, the method of moments estimator for \( \lambda \) is:
 
 \section{Interval Estimation}
 
-A \textbf{point estimate}, being a single number, gives no indication of how accurate or reliable it is. For example, suppose a sample of batteries yields an average lifetime of \( \bar{X} = 218.2 \) hours. While this provides a best guess for the true average lifetime \( \mu \), it says nothing about how close it is to \( \mu \). Due to sampling variability, the point estimate is almost never exactly equal to the true value. A more informative approach is to report an \textbf{interval estimate}, which provides a range of plausible values for \( \mu \) and reflects the uncertainty in the estimation process.
+A \textbf{point estimate}, being a single number, gives no indication of how accurate or reliable it is. For example, suppose a sample of batteries yields an average lifetime of \( \overline{X} = 218.2 \) hours. While this provides a best guess for the true average lifetime \( \mu \), it says nothing about how close it is to \( \mu \). Due to sampling variability, the point estimate is almost never exactly equal to the true value. A more informative approach is to report an \textbf{interval estimate}, which provides a range of plausible values for \( \mu \) and reflects the uncertainty in the estimation process.
 
 
 Basically, the purpose of interval estimation for a population parameter $\theta$ is to find two values $L$ and $R$ from the random sample such that $$L \leq \theta \leq R$$ with some specific probability. Information about the precision of an interval estimate is conveyed by the
@@ -7841,13 +7842,13 @@ P\left(-z_{\alpha/2} \leq Z \leq z_{\alpha/2}\right) = 1 - \alpha
 \]
 which translates to
 \[
-P\left(\bar{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\right) = 1 - \alpha
+P\left(\overline{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \leq \mu \leq \overline{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\right) = 1 - \alpha
 \]
 
 Therefore, the $100(1-\alpha)\%$ confidence interval for $\mu$ is
 \begin{textbox}
 \[
-\left[\bar{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \quad \bar{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \right]
+\left[\overline{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \quad \overline{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \right]
 \]
 \end{textbox}
 
@@ -8356,15 +8357,15 @@ Thus, only about 323 individuals are needed when the population is finite.
 
 % 				Population mean $\mu$ (known $\sigma$) &
 % 				Normal population or large $n$ (CLT) &
-% 				$\displaystyle \bar{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$ \\[10pt]
+% 				$\displaystyle \overline{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$ \\[10pt]
 
 % 				Population mean $\mu$ (unknown $\sigma$) &
 % 				Normal population &
-% 				$\displaystyle \bar{X} \pm t_{\alpha/2,\,n-1} \cdot \frac{s}{\sqrt{n}}$ \\[10pt]
+% 				$\displaystyle \overline{X} \pm t_{\alpha/2,\,n-1} \cdot \frac{s}{\sqrt{n}}$ \\[10pt]
 
 % 				Difference of means $\mu_1 - \mu_2$ (equal variances) &
 % 				Normal populations, independent samples &
-% 				$\displaystyle (\bar{X}_1 - \bar{X}_2) \pm t_{\alpha/2,\,n_1+n_2-2} \cdot s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}$ \\
+% 				$\displaystyle (\overline{X}_1 - \overline{X}_2) \pm t_{\alpha/2,\,n_1+n_2-2} \cdot s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}$ \\
 % 				& & where $\displaystyle s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}$ \\[10pt]
 
 % 				Proportion $p$ &
@@ -8398,15 +8399,15 @@ Thus, only about 323 individuals are needed when the population is finite.
 
 		Population mean $\mu$ (known $\sigma$) &
 		Normal population or large $n$ (CLT) &
-		$\displaystyle \bar{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$ \\[10pt]
+		$\displaystyle \overline{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$ \\[10pt]
 
 		Population mean $\mu$ (unknown $\sigma$) &
 		Normal population &
-		$\displaystyle \bar{X} \pm t_{\alpha/2,\,n-1} \cdot \frac{s}{\sqrt{n}}$ \\[10pt]
+		$\displaystyle \overline{X} \pm t_{\alpha/2,\,n-1} \cdot \frac{s}{\sqrt{n}}$ \\[10pt]
 
 		Difference of means $\mu_1 - \mu_2$ (equal variances) &
 		Normal populations, independent samples &
-		$\displaystyle (\bar{X}_1 - \bar{X}_2) \pm t_{\alpha/2,\,n_1+n_2-2} \cdot s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}$ \\
+		$\displaystyle (\overline{X}_1 - \overline{X}_2) \pm t_{\alpha/2,\,n_1+n_2-2} \cdot s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}$ \\
 		& & where $\displaystyle s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}$ \\[10pt]
 
 		Proportion $p$ &
@@ -10239,51 +10240,51 @@ For valid inference using one-way ANOVA, the following assumptions must be satis
 \subsection{Analysis of One-Way Classified Data}
 
 \vspace{1em}
-\noindent Suppose we have $k$ independent treatment groups, each with $n$ observations. The total number of observations is $N = kn$. The following table~\ref{tab:one-way-anova} shows the random sample data for the one-way ANOVA model is shown below:
+\noindent Suppose we have $k$ independent treatment groups, where $i$th group has $n_1$ observations. The total number of observations is $N = \sum_{i=1}^k n_i$. The following table~\ref{tab:one-way-anova} shows the observations for the one-way ANOVA model.
 \begin{table}[H]
 \centering
 \begin{tabular}{c|ccccc|c|c}
 \toprule
  &  &  & & & & \textbf{Total} & \textbf{Mean} \\
 \midrule
-\textbf{Treatment 1} & $y_{11}$ & $y_{12}$ & $y_{13}$ & $\cdots$ & $y_{1n_1}$ & $y_{1\bullet}$ & $\overline{y}_{1\bullet}$ \\
-\textbf{Treatment 2} & $y_{21}$ & $y_{22}$ & $y_{23}$ &$\cdots$ & $y_{2n_2}$ & $y_{2\bullet}$ & $\overline{y}_{2\bullet}$ \\
-\textbf{Treatment 3} & $y_{31}$ & $y_{32}$ & $y_{33}$ &$\cdots$ & $y_{3n_2}$ & $y_{3\bullet}$ & $\overline{y}_{3\bullet}$ \\
+\textbf{Treatment 1} & $Y_{11}$ & $Y_{12}$ & $Y_{13}$ & $\cdots$ & $Y_{1n_1}$ & $Y_{1\bullet}$ & $\overline{Y}_{1\bullet}$ \\
+\textbf{Treatment 2} & $Y_{21}$ & $Y_{22}$ & $Y_{23}$ &$\cdots$ & $Y_{2n_2}$ & $Y_{2\bullet}$ & $\overline{Y}_{2\bullet}$ \\
+\textbf{Treatment 3} & $Y_{31}$ & $Y_{32}$ & $Y_{33}$ &$\cdots$ & $Y_{3n_2}$ & $Y_{3\bullet}$ & $\overline{Y}_{3\bullet}$ \\
 $\vdots$             & $\vdots$ & $\vdots$ &    &     & $\vdots$ & $\vdots$        & $\vdots$        \\
-\textbf{Treatment $k$}& $y_{k1}$ & $y_{k2}$ & $y_{k3}$ &$\cdots$ & $y_{kn_k}$ & $y_{k\bullet}$ & $\overline{y}_{k\bullet}$ \\
+\textbf{Treatment $k$}& $Y_{k1}$ & $Y_{k2}$ & $Y_{k3}$ &$\cdots$ & $Y_{kn_k}$ & $Y_{k\bullet}$ & $\overline{Y}_{k\bullet}$ \\
 \midrule
-\textbf{Overall} & & & & & & $y_{\bullet\bullet}$ & $\overline{y}_{\bullet\bullet}$\\
+\textbf{Overall} & & & & & & $Y_{\bullet\bullet}$ & $\overline{Y}_{\bullet\bullet}$\\
 \bottomrule
 \end{tabular}
-\caption{\textit{$k$ Random sample data for one-way ANOVA.}}
+\caption{\textit{Random observations for one-way ANOVA.}}
 \label{tab:one-way-anova}
 \end{table}
 
 
 
 \noindent In this table:
-\begin{itemize}
-    \item $y_{ij}$ is the data corresponding to the $j$th observation in the $i$th group.
-    \item $y_{i\bullet}$ is the total of all observations in the $i$th group:
-    $$y_{i\bullet} = \sum_{j=1}^{n} y_{ij}$$
-    \item $\overline{y}_{i\bullet}$ is the sample mean of the $i$th group:
-    $$\overline{y}_{i\bullet} = \dfrac{y_{i\bullet}}{n} = \dfrac{1}{n}\sum_{j=1}^{n} y_{ij}$$
-    \item $y_{\bullet\bullet}$ is the \textbf{grand total} of all observations:
-    $$y_{\bullet\bullet} =\sum_{i=1}^k y_{i\bullet}= \sum_{i=1}^{k} \sum_{j=1}^{n} y_{ij}$$
-    \item $\overline{y}_{\bullet\bullet}$ is the \textbf{overall (grand) mean}:
-    $$\overline{y}_{\bullet\bullet} = \dfrac{y_{\bullet\bullet}}{kn} = \dfrac{1}{kn}\sum_{i=1}^{k} \sum_{j=1}^{n} y_{ij}$$
+\begin{itemize}[label=\(\circ\)]
+    \item $Y_{ij}$ is the response variable corresponding to the $j$th observation in the $i$th group.
+    \item $Y_{i\bullet}$ is the total of all observations in the $i$th group:
+    $$Y_{i\bullet} = \sum_{j=1}^{n_i} Y_{ij}$$
+    \item $\overline{Y}_{i\bullet}$ is the sample mean of the $i$th group:
+    $$\overline{Y}_{i\bullet} = \dfrac{Y_{i\bullet}}{n_i} = \dfrac{1}{n_i}\sum_{j=1}^{n_i} Y_{ij}$$
+    \item $Y_{\bullet\bullet}$ is the \textbf{grand total} of all observations:
+    $$Y_{\bullet\bullet} =\sum_{i=1}^k Y_{i\bullet}= \sum_{i=1}^{k} \sum_{j=1}^{n_i} Y_{ij}$$
+    \item $\overline{Y}_{\bullet\bullet}$ is the \textbf{overall (grand) mean}:
+    $$\overline{Y}_{\bullet\bullet} = \dfrac{Y_{\bullet\bullet}}{N} = \dfrac{1}{N}\sum_{i=1}^{k} \sum_{j=1}^{n_i} Y_{ij}$$
 \end{itemize}
 
 \subsection{Sum of Squares}
 
 As mentoned before, the analysis of variance partitions the total variability in the sample data into two component parts: between-group variation and within-group variation. It is customary to denote
 \begin{itemize}
-\item Total variability as \textbf{Total Sum of Squares (TSS)}, where
-$$\text{TSS} = \sum_{i=1}^k\sum_{j=1}^n \left( y_{ij}-\overline{y}_{\bullet\bullet}\right)^2 $$
-\item Between-group variation as \textbf{Sum of Squares Between treatment groups (SST)}, where
-$$\text{SST} = n\sum_{i=1}^k\left( \overline{y}_{i\bullet}-\overline{y}_{\bullet\bullet}\right)^2$$
-\item Within-group variation as \textbf{Sum of Squares of Errors (SSE)}, where
-$$\text{SSE} = \sum_{i=1}^k\sum_{j=1}^n \left( y_{ij}-\overline{y}_{i\bullet}\right)^2$$
+\item total variability as \textbf{Total Sum of Squares (TSS)}, where
+$$\text{TSS} = \sum_{i=1}^k\sum_{j=1}^{n_i} \left( Y_{ij}-\overline{Y}_{\bullet\bullet}\right)^2 $$
+\item between-group variation as \textbf{Sum of Squares Between treatment groups (SST)}, where
+$$\text{SST} = \sum_{i=1}^k\left(n_i \overline{Y}_{i\bullet}-\overline{Y}_{\bullet\bullet}\right)^2$$
+\item within-group variation as \textbf{Sum of Squares of Errors (SSE)}, where
+$$\text{SSE} = \sum_{i=1}^k\sum_{j=1}^{n_i} \left( Y_{ij}-\overline{Y}_{i\bullet}\right)^2$$
 \end{itemize}
 Mathematically, it can be shown that
 \begin{textbox}
@@ -10291,48 +10292,48 @@ Mathematically, it can be shown that
 \text{TSS} = \text{SST} + \text{SSE}
 \end{equation*}
 \end{textbox}
-\textbf{Proof}: Each observed data $y_{ij}$ can be decomposed as
+\textbf{Proof}: Each observed data $Y_{ij}$ can be decomposed as
 \[
-\underbrace{y_{ij}}_{\text{observation}}
+\underbrace{Y_{ij}}_{\text{observation}}
 =
-\underbrace{\overline{y}_{\bullet\bullet}}_{\text{grand mean}}
+\underbrace{\overline{Y}_{\bullet\bullet}}_{\text{grand mean}}
 +
-\underbrace{(\overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet})}_{\text{deviation due to treatment}}
+\underbrace{(\overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet})}_{\text{deviation due to treatment}}
 +
-\underbrace{(y_{ij} - \overline{y}_{i\bullet})}_{\text{error}}
+\underbrace{(Y_{ij} - \overline{Y}_{i\bullet})}_{\text{error}}
 \]
 Overall deviation of each observed data can be written as
-$$y_{ij} - \overline{y}_{\bullet\bullet} = \left( y_{ij} - \overline{y}_{i\bullet} \right)
-+ \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)$$
+$$Y_{ij} - \overline{Y}_{\bullet\bullet} = \left( Y_{ij} - \overline{Y}_{i\bullet} \right)
++ \left( \overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} \right)$$
 \begin{align*}
 \text{TSS}
-&= \sum_{i=1}^k \sum_{j=1}^n \left( y_{ij} - \overline{y}_{\bullet\bullet} \right)^2 \\
-&= \sum_{i=1}^k \sum_{j=1}^n
-\left[ \left( y_{ij} - \overline{y}_{i\bullet} \right)
-+ \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right) \right]^2 \\
-&= \sum_{i=1}^k \sum_{j=1}^n
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} \left( Y_{ij} - \overline{Y}_{\bullet\bullet} \right)^2 \\
+&= \sum_{i=1}^k \sum_{j=1}^{n_i}
+\left[ \left( Y_{ij} - \overline{Y}_{i\bullet} \right)
++ \left( \overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} \right) \right]^2 \\
+&= \sum_{i=1}^k \sum_{j=1}^{n_i}
 \left[
-\left( y_{ij} - \overline{y}_{i\bullet} \right)^2
-+ 2\left( y_{ij} - \overline{y}_{i\bullet} \right)\left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)
-+ \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)^2
+\left( Y_{ij} - \overline{Y}_{i\bullet} \right)^2
++ 2\left( Y_{ij} - \overline{Y}_{i\bullet} \right)\left( \overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} \right)
++ \left( \overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} \right)^2
 \right] \\
-&= \sum_{i=1}^k \sum_{j=1}^n \left( y_{ij} - \overline{y}_{i\bullet} \right)^2
-+ 2 \sum_{i=1}^k \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)
-\sum_{j=1}^n \left( y_{ij} - \overline{y}_{i\bullet} \right)
-+ \sum_{i=1}^k \sum_{j=1}^n \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)^2 \\
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} \left( Y_{ij} - \overline{Y}_{i\bullet} \right)^2
++ 2 \sum_{i=1}^k \left( \overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} \right)
+\sum_{j=1}^{n_i} \left( Y_{ij} - \overline{Y}_{i\bullet} \right)
++ \sum_{i=1}^k \sum_{j=1}^{n_i} \left( \overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} \right)^2 \\
 \end{align*}
 
 \noindent Since for each group \( i \), we have:
 \[
-\sum_{j=1}^n \left( y_{ij} - \overline{y}_{i\bullet} \right) = 0,
+\sum_{j=1}^n \left( Y_{ij} - \overline{Y}_{i\bullet} \right) = 0,
 \]
 the middle term vanishes.
 
 \medskip
 \noindent Therefore,
 \begin{align*}
-\text{TSS} &= \sum_{i=1}^k \sum_{j=1}^n \left( y_{ij} - \overline{y}_{i\bullet} \right)^2
-+ n\sum_{i=1}^k \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)^2\\
+\text{TSS} &= \sum_{i=1}^k \sum_{j=1}^{n_i} \left( Y_{ij} - \overline{Y}_{i\bullet} \right)^2
++ n\sum_{i=1}^k \left( \overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} \right)^2\\
 &= \text{SSE} + \text{SST}
 \end{align*}
 
@@ -10340,13 +10341,61 @@ the middle term vanishes.
 
 For computational efficiency, the following formulas are often preferred:
 
-\begin{equation}
-\text{TSS} = \sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij}^2 - \frac{\left(\sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij}\right)^2}{N}
-\end{equation}
+\begin{textbox}
+\begin{equation*}
+\text{TSS} = \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2 - \frac{\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2}{N}
+\end{equation*}
+\end{textbox}
+\textbf{Proof}:
+\begin{align*}
+\mathrm{TSS}
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} \bigl(Y_{ij} - \bar Y_{\bullet\bullet}\bigr)^2 \displaybreak[0]\\[6pt]
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} \Bigl(Y_{ij}^2 - 2\,Y_{ij}\,\bar Y_{\bullet\bullet} + \bar Y_{\bullet\bullet}^2\Bigr) \displaybreak[0]\\[6pt]
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
+   - 2\,\bar Y_{\bullet\bullet} \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}
+   + \sum_{i=1}^k \sum_{j=1}^{n_i} \bar Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
+   - 2\,\bar Y_{\bullet\bullet}\,(N\,\bar Y_{\bullet\bullet})
+   + N\,\bar Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
+   - 2\,N\,\bar Y_{\bullet\bullet}^2
+   + N\,\bar Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
+   - N\,\bar Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
+   - \frac{\bigl(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\bigr)^2}{N}\,
+\end{align*}
+\hfill $\blacksquare$
 
-\begin{equation}
-\text{SSB} = \sum_{i=1}^k \frac{\left(\sum_{j=1}^{n_i} X_{ij}\right)^2}{n_i} - \frac{\left(\sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij}\right)^2}{N}
-\end{equation}
+\begin{textbox}
+\begin{equation*}
+\text{SST} = \sum_{i=1}^k \frac{\left(\sum_{j=1}^{n_i} Y_{ij}\right)^2}{n_i} - \frac{\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2}{N}
+\end{equation*}
+\end{textbox}
+
+\textbf{Proof}:
+\begin{align*}
+\mathrm{SST}
+&= \sum_{i=1}^k n_i\bigl(\bar Y_{i\bullet}-\bar Y_{\bullet\bullet}\bigr)^2 \displaybreak[0]\\
+&= \sum_{i=1}^k n_i
+   \Bigl(\frac{1}{n_i}\sum_{j=1}^{n_i}Y_{ij}
+         - \frac{1}{N}\sum_{i'=1}^k\sum_{j'=1}^{n_{i'}}Y_{i'j'}\Bigr)^{\!2} \displaybreak[0]\\
+&= \sum_{i=1}^k n_i
+   \Bigl(\frac{1}{n_i}\sum_{j}Y_{ij}\Bigr)^2
+  - 2 \sum_{i=1}^k n_i
+   \Bigl(\frac{1}{n_i}\sum_{j}Y_{ij}\Bigr)
+   \Bigl(\frac{1}{N}\sum_{i',j'}Y_{i'j'}\Bigr) \displaybreak[0]\\
+&\qquad\; + \sum_{i=1}^k n_i
+   \Bigl(\frac{1}{N}\sum_{i',j'}Y_{i'j'}\Bigr)^2 \displaybreak[0]\\
+&= \sum_{i=1}^k \frac{\bigl(\sum_{j}Y_{ij}\bigr)^2}{n_i}
+  - 2 \frac{\bigl(\sum_{i,j}Y_{ij}\bigr)^2}{N}
+  + \frac{N\,\bigl(\sum_{i,j}Y_{ij}\bigr)^2}{N^2} \displaybreak[0]\\
+&= \sum_{i=1}^k \frac{\bigl(\sum_{j}Y_{ij}\bigr)^2}{n_i}
+  - \frac{\bigl(\sum_{i,j}Y_{ij}\bigr)^2}{N}\,.
+\end{align*}
+\hfill $\blacksquare$
+
+Once we have TSS and SSB, we can obtain SSE by subtracting SSB from TSS.
 
 \subsection{Degrees of Freedom in ANOVA}
 
@@ -10371,17 +10420,12 @@ Each component has an associated \textbf{degree of freedom ($ df $)}, which refl
 \end{itemize}
 
 \noindent These degrees of freedom satisfy the identity:
+$${df}_{\text{TSS}} = {df}_{\text{SST}} + {df}_{\text{SSE}}$$
+because
 \[
-{df}_{\text{TSS}} = {df}_{\text{SST}} + {df}_{\text{SSE}}
-\quad\Longrightarrow\quad
 (kn - 1) = (k - 1) + (kn - k)
 \]
 
-
-
-\begin{equation}
-\text{SSW} = \text{TSS} - \text{SSB}
-\end{equation}
 
 \subsection{Mean Squares}
 
@@ -10398,7 +10442,8 @@ Mean squares are obtained by dividing the sums of squares by their respective de
 \end{equation*}
 \end{itemize}
 
-Under the null hypothesis $H_0: \mu_1 = \mu_2 = \cdots = \mu_k$:
+\begin{textbox}
+\textbf{Theorem}: Under the null hypothesis $H_0: \mu_1 = \mu_2 = \cdots = \mu_k$:
 
 \begin{equation*}
 \mathbb{E}[\text{MST}] = \sigma^2, \quad \mathbb{E}[\text{MSE}] = \sigma^2
@@ -10410,6 +10455,96 @@ Under the alternative hypothesis:
 \mathbb{E}[\text{MST}] = \sigma^2 + \frac{\sum_{i=1}^k n_i(\mu_i - \mu)^2}{k-1}, \quad \mathbb{E}[\text{MSE}] = \sigma^2
 \end{equation*}
 where $\mu = \dfrac{1}{N}\sum_{i=1}^k n_i \mu_i$ is the weighted grand mean.
+\end{textbox}
+\textbf{Proof}: Consider the one-way ANOVA model:
+\begin{equation*}
+Y_{ij} = \mu + \alpha_i + \epsilon_{ij}
+\end{equation*}
+where $Y_{ij}$ is the $j$-th observation in the $i$-th group, $i = 1, 2, \ldots, k$, $j = 1, 2, \ldots, n_i$, $\mu$ is the overall mean, $\alpha_i$ is the effect of the $i$-th group, $\epsilon_{ij} \sim \mathcal{N}(0, \sigma^2)$ are independent error terms, and $N = \sum_{i=1}^k n_i$ is the total sample size.
+Define the sample means:
+\begin{align*}
+\overline{Y}_{i\bullet} &= \frac{1}{n_i}\sum_{j=1}^{n_i} Y_{ij}, \quad \overline{Y}_{\bullet\bullet} = \frac{1}{N}\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}
+\end{align*}
+The mean squares are:
+\begin{align*}
+\text{MST} &= \frac{\sum_{i=1}^k n_i(\overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet})^2}{k-1}, \quad \text{MSE} = \frac{\sum_{i=1}^k \sum_{j=1}^{n_i}(Y_{ij} - \overline{Y}_{i\bullet})^2}{N-k}
+\end{align*}
+
+\begin{itemize}
+\item \textbf{Expected value of MSE:}
+
+\bigskip
+From the model, we have:
+\begin{align*}
+\overline{Y}_{i\bullet} &= \mu + \alpha_i + \overline{\epsilon}_{i\bullet}, \quad \text{where } \overline{\epsilon}_{i\bullet} = \dfrac{1}{n_i}\sum_{j=1}^{n_i} \epsilon_{ij}
+\end{align*}
+Therefore:
+\begin{align*}
+Y_{ij} - \overline{Y}_{i\bullet} &= (\mu + \alpha_i + \epsilon_{ij}) - (\mu + \alpha_i + \overline{\epsilon}_{i\bullet}) = \epsilon_{ij} - \overline{\epsilon}_{i\bullet}
+\end{align*}
+Thus:
+\begin{align*}
+\text{SSE} &= \sum_{i=1}^k \sum_{j=1}^{n_i}(Y_{ij} - \overline{Y}_{i\bullet})^2 = \sum_{i=1}^k \sum_{j=1}^{n_i}(\epsilon_{ij} - \overline{\epsilon}_{i\bullet})^2 \sim \sigma^2 \chi^2_{N-k}
+\end{align*}
+Therefore:
+\begin{align*}
+\mathbb{E}[\text{MSE}] &= \mathbb{E}\left[\dfrac{\text{SSE}}{N-k}\right] = \sigma^2
+\end{align*}
+
+\item \textbf{Expected Value of MST:}
+\bigskip
+\begin{itemize}
+\item \textbf{Case 1: Under $H_0: \alpha_1 = \alpha_2 = \cdots = \alpha_k = 0$}
+
+\bigskip
+Under $H_0$, we have $Y_{ij} = \mu + \epsilon_{ij}$, so:
+\begin{align*}
+\overline{Y}_{i\bullet} &= \mu + \overline{\epsilon}_{i\bullet}, \quad \overline{Y}_{\bullet\bullet} = \mu + \overline{\epsilon}_{\bullet\bullet}
+\end{align*}
+where $\overline{\epsilon}_{\bullet\bullet} = \frac{1}{N}\sum_{i=1}^k \sum_{j=1}^{n_i} \epsilon_{ij}$.
+Thus:
+\begin{align*}
+\overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} &= \overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet}
+\end{align*}
+Therefore:
+\begin{align*}
+\text{SST} &= \sum_{i=1}^k n_i(\overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet})^2 = \sum_{i=1}^k n_i(\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})^2 \sim \sigma^2 \chi^2_{k-1}
+\end{align*}
+Hence:
+\begin{align*}
+\mathbb{E}[\text{MST}] &= \mathbb{E}\left[\frac{\text{SST}}{k-1}\right] = \sigma^2
+\end{align*}
+\item \textbf{Case 2: Under $H_1$ (Not All $\alpha_i = 0$)}
+
+\bigskip
+Under the alternative hypothesis:
+\begin{align*}
+\overline{Y}_{i\bullet} &= \mu + \alpha_i + \overline{\epsilon}_{i\bullet} \\
+\overline{Y}_{\bullet\bullet} &= \mu + \overline{\alpha} + \overline{\epsilon}_{\bullet\bullet}
+\end{align*}
+where $\overline{\alpha} = \frac{1}{N}\sum_{i=1}^k n_i \alpha_i$.
+Therefore:
+\begin{align*}
+\overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} &= (\alpha_i - \overline{\alpha}) + (\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})
+\end{align*}
+Thus:
+\begin{align*}
+\text{SST} &= \sum_{i=1}^k n_i[(\alpha_i - \overline{\alpha}) + (\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})]^2 \\
+&= \sum_{i=1}^k n_i(\alpha_i - \overline{\alpha})^2 + 2\sum_{i=1}^k n_i(\alpha_i - \overline{\alpha})(\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet}) \\
+&\quad + \sum_{i=1}^k n_i(\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})^2
+\end{align*}
+Taking expectations:
+\begin{align*}
+\mathbb{E}[\text{SST}] &= \sum_{i=1}^k n_i(\alpha_i - \overline{\alpha})^2 + 0 + (k-1)\sigma^2 \\
+&= \sum_{i=1}^k n_i(\alpha_i - \overline{\alpha})^2 + (k-1)\sigma^2
+\end{align*}
+Therefore:
+\begin{align*}
+\mathbb{E}[\text{MST}] &= \frac{\mathbb{E}[\text{SST}]}{k-1} = \sigma^2 + \frac{\sum_{i=1}^k n_i(\alpha_i - \overline{\alpha})^2}{k-1}
+\end{align*}
+\end{itemize}
+\end{itemize}
+
 
 \subsection{The F-Statistic}
 
@@ -10515,14 +10650,14 @@ $n_1 = 5$ & $n_2 = 5$ & $n_3 = 5$ \\
 
 Group means:
 \begin{align}
-\bar{X}_{1\cdot} &= \frac{85 + 87 + 83 + 91 + 89}{5} = \frac{435}{5} = 87 \\
-\bar{X}_{2\cdot} &= \frac{79 + 82 + 78 + 85 + 81}{5} = \frac{405}{5} = 81 \\
-\bar{X}_{3\cdot} &= \frac{92 + 94 + 88 + 96 + 90}{5} = \frac{460}{5} = 92
+\overline{X}_{1\cdot} &= \frac{85 + 87 + 83 + 91 + 89}{5} = \frac{435}{5} = 87 \\
+\overline{X}_{2\cdot} &= \frac{79 + 82 + 78 + 85 + 81}{5} = \frac{405}{5} = 81 \\
+\overline{X}_{3\cdot} &= \frac{92 + 94 + 88 + 96 + 90}{5} = \frac{460}{5} = 92
 \end{align}
 
 Grand mean:
 \begin{equation}
-\bar{X}_{\cdot\cdot} = \frac{435 + 405 + 460}{15} = \frac{1300}{15} = 86.67
+\overline{X}_{\cdot\cdot} = \frac{435 + 405 + 460}{15} = \frac{1300}{15} = 86.67
 \end{equation}
 
 \textbf{Step 3: Calculate Sums of Squares}
@@ -10536,7 +10671,7 @@ Total Sum of Squares:
 
 Sum of Squares Between:
 \begin{align}
-\text{SSB} &= \sum_{i=1}^3 n_i(\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})^2 \\
+\text{SSB} &= \sum_{i=1}^3 n_i(\overline{X}_{i\cdot} - \overline{X}_{\cdot\cdot})^2 \\
 &= 5(87 - 86.67)^2 + 5(81 - 86.67)^2 + 5(92 - 86.67)^2 \\
 &= 5(0.33)^2 + 5(-5.67)^2 + 5(5.33)^2 \\
 &= 5(0.11) + 5(32.15) + 5(28.41) \\
@@ -10664,9 +10799,9 @@ $q_{0.05, 3, 12} = 3.77$
 
 Pairwise comparisons:
 \begin{itemize}
-\item $|\bar{X}_1 - \bar{X}_2| = |87 - 81| = 6 > 5.10$ (Significant)
-\item $|\bar{X}_1 - \bar{X}_3| = |87 - 92| = 5 < 5.10$ (Not significant)
-\item $|\bar{X}_2 - \bar{X}_3| = |81 - 92| = 11 > 5.10$ (Significant)
+\item $|\overline{X}_1 - \overline{X}_2| = |87 - 81| = 6 > 5.10$ (Significant)
+\item $|\overline{X}_1 - \overline{X}_3| = |87 - 92| = 5 < 5.10$ (Not significant)
+\item $|\overline{X}_2 - \overline{X}_3| = |81 - 92| = 11 > 5.10$ (Significant)
 \end{itemize}
 
 \section{Checking ANOVA Assumptions}
@@ -10746,15 +10881,15 @@ Understanding these fundamental concepts provides the foundation for more advanc
 \hline
 \textbf{Statistic} & \textbf{Formula} \\
 \hline
-Group Mean & $\bar{X}_{i\cdot} = \frac{1}{n_i} \sum_{j=1}^{n_i} X_{ij}$ \\
+Group Mean & $\overline{X}_{i\cdot} = \frac{1}{n_i} \sum_{j=1}^{n_i} X_{ij}$ \\
 \hline
-Grand Mean & $\bar{X}_{\cdot\cdot} = \frac{1}{N} \sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij}$ \\
+Grand Mean & $\overline{X}_{\cdot\cdot} = \frac{1}{N} \sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij}$ \\
 \hline
-TSS & $\sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{\cdot\cdot})^2$ \\
+TSS & $\sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \overline{X}_{\cdot\cdot})^2$ \\
 \hline
-SSB & $\sum_{i=1}^k n_i (\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})^2$ \\
+SSB & $\sum_{i=1}^k n_i (\overline{X}_{i\cdot} - \overline{X}_{\cdot\cdot})^2$ \\
 \hline
-SSW & $\sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{i\cdot})^2$ \\
+SSW & $\sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \overline{X}_{i\cdot})^2$ \\
 \hline
 MSB & $\frac{\text{SSB}}{k-1}$ \\
 \hline
@@ -10873,7 +11008,7 @@ $$P(\text{unit receives treatment } i) = \frac{n_i}{n}$$
 
 The number of replications directly affects the precision of treatment comparisons. For a completely randomized design with $r$ replications per treatment, the variance of the difference between two treatment means is:
 
-$$\text{Var}(\bar{Y}_{i.} - \bar{Y}_{j.}) = \frac{2\sigma^2}{r}$$
+$$\text{Var}(\overline{Y}_{i.} - \overline{Y}_{j.}) = \frac{2\sigma^2}{r}$$
 
 where $\sigma^2$ is the error variance.
 
@@ -10908,12 +11043,12 @@ For a $2^k$ factorial design with $k$ factors each at 2 levels, there are $2^k$ 
 \textbf{Main Effects}: The effect of a factor averaged over all levels of other factors.
 
 For factor A in a two-factor experiment:
-$$\text{Main Effect of A} = \bar{Y}_{i..} - \bar{Y}_{...}$$
+$$\text{Main Effect of A} = \overline{Y}_{i..} - \overline{Y}_{...}$$
 
 \textbf{Interaction Effects}: The differential effect of one factor at different levels of another factor.
 
 The AB interaction effect for level $i$ of factor A and level $j$ of factor B:
-$$(\alpha\beta)_{ij} = \bar{Y}_{ij.} - \bar{Y}_{i..} - \bar{Y}_{.j.} + \bar{Y}_{...}$$
+$$(\alpha\beta)_{ij} = \overline{Y}_{ij.} - \overline{Y}_{i..} - \overline{Y}_{.j.} + \overline{Y}_{...}$$
 
 \begin{table}[h]
 \centering
@@ -10989,13 +11124,13 @@ $$RE = \frac{\text{MSE}_{CRD}}{\text{MSE}_{RCBD}} \times \frac{df_{error,RCBD}}{
 \hline
 Source & df & SS & MS & F \\
 \hline
-Treatments & $a-1$ & $\sum_{i=1}^{a} b(\bar{Y}_{i.} - \bar{Y}_{..})^2$ & $\frac{SS_{Trt}}{a-1}$ & $\frac{MS_{Trt}}{MS_{Error}}$ \\
+Treatments & $a-1$ & $\sum_{i=1}^{a} b(\overline{Y}_{i.} - \overline{Y}_{..})^2$ & $\frac{SS_{Trt}}{a-1}$ & $\frac{MS_{Trt}}{MS_{Error}}$ \\
 \hline
-Blocks & $b-1$ & $\sum_{j=1}^{b} a(\bar{Y}_{.j} - \bar{Y}_{..})^2$ & $\frac{SS_{Block}}{b-1}$ & $\frac{MS_{Block}}{MS_{Error}}$ \\
+Blocks & $b-1$ & $\sum_{j=1}^{b} a(\overline{Y}_{.j} - \overline{Y}_{..})^2$ & $\frac{SS_{Block}}{b-1}$ & $\frac{MS_{Block}}{MS_{Error}}$ \\
 \hline
 Error & $(a-1)(b-1)$ & $SS_{Total} - SS_{Trt} - SS_{Block}$ & $\frac{SS_{Error}}{(a-1)(b-1)}$ & \\
 \hline
-Total & $ab-1$ & $\sum_{i=1}^{a}\sum_{j=1}^{b}(Y_{ij} - \bar{Y}_{..})^2$ & & \\
+Total & $ab-1$ & $\sum_{i=1}^{a}\sum_{j=1}^{b}(Y_{ij} - \overline{Y}_{..})^2$ & & \\
 \hline
 \end{tabular}
 \end{table}
@@ -11273,13 +11408,13 @@ Mean & 2178 & 2610 & 2370 & 2850 \\
 \textbf{ANOVA Calculations}:
 
 Total Sum of Squares:
-$$SS_{Total} = \sum_{i=1}^{4}\sum_{j=1}^{5}(Y_{ij} - \bar{Y}_{..})^2 = 1,847,400$$
+$$SS_{Total} = \sum_{i=1}^{4}\sum_{j=1}^{5}(Y_{ij} - \overline{Y}_{..})^2 = 1,847,400$$
 
 Treatment Sum of Squares:
-$$SS_{Treatment} = 5\sum_{i=1}^{4}(\bar{Y}_{i.} - \bar{Y}_{..})^2 = 1,680,600$$
+$$SS_{Treatment} = 5\sum_{i=1}^{4}(\overline{Y}_{i.} - \overline{Y}_{..})^2 = 1,680,600$$
 
 Block Sum of Squares:
-$$SS_{Block} = 4\sum_{j=1}^{5}(\bar{Y}_{.j} - \bar{Y}_{..})^2 = 57,800$$
+$$SS_{Block} = 4\sum_{j=1}^{5}(\overline{Y}_{.j} - \overline{Y}_{..})^2 = 57,800$$
 
 Error Sum of Squares:
 $$SS_{Error} = SS_{Total} - SS_{Treatment} - SS_{Block} = 109,000$$
@@ -11951,7 +12086,7 @@ The observed data are as follows:
 \]
 
 \[
-\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x} = 78-4.177\times 5.2\approx56.28
+\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \\\\\\\\overline{x} = 78-4.177\times 5.2\approx56.28
 \]
 
 \textbf{Step 4: Regression Equation}
@@ -12543,15 +12678,15 @@ The fundamental identity in ANOVA is the decomposition of the total sum of squar
 where:
 
 \begin{align}
-\text{SS}_{\text{Total}} &= \sum_{i=1}^{a} \sum_{j=1}^{n} (y_{ij} - \bar{y}_{\cdot\cdot})^2 \\
-\text{SS}_{\text{Treatments}} &= n \sum_{i=1}^{a} (\bar{y}_{i\cdot} - \bar{y}_{\cdot\cdot})^2 \\
-\text{SS}_{\text{Error}} &= \sum_{i=1}^{a} \sum_{j=1}^{n} (y_{ij} - \bar{y}_{i\cdot})^2
+\text{SS}_{\text{Total}} &= \sum_{i=1}^{a} \sum_{j=1}^{n} (y_{ij} - \overline{y}_{\cdot\cdot})^2 \\
+\text{SS}_{\text{Treatments}} &= n \sum_{i=1}^{a} (\overline{y}_{i\cdot} - \overline{y}_{\cdot\cdot})^2 \\
+\text{SS}_{\text{Error}} &= \sum_{i=1}^{a} \sum_{j=1}^{n} (y_{ij} - \overline{y}_{i\cdot})^2
 \end{align}
 
 The notation used is:
 \begin{itemize}
-\item $\bar{y}_{i\cdot} = \frac{1}{n} \sum_{j=1}^{n} y_{ij}$ is the mean of the $i$-th treatment
-\item $\bar{y}_{\cdot\cdot} = \frac{1}{an} \sum_{i=1}^{a} \sum_{j=1}^{n} y_{ij}$ is the overall mean
+\item $\overline{y}_{i\cdot} = \frac{1}{n} \sum_{j=1}^{n} y_{ij}$ is the mean of the $i$-th treatment
+\item $\overline{y}_{\cdot\cdot} = \frac{1}{an} \sum_{i=1}^{a} \sum_{j=1}^{n} y_{ij}$ is the overall mean
 \end{itemize}
 
 \subsection{Degrees of Freedom}
@@ -12739,10 +12874,10 @@ SS_{Total} = SS_{Treatments} + SS_{Blocks} + SS_{Error}
 
 where:
 \begin{align}
-SS_{Total} &= \sum_{i=1}^{a} \sum_{j=1}^{b} (y_{ij} - \bar{y}_{\cdot\cdot})^2 \\
-SS_{Treatments} &= b \sum_{i=1}^{a} (\bar{y}_{i\cdot} - \bar{y}_{\cdot\cdot})^2 \\
-SS_{Blocks} &= a \sum_{j=1}^{b} (\bar{y}_{\cdot j} - \bar{y}_{\cdot\cdot})^2 \\
-SS_{Error} &= \sum_{i=1}^{a} \sum_{j=1}^{b} (y_{ij} - \bar{y}_{i\cdot} - \bar{y}_{\cdot j} + \bar{y}_{\cdot\cdot})^2
+SS_{Total} &= \sum_{i=1}^{a} \sum_{j=1}^{b} (y_{ij} - \overline{y}_{\cdot\cdot})^2 \\
+SS_{Treatments} &= b \sum_{i=1}^{a} (\overline{y}_{i\cdot} - \overline{y}_{\cdot\cdot})^2 \\
+SS_{Blocks} &= a \sum_{j=1}^{b} (\overline{y}_{\cdot j} - \overline{y}_{\cdot\cdot})^2 \\
+SS_{Error} &= \sum_{i=1}^{a} \sum_{j=1}^{b} (y_{ij} - \overline{y}_{i\cdot} - \overline{y}_{\cdot j} + \overline{y}_{\cdot\cdot})^2
 \end{align}
 
 The ANOVA table for RBD is:
@@ -12894,10 +13029,10 @@ SS_{Total} = SS_{Treatments} + SS_{Rows} + SS_{Columns} + SS_{Error}
 
 where:
 \begin{align}
-SS_{Total} &= \sum_{i=1}^{p} \sum_{k=1}^{p} (y_{ik} - \bar{y}_{\cdot\cdot})^2 \\
-SS_{Treatments} &= p \sum_{j=1}^{p} (\bar{y}_{\cdot j \cdot} - \bar{y}_{\cdot\cdot})^2 \\
-SS_{Rows} &= p \sum_{i=1}^{p} (\bar{y}_{i \cdot \cdot} - \bar{y}_{\cdot\cdot})^2 \\
-SS_{Columns} &= p \sum_{k=1}^{p} (\bar{y}_{\cdot \cdot k} - \bar{y}_{\cdot\cdot})^2
+SS_{Total} &= \sum_{i=1}^{p} \sum_{k=1}^{p} (y_{ik} - \overline{y}_{\cdot\cdot})^2 \\
+SS_{Treatments} &= p \sum_{j=1}^{p} (\overline{y}_{\cdot j \cdot} - \overline{y}_{\cdot\cdot})^2 \\
+SS_{Rows} &= p \sum_{i=1}^{p} (\overline{y}_{i \cdot \cdot} - \overline{y}_{\cdot\cdot})^2 \\
+SS_{Columns} &= p \sum_{k=1}^{p} (\overline{y}_{\cdot \cdot k} - \overline{y}_{\cdot\cdot})^2
 \end{align}
 
 The ANOVA table for Latin square design is:
@@ -13015,12 +13150,12 @@ e_{ij} = y_{ij} - \hat{y}_{ij}
 
 For a completely randomized design:
 \begin{equation}
-e_{ij} = y_{ij} - \bar{y}_{i\cdot}
+e_{ij} = y_{ij} - \overline{y}_{i\cdot}
 \end{equation}
 
 For a randomized block design:
 \begin{equation}
-e_{ij} = y_{ij} - \bar{y}_{i\cdot} - \bar{y}_{\cdot j} + \bar{y}_{\cdot\cdot}
+e_{ij} = y_{ij} - \overline{y}_{i\cdot} - \overline{y}_{\cdot j} + \overline{y}_{\cdot\cdot}
 \end{equation}
 
 \subsection{Diagnostic Plots}
@@ -13046,9 +13181,9 @@ The LSD method uses the t-test to compare pairs of means:
 
 where $\nu$ is the degrees of freedom for error.
 
-Two means $\bar{y}_{i\cdot}$ and $\bar{y}_{j\cdot}$ are significantly different if:
+Two means $\overline{y}_{i\cdot}$ and $\overline{y}_{j\cdot}$ are significantly different if:
 \begin{equation}
-|\bar{y}_{i\cdot} - \bar{y}_{j\cdot}| > \text{LSD}
+|\overline{y}_{i\cdot} - \overline{y}_{j\cdot}| > \text{LSD}
 \end{equation}
 
 \subsection{Tukey's Honest Significant Difference (HSD)}
@@ -13103,7 +13238,7 @@ n \approx \frac{2\sigma^2(t_{\alpha/2,\nu} + t_{\beta,\nu})^2}{\Delta^2}
 When the number of observations per treatment is not equal ($n_i \neq n_j$), the design is unbalanced. The ANOVA formulas need modification:
 
 \begin{align}
-SS_{Treatments} &= \sum_{i=1}^{a} n_i (\bar{y}_{i\cdot} - \bar{y}_{\cdot\cdot})^2 \\
+SS_{Treatments} &= \sum_{i=1}^{a} n_i (\overline{y}_{i\cdot} - \overline{y}_{\cdot\cdot})^2 \\
 df_{Error} &= \sum_{i=1}^{a} (n_i - 1) = N - a
 \end{align}
 
@@ -13198,13 +13333,13 @@ This measures the proportion of total variance due to treatments.
 Confidence intervals for treatment means in balanced designs:
 
 \begin{equation}
-\bar{y}_{i\cdot} \pm t_{\alpha/2,\nu} \sqrt{\frac{MS_{Error}}{n}}
+\overline{y}_{i\cdot} \pm t_{\alpha/2,\nu} \sqrt{\frac{MS_{Error}}{n}}
 \end{equation}
 
 For pairwise differences:
 
 \begin{equation}
-(\bar{y}_{i\cdot} - \bar{y}_{j\cdot}) \pm t_{\alpha/2,\nu} \sqrt{\frac{2MS_{Error}}{n}}
+(\overline{y}_{i\cdot} - \overline{y}_{j\cdot}) \pm t_{\alpha/2,\nu} \sqrt{\frac{2MS_{Error}}{n}}
 \end{equation}
 
 \section{Advanced Topics}
