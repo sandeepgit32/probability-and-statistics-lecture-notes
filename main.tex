@@ -10196,131 +10196,145 @@ This approach simplifies analysis, avoids excessive error inflation, and gives a
 \noindent This comparison of between-group and within-group variances forms the basis of the ANOVA test.
 
 
+\section{Analysis for One-Way ANOVA}
 
-\subsection{Assumptions}
+\subsection{Mathematical Model}
 
-Before conducting a one-way ANOVA, several critical assumptions must be satisfied:
+The one-way ANOVA model decomposes each observation into an overall mean plus a treatment effect and random error. This can be modeled as a random variable $Y_{ij}$ such that
+
+\begin{equation*}
+Y_{ij} = \mu + \alpha_i + \epsilon_{ij}
+\end{equation*}
+
+where:
+\begin{itemize}
+    \item $\mu$ is the grand mean (overall average across all observations),
+    \item $\alpha_i$ represents the effect (or deviation) of the $i$-th group from the grand mean,
+    \item $\sum_{i=1}^k n_i \alpha_i = 0$ is the constraint ensuring model identifiability (weighted sum of treatment effects is zero),
+    \item $\epsilon_{ij}$ is the random error term,
+    \item $i = 1, 2, \ldots, k$ (number of groups),
+    \item $j = 1, 2, \ldots, n_i$ (number of observations in group $i$).
+\end{itemize}
+
+\subsection{Key Assumptions}
+
+For valid inference using one-way ANOVA, the following assumptions must be satisfied:
 
 \begin{enumerate}
-\item \textbf{Independence}:
-The observations within each group and between groups must be independent.
+    \item \textbf{Independence:} Observations must be independent both within and across groups. This means that the value of one observation should not influence or predict another.
 
-\item \textbf{Normality}:
-The random variable representing the observations should be approximately normally distributed for each group. Formally, if $X_{ij}$ represents the $j$-th observation in the $i$-th group, then:
-\begin{equation*}
-X_{ij} \sim \mathcal{N}(\mu_i, \sigma^2)
-\end{equation*}
+    \item \textbf{Homogeneity of Variances (Homoscedasticity):} The variance of the response should be the same across all groups:
+    \[
+    \text{Var}(Y_{1j}) = \text{Var}(Y_{2j}) = \cdots = \text{Var}(Y_{kj}) = \sigma^2
+    \]
 
-\item \textbf{Homogeneity of Variance (Homoscedasticity)}:
-The variance of the random variable representing the observations should be approximately equal across all groups. This assumption is also known as homoscedasticity:
-\begin{equation*}
-\text{Var}(X_{1j}) = \text{Var}(X_{2j}) = \cdots = \text{Var}(X_{kj}) = \sigma^2
-\end{equation*}
+    \item \textbf{Normality of Errors:} The error terms are independently and identically distributed as:
+        \[
+        \epsilon_{ij} \overset{\text{iid}}{\sim} \mathcal{N}(0, \sigma^2)
+        \]
+        Consequently, \( Y_{ij} \sim \mathcal{N}(\mu + \alpha_i, \sigma^2) \) for each group $i$. This assumption is especially important for small samples; with larger samples, ANOVA is robust due to the Central Limit Theorem.
 \end{enumerate}
 
 
+\subsection{Analysis of One-Way Classified Data}
 
-\section{Mathematical Framework}
+\vspace{1em}
+\noindent Suppose we have $k$ independent treatment groups, each with $n$ observations. The total number of observations is $N = kn$. The following table~\ref{tab:one-way-anova} shows the random sample data for the one-way ANOVA model is shown below:
+\begin{table}[H]
+\centering
+\begin{tabular}{c|ccccc}
+\toprule
+ & \textbf{Treatment 1} & \textbf{Treatment 2} & $\cdots$ &  $\cdots$ & \textbf{Treatment $k$} \\
+\midrule
+\textbf{Observation 1} & $y_{11}$ & $y_{21}$ & $\cdots$ & $\cdots$ & $y_{k1}$ \\
+\textbf{Observation 2} & $y_{12}$ & $y_{22}$ & $\cdots$ & $\cdots$ & $y_{k2}$ \\
+$\vdots$ & $\vdots$ & $\vdots$ & & $\vdots$ &  $\vdots$ \\
+\textbf{Observation $n$} & $y_{1n}$ & $y_{2n}$ & $\cdots$ & $\cdots$ & $y_{kn}$ \\
+\midrule
+\textbf{Total} $y_{\bullet\bullet}$ & $y_{1\bullet}$ & $y_{2\bullet}$ & $\cdots$ & $\cdots$ & $y_{k\bullet}$ \\
+\midrule
+\textbf{Mean} $\overline{y}_{\bullet\bullet}$ & $\overline{y}_{1\bullet}$ & $\overline{y}_{2\bullet}$ & $\cdots$ & $\cdots$ & $\overline{y}_{k\bullet}$ \\
+\bottomrule
+\end{tabular}
+\caption{\textit{$k$ Random sample data for one-way ANOVA.}}
+\label{tab:one-way-anova}
+\end{table}
 
-\subsection{Model Specification}
 
-The one-way ANOVA model can be expressed as:
-
-\begin{equation}
-X_{ij} = \mu_i + \epsilon_{ij}
-\end{equation}
-
-where:
+\noindent In this table:
 \begin{itemize}
-\item $X_{ij}$ is the $j$-th observation in the $i$-th group
-\item $\mu_i$ is the population mean of the $i$-th group
-\item $\epsilon_{ij}$ is the random error term, where $\epsilon_{ij} \sim N(0, \sigma^2)$
-\item $i = 1, 2, \ldots, k$ (number of groups)
-\item $j = 1, 2, \ldots, n_i$ (number of observations in group $i$)
+    \item $y_{ij}$ is the data corresponding to the $j$th observation in the $i$th group.
+    \item $y_{i\bullet}$ is the total of all observations in the $i$th group:
+    $$y_{i\bullet} = \sum_{j=1}^{n} y_{ij}$$
+    \item $\overline{y}_{i\bullet}$ is the sample mean of the $i$th group:
+    $$\overline{y}_{i\bullet} = \dfrac{y_{i\bullet}}{n} = \dfrac{1}{n}\sum_{j=1}^{n} y_{ij}$$
+    \item $y_{\bullet\bullet}$ is the \textbf{grand total} of all observations:
+    $$y_{\bullet\bullet} =\sum_{i=1}^k y_{i\bullet}= \sum_{i=1}^{k} \sum_{j=1}^{n} y_{ij}$$
+    \item $\overline{y}_{\bullet\bullet}$ is the \textbf{overall (grand) mean}:
+    $$\overline{y}_{\bullet\bullet} = \dfrac{y_{\bullet\bullet}}{kn} = \dfrac{1}{kn}\sum_{i=1}^{k} \sum_{j=1}^{n} y_{ij}$$
 \end{itemize}
 
-An alternative parameterization uses the grand mean:
+\subsection{Sum of Squares}
 
-\begin{equation}
-X_{ij} = \mu + \alpha_i + \epsilon_{ij}
-\end{equation}
-
-where:
+As mentoned before, the analysis of variance partitions the total variability in the sample data into two component parts: between-group variation and within-group variation. It is customary to denote
 \begin{itemize}
-\item $\mu$ is the grand mean
-\item $\alpha_i$ is the effect of the $i$-th treatment, with the constraint $\sum_{i=1}^k n_i \alpha_i = 0$
-\item $\epsilon_{ij} \sim N(0, \sigma^2)$
+\item Total variability as \textbf{Total Sum of Squares (TSS)}, where
+$$\text{TSS} = \sum_{i=1}^k\sum_{j=1}^n \left( y_{ij}-\overline{y}_{\bullet\bullet}\right)^2 $$
+\item Between-group variation as \textbf{Sum of Squares Between treatment groups (SST)}, where
+$$\text{SST} = n\sum_{i=1}^k\left( \overline{y}_{i\bullet}-\overline{y}_{\bullet\bullet}\right)^2$$
+\item Within-group variation as \textbf{Sum of Squares of Errors (SSE)}, where
+$$\text{SSE} = \sum_{i=1}^k\sum_{j=1}^n \left( y_{ij}-\overline{y}_{i\bullet}\right)^2$$
 \end{itemize}
+Mathematically, it can be shown that
+\begin{textbox}
+\begin{equation*}
+\text{TSS} = \text{SST} + \text{SSE}
+\end{equation*}
+\end{textbox}
+\textbf{Proof}: Each observed data $y_{ij}$ can be decomposed as
+\[
+\underbrace{y_{ij}}_{\text{observation}}
+=
+\underbrace{\overline{y}_{\bullet\bullet}}_{\text{grand mean}}
++
+\underbrace{(\overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet})}_{\text{deviation due to treatment}}
++
+\underbrace{(y_{ij} - \overline{y}_{i\bullet})}_{\text{error}}
+\]
+Overall deviation of each observed data can be written as
+$$y_{ij} - \overline{y}_{\bullet\bullet} = \left( y_{ij} - \overline{y}_{i\bullet} \right)
++ \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)$$
+\begin{align*}
+\text{TSS}
+&= \sum_{i=1}^k \sum_{j=1}^n \left( y_{ij} - \overline{y}_{\bullet\bullet} \right)^2 \\
+&= \sum_{i=1}^k \sum_{j=1}^n
+\left[ \left( y_{ij} - \overline{y}_{i\bullet} \right)
++ \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right) \right]^2 \\
+&= \sum_{i=1}^k \sum_{j=1}^n
+\left[
+\left( y_{ij} - \overline{y}_{i\bullet} \right)^2
++ 2\left( y_{ij} - \overline{y}_{i\bullet} \right)\left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)
++ \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)^2
+\right] \\
+&= \sum_{i=1}^k \sum_{j=1}^n \left( y_{ij} - \overline{y}_{i\bullet} \right)^2
++ 2 \sum_{i=1}^k \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)
+\sum_{j=1}^n \left( y_{ij} - \overline{y}_{i\bullet} \right)
++ \sum_{i=1}^k \sum_{j=1}^n \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)^2 \\
+\end{align*}
 
-\subsection{Sample Statistics}
+\noindent Since for each group \( i \), we have:
+\[
+\sum_{j=1}^n \left( y_{ij} - \overline{y}_{i\bullet} \right) = 0,
+\]
+the middle term vanishes.
 
-Let $n_i$ be the number of observations in group $i$, and let $N = \sum_{i=1}^k n_i$ be the total number of observations.
-
-The sample mean for group $i$ is:
-\begin{equation}
-\bar{X}_{i\cdot} = \frac{1}{n_i} \sum_{j=1}^{n_i} X_{ij}
-\end{equation}
-
-The grand mean (overall mean) is:
-\begin{equation}
-\bar{X}_{\cdot\cdot} = \frac{1}{N} \sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij} = \frac{1}{N} \sum_{i=1}^k n_i \bar{X}_{i\cdot}
-\end{equation}
-
-\section{Partitioning the Total Variation}
-
-The core principle of ANOVA is the partitioning of the total variation in the data into components attributable to different sources.
-
-\subsection{Sum of Squares Decomposition}
-
-The total sum of squares (TSS) can be decomposed as:
-
-\begin{equation}
-\text{TSS} = \text{SSB} + \text{SSW}
-\end{equation}
-
-where:
-\begin{itemize}
-\item TSS = Total Sum of Squares
-\item SSB = Sum of Squares Between groups
-\item SSW = Sum of Squares Within groups
-\end{itemize}
-
-\subsection{Mathematical Derivation}
-
-Starting with the fundamental identity:
-\begin{equation}
-X_{ij} - \bar{X}_{\cdot\cdot} = (\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot}) + (X_{ij} - \bar{X}_{i\cdot})
-\end{equation}
-
-Squaring both sides and summing over all observations:
-
-\begin{align}
-\sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{\cdot\cdot})^2 &= \sum_{i=1}^k \sum_{j=1}^{n_i} [(\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot}) + (X_{ij} - \bar{X}_{i\cdot})]^2 \\
-&= \sum_{i=1}^k \sum_{j=1}^{n_i} (\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})^2 + \sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{i\cdot})^2 \\
-&\quad + 2\sum_{i=1}^k \sum_{j=1}^{n_i} (\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})(X_{ij} - \bar{X}_{i\cdot})
-\end{align}
-
-The cross-product term equals zero because:
-\begin{equation}
-\sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{i\cdot}) = \sum_{j=1}^{n_i} X_{ij} - n_i\bar{X}_{i\cdot} = n_i\bar{X}_{i\cdot} - n_i\bar{X}_{i\cdot} = 0
-\end{equation}
-
-\subsection{Sum of Squares Formulas}
-
-\textbf{Total Sum of Squares (TSS):}
-\begin{equation}
-\text{TSS} = \sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{\cdot\cdot})^2
-\end{equation}
-
-\textbf{Sum of Squares Between groups (SSB):}
-\begin{equation}
-\text{SSB} = \sum_{i=1}^k n_i (\bar{X}_{i\cdot} - \bar{X}_{\cdot\cdot})^2
-\end{equation}
-
-\textbf{Sum of Squares Within groups (SSW):}
-\begin{equation}
-\text{SSW} = \sum_{i=1}^k \sum_{j=1}^{n_i} (X_{ij} - \bar{X}_{i\cdot})^2
-\end{equation}
+\medskip
+\noindent Therefore,
+\begin{align*}
+\text{TSS} &= \sum_{i=1}^k \sum_{j=1}^n \left( y_{ij} - \overline{y}_{i\bullet} \right)^2
++ n\sum_{i=1}^k \left( \overline{y}_{i\bullet} - \overline{y}_{\bullet\bullet} \right)^2\\
+&= \text{SSE} + \text{SST}
+\end{align*}
 
 \subsection{Computational Formulas}
 
@@ -10334,68 +10348,75 @@ For computational efficiency, the following formulas are often preferred:
 \text{SSB} = \sum_{i=1}^k \frac{\left(\sum_{j=1}^{n_i} X_{ij}\right)^2}{n_i} - \frac{\left(\sum_{i=1}^k \sum_{j=1}^{n_i} X_{ij}\right)^2}{N}
 \end{equation}
 
+\subsection{Degrees of Freedom in ANOVA}
+
+Each component has an associated \textbf{degree of freedom ($ df $)}, which reflects the number of independent quantities involved in estimating a particular sum of squares.
+
+\begin{itemize}
+  \item \textbf{Total degrees of freedom:} The total number of observations is \( N = kn \), where \( k \) is the number of groups and \( n \) is the number of observations per group. Since we compute the the grand mean while calculating TSS and it imposes only one constraint. Thus one degree of freedom is lost. The total degrees of freedom is:
+  \[
+  {df}_{\text{TSS}} = N - 1 = kn - 1
+  \]
+
+  \item \textbf{Degrees of freedom between groups (Treatment):} We estimate \( k \) group means. These \( k \) group means are considered \( k \) independent values. However, computing the grand mean from these \( k \) means imposes one constraint, so one degree of freedom is lost.
+  Thus:
+  \[
+  {df}_{\text{SST}} = k - 1
+  \]
+
+  \item \textbf{Degrees of freedom within groups (Error):} Within each group, we compute deviations from the group mean. Since each group contributes \( n - 1 \) independent deviations and there are \( k \) groups:
+  \[
+  {df}_{\text{SSE}} = k(n - 1) = kn - k
+  \]
+\end{itemize}
+
+\noindent These degrees of freedom satisfy the identity:
+\[
+{df}_{\text{TSS}} = {df}_{\text{SST}} + {df}_{\text{SSE}}
+\quad\Longrightarrow\quad
+(kn - 1) = (k - 1) + (kn - k)
+\]
+
+
+
 \begin{equation}
 \text{SSW} = \text{TSS} - \text{SSB}
 \end{equation}
 
-\section{Degrees of Freedom}
-
-The degrees of freedom associated with each sum of squares are:
-
-\begin{itemize}
-\item $df_{\text{total}} = N - 1$
-\item $df_{\text{between}} = k - 1$
-\item $df_{\text{within}} = N - k$
-\end{itemize}
-
-Note that $df_{\text{total}} = df_{\text{between}} + df_{\text{within}}$.
-
-\section{Mean Squares and the F-Statistic}
-
 \subsection{Mean Squares}
 
-Mean squares are obtained by dividing sums of squares by their respective degrees of freedom:
+Mean squares are obtained by dividing the sums of squares by their respective degrees of freedom:
+\begin{itemize}
+\item \textbf{Mean Square for Treatments (MST):}
+\begin{equation*}
+\text{MST} = \dfrac{\text{SST}}{k-1}
+\end{equation*}
 
-\textbf{Mean Square Between (MSB):}
-\begin{equation}
-\text{MSB} = \frac{\text{SSB}}{k-1}
-\end{equation}
-
-\textbf{Mean Square Within (MSW):}
-\begin{equation}
-\text{MSW} = \frac{\text{SSW}}{N-k}
-\end{equation}
-
-\subsection{Expected Mean Squares}
+\item \textbf{Mean Square for error (MSE):}
+\begin{equation*}
+\text{MSE} = \dfrac{\text{SSE}}{N-k}
+\end{equation*}
+\end{itemize}
 
 Under the null hypothesis $H_0: \mu_1 = \mu_2 = \cdots = \mu_k$:
 
-\begin{equation}
-E[\text{MSW}] = \sigma^2
-\end{equation}
-
-\begin{equation}
-E[\text{MSB}] = \sigma^2
-\end{equation}
+\begin{equation*}
+\mathbb{E}[\text{MST}] = \sigma^2, \quad \mathbb{E}[\text{MSE}] = \sigma^2
+\end{equation*}
 
 Under the alternative hypothesis:
 
-\begin{equation}
-E[\text{MSW}] = \sigma^2
-\end{equation}
-
-\begin{equation}
-E[\text{MSB}] = \sigma^2 + \frac{\sum_{i=1}^k n_i(\mu_i - \mu)^2}{k-1}
-\end{equation}
-
-where $\mu = \frac{\sum_{i=1}^k n_i \mu_i}{N}$ is the weighted grand mean.
+\begin{equation*}
+\mathbb{E}[\text{MST}] = \sigma^2 + \frac{\sum_{i=1}^k n_i(\mu_i - \mu)^2}{k-1}, \quad \mathbb{E}[\text{MSE}] = \sigma^2
+\end{equation*}
+where $\mu = \dfrac{1}{N}\sum_{i=1}^k n_i \mu_i$ is the weighted grand mean.
 
 \subsection{The F-Statistic}
 
 The test statistic for one-way ANOVA is:
 
 \begin{equation}
-F = \frac{\text{MSB}}{\text{MSW}}
+F = \dfrac{\text{MSB}}{\text{MSW}}
 \end{equation}
 
 Under the null hypothesis, $F$ follows an F-distribution with $(k-1, N-k)$ degrees of freedom:
