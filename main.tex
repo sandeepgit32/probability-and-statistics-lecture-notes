@@ -10203,9 +10203,11 @@ This approach simplifies analysis, avoids excessive error inflation, and gives a
 
 The one-way ANOVA model begins by expressing each observation as the sum of a group-specific mean and a random error component. Specifically, for the \( j \)-th observation in the \( i \)-th group, we write:
 
+\begin{textbox}
 \begin{equation*}
 Y_{ij} = \mu_i + \epsilon_{ij}
 \end{equation*}
+\end{textbox}
 
 where:
 \begin{itemize}
@@ -10217,9 +10219,11 @@ where:
 
 An equivalent and commonly used formulation decomposes the group-specific mean \( \mu_i \) into an overall (grand) mean and a treatment effect. This gives the model:
 
+\begin{textbox}
 \begin{equation*}
 Y_{ij} = \mu + \alpha_i + \epsilon_{ij}
 \end{equation*}
+\end{textbox}
 
 where:
 \begin{itemize}
@@ -10449,12 +10453,12 @@ Mean squares are obtained by dividing the sums of squares by their respective de
 \begin{itemize}
 \item \textbf{Mean Square for Treatments (MST):}
 \begin{equation*}
-\text{MST} = \dfrac{\text{SST}}{k-1}
+\text{MST} = \dfrac{\text{SST}}{df_{\text{SST}}}= \dfrac{\text{SST}}{k-1}
 \end{equation*}
 
 \item \textbf{Mean Square for error (MSE):}
 \begin{equation*}
-\text{MSE} = \dfrac{\text{SSE}}{N-k}
+\text{MSE} = \dfrac{\text{SSE}}{df_{\text{SSE}}}= \dfrac{\text{SSE}}{N-k}
 \end{equation*}
 \end{itemize}
 
