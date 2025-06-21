@@ -10201,7 +10201,21 @@ This approach simplifies analysis, avoids excessive error inflation, and gives a
 
 \subsection{Mathematical Model}
 
-The one-way ANOVA model decomposes each observation into an overall mean plus a treatment effect and random error. This can be modeled as a random variable $Y_{ij}$ such that
+The one-way ANOVA model begins by expressing each observation as the sum of a group-specific mean and a random error component. Specifically, for the \( j \)-th observation in the \( i \)-th group, we write:
+
+\begin{equation*}
+Y_{ij} = \mu_i + \epsilon_{ij}
+\end{equation*}
+
+where:
+\begin{itemize}
+    \item \( \mu_i \) is the true mean of the \( i \)-th group,
+    \item \( \epsilon_{ij}\) represents random error,
+    \item \( i = 1, 2, \ldots, k \) (number of groups),
+    \item \( j = 1, 2, \ldots, n_i \) (number of observations in group \( i \)).
+\end{itemize}
+
+An equivalent and commonly used formulation decomposes the group-specific mean \( \mu_i \) into an overall (grand) mean and a treatment effect. This gives the model:
 
 \begin{equation*}
 Y_{ij} = \mu + \alpha_i + \epsilon_{ij}
@@ -10209,13 +10223,13 @@ Y_{ij} = \mu + \alpha_i + \epsilon_{ij}
 
 where:
 \begin{itemize}
-    \item $\mu$ is the grand mean (overall average across all observations),
-    \item $\alpha_i$ represents the effect (or deviation) of the $i$-th group from the grand mean,
-    \item $\sum_{i=1}^k n_i \alpha_i = 0$ is the constraint ensuring model identifiability (weighted sum of treatment effects is zero),
-    \item $\epsilon_{ij}$ is the random error term,
-    \item $i = 1, 2, \ldots, k$ (number of groups),
-    \item $j = 1, 2, \ldots, n_i$ (number of observations in group $i$).
+    \item \( \mu \) is the grand mean (the average across all groups and observations),
+    \item \( \alpha_i = \mu_i - \mu \) is the treatment effect, i.e., the deviation of the \( i \)-th group mean from the grand mean,
+    \item \( \sum_{i=1}^k n_i \alpha_i = 0 \) is a constraint imposed on the treatment effect.
 \end{itemize}
+
+This additive decomposition clearly separates the contribution of the overall mean, the group-specific deviation, and random noise, which is central to the analysis of variance.
+
 
 \subsection{Key Assumptions}
 
@@ -10365,6 +10379,7 @@ For computational efficiency, the following formulas are often preferred:
 &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
    - \frac{\bigl(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\bigr)^2}{N}\,
 \end{align*}
+
 \hfill $\blacksquare$
 
 \begin{textbox}
@@ -10393,6 +10408,7 @@ For computational efficiency, the following formulas are often preferred:
 &= \sum_{i=1}^k \frac{\bigl(\sum_{j}Y_{ij}\bigr)^2}{n_i}
   - \frac{\bigl(\sum_{i,j}Y_{ij}\bigr)^2}{N}\,.
 \end{align*}
+
 \hfill $\blacksquare$
 
 Once we have TSS and SSB, we can obtain SSE by subtracting SSB from TSS.
@@ -10458,7 +10474,7 @@ where $\mu = \dfrac{1}{N}\sum_{i=1}^k n_i \mu_i$ is the weighted grand mean.
 \end{textbox}
 \textbf{Proof}: Consider the one-way ANOVA model:
 \begin{equation*}
-Y_{ij} = \mu + \alpha_i + \epsilon_{ij}
+Y_{ij} = \mu_i + \epsilon_{ij} = \mu + \alpha_i + \epsilon_{ij}
 \end{equation*}
 where $Y_{ij}$ is the $j$-th observation in the $i$-th group, $i = 1, 2, \ldots, k$, $j = 1, 2, \ldots, n_i$, $\mu$ is the overall mean, $\alpha_i$ is the effect of the $i$-th group, $\epsilon_{ij} \sim \mathcal{N}(0, \sigma^2)$ are independent error terms, and $N = \sum_{i=1}^k n_i$ is the total sample size.
 Define the sample means:
@@ -10484,9 +10500,39 @@ Y_{ij} - \overline{Y}_{i\bullet} &= (\mu + \alpha_i + \epsilon_{ij}) - (\mu + \a
 \end{align*}
 Thus:
 \begin{align*}
-\text{SSE} &= \sum_{i=1}^k \sum_{j=1}^{n_i}(Y_{ij} - \overline{Y}_{i\bullet})^2 = \sum_{i=1}^k \sum_{j=1}^{n_i}(\epsilon_{ij} - \overline{\epsilon}_{i\bullet})^2 \sim \sigma^2 \chi^2_{N-k}
+\text{SSE} &= \sum_{i=1}^k \sum_{j=1}^{n_i}(Y_{ij} - \overline{Y}_{i\bullet})^2 = \sum_{i=1}^k \sum_{j=1}^{n_i}(\epsilon_{ij} - \overline{\epsilon}_{i\bullet})^2 \\
+&=\sum_{i=1}^k \sum_{j=1}^{n_i}\epsilon_{ij}^2 - 2\sum_{i=1}^k \sum_{j=1}^{n_i}\epsilon_{ij}\overline{\epsilon}_{i\bullet}^2 + \sum_{i=1}^k \sum_{j=1}^{n_i}\overline{\epsilon}_{i\bullet}^2 \\
+&=\sum_{i=1}^k \sum_{j=1}^{n_i}\epsilon_{ij}^2-\sum_{i=1}^k {n_i}\overline{\epsilon}_{i\bullet}^2
 \end{align*}
-Therefore:
+Since $\epsilon_{ij} \sim \mathcal{N}(0, \sigma^2)$, we can write\footnote{This comes from the theorem that if \( X \sim N(0, \sigma^2) \), then $\mathbb{E}(X^2) = \sigma^2$. To prove this we write the formula of variance:
+\[
+\mathrm{Var}(X) = \mathbb{E}[(X - \mathbb{E}(X))^2] = \mathbb{E}[X^2 - 2X\mathbb{E}(X) + (\mathbb{E}(X))^2]
+\]
+
+\noindent Since \( \mathbb{E}(X) = 0 \), this simplifies to:
+\[
+\mathrm{Var}(X) = \mathbb{E}(X^2)
+\]
+
+\noindent Hence,
+\[
+\mathbb{E}(X^2) = \sigma^2
+\]
+}
+$$\mathbb{E}(\epsilon_{ij}^2) = \sigma^2$$
+Also, since
+$$\overline{\epsilon}_{i\bullet} = \dfrac{1}{n_i}\sum_{j=1}^{n_i}\epsilon_{ij}$$
+we can write
+$$\overline{\epsilon}_{i\bullet} \sim \mathcal{N}\left( 0, \dfrac{\sigma^2}{n_i}\right) $$
+
+Hence,
+$$\mathbb{E}(\overline{\epsilon}_{i\bullet}^2) = \dfrac{\sigma^2}{n_i}$$
+Now,
+\begin{align*}
+\mathbb{E}(\text{SSE}) &= \sum_{i=1}^k \sum_{j=1}^{n_i}\mathbb{E}\left( \epsilon_{ij}^2\right) -\sum_{i=1}^k {n_i}\mathbb{E}\left( \overline{\epsilon}_{i\bullet}^2\right) \\
+&=N\sigma^2 - kn_i\dfrac{\sigma^2}{n_i} = (N-k)\sigma^2
+\end{align*}
+Thus,
 \begin{align*}
 \mathbb{E}[\text{MSE}] &= \mathbb{E}\left[\dfrac{\text{SSE}}{N-k}\right] = \sigma^2
 \end{align*}
@@ -10494,100 +10540,147 @@ Therefore:
 \item \textbf{Expected Value of MST:}
 \bigskip
 \begin{itemize}
-\item \textbf{Case 1: Under $H_0: \alpha_1 = \alpha_2 = \cdots = \alpha_k = 0$}
+\item \textbf{Case 1: Under $H_0: \mu_1 = \mu_2 = \cdots = \mu_k = 0$}
 
 \bigskip
-Under $H_0$, we have $Y_{ij} = \mu + \epsilon_{ij}$, so:
+The equivalent hypothesis in terms of $\alpha$'s can be written as:
+$$H_0: \alpha_1 = \alpha_2 = \cdots = \alpha_k = 0$$
+
+Under $H_0$, thus we have $Y_{ij} = \mu + \epsilon_{ij}$, so:
 \begin{align*}
 \overline{Y}_{i\bullet} &= \mu + \overline{\epsilon}_{i\bullet}, \quad \overline{Y}_{\bullet\bullet} = \mu + \overline{\epsilon}_{\bullet\bullet}
 \end{align*}
-where $\overline{\epsilon}_{\bullet\bullet} = \frac{1}{N}\sum_{i=1}^k \sum_{j=1}^{n_i} \epsilon_{ij}$.
+where $\overline{\epsilon}_{\bullet\bullet} = \dfrac{1}{N}\sum_{i=1}^k \sum_{j=1}^{n_i} \epsilon_{ij} = \dfrac{1}{N}\sum_{i=1}^k n_i \overline{\epsilon}_{i\bullet}$.
 Thus:
 \begin{align*}
 \overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} &= \overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet}
 \end{align*}
 Therefore:
 \begin{align*}
-\text{SST} &= \sum_{i=1}^k n_i(\overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet})^2 = \sum_{i=1}^k n_i(\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})^2 \sim \sigma^2 \chi^2_{k-1}
+\text{SST} &= \sum_{i=1}^k n_i(\overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet})^2 = \sum_{i=1}^k n_i(\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})^2 \\
+&=\sum_{i=1}^k n_i\overline{\epsilon}_{i\bullet}^2 - 2\underbrace{\sum_{i=1}^k n_i\overline{\epsilon}_{\bullet\bullet}}_{=N\overline{\epsilon}_{i\bullet}}\overline{\epsilon}_{\bullet\bullet} + \underbrace{\sum_{i=1}^kn_i}_{= N}\overline{\epsilon}_{i\bullet}^2\\
+&=\sum_{i=1}^k n_i\overline{\epsilon}_{i\bullet}^2 - N\overline{\epsilon}_{\bullet\bullet}^2
 \end{align*}
+
+Since $\overline{\epsilon}_{\bullet\bullet} = \dfrac{1}{N}\sum_{i=1}^k \sum_{j=1}^{n_i} \epsilon_{ij}$ is the average value of $\epsilon_{ij}$ over all the observations $N$, we can write:
+$$\mathbb{E}\left( \overline{\epsilon}_{\bullet\bullet}\right)  = \dfrac{\sigma^2}{N}$$
+
+Now,
+\begin{align*}
+\mathbb{E}(SST) &=\sum_{i=1}^k n_i\mathbb{E}\left( \overline{\epsilon}_{i\bullet}^2 \right) - N\mathbb{E}\left( \overline{\epsilon}_{\bullet\bullet}^2\right) \\
+&= \sum_{i=1}^k n_i\dfrac{\sigma^2}{n-i} - N\dfrac{\sigma^2}{N} = (k-1)\sigma^2
+\end{align*}
+
 Hence:
 \begin{align*}
 \mathbb{E}[\text{MST}] &= \mathbb{E}\left[\frac{\text{SST}}{k-1}\right] = \sigma^2
 \end{align*}
-\item \textbf{Case 2: Under $H_1$ (Not All $\alpha_i = 0$)}
+\item \textbf{Case 2: Under $H_1$ (Not All $\mu_i$'s are equal)}
 
 \bigskip
+
+The equivalent hypothesis in terms of $\alpha$'s can be written as:
+$$H_1: \text{Not All } \alpha_i = 0$$
+
 Under the alternative hypothesis:
 \begin{align*}
 \overline{Y}_{i\bullet} &= \mu + \alpha_i + \overline{\epsilon}_{i\bullet} \\
-\overline{Y}_{\bullet\bullet} &= \mu + \overline{\alpha} + \overline{\epsilon}_{\bullet\bullet}
+\overline{Y}_{\bullet\bullet} &= \mu + \overline{\alpha} + \overline{\epsilon}_{\bullet\bullet}= \mu + \overline{\epsilon}_{\bullet\bullet}
 \end{align*}
-where $\overline{\alpha} = \frac{1}{N}\sum_{i=1}^k n_i \alpha_i$.
+where $\overline{\alpha} = \frac{1}{N}\sum_{i=1}^k n_i \alpha_i = 0$.
 Therefore:
 \begin{align*}
-\overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} &= (\alpha_i - \overline{\alpha}) + (\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})
+\overline{Y}_{i\bullet} - \overline{Y}_{\bullet\bullet} &= \alpha_i + (\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})
 \end{align*}
 Thus:
 \begin{align*}
-\text{SST} &= \sum_{i=1}^k n_i[(\alpha_i - \overline{\alpha}) + (\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})]^2 \\
-&= \sum_{i=1}^k n_i(\alpha_i - \overline{\alpha})^2 + 2\sum_{i=1}^k n_i(\alpha_i - \overline{\alpha})(\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet}) \\
-&\quad + \sum_{i=1}^k n_i(\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})^2
+\text{SST} &= \sum_{i=1}^k n_i[\alpha_i + (\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})]^2 \\
+&= \sum_{i=1}^k n_i\alpha_i^2 + 2\sum_{i=1}^k n_i\alpha_i(\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet}) + \sum_{i=1}^k n_i(\overline{\epsilon}_{i\bullet} - \overline{\epsilon}_{\bullet\bullet})^2
 \end{align*}
 Taking expectations:
 \begin{align*}
-\mathbb{E}[\text{SST}] &= \sum_{i=1}^k n_i(\alpha_i - \overline{\alpha})^2 + 0 + (k-1)\sigma^2 \\
-&= \sum_{i=1}^k n_i(\alpha_i - \overline{\alpha})^2 + (k-1)\sigma^2
+\mathbb{E}[\text{SST}] &= \sum_{i=1}^k n_i\alpha_i^2 + 2\sum_{i=1}^k n_i\alpha_i\left( \underbrace{\mathbb{E}\left( \overline{\epsilon}_{i\bullet}\right)}_{=0}  - \underbrace{\mathbb{E}\left( \overline{\epsilon}_{\bullet\bullet}\right)}_{=0}\right)   + (k-1)\sigma^2 \\
+&= \sum_{i=1}^k n_i\alpha_i^2 + 0 + (k-1)\sigma^2 = \sum_{i=1}^k n_i\alpha_i^2 + (k-1)\sigma^2\\
+&=\sum_{i=1}^k n_i\left(\mu_i-\mu \right) ^2 + (k-1)\sigma^2
 \end{align*}
 Therefore:
 \begin{align*}
-\mathbb{E}[\text{MST}] &= \frac{\mathbb{E}[\text{SST}]}{k-1} = \sigma^2 + \frac{\sum_{i=1}^k n_i(\alpha_i - \overline{\alpha})^2}{k-1}
+\mathbb{E}[\text{MST}] &= \frac{\mathbb{E}[\text{SST}]}{k-1} = \sigma^2 + \frac{\sum_{i=1}^k n_i(\mu_i-\mu)^2}{k-1}
 \end{align*}
 \end{itemize}
 \end{itemize}
 
+\hfill $\blacksquare$
 
 \subsection{The F-Statistic}
 
-The test statistic for one-way ANOVA is:
+The above theorem tells us that the Mean Square Treatment (MST) and Mean Square Error (MSE) have the same expectation under the null hypothesis. However, under the alternative, $\mathbb{E}[\text{MST}] > \mathbb{E}[\text{MSE}]$ due to the added term involving group mean deviations.
 
-\begin{equation}
-F = \dfrac{\text{MSB}}{\text{MSW}}
-\end{equation}
+Hence, a natural test statistic is the ratio:
 
-Under the null hypothesis, $F$ follows an F-distribution with $(k-1, N-k)$ degrees of freedom:
+\begin{textbox}
+\begin{equation*}
+F = \dfrac{\text{MST}}{\text{MSE}}
+\end{equation*}
+\end{textbox}
 
-\begin{equation}
+Intuitively:
+\begin{itemize}
+\item If all group means are equal (i.e., under $H_0$), both MST and MSE estimate the same error variance $\sigma^2$, so $F$ is expected to be close to 1.
+
+\item If the group means differ significantly, MST becomes larger, and hence $F$ tends to exceed 1.
+\end{itemize}
+
+Under the null hypothesis:
+
+\begin{textbox}
+\begin{equation*}
 F \sim F_{k-1, N-k}
-\end{equation}
+\end{equation*}
+\end{textbox}
 
-\section{Hypothesis Testing Procedure}
+That is, the $F$ follows an $ F $-distribution with:
+\begin{itemize}
+\item $k-1$ degrees of freedom in the numerator (corresponding to the number of groups minus one), and
 
-\textbf{Step 1: State the Hypotheses}
-\begin{align}
+\item $N-k$ degrees of freedom in the denominator (corresponding to the total number of observations minus the number of groups).
+\end{itemize}
+This distribution provides the critical region for hypothesis testing. Large values of $F$ suggest significant differences between the group means, leading us to reject the null hypothesis.
+
+\subsection{Hypothesis Testing Procedure}
+
+\begin{enumerate}
+\item \textbf{State the Hypotheses}
+\begin{align*}
 H_0 &: \mu_1 = \mu_2 = \cdots = \mu_k \\
 H_1 &: \text{At least one } \mu_i \text{ differs from the others}
-\end{align}
+\end{align*}
 
-\textbf{Step 2: Choose the Significance Level}
+\item \textbf{Choose the Significance Level}
+
 Select $\alpha$ (commonly 0.05, 0.01, or 0.10).
 
-\textbf{Step 3: Compute the Test Statistic}
-Calculate $F = \frac{\text{MSB}}{\text{MSW}}$.
+\item \textbf{Compute the Test Statistic}
 
-\textbf{Step 4: Determine the Critical Value}
-Find $F_{\alpha, k-1, N-k}$ from the F-distribution table.
+Calculate $$F = \frac{\text{MSB}}{\text{MSW}}$$
 
-\textbf{Step 5: Make the Decision}
+\item \textbf{Determine the Critical Value}
+
+Find the critical value $F_{\alpha; k-1, N-k}$ for the given $\alpha$ from the $F$-distribution table.
+
+\item \textbf{Make the Decision}
 \begin{itemize}
-\item If $F > F_{\alpha, k-1, N-k}$, reject $H_0$
-\item If $F \leq F_{\alpha, k-1, N-k}$, fail to reject $H_0$
+\item If $F > F_{\alpha; k-1, N-k}$, reject $H_0$.
+\item Otherwise, fail to reject $H_0$.
 \end{itemize}
 
-Alternatively, compare the p-value to $\alpha$:
+Alternatively, compare the $ p $-value to $\alpha$:
 \begin{itemize}
-\item If p-value $< \alpha$, reject $H_0$
-\item If p-value $\geq \alpha$, fail to reject $H_0$
+\item If $ p $-value $< \alpha$, reject $H_0$.
+\item Otherwise, fail to reject $H_0$.
 \end{itemize}
+
+\end{enumerate}
 
 \section{ANOVA Table}
 
