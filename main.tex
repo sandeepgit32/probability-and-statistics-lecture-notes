@@ -10115,6 +10115,727 @@ The ROC curve helps us visualize and compare the effectiveness of tests across d
 
 The \textbf{Area Under the Curve (AUC)} quantifies overall test performance: an AUC of 1 indicates perfect discrimination, whereas an AUC of 0.5 corresponds to random guessing.
 
+\chapter{Correlation and Regression}
+
+\section{Correlation}
+
+\begin{textbox}
+In statistics, \textbf{correlation} between two random variables is a measure of the degree of linear association between them.
+\end{textbox}
+ For example, imagine you record how many hours each of the six students studies in a week and their corresponding exam scores:
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{c|c|c}
+		\toprule
+		\textbf{Student} & \textbf{Hours Studied} ($X$) & \textbf{Exam Score} ($Y$) \\
+		\midrule
+		1 & 2 & 65 \\
+		2 & 3 & 70 \\
+		3 & 4 & 76 \\
+		4 & 5 & 78 \\
+		5 & 6 & 82 \\
+		6 & 7 & 89 \\
+		\bottomrule
+	\end{tabular}
+	\caption{\textit{Study hours and exam scores of six students.}}
+	\label{tab:study_scores}
+\end{table}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	xlabel={Hours Studied},
+	ylabel={Exam Score},
+	axis lines=left,
+	xmin=1, xmax=8, ymin=60, ymax=95 ,
+	width=10cm,
+	height=5cm,
+	thick,
+	]
+	\addplot[only marks, blue, mark=*, mark size=2pt] coordinates {
+		(2,65) (3,70) (4,76) (5,78) (6,82) (7,89)
+	};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{\textit{Scatter plot of study time and exam performance.}}
+\end{figure}
+
+
+As illustrated in the table and the accompanying scatter plot, exam scores increase as students dedicate more hours to studying. This clear upward pattern reflects a positive correlation: students who invest more time in preparation tend to achieve higher marks.  In general, the direction of correlation can be classified as follows:
+
+\begin{enumerate}
+	\item \textbf{Positive correlation}: An increase in one variable is accompanied by an increase in the other.
+	\item \textbf{Negative correlation}: An increase in one variable is accompanied by a decrease in the other.
+	\item \textbf{No (zero) correlation}: Changes in one variable show no consistent association with changes in the other.
+\end{enumerate}
+
+
+\section{Pearson Correlation Coefficient}
+
+Pearson's correlation coefficient for a population, commonly denoted by the Greek letter \(\rho\) (rho), is also known as the \textbf{population correlation coefficient}. Given a pair of random variables \(X\) and \(Y\), the population correlation coefficient \(\rho_{XY}\) is defined as
+
+\begin{textbox}
+\[
+\rho_{XY} = \frac{\operatorname{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\mathbb{E}\big[(X - \mu_X)(Y - \mu_Y)\big]}{\sigma_X \sigma_Y}
+\]
+\end{textbox}
+where \(\mu_X = \mathbb{E}[X]\) and \(\mu_Y = \mathbb{E}[Y]\) are the means of \(X\) and \(Y\), \(\sigma_X\) and \(\sigma_Y\) are their standard deviations, and \(\operatorname{Cov}(X,Y)\) is the covariance between \(X\) and \(Y\).
+
+Like all population parameters, The value of $\rho_{XY}$ is not known to us. We may need to estimate it from the random sample observation pairs $(X,Y)$. Let $$ (x_1, y_1), (x_2, y_2), \dots,(x_n, y_n) $$ be $n$ pairs of observations with respective means $\overline{X}, \overline{Y}$ and variances $S_X^2, S_X^2$ respectively. It turns out that a point estimate of $\text{Cov}(X,Y)$ is the sample covariance:
+$$ S_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{n-1} $$
+The point estimate of $\sigma_X$ is sample standard deviation of $X$:
+$$S_X = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (x_i - \overline{x})^2}$$
+The point estimate of $\sigma_Y$ is sample standard deviation of $Y$:
+$$S_Y = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (y_i - \overline{y})^2}$$
+
+Substituting these estimates for their population counterparts, we get the formula for the \textbf{sample correlation coefficient} as
+
+\begin{textbox}
+	\[
+	r_{XY} = \dfrac{S_{XY}}{S_X \cdot S_Y}
+	\]
+\end{textbox}
+Alternatively, $r_{XY}$ can be expressed as
+\begin{textbox}
+\[
+r_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}
+\]
+\end{textbox}
+
+We can simplify the formula for $r_{XY}$ into a form most convenient for computing from raw data by using the identities:
+\begin{align*}
+\sum_i (x_i - \overline{x})(y_i - \overline{y}) &= \sum_i x_i y_i - n\overline{x}\cdot \overline{y} = \sum_i x_i y_i - \frac{\sum_i x_i \sum_i y_i}{n} \\
+\sum_i (x_i - \overline{x})^2 &= \sum_i x_i^2 -n\overline{x}^2= \sum_i x_i^2 - \frac{(\sum_i x_i)^2}{n} \\
+\sum_i (y_i - \overline{y})^2 &= \sum_i y_i^2 -n\overline{y}^2= \sum_i y_i^2 - \frac{(\sum_i y_i)^2}{n}
+\end{align*}
+
+Thus we obtain the formula for $r_{XY}$:
+\begin{textbox}
+\begin{align*}
+r_{XY} = \frac{n \sum x_i y_i - \sum x_i \sum y_i}
+{\sqrt{n \sum x_i^2 - (\sum x_i)^2} \cdot \sqrt{n \sum y_i^2 - (\sum y_i)^2}}
+\end{align*}
+\end{textbox}
+
+The value of $r_{XY}$ lies within -1 and 1 i.e. $-1 \leq r_{XY} \leq 1$.
+\begin{textbox}
+\begin{itemize}
+	\item $r > 0$ indicates a \textbf{positive correlation}.
+	\item $r < 0$ indicates a \textbf{negative correlation}.
+	\item $r = 0$ suggests \textbf{no correlation} (but not necessarily independence).
+	\item $r = \pm 1$ indicates a \textbf{perfect linear correlation} ($+1$ for positive and $-1$ for negative).
+\end{itemize}
+\end{textbox}
+
+% In your document preamble:
+%   \usepackage{pgfplots}
+%   \pgfplotsset{compat=1.17}
+%   \usepgfplotslibrary{groupplots}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[
+	group style={
+		group size=2 by 2,
+		horizontal sep=3cm,
+		vertical sep=2cm
+	},
+	width=5cm,
+	height=4cm,
+	axis lines=left,
+	axis line style={thick},
+	xlabel={$X$},
+	ylabel={$Y$},
+	tick align=outside,
+	]
+	% Positive correlation
+	\nextgroupplot[title={Positive Correlation ($r>0$)},xmin=0, xmax=8,	ymin=1]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,1.5) (2,1.9) (3,3.1) (4,4.8) (5,4.9) (6,5.9) (7,7.8)
+	};
+
+	% Negative correlation
+	\nextgroupplot[title={Negative Correlation ($r<0$)},xmin=0, xmax=8,	ymin=1]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,7.0) (2,6.0) (3,5.0) (4,4.5) (5,3.7) (6,2.2) (7,1.6)
+	};
+
+	% Zero correlation
+	\nextgroupplot[title={Zero Correlation ($r\approx0$)},xmin=0, xmax=8,	ymin=3, ymax=6]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,4.5) (2,5.8) (3,4.2) (4,4.9) (5,3.9) (6,5.3) (7,4.0)
+	};
+
+	% Perfect linear correlation
+	\nextgroupplot[title={Perfect Linear Correlation ($r=1$)},xmin=0, xmax=8,ymin=1]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,2) (2,4) (3,6) (4,8) (5,10) (6,12) (7,14)
+	};
+
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{\textit{Scatterplots illustrating positive, negative, zero, and perfect linear correlations.}}
+	\label{fig:correlation_types}
+\end{figure}
+
+% \begin{table}[h!]
+% 	\centering
+% 	\begin{tabular}{c|l}
+% 		\toprule
+% 		\textbf{Value of $r$} & \textbf{Strength of correlation} \\
+% 		\midrule
+% 		$0.90$ to $1.00$ or $-0.90$ to $-1.00$ & Very strong \\
+% 		$0.70$ to $0.89$ or $-0.70$ to $-0.89$ & Strong \\
+% 		$0.40$ to $0.69$ or $-0.40$ to $-0.69$ & Moderate \\
+% 		$0.10$ to $0.39$ or $-0.10$ to $-0.39$ & Weak \\
+% 		$0.00$ to $0.09$ or $-0.00$ to $-0.09$ & Very weak or none\\
+% 		\bottomrule
+% 	\end{tabular}
+% 	\caption{Interpreting the magnitude of correlation coefficient}
+% \end{table}
+
+
+\textbf{Example}: Suppose we have data on students' hours studied ($X$) and exam scores ($Y$) as given in the table \ref{tab:study_scores}. We need to calculate the Pearson corelation coefficient.
+
+The formula we will use:
+
+\[
+r_{XY} = \frac{n \sum x_i y_i - \sum x_i \sum y_i}
+{\sqrt{n \sum x_i^2 - (\sum x_i)^2} \cdot \sqrt{n \sum y_i^2 - (\sum y_i)^2}}
+\]
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|c|c|c|c|c}
+		\toprule
+		Student & $x_i$ & $y_i$ & $x_i^2$ & $y_i^2$ & $x_iy_i$\\
+		\midrule
+		1 & 2 & 65 & 4 & 4225 & 130\\
+		2 & 3 & 70 & 9 & 4900 & 210\\
+		3 & 4 & 76 & 16 & 5776 & 304\\
+		4 & 5 & 78 & 25 & 6084 & 390\\
+		5 & 6 & 82 & 36 & 6724 & 492\\
+		6 & 7 & 89 & 49 & 7921 & 623\\
+		\midrule
+		\textbf{$n=6$}& $ \sum x_i = 27 $ & $ \sum y_i = 460 $& $ \sum x_i^2 = 139 $& $ \sum y_i^2 = 35630 $ & $ \sum x_iy_i = 2149 $ \\
+		\bottomrule
+	\end{tabular}
+\caption{\textit{Correlation coefficient calculation table.}}
+\end{table}
+
+Substituting the values:
+\begin{align*}
+r_{XY} &= \frac{6 \cdot 2149 - 27 \cdot 460}
+{\sqrt{6 \cdot 139 - 27^2} \cdot \sqrt{6 \cdot 35630 - 460^2}}\\
+&= \frac{12894 - 12420}
+{\sqrt{834 - 729} \cdot \sqrt{213780 - 211600}}\\
+&= \frac{474}
+{\sqrt{105} \cdot \sqrt{2180}}
+\approx \frac{474}{10.247 \cdot 46.690}\\
+&\approx \frac{474}{478.74}
+\approx 0.9907
+\end{align*}
+
+This indicates a very strong positive correlation between hours studied and exam scores.
+
+\section{Effect of Linear Transformations on Correlation Coefficient}
+
+\begin{textbox}
+\textbf{Theorem}: Suppose we have two random variables \(X\) and \(Y\) with correlation coefficient $\rho_{XY}$. Define new variables
+
+\[
+U = a + bX, \quad V = c + dY
+\]
+
+where \(a, c\) are constants (shifts) and \(b, d \neq 0\) are scaling factors. Then the population correlation coefficient between \(U\) and \(V\) is
+
+\begin{align*}
+\rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY}
+\end{align*}
+\end{textbox}
+\textbf{Proof}:
+\begin{align*}
+\rho_{UV} =  \dfrac{\mathrm{Cov}(U,V)}{\sigma_U \sigma_V} = \dfrac{\mathrm{Cov}(a + bX, c + dY)}{\sqrt{\mathrm{Var}(a + bX)} \cdot \sqrt{\mathrm{Var}(c + dY)}}
+\end{align*}
+
+Now,
+\begin{align*}
+\mathrm{Cov}(a + bX, c + dY) &= bd\, \mathrm{Cov}(X,Y)\\
+\mathrm{Var}(a + bX) &= c^2 \mathrm{Var}(X)\\
+\mathrm{Var}(c + dY) &= d^2 \mathrm{Var}(Y)
+\end{align*}
+
+Thus,
+
+$$\rho_{UV}
+= \dfrac{\mathrm{Cov}(bX, dY)}{\sqrt{\mathrm{Var}(bX)}\cdot \sqrt{\mathrm{Var}(dY)}}
+= \dfrac{bd \, \mathrm{Cov}(X, Y)}{|b| \sigma_X \cdot |d| \sigma_Y}
+= \dfrac{bd}{|b||d|} \cdot \frac{\mathrm{Cov}(X, Y)}{\sigma_X \sigma_Y}$$
+
+Since
+
+\[
+\dfrac{bd}{|b||d|} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d)
+\]
+
+where \(\operatorname{sgn}(\cdot)\) is the sign function\footnote{The \textbf{sign function}, denoted by \(\operatorname{sgn}(x)\), is defined as:
+
+	\[
+	\operatorname{sgn}(x) =
+	\begin{cases}
+	-1, & \text{if } x < 0, \\
+	\phantom{-}0, & \text{if } x = 0, \\
+	\phantom{-}1, & \text{if } x > 0.
+	\end{cases}
+	\]
+
+	It extracts the sign of a real number \(x\).}, it follows that
+
+\[
+\rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot \rho_{XY}
+\]
+\hfill $\blacksquare$
+
+This shows that linear transformations preserve the magnitude of the correlation coefficient but may reverse its sign depending on the scaling factors.
+\begin{itemize}
+	\item If \(b\) and \(d\) have the same sign, then \(\rho_{UV} = \rho_{XY}\).
+	\item If \(b\) and \(d\) have opposite signs, then \(\rho_{UV} = -\rho_{XY}\).
+	\item Adding constants \(a\) and \(c\) has no effect on the value of the correlation.
+\end{itemize}
+
+The sample correlation coefficient also satisfies the same transformation relation:
+\[
+r_{UV} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot r_{XY}
+\]
+
+
+\section{Correlation Is Not Causation}
+
+It is important to understand that a high correlation between two variables does not necessarily imply that one variable causes the other. Correlation measures the strength and direction of a linear relationship between variables, but it does not provide evidence about causality.
+
+There are several reasons why correlation does not imply causation:
+
+\begin{itemize}
+	\item \textbf{Confounding variables:} A third variable may influence both variables under study, creating a spurious correlation.
+	\item \textbf{Reverse causality:} The direction of cause and effect may be opposite to what is assumed.
+	\item \textbf{Coincidence:} Sometimes, correlations arise purely by chance.
+\end{itemize}
+
+For example, consider a study might that finds a positive correlation between umbrella sales and slipping accidents. This doesn't mean umbrellas cause slips or vice versa. Instead, rainy weather acts as the common factor: rain simultaneously drives people to buy umbrellas and makes sidewalks slippery, creating the illusion of a direct relationship between the two variables.
+
+This example illustrates why it is crucial to use careful experimental design, statistical controls, and domain knowledge before concluding causal relationships from correlated data.
+
+
+% \subsection{Limitations of Correlation}
+
+% \begin{itemize}
+% 	\item Correlation measures only linear association.
+% 	\item A high correlation does not imply causation.
+% 	\item Outliers can have a strong influence on the value of $r$.
+% 	\item Nonlinear relationships may exist even if $r \approx 0$.
+% \end{itemize}
+
+
+\section{Regression Analysis}
+
+\begin{textbox}
+    \textbf{Regression analysis} is a statistical method used to explore and model the relationship between a dependent variable and one or more independent variables.
+\end{textbox}
+ It plays a central role in data analysis, prediction, and inference, particularly when trying to establish a functional relationship between variables.
+
+In its simplest form—\textbf{simple linear regression}—we wish to study the relationship between two variables $X$ and $Y$ and use it to predict $Y$ from $X$. The variable $X$ acts as the \textbf{independent variable} (predictor, causal variable) whose values are controlled by the experimenter and $Y$ is the \textbf{dependent variable} (response) which is also subjected to unaccountable variations (errors).
+
+For example, a teacher wants to examine whether there's a relationship between how long students study and the scores they achieve in a test. By treating the number of hours studied as the independent variable and the test score as the dependent variable, regression helps us determine whether there is a consistent trend between the two.
+
+\section{The Simple Linear Regression Model}
+
+A simple linear regression model assumes the existence of a linear relationship between $X$ (predictor variable) and $Y$ (response) that is disturbed by a random error $\epsilon$ which can be written as an equation of the form:
+
+\begin{textbox}
+\[
+Y = \beta_0 + \beta_1 X + \epsilon
+\]
+\end{textbox}
+
+where:
+\begin{itemize}
+    % \item \( Y \): dependent (response) variable
+    % \item \( X \): independent (predictor) variable
+    \item \( \beta_0 \): $y$-intercept of the line,
+    \item \( \beta_1 \): slope of the line (rate of change in \( Y \) per unit increase in \( X \)),
+    \item \( \epsilon \): random error, accounting for unexplained variation
+\end{itemize}
+
+Given a dataset of \( n \) observations, represented as pairs:
+$$(x_1,y_1), (x_2, y_2), \dots (x_n, y_n)$$
+the objective is to estimate the unknown parameters \( \beta_0 \) and \( \beta_1 \), and then use these estimates to define a straight line that best fits the data.
+
+The \textbf{fitted regression line} (also called the prediction equation) is:
+\begin{textbox}
+    $$\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X$$
+\end{textbox}
+Here, \( \hat{\beta}_0 \) and \( \hat{\beta}_1 \) are the estimated values of the intercept and slope, respectively, obtained from the sample data.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=10cm,
+    height=6.5cm,
+    xlabel={Independent Variable ($X$)},
+    ylabel={Dependent Variable ($Y$)},
+    axis lines=left,
+    % grid=both,
+    xmin=0, xmax=10,
+    ymin=0, ymax=10,
+    enlargelimits=true,
+    clip=false
+]
+
+% Scatter data points
+\addplot[
+    only marks,
+    color=blue,
+    mark=*,
+    mark size=2pt
+] coordinates {
+    (1,1.7) (2,1.7) (3,1.8) (4,4.8) (5,5.2)
+    (6,6.4) (7,6.0) (8,9) (9,8.8)
+};
+
+% Regression line
+\addplot[
+    domain=0:10,
+    samples=2,
+    color=black,
+    very thick
+] {x};
+
+% Arrow to data points
+\draw[->, thin] (axis cs:6,8.2) -- (axis cs:6,6.6);
+\draw[->, thin] (axis cs:6,8.2) -- (axis cs:6.9,6.2);
+\node at (axis cs:6,8.5) {Data Points};
+
+% Arrow to regression line
+\draw[->, thin] (axis cs:2,8.3) -- (axis cs:3.4,3.5);
+\node at (axis cs:1.5,8.7) {Line of Regression};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+% \section{Assumptions of the Linear Model}
+
+% To perform valid inference, the model makes the following assumptions:
+% \begin{enumerate}
+%     \item Linearity: \( Y \) changes linearly with \( X \)
+%     \item Independence: Errors \( \epsilon_i \) are independent
+%     \item Homoscedasticity: Constant variance of errors \( \mathrm{Var}(\epsilon_i) = \sigma^2 \)
+%     \item Normality: Errors are normally distributed (for inference)
+% \end{enumerate}
+
+\section{Estimating Parameters Using Least Squares}
+
+Given \( n \) data points \( (x_1, y_1), \ldots, (x_n, y_n) \), the estimates of the parameters \( \beta_0 \) and \( \beta_1 \) should result in a line that is (in some sense) a ``best ﬁt'' to the data. To define what we mean by a ``best fit'' line, consider each data point \( (x_i, y_i) \) and its corresponding prediction \( \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i \) from the regression line. This predicted value is known as the \textbf{fitted value}. The difference between the observed value \( y_i \) and the fitted value \( \hat{y}_i \) is called the \textbf{residual} (error), denoted by \( \epsilon_i \):
+
+\begin{textbox}
+    \[
+\epsilon_i = y_i - \hat{y}_i
+\]
+\end{textbox}
+
+The residual \( \epsilon_i \) represents the vertical distance between an observed data point and the regression line. A positive residual indicates that the point lies above the regression line, while a negative residual indicates that it lies below. The closer the residuals are to zero, the better the fitted values approximate the observed data. Therefore, the estimates of the parameters \( \beta_0 \) and \( \beta_1 \) should be such that these residuals (errors) are as small as possible. However, minimizing the simple sum of residuals is not appropriate, because the positive and negative errors can cancel each other out, even when individual errors are large. A more effective approach is the \textbf{method of least squares}, which involves minimizing the sum of the squares of the residuals.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=10cm,
+    height=6.5cm,
+    xlabel={Independent Variable ($X$)},
+    ylabel={Dependent Variable ($Y$)},
+    axis lines=left,
+    xmin=0, xmax=10,
+    ymin=0, ymax=10,
+    enlargelimits=true,
+    clip=false
+]
+
+% Scatter data points
+\addplot[
+    only marks,
+    color=blue,
+    mark=*,
+    mark size=2pt
+] coordinates {
+    (1,1.7) (2,1.7) (3,1.8) (4,5.5) (5,5.2)
+    (6,6.4) (7,5.8) (8,9) (9,8.8)
+};
+
+% Regression line y = x
+\addplot[
+    domain=0:10,
+    samples=2,
+    color=black,
+    very thick
+] {x};
+
+% Red vertical line for residual at (4,5.5) to (4,4)
+\draw[red, thick] (axis cs:4,5.5) -- (axis cs:4,4);
+\node[black] at (axis cs:2.7,4.7) {$\epsilon_i = y_i - \hat{y}_i$};
+\node[black] at (axis cs:4.3,6.2) {$ (x_i, y_i)$};
+\node[black] at (axis cs:4.3,3.3) {$ (x_i, \hat{y}_i)$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+The \textbf{least-squares line} is the line that minimizes the \textbf{residual sum of squares (RSS)}\footnote{In some texts, the residual sum of squares (RSS) is also called the \textbf{sum of squares of errors (SSE)}}:
+
+\begin{textbox}
+\[
+\text{RSS} = \sum_{i=1}^{n} \epsilon_i^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2
+\]
+\end{textbox}
+
+To derive the expressions for $\hat{\beta_0}$ and $\hat{\beta_1}$, we have to take the partial derivatives of $RSS$ with respect to $\hat{\beta_0}$ and $\hat{\beta_1}$ and set them to zero.
+
+\begin{align*}
+    \dfrac{\partial}{\partial \hat{\beta_0}} (RSS) &=-2\sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) = 0,\\ \dfrac{\partial}{\partial \hat{\beta_1}} (RSS) &= -2\sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)x_i = 0
+\end{align*}
+
+Simplifying these two equations yields
+\begin{align*}
+ n\hat{\beta}_0 + \hat{\beta}_1 \sum_{i=1}^{n}x_i &= \sum_{i=1}^{n} y_i, \\
+\hat{\beta}_0\sum_{i=1}^{n}  x_i + \hat{\beta}_1 \sum_{i=1}^{n}x_i^2 &= \sum_{i=1}^{n} y_i x_i
+\end{align*}
+
+Multiplying the first equation by $\sum_{i=1}^n x_i$ and second equation by $n$ and then subtracting second from the first yields
+$$\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right) - n\sum_{i=1}^{n} x_i y_i = \hat{\beta}_1\left(\sum_{i=1}^{n} x_i\right)^2 - n\hat{\beta}_1\sum_{i=1}^{n} x_i^2  $$
+
+Thus we get the expression for $\hat{\beta}_1$
+
+% \begin{align*}
+%     \hat{\beta}_1 &= \dfrac{n\sum_{i=1}^{n} x_i y_i-\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}{n\sum_{i=1}^{n} x_i^2-\left(\sum_{i=1}^{n} x_i\right)^2} \\
+%     &= \dfrac{\sum_{i=1}^{n} x_i y_i-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}{\sum_{i=1}^{n} x_i^2-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2} \\
+%     % &=\dfrac{\frac{1}{n}\sum_{i=1}^{n} x_i y_i-\overline{x}\overline{y}}{\frac{1}{n}\sum_{i=1}^{n} x_i^2-\overline{x}^2} = \dfrac{\frac{1}{n}\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})}{\frac{1}{n}\sum_{i=1}^{n} \left(x_i-\overline{x}\right)^2} \\
+%     % &= \dfrac{\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})}{\sum_{i=1}^{n} \left(x_i-\overline{x}\right)^2}
+% \end{align*}
+
+\begin{align*}
+\hat{\beta}_1 &=
+\left[
+n\sum_{i=1}^{n} x_i y_i
+-
+\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)
+\right]
+\bigg/
+\left[
+n\sum_{i=1}^{n} x_i^2
+-
+\left(\sum_{i=1}^{n} x_i\right)^2
+\right]
+\\
+&=
+\left[
+\sum_{i=1}^{n} x_i y_i
+-
+\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right]
+\right)
+\bigg/
+\left[
+\sum_{i=1}^{n} x_i^2
+-
+\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2
+\right]
+\end{align*}
+
+
+It is convenient to introduce some notation for the sums of squared deviation from mean and sums of cross-products of deviation.
+
+\begin{textbox}
+\begin{align*}
+S_{xx} &= \sum_{i=1}^{n} (x_i - \overline{x})^2 = \sum_{i=1}^{n} x_i^2 - \frac{1}{n}\left( \sum_{i=1}^{n} x_i \right)^2 \\
+S_{yy} &= \sum_{i=1}^{n} (y_i - \overline{y})^2 = \sum_{i=1}^{n} y_i^2 - \frac{1}{n}\left( \sum_{i=1}^{n} y_i \right)^2 \\
+S_{xy} &= \sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y}) = \sum_{i=1}^{n} x_i y_i - \frac{1}{n}\left( \sum_{i=1}^{n} x_i \right) \left( \sum_{i=1}^{n} y_i \right)
+\end{align*}
+\end{textbox}
+
+Using these notation we can write,
+\begin{textbox}
+$$\hat{\beta}_1 = \dfrac{S_{xy}}{S_{xx}}$$
+\end{textbox}
+The expression for $\hat{\beta}_0$ is calculated as
+\begin{textbox}
+\[
+\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}
+\]
+\end{textbox}
+
+\subsection{Calculation of RSS}
+We can now calculate the value of RSS based on the value of $\hat{\beta}_0$ and $\hat{\beta}_0$ found using the method of least square:
+
+\begin{align*}
+\text{RSS} &= \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \\
+&= \sum_{i=1}^{n} \left[ y_i - (\hat{\beta}_0 + \hat{\beta}_1x_i) \right]^2 \qquad \text{Since }\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i\\
+&= \sum_{i=1}^{n} \left[ y_i - (\overline{y} - \hat{\beta}_1 \overline{x} + \hat{\beta}_1x_i) \right]^2 \qquad \text{Since }\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}\\
+&= \sum_{i=1}^{n} \left[ (y_i - \overline{y}) - \hat{\beta}_1 (x_i - \overline{x}) \right]^2 \\
+&= \sum_{i=1}^{n} (y_i - \overline{y})^2 - 2\hat{\beta}_1 \sum_{i=1}^{n} (y_i - \overline{y})(x_i - \overline{x}) + \hat{\beta}_1^2 \sum_{i=1}^{n} (x_i - \overline{x})^2 \\
+\end{align*}
+\begin{align*}
+&= S_{yy} - 2\hat{\beta}_1 S_{xy} + \hat{\beta}_1^2 S_{xx}\\
+&= S_{yy} - 2\left( \frac{S_{xy}}{S_{xx}} \right) S_{xy} + \left( \frac{S_{xy}}{S_{xx}} \right)^2 S_{xx} \qquad \text{Since }\hat{\beta}_1 = \dfrac{S_{xy}}{S_{xx}} \\
+&= S_{yy} - \frac{2 S_{xy}^2}{S_{xx}} + \frac{S_{xy}^2}{S_{xx}} \\
+&= S_{yy} - \frac{S_{xy}^2}{S_{xx}} \\
+&= S_{yy} - \hat{\beta}_1 S_{xy}
+\end{align*}
+
+\begin{textbox}
+    $$\text{RSS} = S_{yy} - \hat{\beta}_1 S_{xy}$$
+\end{textbox}
+
+\subsection{Example}
+
+We aim to model the relationship between the number of hours studied (\(X\)) and the corresponding test score (\(Y\)) using simple linear regression. The goal is to estimate a linear equation that best describes this relationship based on observed data from five students. Once the model is established, we will use it to predict the expected test score for a student who studies for six hours.
+
+The observed data are as follows:
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\toprule
+\textbf{Student} & \textbf{Hours Studied} (\(x_i\)) & \textbf{Test Score} (\(y_i\)) \\
+\midrule
+1 & 2 & 65 \\
+2 & 3 & 70 \\
+3 & 5 & 75 \\
+4 & 7 & 85 \\
+5 & 9 & 95 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Step 1: Compute Means}
+
+\begin{align*}
+    \overline{x} &= \frac{2 + 3 + 5 + 7 + 9}{5} = \frac{26}{5} = 5.2, \\
+\overline{y} &= \frac{65 + 70 + 75 + 85 + 95}{5} = \frac{390}{5} = 78
+\end{align*}
+
+\textbf{Step 2: Compute $S_{xx}$ and $S_{xy}$}
+
+\begin{align*}
+    S_{xx} &= \sum (x_i - \overline{x})^2 \\
+    &= (2 - 5.2)^2 + (3 - 5.2)^2 + (5 - 5.2)^2 + (7 - 5.2)^2 + (9 - 5.2)^2 \\
+    &= 32.8
+\end{align*}
+
+\begin{align*}
+    S_{xy} &= \sum (x_i - \overline{x})(y_i - \overline{y}) \\
+    &= (2 - 5.2)(65 - 78) + (3 - 5.2)(70 - 78) + \ldots + (9 - 5.2)(95 - 78) \\
+    &= 137.0
+\end{align*}
+
+
+\textbf{Step 3: Estimate Parameters}
+
+\[
+\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{137.0}{32.80}\approx4.177
+\]
+
+\[
+\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \\\\\\\\overline{x} = 78-4.177\times 5.2\approx56.28
+\]
+
+\textbf{Step 4: Regression Equation}
+
+\[
+\hat{Y} = 56.28 + 4.177X
+\]
+
+\textbf{Step 5: Predict Test Score for $X = 6$}
+
+\[
+\hat{Y} = 56.28 + 4.177\times6 \approx 81.34
+\]
+
+% \textbf{Step 6: Calculate Residuals and RSS}
+
+% \begin{align*}
+%     \text{RSS} &= S_{yy} - \hat{\beta}_1 S_{xy} \\
+%     &=580 - (2.317 \cdot 76) = 580 - 176.092 = 403.91
+% \end{align*}
+
+% \begin{center}
+% \begin{tabular}{cccc}
+% \toprule
+% $x_i$ & $y_i$ & $\hat{y}_i$ & Residual $\epsilon_i = y_i - \hat{y}_i$ \\
+% \midrule
+% 2 & 65 & $65.96 + 2.317(2) = 70.594$ & $65 - 70.594 = -5.594$ \\
+% 3 & 70 & $65.96 + 2.317(3) = 72.911$ & $70 - 72.911 = -2.911$ \\
+% 5 & 75 & $65.96 + 2.317(5) = 77.545$ & $75 - 77.545 = -2.545$ \\
+% 7 & 85 & $65.96 + 2.317(7) = 82.179$ & $85 - 82.179 = 2.821$ \\
+% 9 & 95 & $65.96 + 2.317(9) = 86.813$ & $95 - 86.813 = 8.187$ \\
+% \bottomrule
+% \end{tabular}
+% \end{center}
+
+% \[
+% \text{RSS} = \sum_{i=1}^5 \epsilon_i^2 = (-5.594)^2 + (-2.911)^2 + (-2.545)^2 + (2.821)^2 + (8.187)^2
+% \]
+
+% \[
+% \text{RSS} = 31.30 + 8.47 + 6.48 + 7.96 + 67.02 = \boxed{121.23}
+% \]
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=11cm,
+    height=7cm,
+    xlabel={Hours studied ($X$)},
+    ylabel={Test score ($Y$)},
+    axis lines=left,
+    xmin=0, xmax=10,
+    ymin=50, ymax=100,
+    enlargelimits=true,
+    clip=false
+]
+
+% Scatter data points
+\addplot[
+    only marks,
+    color=blue,
+    mark=*,
+    mark size=2pt
+] coordinates {
+    (2,65) (3,70) (5,75) (7,85) (9,95)
+};
+
+% Regression line y = x
+\addplot[
+    domain=0:10,
+    samples=2,
+    color=black,
+    very thick
+] {56.28 + 4.177*x};
+
+
+\node[black] at (axis cs:3.8,92) {\small $\hat{Y} = 56.28 + 4.177X$};
+\draw[->, thin] (axis cs:3.8,90) -- (axis cs:3.8,72.4);
+\draw[dashed, thin] (axis cs:-1,81.34) -- (axis cs:6,81.34);
+\draw[dashed, thin] (axis cs:6,45) -- (axis cs:6,81.34);
+\node[black] at (axis cs:1.2,65) {\small $(2,65)$};
+\node[black] at (axis cs:2.2,70) {\small $(3,70)$};
+\node[black] at (axis cs:5.1,72) {\small $(5,75)$};
+\node[black] at (axis cs:7.8,85) {\small $(7,85)$};
+\node[black] at (axis cs:8.2,95) {\small $(9,95)$};
+\node[purple] at (axis cs:7,80) {\small $(6,81.34)$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
 
 \chapter{Analysis of Variance (ANOVA)}
 
@@ -10980,8 +11701,6 @@ Two-way ANOVA allows us to determine:
 
 \section{Mathematical Model for Two-Way ANOVA}
 
-\subsection{The Two-Way ANOVA Model}
-
 The two-way ANOVA model with interaction can be expressed as:
 
 \begin{textbox}
@@ -11442,1946 +12161,232 @@ Eta-squared & $\frac{\text{SSB}}{\text{TSS}}$ \\
 \end{table}
 
 
-\chapter{Design of Experiments}
-\section{Design of Experiments and the Need for ANOVA}
+\chapter{Introduction to Design of Experiments}
 
-In experimental research, we often want to understand how different treatments, conditions, or factors affect an outcome of interest. The \textbf{Design of Experiments (DOE)} is a systematic approach to planning experiments that allows us to efficiently investigate the effects of one or more factors on a response variable while controlling for other sources of variation.
+\section{What is Design of Experiments?}
 
-Consider a common experimental scenario: A pharmaceutical company wants to test the effectiveness of three different drug formulations (A, B, and C) for reducing blood pressure. Rather than comparing just two groups (which would require a $ t $-test), we need to simultaneously compare multiple groups to determine if any significant differences exist among them.
-
-\begin{table}[H]
-\centering
-\begin{tabular}{c|c|c|c}
-\toprule
-\textbf{Patient} & \textbf{Drug A} & \textbf{Drug B} & \textbf{Drug C} \\
-\midrule
-1 & 12 & 18 & 8 \\
-2 & 15 & 22 & 10 \\
-3 & 14 & 20 & 12 \\
-4 & 13 & 19 & 9 \\
-5 & 16 & 21 & 11 \\
-\midrule
-\textbf{Mean} & \textbf{14.0} & \textbf{20.0} & \textbf{10.0} \\
-\midrule
-\textbf{Std Dev} & \textbf{1.58} & \textbf{1.58} & \textbf{1.58} \\
-\bottomrule
-\end{tabular}
-\caption{\textit{Blood pressure reduction (mmHg) by drug treatment.}}
-\label{tab:drug_data}
-\end{table}
-
-Let's examine a concrete example with actual data as given in Figure~\ref{tab:drug_data}. Suppose researchers randomly assigned 15 patients with hypertension to three treatment groups (5 patients per group) and measured the reduction in systolic blood pressure (mmHg) after 4 weeks of treatment:
-
-Looking at this data, we observe that:
+Design of Experiments (DOE) is a systematic approach to planning, conducting, and analyzing experiments to obtain maximum information with minimum resources. Consider a simple medical example. Suppose a pharmaceutical company wants to test if a new drug is effective in reducing blood pressure. They could simply give the drug to patients and measure results, but this approach has problems:
 \begin{itemize}
-\item Drug B appears to have the highest mean reduction (20.0 mmHg)
-\item Drug A shows moderate effectiveness (14.0 mmHg)
-\item Drug C has the lowest mean reduction (10.0 mmHg)
+    \item No comparison group (control)
+    \item Patient differences may affect results
+    \item Other factors (diet, exercise, age) may influence outcomes
+    \item Results may not be reliable or generalizable
 \end{itemize}
 
+A properly designed experiment would:
+\begin{itemize}
+    \item Include a control group receiving placebo
+    \item Randomly assign patients to drug or placebo groups
+    \item Control for patient characteristics (age, gender, severity)
+    \item Use sufficient sample size for reliable conclusions
+\end{itemize}
 
+\subsection{Why Design Experiments?}
 
-The key question in experimental design is:
-
-\begin{textbox}
-{Are these observed differences between group means due to real treatment effects, or could they simply be due to random variation?}
-\end{textbox}
-
-This is where Analysis of Variance (ANOVA) becomes essential. ANOVA is a statistical technique specifically designed to test whether there are statistically significant differences between the means of three or more independent groups simultaneously.
-
-\subsection{Why Not Multiple t-tests?}
-
-You might wonder: ``Why not just perform multiple t-tests between each pair of groups?'' This approach has several problems:
-
+Proper experimental design ensures:
 \begin{enumerate}
-\item \textbf{Inflated Type I Error}: With 3 groups, we'd need 3 pairwise comparisons. Each test carries a 5\% risk of Type I error, so the overall error rate becomes much higher than 5\%.
-
-\item \textbf{Inefficiency}: Multiple tests don't provide a single, coherent answer about whether the groups differ overall.
-
-\item \textbf{Loss of Power}: We lose statistical power by not using all the data simultaneously.
+    \item \textbf{Valid Results:} Conclusions are statistically sound
+    \item \textbf{Efficiency:} Maximum information with minimum resources
+    \item \textbf{Reliability:} Results can be reproduced
+    \item \textbf{Generalizability:} Findings apply to broader populations
 \end{enumerate}
 
-\section{Introduction to Experimental Design}
+\subsection{Fundamental Principles}
 
-Experimental design is the systematic planning and structuring of experiments to ensure valid, reliable, and efficient collection of data. The fundamental goal is to establish causal relationships between variables while controlling for confounding factors and minimizing experimental error.
+The three cornerstone principles of experimental design are:
 
-An \textbf{experiment} is a controlled study where the researcher deliberately manipulates one or more variables (called \textbf{factors} or \textbf{treatments}) to observe their effect on a response variable. This contrasts with observational studies where no manipulation occurs.
+\subsubsection{1. Randomization}
+Random assignment of experimental units to treatments eliminates systematic bias.
 
-\subsection{Key Components of Experimental Design}
+\textbf{Example:} In our drug study, patients are randomly assigned to receive either the new drug or placebo. This ensures that factors like age, gender, and disease severity are equally distributed between groups.
+
+\subsubsection{2. Replication}
+Multiple observations under the same conditions provide:
+\begin{itemize}
+    \item Estimate of experimental error
+    \item Increased precision of results
+    \item Ability to detect smaller effects
+\end{itemize}
+
+\textbf{Example:} Instead of testing the drug on just one patient per group, we test it on multiple patients (say 20 per group) to get reliable results.
+
+\subsubsection{3. Blocking}
+Grouping similar experimental units controls for known sources of variation.
+
+\textbf{Example:} If we suspect that age affects drug response, we can group patients into age blocks (20-40, 40-60, 60+ years) and ensure both drug and placebo are tested within each age group.
+
+\section{Planning an Experiment}
+
+\subsection{Step 1: Define the Problem}
+
+Clearly specify:
+\begin{itemize}
+    \item \textbf{Response Variable:} What you want to measure (e.g., blood pressure reduction)
+    \item \textbf{Factors:} Variables that might affect the response (e.g., drug type, dosage)
+    \item \textbf{Levels:} Values each factor can take (e.g., 10mg, 20mg, 30mg dosage)
+    \item \textbf{Objectives:} What questions you want to answer
+\end{itemize}
+
+\subsection{Step 2: Choose Factors and Levels}
+
+\textbf{Types of Factors:}
+\begin{itemize}
+    \item \textbf{Quantitative:} Numerical values (dosage, temperature, time)
+    \item \textbf{Qualitative:} Categories (drug A vs drug B, male vs female)
+\end{itemize}
+
+\textbf{Factor Classification:}
+\begin{itemize}
+    \item \textbf{Fixed Effects:} Specific levels chosen deliberately (specific drugs)
+    \item \textbf{Random Effects:} Levels randomly selected from population (random patients)
+\end{itemize}
+
+\subsection{Step 3: Select Experimental Design}
+
+Choose the most appropriate design based on:
+\begin{itemize}
+    \item Number of factors
+    \item Available resources
+    \item Sources of variation to control
+    \item Research objectives
+\end{itemize}
+
+\section{Types of Experimental Designs}
+
+\subsection{Classification by Structure}
+
+Experimental designs can be classified into four main types:
 
 \begin{enumerate}
-\item \textbf{Experimental Units}: The smallest entities to which treatments are applied independently
-\item \textbf{Factors}: The variables controlled by the experimenter
-\item \textbf{Levels}: The specific values or categories of each factor
-\item \textbf{Treatments}: The specific combinations of factor levels applied to experimental units
-\item \textbf{Response Variable}: The outcome variable measured in the experiment
-\item \textbf{Experimental Error}: The variation in response not explained by the treatments
+    \item \textbf{Completely Randomized Design (CRD)}
+    \item \textbf{Randomized Block Design (RBD)}
+    \item \textbf{Latin Square Design (LSD)}
+    \item \textbf{Factorial Design}
 \end{enumerate}
-
-\section{Principles of Experimental Design}
-
-\subsection{Randomization}
-
-\textbf{Randomization} is the cornerstone of experimental design, serving multiple critical purposes:
-
-\begin{itemize}
-\item \textbf{Eliminates systematic bias}: Ensures that assignment of treatments to experimental units is not influenced by any systematic factors
-\item \textbf{Validates statistical inference}: Provides the probabilistic foundation for hypothesis testing
-\item \textbf{Balances unknown confounding variables}: Distributes the effects of unmeasured variables randomly across treatments
-\end{itemize}
-
-\textbf{Complete Randomization}: Each experimental unit has an equal probability of receiving any treatment. For $n$ experimental units and $t$ treatments with $n_i$ units per treatment:
-
-$$P(\text{unit receives treatment } i) = \frac{n_i}{n}$$
-
-\textbf{Restricted Randomization}: Randomization is constrained to achieve balance or control for known sources of variation (e.g., blocking).
-
-\subsection{Replication}
-
-\textbf{Replication} involves applying treatments to multiple experimental units independently. True replication requires:
-
-\begin{enumerate}
-\item \textbf{Independent application}: Each replicate must be applied to a separate experimental unit
-\item \textbf{Independent measurement}: Response measurements must be taken independently
-\end{enumerate}
-
-The number of replications directly affects the precision of treatment comparisons. For a completely randomized design with $r$ replications per treatment, the variance of the difference between two treatment means is:
-
-$$\text{Var}(\overline{Y}_{i.} - \overline{Y}_{j.}) = \frac{2\sigma^2}{r}$$
-
-where $\sigma^2$ is the error variance.
-
-\subsection{Blocking}
-
-\textbf{Blocking} is a design technique used to control for known sources of variation by grouping experimental units into homogeneous blocks. The key principles are:
-
-\begin{itemize}
-\item Units within blocks should be as similar as possible
-\item Units between blocks should be as different as possible
-\item Each treatment should appear exactly once in each block (for complete block designs)
-\end{itemize}
-
-\section{Experimental Design Structures}
-
-\subsection{Treatment Structure}
-
-The treatment structure describes how treatments are formed from the factors of interest.
-
-\subsubsection{Single Factor Experiments}
-
-A single factor experiment involves one factor with $a$ levels. The treatments are simply the $a$ levels of the factor.
-
-\textbf{Example}: Testing the effect of fertilizer type on crop yield with 4 different fertilizers (A, B, C, D).
-
-\subsubsection{Factorial Experiments}
-
-A factorial experiment involves two or more factors, where treatments consist of all possible combinations of factor levels.
-
-For a $2^k$ factorial design with $k$ factors each at 2 levels, there are $2^k$ treatment combinations. The general factorial structure for factors $A$ (with $a$ levels) and $B$ (with $b$ levels) creates $a \times b$ treatments.
-
-\textbf{Main Effects}: The effect of a factor averaged over all levels of other factors.
-
-For factor A in a two-factor experiment:
-$$\text{Main Effect of A} = \overline{Y}_{i..} - \overline{Y}_{...}$$
-
-\textbf{Interaction Effects}: The differential effect of one factor at different levels of another factor.
-
-The AB interaction effect for level $i$ of factor A and level $j$ of factor B:
-$$(\alpha\beta)_{ij} = \overline{Y}_{ij.} - \overline{Y}_{i..} - \overline{Y}_{.j.} + \overline{Y}_{...}$$
-
-\begin{table}[h]
-\centering
-\caption{$2^2$ Factorial Design Treatment Combinations}
-\begin{tabular}{|c|c|c|}
-\hline
-Treatment & Factor A & Factor B \\
-\hline
-(1) & Low (-) & Low (-) \\
-a & High (+) & Low (-) \\
-b & Low (-) & High (+) \\
-ab & High (+) & High (+) \\
-\hline
-\end{tabular}
-\end{table}
-
-\subsection{Design Structure}
-
-The design structure describes how experimental units are organized and how treatments are assigned to units.
-
-\subsubsection{Completely Randomized Design (CRD)}
-
-In a CRD, treatments are assigned to experimental units completely at random. This is the simplest design structure.
-
-\textbf{Model}:
-$$Y_{ij} = \mu + \tau_i + \epsilon_{ij}$$
-
-where:
-\begin{itemize}
-\item $Y_{ij}$ is the $j$-th observation on the $i$-th treatment
-\item $\mu$ is the overall mean
-\item $\tau_i$ is the effect of the $i$-th treatment
-\item $\epsilon_{ij} \sim N(0, \sigma^2)$ is the random error
-\end{itemize}
-
-\textbf{Advantages}:
-\begin{itemize}
-\item Simple to implement and analyze
-\item Maximum degrees of freedom for error
-\item Flexible number of replications per treatment
-\end{itemize}
-
-\textbf{Disadvantages}:
-\begin{itemize}
-\item No control for systematic sources of variation
-\item Less efficient when experimental units are heterogeneous
-\end{itemize}
-
-\subsubsection{Randomized Complete Block Design (RCBD)}
-
-In an RCBD, experimental units are grouped into blocks, with each treatment appearing exactly once in each block.
-
-\textbf{Model}:
-$$Y_{ij} = \mu + \tau_i + \beta_j + \epsilon_{ij}$$
-
-where:
-\begin{itemize}
-\item $Y_{ij}$ is the observation for treatment $i$ in block $j$
-\item $\mu$ is the overall mean
-\item $\tau_i$ is the effect of treatment $i$
-\item $\beta_j$ is the effect of block $j$
-\item $\epsilon_{ij} \sim N(0, \sigma^2)$ is the random error
-\end{itemize}
-
-\textbf{Efficiency}: The relative efficiency of RCBD compared to CRD is:
-
-$$RE = \frac{\text{MSE}_{CRD}}{\text{MSE}_{RCBD}} \times \frac{df_{error,RCBD}}{df_{error,CRD}}$$
-
-\begin{table}[h]
-\centering
-\caption{ANOVA Table for Randomized Complete Block Design}
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-Source & df & SS & MS & F \\
-\hline
-Treatments & $a-1$ & $\sum_{i=1}^{a} b(\overline{Y}_{i.} - \overline{Y}_{..})^2$ & $\frac{SS_{Trt}}{a-1}$ & $\frac{MS_{Trt}}{MS_{Error}}$ \\
-\hline
-Blocks & $b-1$ & $\sum_{j=1}^{b} a(\overline{Y}_{.j} - \overline{Y}_{..})^2$ & $\frac{SS_{Block}}{b-1}$ & $\frac{MS_{Block}}{MS_{Error}}$ \\
-\hline
-Error & $(a-1)(b-1)$ & $SS_{Total} - SS_{Trt} - SS_{Block}$ & $\frac{SS_{Error}}{(a-1)(b-1)}$ & \\
-\hline
-Total & $ab-1$ & $\sum_{i=1}^{a}\sum_{j=1}^{b}(Y_{ij} - \overline{Y}_{..})^2$ & & \\
-\hline
-\end{tabular}
-\end{table}
-
-\subsubsection{Latin Square Design}
-
-A Latin Square Design controls for two sources of variation (row and column effects) simultaneously. Each treatment appears exactly once in each row and each column.
-
-\textbf{Model}:
-$$Y_{ijk} = \mu + \tau_i + \rho_j + \gamma_k + \epsilon_{ijk}$$
-
-where:
-\begin{itemize}
-\item $\tau_i$ is the treatment effect
-\item $\rho_j$ is the row effect
-\item $\gamma_k$ is the column effect
-\end{itemize}
-
-\textbf{Example}: $4 \times 4$ Latin Square
-\begin{table}[h]
-\centering
-\caption{$4 \times 4$ Latin Square Design}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-& Column 1 & Column 2 & Column 3 & Column 4 \\
-\hline
-Row 1 & A & B & C & D \\
-Row 2 & B & C & D & A \\
-Row 3 & C & D & A & B \\
-Row 4 & D & A & B & C \\
-\hline
-\end{tabular}
-\end{table}
-
-\section{Sample Size Determination}
-
-Determining appropriate sample size is crucial for detecting meaningful treatment effects with adequate statistical power.
-
-\subsection{Power Analysis}
-
-\textbf{Statistical Power} is the probability of correctly rejecting a false null hypothesis:
-$$\text{Power} = 1 - \beta = P(\text{Reject } H_0 | H_0 \text{ is false})$$
-
-For a one-way ANOVA comparing $a$ treatments, the non-centrality parameter is:
-$$\lambda = \frac{n\sum_{i=1}^{a}\tau_i^2}{a\sigma^2}$$
-
-where $n$ is the number of replications per treatment.
-
-\textbf{Minimum Detectable Difference}: For comparing two means with equal sample sizes $n$, the minimum detectable difference with power $(1-\beta)$ and significance level $\alpha$ is:
-
-$$\delta = (t_{\alpha/2,\nu} + t_{\beta,\nu})\sqrt{\frac{2\sigma^2}{n}}$$
-
-where $\nu$ is the error degrees of freedom.
-
-\subsection{Sample Size Formula}
-
-For detecting a difference $\delta$ between treatment means with power $(1-\beta)$ and significance level $\alpha$:
-
-$$n = \frac{2\sigma^2(t_{\alpha/2,\nu} + t_{\beta,\nu})^2}{\delta^2}$$
-
-\textbf{Example Calculation}:
-Suppose we want to detect a difference of $\delta = 5$ units between two treatment means, with $\sigma = 10$, $\alpha = 0.05$, and desired power = 0.80.
-
-Using $t_{0.025,\infty} = 1.96$ and $t_{0.20,\infty} = 0.84$:
-
-$$n = \frac{2(10)^2(1.96 + 0.84)^2}{5^2} = \frac{200(2.8)^2}{25} = \frac{200 \times 7.84}{25} = 62.7 \approx 63$$
-
-\section{Factorial Designs}
-
-\subsection{$2^k$ Factorial Designs}
-
-These designs are particularly useful for screening experiments and understanding factor interactions.
-
-\textbf{Treatment Effects}: In a $2^k$ design, effects are calculated as:
-$$\text{Effect} = \frac{1}{2^{k-1}}\sum(\pm \text{response})$$
-
-where the signs follow the contrast pattern.
-
-\textbf{Example}: $2^3$ Factorial Design
-
-\begin{table}[h]
-\centering
-\caption{$2^3$ Factorial Design with Treatment Combinations}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-Run & A & B & C & Treatment Combination \\
-\hline
-1 & - & - & - & (1) \\
-2 & + & - & - & a \\
-3 & - & + & - & b \\
-4 & + & + & - & ab \\
-5 & - & - & + & c \\
-6 & + & - & + & ac \\
-7 & - & + & + & bc \\
-8 & + & + & + & abc \\
-\hline
-\end{tabular}
-\end{table}
-
-\textbf{Main Effect of A}:
-$$A = \frac{1}{4}[a + ab + ac + abc - (1) - b - c - bc]$$
-
-\textbf{AB Interaction}:
-$$AB = \frac{1}{4}[(1) + ab + c + abc - a - b - ac - bc]$$
-
-\subsection{Fractional Factorial Designs}
-
-When the number of factors is large, fractional factorial designs use only a fraction of the full factorial combinations.
-
-\textbf{$2^{k-p}$ Fractional Factorial}: Uses $1/2^p$ of the full factorial runs.
-
-\textbf{Resolution}: Describes the confounding pattern:
-\begin{itemize}
-\item Resolution III: Main effects confounded with two-factor interactions
-\item Resolution IV: Main effects clear, two-factor interactions confounded with each other
-\item Resolution V: Main effects and two-factor interactions clear
-\end{itemize}
-
-\section{Response Surface Methodology}
-
-Response Surface Methodology (RSM) is used to optimize response variables through sequential experimentation.
-
-\subsection{Central Composite Design}
-
-A Central Composite Design (CCD) consists of:
-\begin{itemize}
-\item $2^k$ factorial points
-\item $2k$ axial points at distance $\alpha$ from center
-\item $n_c$ center points
-\end{itemize}
-
-The axial distance $\alpha$ is chosen to ensure rotatability:
-$$\alpha = (2^k)^{1/4}$$
-
-\textbf{Second-Order Model}:
-$$y = \beta_0 + \sum_{i=1}^{k}\beta_i x_i + \sum_{i=1}^{k}\beta_{ii}x_i^2 + \sum_{i<j}\beta_{ij}x_ix_j + \epsilon$$
-
-\begin{table}[h]
-\centering
-\caption{Central Composite Design for $k=2$ Factors}
-\begin{tabular}{|c|c|c|c|}
-\hline
-Point Type & $x_1$ & $x_2$ & Design Point \\
-\hline
-Factorial & -1 & -1 & $(-1,-1)$ \\
-Factorial & +1 & -1 & $(+1,-1)$ \\
-Factorial & -1 & +1 & $(-1,+1)$ \\
-Factorial & +1 & +1 & $(+1,+1)$ \\
-Axial & $-\alpha$ & 0 & $(-\alpha,0)$ \\
-Axial & $+\alpha$ & 0 & $(+\alpha,0)$ \\
-Axial & 0 & $-\alpha$ & $(0,-\alpha)$ \\
-Axial & 0 & $+\alpha$ & $(0,+\alpha)$ \\
-Center & 0 & 0 & $(0,0)$ \\
-\hline
-\end{tabular}
-\end{table}
-
-\section{Experimental Validity}
-
-\subsection{Internal Validity}
-
-Internal validity refers to the extent to which causal inferences can be made from the experiment.
-
-\textbf{Threats to Internal Validity}:
-\begin{itemize}
-\item \textbf{Selection bias}: Non-random assignment of treatments
-\item \textbf{History effects}: External events occurring during the experiment
-\item \textbf{Maturation}: Changes in experimental units over time
-\item \textbf{Instrumentation}: Changes in measurement procedures
-\item \textbf{Regression to the mean}: Selection based on extreme values
-\end{itemize}
-
-\subsection{External Validity}
-
-External validity refers to the generalizability of results to other populations, settings, or conditions.
-
-\textbf{Approaches to Enhance External Validity}:
-\begin{itemize}
-\item Representative sampling
-\item Replication across different conditions
-\item Multi-site studies
-\item Systematic variation of experimental conditions
-\end{itemize}
-
-\section{Special Considerations}
-
-\subsection{Crossover Designs}
-
-In crossover designs, each experimental unit receives multiple treatments in different time periods.
-
-\textbf{Model for Two-Period Crossover}:
-$$Y_{ijk} = \mu + \pi_j + \tau_{[j,k]} + \gamma_i + \epsilon_{ijk}$$
-
-where:
-\begin{itemize}
-\item $\pi_j$ is the period effect
-\item $\tau_{[j,k]}$ is the treatment effect in period $j$ for sequence $k$
-\item $\gamma_i$ is the subject effect
-\end{itemize}
-
-\textbf{Washout Period}: Time between treatments to eliminate carryover effects.
-
-\subsection{Nested and Split-Plot Designs}
-
-\textbf{Nested Design}: Levels of one factor are nested within levels of another factor.
-
-\textbf{Split-Plot Design}: Different factors are applied to experimental units of different sizes.
-
-\textbf{Model for Split-Plot Design}:
-$$Y_{ijk} = \mu + \alpha_i + \delta_{ij} + \beta_k + (\alpha\beta)_{ik} + \epsilon_{ijk}$$
-
-where $\delta_{ij}$ is the whole-plot error and $\epsilon_{ijk}$ is the subplot error.
-
-\section{Ethical Considerations}
-
-\subsection{Principles of Ethical Experimentation}
-
-\begin{enumerate}
-\item \textbf{Beneficence}: Maximize benefits and minimize harm
-\item \textbf{Respect for Persons}: Obtain informed consent and protect autonomy
-\item \textbf{Justice}: Fair distribution of benefits and burdens
-\end{enumerate}
-
-\subsection{Institutional Review Boards}
-
-IRBs evaluate research proposals involving human subjects to ensure ethical standards are met.
-
-\section{Practical Example: Agricultural Field Trial}
-
-\textbf{Objective}: Compare the effects of four fertilizer treatments on wheat yield.
-
-\textbf{Experimental Design}: Randomized Complete Block Design with 5 blocks
-
-\textbf{Treatments}:
-\begin{itemize}
-\item Control (no fertilizer)
-\item Nitrogen fertilizer (100 kg/ha)
-\item Phosphorus fertilizer (50 kg/ha)
-\item Nitrogen + Phosphorus (100 + 50 kg/ha)
-\end{itemize}
-
-\textbf{Randomization}: Within each block, randomly assign the 4 treatments to 4 plots.
-
-\textbf{Blocking Factor}: Soil fertility gradient across the field
-
-\textbf{Response Variable}: Wheat yield (kg/ha)
-
-\textbf{Analysis Model}:
-$$Y_{ij} = \mu + \tau_i + \beta_j + \epsilon_{ij}$$
-
-\textbf{Hypotheses}:
-$$H_0: \tau_1 = \tau_2 = \tau_3 = \tau_4 = 0$$
-$$H_1: \text{At least one } \tau_i \neq 0$$
-
-\textbf{Sample Data Analysis}:
-
-\begin{table}[h]
-\centering
-\caption{Wheat Yield Data (kg/ha)}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-Block & Control & Nitrogen & Phosphorus & N+P \\
-\hline
-1 & 2150 & 2580 & 2340 & 2820 \\
-2 & 2240 & 2650 & 2410 & 2890 \\
-3 & 2180 & 2620 & 2380 & 2860 \\
-4 & 2120 & 2560 & 2320 & 2800 \\
-5 & 2200 & 2640 & 2400 & 2880 \\
-\hline
-Mean & 2178 & 2610 & 2370 & 2850 \\
-\hline
-\end{tabular}
-\end{table}
-
-\textbf{ANOVA Calculations}:
-
-Total Sum of Squares:
-$$SS_{Total} = \sum_{i=1}^{4}\sum_{j=1}^{5}(Y_{ij} - \overline{Y}_{..})^2 = 1,847,400$$
-
-Treatment Sum of Squares:
-$$SS_{Treatment} = 5\sum_{i=1}^{4}(\overline{Y}_{i.} - \overline{Y}_{..})^2 = 1,680,600$$
-
-Block Sum of Squares:
-$$SS_{Block} = 4\sum_{j=1}^{5}(\overline{Y}_{.j} - \overline{Y}_{..})^2 = 57,800$$
-
-Error Sum of Squares:
-$$SS_{Error} = SS_{Total} - SS_{Treatment} - SS_{Block} = 109,000$$
-
-\begin{table}[h]
-\centering
-\caption{ANOVA Table for Wheat Yield Experiment}
-\begin{tabular}{|l|c|c|c|c|c|}
-\hline
-Source & df & SS & MS & F & P-value \\
-\hline
-Treatments & 3 & 1,680,600 & 560,200 & 61.61 & $<0.001$ \\
-Blocks & 4 & 57,800 & 14,450 & 1.59 & 0.240 \\
-Error & 12 & 109,000 & 9,083 & & \\
-\hline
-Total & 19 & 1,847,400 & & & \\
-\hline
-\end{tabular}
-\end{table}
-
-\textbf{Conclusion}: With F = 61.61 and P < 0.001, we reject the null hypothesis and conclude that fertilizer treatments have significantly different effects on wheat yield.
-
-\section{Summary and Best Practices}
-
-Effective experimental design requires careful consideration of:
-
-\begin{enumerate}
-\item \textbf{Clear objectives}: Define specific, measurable research questions
-\item \textbf{Appropriate design choice}: Select design structure based on experimental constraints and objectives
-\item \textbf{Adequate sample size}: Ensure sufficient power to detect meaningful effects
-\item \textbf{Proper randomization}: Implement valid randomization procedures
-\item \textbf{Control of variation}: Use blocking or other techniques to control known sources of variation
-\item \textbf{Valid measurement}: Ensure reliable and accurate response measurements
-\item \textbf{Appropriate analysis}: Use statistical methods that match the design structure
-\end{enumerate}
-
-The investment in careful experimental design pays dividends in the validity, reliability, and interpretability of research findings. A well-designed experiment not only provides clear answers to research questions but also forms the foundation for sound scientific inference and practical decision-making.
-
-
-
-\chapter{Correlation and Regression}
-
-\section{Correlation}
-
-\begin{textbox}
-In statistics, \textbf{correlation} between two random variables is a measure of the degree of linear association between them.
-\end{textbox}
- For example, imagine you record how many hours each of the six students studies in a week and their corresponding exam scores:
-
-\begin{table}[h!]
-	\centering
-	\begin{tabular}{c|c|c}
-		\toprule
-		\textbf{Student} & \textbf{Hours Studied} ($X$) & \textbf{Exam Score} ($Y$) \\
-		\midrule
-		1 & 2 & 65 \\
-		2 & 3 & 70 \\
-		3 & 4 & 76 \\
-		4 & 5 & 78 \\
-		5 & 6 & 82 \\
-		6 & 7 & 89 \\
-		\bottomrule
-	\end{tabular}
-	\caption{\textit{Study hours and exam scores of six students.}}
-	\label{tab:study_scores}
-\end{table}
-
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-	\begin{axis}[
-	xlabel={Hours Studied},
-	ylabel={Exam Score},
-	axis lines=left,
-	xmin=1, xmax=8, ymin=60, ymax=95 ,
-	width=10cm,
-	height=5cm,
-	thick,
-	]
-	\addplot[only marks, blue, mark=*, mark size=2pt] coordinates {
-		(2,65) (3,70) (4,76) (5,78) (6,82) (7,89)
-	};
-	\end{axis}
-	\end{tikzpicture}
-	\caption{\textit{Scatter plot of study time and exam performance.}}
-\end{figure}
-
-
-
-
-As illustrated in the table and the accompanying scatter plot, exam scores increase as students dedicate more hours to studying. This clear upward pattern reflects a positive correlation: students who invest more time in preparation tend to achieve higher marks.  In general, the direction of correlation can be classified as follows:
-
-\begin{enumerate}
-	\item \textbf{Positive correlation}: An increase in one variable is accompanied by an increase in the other.
-	\item \textbf{Negative correlation}: An increase in one variable is accompanied by a decrease in the other.
-	\item \textbf{No (zero) correlation}: Changes in one variable show no consistent association with changes in the other.
-\end{enumerate}
-
-
-\section{Pearson Correlation Coefficient}
-
-Pearson's correlation coefficient for a population, commonly denoted by the Greek letter \(\rho\) (rho), is also known as the \textbf{population correlation coefficient}. Given a pair of random variables \(X\) and \(Y\), the population correlation coefficient \(\rho_{XY}\) is defined as
-
-\begin{textbox}
-\[
-\rho_{XY} = \frac{\operatorname{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\mathbb{E}\big[(X - \mu_X)(Y - \mu_Y)\big]}{\sigma_X \sigma_Y}
-\]
-\end{textbox}
-where \(\mu_X = \mathbb{E}[X]\) and \(\mu_Y = \mathbb{E}[Y]\) are the means of \(X\) and \(Y\), \(\sigma_X\) and \(\sigma_Y\) are their standard deviations, and \(\operatorname{Cov}(X,Y)\) is the covariance between \(X\) and \(Y\).
-
-Like all population parameters, The value of $\rho_{XY}$ is not known to us. We may need to estimate it from the random sample observation pairs $(X,Y)$. Let $$ (x_1, y_1), (x_2, y_2), \dots,(x_n, y_n) $$ be $n$ pairs of observations with respective means $\overline{X}, \overline{Y}$ and variances $S_X^2, S_X^2$ respectively. It turns out that a point estimate of $\text{Cov}(X,Y)$ is the sample covariance:
-$$ S_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{n-1} $$
-The point estimate of $\sigma_X$ is sample standard deviation of $X$:
-$$S_X = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (x_i - \overline{x})^2}$$
-The point estimate of $\sigma_Y$ is sample standard deviation of $Y$:
-$$S_Y = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (y_i - \overline{y})^2}$$
-
-Substituting these estimates for their population counterparts, we get the formula for the \textbf{sample correlation coefficient} as
-
-\begin{textbox}
-	\[
-	r_{XY} = \dfrac{S_{XY}}{S_X \cdot S_Y}
-	\]
-\end{textbox}
-Alternatively, $r_{XY}$ can be expressed as
-\begin{textbox}
-\[
-r_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}
-\]
-\end{textbox}
-
-We can simplify the formula for $r_{XY}$ into a form most convenient for computing from raw data by using the identities:
-\begin{align*}
-\sum_i (x_i - \overline{x})(y_i - \overline{y}) &= \sum_i x_i y_i - n\overline{x}\cdot \overline{y} = \sum_i x_i y_i - \frac{\sum_i x_i \sum_i y_i}{n} \\
-\sum_i (x_i - \overline{x})^2 &= \sum_i x_i^2 -n\overline{x}^2= \sum_i x_i^2 - \frac{(\sum_i x_i)^2}{n} \\
-\sum_i (y_i - \overline{y})^2 &= \sum_i y_i^2 -n\overline{y}^2= \sum_i y_i^2 - \frac{(\sum_i y_i)^2}{n}
-\end{align*}
-
-Thus we obtain the formula for $r_{XY}$:
-\begin{textbox}
-\begin{align*}
-r_{XY} = \frac{n \sum x_i y_i - \sum x_i \sum y_i}
-{\sqrt{n \sum x_i^2 - (\sum x_i)^2} \cdot \sqrt{n \sum y_i^2 - (\sum y_i)^2}}
-\end{align*}
-\end{textbox}
-
-The value of $r_{XY}$ lies within -1 and 1 i.e. $-1 \leq r_{XY} \leq 1$.
-\begin{textbox}
-\begin{itemize}
-	\item $r > 0$ indicates a \textbf{positive correlation}.
-	\item $r < 0$ indicates a \textbf{negative correlation}.
-	\item $r = 0$ suggests \textbf{no correlation} (but not necessarily independence).
-	\item $r = \pm 1$ indicates a \textbf{perfect linear correlation} ($+1$ for positive and $-1$ for negative).
-\end{itemize}
-\end{textbox}
-
-% In your document preamble:
-%   \usepackage{pgfplots}
-%   \pgfplotsset{compat=1.17}
-%   \usepgfplotslibrary{groupplots}
-
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-	\begin{groupplot}[
-	group style={
-		group size=2 by 2,
-		horizontal sep=3cm,
-		vertical sep=2cm
-	},
-	width=5cm,
-	height=4cm,
-	axis lines=left,
-	axis line style={thick},
-	xlabel={$X$},
-	ylabel={$Y$},
-	tick align=outside,
-	]
-	% Positive correlation
-	\nextgroupplot[title={Positive Correlation ($r>0$)},xmin=0, xmax=8,	ymin=1]
-	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
-		(1,1.5) (2,1.9) (3,3.1) (4,4.8) (5,4.9) (6,5.9) (7,7.8)
-	};
-
-	% Negative correlation
-	\nextgroupplot[title={Negative Correlation ($r<0$)},xmin=0, xmax=8,	ymin=1]
-	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
-		(1,7.0) (2,6.0) (3,5.0) (4,4.5) (5,3.7) (6,2.2) (7,1.6)
-	};
-
-	% Zero correlation
-	\nextgroupplot[title={Zero Correlation ($r\approx0$)},xmin=0, xmax=8,	ymin=3, ymax=6]
-	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
-		(1,4.5) (2,5.8) (3,4.2) (4,4.9) (5,3.9) (6,5.3) (7,4.0)
-	};
-
-	% Perfect linear correlation
-	\nextgroupplot[title={Perfect Linear Correlation ($r=1$)},xmin=0, xmax=8,ymin=1]
-	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
-		(1,2) (2,4) (3,6) (4,8) (5,10) (6,12) (7,14)
-	};
-
-	\end{groupplot}
-	\end{tikzpicture}
-	\caption{\textit{Scatterplots illustrating positive, negative, zero, and perfect linear correlations.}}
-	\label{fig:correlation_types}
-\end{figure}
-
-% \begin{table}[h!]
-% 	\centering
-% 	\begin{tabular}{c|l}
-% 		\toprule
-% 		\textbf{Value of $r$} & \textbf{Strength of correlation} \\
-% 		\midrule
-% 		$0.90$ to $1.00$ or $-0.90$ to $-1.00$ & Very strong \\
-% 		$0.70$ to $0.89$ or $-0.70$ to $-0.89$ & Strong \\
-% 		$0.40$ to $0.69$ or $-0.40$ to $-0.69$ & Moderate \\
-% 		$0.10$ to $0.39$ or $-0.10$ to $-0.39$ & Weak \\
-% 		$0.00$ to $0.09$ or $-0.00$ to $-0.09$ & Very weak or none\\
-% 		\bottomrule
-% 	\end{tabular}
-% 	\caption{Interpreting the magnitude of correlation coefficient}
-% \end{table}
-
-
-\textbf{Example}: Suppose we have data on students' hours studied ($X$) and exam scores ($Y$) as given in the table \ref{tab:study_scores}. We need to calculate the Pearson corelation coefficient.
-
-The formula we will use:
-
-\[
-r_{XY} = \frac{n \sum x_i y_i - \sum x_i \sum y_i}
-{\sqrt{n \sum x_i^2 - (\sum x_i)^2} \cdot \sqrt{n \sum y_i^2 - (\sum y_i)^2}}
-\]
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c|c|c|c|c|c}
-		\toprule
-		Student & $x_i$ & $y_i$ & $x_i^2$ & $y_i^2$ & $x_iy_i$\\
-		\midrule
-		1 & 2 & 65 & 4 & 4225 & 130\\
-		2 & 3 & 70 & 9 & 4900 & 210\\
-		3 & 4 & 76 & 16 & 5776 & 304\\
-		4 & 5 & 78 & 25 & 6084 & 390\\
-		5 & 6 & 82 & 36 & 6724 & 492\\
-		6 & 7 & 89 & 49 & 7921 & 623\\
-		\midrule
-		\textbf{$n=6$}& $ \sum x_i = 27 $ & $ \sum y_i = 460 $& $ \sum x_i^2 = 139 $& $ \sum y_i^2 = 35630 $ & $ \sum x_iy_i = 2149 $ \\
-		\bottomrule
-	\end{tabular}
-\caption{\textit{Correlation coefficient calculation table.}}
-\end{table}
-
-Substituting the values:
-\begin{align*}
-r_{XY} &= \frac{6 \cdot 2149 - 27 \cdot 460}
-{\sqrt{6 \cdot 139 - 27^2} \cdot \sqrt{6 \cdot 35630 - 460^2}}\\
-&= \frac{12894 - 12420}
-{\sqrt{834 - 729} \cdot \sqrt{213780 - 211600}}\\
-&= \frac{474}
-{\sqrt{105} \cdot \sqrt{2180}}
-\approx \frac{474}{10.247 \cdot 46.690}\\
-&\approx \frac{474}{478.74}
-\approx 0.9907
-\end{align*}
-
-This indicates a very strong positive correlation between hours studied and exam scores.
-
-\section{Effect of Linear Transformations on Correlation Coefficient}
-
-\begin{textbox}
-\textbf{Theorem}: Suppose we have two random variables \(X\) and \(Y\) with correlation coefficient $\rho_{XY}$. Define new variables
-
-\[
-U = a + bX, \quad V = c + dY
-\]
-
-where \(a, c\) are constants (shifts) and \(b, d \neq 0\) are scaling factors. Then the population correlation coefficient between \(U\) and \(V\) is
-
-\begin{align*}
-\rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY}
-\end{align*}
-\end{textbox}
-\textbf{Proof}:
-\begin{align*}
-\rho_{UV} =  \dfrac{\mathrm{Cov}(U,V)}{\sigma_U \sigma_V} = \dfrac{\mathrm{Cov}(a + bX, c + dY)}{\sqrt{\mathrm{Var}(a + bX)} \cdot \sqrt{\mathrm{Var}(c + dY)}}
-\end{align*}
-
-Now,
-\begin{align*}
-\mathrm{Cov}(a + bX, c + dY) &= bd\, \mathrm{Cov}(X,Y)\\
-\mathrm{Var}(a + bX) &= c^2 \mathrm{Var}(X)\\
-\mathrm{Var}(c + dY) &= d^2 \mathrm{Var}(Y)
-\end{align*}
-
-Thus,
-
-$$\rho_{UV}
-= \dfrac{\mathrm{Cov}(bX, dY)}{\sqrt{\mathrm{Var}(bX)}\cdot \sqrt{\mathrm{Var}(dY)}}
-= \dfrac{bd \, \mathrm{Cov}(X, Y)}{|b| \sigma_X \cdot |d| \sigma_Y}
-= \dfrac{bd}{|b||d|} \cdot \frac{\mathrm{Cov}(X, Y)}{\sigma_X \sigma_Y}$$
-
-Since
-
-\[
-\dfrac{bd}{|b||d|} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d)
-\]
-
-where \(\operatorname{sgn}(\cdot)\) is the sign function\footnote{The \textbf{sign function}, denoted by \(\operatorname{sgn}(x)\), is defined as:
-
-	\[
-	\operatorname{sgn}(x) =
-	\begin{cases}
-	-1, & \text{if } x < 0, \\
-	\phantom{-}0, & \text{if } x = 0, \\
-	\phantom{-}1, & \text{if } x > 0.
-	\end{cases}
-	\]
-
-	It extracts the sign of a real number \(x\).}, it follows that
-
-\[
-\rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot \rho_{XY}
-\]
-\hfill $\blacksquare$
-
-This shows that linear transformations preserve the magnitude of the correlation coefficient but may reverse its sign depending on the scaling factors.
-\begin{itemize}
-	\item If \(b\) and \(d\) have the same sign, then \(\rho_{UV} = \rho_{XY}\).
-	\item If \(b\) and \(d\) have opposite signs, then \(\rho_{UV} = -\rho_{XY}\).
-	\item Adding constants \(a\) and \(c\) has no effect on the value of the correlation.
-\end{itemize}
-
-The sample correlation coefficient also satisfies the same transformation relation:
-\[
-r_{UV} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot r_{XY}
-\]
-
-
-\section{Correlation Is Not Causation}
-
-It is important to understand that a high correlation between two variables does not necessarily imply that one variable causes the other. Correlation measures the strength and direction of a linear relationship between variables, but it does not provide evidence about causality.
-
-There are several reasons why correlation does not imply causation:
-
-\begin{itemize}
-	\item \textbf{Confounding variables:} A third variable may influence both variables under study, creating a spurious correlation.
-	\item \textbf{Reverse causality:} The direction of cause and effect may be opposite to what is assumed.
-	\item \textbf{Coincidence:} Sometimes, correlations arise purely by chance.
-\end{itemize}
-
-For example, consider a study might that finds a positive correlation between umbrella sales and slipping accidents. This doesn't mean umbrellas cause slips or vice versa. Instead, rainy weather acts as the common factor: rain simultaneously drives people to buy umbrellas and makes sidewalks slippery, creating the illusion of a direct relationship between the two variables.
-
-This example illustrates why it is crucial to use careful experimental design, statistical controls, and domain knowledge before concluding causal relationships from correlated data.
-
-
-% \subsection{Limitations of Correlation}
-
-% \begin{itemize}
-% 	\item Correlation measures only linear association.
-% 	\item A high correlation does not imply causation.
-% 	\item Outliers can have a strong influence on the value of $r$.
-% 	\item Nonlinear relationships may exist even if $r \approx 0$.
-% \end{itemize}
-
-
-\section{Regression Analysis}
-
-\begin{textbox}
-    \textbf{Regression analysis} is a statistical method used to explore and model the relationship between a dependent variable and one or more independent variables.
-\end{textbox}
- It plays a central role in data analysis, prediction, and inference, particularly when trying to establish a functional relationship between variables.
-
-In its simplest form—\textbf{simple linear regression}—we wish to study the relationship between two variables $X$ and $Y$ and use it to predict $Y$ from $X$. The variable $X$ acts as the \textbf{independent variable} (predictor, causal variable) whose values are controlled by the experimenter and $Y$ is the \textbf{dependent variable} (response) which is also subjected to unaccountable variations (errors).
-
-For example, a teacher wants to examine whether there's a relationship between how long students study and the scores they achieve in a test. By treating the number of hours studied as the independent variable and the test score as the dependent variable, regression helps us determine whether there is a consistent trend between the two.
-
-\section{The Simple Linear Regression Model}
-
-A simple linear regression model assumes the existence of a linear relationship between $X$ (predictor variable) and $Y$ (response) that is disturbed by a random error $\epsilon$ which can be written as an equation of the form:
-
-\begin{textbox}
-\[
-Y = \beta_0 + \beta_1 X + \epsilon
-\]
-\end{textbox}
-
-where:
-\begin{itemize}
-    % \item \( Y \): dependent (response) variable
-    % \item \( X \): independent (predictor) variable
-    \item \( \beta_0 \): $y$-intercept of the line,
-    \item \( \beta_1 \): slope of the line (rate of change in \( Y \) per unit increase in \( X \)),
-    \item \( \epsilon \): random error, accounting for unexplained variation
-\end{itemize}
-
-Given a dataset of \( n \) observations, represented as pairs:
-$$(x_1,y_1), (x_2, y_2), \dots (x_n, y_n)$$
-the objective is to estimate the unknown parameters \( \beta_0 \) and \( \beta_1 \), and then use these estimates to define a straight line that best fits the data.
-
-The \textbf{fitted regression line} (also called the prediction equation) is:
-\begin{textbox}
-    $$\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X$$
-\end{textbox}
-Here, \( \hat{\beta}_0 \) and \( \hat{\beta}_1 \) are the estimated values of the intercept and slope, respectively, obtained from the sample data.
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    width=10cm,
-    height=6.5cm,
-    xlabel={Independent Variable ($X$)},
-    ylabel={Dependent Variable ($Y$)},
-    axis lines=left,
-    % grid=both,
-    xmin=0, xmax=10,
-    ymin=0, ymax=10,
-    enlargelimits=true,
-    clip=false
-]
-
-% Scatter data points
-\addplot[
-    only marks,
-    color=blue,
-    mark=*,
-    mark size=2pt
-] coordinates {
-    (1,1.7) (2,1.7) (3,1.8) (4,4.8) (5,5.2)
-    (6,6.4) (7,6.0) (8,9) (9,8.8)
-};
-
-% Regression line
-\addplot[
-    domain=0:10,
-    samples=2,
-    color=black,
-    very thick
-] {x};
-
-% Arrow to data points
-\draw[->, thin] (axis cs:6,8.2) -- (axis cs:6,6.6);
-\draw[->, thin] (axis cs:6,8.2) -- (axis cs:6.9,6.2);
-\node at (axis cs:6,8.5) {Data Points};
-
-% Arrow to regression line
-\draw[->, thin] (axis cs:2,8.3) -- (axis cs:3.4,3.5);
-\node at (axis cs:1.5,8.7) {Line of Regression};
-
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-% \section{Assumptions of the Linear Model}
-
-% To perform valid inference, the model makes the following assumptions:
-% \begin{enumerate}
-%     \item Linearity: \( Y \) changes linearly with \( X \)
-%     \item Independence: Errors \( \epsilon_i \) are independent
-%     \item Homoscedasticity: Constant variance of errors \( \mathrm{Var}(\epsilon_i) = \sigma^2 \)
-%     \item Normality: Errors are normally distributed (for inference)
-% \end{enumerate}
-
-\section{Estimating Parameters Using Least Squares}
-
-Given \( n \) data points \( (x_1, y_1), \ldots, (x_n, y_n) \), the estimates of the parameters \( \beta_0 \) and \( \beta_1 \) should result in a line that is (in some sense) a ``best ﬁt'' to the data. To define what we mean by a ``best fit'' line, consider each data point \( (x_i, y_i) \) and its corresponding prediction \( \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i \) from the regression line. This predicted value is known as the \textbf{fitted value}. The difference between the observed value \( y_i \) and the fitted value \( \hat{y}_i \) is called the \textbf{residual} (error), denoted by \( \epsilon_i \):
-
-\begin{textbox}
-    \[
-\epsilon_i = y_i - \hat{y}_i
-\]
-\end{textbox}
-
-The residual \( \epsilon_i \) represents the vertical distance between an observed data point and the regression line. A positive residual indicates that the point lies above the regression line, while a negative residual indicates that it lies below. The closer the residuals are to zero, the better the fitted values approximate the observed data. Therefore, the estimates of the parameters \( \beta_0 \) and \( \beta_1 \) should be such that these residuals (errors) are as small as possible. However, minimizing the simple sum of residuals is not appropriate, because the positive and negative errors can cancel each other out, even when individual errors are large. A more effective approach is the \textbf{method of least squares}, which involves minimizing the sum of the squares of the residuals.
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    width=10cm,
-    height=6.5cm,
-    xlabel={Independent Variable ($X$)},
-    ylabel={Dependent Variable ($Y$)},
-    axis lines=left,
-    xmin=0, xmax=10,
-    ymin=0, ymax=10,
-    enlargelimits=true,
-    clip=false
-]
-
-% Scatter data points
-\addplot[
-    only marks,
-    color=blue,
-    mark=*,
-    mark size=2pt
-] coordinates {
-    (1,1.7) (2,1.7) (3,1.8) (4,5.5) (5,5.2)
-    (6,6.4) (7,5.8) (8,9) (9,8.8)
-};
-
-% Regression line y = x
-\addplot[
-    domain=0:10,
-    samples=2,
-    color=black,
-    very thick
-] {x};
-
-% Red vertical line for residual at (4,5.5) to (4,4)
-\draw[red, thick] (axis cs:4,5.5) -- (axis cs:4,4);
-\node[black] at (axis cs:2.7,4.7) {$\epsilon_i = y_i - \hat{y}_i$};
-\node[black] at (axis cs:4.3,6.2) {$ (x_i, y_i)$};
-\node[black] at (axis cs:4.3,3.3) {$ (x_i, \hat{y}_i)$};
-
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-The \textbf{least-squares line} is the line that minimizes the \textbf{residual sum of squares (RSS)}\footnote{In some texts, the residual sum of squares (RSS) is also called the \textbf{sum of squares of errors (SSE)}}:
-
-\begin{textbox}
-\[
-\text{RSS} = \sum_{i=1}^{n} \epsilon_i^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2
-\]
-\end{textbox}
-
-To derive the expressions for $\hat{\beta_0}$ and $\hat{\beta_1}$, we have to take the partial derivatives of $RSS$ with respect to $\hat{\beta_0}$ and $\hat{\beta_1}$ and set them to zero.
-
-\begin{align*}
-    \dfrac{\partial}{\partial \hat{\beta_0}} (RSS) &=-2\sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) = 0,\\ \dfrac{\partial}{\partial \hat{\beta_1}} (RSS) &= -2\sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)x_i = 0
-\end{align*}
-
-Simplifying these two equations yields
-\begin{align*}
- n\hat{\beta}_0 + \hat{\beta}_1 \sum_{i=1}^{n}x_i &= \sum_{i=1}^{n} y_i, \\
-\hat{\beta}_0\sum_{i=1}^{n}  x_i + \hat{\beta}_1 \sum_{i=1}^{n}x_i^2 &= \sum_{i=1}^{n} y_i x_i
-\end{align*}
-
-Multiplying the first equation by $\sum_{i=1}^n x_i$ and second equation by $n$ and then subtracting second from the first yields
-$$\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right) - n\sum_{i=1}^{n} x_i y_i = \hat{\beta}_1\left(\sum_{i=1}^{n} x_i\right)^2 - n\hat{\beta}_1\sum_{i=1}^{n} x_i^2  $$
-
-Thus we get the expression for $\hat{\beta}_1$
-
-% \begin{align*}
-%     \hat{\beta}_1 &= \dfrac{n\sum_{i=1}^{n} x_i y_i-\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}{n\sum_{i=1}^{n} x_i^2-\left(\sum_{i=1}^{n} x_i\right)^2} \\
-%     &= \dfrac{\sum_{i=1}^{n} x_i y_i-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}{\sum_{i=1}^{n} x_i^2-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2} \\
-%     % &=\dfrac{\frac{1}{n}\sum_{i=1}^{n} x_i y_i-\overline{x}\overline{y}}{\frac{1}{n}\sum_{i=1}^{n} x_i^2-\overline{x}^2} = \dfrac{\frac{1}{n}\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})}{\frac{1}{n}\sum_{i=1}^{n} \left(x_i-\overline{x}\right)^2} \\
-%     % &= \dfrac{\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})}{\sum_{i=1}^{n} \left(x_i-\overline{x}\right)^2}
-% \end{align*}
-
-\begin{align*}
-\hat{\beta}_1 &=
-\left[
-n\sum_{i=1}^{n} x_i y_i
--
-\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)
-\right]
-\bigg/
-\left[
-n\sum_{i=1}^{n} x_i^2
--
-\left(\sum_{i=1}^{n} x_i\right)^2
-\right]
-\\
-&=
-\left[
-\sum_{i=1}^{n} x_i y_i
--
-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right]
-\right)
-\bigg/
-\left[
-\sum_{i=1}^{n} x_i^2
--
-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2
-\right]
-\end{align*}
-
-
-It is convenient to introduce some notation for the sums of squared deviation from mean and sums of cross-products of deviation.
-
-\begin{textbox}
-\begin{align*}
-S_{xx} &= \sum_{i=1}^{n} (x_i - \overline{x})^2 = \sum_{i=1}^{n} x_i^2 - \frac{1}{n}\left( \sum_{i=1}^{n} x_i \right)^2 \\
-S_{yy} &= \sum_{i=1}^{n} (y_i - \overline{y})^2 = \sum_{i=1}^{n} y_i^2 - \frac{1}{n}\left( \sum_{i=1}^{n} y_i \right)^2 \\
-S_{xy} &= \sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y}) = \sum_{i=1}^{n} x_i y_i - \frac{1}{n}\left( \sum_{i=1}^{n} x_i \right) \left( \sum_{i=1}^{n} y_i \right)
-\end{align*}
-\end{textbox}
-
-Using these notation we can write,
-\begin{textbox}
-$$\hat{\beta}_1 = \dfrac{S_{xy}}{S_{xx}}$$
-\end{textbox}
-The expression for $\hat{\beta}_0$ is calculated as
-\begin{textbox}
-\[
-\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}
-\]
-\end{textbox}
-
-\subsection{Calculation of RSS}
-We can now calculate the value of RSS based on the value of $\hat{\beta}_0$ and $\hat{\beta}_0$ found using the method of least square:
-
-\begin{align*}
-\text{RSS} &= \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \\
-&= \sum_{i=1}^{n} \left[ y_i - (\hat{\beta}_0 + \hat{\beta}_1x_i) \right]^2 \qquad \text{Since }\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i\\
-&= \sum_{i=1}^{n} \left[ y_i - (\overline{y} - \hat{\beta}_1 \overline{x} + \hat{\beta}_1x_i) \right]^2 \qquad \text{Since }\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}\\
-&= \sum_{i=1}^{n} \left[ (y_i - \overline{y}) - \hat{\beta}_1 (x_i - \overline{x}) \right]^2 \\
-&= \sum_{i=1}^{n} (y_i - \overline{y})^2 - 2\hat{\beta}_1 \sum_{i=1}^{n} (y_i - \overline{y})(x_i - \overline{x}) + \hat{\beta}_1^2 \sum_{i=1}^{n} (x_i - \overline{x})^2 \\
-\end{align*}
-\begin{align*}
-&= S_{yy} - 2\hat{\beta}_1 S_{xy} + \hat{\beta}_1^2 S_{xx}\\
-&= S_{yy} - 2\left( \frac{S_{xy}}{S_{xx}} \right) S_{xy} + \left( \frac{S_{xy}}{S_{xx}} \right)^2 S_{xx} \qquad \text{Since }\hat{\beta}_1 = \dfrac{S_{xy}}{S_{xx}} \\
-&= S_{yy} - \frac{2 S_{xy}^2}{S_{xx}} + \frac{S_{xy}^2}{S_{xx}} \\
-&= S_{yy} - \frac{S_{xy}^2}{S_{xx}} \\
-&= S_{yy} - \hat{\beta}_1 S_{xy}
-\end{align*}
-
-\begin{textbox}
-    $$\text{RSS} = S_{yy} - \hat{\beta}_1 S_{xy}$$
-\end{textbox}
-
-\subsection{Example}
-
-We aim to model the relationship between the number of hours studied (\(X\)) and the corresponding test score (\(Y\)) using simple linear regression. The goal is to estimate a linear equation that best describes this relationship based on observed data from five students. Once the model is established, we will use it to predict the expected test score for a student who studies for six hours.
-
-The observed data are as follows:
-
-\begin{center}
-\begin{tabular}{c|c|c}
-\toprule
-\textbf{Student} & \textbf{Hours Studied} (\(x_i\)) & \textbf{Test Score} (\(y_i\)) \\
-\midrule
-1 & 2 & 65 \\
-2 & 3 & 70 \\
-3 & 5 & 75 \\
-4 & 7 & 85 \\
-5 & 9 & 95 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{Step 1: Compute Means}
-
-\begin{align*}
-    \overline{x} &= \frac{2 + 3 + 5 + 7 + 9}{5} = \frac{26}{5} = 5.2, \\
-\overline{y} &= \frac{65 + 70 + 75 + 85 + 95}{5} = \frac{390}{5} = 78
-\end{align*}
-
-\textbf{Step 2: Compute $S_{xx}$ and $S_{xy}$}
-
-\begin{align*}
-    S_{xx} &= \sum (x_i - \overline{x})^2 \\
-    &= (2 - 5.2)^2 + (3 - 5.2)^2 + (5 - 5.2)^2 + (7 - 5.2)^2 + (9 - 5.2)^2 \\
-    &= 32.8
-\end{align*}
-
-\begin{align*}
-    S_{xy} &= \sum (x_i - \overline{x})(y_i - \overline{y}) \\
-    &= (2 - 5.2)(65 - 78) + (3 - 5.2)(70 - 78) + \ldots + (9 - 5.2)(95 - 78) \\
-    &= 137.0
-\end{align*}
-
-
-\textbf{Step 3: Estimate Parameters}
-
-\[
-\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{137.0}{32.80}\approx4.177
-\]
-
-\[
-\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \\\\\\\\overline{x} = 78-4.177\times 5.2\approx56.28
-\]
-
-\textbf{Step 4: Regression Equation}
-
-\[
-\hat{Y} = 56.28 + 4.177X
-\]
-
-\textbf{Step 5: Predict Test Score for $X = 6$}
-
-\[
-\hat{Y} = 56.28 + 4.177\times6 \approx 81.34
-\]
-
-% \textbf{Step 6: Calculate Residuals and RSS}
-
-% \begin{align*}
-%     \text{RSS} &= S_{yy} - \hat{\beta}_1 S_{xy} \\
-%     &=580 - (2.317 \cdot 76) = 580 - 176.092 = 403.91
-% \end{align*}
-
-% \begin{center}
-% \begin{tabular}{cccc}
-% \toprule
-% $x_i$ & $y_i$ & $\hat{y}_i$ & Residual $\epsilon_i = y_i - \hat{y}_i$ \\
-% \midrule
-% 2 & 65 & $65.96 + 2.317(2) = 70.594$ & $65 - 70.594 = -5.594$ \\
-% 3 & 70 & $65.96 + 2.317(3) = 72.911$ & $70 - 72.911 = -2.911$ \\
-% 5 & 75 & $65.96 + 2.317(5) = 77.545$ & $75 - 77.545 = -2.545$ \\
-% 7 & 85 & $65.96 + 2.317(7) = 82.179$ & $85 - 82.179 = 2.821$ \\
-% 9 & 95 & $65.96 + 2.317(9) = 86.813$ & $95 - 86.813 = 8.187$ \\
-% \bottomrule
-% \end{tabular}
-% \end{center}
-
-% \[
-% \text{RSS} = \sum_{i=1}^5 \epsilon_i^2 = (-5.594)^2 + (-2.911)^2 + (-2.545)^2 + (2.821)^2 + (8.187)^2
-% \]
-
-% \[
-% \text{RSS} = 31.30 + 8.47 + 6.48 + 7.96 + 67.02 = \boxed{121.23}
-% \]
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    width=11cm,
-    height=7cm,
-    xlabel={Hours studied ($X$)},
-    ylabel={Test score ($Y$)},
-    axis lines=left,
-    xmin=0, xmax=10,
-    ymin=50, ymax=100,
-    enlargelimits=true,
-    clip=false
-]
-
-% Scatter data points
-\addplot[
-    only marks,
-    color=blue,
-    mark=*,
-    mark size=2pt
-] coordinates {
-    (2,65) (3,70) (5,75) (7,85) (9,95)
-};
-
-% Regression line y = x
-\addplot[
-    domain=0:10,
-    samples=2,
-    color=black,
-    very thick
-] {56.28 + 4.177*x};
-
-
-\node[black] at (axis cs:3.8,92) {\small $\hat{Y} = 56.28 + 4.177X$};
-\draw[->, thin] (axis cs:3.8,90) -- (axis cs:3.8,72.4);
-\draw[dashed, thin] (axis cs:-1,81.34) -- (axis cs:6,81.34);
-\draw[dashed, thin] (axis cs:6,45) -- (axis cs:6,81.34);
-\node[black] at (axis cs:1.2,65) {\small $(2,65)$};
-\node[black] at (axis cs:2.2,70) {\small $(3,70)$};
-\node[black] at (axis cs:5.1,72) {\small $(5,75)$};
-\node[black] at (axis cs:7.8,85) {\small $(7,85)$};
-\node[black] at (axis cs:8.2,95) {\small $(9,95)$};
-\node[purple] at (axis cs:7,80) {\small $(6,81.34)$};
-
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-\chapter{Single-Factor Experiments: The Analysis of Variance (ANOVA)}
-
-\section{Introduction to Design of Experiments}
-
-\subsection{Fundamental Concepts}
-
-Design of Experiments (DOE) is a systematic approach to planning, conducting, and analyzing experiments to obtain maximum information with minimum resources. The primary objective is to understand the relationship between input variables (factors) and output variables (responses) while controlling sources of variability that might obscure these relationships.
-
-Consider a pharmaceutical company developing a new antihypertensive drug. The researchers want to determine the optimal dosage that provides maximum blood pressure reduction with minimal side effects. In this context:
-
-\begin{itemize}
-\item \textbf{Response Variable}: Change in systolic blood pressure (measured in mmHg)
-\item \textbf{Factor}: Drug dosage (the treatment variable being studied)
-\item \textbf{Factor Levels}: Different dosage amounts (e.g., 5mg, 10mg, 15mg, 20mg, placebo)
-\item \textbf{Experimental Units}: Individual patients participating in the study
-\item \textbf{Treatments}: The specific dosage levels administered to patients
-\end{itemize}
-
-The key question is: \textit{Do different dosage levels of the drug produce significantly different changes in blood pressure?}
-
-\subsection{Principles of Experimental Design}
-
-Sir Ronald A. Fisher established three fundamental principles that form the foundation of experimental design:
-
-\begin{textbox}
-Randomization-
-The random assignment of treatments to experimental units to ensure that systematic biases do not influence the results. In our drug study, patients should be randomly assigned to receive different dosages.
-\end{textbox}
-
-\begin{textbox}
-Replication-
-The repetition of treatments on multiple experimental units to estimate experimental error and increase precision. Multiple patients should receive each dosage level.
-\end{textbox}
-
-\begin{textbox}
-Local Control-
-The use of blocking, grouping, or other design techniques to reduce experimental error by accounting for known sources of variation. Patients might be grouped by age, gender, or severity of hypertension.
-\end{textbox}
-
-\subsection{Drug Study Example: Complete Framework}
-
-Let's develop our pharmaceutical example further. A clinical researcher designs a study to compare five treatments:
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|l|c|}
-\hline
-\textbf{Treatment} & \textbf{Description} & \textbf{Dosage (mg)} \\
-\hline
-1 & Placebo & 0 \\
-2 & Low dose & 5 \\
-3 & Medium dose & 10 \\
-4 & High dose & 15 \\
-5 & Very high dose & 20 \\
-\hline
-\end{tabular}
-\caption{Treatment Levels for Antihypertensive Drug Study}
-\end{table}
-
-The study design involves:
-\begin{itemize}
-\item \textbf{Sample Size}: 100 patients total (20 patients per treatment group)
-\item \textbf{Randomization}: Patients randomly assigned to treatment groups
-\item \textbf{Response Measurement}: Change in systolic blood pressure after 4 weeks
-\item \textbf{Blocking Variables}: Age group and baseline blood pressure severity
-\end{itemize}
-
-The statistical model for this experiment is:
-\begin{equation}
-Y_{ij} = \mu + \tau_i + \epsilon_{ij}
-\end{equation}
-
-where:
-\begin{itemize}
-\item $Y_{ij}$ = blood pressure change for the $j$-th patient receiving treatment $i$
-\item $\mu$ = overall mean blood pressure change
-\item $\tau_i$ = effect of the $i$-th dosage level
-\item $\epsilon_{ij}$ = random error (individual patient variation)
-\end{itemize}
-
-\subsection{Sources of Variation}
-
-In any experiment, the total observed variation can be decomposed into:
-
-\begin{align}
-\text{Total Variation} &= \text{Variation Due to Treatments} + \text{Variation Due to Error}\\
-&= \text{Systematic Variation} + \text{Random Variation}
-\end{align}
-
-In our drug study:
-\begin{itemize}
-\item \textbf{Treatment Variation}: Differences in blood pressure response due to different dosage levels
-\item \textbf{Error Variation}: Individual patient differences, measurement error, environmental factors, etc.
-\end{itemize}
-
-The goal of ANOVA is to determine whether the treatment variation is significantly larger than the error variation.
-
-\section{Single-Factor vs. Factorial Experiments}
-
-\subsection{Single-Factor Experiments}
-
-A single-factor experiment investigates the effect of \textbf{one factor} on the response variable, where the factor has multiple levels.
-
-\begin{textbox}
-Single-Factor Experiment-
-An experiment designed to study the effect of one factor (independent variable) with two or more levels on a response variable, while keeping all other potential factors constant or randomized.
-\end{textbox}
-
-\textbf{Characteristics of Single-Factor Experiments:}
-\begin{itemize}
-\item Only one factor is varied systematically
-\item The factor can have $a \geq 2$ levels
-\item All other variables are either held constant or randomized
-\item The primary question is: "Does this factor affect the response?"
-\end{itemize}
-
-\textbf{Examples:}
-\begin{itemize}
-\item Drug dosage study (5 dosage levels)
-\item Teaching method comparison (4 different methods)
-\item Fertilizer type evaluation (6 different fertilizers)
-\item Manufacturing process comparison (3 different processes)
-\end{itemize}
-
-\subsection{Factorial Experiments}
-
-A factorial experiment investigates the effects of \textbf{two or more factors} simultaneously, including their individual effects and interactions.
-
-\begin{textbox}
-Factorial Experiment-
-An experiment designed to study the effects of two or more factors simultaneously, including their main effects and interaction effects on the response variable.
-\end{textbox}
-
-\textbf{Characteristics of Factorial Experiments:}
-\begin{itemize}
-\item Two or more factors are varied systematically
-\item Each factor can have multiple levels
-\item All combinations of factor levels are tested
-\item Can detect interaction effects between factors
-\item More efficient than conducting separate single-factor experiments
-\end{itemize}
-
-\subsection{Comparison: Drug Study Extended}
-
-\textbf{Single-Factor Approach:}
-\begin{itemize}
-\item Factor: Drug dosage (5 levels)
-\item Question: "What is the effect of dosage on blood pressure?"
-\item Model: $Y_{ij} = \mu + \tau_i + \epsilon_{ij}$
-\end{itemize}
-
-\textbf{Factorial Approach:}
-Consider adding a second factor - patient exercise regimen:
-\begin{itemize}
-\item Factor A: Drug dosage (5 levels)
-\item Factor B: Exercise regimen (3 levels: none, moderate, intensive)
-\item Total treatments: $5 \times 3 = 15$ combinations
-\item Questions:
-  \begin{itemize}
-  \item "What is the effect of dosage on blood pressure?"
-  \item "What is the effect of exercise on blood pressure?"
-  \item "Do dosage and exercise interact?"
-  \end{itemize}
-\item Model: $Y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \epsilon_{ijk}$
-\end{itemize}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{Dosage} & \textbf{No Exercise} & \textbf{Moderate Exercise} & \textbf{Intensive Exercise} \\
-\hline
-Placebo & Treatment 1 & Treatment 2 & Treatment 3 \\
-5mg & Treatment 4 & Treatment 5 & Treatment 6 \\
-10mg & Treatment 7 & Treatment 8 & Treatment 9 \\
-15mg & Treatment 10 & Treatment 11 & Treatment 12 \\
-20mg & Treatment 13 & Treatment 14 & Treatment 15 \\
-\hline
-\end{tabular}
-\caption{Factorial Design: Drug Dosage × Exercise Regimen}
-\end{table}
-
-\subsection{Key Differences}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|p{5cm}|p{5cm}|}
-\hline
-\textbf{Aspect} & \textbf{Single-Factor} & \textbf{Factorial} \\
-\hline
-Number of factors & One & Two or more \\
-\hline
-Information obtained & Effect of one factor only & Main effects and interactions \\
-\hline
-Efficiency & Less efficient for multiple factors & More efficient overall \\
-\hline
-Complexity & Simpler analysis & More complex analysis \\
-\hline
-Resource requirements & Fewer experimental runs & More experimental runs \\
-\hline
-Interaction detection & Cannot detect interactions & Can detect and quantify interactions \\
-\hline
-Model equation & $Y = \mu + \tau + \epsilon$ & $Y = \mu + \alpha + \beta + \alpha\beta + \epsilon$ \\
-\hline
-\end{tabular}
-\caption{Comparison of Single-Factor and Factorial Experiments}
-\end{table}
-
-\section{Classification of Single-Factor Experiments}
-
-Single-factor experiments can be classified based on several criteria, each affecting the experimental design and analysis approach.
-
-\subsection{Classification by Design Structure}
-
-\subsubsection{Completely Randomized Design (CRD)}
-
-\begin{textbox}
-Completely Randomized Design-
-A design where treatments are assigned to experimental units completely at random, with no restrictions on the randomization process.
-\end{textbox}
-
-\textbf{Characteristics:}
-\begin{itemize}
-\item Experimental units are assumed to be homogeneous
-\item Simple randomization procedure
-\item Most basic single-factor design
-\item Maximum degrees of freedom for error
-\end{itemize}
-
-\textbf{When to Use:}
-\begin{itemize}
-\item Experimental units are relatively uniform
-\item Environmental conditions are stable
-\item No obvious grouping variables exist
-\end{itemize}
-
-\textbf{Drug Study Example:} All 100 patients are considered similar in terms of relevant characteristics, and treatments are randomly assigned without any grouping.
-
-\subsubsection{Randomized Block Design (RBD)}
-
-\begin{textbox}
-Randomized Block Design-
-A design where experimental units are first grouped into homogeneous blocks, and then treatments are randomly assigned within each block.
-\end{textbox}
-
-\textbf{Characteristics:}
-\begin{itemize}
-\item Controls one source of systematic variation (blocking factor)
-\item Each treatment appears exactly once in each block
-\item Reduces experimental error
-\item More precise than CRD when blocking is effective
-\end{itemize}
-
-\textbf{When to Use:}
-\begin{itemize}
-\item Obvious grouping variable exists
-\item Experimental units are heterogeneous
-\item Want to remove effect of nuisance variable
-\end{itemize}
-
-\textbf{Drug Study Example:} Patients are grouped by age brackets (blocks), and within each age group, treatments are randomly assigned.
-
-\subsubsection{Latin Square Design (LSD)}
-
-\begin{textbox}
-Latin Square Design-
-A design that controls two sources of systematic variation simultaneously by arranging treatments in a square pattern where each treatment appears exactly once in each row and each column.
-\end{textbox}
-
-\textbf{Characteristics:}
-\begin{itemize}
-\item Controls two blocking factors simultaneously
-\item Requires equal numbers of treatments, rows, and columns
-\item Very efficient use of experimental units
-\item Reduces experimental error significantly when both blocking factors are important
-\end{itemize}
-
-\textbf{When to Use:}
-\begin{itemize}
-\item Two important nuisance variables exist
-\item Number of treatments equals number of levels of each blocking factor
-\item Want maximum control over experimental conditions
-\end{itemize}
-
-\textbf{Drug Study Example:} Patients grouped by both age (rows) and baseline blood pressure severity (columns), with treatments arranged so each appears once in each row and column.
-
-\subsection{Classification by Balance}
-
-\subsubsection{Balanced Designs}
-
-\begin{textbox}
-A design where each treatment has the same number of experimental units (equal replication).
-\end{textbox}
-
-\textbf{Advantages:}
-\begin{itemize}
-\item Simplifies analysis and computation
-\item Provides equal precision for all treatment comparisons
-\item More robust to assumption violations
-\item Standard ANOVA formulas apply directly
-\end{itemize}
-
-\subsubsection{Unbalanced Designs}
-
-\begin{textbox}
-A design where treatments have different numbers of experimental units (unequal replication).
-\end{textbox}
-
-\textbf{Causes:}
-\begin{itemize}
-\item Missing observations due to experimental failures
-\item Planned unequal allocation (e.g., more replication for control group)
-\item Practical constraints
-\end{itemize}
-
-\textbf{Consequences:}
-\begin{itemize}
-\item More complex analysis
-\item Unequal precision for treatment comparisons
-\item Modified ANOVA formulas required
-\end{itemize}
-
-\subsection{Classification by Factor Type}
-
-\subsubsection{Fixed Effects Model}
-
-\begin{textbox}
-A model where factor levels are specifically chosen by the experimenter, and inferences apply only to these particular levels.
-\end{textbox}
-
-\textbf{Characteristics:}
-\begin{itemize}
-\item Factor levels are fixed and chosen deliberately
-\item Inferences limited to tested levels
-\item Treatment effects are fixed parameters
-\item Standard F-test for hypothesis testing
-\end{itemize}
-
-\textbf{Drug Study Example:} Dosages (0, 5, 10, 15, 20 mg) are specifically chosen, and conclusions apply only to these dosages.
-
-\subsubsection{Random Effects Model}
-
-\begin{textbox}
-A model where factor levels are randomly selected from a larger population of possible levels, and inferences extend to the entire population.
-\end{textbox}
-
-\textbf{Characteristics:}
-\begin{itemize}
-\item Factor levels are random samples from a population
-\item Inferences extend to entire population of levels
-\item Treatment effects are random variables
-\item Focus on variance components
-\end{itemize}
-
-\textbf{Example:} Comparing teaching effectiveness across schools where schools are randomly selected from all schools in a district.
-
-\subsection{Classification by Response Variable Type}
-
-\subsubsection{Continuous Response}
-
-\begin{itemize}
-\item \textbf{Examples:} Blood pressure change, weight loss, test scores
-\item \textbf{Analysis:} Standard ANOVA procedures
-\item \textbf{Assumptions:} Normality, constant variance, independence
-\end{itemize}
-
-\subsubsection{Discrete Response}
-
-\begin{itemize}
-\item \textbf{Count Data:} Number of adverse events, number of improved patients
-\item \textbf{Binary Data:} Success/failure, improved/not improved
-\item \textbf{Analysis:} Generalized linear models, chi-square tests
-\end{itemize}
-
-\subsubsection{Ordinal Response}
-
-\begin{itemize}
-\item \textbf{Examples:} Pain scale ratings, satisfaction levels
-\item \textbf{Analysis:} Nonparametric methods, ordinal regression
-\end{itemize}
-
-\subsection{Summary of Classifications}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|l|l|}
-\hline
-\textbf{Classification Criterion} & \textbf{Categories} & \textbf{Example} \\
-\hline
-\multirow{3}{*}{Design Structure} & Completely Randomized & Drug dosage, random assignment \\
-& Randomized Block & Drug dosage, blocked by age \\
-& Latin Square & Drug + age + severity blocking \\
-\hline
-\multirow{2}{*}{Balance} & Balanced & Equal patients per dosage \\
-& Unbalanced & Different patients per dosage \\
-\hline
-\multirow{2}{*}{Factor Type} & Fixed Effects & Specific chosen dosages \\
-& Random Effects & Random sample of dosages \\
-\hline
-\multirow{3}{*}{Response Type} & Continuous & Blood pressure change \\
-& Discrete & Number of side effects \\
-& Ordinal & Pain relief scale \\
-\hline
-\end{tabular}
-\caption{Classification Summary for Single-Factor Experiments}
-\end{table}
-
-The choice of experimental design depends on:
-\begin{itemize}
-\item Nature of experimental units and their homogeneity
-\item Presence and importance of nuisance variables
-\item Available resources and practical constraints
-\item Type of inferences desired
-\item Nature of the response variable
-\end{itemize}
-
-Each design type has specific advantages and is most appropriate under certain conditions. The remainder of this chapter will provide detailed coverage of the three main design structures (CRD, RBD, LSD) with complete mathematical development and practical examples.
-
-\section{ANOVA: The Statistical Foundation}
-
-The Analysis of Variance (ANOVA) is a statistical technique used to test hypotheses about the equality of several population means. In single-factor experiments, we investigate the effect of one factor (independent variable) on a response variable (dependent variable). The factor may have several levels, and we wish to determine whether the factor levels have significantly different effects on the response.
-
-The fundamental principle of ANOVA is the partitioning of total variation in the data into components attributable to different sources. This decomposition allows us to assess whether the variation between groups is significantly larger than the variation within groups, which would indicate that the factor has a significant effect.
-
-\section{Basic ANOVA Concepts and Terminology}
-
-\subsection{Fundamental Definitions}
-
-\begin{textbox}
-Factor -
-A factor is a controllable input variable that is thought to influence the response variable. It can be qualitative (categorical) or quantitative.
-\end{textbox}
-
-\begin{textbox}
-Treatment-
-A treatment is a specific level or setting of the factor being studied.
-\end{textbox}
-
-\begin{textbox}
-Experimental Unit-
-An experimental unit is the smallest entity to which a treatment is applied independently.
-\end{textbox}
-
-\begin{textbox}
-Response Variable-
-The response variable is the output or dependent variable that is measured in the experiment.
-\end{textbox}
-
-\subsection{ANOVA Model}
-
-Consider a single-factor experiment with $a$ treatments and $n$ observations per treatment. The total number of observations is $N = an$. The linear statistical model for this experiment is:
-
-\begin{equation}
-y_{ij} = \mu + \tau_i + \epsilon_{ij}
-\end{equation}
-
-where:
-\begin{itemize}
-\item $y_{ij}$ is the $j$-th observation under the $i$-th treatment
-\item $\mu$ is the overall mean
-\item $\tau_i$ is the effect of the $i$-th treatment
-\item $\epsilon_{ij}$ is the random error associated with the $ij$-th observation
-\item $i = 1, 2, \ldots, a$ and $j = 1, 2, \ldots, n$
-\end{itemize}
-
-The model assumes that:
-\begin{enumerate}
-\item The errors $\epsilon_{ij}$ are normally and independently distributed with mean zero and constant variance $\sigma^2$
-\item The treatment effects satisfy the constraint $\sum_{i=1}^{a} \tau_i = 0$
-\end{enumerate}
-
-\subsection{Hypotheses in ANOVA}
-
-The null and alternative hypotheses for testing the equality of treatment means are:
-
-\begin{align}
-H_0: &\quad \mu_1 = \mu_2 = \cdots = \mu_a \\
-H_1: &\quad \text{At least one } \mu_i \text{ differs from the others}
-\end{align}
-
-Equivalently, in terms of treatment effects:
-
-\begin{align}
-H_0: &\quad \tau_1 = \tau_2 = \cdots = \tau_a = 0 \\
-H_1: &\quad \text{At least one } \tau_i \neq 0
-\end{align}
-
-\section{ANOVA Decomposition}
-
-\subsection{Sum of Squares Decomposition}
-
-The fundamental identity in ANOVA is the decomposition of the total sum of squares:
-
-\begin{equation}
-\text{SS}_{\text{Total}} = \text{SS}_{\text{Treatments}} + \text{SS}_{\text{Error}}
-\end{equation}
-
-where:
-
-\begin{align}
-\text{SS}_{\text{Total}} &= \sum_{i=1}^{a} \sum_{j=1}^{n} (y_{ij} - \overline{y}_{\cdot\cdot})^2 \\
-\text{SS}_{\text{Treatments}} &= n \sum_{i=1}^{a} (\overline{y}_{i\cdot} - \overline{y}_{\cdot\cdot})^2 \\
-\text{SS}_{\text{Error}} &= \sum_{i=1}^{a} \sum_{j=1}^{n} (y_{ij} - \overline{y}_{i\cdot})^2
-\end{align}
-
-The notation used is:
-\begin{itemize}
-\item $\overline{y}_{i\cdot} = \frac{1}{n} \sum_{j=1}^{n} y_{ij}$ is the mean of the $i$-th treatment
-\item $\overline{y}_{\cdot\cdot} = \frac{1}{an} \sum_{i=1}^{a} \sum_{j=1}^{n} y_{ij}$ is the overall mean
-\end{itemize}
-
-\subsection{Degrees of Freedom}
-
-The degrees of freedom associated with each sum of squares are:
-\begin{align}
-df_{\text{Total}} &= an - 1 \\
-df_{\text{Treatments}} &= a - 1 \\
-df_{\text{Error}} &= a(n - 1) = an - a
-\end{align}
-
-Note that $df_{\text{Total}} = df_{\text{Treatments}} + df_{\text{Error}}$.
-
-\subsection{Mean Squares}
-
-The mean squares are obtained by dividing the sum of squares by their respective degrees of freedom:
-
-\begin{align}
-\text{MS}_{\text{Treatments}} &= \frac{\text{SS}_{\text{Treatments}}}{a - 1} \\
-\text{MS}_{\text{Error}} &= \frac{\text{SS}_{\text{Error}}}{a(n - 1)}
-\end{align}
-
-\subsection{F-Statistic}
-
-The test statistic for testing the equality of treatment means is:
-
-\begin{equation}
-F_0 = \frac{\text{MS}_{\text{Treatments}}}{\text{MS}_{\text{Error}}}
-\end{equation}
-
-Under the null hypothesis, $F_0$ follows an F-distribution with $a-1$ and $a(n-1)$ degrees of freedom.
-
-We reject $H_0$ if $F_0 > F_{\alpha, a-1, a(n-1)}$, where $F_{\alpha, a-1, a(n-1)}$ is the upper $\alpha$ critical value of the F-distribution.
 
 \section{Completely Randomized Design (CRD)}
 
-\subsection{Design Structure}
+\subsection{Description}
 
-The completely randomized design is the simplest experimental design for comparing several treatments. In this design:
+The simplest experimental design where treatments are assigned completely at random to experimental units.
+
+\subsection{When to Use CRD}
+
 \begin{itemize}
-\item All experimental units are considered homogeneous
-\item Treatments are randomly assigned to experimental units
-\item Each treatment is replicated the same number of times (balanced design) or different numbers of times (unbalanced design)
+    \item Experimental units are homogeneous
+    \item No obvious sources of systematic variation
+    \item Complete randomization is feasible
+    \item Resources are limited
 \end{itemize}
 
-\subsection{Mathematical Model}
+\subsection{Example: Drug Effectiveness Study}
 
-For a completely randomized design with $a$ treatments and $n_i$ observations for the $i$-th treatment, the model is:
+\textbf{Problem:} Compare effectiveness of three treatments: Drug A, Drug B, and Placebo on reducing blood pressure.
+
+\textbf{Design:}
+\begin{itemize}
+    \item 30 patients with similar blood pressure levels
+    \item Randomly assign 10 patients to each treatment
+    \item Measure blood pressure reduction after 4 weeks
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\caption{CRD Layout for Drug Study}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Drug A} & \textbf{Drug B} & \textbf{Placebo} \\
+\hline
+Patient 3 & Patient 1 & Patient 2 \\
+Patient 7 & Patient 4 & Patient 5 \\
+Patient 9 & Patient 6 & Patient 8 \\
+$\vdots$ & $\vdots$ & $\vdots$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Statistical Model}
 
 \begin{equation}
 y_{ij} = \mu + \tau_i + \epsilon_{ij}
 \end{equation}
 
-where $i = 1, 2, \ldots, a$ and $j = 1, 2, \ldots, n_i$.
+where:
+\begin{itemize}
+    \item $y_{ij}$ = response of $j$th unit in $i$th treatment
+    \item $\mu$ = overall mean
+    \item $\tau_i$ = effect of $i$th treatment
+    \item $\epsilon_{ij}$ = random error
+\end{itemize}
 
 \subsection{ANOVA for CRD}
 
-For the balanced case ($n_i = n$ for all $i$), the ANOVA table is:
+\begin{equation}
+SS_{Total} = SS_{Treatment} + SS_{Error}
+\end{equation}
 
-\begin{table}[h]
+\begin{align}
+SS_{Total} &= \sum_{i=1}^{a}\sum_{j=1}^{n_i} y_{ij}^2 - \frac{T^2}{N} \\
+SS_{Treatment} &= \sum_{i=1}^{a} \frac{T_i^2}{n_i} - \frac{T^2}{N} \\
+SS_{Error} &= SS_{Total} - SS_{Treatment}
+\end{align}
+
+\begin{table}[H]
 \centering
+\caption{ANOVA Table for CRD}
 \begin{tabular}{|l|c|c|c|c|}
 \hline
-\textbf{Source of Variation} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} \\
+\textbf{Source} & \textbf{df} & \textbf{SS} & \textbf{MS} & \textbf{F} \\
 \hline
-Treatments & $SS_T$ & $a-1$ & $MS_T$ & $F_0$ \\
-Error & $SS_E$ & $a(n-1)$ & $MS_E$ & \\
-Total & $SS_{Total}$ & $an-1$ & & \\
+Treatment & $a-1$ & $SS_{Treatment}$ & $MS_{Treatment}$ & $\frac{MS_{Treatment}}{MS_{Error}}$ \\
+Error & $N-a$ & $SS_{Error}$ & $MS_{Error}$ & \\
 \hline
-\end{tabular}
-\caption{ANOVA Table for Completely Randomized Design}
-\end{table}
-
-\subsection{Computational Formulas}
-
-The computational formulas for the sums of squares are:
-
-\begin{align}
-SS_{Total} &= \sum_{i=1}^{a} \sum_{j=1}^{n} y_{ij}^2 - \frac{y_{\cdot\cdot}^2}{an} \\
-SS_T &= \frac{1}{n} \sum_{i=1}^{a} y_{i\cdot}^2 - \frac{y_{\cdot\cdot}^2}{an} \\
-SS_E &= SS_{Total} - SS_T
-\end{align}
-
-where $y_{i\cdot} = \sum_{j=1}^{n} y_{ij}$ and $y_{\cdot\cdot} = \sum_{i=1}^{a} y_{i\cdot}$.
-
-\subsection{Example: Completely Randomized Design}
-
-
-A manufacturer wants to compare the strength of four different adhesive formulations. Five specimens are prepared using each formulation, and the strength (in psi) is measured. The data are:
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\textbf{Formulation 1} & \textbf{Formulation 2} & \textbf{Formulation 3} & \textbf{Formulation 4} \\
-\hline
-73 & 68 & 74 & 71 \\
-68 & 61 & 79 & 67 \\
-74 & 67 & 75 & 72 \\
-71 & 60 & 78 & 76 \\
-67 & 64 & 69 & 79 \\
-\hline
-\textbf{Total} & 353 & 320 & 375 & 365 \\
-\textbf{Mean} & 70.6 & 64.0 & 75.0 & 73.0 \\
+Total & $N-1$ & $SS_{Total}$ & & \\
 \hline
 \end{tabular}
 \end{table}
-
-\textbf{Solution:}
-
-First, we calculate the necessary sums:
-\begin{align}
-y_{\cdot\cdot} &= 353 + 320 + 375 + 365 = 1413 \\
-\sum_{i=1}^{4} \sum_{j=1}^{5} y_{ij}^2 &= 73^2 + 68^2 + \cdots + 79^2 = 100,475
-\end{align}
-
-Now we compute the sums of squares:
-\begin{align}
-SS_{Total} &= 100,475 - \frac{1413^2}{20} = 100,475 - 99,824.45 = 650.55 \\
-SS_T &= \frac{1}{5}(353^2 + 320^2 + 375^2 + 365^2) - \frac{1413^2}{20} \\
-&= \frac{1}{5}(499,459) - 99,824.45 = 99,891.8 - 99,824.45 = 67.35 \\
-SS_E &= 650.55 - 67.35 = 583.20
-\end{align}
-
-The ANOVA table is:
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-\textbf{Source} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} \\
-\hline
-Treatments & 67.35 & 3 & 22.45 & 0.616 \\
-Error & 583.20 & 16 & 36.45 & \\
-Total & 650.55 & 19 & & \\
-\hline
-\end{tabular}
-\end{table}
-
-With $F_{0.05,3,16} = 3.24$, since $F_0 = 0.616 < 3.24$, we fail to reject $H_0$. There is insufficient evidence to conclude that the adhesive formulations differ in strength.
-
 
 \section{Randomized Block Design (RBD)}
 
-\subsection{Design Rationale}
+\subsection{Description}
 
-The randomized block design is used when the experimental units are not homogeneous, but can be grouped into homogeneous blocks. This design:
+Used when experimental units are not homogeneous and there's a known source of variation that can be controlled through blocking.
+
+\subsection{When to Use RBD}
+
 \begin{itemize}
-\item Reduces experimental error by removing the effect of blocking variables
-\item Increases the precision of treatment comparisons
-\item Requires that each treatment appears exactly once in each block
+    \item Experimental units are heterogeneous
+    \item There's an identifiable source of variation to control
+    \item Want to increase precision of treatment comparisons
 \end{itemize}
 
-\subsection{Mathematical Model}
+\subsection{Example: Drug Study with Age Groups}
 
-For a randomized block design with $a$ treatments and $b$ blocks, the linear model is:
+\textbf{Problem:} Same drug effectiveness study, but patients vary significantly in age, which affects drug response.
+
+\textbf{Design:}
+\begin{itemize}
+    \item Create 4 age blocks: 20-30, 30-40, 40-50, 50-60 years
+    \item Within each block, randomly assign patients to Drug A, Drug B, and Placebo
+    \item Each treatment appears once in each block
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{RBD Layout for Drug Study}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Age Block} & \textbf{Drug A} & \textbf{Drug B} & \textbf{Placebo} \\
+\hline
+20-30 years & Patient 3 & Patient 7 & Patient 12 \\
+30-40 years & Patient 15 & Patient 2 & Patient 8 \\
+40-50 years & Patient 9 & Patient 18 & Patient 5 \\
+50-60 years & Patient 21 & Patient 11 & Patient 14 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Statistical Model}
 
 \begin{equation}
 y_{ij} = \mu + \tau_i + \beta_j + \epsilon_{ij}
@@ -13389,567 +12394,364 @@ y_{ij} = \mu + \tau_i + \beta_j + \epsilon_{ij}
 
 where:
 \begin{itemize}
-\item $y_{ij}$ is the observation for treatment $i$ in block $j$
-\item $\mu$ is the overall mean
-\item $\tau_i$ is the effect of treatment $i$
-\item $\beta_j$ is the effect of block $j$
-\item $\epsilon_{ij}$ is the random error
-\item $i = 1, 2, \ldots, a$ and $j = 1, 2, \ldots, b$
+    \item $\beta_j$ = effect of $j$th block
+    \item Other terms as in CRD
 \end{itemize}
-
-The model constraints are:
-\begin{align}
-\sum_{i=1}^{a} \tau_i &= 0 \\
-\sum_{j=1}^{b} \beta_j &= 0
-\end{align}
 
 \subsection{ANOVA for RBD}
 
-The sum of squares decomposition for RBD is:
-
 \begin{equation}
-SS_{Total} = SS_{Treatments} + SS_{Blocks} + SS_{Error}
+SS_{Total} = SS_{Treatment} + SS_{Block} + SS_{Error}
 \end{equation}
 
-where:
-\begin{align}
-SS_{Total} &= \sum_{i=1}^{a} \sum_{j=1}^{b} (y_{ij} - \overline{y}_{\cdot\cdot})^2 \\
-SS_{Treatments} &= b \sum_{i=1}^{a} (\overline{y}_{i\cdot} - \overline{y}_{\cdot\cdot})^2 \\
-SS_{Blocks} &= a \sum_{j=1}^{b} (\overline{y}_{\cdot j} - \overline{y}_{\cdot\cdot})^2 \\
-SS_{Error} &= \sum_{i=1}^{a} \sum_{j=1}^{b} (y_{ij} - \overline{y}_{i\cdot} - \overline{y}_{\cdot j} + \overline{y}_{\cdot\cdot})^2
-\end{align}
-
-The ANOVA table for RBD is:
-
 \begin{table}[h]
 \centering
+\caption{ANOVA Table for RBD}
 \begin{tabular}{|l|c|c|c|c|}
 \hline
-\textbf{Source of Variation} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} \\
+\textbf{Source} & \textbf{df} & \textbf{SS} & \textbf{MS} & \textbf{F} \\
 \hline
-Treatments & $SS_T$ & $a-1$ & $MS_T$ & $F_{T} = \frac{MS_T}{MS_E}$ \\
-Blocks & $SS_B$ & $b-1$ & $MS_B$ & $F_{B} = \frac{MS_B}{MS_E}$ \\
-Error & $SS_E$ & $(a-1)(b-1)$ & $MS_E$ & \\
-Total & $SS_{Total}$ & $ab-1$ & & \\
+Treatment & $t-1$ & $SS_{Treatment}$ & $MS_{Treatment}$ & $\frac{MS_{Treatment}}{MS_{Error}}$ \\
+Block & $b-1$ & $SS_{Block}$ & $MS_{Block}$ & $\frac{MS_{Block}}{MS_{Error}}$ \\
+Error & $(t-1)(b-1)$ & $SS_{Error}$ & $MS_{Error}$ & \\
 \hline
-\end{tabular}
-\caption{ANOVA Table for Randomized Block Design}
-\end{table}
-
-\subsection{Computational Formulas for RBD}
-
-\begin{align}
-SS_{Total} &= \sum_{i=1}^{a} \sum_{j=1}^{b} y_{ij}^2 - \frac{y_{\cdot\cdot}^2}{ab} \\
-SS_{Treatments} &= \frac{1}{b} \sum_{i=1}^{a} y_{i\cdot}^2 - \frac{y_{\cdot\cdot}^2}{ab} \\
-SS_{Blocks} &= \frac{1}{a} \sum_{j=1}^{b} y_{\cdot j}^2 - \frac{y_{\cdot\cdot}^2}{ab} \\
-SS_{Error} &= SS_{Total} - SS_{Treatments} - SS_{Blocks}
-\end{align}
-
-\subsection{Example: Randomized Block Design}
-
-
-An engineer wishes to compare four different methods for assembling a component. The assembly time may be affected by the operator, so operators are used as blocks. Four operators are selected, and each operator uses all four methods. The assembly times (in minutes) are:
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\textbf{Operator} & \textbf{Method 1} & \textbf{Method 2} & \textbf{Method 3} & \textbf{Method 4} & \textbf{Total} \\
-\hline
-1 & 10 & 15 & 12 & 11 & 48 \\
-2 & 12 & 18 & 13 & 16 & 59 \\
-3 & 14 & 20 & 15 & 18 & 67 \\
-4 & 16 & 22 & 17 & 20 & 75 \\
-\hline
-\textbf{Total} & 52 & 75 & 57 & 65 & 249 \\
+Total & $tb-1$ & $SS_{Total}$ & & \\
 \hline
 \end{tabular}
 \end{table}
 
-\textbf{Solution:}
+\section{Latin Square Design (LSD)}
 
-First, we calculate:
-\begin{align}
-\sum_{i=1}^{4} \sum_{j=1}^{4} y_{ij}^2 &= 10^2 + 15^2 + \cdots + 20^2 = 4037
-\end{align}
+\subsection{Description}
 
-Computing the sums of squares:
-\begin{align}
-SS_{Total} &= 4037 - \frac{249^2}{16} = 4037 - 3876.56 = 160.44 \\
-SS_{Treatments} &= \frac{1}{4}(52^2 + 75^2 + 57^2 + 65^2) - \frac{249^2}{16} \\
-&= \frac{1}{4}(15,483) - 3876.56 = 3870.75 - 3876.56 = -5.81 \\
-&\text{(Recalculating)} = 3870.75 - 3876.56 = -5.81
-\end{align}
+Used when there are two sources of variation to be controlled simultaneously, and the number of levels for each source equals the number of treatments.
 
-Let me recalculate more carefully:
-\begin{align}
-SS_{Treatments} &= \frac{1}{4}(52^2 + 75^2 + 57^2 + 65^2) - \frac{249^2}{16} \\
-&= \frac{1}{4}(2704 + 5625 + 3249 + 4225) - 3876.56 \\
-&= \frac{15803}{4} - 3876.56 = 3950.75 - 3876.56 = 74.19 \\
-SS_{Blocks} &= \frac{1}{4}(48^2 + 59^2 + 67^2 + 75^2) - \frac{249^2}{16} \\
-&= \frac{1}{4}(2304 + 3481 + 4489 + 5625) - 3876.56 \\
-&= \frac{15899}{4} - 3876.56 = 3974.75 - 3876.56 = 98.19 \\
-SS_{Error} &= 160.44 - 74.19 - 98.19 = -11.94
-\end{align}
+\subsection{When to Use LSD}
 
-Since we're getting a negative error sum of squares, let me recalculate the total sum of squares:
-\begin{align}
-SS_{Total} &= 4037 - \frac{249^2}{16} = 4037 - 3876.5625 = 160.4375
-\end{align}
-
-The small negative value suggests computational rounding. The correct calculation gives:
-$SS_{Error} = 160.44 - 74.19 - 98.19 = -11.94 \approx 0$ (due to rounding)
-
-For practical purposes, we use a small positive value. The ANOVA table is:
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-\textbf{Source} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} \\
-\hline
-Methods & 74.19 & 3 & 24.73 & Large \\
-Operators & 98.19 & 3 & 32.73 & Large \\
-Error & $\approx 0$ & 9 & $\approx 0$ & \\
-Total & 160.44 & 15 & & \\
-\hline
-\end{tabular}
-\end{table}
-
-The very small error term indicates a perfect fit, suggesting strong treatment and block effects.
-
-
-\section{Latin Square Design}
-
-\subsection{Design Structure}
-
-The Latin square design is used when we need to control two sources of variation simultaneously. It is a special case of the randomized block design where:
 \begin{itemize}
-\item There are equal numbers of treatments, row blocks, and column blocks
-\item Each treatment appears exactly once in each row and each column
-\item The design is particularly useful when we have two blocking factors
+    \item Two identifiable sources of variation
+    \item Number of treatments = number of levels of each blocking factor
+    \item Want to control both sources of variation
 \end{itemize}
 
-A Latin square of size $p \times p$ accommodates $p$ treatments, $p$ row blocks, and $p$ column blocks.
+\subsection{Example: Drug Study with Age and Gender}
 
-\subsection{Mathematical Model}
+\textbf{Problem:} Test effectiveness of 4 drug formulations, controlling for both age groups and gender.
 
-For a $p \times p$ Latin square design, the linear model is:
-
-\begin{equation}
-y_{ijk} = \mu + \alpha_i + \tau_j + \beta_k + \epsilon_{ijk}
-\end{equation}
-
-where:
+\textbf{Design:}
 \begin{itemize}
-\item $y_{ijk}$ is the observation for treatment $j$ in row $i$ and column $k$
-\item $\mu$ is the overall mean
-\item $\alpha_i$ is the effect of row $i$
-\item $\tau_j$ is the effect of treatment $j$
-\item $\beta_k$ is the effect of column $k$
-\item $\epsilon_{ijk}$ is the random error
-\item $i, j, k = 1, 2, \ldots, p$
+    \item 4 treatments: Drug A, Drug B, Drug C, Placebo
+    \item 4 age groups (rows): 20-30, 30-40, 40-50, 50-60
+    \item 4 gender/severity combinations (columns)
+    \item Each treatment appears once in each row and column
 \end{itemize}
 
-The constraints are:
-\begin{align}
-\sum_{i=1}^{p} \alpha_i &= 0 \\
-\sum_{j=1}^{p} \tau_j &= 0 \\
-\sum_{k=1}^{p} \beta_k &= 0
-\end{align}
-
-\subsection{ANOVA for Latin Square Design}
-
-The sum of squares decomposition is:
-
-\begin{equation}
-SS_{Total} = SS_{Treatments} + SS_{Rows} + SS_{Columns} + SS_{Error}
-\end{equation}
-
-where:
-\begin{align}
-SS_{Total} &= \sum_{i=1}^{p} \sum_{k=1}^{p} (y_{ik} - \overline{y}_{\cdot\cdot})^2 \\
-SS_{Treatments} &= p \sum_{j=1}^{p} (\overline{y}_{\cdot j \cdot} - \overline{y}_{\cdot\cdot})^2 \\
-SS_{Rows} &= p \sum_{i=1}^{p} (\overline{y}_{i \cdot \cdot} - \overline{y}_{\cdot\cdot})^2 \\
-SS_{Columns} &= p \sum_{k=1}^{p} (\overline{y}_{\cdot \cdot k} - \overline{y}_{\cdot\cdot})^2
-\end{align}
-
-The ANOVA table for Latin square design is:
-
 \begin{table}[h]
 \centering
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-\textbf{Source of Variation} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} \\
-\hline
-Treatments & $SS_T$ & $p-1$ & $MS_T$ & $F_{T} = \frac{MS_T}{MS_E}$ \\
-Rows & $SS_R$ & $p-1$ & $MS_R$ & $F_{R} = \frac{MS_R}{MS_E}$ \\
-Columns & $SS_C$ & $p-1$ & $MS_C$ & $F_{C} = \frac{MS_C}{MS_E}$ \\
-Error & $SS_E$ & $(p-1)(p-2)$ & $MS_E$ & \\
-Total & $SS_{Total}$ & $p^2-1$ & & \\
-\hline
-\end{tabular}
-\caption{ANOVA Table for Latin Square Design}
-\end{table}
-
-\subsection{Example: Latin Square Design}
-
-
-A chemical engineer wishes to test the effect of four different catalysts on the yield of a chemical process. It is known that the position in the reactor (rows) and the day of the week (columns) may affect the yield. A $4 \times 4$ Latin square is used:
-
-\begin{table}[h]
-\centering
+\caption{Latin Square Design Layout}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Position} & \textbf{Day 1} & \textbf{Day 2} & \textbf{Day 3} & \textbf{Day 4} \\
+\textbf{Age Group} & \multicolumn{4}{c|}{\textbf{Gender/Severity Combination}} \\
+\cline{2-5}
+& 1 & 2 & 3 & 4 \\
 \hline
-1 & A(24) & B(20) & C(19) & D(24) \\
-2 & B(17) & C(24) & D(30) & A(30) \\
-3 & C(18) & D(38) & A(26) & B(31) \\
-4 & D(26) & A(31) & B(26) & C(22) \\
+20-30 & A & B & C & D \\
+30-40 & B & C & D & A \\
+40-50 & C & D & A & B \\
+50-60 & D & A & B & C \\
 \hline
 \end{tabular}
 \end{table}
 
-The letters A, B, C, D represent the catalysts, and the numbers in parentheses are the yields.
+\subsection{Statistical Model}
 
-\textbf{Solution:}
+\begin{equation}
+y_{ijk} = \mu + \alpha_i + \beta_j + \tau_k + \epsilon_{ijk}
+\end{equation}
 
-First, we arrange the data systematically:
-\begin{align}
-\text{Treatment totals:} \quad &A: 24 + 30 + 26 + 31 = 111 \\
-&B: 20 + 17 + 31 + 26 = 94 \\
-&C: 19 + 24 + 18 + 22 = 83 \\
-&D: 24 + 30 + 38 + 26 = 118 \\
-\text{Row totals:} \quad &\text{Position 1: } 87 \\
-&\text{Position 2: } 101 \\
-&\text{Position 3: } 113 \\
-&\text{Position 4: } 105 \\
-\text{Column totals:} \quad &\text{Day 1: } 85 \\
-&\text{Day 2: } 113 \\
-&\text{Day 3: } 101 \\
-&\text{Day 4: } 107
-\end{align}
+where:
+\begin{itemize}
+    \item $\alpha_i$ = effect of $i$th row
+    \item $\beta_j$ = effect of $j$th column
+    \item $\tau_k$ = effect of $k$th treatment
+\end{itemize}
 
-Grand total: $y_{\cdot\cdot} = 406$
+\subsection{ANOVA for LSD}
 
-$\sum y_{ik}^2 = 24^2 + 20^2 + \cdots + 22^2 = 10,918$
-
-Computing sums of squares:
-\begin{align}
-SS_{Total} &= 10,918 - \frac{406^2}{16} = 10,918 - 10,302.25 = 615.75 \\
-SS_{Treatments} &= \frac{1}{4}(111^2 + 94^2 + 83^2 + 118^2) - \frac{406^2}{16} \\
-&= \frac{1}{4}(41,570) - 10,302.25 = 10,392.5 - 10,302.25 = 90.25 \\
-SS_{Rows} &= \frac{1}{4}(87^2 + 101^2 + 113^2 + 105^2) - \frac{406^2}{16} \\
-&= \frac{1}{4}(41,404) - 10,302.25 = 10,351 - 10,302.25 = 48.75 \\
-SS_{Columns} &= \frac{1}{4}(85^2 + 113^2 + 101^2 + 107^2) - \frac{406^2}{16} \\
-&= \frac{1}{4}(41,564) - 10,302.25 = 10,391 - 10,302.25 = 88.75 \\
-SS_{Error} &= 615.75 - 90.25 - 48.75 - 88.75 = 388
-\end{align}
-
-The ANOVA table is:
+\begin{equation}
+SS_{Total} = SS_{Row} + SS_{Column} + SS_{Treatment} + SS_{Error}
+\end{equation}
 
 \begin{table}[h]
 \centering
+\caption{ANOVA Table for Latin Square Design}
 \begin{tabular}{|l|c|c|c|c|}
 \hline
-\textbf{Source} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} \\
+\textbf{Source} & \textbf{df} & \textbf{SS} & \textbf{MS} & \textbf{F} \\
 \hline
-Catalysts & 90.25 & 3 & 30.08 & 0.465 \\
-Positions & 48.75 & 3 & 16.25 & 0.251 \\
-Days & 88.75 & 3 & 29.58 & 0.457 \\
-Error & 388.00 & 6 & 64.67 & \\
-Total & 615.75 & 15 & & \\
+Rows & $p-1$ & $SS_{Row}$ & $MS_{Row}$ & $\frac{MS_{Row}}{MS_{Error}}$ \\
+Columns & $p-1$ & $SS_{Column}$ & $MS_{Column}$ & $\frac{MS_{Column}}{MS_{Error}}$ \\
+Treatments & $p-1$ & $SS_{Treatment}$ & $MS_{Treatment}$ & $\frac{MS_{Treatment}}{MS_{Error}}$ \\
+Error & $(p-2)(p-1)$ & $SS_{Error}$ & $MS_{Error}$ & \\
+\hline
+Total & $p^2-1$ & $SS_{Total}$ & & \\
 \hline
 \end{tabular}
 \end{table}
 
-With $F_{0.05,3,6} = 4.76$, all F-statistics are less than the critical value, so we conclude that there are no significant differences among catalysts, positions, or days.
+\section{Factorial Designs}
 
+\subsection{Introduction}
 
-\section{Model Assumptions and Diagnostics}
+Factorial designs study multiple factors simultaneously, allowing examination of:
+\begin{itemize}
+    \item \textbf{Main Effects}: Individual effect of each factor
+    \item \textbf{Interaction Effects}: Combined effect of factors
+    \item \textbf{Efficiency}: More information per experimental run
+\end{itemize}
+
+\subsection{Advantages of Factorial Design}
+
+\begin{enumerate}
+    \item Study multiple factors in single experiment
+    \item Detect interactions between factors
+    \item More efficient than one-factor-at-a-time experiments
+    \item Results apply over wider range of conditions
+\end{enumerate}
+
+\section{Two-Factor Factorial Design ($2^2$ Design)}
+
+\subsection{Description}
+
+Studies two factors, each at two levels, requiring $2 \times 2 = 4$ treatment combinations.
+
+\subsection{Example: Drug Dosage and Timing Study}
+
+\textbf{Problem:} Study effect of drug dosage (Low/High) and timing (Morning/Evening) on blood pressure reduction.
+
+\textbf{Factors:}
+\begin{itemize}
+    \item Factor A (Dosage): Low (10mg), High (20mg)
+    \item Factor B (Timing): Morning, Evening
+\end{itemize}
+
+\textbf{Treatment Combinations:}
+\begin{enumerate}
+    \item $a_1b_1$: Low dosage, Morning
+    \item $a_1b_2$: Low dosage, Evening
+    \item $a_2b_1$: High dosage, Morning
+    \item $a_2b_2$: High dosage, Evening
+\end{enumerate}
+
+\begin{table}[h]
+\centering
+\caption{$2^2$ Factorial Design Layout}
+\begin{tabular}{|c|c|c|}
+\hline
+& \multicolumn{2}{c|}{\textbf{Factor B (Timing)}} \\
+\textbf{Factor A (Dosage)} & \textbf{Morning ($b_1$)} & \textbf{Evening ($b_2$)} \\
+\hline
+Low ($a_1$) & $a_1b_1$ & $a_1b_2$ \\
+High ($a_2$) & $a_2b_1$ & $a_2b_2$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Effects in $2^2$ Design}
+
+\textbf{Main Effect of Factor A (Dosage):}
+\begin{equation}
+\text{Main Effect of A} = \frac{(a_2b_1 + a_2b_2) - (a_1b_1 + a_1b_2)}{2}
+\end{equation}
+
+\textbf{Main Effect of Factor B (Timing):}
+\begin{equation}
+\text{Main Effect of B} = \frac{(a_1b_2 + a_2b_2) - (a_1b_1 + a_2b_1)}{2}
+\end{equation}
+
+\textbf{Interaction Effect AB:}
+\begin{equation}
+\text{AB Interaction} = \frac{(a_1b_1 + a_2b_2) - (a_1b_2 + a_2b_1)}{2}
+\end{equation}
+
+\subsection{Interpretation of Interaction}
+
+\begin{itemize}
+    \item \textbf{No Interaction}: Effect of one factor is same regardless of level of other factor
+    \item \textbf{Interaction Present}: Effect of one factor depends on level of other factor
+\end{itemize}
+
+\subsection{Statistical Model for $2^2$ Design}
+
+\begin{equation}
+y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \epsilon_{ijk}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $(\alpha\beta)_{ij}$ = interaction effect between factors A and B
+\end{itemize}
+
+\section{Three-Factor Factorial Design ($2^3$ Design)}
+
+\subsection{Description}
+
+Studies three factors, each at two levels, requiring $2 \times 2 \times 2 = 8$ treatment combinations.
+
+\subsection{Example: Drug, Dosage, and Exercise Study}
+
+\textbf{Problem:} Study effects of drug type (A/B), dosage (Low/High), and exercise (No/Yes) on blood pressure.
+
+\textbf{Factors:}
+\begin{itemize}
+    \item Factor A (Drug): Type A, Type B
+    \item Factor B (Dosage): Low, High
+    \item Factor C (Exercise): No, Yes
+\end{itemize}
+
+\textbf{Treatment Combinations:}
+\begin{enumerate}
+    \item $a_1b_1c_1$: Drug A, Low dosage, No exercise
+    \item $a_1b_1c_2$: Drug A, Low dosage, Exercise
+    \item $a_1b_2c_1$: Drug A, High dosage, No exercise
+    \item $a_1b_2c_2$: Drug A, High dosage, Exercise
+    \item $a_2b_1c_1$: Drug B, Low dosage, No exercise
+    \item $a_2b_1c_2$: Drug B, Low dosage, Exercise
+    \item $a_2b_2c_1$: Drug B, High dosage, No exercise
+    \item $a_2b_2c_2$: Drug B, High dosage, Exercise
+\end{enumerate}
+
+\subsection{Effects in $2^3$ Design}
+
+The $2^3$ design allows estimation of:
+\begin{itemize}
+    \item 3 main effects: A, B, C
+    \item 3 two-factor interactions: AB, AC, BC
+    \item 1 three-factor interaction: ABC
+\end{itemize}
+
+\textbf{Main Effects:}
+\begin{align}
+\text{Main Effect of A} &= \frac{1}{4}[\text{sum of responses with } a_2 - \text{sum of responses with } a_1] \\
+\text{Main Effect of B} &= \frac{1}{4}[\text{sum of responses with } b_2 - \text{sum of responses with } b_1] \\
+\text{Main Effect of C} &= \frac{1}{4}[\text{sum of responses with } c_2 - \text{sum of responses with } c_1]
+\end{align}
+
+\subsection{Statistical Model for $2^3$ Design}
+
+\begin{equation}
+\begin{aligned}
+y_{ijkl} = \mu &+ \alpha_i + \beta_j + \gamma_k \\
+&+ (\alpha\beta)_{ij} + (\alpha\gamma)_{ik} + (\beta\gamma)_{jk} \\
+&+ (\alpha\beta\gamma)_{ijk} + \epsilon_{ijkl}
+\end{aligned}
+\end{equation}
+
+\section{Analysis of Variance for Factorial Designs}
+
+\subsection{ANOVA Table for $2^2$ Design}
+
+\begin{table}[h]
+\centering
+\caption{ANOVA Table for $2^2$ Factorial Design}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Source} & \textbf{df} & \textbf{SS} & \textbf{MS} & \textbf{F} \\
+\hline
+Factor A & 1 & $SS_A$ & $MS_A$ & $\frac{MS_A}{MS_E}$ \\
+Factor B & 1 & $SS_B$ & $MS_B$ & $\frac{MS_B}{MS_E}$ \\
+Interaction AB & 1 & $SS_{AB}$ & $MS_{AB}$ & $\frac{MS_{AB}}{MS_E}$ \\
+Error & $ab(n-1)$ & $SS_E$ & $MS_E$ & \\
+\hline
+Total & $abn-1$ & $SS_T$ & & \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{ANOVA Table for $2^3$ Design}
+
+\begin{table}[h]
+\centering
+\caption{ANOVA Table for $2^3$ Factorial Design}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Source} & \textbf{df} & \textbf{SS} & \textbf{MS} & \textbf{F} \\
+\hline
+Factor A & 1 & $SS_A$ & $MS_A$ & $\frac{MS_A}{MS_E}$ \\
+Factor B & 1 & $SS_B$ & $MS_B$ & $\frac{MS_B}{MS_E}$ \\
+Factor C & 1 & $SS_C$ & $MS_C$ & $\frac{MS_C}{MS_E}$ \\
+AB Interaction & 1 & $SS_{AB}$ & $MS_{AB}$ & $\frac{MS_{AB}}{MS_E}$ \\
+AC Interaction & 1 & $SS_{AC}$ & $MS_{AC}$ & $\frac{MS_{AC}}{MS_E}$ \\
+BC Interaction & 1 & $SS_{BC}$ & $MS_{BC}$ & $\frac{MS_{BC}}{MS_E}$ \\
+ABC Interaction & 1 & $SS_{ABC}$ & $MS_{ABC}$ & $\frac{MS_{ABC}}{MS_E}$ \\
+Error & $abc(n-1)$ & $SS_E$ & $MS_E$ & \\
+\hline
+Total & $abcn-1$ & $SS_T$ & & \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Assumptions and Model Checking}
 
 \subsection{ANOVA Assumptions}
 
-The validity of ANOVA depends on several key assumptions:
+For valid ANOVA results, the following assumptions must hold:
 
 \begin{enumerate}
-\item \textbf{Normality}: The errors $\epsilon_{ij}$ are normally distributed
-\item \textbf{Independence}: The errors are independent
-\item \textbf{Constant Variance}: The errors have constant variance $\sigma^2$ (homoscedasticity)
-\item \textbf{Additivity}: The treatment and block effects are additive (no interaction)
+    \item \textbf{Normality}: Residuals are normally distributed
+    \item \textbf{Independence}: Observations are independent
+    \item \textbf{Homoscedasticity}: Equal variances across treatments
+    \item \textbf{Additivity}: Treatment and block effects are additive
 \end{enumerate}
 
-\subsection{Residual Analysis}
-
-Residuals are the differences between observed and fitted values:
-\begin{equation}
-e_{ij} = y_{ij} - \hat{y}_{ij}
-\end{equation}
-
-For a completely randomized design:
-\begin{equation}
-e_{ij} = y_{ij} - \overline{y}_{i\cdot}
-\end{equation}
-
-For a randomized block design:
-\begin{equation}
-e_{ij} = y_{ij} - \overline{y}_{i\cdot} - \overline{y}_{\cdot j} + \overline{y}_{\cdot\cdot}
-\end{equation}
-
-\subsection{Diagnostic Plots}
-
-\begin{enumerate}
-\item \textbf{Normal Probability Plot}: Plot residuals against expected normal scores
-\item \textbf{Residuals vs. Fitted Values}: Check for constant variance
-\item \textbf{Residuals vs. Treatment}: Check for equal variances across treatments
-\item \textbf{Residuals vs. Order}: Check for independence
-\end{enumerate}
-
-\section{Multiple Comparisons}
-
-When the null hypothesis in ANOVA is rejected, we know that at least one treatment mean differs, but we don't know which ones. Multiple comparison procedures help identify which specific means differ.
-
-\subsection{Least Significant Difference (LSD) Method}
-
-The LSD method uses the t-test to compare pairs of means:
-
-\begin{equation}
-\text{LSD} = t_{\alpha/2, \nu} \sqrt{MS_E \left(\frac{1}{n_i} + \frac{1}{n_j}\right)}
-\end{equation}
-
-where $\nu$ is the degrees of freedom for error.
-
-Two means $\overline{y}_{i\cdot}$ and $\overline{y}_{j\cdot}$ are significantly different if:
-\begin{equation}
-|\overline{y}_{i\cdot} - \overline{y}_{j\cdot}| > \text{LSD}
-\end{equation}
-
-\subsection{Tukey's Honest Significant Difference (HSD)}
-
-Tukey's method controls the family-wise error rate:
-
-\begin{equation}
-\text{HSD} = q_{\alpha, a, \nu} \sqrt{\frac{MS_E}{n}}
-\end{equation}
-
-where $q_{\alpha, a, \nu}$ is the studentized range statistic.
-
-\subsection{Bonferroni Method}
-
-The Bonferroni method adjusts the significance level for multiple comparisons:
-
-\begin{equation}
-\text{Bonferroni LSD} = t_{\alpha/(2m), \nu} \sqrt{MS_E \left(\frac{1}{n_i} + \frac{1}{n_j}\right)}
-\end{equation}
-
-where $m$ is the number of pairwise comparisons.
-
-\section{Power and Sample Size}
-
-\subsection{Power of the ANOVA F-Test}
-
-The power of the ANOVA F-test depends on:
-\begin{itemize}
-\item The significance level $\alpha$
-\item The true treatment effects $\tau_i$
-\item The error variance $\sigma^2$
-\item The number of replicates $n$
-\end{itemize}
-
-The noncentrality parameter is:
-\begin{equation}
-\lambda = \frac{n \sum_{i=1}^{a} \tau_i^2}{\sigma^2}
-\end{equation}
-
-\subsection{Sample Size Determination}
-
-To achieve a desired power $1-\beta$, we can determine the required sample size. For detecting a difference $\Delta$ between the largest and smallest treatment means with standard deviation $\sigma$, the approximate sample size per treatment is:
-
-\begin{equation}
-n \approx \frac{2\sigma^2(t_{\alpha/2,\nu} + t_{\beta,\nu})^2}{\Delta^2}
-\end{equation}
-
-\section{Extensions and Variations}
-
-\subsection{Unbalanced Designs}
-
-When the number of observations per treatment is not equal ($n_i \neq n_j$), the design is unbalanced. The ANOVA formulas need modification:
-
-\begin{align}
-SS_{Treatments} &= \sum_{i=1}^{a} n_i (\overline{y}_{i\cdot} - \overline{y}_{\cdot\cdot})^2 \\
-df_{Error} &= \sum_{i=1}^{a} (n_i - 1) = N - a
-\end{align}
-
-where $N = \sum_{i=1}^{a} n_i$ is the total number of observations.
-
-\subsection{Fixed vs. Random Effects}
-
-\begin{textbox}
-Fixed Effects Model-
-In a fixed effects model, the treatment levels are specifically chosen and inferences apply only to these levels.
-\end{textbox}
-
-\begin{textbox}
-Random Effects Model-
-In a random effects model, the treatment levels are randomly selected from a larger population, and inferences extend to the entire population.
-\end{textbox}
-
-For random effects, the model becomes:
-\begin{equation}
-y_{ij} = \mu + A_i + \epsilon_{ij}
-\end{equation}
-
-where $A_i \sim N(0, \sigma_A^2)$ and $\epsilon_{ij} \sim N(0, \sigma^2)$.
-
-The hypothesis becomes:
-\begin{align}
-H_0: &\quad \sigma_A^2 = 0 \\
-H_1: &\quad \sigma_A^2 > 0
-\end{align}
-
-\subsection{Expected Mean Squares}
-
-For the fixed effects model:
-\begin{align}
-E[MS_{Treatments}] &= \sigma^2 + \frac{n \sum_{i=1}^{a} \tau_i^2}{a-1} \\
-E[MS_{Error}] &= \sigma^2
-\end{align}
-
-For the random effects model:
-\begin{align}
-E[MS_{Treatments}] &= \sigma^2 + n\sigma_A^2 \\
-E[MS_{Error}] &= \sigma^2
-\end{align}
-
-\section{Nonparametric Alternatives}
-
-When ANOVA assumptions are severely violated, nonparametric alternatives may be used:
-
-\subsection{Kruskal-Wallis Test}
-
-The Kruskal-Wallis test is the nonparametric alternative to one-way ANOVA:
-
-\begin{equation}
-H = \frac{12}{N(N+1)} \sum_{i=1}^{a} \frac{R_i^2}{n_i} - 3(N+1)
-\end{equation}
-
-where $R_i$ is the sum of ranks for treatment $i$.
-
-\subsection{Friedman Test}
-
-The Friedman test is the nonparametric alternative to randomized block design:
-
-\begin{equation}
-\chi_r^2 = \frac{12}{ba(a+1)} \sum_{i=1}^{a} R_i^2 - 3b(a+1)
-\end{equation}
-
-where $R_i$ is the sum of ranks for treatment $i$ across all blocks.
-
-\section{Practical Considerations}
-
-\subsection{Experimental Design Guidelines}
-
-\begin{enumerate}
-\item \textbf{Randomization}: Always randomize the assignment of treatments to experimental units
-\item \textbf{Replication}: Include sufficient replication to estimate error variance
-\item \textbf{Blocking}: Use blocking when experimental units are heterogeneous
-\item \textbf{Control}: Include control treatments when appropriate
-\end{enumerate}
-
-\subsection{Effect Size}
-
-The magnitude of treatment effects can be measured using:
-
-\begin{equation}
-\omega^2 = \frac{SS_{Treatments} - (a-1)MS_{Error}}{SS_{Total} + MS_{Error}}
-\end{equation}
-
-This measures the proportion of total variance due to treatments.
-
-\subsection{Confidence Intervals}
-
-Confidence intervals for treatment means in balanced designs:
-
-\begin{equation}
-\overline{y}_{i\cdot} \pm t_{\alpha/2,\nu} \sqrt{\frac{MS_{Error}}{n}}
-\end{equation}
-
-For pairwise differences:
-
-\begin{equation}
-(\overline{y}_{i\cdot} - \overline{y}_{j\cdot}) \pm t_{\alpha/2,\nu} \sqrt{\frac{2MS_{Error}}{n}}
-\end{equation}
-
-\section{Advanced Topics}
-
-\subsection{Missing Data}
-
-When observations are missing in designed experiments, several approaches are available:
-
-\begin{enumerate}
-\item \textbf{Complete Case Analysis}: Analyze only complete cases
-\item \textbf{Imputation}: Estimate missing values
-\item \textbf{Mixed Models}: Use methods that can handle unbalanced data
-\end{enumerate}
-
-For a single missing observation in RBD, the estimate is:
-\begin{equation}
-\hat{y}_{ij} = \frac{a \cdot T_i + b \cdot B_j - G}{(a-1)(b-1)}
-\end{equation}
-
-where $T_i$ is the treatment total, $B_j$ is the block total, and $G$ is the grand total.
-
-\subsection{Transformation of Data}
-
-When assumptions are violated, data transformations may help:
+\subsection{Checking Assumptions}
 
 \begin{itemize}
-\item \textbf{Square Root}: $y' = \sqrt{y}$ (for Poisson data)
-\item \textbf{Logarithmic}: $y' = \log(y)$ (for multiplicative effects)
-\item \textbf{Arcsine}: $y' = \arcsin(\sqrt{y})$ (for proportion data)
-\item \textbf{Box-Cox}: $y' = \frac{y^\lambda - 1}{\lambda}$ (general power transformation)
-\end{itemize}
-
-\section{Computer Implementation}
-
-Modern statistical software packages provide comprehensive ANOVA capabilities. The general steps are:
-
-\begin{enumerate}
-\item Data input and organization
-\item Model specification
-\item ANOVA computation
-\item Residual analysis
-\item Multiple comparisons (if needed)
-\item Report generation
-\end{enumerate}
-
-Key output includes:
-\begin{itemize}
-\item ANOVA table with F-statistics and p-values
-\item Treatment means and standard errors
-\item Residual plots for assumption checking
-\item Multiple comparison results
+    \item \textbf{Normality}: Normal probability plots, Shapiro-Wilk test
+    \item \textbf{Independence}: Randomization, knowledge of experimental procedure
+    \item \textbf{Equal Variances}: Residual plots, Levene's test
+    \item \textbf{Additivity}: Residual analysis, Tukey's test for non-additivity
 \end{itemize}
 
 \section{Summary}
 
-Single-factor experiments analyzed using ANOVA provide a powerful framework for comparing treatment means. The key points are:
+\subsection{Design Selection Guide}
+
+\begin{table}[h]
+\centering
+\caption{Guide for Selecting Experimental Design}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Design} & \textbf{Use When} & \textbf{Controls For} \\
+\hline
+CRD & Homogeneous units & Nothing \\
+RBD & One source of variation & One blocking factor \\
+LSD & Two sources of variation & Two blocking factors \\
+Factorial & Multiple factors of interest & Factor interactions \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Key Principles}
+
+\begin{enumerate}
+    \item Always randomize treatment assignments
+    \item Include adequate replication
+    \item Control known sources of variation through blocking
+    \item Consider factorial designs when studying multiple factors
+    \item Check model assumptions before drawing conclusions
+\end{enumerate}
+
+\subsection{Benefits of Proper Design}
 
 \begin{itemize}
-\item ANOVA partitions total variation into treatment and error components
-\item Different experimental designs (CRD, RBD, Latin Square) control different sources of variation
-\item Model assumptions must be verified through residual analysis
-\item Multiple comparison procedures identify specific treatment differences
-\item Power and sample size considerations are important in experimental planning
-\item Extensions include unbalanced designs, random effects, and nonparametric alternatives
+    \item Valid and reliable conclusions
+    \item Efficient use of resources
+    \item Ability to detect important effects
+    \item Control of experimental error
+    \item Broader applicability of results
 \end{itemize}
 
-The choice of experimental design depends on the nature of the experimental units and the sources of variation that need to be controlled. Completely randomized designs are simplest but assume homogeneous experimental units. Randomized block designs control one nuisance factor, while Latin square designs control two nuisance factors simultaneously.
-
-Proper application of ANOVA requires careful attention to experimental design principles, assumption verification, and appropriate interpretation of results. When assumptions are violated, transformations or nonparametric alternatives should be considered.
-
-The ultimate goal is to make valid statistical inferences about treatment effects while controlling experimental error and maximizing the power of the statistical tests. This requires integration of good experimental design practices with appropriate statistical analysis methods.
-
+Design of Experiments provides a systematic framework for conducting efficient and reliable experiments. By following the principles of randomization, replication, and blocking, and choosing appropriate designs, researchers can obtain maximum information while minimizing costs and ensuring valid conclusions.
 
 \end{document}
