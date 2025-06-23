@@ -10197,9 +10197,7 @@ This approach simplifies analysis, avoids excessive error inflation, and gives a
 \noindent This comparison of between-group and within-group variances forms the basis of the ANOVA test.
 
 
-\section{Analysis for One-Way ANOVA}
-
-\subsection{Mathematical Model}
+\section{Mathematical Model for One-Way ANOVA}
 
 The one-way ANOVA model begins by expressing each observation as the sum of a group-specific mean and a random error component. Specifically, for the \( j \)-th observation in the \( i \)-th group, we write:
 
@@ -10255,7 +10253,7 @@ For valid inference using one-way ANOVA, the following assumptions must be satis
 \end{enumerate}
 
 
-\subsection{Analysis of One-Way Classified Data}
+\section{Analysis of One-Way ANOVA}
 
 \vspace{1em}
 \noindent Suppose we have $k$ independent treatment groups, where $i$th group has $n_1$ observations. The total number of observations is $N = \sum_{i=1}^k n_i$. The following table~\ref{tab:one-way-anova} shows the observations for the one-way ANOVA model.
@@ -10290,7 +10288,7 @@ $\vdots$             & $\vdots$ & $\vdots$ &    &     & $\vdots$ & $\vdots$     
     \item $Y_{\bullet\bullet}$ is the \textbf{grand total} of all observations:
     $$Y_{\bullet\bullet} =\sum_{i=1}^k Y_{i\bullet}= \sum_{i=1}^{k} \sum_{j=1}^{n_i} Y_{ij}$$
     \item $\overline{Y}_{\bullet\bullet}$ is the \textbf{overall (grand) mean}:
-    $$\overline{Y}_{\bullet\bullet} = \dfrac{Y_{\bullet\bullet}}{N} = \dfrac{1}{N}\sum_{i=1}^{k} \sum_{j=1}^{n_i} Y_{ij}$$
+    $$\overline{Y}_{\bullet\bullet} = \dfrac{Y_{\bullet\bullet}}{N} = \dfrac{1}{N}\sum_{i=1}^{k} \sum_{j=1}^{n_i} Y_{ij} = \dfrac{1}{N}\sum_{i=1}^{k} n_i \overline Y_{i\bullet}$$
 \end{itemize}
 
 \subsection{Sum of Squares}
@@ -10361,55 +10359,46 @@ For computational efficiency, the following formulas are often preferred:
 
 \begin{textbox}
 \begin{equation*}
-\text{TSS} = \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2 - \dfrac{1}{N}\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2
+\text{TSS} = \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2 - \dfrac{{Y}_{\bullet\bullet}^2}{N}
 \end{equation*}
 \end{textbox}
 \textbf{Proof}:
 \begin{align*}
 \mathrm{TSS}
-&= \sum_{i=1}^k \sum_{j=1}^{n_i} \bigl(Y_{ij} - \bar Y_{\bullet\bullet}\bigr)^2 \displaybreak[0]\\[6pt]
-&= \sum_{i=1}^k \sum_{j=1}^{n_i} \Bigl(Y_{ij}^2 - 2\,Y_{ij}\,\bar Y_{\bullet\bullet} + \bar Y_{\bullet\bullet}^2\Bigr) \displaybreak[0]\\[6pt]
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} \bigl(Y_{ij} - \overline Y_{\bullet\bullet}\bigr)^2 \displaybreak[0]\\[6pt]
+&= \sum_{i=1}^k \sum_{j=1}^{n_i} \Bigl(Y_{ij}^2 - 2\,Y_{ij}\,\overline Y_{\bullet\bullet} + \overline Y_{\bullet\bullet}^2\Bigr) \displaybreak[0]\\[6pt]
 &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
-   - 2\,\bar Y_{\bullet\bullet} \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}
-   + \sum_{i=1}^k \sum_{j=1}^{n_i} \bar Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
+   - 2\,\overline Y_{\bullet\bullet} \underbrace{\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}}_{=N\overline Y_{\bullet\bullet}}
+   + \sum_{i=1}^k \sum_{j=1}^{n_i} \overline Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
 &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
-   - 2\,\bar Y_{\bullet\bullet}\,(N\,\bar Y_{\bullet\bullet})
-   + N\,\bar Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
+   - 2\,N\,\overline Y_{\bullet\bullet}^2
+   + N\,\overline Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
 &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
-   - 2\,N\,\bar Y_{\bullet\bullet}^2
-   + N\,\bar Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
+   - N\,\overline Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
+   &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
+      - N\,\left(\dfrac{Y_{\bullet\bullet}^2}{N}\right)^2 \displaybreak[0]\\[6pt]
 &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
-   - N\,\bar Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
-&= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
-   - \dfrac{1}{N}\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2
+   - \dfrac{Y_{\bullet\bullet}^2}{N}
 \end{align*}
 
 \hfill $\blacksquare$
 
 \begin{textbox}
 \begin{equation*}
-\text{SST} = \sum_{i=1}^k \dfrac{1}{n_i}\left(\sum_{j=1}^{n_i} Y_{ij}\right)^2 - \dfrac{1}{N}\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2
+\text{SST} = \sum_{i=1}^k \dfrac{Y_{i\bullet}^2}{n_i} - \dfrac{Y_{\bullet\bullet}^2}{N}
 \end{equation*}
 \end{textbox}
 
 \textbf{Proof}:
 \begin{align*}
 \mathrm{SST}
-&= \sum_{i=1}^k n_i\bigl(\bar Y_{i\bullet}-\bar Y_{\bullet\bullet}\bigr)^2 \displaybreak[0]\\
-&= \sum_{i=1}^k n_i
-   \Bigl(\frac{1}{n_i}\sum_{j=1}^{n_i}Y_{ij}
-         - \frac{1}{N}\sum_{i'=1}^k\sum_{j'=1}^{n_{i'}}Y_{i'j'}\Bigr)^{\!2} \displaybreak[0]\\
-&= \sum_{i=1}^k n_i
-   \Bigl(\frac{1}{n_i}\sum_{j}Y_{ij}\Bigr)^2
-  - 2 \sum_{i=1}^k n_i
-   \Bigl(\frac{1}{n_i}\sum_{j}Y_{ij}\Bigr)
-   \Bigl(\frac{1}{N}\sum_{i',j'}Y_{i'j'}\Bigr) \displaybreak[0]\\
-&\qquad\; + \sum_{i=1}^k n_i
-   \Bigl(\frac{1}{N}\sum_{i',j'}Y_{i'j'}\Bigr)^2 \displaybreak[0]\\
-&= \sum_{i=1}^k \frac{\bigl(\sum_{j}Y_{ij}\bigr)^2}{n_i}
-  - 2 \frac{\bigl(\sum_{i,j}Y_{ij}\bigr)^2}{N}
-  + \frac{N\,\bigl(\sum_{i,j}Y_{ij}\bigr)^2}{N^2} \displaybreak[0]\\
-&=  \sum_{i=1}^k \dfrac{1}{n_i}\left(\sum_{j=1}^{n_i} Y_{ij}\right)^2 - \dfrac{1}{N}\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2
+&= \sum_{i=1}^k n_i\bigl(\overline Y_{i\bullet}-\overline Y_{\bullet\bullet}\bigr)^2 \displaybreak[0]\displaybreak[0]\\
+&= \sum_{i=1}^k n_i\bigl(\overline Y_{i\bullet}^2-2\overline Y_{i\bullet}\overline Y_{\bullet\bullet} + \overline Y_{\bullet\bullet}^2\bigr) \displaybreak[0]\displaybreak[0]\\
+&= \sum_{i=1}^k n_i\overline Y_{i\bullet}^2-2\overline Y_{\bullet\bullet}\underbrace{\sum_{i=1}^k n_i\overline Y_{i\bullet}}_{=N\overline Y_{\bullet\bullet}} + \overline Y_{\bullet\bullet}^2\underbrace{\sum_{i=1}^k n_i}_{=N} \displaybreak[0]\displaybreak[0]\\
+&= \sum_{i=1}^k n_i\overline Y_{i\bullet}^2 +N\overline Y_{\bullet\bullet}^2 - 2N\overline Y_{\bullet\bullet}^2\displaybreak[0]\\
+&= \sum_{i=1}^k n_i\overline Y_{i\bullet}^2 - N\overline Y_{\bullet\bullet}^2\\
+&= \sum_{i=1}^k n_i\left( \dfrac{Y_{i\bullet}}{n_i}\right)^2 - N\left( \dfrac{Y_{\bullet\bullet}}{N}\right)^2\displaybreak[0]\\
+&= \sum_{i=1}^k \dfrac{Y_{i\bullet}^2}{n_i} - \dfrac{Y_{\bullet\bullet}^2}{N}
 \end{align*}
 
 \hfill $\blacksquare$
@@ -10756,7 +10745,7 @@ Within Groups & SSE & $N-k$ & $\dfrac{\text{SSE}}{N-k}$ & & \\
 \caption{\textit{One-Way ANOVA Table.}}
 \end{table}
 
-\section{Example of a One-Way ANOVA}
+\section{Example of One-Way ANOVA}
 
 \subsection{Problem}
 
@@ -10793,16 +10782,16 @@ $$k = 3$$
 n_1 =  n_2= n_3 = 5, \quad N = 15
 \end{equation*}
 
-\item Group means:
+\item Group totals:
 \begin{align*}
-\overline{Y}_{1\bullet} &= \dfrac{85 + 87 + 83 + 91 + 89}{5} = \frac{435}{5} = 87 \\
-\overline{Y}_{2\bullet} &= \dfrac{79 + 82 + 78 + 85 + 81}{5} = \frac{405}{5} = 81 \\
-\overline{Y}_{3\bullet} &= \dfrac{92 + 94 + 88 + 96 + 90}{5} = \frac{460}{5} = 92
+{Y}_{1\bullet} &= 85 + 87 + 83 + 91 + 89 = 435 \\
+{Y}_{2\bullet} &= 79 + 82 + 78 + 85 + 81 = 405 \\
+{Y}_{3\bullet} &= 92 + 94 + 88 + 96 + 90 = 460
 \end{align*}
 
-\item Grand mean:
+\item Grand total:
 \begin{equation*}
-\overline{Y}_{\bullet\bullet} = \dfrac{435 + 405 + 460}{15} = \frac{1300}{15} = 86.67
+{Y}_{\bullet\bullet} = 435 + 405 + 460 = 1300
 \end{equation*}
 \end{itemize}
 
@@ -10811,15 +10800,15 @@ n_1 =  n_2= n_3 = 5, \quad N = 15
 \begin{itemize}
 \item Total sum of squares:
 \begin{align*}
-\text{TSS} &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2 - \dfrac{1}{N}\left(\sum_{i=1}^k\sum_{j=1}^{n_i} Y_{ij}\right)^2 \\
+\text{TSS} &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2 - \dfrac{{Y}_{\bullet\bullet}^2}{N}\\
 &= (85^2 + 87^2 + \cdots + 90^2) - \dfrac{(1300)^2}{15} \\
 &= 113080 - 112666.67 = 413.33
 \end{align*}
 
 \item Sum of squares between treatment groups:
 \begin{align*}
-\text{SST} &= \sum_{i=1}^k \dfrac{1}{n_i} \left( \sum_{j=1}^{n_i} Y_{ij} \right)^2 - \dfrac{1}{N} \left( \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij} \right)^2
- \\
+\text{SST} &=\sum_{i=1}^k \dfrac{Y_{i\bullet}^2}{n_i} - \dfrac{Y_{\bullet\bullet}^2}{N}\\
+&= \left( \dfrac{435^2}{5}+\dfrac{405^2}{5}+\dfrac{460^2}{5}\right) -\dfrac{(1300)^2}{15}\\
 &= 303.33
 \end{align*}
 
@@ -10866,7 +10855,7 @@ Within Groups & 110.00 & 12 & 9.17 & & \\
 Total & 413.33 & 14 & & & \\
 \bottomrule
 \end{tabular}
-\caption{ANOVA Table for Teaching Methods Example}
+\caption{\textit{ANOVA Table for Teaching Methods Example.}}
 \end{table}
 
 
@@ -10933,73 +10922,494 @@ Pairwise comparisons:
 \item $|\overline{X}_2 - \overline{X}_3| = |81 - 92| = 11 > 5.10$ (Significant)
 \end{itemize}
 
-\section{Checking ANOVA Assumptions}
+\section{Two-Way ANOVA}
 
-\subsection{Normality}
+Two-way ANOVA is an extension of one-way ANOVA that allows us to examine the effects of two categorical independent variables (called \textit{factors}) on a continuous dependent variable simultaneously. This statistical method is particularly powerful because it can detect not only the individual effects of each factor but also their \textit{interaction effect}.
 
-Use graphical methods (Q-Q plots, histograms) or formal tests (Shapiro-Wilk, Anderson-Darling) to assess normality within each group.
-
-\subsection{Homogeneity of Variance}
-
-Common tests include:
-\begin{itemize}
-\item Levene's test
-\item Bartlett's test (sensitive to non-normality)
-\item Brown-Forsythe test
-\end{itemize}
-
-\subsection{Independence}
-
-This assumption is primarily addressed through proper experimental design and data collection procedures.
-
-\section{Robust Alternatives}
-
-When ANOVA assumptions are violated, consider:
-
-\subsection{Welch's ANOVA}
-For unequal variances (heteroscedasticity).
-
-\subsection{Kruskal-Wallis Test}
-A non-parametric alternative when normality is violated.
-
-\subsection{Brown-Forsythe Test}
-Uses medians instead of means, more robust to outliers.
-
-\section{Power and Sample Size}
-
-\subsection{Power Analysis}
-
-The power of a one-way ANOVA depends on:
-\begin{itemize}
-\item Effect size
-\item Sample size
-\item Significance level
-\item Number of groups
-\end{itemize}
-
-\subsection{Effect Size Measures}
-
-Cohen's conventions for $\eta^2$:
-\begin{itemize}
-\item Small effect: $\eta^2 = 0.01$
-\item Medium effect: $\eta^2 = 0.06$
-\item Large effect: $\eta^2 = 0.14$
-\end{itemize}
-
-\section{Conclusion}
-
-One-way ANOVA is a powerful statistical technique for comparing means across multiple groups. The key steps involve:
-
+The key questions two-way ANOVA addresses are:
 \begin{enumerate}
-\item Verifying assumptions (independence, normality, homogeneity of variance)
-\item Partitioning total variation into between-group and within-group components
-\item Computing the F-statistic as the ratio of between-group to within-group variance
-\item Making statistical decisions based on the F-distribution
-\item Conducting post-hoc analyses when significant differences are found
-\item Interpreting results in the context of effect size and practical significance
+\item Is there a significant main effect of Factor A?
+\item Is there a significant main effect of Factor B?
+\item Is there a significant interaction effect between Factor A and Factor B?
 \end{enumerate}
 
-Understanding these fundamental concepts provides the foundation for more advanced ANOVA techniques, including two-way ANOVA, repeated measures ANOVA, and mixed-effects models.
+This can be stated formally using hypotheses:
+\begin{textbox}
+\begin{align*}
+&\text{Main effect of Factor A:} \quad H_{0A}: \alpha_1 = \alpha_2 = \cdots = \alpha_a = 0\\
+&\text{Main effect of Factor B:} \quad H_{0B}: \beta_1 = \beta_2 = \cdots = \beta_b = 0\\
+&\text{Interaction effect:} \quad H_{0AB}: (\alpha\beta)_{ij} = 0 \text{ for all } i,j
+\end{align*}
+\end{textbox}
+
+where $\alpha_i$ represents the effect of the $i$-th level of Factor A, $\beta_j$ represents the effect of the $j$-th level of Factor B, and $(\alpha\beta)_{ij}$ represents the interaction effect between the $i$-th level of Factor A and the $j$-th level of Factor B.
+
+\vspace{0.5em}
+\noindent
+Consider an experiment to study the effect of both teaching method (Factor A: Methods 1, 2, 3) and class size (Factor B: Small, Medium, Large) on student test scores:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c}
+\toprule
+\textbf{Teaching Method} & \textbf{Small Class} & \textbf{Medium Class} & \textbf{Large Class} \\
+\midrule
+Method 1 & 85, 87, 83 & 80, 82, 78 & 75, 77, 73 \\
+Method 2 & 90, 92, 88 & 85, 87, 83 & 80, 82, 78 \\
+Method 3 & 88, 90, 86 & 88, 90, 86 & 87, 89, 85 \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Test scores for different teaching methods and class sizes.}}
+\end{table}
+
+Two-way ANOVA allows us to determine:
+\begin{itemize}
+\item Whether teaching method affects test scores (main effect of Factor A)
+\item Whether class size affects test scores (main effect of Factor B)
+\item Whether the effect of teaching method depends on class size (interaction effect)
+\end{itemize}
+
+\subsection{Advantages of Two-Way ANOVA}
+
+\begin{itemize}
+\item \textbf{Efficiency:} Examines multiple factors simultaneously, reducing the number of separate experiments needed.
+\item \textbf{Interaction Detection:} Can identify synergistic or antagonistic effects between factors.
+\item \textbf{Control for Confounding:} Accounts for the effect of a second factor, providing a clearer picture of each factor's individual impact.
+\item \textbf{Reduced Error:} By explaining more variation in the data, it often provides more precise estimates of effects.
+\end{itemize}
+
+\section{Mathematical Model for Two-Way ANOVA}
+
+\subsection{The Two-Way ANOVA Model}
+
+The two-way ANOVA model with interaction can be expressed as:
+
+\begin{textbox}
+\begin{equation*}
+Y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \epsilon_{ijk}
+\end{equation*}
+\end{textbox}
+
+where:
+\begin{itemize}
+\item $Y_{ijk}$ is the $k$-th observation in the $i$-th level of Factor A and $j$-th level of Factor B
+\item $\mu$ is the overall (grand) mean
+\item $\alpha_i$ is the main effect of the $i$-th level of Factor A ($i = 1, 2, \ldots, a$)
+\item $\beta_j$ is the main effect of the $j$-th level of Factor B ($j = 1, 2, \ldots, b$)
+\item $(\alpha\beta)_{ij}$ is the interaction effect between the $i$-th level of Factor A and $j$-th level of Factor B
+\item $\epsilon_{ijk}$ is the random error term ($k = 1, 2, \ldots, n$, where $n$ is the number of replications per cell)
+\end{itemize}
+
+\subsection{Constraints on the Model}
+
+To ensure unique parameter estimates, the following constraints are imposed:
+\begin{align*}
+\sum_{i=1}^a \alpha_i &= 0 \\
+\sum_{j=1}^b \beta_j &= 0 \\
+\sum_{i=1}^a (\alpha\beta)_{ij} &= 0 \quad \text{for all } j \\
+\sum_{j=1}^b (\alpha\beta)_{ij} &= 0 \quad \text{for all } i
+\end{align*}
+
+\subsection{Key Assumptions}
+
+For valid inference using two-way ANOVA, the following assumptions must be satisfied:
+
+\begin{enumerate}
+\item \textbf{Independence:} All observations must be independent of each other.
+
+\item \textbf{Normality:} The error terms are normally distributed:
+\[
+\epsilon_{ijk} \overset{\text{iid}}{\sim} \mathcal{N}(0, \sigma^2)
+\]
+
+\item \textbf{Homogeneity of Variances (Homoscedasticity):} The variance is constant across all treatment combinations:
+\[
+\text{Var}(Y_{ijk}) = \sigma^2 \quad \text{for all } i, j, k
+\]
+
+\item \textbf{Additivity:} The effects of the factors are additive (this assumption is relaxed when interaction terms are included in the model).
+\end{enumerate}
+
+\section{Analysis of Two-Way Classified Data}
+
+\subsection{Data Structure}
+
+Consider a two-way factorial experiment with:
+\begin{itemize}
+\item Factor A having $a$ levels
+\item Factor B having $b$ levels
+\item $n$ replications in each cell
+\item Total number of observations: $N = abn$
+\end{itemize}
+
+The data can be organized as shown in Table~\ref{tab:two-way-data}:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c}
+\toprule
+& \multicolumn{4}{c|}{\textbf{Factor B}} & \\
+\cline{2-5}
+\textbf{Factor A} & $B_1$ & $B_2$ & $\cdots$ & $B_b$ & \textbf{Row Total} \\
+\midrule
+$A_1$ & $Y_{11k}$ & $Y_{12k}$ & $\cdots$ & $Y_{1bk}$ & $Y_{1\bullet\bullet}$ \\
+$A_2$ & $Y_{21k}$ & $Y_{22k}$ & $\cdots$ & $Y_{2bk}$ & $Y_{2\bullet\bullet}$ \\
+$\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ & $\vdots$ \\
+$A_a$ & $Y_{a1k}$ & $Y_{a2k}$ & $\cdots$ & $Y_{abk}$ & $Y_{a\bullet\bullet}$ \\
+\midrule
+\textbf{Column Total} & $Y_{\bullet1\bullet}$ & $Y_{\bullet2\bullet}$ & $\cdots$ & $Y_{\bullet b\bullet}$ & $Y_{\bullet\bullet\bullet}$ \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Data structure for two-way ANOVA.}}
+\label{tab:two-way-data}
+\end{table}
+
+\subsection{Notation and Sample Statistics}
+
+\begin{itemize}
+\item \textbf{Cell totals and means:}
+\begin{align*}
+Y_{ij\bullet} &= \sum_{k=1}^n Y_{ijk} \quad \text{(total for cell $(i,j)$)} \\
+\overline{Y}_{ij\bullet} &= \frac{Y_{ij\bullet}}{n} = \frac{1}{n}\sum_{k=1}^n Y_{ijk} \quad \text{(mean for cell $(i,j)$)}
+\end{align*}
+
+\item \textbf{Row totals and means (Factor A):}
+\begin{align*}
+Y_{i\bullet\bullet} &= \sum_{j=1}^b Y_{ij\bullet} = \sum_{j=1}^b \sum_{k=1}^n Y_{ijk} \quad \text{(total for level $i$ of Factor A)} \\
+\overline{Y}_{i\bullet\bullet} &= \frac{Y_{i\bullet\bullet}}{bn} = \frac{1}{bn}\sum_{j=1}^b \sum_{k=1}^n Y_{ijk} \quad \text{(mean for level $i$ of Factor A)}
+\end{align*}
+
+\item \textbf{Column totals and means (Factor B):}
+\begin{align*}
+Y_{\bullet j\bullet} &= \sum_{i=1}^a Y_{ij\bullet} = \sum_{i=1}^a \sum_{k=1}^n Y_{ijk} \quad \text{(total for level $j$ of Factor B)} \\
+\overline{Y}_{\bullet j\bullet} &= \frac{Y_{\bullet j\bullet}}{an} = \frac{1}{an}\sum_{i=1}^a \sum_{k=1}^n Y_{ijk} \quad \text{(mean for level $j$ of Factor B)}
+\end{align*}
+
+\item \textbf{Grand total and mean:}
+\begin{align*}
+Y_{\bullet\bullet\bullet} &= \sum_{i=1}^a \sum_{j=1}^b \sum_{k=1}^n Y_{ijk} \quad \text{(grand total)} \\
+\overline{Y}_{\bullet\bullet\bullet} &= \frac{Y_{\bullet\bullet\bullet}}{abn} = \frac{1}{abn}\sum_{i=1}^a \sum_{j=1}^b \sum_{k=1}^n Y_{ijk} \quad \text{(grand mean)}
+\end{align*}
+\end{itemize}
+
+\subsection{Sum of Squares Decomposition}
+
+The total variation in two-way ANOVA is partitioned into four components:
+
+\begin{textbox}
+\begin{equation*}
+\text{TSS} = \text{SSA} + \text{SSB} + \text{SSAB} + \text{SSE}
+\end{equation*}
+\end{textbox}
+
+where:
+\begin{itemize}
+\item \textbf{Total Sum of Squares (TSS):}
+\[
+\text{TSS} = \sum_{i=1}^a \sum_{j=1}^b \sum_{k=1}^n (Y_{ijk} - \overline{Y}_{\bullet\bullet\bullet})^2
+\]
+
+\item \textbf{Sum of Squares for Factor A (SSA):}
+\[
+\text{SSA} = bn\sum_{i=1}^a (\overline{Y}_{i\bullet\bullet} - \overline{Y}_{\bullet\bullet\bullet})^2
+\]
+
+\item \textbf{Sum of Squares for Factor B (SSB):}
+\[
+\text{SSB} = an\sum_{j=1}^b (\overline{Y}_{\bullet j\bullet} - \overline{Y}_{\bullet\bullet\bullet})^2
+\]
+
+\item \textbf{Sum of Squares for Interaction (SSAB):}
+\[
+\text{SSAB} = n\sum_{i=1}^a \sum_{j=1}^b (\overline{Y}_{ij\bullet} - \overline{Y}_{i\bullet\bullet} - \overline{Y}_{\bullet j\bullet} + \overline{Y}_{\bullet\bullet\bullet})^2
+\]
+
+\item \textbf{Sum of Squares for Error (SSE):}
+\[
+\text{SSE} = \sum_{i=1}^a \sum_{j=1}^b \sum_{k=1}^n (Y_{ijk} - \overline{Y}_{ij\bullet})^2
+\]
+\end{itemize}
+
+\subsection{Computational Formulas}
+
+For computational efficiency, the following formulas are preferred:
+
+\begin{textbox}
+\begin{align*}
+\text{TSS} &= \sum_{i=1}^a \sum_{j=1}^b \sum_{k=1}^n Y_{ijk}^2 - \frac{Y_{\bullet\bullet\bullet}^2}{abn} \\[0.5em]
+\text{SSA} &= \frac{1}{bn}\sum_{i=1}^a Y_{i\bullet\bullet}^2 - \frac{Y_{\bullet\bullet\bullet}^2}{abn} \\[0.5em]
+\text{SSB} &= \frac{1}{an}\sum_{j=1}^b Y_{\bullet j\bullet}^2 - \frac{Y_{\bullet\bullet\bullet}^2}{abn} \\[0.5em]
+\text{SSAB} &= \frac{1}{n}\sum_{i=1}^a \sum_{j=1}^b Y_{ij\bullet}^2 - \frac{Y_{\bullet\bullet\bullet}^2}{abn} - \text{SSA} - \text{SSB} \\[0.5em]
+\text{SSE} &= \text{TSS} - \text{SSA} - \text{SSB} - \text{SSAB}
+\end{align*}
+\end{textbox}
+
+\subsection{Degrees of Freedom}
+
+Each sum of squares has associated degrees of freedom:
+
+\begin{itemize}
+\item $df_{\text{TSS}} = abn - 1$ (total observations minus 1)
+\item $df_{\text{SSA}} = a - 1$ (levels of Factor A minus 1)
+\item $df_{\text{SSB}} = b - 1$ (levels of Factor B minus 1)
+\item $df_{\text{SSAB}} = (a-1)(b-1)$ (interaction degrees of freedom)
+\item $df_{\text{SSE}} = ab(n-1)$ (error degrees of freedom)
+\end{itemize}
+
+These satisfy the identity:
+\[
+df_{\text{TSS}} = df_{\text{SSA}} + df_{\text{SSB}} + df_{\text{SSAB}} + df_{\text{SSE}}
+\]
+
+\subsection{Mean Squares}
+
+Mean squares are calculated by dividing sums of squares by their corresponding degrees of freedom:
+
+\begin{align*}
+\text{MSA} &= \frac{\text{SSA}}{a-1} \\[0.3em]
+\text{MSB} &= \frac{\text{SSB}}{b-1} \\[0.3em]
+\text{MSAB} &= \frac{\text{SSAB}}{(a-1)(b-1)} \\[0.3em]
+\text{MSE} &= \frac{\text{SSE}}{ab(n-1)}
+\end{align*}
+
+\subsection{F-Statistics}
+
+Three F-statistics are computed to test the respective hypotheses:
+
+\begin{textbox}
+\begin{align*}
+F_A &= \frac{\text{MSA}}{\text{MSE}} \quad \text{(test for main effect of Factor A)} \\[0.3em]
+F_B &= \frac{\text{MSB}}{\text{MSE}} \quad \text{(test for main effect of Factor B)} \\[0.3em]
+F_{AB} &= \frac{\text{MSAB}}{\text{MSE}} \quad \text{(test for interaction effect)}
+\end{align*}
+\end{textbox}
+
+Under the null hypotheses, these F-statistics follow F-distributions:
+\begin{align*}
+F_A &\sim F_{a-1, ab(n-1)} \\
+F_B &\sim F_{b-1, ab(n-1)} \\
+F_{AB} &\sim F_{(a-1)(b-1), ab(n-1)}
+\end{align*}
+
+\subsection{Hypothesis Testing}
+
+\subsubsection*{Test for Main Effect of Factor A}
+
+\begin{align*}
+H_{0A} &: \alpha_1 = \alpha_2 = \cdots = \alpha_a = 0 \\
+H_{1A} &: \text{At least one } \alpha_i \neq 0
+\end{align*}
+
+\textbf{Test Statistic:} $$ F_A = \dfrac{\text{MSA}}{\text{MSE}} $$
+
+\textbf{Decision Rule:} Reject $H_{0A}$ if $F_A > F_{\alpha; a-1, ab(n-1)}$
+
+\subsubsection*{Test for Main Effect of Factor B}
+
+\begin{align*}
+H_{0B} &: \beta_1 = \beta_2 = \cdots = \beta_b = 0 \\
+H_{1B} &: \text{At least one } \beta_j \neq 0
+\end{align*}
+
+\textbf{Test Statistic:} $$ F_B = \dfrac{\text{MSB}}{\text{MSE}} $$
+
+\textbf{Decision Rule:} Reject $H_{0B}$ if $F_B > F_{\alpha; b-1, ab(n-1)}$
+
+\subsubsection*{Test for Interaction Effect}
+
+\begin{align*}
+H_{0AB} &: (\alpha\beta)_{ij} = 0 \text{ for all } i,j \\
+H_{1AB} &: \text{At least one } (\alpha\beta)_{ij} \neq 0
+\end{align*}
+
+\textbf{Test Statistic:} $$ F_{AB} = \dfrac{\text{MSAB}}{\text{MSE}} $$
+
+\textbf{Decision Rule:} Reject $H_{0AB}$ if $F_{AB} > F_{\alpha; (a-1)(b-1), ab(n-1)}$
+
+\subsection{Two-Way ANOVA Table}
+
+The results are typically summarized in the following ANOVA table:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c}
+\toprule
+\textbf{Source} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} & \textbf{p-value} \\
+\midrule
+Factor A & SSA & $a-1$ & $\dfrac{\text{SSA}}{a-1}$ & $\dfrac{\text{MSA}}{\text{MSE}}$ & $P(F_{a-1,ab(n-1)} > F_A)$ \\
+\midrule
+Factor B & SSB & $b-1$ & $\dfrac{\text{SSB}}{b-1}$ & $\dfrac{\text{MSB}}{\text{MSE}}$ & $P(F_{b-1,ab(n-1)} > F_B)$ \\
+\midrule
+A $\times$ B & SSAB & $(a-1)(b-1)$ & $\dfrac{\text{SSAB}}{(a-1)(b-1)}$ & $\dfrac{\text{MSAB}}{\text{MSE}}$ & $P(F_{(a-1)(b-1),ab(n-1)} > F_{AB})$ \\
+\midrule
+Error & SSE & $ab(n-1)$ & $\dfrac{\text{SSE}}{ab(n-1)}$ & & \\
+\midrule
+\textbf{Total} & TSS & $abn-1$ & & & \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Two-Way ANOVA Table.}}
+\end{table}
+
+\subsection{Interpretation of Results}
+
+\subsubsection*{Main Effects}
+
+\begin{itemize}
+\item \textbf{Significant Main Effect of Factor A:} The means of Factor A differ significantly across its levels, averaging over all levels of Factor B.
+\item \textbf{Significant Main Effect of Factor B:} The means of Factor B differ significantly across its levels, averaging over all levels of Factor A.
+\end{itemize}
+
+\subsubsection*{Interaction Effect}
+
+\begin{itemize}
+\item \textbf{Significant Interaction:} The effect of one factor depends on the level of the other factor. This means:
+\begin{itemize}
+\item The effect of Factor A is not the same at all levels of Factor B
+\item The effect of Factor B is not the same at all levels of Factor A
+\item Simple main effects should be examined instead of overall main effects
+\end{itemize}
+
+\item \textbf{Non-significant Interaction:} The factors act independently. Main effects can be interpreted directly.
+\end{itemize}
+
+\section{Example of Two-Way ANOVA}
+
+\subsection{Problem}
+
+A researcher wants to study the effect of teaching method (Factor A: Methods 1, 2, 3) and class size (Factor B: Small, Large) on student test scores. Two students were randomly assigned to each combination of teaching method and class size.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c}
+\toprule
+\textbf{Teaching Method} & \textbf{Small Class} & \textbf{Large Class} \\
+\midrule
+Method 1 & 85, 87 & 78, 80 \\
+Method 2 & 90, 92 & 83, 85 \\
+Method 3 & 88, 90 & 86, 88 \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Test scores for teaching methods and class sizes.}}
+\end{table}
+
+Test at $\alpha = 0.05$ whether there are significant main effects and interaction effect.
+
+\subsection{Solution}
+
+\textbf{Setup:}
+\begin{itemize}
+\item $a = 3$ (teaching methods), $b = 2$ (class sizes), $n = 2$ (replications)
+\item $N = abn = 3 \times 2 \times 2 = 12$ total observations
+\end{itemize}
+
+\textbf{Calculate Cell, Row, Column, and Grand Totals:}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c}
+\toprule
+\textbf{Method} & \textbf{Small} & \textbf{Large} & \textbf{Row Total} \\
+\midrule
+1 & 172 & 158 & 330 \\
+2 & 182 & 168 & 350 \\
+3 & 178 & 174 & 352 \\
+\midrule
+\textbf{Column Total} & 532 & 500 & 1032 \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Cell, row, column, and grand totals.}}
+\end{table}
+
+\textbf{Calculate Cell Means:}
+\begin{align*}
+\overline{Y}_{11\bullet} &= \frac{172}{2} = 86.0 & \overline{Y}_{12\bullet} &= \frac{158}{2} = 79.0 \\
+\overline{Y}_{21\bullet} &= \frac{182}{2} = 91.0 & \overline{Y}_{22\bullet} &= \frac{168}{2} = 84.0 \\
+\overline{Y}_{31\bullet} &= \frac{178}{2} = 89.0 & \overline{Y}_{32\bullet} &= \frac{174}{2} = 87.0
+\end{align*}
+
+\textbf{Calculate Row and Column Means:}
+\begin{align*}
+\overline{Y}_{1\bullet\bullet} &= \frac{330}{4} = 82.5 & \overline{Y}_{\bullet 1\bullet} &= \frac{532}{6} = 88.67 \\
+\overline{Y}_{2\bullet\bullet} &= \frac{350}{4} = 87.5 & \overline{Y}_{\bullet 2\bullet} &= \frac{500}{6} = 83.33 \\
+\overline{Y}_{3\bullet\bullet} &= \frac{352}{4} = 88.0 & \overline{Y}_{\bullet\bullet\bullet} &= \frac{1032}{12} = 86.0
+\end{align*}
+
+\textbf{Calculate Sums of Squares:}
+
+\begin{align*}
+\text{TSS} &= (85^2 + 87^2 + \cdots + 88^2) - \frac{1032^2}{12} \\
+&= 89048 - 88,776 = 272
+\end{align*}
+
+\begin{align*}
+\text{SSA} &= \frac{1}{4}(330^2 + 350^2 + 352^2) - \frac{1032^2}{12} \\
+&= \frac{1}{4}(378,404) - 88,776 = 94,601 - 88,776 = 94
+\end{align*}
+
+\begin{align*}
+\text{SSB} &= \frac{1}{6}(532^2 + 500^2) - \frac{1032^2}{12} \\
+&= \frac{1}{6}(533,024) - 88,776 = 88,837.33 - 88,776 = 85.33
+\end{align*}
+
+\begin{align*}
+\text{SSAB} &= \frac{1}{2}(172^2 + 158^2 + 182^2 + 168^2 + 178^2 + 174^2) - \frac{1032^2}{12} - 94 - 85.33 \\
+&= \frac{1}{2}(178,396) - 88,776 - 179.33 = 89,198 - 88,955.33 = 6.67
+\end{align*}
+
+\begin{align*}
+\text{SSE} &= 272 - 94 - 85.33 - 6.67 = 86
+\end{align*}
+
+\textbf{Calculate Mean Squares:}
+\begin{align*}
+\text{MSA} &= \frac{94}{2} = 47 \\
+\text{MSB} &= \frac{85.33}{1} = 85.33 \\
+\text{MSAB} &= \frac{6.67}{2} = 3.34 \\
+\text{MSE} &= \frac{86}{6} = 14.33
+\end{align*}
+
+\textbf{Calculate F-Statistics:}
+\begin{align*}
+F_A &= \frac{47}{14.33} = 3.28 \\
+F_B &= \frac{85.33}{14.33} = 5.95 \\
+F_{AB} &= \frac{3.34}{14.33} = 0.23
+\end{align*}
+
+\textbf{Critical Values at $\alpha = 0.05$:}
+\begin{align*}
+F_{0.05; 2, 6} &= 5.14 \quad \text{(for Factor A)} \\
+F_{0.05; 1, 6} &= 5.99 \quad \text{(for Factor B)} \\
+F_{0.05; 2, 6} &= 5.14 \quad \text{(for Interaction)}
+\end{align*}
+
+\textbf{ANOVA Table:}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c}
+\toprule
+\textbf{Source} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} & \textbf{p-value} \\
+\midrule
+Teaching Method (A) & 94.00 & 2 & 47.00 & 3.28 & $> 0.05$ \\
+Class Size (B) & 85.33 & 1 & 85.33 & 5.95 & $< 0.05$ \\
+A $\times$ B & 6.67 & 2 & 3.34 & 0.23 & $> 0.05$ \\
+Error & 86.00 & 6 & 14.33 & & \\
+\midrule
+Total & 272.00 & 11 & & & \\
+\bottomrule
+\end{tabular}
+\caption{\textit{ANOVA table for teaching methods and class sizes example.}}
+\end{table}
+
+\textbf{Conclusions:}
+\begin{itemize}
+\item \textbf{Teaching Method (Factor A):} $F_A = 3.28 < 5.14$, so we fail to reject $H_{0A}$. There is no significant difference between teaching methods.
+\item \textbf{Class Size (Factor B):} $F_B = 5.95 < 5.99$ (marginally), so we fail to reject $H_{0B}$, but it's very close to significance.
+\item \textbf{Interaction:} $F_{AB} = 0.23 < 5.14$, so we fail to reject $H_{0AB}$. There is no significant interaction between teaching method and class size.
+\end{itemize}
+
+At the 0.05 significance level, only class size shows a marginally significant effect on test scores, with small classes generally producing higher scores than large classes.
+
 
 \section{Key Formulas Summary}
 
