@@ -10361,7 +10361,7 @@ For computational efficiency, the following formulas are often preferred:
 
 \begin{textbox}
 \begin{equation*}
-\text{TSS} = \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2 - \frac{\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2}{N}
+\text{TSS} = \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2 - \dfrac{1}{N}\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2
 \end{equation*}
 \end{textbox}
 \textbf{Proof}:
@@ -10381,14 +10381,14 @@ For computational efficiency, the following formulas are often preferred:
 &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
    - N\,\bar Y_{\bullet\bullet}^2 \displaybreak[0]\\[6pt]
 &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2
-   - \frac{\bigl(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\bigr)^2}{N}\,
+   - \dfrac{1}{N}\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2
 \end{align*}
 
 \hfill $\blacksquare$
 
 \begin{textbox}
 \begin{equation*}
-\text{SST} = \sum_{i=1}^k \frac{\left(\sum_{j=1}^{n_i} Y_{ij}\right)^2}{n_i} - \frac{\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2}{N}
+\text{SST} = \sum_{i=1}^k \dfrac{1}{n_i}\left(\sum_{j=1}^{n_i} Y_{ij}\right)^2 - \dfrac{1}{N}\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2
 \end{equation*}
 \end{textbox}
 
@@ -10409,13 +10409,12 @@ For computational efficiency, the following formulas are often preferred:
 &= \sum_{i=1}^k \frac{\bigl(\sum_{j}Y_{ij}\bigr)^2}{n_i}
   - 2 \frac{\bigl(\sum_{i,j}Y_{ij}\bigr)^2}{N}
   + \frac{N\,\bigl(\sum_{i,j}Y_{ij}\bigr)^2}{N^2} \displaybreak[0]\\
-&= \sum_{i=1}^k \frac{\bigl(\sum_{j}Y_{ij}\bigr)^2}{n_i}
-  - \frac{\bigl(\sum_{i,j}Y_{ij}\bigr)^2}{N}\,.
+&=  \sum_{i=1}^k \dfrac{1}{n_i}\left(\sum_{j=1}^{n_i} Y_{ij}\right)^2 - \dfrac{1}{N}\left(\sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}\right)^2
 \end{align*}
 
 \hfill $\blacksquare$
 
-Once we have TSS and SSB, we can obtain SSE by subtracting SSB from TSS.
+Once we have TSS and SST, we can obtain SSE by subtracting SST from TSS.
 
 \subsection{Degrees of Freedom in ANOVA}
 
@@ -10666,7 +10665,7 @@ Select $\alpha$ (commonly 0.05, 0.01, or 0.10).
 
 \item \textbf{Compute the Test Statistic}
 
-Calculate $$F = \frac{\text{MSB}}{\text{MSW}}$$
+Calculate $$F = \frac{\text{MST}}{\text{MSE}}$$
 
 \item \textbf{Determine the Critical Value}
 
@@ -10686,7 +10685,58 @@ Alternatively, compare the $ p $-value to $\alpha$:
 
 \end{enumerate}
 
-\section{ANOVA Table}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=7cm,
+    domain=0:5, samples=300,
+    axis lines=left,
+    xlabel={$F$},
+    ylabel={PDF of $F$},
+    ymin=0, ymax=0.08,
+    xmin=0, xmax=5,
+    xtick={3.2},
+    ytick=\empty,
+    xticklabels={\small $F_{\alpha;\,k-1,\,N-k}$},
+    thick,
+]
+
+% F-distribution PDF approximation for d1=5, d2=10
+\addplot [
+    domain=0.01:5,
+    very thick,
+    blue,
+]
+{0.96 * x^(5/2 - 1) / (1 + (5/10)*x)^((5+10)/2)};
+
+% Shade rejection region (e.g., F > 3.2)
+\addplot [
+    domain=3.2:5,
+    draw=none,
+    fill=blue!20,
+    samples=200
+]
+{0.96 * x^(5/2 - 1) / (1 + (5/10)*x)^((5+10)/2)} \closedcycle;
+
+% Alpha region label
+\node[below] at (axis cs:3.5,0.02) {$\alpha$};
+
+% Acceptance region label
+\node at (axis cs:0.7,0.03) {\small $1-\alpha$};
+
+% Rejection region arrow and label (y reduced)
+\node (label) at (axis cs:3.7,0.03) {\small Rejection region};
+\draw[->, thick] (label) to[out=270,in=90] (axis cs:3.7,0.003);
+
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{Rejection region for right-tailed $F$-test in one-way ANOVA.}}
+\end{figure}
+
+
+
+\subsection{ANOVA Table}
 
 The results of a one-way ANOVA are typically summarized in an ANOVA table:
 
@@ -10694,154 +10744,136 @@ The results of a one-way ANOVA are typically summarized in an ANOVA table:
 \centering
 \begin{tabular}{l|c|c|c|c|c}
 \toprule
-\textbf{Source} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} & \textbf{p-value} \\
+\textbf{Source} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} & \textbf{$ p $-value} \\
 \midrule
-Between Groups & SSB & $k-1$ & $\dfrac{\text{SSB}}{k-1}$ & $\dfrac{\text{MSB}}{\text{MSW}}$ & $P(F_{k-1,N-k} > F)$ \\
+Between Groups & SST & $k-1$ & $\dfrac{\text{SST}}{k-1}$ & $\dfrac{\text{MST}}{\text{MSE}}$ & $P(F_{k-1,N-k} > F)$ \\
 \midrule
-Within Groups & SSW & $N-k$ & $\dfrac{\text{SSW}}{N-k}$ & & \\
+Within Groups & SSE & $N-k$ & $\dfrac{\text{SSE}}{N-k}$ & & \\
 \midrule
 \textbf{Total} & TSS & $N-1$ & & & \\
 \bottomrule
 \end{tabular}
-\caption{One-Way ANOVA Table}
+\caption{\textit{One-Way ANOVA Table.}}
 \end{table}
 
-\section{Worked Example}
+\section{Example of a One-Way ANOVA}
 
-\subsection{Problem Statement}
+\subsection{Problem}
 
 A researcher wants to compare the effectiveness of three different teaching methods on student test scores. Random samples of students were assigned to each teaching method, and their test scores were recorded.
 
-\textbf{Data:}
-\begin{itemize}
-\item Method A: 85, 87, 83, 91, 89
-\item Method B: 79, 82, 78, 85, 81
-\item Method C: 92, 94, 88, 96, 90
-\end{itemize}
-
-Test at $\alpha = 0.05$ whether there is a significant difference in mean test scores among the three teaching methods.
-
-\subsection{Solution}
-
-\textbf{Step 1: Organize the Data}
-
-\begin{table}[h]
+\begin{table}[H]
 \centering
-\caption{Test Scores by Teaching Method}
-\begin{tabular}{|c|c|c|}
-\hline
+\begin{tabular}{c|c|c}
+\toprule
 \textbf{Method A} & \textbf{Method B} & \textbf{Method C} \\
-\hline
+\midrule
 85 & 79 & 92 \\
 87 & 82 & 94 \\
 83 & 78 & 88 \\
 91 & 85 & 96 \\
 89 & 81 & 90 \\
-\hline
-$n_1 = 5$ & $n_2 = 5$ & $n_3 = 5$ \\
-\hline
+\bottomrule
 \end{tabular}
+\caption{\textit{Test score of file students for dfferent teaching methods.}}
 \end{table}
 
-\textbf{Step 2: Calculate Sample Statistics}
 
-Group means:
-\begin{align}
-\overline{X}_{1\cdot} &= \frac{85 + 87 + 83 + 91 + 89}{5} = \frac{435}{5} = 87 \\
-\overline{X}_{2\cdot} &= \frac{79 + 82 + 78 + 85 + 81}{5} = \frac{405}{5} = 81 \\
-\overline{X}_{3\cdot} &= \frac{92 + 94 + 88 + 96 + 90}{5} = \frac{460}{5} = 92
-\end{align}
+Test at $\alpha = 0.05$ whether there is a significant difference in mean test scores among the three teaching methods.
 
-Grand mean:
-\begin{equation}
-\overline{X}_{\cdot\cdot} = \frac{435 + 405 + 460}{15} = \frac{1300}{15} = 86.67
-\end{equation}
+\subsection{Solution}
+\begin{itemize}
+\item \textbf{Calculate Sample Statistics}:
 
-\textbf{Step 3: Calculate Sums of Squares}
+\begin{itemize}
+\item Number of groups:
+$$k = 3$$
+\item Number of observations in each group and total:
+\begin{equation*}
+n_1 =  n_2= n_3 = 5, \quad N = 15
+\end{equation*}
 
-Total Sum of Squares:
-\begin{align}
-\text{TSS} &= \sum_{i=1}^3 \sum_{j=1}^5 X_{ij}^2 - \frac{(1300)^2}{15} \\
-&= (85^2 + 87^2 + \cdots + 90^2) - \frac{1690000}{15} \\
-&= 112778 - 112666.67 = 111.33
-\end{align}
+\item Group means:
+\begin{align*}
+\overline{Y}_{1\bullet} &= \dfrac{85 + 87 + 83 + 91 + 89}{5} = \frac{435}{5} = 87 \\
+\overline{Y}_{2\bullet} &= \dfrac{79 + 82 + 78 + 85 + 81}{5} = \frac{405}{5} = 81 \\
+\overline{Y}_{3\bullet} &= \dfrac{92 + 94 + 88 + 96 + 90}{5} = \frac{460}{5} = 92
+\end{align*}
 
-Sum of Squares Between:
-\begin{align}
-\text{SSB} &= \sum_{i=1}^3 n_i(\overline{X}_{i\cdot} - \overline{X}_{\cdot\cdot})^2 \\
-&= 5(87 - 86.67)^2 + 5(81 - 86.67)^2 + 5(92 - 86.67)^2 \\
-&= 5(0.33)^2 + 5(-5.67)^2 + 5(5.33)^2 \\
-&= 5(0.11) + 5(32.15) + 5(28.41) \\
-&= 0.55 + 160.75 + 142.05 = 303.35
-\end{align}
+\item Grand mean:
+\begin{equation*}
+\overline{Y}_{\bullet\bullet} = \dfrac{435 + 405 + 460}{15} = \frac{1300}{15} = 86.67
+\end{equation*}
+\end{itemize}
 
-Sum of Squares Within:
-\begin{equation}
-\text{SSW} = \text{TSS} - \text{SSB} = 111.33 - 303.35
-\end{equation}
+\item \textbf{Calculate Sums of Squares}:
 
-\textit{Note: There appears to be a calculation error. Let me recalculate more carefully.}
+\begin{itemize}
+\item Total sum of squares:
+\begin{align*}
+\text{TSS} &= \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij}^2 - \dfrac{1}{N}\left(\sum_{i=1}^k\sum_{j=1}^{n_i} Y_{ij}\right)^2 \\
+&= (85^2 + 87^2 + \cdots + 90^2) - \dfrac{(1300)^2}{15} \\
+&= 113080 - 112666.67 = 413.33
+\end{align*}
 
-Recalculating TSS:
-\begin{align}
-\sum X_{ij}^2 &= 85^2 + 87^2 + 83^2 + 91^2 + 89^2 + 79^2 + 82^2 + 78^2 + 85^2 + 81^2 \\
-&\quad + 92^2 + 94^2 + 88^2 + 96^2 + 90^2 \\
-&= 7225 + 7569 + 6889 + 8281 + 7921 + 6241 + 6724 + 6084 + 7225 + 6561 \\
-&\quad + 8464 + 8836 + 7744 + 9216 + 8100 \\
-&= 113080
-\end{align}
+\item Sum of squares between treatment groups:
+\begin{align*}
+\text{SST} &= \sum_{i=1}^k \dfrac{1}{n_i} \left( \sum_{j=1}^{n_i} Y_{ij} \right)^2 - \dfrac{1}{N} \left( \sum_{i=1}^k \sum_{j=1}^{n_i} Y_{ij} \right)^2
+ \\
+&= 303.33
+\end{align*}
 
-\begin{equation}
-\text{TSS} = 113080 - \frac{(1300)^2}{15} = 113080 - 112666.67 = 413.33
-\end{equation}
+\item Sum of squares for error:
+\begin{equation*}
+\text{SSE} = \text{TSS} - \text{SST} = 413.33 - 303.33 = 110
+\end{equation*}
 
-\begin{equation}
-\text{SSB} = 5(87 - 86.67)^2 + 5(81 - 86.67)^2 + 5(92 - 86.67)^2 = 303.33
-\end{equation}
+\end{itemize}
 
-\begin{equation}
-\text{SSW} = 413.33 - 303.33 = 110
-\end{equation}
+\item \textbf{Calculate Mean Squares:}
 
-\textbf{Step 4: Calculate Mean Squares}
+\begin{align*}
+\text{MSB} &= \dfrac{\text{SSB}}{k-1} = \dfrac{303.33}{3-1} = \frac{303.33}{2} = 151.67 \\
+\text{MSW} &= \dfrac{\text{SSW}}{N-k} = \dfrac{110}{15-3} = \frac{110}{12} = 9.17
+\end{align*}
 
-\begin{align}
-\text{MSB} &= \frac{\text{SSB}}{k-1} = \frac{303.33}{3-1} = \frac{303.33}{2} = 151.67 \\
-\text{MSW} &= \frac{\text{SSW}}{N-k} = \frac{110}{15-3} = \frac{110}{12} = 9.17
-\end{align}
+\item \textbf{Calculate F-Statistic:}
 
-\textbf{Step 5: Calculate F-Statistic}
-
-\begin{equation}
+\begin{equation*}
 F = \frac{\text{MSB}}{\text{MSW}} = \frac{151.67}{9.17} = 16.54
-\end{equation}
+\end{equation*}
 
-\textbf{Step 6: Determine Critical Value and Make Decision}
+\item \textbf{Determine critical value and make decision:}
 
-With $\alpha = 0.05$, $df_1 = 2$, and $df_2 = 12$:
-$F_{0.05, 2, 12} = 3.89$
+With $\alpha = 0.05$, $$df_1 = k-1=2, \text{ and } df_2 = N-k=12$$
+From F-table,
+$$F_{0.05; 2, 12} = 3.89$$
 
 Since $F = 16.54 > 3.89$, we reject $H_0$.
 
-\textbf{Step 7: ANOVA Table}
+\item \textbf{ANOVA Table:}
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
-\caption{ANOVA Table for Teaching Methods Example}
-\begin{tabular}{|l|c|c|c|c|c|}
-\hline
+\begin{tabular}{l|c|c|c|c|c}
+\toprule
 \textbf{Source} & \textbf{SS} & \textbf{df} & \textbf{MS} & \textbf{F} & \textbf{p-value} \\
-\hline
+\midrule
 Between Groups & 303.33 & 2 & 151.67 & 16.54 & $< 0.001$ \\
-\hline
+\midrule
 Within Groups & 110.00 & 12 & 9.17 & & \\
-\hline
+\midrule
 Total & 413.33 & 14 & & & \\
-\hline
+\bottomrule
 \end{tabular}
+\caption{ANOVA Table for Teaching Methods Example}
 \end{table}
 
-\textbf{Conclusion:} At the 0.05 significance level, there is sufficient evidence to conclude that there is a significant difference in mean test scores among the three teaching methods.
+
+\item \textbf{Conclusion:}
+
+At the 0.05 significance level, there is sufficient evidence to conclude that there is a significant difference in mean test scores among the three teaching methods.
+\end{itemize}
 
 \section{Effect Size and Practical Significance}
 
