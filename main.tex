@@ -12754,4 +12754,359 @@ Factorial & Multiple factors of interest & Factor interactions \\
 
 Design of Experiments provides a systematic framework for conducting efficient and reliable experiments. By following the principles of randomization, replication, and blocking, and choosing appropriate designs, researchers can obtain maximum information while minimizing costs and ensuring valid conclusions.
 
+\chapter{Theory of Errors}
+
+\section{Introduction}
+
+The measurement of any physical quantity can never be made with perfect accuracy. There will always be some error or uncertainty present in every experimental observation. For any measurement, there exists an infinite number of factors that can cause the experimentally obtained value to deviate from the true (theoretical) value.
+
+Let us denote the true value of a quantity as $X_{\text{true}}$ and the measured value as $X_{\text{measured}}$. The absolute error $\Delta X$ is defined as:
+
+\begin{equation*}
+\Delta X = X_{\text{measured}} - X_{\text{true}}
+\end{equation*}
+
+The relative error is given by:
+
+\begin{equation*}
+\epsilon = \frac{\Delta X}{X_{\text{true}}} = \frac{X_{\text{measured}} - X_{\text{true}}}{X_{\text{true}}}
+\end{equation*}
+
+When experimental results are reported, they must be accompanied by an estimate of the experimental uncertainty, which indicates the reliability of the measurement.
+
+Experimental errors can be systematically classified into three fundamental categories:
+\begin{enumerate}
+\item Random errors
+\item Systematic errors
+\item Gross errors
+\end{enumerate}
+
+\section{Random Errors}
+
+Random errors are fluctuations in measurements that vary unpredictably from one observation to another. These errors follow statistical laws and can be analyzed using probability theory.
+
+If we perform $n$ measurements of a quantity $X$, obtaining values $x_1, x_2, \ldots, x_n$, the random errors $\epsilon_i$ are defined as:
+
+\begin{equation*}
+\epsilon_i = x_i - \mu
+\end{equation*}
+
+where $\mu$ is the true mean value. Random errors satisfy the following conditions:
+
+\begin{align*}
+\langle \epsilon_i \rangle &= 0 \quad \text{(zero mean)} \\
+\langle \epsilon_i \epsilon_j \rangle &= 0 \quad \text{for } i \neq j \quad \text{(uncorrelated)}
+\end{align*}
+
+\subsubsection{Statistical Analysis}
+
+For a set of $n$ measurements $\{x_1, x_2, \ldots, x_n\}$, the sample mean (best estimate) is:
+
+\begin{equation}
+\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i
+\end{equation}
+
+The sample variance is:
+
+\begin{equation}
+s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2
+\end{equation}
+
+The standard deviation is:
+
+\begin{equation}
+s = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2}
+\end{equation}
+
+\textbf{Derivation of Standard Error of the Mean:}
+
+The standard error of the mean $\sigma_{\bar{x}}$ represents the uncertainty in our estimate of the true mean. For independent measurements with individual standard deviation $\sigma$:
+
+\begin{align}
+\sigma_{\bar{x}}^2 &= \text{Var}\left(\frac{1}{n}\sum_{i=1}^{n} x_i\right) \\
+&= \frac{1}{n^2}\sum_{i=1}^{n}\text{Var}(x_i) \\
+&= \frac{1}{n^2} \cdot n \sigma^2 \\
+&= \frac{\sigma^2}{n}
+\end{align}
+
+Therefore:
+
+\begin{equation}
+\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}} = \frac{s}{\sqrt{n}}
+\end{equation}
+
+\subsubsection{Normal Distribution}
+
+For large $n$, random errors typically follow a normal (Gaussian) distribution:
+
+\begin{equation}
+f(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+\end{equation}
+
+This leads to important statistical properties:
+\begin{itemize}
+\item 68.27\% of measurements fall within $\pm 1\sigma$ of the mean
+\item 95.45\% of measurements fall within $\pm 2\sigma$ of the mean
+\item 99.73\% of measurements fall within $\pm 3\sigma$ of the mean
+\end{itemize}
+
+\subsubsection{Example: Repeated Measurements of Length}
+
+Consider measuring the length of a rod 10 times with a ruler:
+
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+Measurement & Length (cm) \\
+\midrule
+1 & 15.23 \\
+2 & 15.25 \\
+3 & 15.21 \\
+4 & 15.24 \\
+5 & 15.22 \\
+6 & 15.26 \\
+7 & 15.20 \\
+8 & 15.25 \\
+9 & 15.23 \\
+10 & 15.24 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Calculations:
+\begin{align}
+\bar{x} &= \frac{152.33}{10} = 15.233 \text{ cm} \\
+s &= \sqrt{\frac{\sum(x_i - \bar{x})^2}{n-1}} = 0.019 \text{ cm} \\
+\sigma_{\bar{x}} &= \frac{s}{\sqrt{n}} = \frac{0.019}{\sqrt{10}} = 0.006 \text{ cm}
+\end{align}
+
+Result: $L = 15.233 \pm 0.006$ cm
+
+\section{Systematic Errors}
+
+Systematic errors produce consistent deviations from the true value in the same direction. Unlike random errors, systematic errors do not average to zero when measurements are repeated.
+
+If $\delta$ represents a systematic error, then all measurements are affected by the same bias:
+
+\begin{equation*}
+x_i = X_{\text{true}} + \delta + \epsilon_i
+\end{equation*}
+
+where $\epsilon_i$ are random errors. The mean of measurements becomes:
+
+\begin{equation*}
+\bar{x} = X_{\text{true}} + \delta + \frac{1}{n}\sum_{i=1}^{n}\epsilon_i \approx X_{\text{true}} + \delta
+\end{equation*}
+
+\subsubsection{Sources of Systematic Errors}
+
+\begin{enumerate}
+\item \textbf{Instrumental Errors:} Calibration errors, zero drift, non-linearity
+\item \textbf{Environmental Errors:} Temperature effects, pressure variations
+\item \textbf{Method Errors:} Theoretical approximations, neglected effects
+\item \textbf{Personal Errors:} Consistent bias in reading instruments
+\end{enumerate}
+
+\subsubsection{Detection and Correction}
+
+\textbf{Method 1: Calibration with Standards}
+
+Use known reference standards to determine systematic bias:
+
+\begin{equation}
+\delta = \bar{x}_{\text{standard}} - X_{\text{known}}
+\end{equation}
+
+\textbf{Method 2: Comparison with Independent Methods}
+
+If two independent methods give results $\bar{x}_1$ and $\bar{x}_2$, the systematic difference is:
+
+\begin{equation}
+\Delta_{\text{sys}} = \bar{x}_1 - \bar{x}_2
+\end{equation}
+
+\subsubsection{Example: Voltmeter Calibration}
+
+A digital voltmeter is tested against a precision standard:
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Standard (V) & Measured (V) & Error (V) \\
+\midrule
+1.000 & 1.003 & +0.003 \\
+2.000 & 2.006 & +0.006 \\
+5.000 & 5.015 & +0.015 \\
+10.000 & 10.030 & +0.030 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The systematic error shows a linear relationship: $\delta = 0.003 \times V_{\text{reading}}$
+
+Correction formula: $V_{\text{true}} = V_{\text{measured}} \times (1 - 0.003)$
+
+\section{Gross Errors (Blunders)}
+
+Gross errors are large, obvious mistakes that occur due to human error, equipment malfunction, or procedural failures. These errors are typically much larger than random or systematic errors and can severely distort results.
+
+A measurement $x_i$ is considered a potential outlier if:
+
+\begin{equation*}
+|x_i - \bar{x}| > k \cdot s
+\end{equation*}
+
+where $k$ is typically 2 or 3, depending on the desired confidence level.
+
+\subsubsection{Statistical Tests for Outliers}
+
+\textbf{Chauvenet's Criterion:}
+
+A data point should be rejected if the probability of obtaining such a deviation is less than $\frac{1}{2n}$, where $n$ is the number of measurements.
+
+For a normal distribution, reject $x_i$ if:
+
+\begin{equation}
+\left|\frac{x_i - \bar{x}}{s}\right| > t_{\text{Chauvenet}}
+\end{equation}
+
+where $t_{\text{Chauvenet}}$ depends on $n$:
+
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+$n$ & $t_{\text{Chauvenet}}$ \\
+\midrule
+5 & 1.65 \\
+10 & 1.96 \\
+15 & 2.13 \\
+25 & 2.33 \\
+50 & 2.57 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Grubbs' Test:}
+
+The test statistic is:
+
+\begin{equation}
+G = \frac{\max|x_i - \bar{x}|}{s}
+\end{equation}
+
+Compare with critical value $G_{\text{critical}}(\alpha, n)$ from Grubbs' table.
+
+\subsubsection{Example: Detection of Blunder}
+
+Measurements of gravitational acceleration (m/s²):
+9.78, 9.82, 9.79, 9.81, 9.85, 10.15, 9.80
+
+Calculations:
+\begin{align}
+\bar{x} &= 9.86 \text{ m/s}^2 \\
+s &= 0.13 \text{ m/s}^2 \\
+G &= \frac{|10.15 - 9.86|}{0.13} = 2.23
+\end{align}
+
+For $n = 7$ and $\alpha = 0.05$, $G_{\text{critical}} = 2.02$
+
+Since $G > G_{\text{critical}}$, the value 10.15 is identified as an outlier and should be investigated.
+
+\section{Error Propagation}
+
+When quantities with uncertainties are combined in calculations, the uncertainties propagate according to specific mathematical rules.
+
+\subsection{General Formula}
+
+For a function $f(x, y, z, \ldots)$ where $x, y, z$ have uncertainties $\delta x, \delta y, \delta z$:
+
+\begin{equation}
+(\delta f)^2 = \left(\frac{\partial f}{\partial x}\right)^2(\delta x)^2 + \left(\frac{\partial f}{\partial y}\right)^2(\delta y)^2 + \left(\frac{\partial f}{\partial z}\right)^2(\delta z)^2 + \ldots
+\end{equation}
+
+\subsection{Specific Cases}
+
+\textbf{Addition/Subtraction:} $f = x \pm y$
+
+\begin{equation}
+\delta f = \sqrt{(\delta x)^2 + (\delta y)^2}
+\end{equation}
+
+\textbf{Multiplication/Division:} $f = \frac{xy}{z}$
+
+\begin{equation}
+\frac{\delta f}{f} = \sqrt{\left(\frac{\delta x}{x}\right)^2 + \left(\frac{\delta y}{y}\right)^2 + \left(\frac{\delta z}{z}\right)^2}
+\end{equation}
+
+\textbf{Powers:} $f = x^n$
+
+\begin{equation}
+\frac{\delta f}{f} = |n|\frac{\delta x}{x}
+\end{equation}
+
+\subsection{Derivation Example: Product of Two Variables}
+
+For $f = xy$:
+
+\begin{align}
+\frac{\partial f}{\partial x} &= y \\
+\frac{\partial f}{\partial y} &= x
+\end{align}
+
+Therefore:
+\begin{align}
+(\delta f)^2 &= y^2(\delta x)^2 + x^2(\delta y)^2 \\
+\frac{(\delta f)^2}{f^2} &= \frac{y^2(\delta x)^2 + x^2(\delta y)^2}{x^2y^2} \\
+&= \left(\frac{\delta x}{x}\right)^2 + \left(\frac{\delta y}{y}\right)^2
+\end{align}
+
+\section{Practical Example: Pendulum Experiment}
+
+Consider measuring the acceleration due to gravity using a simple pendulum:
+
+\begin{equation}
+g = \frac{4\pi^2 L}{T^2}
+\end{equation}
+
+Measurements:
+\begin{align}
+L &= 1.000 \pm 0.001 \text{ m} \\
+T &= 2.006 \pm 0.003 \text{ s}
+\end{align}
+
+\textbf{Error Propagation:}
+
+\begin{equation}
+\frac{\delta g}{g} = \sqrt{\left(\frac{\delta L}{L}\right)^2 + \left(2\frac{\delta T}{T}\right)^2}
+\end{equation}
+
+Calculations:
+\begin{align}
+\frac{\delta L}{L} &= \frac{0.001}{1.000} = 0.001 \\
+\frac{\delta T}{T} &= \frac{0.003}{2.006} = 0.00150 \\
+\frac{\delta g}{g} &= \sqrt{(0.001)^2 + (2 \times 0.00150)^2} = 0.00316
+\end{align}
+
+Result:
+\begin{align}
+g &= \frac{4\pi^2 \times 1.000}{(2.006)^2} = 9.79 \text{ m/s}^2 \\
+\delta g &= 9.79 \times 0.00316 = 0.03 \text{ m/s}^2
+\end{align}
+
+Final answer: $g = 9.79 \pm 0.03$ m/s²
+
+\section{Conclusion}
+
+Understanding and properly handling experimental errors is fundamental to scientific measurement. The three types of errors—random, systematic, and gross errors—each require different approaches:
+
+\begin{itemize}
+\item Random errors are reduced by statistical methods and multiple measurements
+\item Systematic errors require careful calibration and method validation
+\item Gross errors must be identified and eliminated through quality control
+\end{itemize}
+
+Proper error analysis ensures that experimental results are reliable, reproducible, and scientifically meaningful. The mathematical framework presented here provides the tools necessary for rigorous uncertainty analysis in experimental physics and engineering.
+
 \end{document}
+
+
