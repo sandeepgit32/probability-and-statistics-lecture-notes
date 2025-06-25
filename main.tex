@@ -13413,6 +13413,103 @@ CL &= \bar{c}\\
 LCL &= \bar{c} - 3\sqrt{\bar{c}}
 \end{align}
 
+\section{Pareto Chart in Statistical Quality Control}
+
+A \textbf{Pareto chart} is a bar graph that displays the frequency or impact of problems or defects in descending order, alongside a cumulative percentage line. It is based on the \textbf{Pareto principle} (also known as the 80/20 rule), which suggests that roughly 80\% of the problems arise from 20\% of the causes.
+
+In SQC, Pareto charts help prioritize improvement efforts by identifying the most significant sources of defects or errors.
+
+\textbf{Example}: Suppose a factory inspects 1000 products and records the number of occurrences for various types of defects. The data is shown below:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Defect Type} & \textbf{Frequency} & \textbf{Percentage (\%)} & \textbf{Cumulative \%} \\
+\hline
+Surface Scratch & 300 & 30.0 & 30.0 \\
+Paint Defect & 250 & 25.0 & 55.0 \\
+Loose Screw & 150 & 15.0 & 70.0 \\
+Crack & 100 & 10.0 & 80.0 \\
+Missing Label & 80 & 8.0 & 88.0 \\
+Bent Part & 70 & 7.0 & 95.0 \\
+Other & 50 & 5.0 & 100.0 \\
+\hline
+\end{tabular}
+\caption{Frequency of Defect Types in Production}
+\end{table}
+
+\vspace{0.5cm}
+
+The Pareto chart for the above data is shown below:
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    % First axis: bars using numeric x
+    \begin{axis}[
+        name=baraxis,
+        ybar,
+        ylabel={Frequency},
+        xlabel={Defect Type},
+        % numeric x positions
+        xmin=0.5, xmax=7.5,
+        ymin=0, ymax=350,
+        xtick={1,2,3,4,5,6,7},
+        xticklabels={
+          Surface Scratch,
+          Paint Defect,
+          Loose Screw,
+          Crack,
+          Missing Label,
+          Bent Part,
+          Other
+        },
+        xticklabel style={rotate=45, anchor=east,font=\small},
+        bar width=12pt,
+        enlarge x limits=0.15,
+        axis y line*=left,
+        axis x line*=bottom,
+        nodes near coords,
+        every node near coord/.append style={font=\small},
+        width=12cm,
+        height=7cm, thick
+    ]
+      \addplot+[fill=blue!30] coordinates {
+        (1,300) (2,250) (3,150) (4,100) (5,80) (6,70) (7,50)
+      };
+    \end{axis}
+
+    % Second axis: cumulative percentage on right
+    \begin{axis}[
+        at={(baraxis.outer north east)},
+        anchor={north east},
+        axis y line*=right,
+        axis x line=none,
+        xmin=0.5, xmax=7.5,
+        ymin=0, ymax=110,
+        ylabel={Cumulative \%},
+        ytick={0,20,...,100},
+        width=12cm,
+        height=7cm,
+        nodes near coords,
+        every node near coord/.append style={font=\small, above},
+        thick
+    ]
+      \addplot+[mark=*, very thick, black] coordinates {
+        (1.7,30) (2.46,55) (3.19,70) (4,80) (4.75,88) (5.55,95) (6.27,100)
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{\textit{Pareto Chart for Defect Types.}}
+\end{figure}
+
+\textbf{Interpretation}
+
+From the Pareto chart, it is evident that the majority of the defects (70\%) come from the first three types: surface scratches, paint defects, and loose screws. Therefore, quality improvement efforts should focus on these issues first to achieve the greatest impact with minimal effort.
+
+
+
 \section{Process Capability Analysis}
 
 Process capability analysis assesses whether a process can meet specifications consistently.
