@@ -106,6 +106,19 @@
 
 \usepackage{tocloft}
 
+\usepackage{titlesec}
+\usepackage{etoolbox}
+
+\definecolor{myblue}{RGB}{0, 102, 204}
+
+% CHAPTER, SECTION, SUBSECTION TITLES IN BLUE
+\titleformat{\chapter}[display]
+  {\normalfont\Huge\bfseries\color{myblue}}{\chaptername\ \thechapter}{20pt}{\Huge}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{myblue}}{\thesubsection}{1em}{}
+
 % adjust the width reserved for the sec‐number, if you need more room:
 \setlength{\cftsecnumwidth}{3em}
 
