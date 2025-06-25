@@ -13107,6 +13107,562 @@ Understanding and properly handling experimental errors is fundamental to scient
 
 Proper error analysis ensures that experimental results are reliable, reproducible, and scientifically meaningful. The mathematical framework presented here provides the tools necessary for rigorous uncertainty analysis in experimental physics and engineering.
 
+\chapter{Statistical Quality Control}
+
+\section{Introduction to Quality and Statistical Quality Control}
+
+\subsection{Meaning of Quality}
+
+Quality is about how well a product or service meets the needs of the customer. For example, if you buy a mobile phone and it works smoothly, has good battery life, and doesn't break easily, you would say it is a high-quality product. In both factories and service industries, keeping quality consistent is important to keep customers happy, reduce waste, and stay ahead of the competition.
+
+Quality can be understood in different ways:
+\begin{itemize}
+    \item \textbf{Conformance to specifications}: Does the product meet the standards set by the manufacturer? For example, if a bolt is supposed to be 10 mm long, and it actually is 10 mm, it meets the specification.
+    \item \textbf{Fitness for use}: Does the product do what the customer needs? A raincoat that keeps you dry during heavy rain is fit for use.
+    \item \textbf{Value for money}: Is the customer getting good performance for the price they pay? A budget phone that works reliably for daily tasks could be good value for money.
+\end{itemize}
+
+\subsection{Statistical Quality Control (SQC)}
+
+\textbf{Quality control} is the process of monitoring performance and comparing it with a standard. If deviations are found, corrective actions are taken to bring the process back into control.
+
+\textbf{Statistical Quality Control (SQC)} applies statistical techniques to monitor, control, and improve product and process quality. Since inspecting every item is often impractical, a smaller sample is often taken and used to draw conclusions about the entire production lot.
+
+For example, instead of inspecting every item—such as checking every loaf of bread for color and shape—SQC uses sampling. A factory may inspect 10 out of every 1,000 bolts and use control charts to assess whether the process remains stable.
+
+In Statistical Quality Control (SQC), variation in a process is classified into two types: common causes and special causes.
+
+\begin{itemize}
+\item \textbf{Common causes} are natural, random variations that are always present in a stable process, such as slight differences in dough thickness in a bakery.
+
+\item In contrast,\textbf{ special causes} are unexpected variations due to specific, identifiable factors like equipment failure, human error, or defective raw materials.
+\end{itemize}
+
+The aim of SQC is to quickly detect special causes of variation, take corrective action, and maintain a stable, high-quality process.
+
+\subsection{Core Activities in SQC}
+
+SQC typically involves three main steps:
+\begin{enumerate}
+    \item \textbf{Systematic data collection and graphical representation}: Gathering accurate quality data and visualizing it using charts and graphs.
+    \item \textbf{Data analysis}: Using statistical tools to detect trends, patterns, or deviations from specifications.
+    \item \textbf{Corrective action}: Taking practical engineering or managerial decisions based on analysis results.
+\end{enumerate}
+
+These steps help prevent defects, reduce waste, and promote a culture of quality control throughout the production system.
+
+\subsection{Benefits of SQC}
+
+Some key benefits of implementing SQC in manufacturing and service industries include:
+
+\begin{enumerate}
+    \item \textbf{Early detection of problems:} SQC helps in identifying defects and unusual variations in the process at an early stage, enabling timely corrective actions and preventing large-scale production issues.
+
+    \item \textbf{Improved product quality:} Continuous monitoring ensures that the products conform to quality standards, leading to higher consistency and improved customer satisfaction.
+
+    \item \textbf{Reduced waste and cost:} By minimizing defective output, SQC reduces the need for rework and scrap, thereby lowering production costs and improving efficiency.
+
+    \item \textbf{Data-driven decision making:} SQC uses statistical evidence for process evaluation, eliminating guesswork and personal bias, and promoting informed decision-making.
+\end{enumerate}
+
+\subsection{Key Statistical Tools in SQC}
+
+Several statistical tools are commonly used in SQC for controlling and improving quality:
+
+\begin{itemize}
+
+\item \textbf{Frequency distribution}: A frequency distribution is a summary of how often each value of a quality characteristic appears in the sample. For example, if you measure the diameter of 100 bolts, a frequency distribution shows how many fall within specific size intervals.
+
+\item \textbf{Control charts}: Control charts are graphs used to monitor a quality characteristic over time. They help determine whether a process is operating within statistically acceptable limits.
+
+For example, an $ \overline{X̄} $ chart may track the average weight of packed sugar bags. If the average weight stays within control limits, the process is considered stable. Points outside the limits or unusual patterns indicate special causes of variation.
+
+\item \textbf{Acceptance sampling}: Acceptance sampling involves inspecting a sample from a production lot to decide whether to accept or reject the entire lot. It is widely used when 100\% inspection is costly or impractical.
+
+
+\item \textbf{Data analysis techniques}: SQC also includes advanced data analysis techniques for problem-solving and process improvement, such as:
+\begin{itemize}
+    \item {Tolerance analysis}
+    \item {Correlation and regression analysis}
+    \item {Analysis of variance (ANOVA)}
+    \item {Root cause analysis}
+\end{itemize}
+
+\end{itemize}
+
+These tools help engineers and managers understand sources of variation, identify potential improvements, and make informed decisions.
+
+
+\section{Control Charts for Variables}
+
+Control charts are graphical tools used to monitor process performance over time. They help distinguish between common cause and special cause variation.
+
+\subsection{Fundamentals of Control Charts}
+
+A control chart consists of:
+\begin{itemize}
+    \item Center line (CL): Process average
+    \item Upper Control Limit (UCL): $CL + 3\sigma$
+    \item Lower Control Limit (LCL): $CL - 3\sigma$
+\end{itemize}
+
+The 3-sigma limits are based on the fact that for a normal distribution, 99.73\% of values lie within three standard deviations of the mean.
+
+\subsection{$\bar{X}$ and R Charts}
+
+For monitoring the process mean and variability simultaneously, we use $\bar{X}$ (sample mean) and R (range) charts.
+
+\subsubsection{$\bar{X}$ Chart}
+
+The sample mean is calculated as:
+$$\bar{X} = \frac{1}{n}\sum_{i=1}^{n} X_i$$
+
+Control limits for the $\bar{X}$ chart:
+\begin{align}
+UCL &= \bar{\bar{X}} + A_2 \bar{R}\\
+CL &= \bar{\bar{X}}\\
+LCL &= \bar{\bar{X}} - A_2 \bar{R}
+\end{align}
+
+where $\bar{\bar{X}}$ is the grand mean and $A_2$ is a constant depending on sample size $n$.
+
+\subsubsection{R Chart}
+
+The range is calculated as:
+$$R = X_{max} - X_{min}$$
+
+Control limits for the R chart:
+\begin{align}
+UCL &= D_4 \bar{R}\\
+CL &= \bar{R}\\
+LCL &= D_3 \bar{R}
+\end{align}
+
+where $D_3$ and $D_4$ are constants depending on sample size $n$.
+
+\begin{table}[H]
+\centering
+\caption{Control Chart Constants}
+\begin{tabular}{cccc}
+\toprule
+$n$ & $A_2$ & $D_3$ & $D_4$ \\
+\midrule
+2 & 1.880 & 0 & 3.267 \\
+3 & 1.023 & 0 & 2.574 \\
+4 & 0.729 & 0 & 2.282 \\
+5 & 0.577 & 0 & 2.114 \\
+6 & 0.483 & 0 & 2.004 \\
+7 & 0.419 & 0.076 & 1.924 \\
+8 & 0.373 & 0.136 & 1.864 \\
+9 & 0.337 & 0.184 & 1.816 \\
+10 & 0.308 & 0.223 & 1.777 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Example: Manufacturing Process Control}
+
+A manufacturing process produces metal rods. Five samples are taken every hour, and the diameter is measured. Calculate control limits for $\bar{X}$ and R charts.
+
+Given data for 10 subgroups:
+\begin{table}[H]
+\centering
+\caption{Sample Data for Rod Diameter (mm)}
+\begin{tabular}{cccccccc}
+\toprule
+Subgroup & $X_1$ & $X_2$ & $X_3$ & $X_4$ & $X_5$ & $\bar{X}$ & $R$ \\
+\midrule
+1 & 10.2 & 10.1 & 10.3 & 10.0 & 10.1 & 10.14 & 0.3 \\
+2 & 10.0 & 10.2 & 10.1 & 10.3 & 10.2 & 10.16 & 0.3 \\
+3 & 10.1 & 10.0 & 10.2 & 10.1 & 10.0 & 10.08 & 0.2 \\
+4 & 10.3 & 10.1 & 10.2 & 10.2 & 10.1 & 10.18 & 0.2 \\
+5 & 10.0 & 10.1 & 10.0 & 10.2 & 10.1 & 10.08 & 0.2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Calculations:
+$$\bar{\bar{X}} = \frac{10.14 + 10.16 + 10.08 + 10.18 + 10.08}{5} = 10.13$$
+$$\bar{R} = \frac{0.3 + 0.3 + 0.2 + 0.2 + 0.2}{5} = 0.24$$
+
+For $n = 5$: $A_2 = 0.577$, $D_3 = 0$, $D_4 = 2.114$
+
+$\bar{X}$ Chart limits:
+\begin{align}
+UCL &= 10.13 + 0.577 \times 0.24 = 10.27\\
+CL &= 10.13\\
+LCL &= 10.13 - 0.577 \times 0.24 = 9.99
+\end{align}
+
+R Chart limits:
+\begin{align}
+UCL &= 2.114 \times 0.24 = 0.51\\
+CL &= 0.24\\
+LCL &= 0 \times 0.24 = 0
+\end{align}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=7cm,
+	domain=0:8, samples=200,
+    xlabel={Subgroup Number},
+    ylabel={Sample Mean},
+    xmin=0, xmax=6,
+    ymin=9.9, ymax=10.4,
+    thick,
+    legend pos=north east
+]
+\addplot[blue, mark=o, very thick] coordinates {(1,10.14) (2,10.16) (3,10.08) (4,10.18) (5,10.08)};
+\addplot[red, dashed, very thick] coordinates {(0,10.27) (6,10.27)};
+\addplot[green, very thick] coordinates {(0,10.13) (6,10.13)};
+\addplot[red, dashed, very thick] coordinates {(0,9.99) (6,9.99)};
+\legend{Sample Mean, UCL, CL, LCL}
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{$\overline{X}$ Control Chart.}}
+\end{figure}
+
+\subsection{$\bar{X}$ and S Charts}
+
+For larger sample sizes (typically $n \geq 10$), the sample standard deviation $s$ is preferred over the range $R$.
+
+Sample standard deviation:
+$$s = \sqrt{\frac{\sum_{i=1}^{n}(X_i - \bar{X})^2}{n-1}}$$
+
+Control limits for $\bar{X}$ chart:
+\begin{align}
+UCL &= \bar{\bar{X}} + A_3 \bar{s}\\
+CL &= \bar{\bar{X}}\\
+LCL &= \bar{\bar{X}} - A_3 \bar{s}
+\end{align}
+
+Control limits for S chart:
+\begin{align}
+UCL &= B_4 \bar{s}\\
+CL &= \bar{s}\\
+LCL &= B_3 \bar{s}
+\end{align}
+
+\section{Control Charts for Attributes}
+
+Attribute data represents characteristics that can be counted or classified (defective/non-defective, pass/fail).
+
+\subsection{p Chart (Fraction Defective)}
+
+The p chart monitors the fraction of defective items in a sample.
+
+Let $D$ = number of defective items in a sample of size $n$
+$$p = \frac{D}{n}$$
+
+Control limits:
+\begin{align}
+UCL &= \bar{p} + 3\sqrt{\frac{\bar{p}(1-\bar{p})}{n}}\\
+CL &= \bar{p}\\
+LCL &= \bar{p} - 3\sqrt{\frac{\bar{p}(1-\bar{p})}{n}}
+\end{align}
+
+where $\bar{p}$ is the average fraction defective.
+
+\subsubsection{Example: Defective Products}
+
+A company inspects 100 items daily. Data for 10 days:
+
+\begin{table}[H]
+\centering
+\caption{Daily Inspection Data}
+\begin{tabular}{cccc}
+\toprule
+Day & Sample Size & Defective Items & $p$ \\
+\midrule
+1 & 100 & 5 & 0.05 \\
+2 & 100 & 3 & 0.03 \\
+3 & 100 & 7 & 0.07 \\
+4 & 100 & 4 & 0.04 \\
+5 & 100 & 6 & 0.06 \\
+6 & 100 & 2 & 0.02 \\
+7 & 100 & 8 & 0.08 \\
+8 & 100 & 3 & 0.03 \\
+9 & 100 & 5 & 0.05 \\
+10 & 100 & 7 & 0.07 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+$$\bar{p} = \frac{5+3+7+4+6+2+8+3+5+7}{10} = \frac{50}{1000} = 0.05$$
+
+Control limits:
+\begin{align}
+UCL &= 0.05 + 3\sqrt{\frac{0.05(1-0.05)}{100}} = 0.05 + 3\sqrt{0.000475} = 0.115\\
+CL &= 0.05\\
+LCL &= 0.05 - 3\sqrt{\frac{0.05(1-0.05)}{100}} = -0.015 \approx 0
+\end{align}
+
+\subsection{c Chart (Number of Defects)}
+
+The c chart monitors the number of defects per unit when the sample size is constant.
+
+For a Poisson distribution with parameter $\lambda$:
+$$P(c) = \frac{e^{-\lambda}\lambda^c}{c!}$$
+
+Control limits:
+\begin{align}
+UCL &= \bar{c} + 3\sqrt{\bar{c}}\\
+CL &= \bar{c}\\
+LCL &= \bar{c} - 3\sqrt{\bar{c}}
+\end{align}
+
+\section{Process Capability Analysis}
+
+Process capability analysis assesses whether a process can meet specifications consistently.
+
+\subsection{Process Capability Indices}
+
+\subsubsection{$C_p$ Index}
+
+The $C_p$ index measures the potential capability of a process:
+$$C_p = \frac{USL - LSL}{6\sigma}$$
+
+where USL = Upper Specification Limit, LSL = Lower Specification Limit, and $\sigma$ is the process standard deviation.
+
+\subsubsection{$C_{pk}$ Index}
+
+The $C_{pk}$ index considers process centering:
+$$C_{pk} = \min\left(\frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma}\right)$$
+
+where $\mu$ is the process mean.
+
+\subsubsection{Interpretation}
+
+\begin{table}[H]
+\centering
+\caption{Process Capability Interpretation}
+\begin{tabular}{cc}
+\toprule
+$C_{pk}$ Value & Process Capability \\
+\midrule
+$C_{pk} \geq 2.0$ & Excellent \\
+$1.33 \leq C_{pk} < 2.0$ & Adequate \\
+$1.0 \leq C_{pk} < 1.33$ & Marginal \\
+$C_{pk} < 1.0$ & Inadequate \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Example: Process Capability Calculation}
+
+A process has specifications: LSL = 95, USL = 105
+Process data: $\mu = 100$, $\sigma = 1.5$
+
+$$C_p = \frac{105 - 95}{6 \times 1.5} = \frac{10}{9} = 1.11$$
+
+$$C_{pk} = \min\left(\frac{105 - 100}{3 \times 1.5}, \frac{100 - 95}{3 \times 1.5}\right) = \min(1.11, 1.11) = 1.11$$
+
+The process is marginally capable but centered.
+
+\section{Acceptance Sampling}
+
+Acceptance sampling is a statistical method used to determine whether to accept or reject a batch of products based on inspection of a sample.
+
+\subsection{Single Sampling Plans}
+
+A single sampling plan is characterized by $(n, c)$ where:
+\begin{itemize}
+    \item $n$ = sample size
+    \item $c$ = acceptance number
+\end{itemize}
+
+Decision rule: Accept the lot if the number of defective items $d \leq c$
+
+\subsection{Operating Characteristic (OC) Curve}
+
+The OC curve shows the probability of accepting a lot as a function of the lot fraction defective $p$.
+
+For a binomial distribution:
+$$P_a(p) = \sum_{d=0}^{c} \binom{n}{d} p^d (1-p)^{n-d}$$
+
+\subsubsection{Example: OC Curve Calculation}
+
+For a sampling plan $(n=50, c=2)$:
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+    title={Operating Characteristic Curve},
+    xlabel={Fraction Defective (p)},
+    ylabel={Probability of Acceptance},
+    xmin=0, xmax=0.2,
+    ymin=0, ymax=1,
+    grid=major
+]
+\addplot[blue, thick, smooth] coordinates {
+    (0,1) (0.02,0.92) (0.04,0.68) (0.06,0.42) (0.08,0.24) (0.10,0.12) (0.12,0.06) (0.14,0.03) (0.16,0.01) (0.18,0.005) (0.20,0.002)
+};
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+\subsection{Producer's and Consumer's Risks}
+
+\begin{itemize}
+    \item \textbf{Producer's Risk ($\alpha$)}: Probability of rejecting a good lot
+    \item \textbf{Consumer's Risk ($\beta$)}: Probability of accepting a bad lot
+\end{itemize}
+
+Typically:
+\begin{itemize}
+    \item AQL (Acceptable Quality Level): $\alpha = 0.05$
+    \item LTPD (Lot Tolerance Percent Defective): $\beta = 0.10$
+\end{itemize}
+
+\section{Reliability and Life Testing}
+
+Reliability is the probability that a system performs successfully during a specified time interval under specified conditions.
+
+\subsection{Reliability Function}
+
+The reliability function $R(t)$ is defined as:
+$$R(t) = P(T > t) = 1 - F(t)$$
+
+where $T$ is the random variable representing time to failure and $F(t)$ is the cumulative distribution function.
+
+\subsection{Failure Rate Function}
+
+The hazard rate or failure rate function $h(t)$ is:
+$$h(t) = \frac{f(t)}{R(t)} = \frac{f(t)}{1-F(t)}$$
+
+where $f(t)$ is the probability density function.
+
+\subsection{Common Life Distributions}
+
+\subsubsection{Exponential Distribution}
+
+For constant failure rate $\lambda$:
+$$f(t) = \lambda e^{-\lambda t}, \quad t \geq 0$$
+$$R(t) = e^{-\lambda t}$$
+$$h(t) = \lambda$$
+
+Mean Time To Failure (MTTF):
+$$MTTF = \frac{1}{\lambda}$$
+
+\subsubsection{Weibull Distribution}
+
+The Weibull distribution is widely used in reliability analysis:
+$$f(t) = \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta-1} e^{-(t/\eta)^{\beta}}$$
+
+where $\beta$ is the shape parameter and $\eta$ is the scale parameter.
+
+$$R(t) = e^{-(t/\eta)^{\beta}}$$
+
+$$h(t) = \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta-1}$$
+
+\subsubsection{Bathtub Curve}
+
+The bathtub curve describes the failure rate pattern over product lifetime:
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+    title={Bathtub Curve},
+    xlabel={Time},
+    ylabel={Failure Rate},
+    xmin=0, xmax=10,
+    ymin=0, ymax=3,
+    grid=major,
+    xtick={2,6,8},
+    xticklabels={Early Life, Useful Life, Wear-out}
+]
+\addplot[blue, thick, smooth] coordinates {
+    (0,2.5) (0.5,2.0) (1,1.5) (1.5,1.2) (2,1.0) (3,0.8) (4,0.7) (5,0.6) (6,0.5) (7,0.6) (8,1.0) (9,1.8) (10,3.0)
+};
+\node at (axis cs:1,2.2) {Infant Mortality};
+\node at (axis cs:4,0.3) {Random Failures};
+\node at (axis cs:8.5,2.5) {Wear-out};
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+\subsection{Life Testing}
+
+\subsubsection{Complete Testing}
+
+All units are tested until failure. Provides complete information but time-consuming.
+
+\subsubsection{Censored Testing}
+
+\textbf{Type I Censoring}: Testing stops at predetermined time $t_0$
+
+\textbf{Type II Censoring}: Testing stops after predetermined number of failures $r$
+
+\subsubsection{Accelerated Life Testing}
+
+Testing under elevated stress conditions to accelerate failures.
+
+Arrhenius model:
+$$\lambda(T) = A e^{E_a/(kT)}$$
+
+where $T$ is temperature, $E_a$ is activation energy, $k$ is Boltzmann constant, and $A$ is a constant.
+
+\subsection{System Reliability}
+
+\subsubsection{Series System}
+
+For a series system with $n$ components:
+$$R_s(t) = \prod_{i=1}^{n} R_i(t)$$
+
+\subsubsection{Parallel System}
+
+For a parallel system with $n$ components:
+$$R_p(t) = 1 - \prod_{i=1}^{n} [1 - R_i(t)]$$
+
+\subsubsection{Example: System Reliability Calculation}
+
+Consider a system with 3 components in series, each with reliability $R(t) = e^{-0.001t}$:
+
+$$R_s(t) = [e^{-0.001t}]^3 = e^{-0.003t}$$
+
+For the same components in parallel:
+$$R_p(t) = 1 - [1 - e^{-0.001t}]^3$$
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+    title={System Reliability Comparison},
+    xlabel={Time (hours)},
+    ylabel={Reliability},
+    xmin=0, xmax=2000,
+    ymin=0, ymax=1,
+    grid=major,
+    legend pos=south west
+]
+\addplot[blue, thick] coordinates {(0,1) (200,0.82) (400,0.67) (600,0.55) (800,0.45) (1000,0.37) (1200,0.30) (1400,0.25) (1600,0.20) (1800,0.17) (2000,0.14)};
+\addplot[red, thick] coordinates {(0,1) (200,0.67) (400,0.45) (600,0.30) (800,0.20) (1000,0.14) (1200,0.09) (1400,0.06) (1600,0.04) (1800,0.03) (2000,0.02)};
+\addplot[green, thick] coordinates {(0,1) (200,0.9997) (400,0.9988) (600,0.9973) (800,0.9955) (1000,0.9933) (1200,0.9909) (1400,0.9882) (1600,0.9853) (1800,0.9822) (2000,0.9789)};
+\legend{Single Component, Series System, Parallel System}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+\section{Conclusion}
+
+Statistical Quality Control provides a comprehensive framework for monitoring, controlling, and improving quality in manufacturing and service processes. The key principles include:
+
+\begin{itemize}
+    \item Use of statistical methods to distinguish between common and special causes of variation
+    \item Implementation of control charts for continuous monitoring
+    \item Application of process capability analysis to ensure specifications are met
+    \item Employment of acceptance sampling for lot-by-lot decisions
+    \item Utilization of statistical tools for quality improvement
+    \item Application of reliability methods for long-term performance assessment
+\end{itemize}
+
+The successful implementation of SQC requires understanding of statistical concepts, proper data collection, and commitment to continuous improvement. These methods, when properly applied, lead to reduced variability, improved quality, and enhanced customer satisfaction.
+
+
 \end{document}
 
 
