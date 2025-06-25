@@ -13243,13 +13243,13 @@ If the process is in statistical control, the sample means—taken at regular in
     thick,
     clip=false % allow labels outside the axis
 ]
-% Sample means
-\addplot[blue, mark=o, very thick] coordinates {(0.5, 10.2) (1,10.14) (1.5, 10.02) (2,10.16) (2.5, 9.97) (3,10.08) (3.5, 10.25) (4,10.1) (4.5, 10.22) (5,10.08) (5.5, 10.1)};
 
 % Control lines
 \addplot[red, dashed, very thick] coordinates {(0,10.27) (6,10.27)};
 \addplot[green, very thick] coordinates {(0,10.13) (6,10.13)};
 \addplot[red, dashed, very thick] coordinates {(0,9.99) (6,9.99)};
+% Sample means
+\addplot[blue, mark=o, very thick] coordinates {(0.5, 10.2) (1,10.14) (1.5, 10.02) (2,10.16) (2.5, 9.97) (3,10.08) (3.5, 10.25) (4,10.1) (4.5, 10.22) (5,10.08) (5.5, 10.1)};
 
 % Manual labels
 \node[anchor=west, font=\small] at (axis cs:6.05,10.27) {UCL};
@@ -13378,13 +13378,14 @@ LCL &= 0 \times 0.24 = 0
     thick,
     clip=false % allow labels outside the axis
 ]
-% Sample means
-\addplot[blue, mark=o, very thick] coordinates {(1,10.14) (2,10.16) (3,10.08) (4,10.18) (5,10.08)};
 
 % Control lines
 \addplot[red, dashed, very thick] coordinates {(0,10.27) (6,10.27)};
 \addplot[green, very thick] coordinates {(0,10.13) (6,10.13)};
 \addplot[red, dashed, very thick] coordinates {(0,9.99) (6,9.99)};
+
+% Sample means
+\addplot[blue, mark=o, very thick] coordinates {(1,10.14) (2,10.16) (3,10.08) (4,10.18) (5,10.08)};
 
 % Manual labels
 \node[anchor=west, font=\small] at (axis cs:6.05,10.27) {UCL};
@@ -13485,6 +13486,12 @@ UCL &= \bar{c} + 3\sqrt{\bar{c}}\\
 CL &= \bar{c}\\
 LCL &= \bar{c} - 3\sqrt{\bar{c}}
 \end{align}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{pic/control-chart-decision-tree.jpg}
+\caption{\textit{Control chart decision tree.}}
+\end{figure}
 
 \section{Pareto Chart in Statistical Quality Control}
 
