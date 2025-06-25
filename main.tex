@@ -84,7 +84,24 @@
 	numberfirstline=true
 }
 \newcommand{\largedot}{\raisebox{0.1pt}{\scalebox{1.5}{$\cdot$}}}
+\newcommand{\tallymark}[1]{%
+  \begin{tikzpicture}[scale=0.2,baseline]
+    \pgfmathtruncatemacro{\n}{#1}
+    \foreach \i in {1,...,\n} {
+      \pgfmathtruncatemacro{\group}{int((\i-1)/5)} % group number: 0 for 1–5, 1 for 6–10, etc.
+      \pgfmathtruncatemacro{\posingroup}{mod(\i-1,5) + 1} % position in group: 1 to 5
 
+      \pgfmathsetmacro{\xshift}{\group * 6} % 6 units between groups
+
+      \ifnum\posingroup=5
+        \draw[thick] (\xshift+0.8,0) -- (\xshift+4.2,4); % cross-line
+      \else
+        \pgfmathsetmacro{\x}{\xshift + \posingroup}
+        \draw[thick] (\x,0) -- (\x,4); % vertical lines
+      \fi
+    }
+  \end{tikzpicture}
+}
 
 \usepackage{tocloft}
 
@@ -238,6 +255,10 @@ Collecting accurate data is crucial for meaningful analysis. Common methods incl
     \item \textbf{Observations}: Recording data based on direct observation.
     \item \textbf{Existing Records}: Utilizing previously collected data.
 \end{itemize}
+
+Tally for 3: \tallymark{3} \\
+Tally for 5: \tallymark{5} \\
+Tally for 7: \tallymark{7}
 
 \subsection{Organizing Data}
 
@@ -13423,10 +13444,10 @@ In SQC, Pareto charts help prioritize improvement efforts by identifying the mos
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|l|c|c|c|}
-\hline
+\begin{tabular}{l|c|c|c}
+\toprule
 \textbf{Defect Type} & \textbf{Frequency} & \textbf{Percentage (\%)} & \textbf{Cumulative \%} \\
-\hline
+\midrule
 Surface Scratch & 300 & 30.0 & 30.0 \\
 Paint Defect & 250 & 25.0 & 55.0 \\
 Loose Screw & 150 & 15.0 & 70.0 \\
@@ -13434,9 +13455,9 @@ Crack & 100 & 10.0 & 80.0 \\
 Missing Label & 80 & 8.0 & 88.0 \\
 Bent Part & 70 & 7.0 & 95.0 \\
 Other & 50 & 5.0 & 100.0 \\
-\hline
+\bottomrule
 \end{tabular}
-\caption{Frequency of Defect Types in Production}
+\caption{\textit{Frequency of Defect Types in Production.}}
 \end{table}
 
 \vspace{0.5cm}
