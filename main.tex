@@ -33,6 +33,7 @@
 \usepgfplotslibrary{groupplots}
 \usetikzlibrary{fillbetween,patterns,shapes,arrows.meta}
 \usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
 \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=gray!10]
 \tikzstyle{arrow} = [thick,->,>=stealth]
 \usepackage{subcaption}
@@ -13216,24 +13217,63 @@ These tools help engineers and managers understand sources of variation, identif
 
 \section{Control Charts for Variables}
 
-Control charts are graphical tools used to monitor process performance over time. They help distinguish between common cause and special cause variation.
+Control charts for variables are specialized graphical tools in Statistical Process Control (SPC) designed to track quantitative measurements—such as dimensions, weights, temperatures or pressures—over time. By carefully scrutinizing the chart, a
+quality control engineer can identify any potential problems with the production process. A control chart consists of three parallel lines:
 
-\subsection{Fundamentals of Control Charts}
-
-A control chart consists of:
 \begin{itemize}
-    \item Center line (CL): Process average
-    \item Upper Control Limit (UCL): $CL + 3\sigma$
-    \item Lower Control Limit (LCL): $CL - 3\sigma$
+    \item \textbf{Center line (CL)}
+    \item \textbf{Upper Control Limit (UCL)}
+    \item \textbf{Lower Control Limit (LCL)}
+\end{itemize}
+At the center of a control chart lies the target line, representing the process mean. Positioned symmetrically above and below this line are the Upper Control Limit (UCL) and Lower Control Limit (LCL), typically set at three standard deviations ($\sigma$) from the mean\footnote{Additionally, some control charts include intermediate lines known as \textbf{warning limits}, placed at one and two standard deviations above and below the mean.}. The $3\sigma$ limits are based on the fact that for a normal distribution, 99.73\% of values lie within three standard deviations of the mean.
+
+If the process is in statistical control, the sample means—taken at regular intervals and plotted on the control chart—will fall randomly within the control limits (LCL and UCL) with a probability of approximately 0.9973, assuming a normal distribution and 3-sigma limits.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=6cm,
+	domain=0:8, samples=200,
+    ylabel={Measumement value},
+    xlabel={Samples},
+    xmin=0, xmax=6,
+    % ymin=9.9, ymax=10.4,
+    xtick=\empty, ytick=\empty,
+    thick,
+    clip=false % allow labels outside the axis
+]
+% Sample means
+\addplot[blue, mark=o, very thick] coordinates {(0.5, 10.2) (1,10.14) (1.5, 10.02) (2,10.16) (2.5, 9.97) (3,10.08) (3.5, 10.25) (4,10.1) (4.5, 10.22) (5,10.08) (5.5, 10.1)};
+
+% Control lines
+\addplot[red, dashed, very thick] coordinates {(0,10.27) (6,10.27)};
+\addplot[green, very thick] coordinates {(0,10.13) (6,10.13)};
+\addplot[red, dashed, very thick] coordinates {(0,9.99) (6,9.99)};
+
+% Manual labels
+\node[anchor=west, font=\small] at (axis cs:6.05,10.27) {UCL};
+\node[anchor=west, font=\small] at (axis cs:6.05,10.13) {CL};
+\node[anchor=west, font=\small] at (axis cs:6.05,9.99) {LCL};
+
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{Control Chart.}}
+\end{figure}
+
+Common types of control charts include:
+\begin{itemize}
+\item The $ \overline{X}$ (mean) and the $ R $ (range) charts.
+\item The $ \overline{X}$ (mean) and the $ S $ (standard deviation) charts.
+\item Individual observations and the $ R $ (range) charts.
 \end{itemize}
 
-The 3-sigma limits are based on the fact that for a normal distribution, 99.73\% of values lie within three standard deviations of the mean.
+\subsection{$\overline{X}$ and $ R $ Charts}
 
-\subsection{$\bar{X}$ and R Charts}
+For monitoring the process mean and variability simultaneously, we use $\overline{X}$ (sample mean) and $ R $ (range) charts.
 
-For monitoring the process mean and variability simultaneously, we use $\bar{X}$ (sample mean) and R (range) charts.
-
-\subsubsection{$\bar{X}$ Chart}
+\begin{itemize}
+\item \textbf{$\overline{X}$ Chart}
 
 The sample mean is calculated as:
 $$\bar{X} = \frac{1}{n}\sum_{i=1}^{n} X_i$$
@@ -13247,7 +13287,7 @@ LCL &= \bar{\bar{X}} - A_2 \bar{R}
 
 where $\bar{\bar{X}}$ is the grand mean and $A_2$ is a constant depending on sample size $n$.
 
-\subsubsection{R Chart}
+\item \textbf{$ R $ Chart}
 
 The range is calculated as:
 $$R = X_{max} - X_{min}$$
@@ -13260,6 +13300,7 @@ LCL &= D_3 \bar{R}
 \end{align}
 
 where $D_3$ and $D_4$ are constants depending on sample size $n$.
+
 
 \begin{table}[H]
 \centering
@@ -13280,10 +13321,12 @@ $n$ & $A_2$ & $D_3$ & $D_4$ \\
 \bottomrule
 \end{tabular}
 \end{table}
+\end{itemize}
+
 
 \subsubsection{Example: Manufacturing Process Control}
 
-A manufacturing process produces metal rods. Five samples are taken every hour, and the diameter is measured. Calculate control limits for $\bar{X}$ and R charts.
+A manufacturing process produces metal rods. Five samples are taken every hour, and the diameter is measured. Calculate control limits for $\overline{X}$ and R charts.
 
 Given data for 10 subgroups:
 \begin{table}[H]
@@ -13326,24 +13369,33 @@ LCL &= 0 \times 0.24 = 0
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-    width=12cm, height=7cm,
+    width=12cm, height=6cm,
 	domain=0:8, samples=200,
     xlabel={Subgroup Number},
     ylabel={Sample Mean},
     xmin=0, xmax=6,
-    ymin=9.9, ymax=10.4,
+    % ymin=9.9, ymax=10.4,
     thick,
-    legend pos=north east
+    clip=false % allow labels outside the axis
 ]
+% Sample means
 \addplot[blue, mark=o, very thick] coordinates {(1,10.14) (2,10.16) (3,10.08) (4,10.18) (5,10.08)};
+
+% Control lines
 \addplot[red, dashed, very thick] coordinates {(0,10.27) (6,10.27)};
 \addplot[green, very thick] coordinates {(0,10.13) (6,10.13)};
 \addplot[red, dashed, very thick] coordinates {(0,9.99) (6,9.99)};
-\legend{Sample Mean, UCL, CL, LCL}
+
+% Manual labels
+\node[anchor=west, font=\small] at (axis cs:6.05,10.27) {UCL};
+\node[anchor=west, font=\small] at (axis cs:6.05,10.13) {CL};
+\node[anchor=west, font=\small] at (axis cs:6.05,9.99) {LCL};
+
 \end{axis}
 \end{tikzpicture}
 \caption{\textit{$\overline{X}$ Control Chart.}}
 \end{figure}
+
 
 \subsection{$\bar{X}$ and S Charts}
 
