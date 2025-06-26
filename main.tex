@@ -2710,6 +2710,164 @@ Here:
 
 This formula enables us to revise our estimate of the probability of \( A \) whenever new information \( B \) becomes available. Depending on the relationship between \( A \) and \( B \), the posterior probability may be higher or lower than the prior, reflecting the impact of the new evidence.
 
+\subsection{The Base Rate Fallacy and Bayes' Theorem}
+
+\begin{textbox}
+The \textbf{base rate fallacy} is a cognitive bias which occurs when people wrongly judge the probability of an event (like having a disease) by focusing on new information (such as a test result) while ignoring how rare or common the event is in the general population.
+\end{textbox}
+
+\medskip
+
+Imagine you're told that a COVID-19 test is 95-99\% accurate. You take the test, and it comes back \textbf{positive}. Does that mean you're almost certainly infected with 95\% possibility?
+
+Not necessarily. This is where the \textbf{base rate fallacy} comes into play—a common error in reasoning where people ignore the underlying probability of an event (known as the \textit{base rate}) and instead focus too heavily on new information, like a test result.
+
+To illustrate this idea, suppose we are testing a population where only 1\% of individuals are actually infected with COVID-19. Consider the characteristics of the test:
+
+\begin{itemize}
+    \item \textbf{Prevalence (Base Rate)}: $P(\text{COVID}) = 0.01$
+    \item \textbf{Sensitivity (True Positive Rate)}: $P(\text{Positive} \mid \text{COVID}) = 0.99$
+    \item \textbf{Specificity (True Negative Rate)}: $P(\text{Negative} \mid \text{No COVID}) = 0.95$
+\end{itemize}
+
+Now the question is, if a person tests positive, what is the probability that they actually have COVID-19?
+
+
+To answer this, we apply \textbf{Bayes’ Theorem}:
+
+\[
+P(\text{COVID} \mid \text{Positive}) = \frac{P(\text{Positive} \mid \text{COVID}) \cdot P(\text{COVID})}{P(\text{Positive})}
+\]
+
+We compute the total probability of a positive test as:
+
+\[
+P(\text{Positive}) = P(\text{Positive} \mid \text{COVID}) \cdot P(\text{COVID}) + P(\text{Positive} \mid \text{No COVID}) \cdot P(\text{No COVID})
+\]
+\[
+= 0.99\times 0.01 + 0.05 \times 0.99 = 0.0099 + 0.0495 = 0.0594
+\]
+
+Now, substituting into Bayes' formula:
+
+\[
+P(\text{COVID} \mid \text{Positive}) = \frac{0.99 \times 0.01}{0.0594} \approx \frac{0.0099}{0.0594} \approx 0.167
+\]
+
+That is, even with a \textbf{positive test result}, the probability of actually having COVID is only around \textbf{16.7\%}. Most people wrongly assume that a positive result from a highly accurate test means they almost certainly have the disease. However, because COVID-19 is relatively rare in the population (a low base rate), even highly accurate tests produce many false positives. This is the essence of the \textbf{base rate fallacy}: ignoring the background prevalence (base rate) of the disease and overestimating the significance of the test result.
+
+\textbf{Example}: Imagine testing 10{,}000 people:
+
+\begin{itemize}
+    \item 1\% are infected $\Rightarrow$ 100 people have COVID.
+    \item 99\% are not infected $\Rightarrow$ 9{,}900 people do not have COVID.
+\end{itemize}
+
+Now apply the test:
+
+\begin{itemize}
+    \item Among 100 infected people 99 test positive (99\% true positives).
+    \item Among 9{,}900 uninfected people 9{,}405 test negative (95\% true positives) meaning 495 test positive (5\% false positives).
+\end{itemize}
+
+\noindent
+So, total positive tests = 99 (true) + 495 (false) = 594
+
+Probability of actually having COVID given a positive test = $ \dfrac{99}{594} \approx 16.7\% $
+
+\subsection{Regression to the Mean (TODO: Delete it!)}
+
+\textbf{Regression to the mean} is a statistical phenomenon where extreme observations tend to be followed by observations closer to the average (mean), purely due to chance variation.
+
+\subsubsection*{Theory}
+
+Consider two related measurements \(X_1\) and \(X_2\) of the same underlying quantity (e.g., scores on two tests). Assume both are normally distributed with the same mean and variance:
+
+\[
+X_1, X_2 \sim \mathcal{N}(\mu, \sigma^2)
+\]
+
+and have correlation \(\rho\), where \(-1 < \rho < 1\).
+
+When we observe an extreme value \(X_1 = x_1\), the expected value of the second measurement \(X_2\) given this is:
+
+\[
+E(X_2 \mid X_1 = x_1) = \mu + \rho (x_1 - \mu)
+\]
+
+---
+
+\subsubsection*{Why is this true?}
+
+The joint distribution of \((X_1, X_2)\) is bivariate normal:
+
+\[
+\begin{pmatrix}
+X_1 \\
+X_2
+\end{pmatrix}
+\sim \mathcal{N}\left(
+\begin{pmatrix}
+\mu \\
+\mu
+\end{pmatrix},
+\begin{pmatrix}
+\sigma^2 & \rho \sigma^2 \\
+\rho \sigma^2 & \sigma^2
+\end{pmatrix}
+\right)
+\]
+
+For bivariate normal variables, the conditional expectation of \(X_2\) given \(X_1 = x_1\) is linear and given by:
+
+\[
+E(X_2 \mid X_1 = x_1) = \mu + \frac{\mathrm{Cov}(X_1, X_2)}{\mathrm{Var}(X_1)} (x_1 - \mu)
+\]
+
+Since
+
+\[
+\mathrm{Cov}(X_1, X_2) = \rho \sigma^2, \quad \mathrm{Var}(X_1) = \sigma^2,
+\]
+
+this simplifies to
+
+\[
+E(X_2 \mid X_1 = x_1) = \mu + \rho (x_1 - \mu).
+\]
+
+---
+
+\subsubsection*{Interpretation}
+
+- If \(\rho = 1\) (perfect correlation), then \(E(X_2 \mid X_1) = x_1\) — no regression occurs.
+- If \(|\rho| < 1\), the expected value of \(X_2\) given an extreme \(X_1\) is "pulled" toward the mean \(\mu\), illustrating regression to the mean.
+- The farther \(x_1\) is from the mean \(\mu\), the stronger this regression effect.
+
+---
+
+\subsubsection*{Example}
+
+A student has an average test score \(\mu = 75\) with standard deviation \(\sigma = 10\), and the correlation between two test scores is \(\rho = 0.6\).
+
+If the student scores \(X_1 = 95\) on the first test, the expected score on the second test is:
+
+\[
+E(X_2 \mid X_1 = 95) = 75 + 0.6 \times (95 - 75) = 75 + 12 = 87.
+\]
+
+This second score is closer to the mean than the first, illustrating regression to the mean.
+
+---
+
+\subsubsection*{Implications}
+
+- Regression to the mean explains why extreme observations tend to be followed by less extreme ones, purely by chance.
+- It cautions against interpreting natural fluctuations as real change or effects of interventions without proper controls.
+- Proper experimental design and control groups are necessary to separate true effects from regression artifacts.
+
+
+
 \section{Statistical Independence of Events}
 
 If $A$ and $B$ are any two events in a sample space $S$, we say that ``$A$ is independent of $B$'' if:
@@ -13345,9 +13503,9 @@ Given data for 10 subgroups:
 \begin{table}[H]
 \centering
 \caption{Sample Data for Rod Diameter (mm)}
-\begin{tabular}{cccccccc}
+\begin{tabular}{c|ccccc|c|c}
 \toprule
-Subgroup & $X_1$ & $X_2$ & $X_3$ & $X_4$ & $X_5$ & $\bar{X}$ & $R$ \\
+\textbf{Subgroup} & $X_1$ & $X_2$ & $X_3$ & $X_4$ & $X_5$ & $\bar{X}$ & $R$ \\
 \midrule
 1 & 10.2 & 10.1 & 10.3 & 10.0 & 10.1 & 10.14 & 0.3 \\
 2 & 10.0 & 10.2 & 10.1 & 10.3 & 10.2 & 10.16 & 0.3 \\
@@ -13623,7 +13781,7 @@ $$C_{pk} = \min\left(\frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma}\right)
 
 where $\mu$ is the process mean.
 
-\subsubsection{Interpretation}
+\textbf{Interpretation}
 
 \begin{table}[H]
 \centering
@@ -13827,7 +13985,7 @@ $$R_p(t) = 1 - [1 - e^{-0.001t}]^3$$
     xmin=0, xmax=2000,
     ymin=0, ymax=1,
     grid=major,
-    legend pos=south west
+    legend pos=north east
 ]
 \addplot[blue, thick] coordinates {(0,1) (200,0.82) (400,0.67) (600,0.55) (800,0.45) (1000,0.37) (1200,0.30) (1400,0.25) (1600,0.20) (1800,0.17) (2000,0.14)};
 \addplot[red, thick] coordinates {(0,1) (200,0.67) (400,0.45) (600,0.30) (800,0.20) (1000,0.14) (1200,0.09) (1400,0.06) (1600,0.04) (1800,0.03) (2000,0.02)};
