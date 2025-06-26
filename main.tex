@@ -5895,8 +5895,6 @@ The \textbf{standard normal table} (or $Z$-table)  shown in Table~\ref{table:Zta
 \begin{table}[!h]
 \centering
 \footnotesize
-\caption{\small Standard Normal CDF values $F_Z(z)=P(Z\le z)$}
-\label{table:Ztable}
 \begin{tabular}{l|*{10}{r}}
 \toprule
 z   & 0       & 0.01    & 0.02    & 0.03    & 0.04    & 0.05    & 0.06    & 0.07    & 0.08    & 0.09    \\
@@ -5945,6 +5943,8 @@ z   & 0       & 0.01    & 0.02    & 0.03    & 0.04    & 0.05    & 0.06    & 0.07
 \addlinespace
 \bottomrule
 \end{tabular}
+\caption{\textit{Standard Normal CDF values $F_Z(z)=P(Z\le z)$.}}
+\label{table:Ztable}
 \end{table}
 
 To look up \(F_Z(k)\), follow the following steps:
@@ -9991,6 +9991,45 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 	\item Since \(p < 0.05\), we reject the null hypothesis at the 5\% significance level. Therefore there is statistically significant evidence at the 5\% level to suggest that the coin may be biased.
 \end{itemize}
 
+
+\section{Relationship Between Confidence Interval and Hypothesis Tests}
+
+Let $X_1, X_2, \dots, X_n$ be a random sample from a normal population with unknown mean $\mu$ and known variance $\sigma^2$. A $(1-\alpha)100\%$ confidence interval for $\mu$ is
+$$\left[\overline{X} - z_{\alpha/2} \cdot \dfrac{\sigma}{\sqrt{n}}, \overline{X} - z_{\alpha/2} \cdot \dfrac{\sigma}{\sqrt{n}}\right]$$
+because,$$P\left(\overline{X} - z_{\alpha/2} \cdot \dfrac{\sigma}{\sqrt{n}} \leq  \mu \leq \overline{X} - z_{\alpha/2} \cdot \dfrac{\sigma}{\sqrt{n}}\right) = 1-\alpha$$
+
+If are interested in testing the null hypothesis:
+\[
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu \ne \mu_0
+\]
+
+The test statistic is:
+\[
+Z = \dfrac{\overline{X} - \mu_0}{\sigma / \sqrt{n}}
+\]
+
+We reject $H_0$ at level $\alpha$ if:
+\[
+|Z| > z_{\alpha/2}
+\quad \Longleftrightarrow \quad
+|\overline{X} - \mu_0| > z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+\]
+In contrast we cannot reject  $H_0$ at level $\alpha$ if:
+
+$$|\overline{X} - \mu_0| \leq z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$$
+
+which translates to
+$$\overline{X} - z_{\alpha/2} \cdot \dfrac{\sigma}{\sqrt{n}} \leq  \mu_0 \leq \overline{X} - z_{\alpha/2} \cdot \dfrac{\sigma}{\sqrt{n}}$$
+
+This prompt us to state the following theorem:
+
+\begin{textbox}
+\textbf{Theorem}: The null hypothesis $H_0:\mu = \mu_0$ cannot be rejected in favor of the alternative hypothesis $H_1:\mu \neq \mu_0$ at significance level $\alpha$ if and only if $\mu_0$ lies within $(1-\alpha)100\%$ CI for $\mu$.
+
+---
+
+\textbf{Generalized version}: The null hypothesis $H_0: \theta = \theta_0$ about an unknown parameter $\theta$ (such as mean, proportion, variance, etc.) cannot be rejected in favor of the alternative hypothesis $H_1: \theta \ne \theta_0$ at significance level $\alpha$ if and only if the hypothesized value $\theta_0$ lies within the $(1 - \alpha)100\%$ CI for the parameter $\theta$.
+\end{textbox}
 
 \section{Power of a Test}
 
