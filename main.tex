@@ -580,13 +580,13 @@ The combined GM is:
         \item Simple HM:
         \begin{textbox}
     \[
-    x_H = \dfrac{1}{ \frac{1}{n}\sum_{i=1}^{n} \frac{1}{x_i}} = \dfrac{n}{\sum_{i=1}^{n} \frac{1}{x_i}}
+    x_H = \dfrac{1}{ \dfrac{1}{n}\displaystyle \sum_{i=1}^{n} \dfrac{1}{x_i}} = \dfrac{n}{\displaystyle \sum_{i=1}^{n} \dfrac{1}{x_i}}
     \]
     \end{textbox}
     \item Weighted HM:
     \begin{textbox}
     \[
-    x_H = \dfrac{1}{ \frac{1}{N}\sum_{i=1}^{n} \frac{f_i}{x_i}} = \dfrac{N}{\sum_{i=1}^{n} \frac{f_i}{x_i}}
+    x_H = \dfrac{1}{ \dfrac{1}{N}\displaystyle \sum_{i=1}^{n} \dfrac{f_i}{x_i}} = \dfrac{N}{\displaystyle \sum_{i=1}^{n} \dfrac{f_i}{x_i}}
     \]
     \end{textbox}
     \end{itemize}
@@ -594,6 +594,7 @@ The combined GM is:
 \end{itemize}
 
 It is important to note where to use GM and where to use HM. GM is useful for averaging \textbf{ratios}, \textbf{rates} and \textbf{percentages}. As an illustration, we consider the following example.
+
 
 \textbf{Example}: The ratio of the prices in 1994 and to those in 1982 for four commodities are $0.92, 1.25, 1.75$ and $0.85$. To get the average price ratio use geometric mean
 \begin{align*}
@@ -640,9 +641,9 @@ This principle can be illustrated with the following example.
 \textbf{Example}: Suppose a train covers \textbf{\( n \) equal distances}, each of \( s \) kilometers, with speeds \( v_1, v_2, \dots, v_n \) km/h. The average speed is the total distance divided by the total time taken. Thus,
 
 \[
-\text{Average speed} = \frac{ns}{\frac{s}{v_1} + \frac{s}{v_2} + \dots + \frac{s}{v_n}}
-= \frac{n}{\frac{1}{v_1} + \frac{1}{v_2} + \dots + \frac{1}{v_n}}
-= \frac{n}{\sum_{i=1}^n \frac{1}{v_i}}
+\text{Average speed} = \dfrac{ns}{\dfrac{s}{v_1} + \dfrac{s}{v_2} + \dots + \dfrac{s}{v_n}}
+= \frac{n}{\frac{1}{v_1} + \dfrac{1}{v_2} + \dots + \frac{1}{v_n}}
+= \dfrac{n}{\displaystyle \sum_{i=1}^n \dfrac{1}{v_i}}
 \]
 
 This is the \textbf{harmonic mean (HM)} of the given speeds.
@@ -2774,99 +2775,6 @@ Now apply the test:
 So, total positive tests = 99 (true) + 495 (false) = 594
 
 Probability of actually having COVID given a positive test = $ \dfrac{99}{594} \approx 16.7\% $
-
-\subsection{Regression to the Mean (TODO: Delete it!)}
-
-\textbf{Regression to the mean} is a statistical phenomenon where extreme observations tend to be followed by observations closer to the average (mean), purely due to chance variation.
-
-\subsubsection*{Theory}
-
-Consider two related measurements \(X_1\) and \(X_2\) of the same underlying quantity (e.g., scores on two tests). Assume both are normally distributed with the same mean and variance:
-
-\[
-X_1, X_2 \sim \mathcal{N}(\mu, \sigma^2)
-\]
-
-and have correlation \(\rho\), where \(-1 < \rho < 1\).
-
-When we observe an extreme value \(X_1 = x_1\), the expected value of the second measurement \(X_2\) given this is:
-
-\[
-E(X_2 \mid X_1 = x_1) = \mu + \rho (x_1 - \mu)
-\]
-
----
-
-\subsubsection*{Why is this true?}
-
-The joint distribution of \((X_1, X_2)\) is bivariate normal:
-
-\[
-\begin{pmatrix}
-X_1 \\
-X_2
-\end{pmatrix}
-\sim \mathcal{N}\left(
-\begin{pmatrix}
-\mu \\
-\mu
-\end{pmatrix},
-\begin{pmatrix}
-\sigma^2 & \rho \sigma^2 \\
-\rho \sigma^2 & \sigma^2
-\end{pmatrix}
-\right)
-\]
-
-For bivariate normal variables, the conditional expectation of \(X_2\) given \(X_1 = x_1\) is linear and given by:
-
-\[
-E(X_2 \mid X_1 = x_1) = \mu + \frac{\mathrm{Cov}(X_1, X_2)}{\mathrm{Var}(X_1)} (x_1 - \mu)
-\]
-
-Since
-
-\[
-\mathrm{Cov}(X_1, X_2) = \rho \sigma^2, \quad \mathrm{Var}(X_1) = \sigma^2,
-\]
-
-this simplifies to
-
-\[
-E(X_2 \mid X_1 = x_1) = \mu + \rho (x_1 - \mu).
-\]
-
----
-
-\subsubsection*{Interpretation}
-
-- If \(\rho = 1\) (perfect correlation), then \(E(X_2 \mid X_1) = x_1\) — no regression occurs.
-- If \(|\rho| < 1\), the expected value of \(X_2\) given an extreme \(X_1\) is "pulled" toward the mean \(\mu\), illustrating regression to the mean.
-- The farther \(x_1\) is from the mean \(\mu\), the stronger this regression effect.
-
----
-
-\subsubsection*{Example}
-
-A student has an average test score \(\mu = 75\) with standard deviation \(\sigma = 10\), and the correlation between two test scores is \(\rho = 0.6\).
-
-If the student scores \(X_1 = 95\) on the first test, the expected score on the second test is:
-
-\[
-E(X_2 \mid X_1 = 95) = 75 + 0.6 \times (95 - 75) = 75 + 12 = 87.
-\]
-
-This second score is closer to the mean than the first, illustrating regression to the mean.
-
----
-
-\subsubsection*{Implications}
-
-- Regression to the mean explains why extreme observations tend to be followed by less extreme ones, purely by chance.
-- It cautions against interpreting natural fluctuations as real change or effects of interventions without proper controls.
-- Proper experimental design and control groups are necessary to separate true effects from regression artifacts.
-
-
 
 \section{Statistical Independence of Events}
 
@@ -6243,8 +6151,6 @@ P(-z_{\alpha/2} \le Z \le z_{\alpha/2}) \;=\; 1 - \alpha
 
 These critical points help us identify how extreme a value is relative to the overall distribution, and they are fundamental when constructing intervals to estimate population parameters. These critical points are used in hypothesis tests and to construct confidence intervals which we will see in future chapters.
 
-
-
 \chapter{Sampling Theory}
 \section{Introduction}
 Sampling theory is a part of statistics that helps us understand how to learn about a large group by looking at just a small part of it. For example, imagine a company makes a new type of battery and wants to know how long the batteries last. Testing every single battery would take too much time and money, so the company picks a few batteries to test. These few batteries are called a \textbf{sample}, and all the batteries made by the company are called the \textbf{population}.
@@ -8537,6 +8443,111 @@ n_{\text{adj}} = \frac{384.16}{1 + \frac{384.16 - 1}{2000}} = \frac{384.16}{1 + 
 
 Thus, only about 323 individuals are needed when the population is finite.
 
+\section{Frequentist vs Bayesian Approaches of Statistical Inference}
+
+The foundations of statistical inference are built on two major schools of thought: the frequentist and the Bayesian.
+
+\begin{enumerate}
+\item The \textbf{frequentist approach}, formalized in the early 20th century by statisticians like Ronald Fisher, Jerzy Neyman, and Egon Pearson, views parameters such as population means as fixed but unknown constants. In this framework, the probability is interpreted as the long-run frequency of events, and statistical inference is based on the behavior of data across repeated random samples.
+
+\item In contrast, the \textbf{Bayesian approach}—rooted in the 18th-century work of Thomas Bayes but revived and expanded in modern times—treats unknown parameters as random variables with probability distributions that reflect prior beliefs. These beliefs are updated using Bayes’ theorem after observing data.
+\end{enumerate}
+
+The key distinction lies in interpretation: frequentists quantify uncertainty through the sampling distribution of estimators, while Bayesians express uncertainty directly about parameters using probability based on both data and prior information.
+
+To illustrate the fundamental difference between the frequentist and Bayesian approaches we consider an example where we collect the heights (in cm) of 5 randomly selected adult men from a town:
+\[
+170,\quad 172,\quad 168,\quad 174,\quad 176
+\]
+The sample mean is:
+\[
+\bar{x} = \frac{170 + 172 + 168 + 174 + 176}{5} = 172
+\]
+We assume that the population standard deviation is known and equal to $\sigma = 4$ cm.
+
+\vspace{1em}
+
+\subsection{Frequentist Approach}
+
+The frequentist treats the true mean $\mu$ as a fixed but unknown constant. The sample mean $\overline{x}$ is used as a point estimator for $\mu$. The goal is to make inference based on the behavior of $\overline{x}$ under repeated sampling.
+
+\subsubsection*{Confidence Interval}
+
+A 95\% confidence interval for the population mean $\mu$ is given by:
+\[
+\overline{x} \pm z_{\alpha/2} \cdot \dfrac{\sigma}{\sqrt{n}}
+\]
+Substituting values:
+\[
+172 \pm 1.96 \cdot \dfrac{4}{\sqrt{5}} \approx 172 \pm 3.51
+\]
+So the 95\% confidence interval is:
+\[
+[168.49,\; 175.51]
+\]
+
+\subsubsection*{Interpretation (Frequentist):}
+
+If this sampling process were repeated many times, approximately 95\% of the confidence intervals constructed this way would contain the true population mean $\mu$. Note that in this view, $\mu$ is fixed and not random — the randomness lies in the interval.
+
+\vspace{1em}
+
+\subsection{Bayesian Approach}
+
+The Bayesian treats the true mean $\mu$ as a random variable and assigns a prior distribution to reflect belief about $\mu$ before seeing data. This prior is then updated using Bayes’ theorem to obtain a posterior distribution after observing the data.
+
+\subsubsection*{Prior Distribution}
+
+Suppose we believe, before observing the data, that the average male height is centered around 170 cm, but we are not very confident. We use a normal prior:
+\[
+\mu \sim \mathcal{N}(170,\; 5^2)
+\]
+
+\subsubsection*{Posterior Distribution}
+
+Given the normal prior and normal likelihood (due to known $\sigma$), the posterior distribution for $\mu$ is also normal:
+\[
+\mu \mid \text{data} \sim \mathcal{N}(\mu_{\text{post}},\; \sigma^2_{\text{post}})
+\]
+where
+\[
+\mu_{\text{post}} = \dfrac{\dfrac{170}{25} + \dfrac{172}{(4^2/5)}}{\dfrac{1}{25} + \dfrac{1}{(4^2/5)}} \approx 171.4, \qquad
+\sigma_{\text{post}} \approx 1.6
+\]
+
+\subsubsection*{Credible Interval}
+
+A 95\% credible interval is:
+\[
+\mu_{\text{post}} \pm 1.96 \cdot \sigma_{\text{post}} \approx 171.4 \pm 3.14 = [168.26,\; 174.54]
+\]
+
+\subsubsection*{Interpretation (Bayesian):}
+
+Given the prior belief and the observed data, there is a 95\% probability that the true mean $\mu$ lies within the interval.
+
+\vspace{1em}
+
+\subsection{Summary of Differences}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{3.5cm}|p{4.2cm}|p{4.2cm}}
+\toprule
+\textbf{Aspect} & \textbf{Frequentist Approach} & \textbf{Bayesian Approach} \\
+\midrule
+Nature of $\mu$ & Fixed but unknown & Random variable with prior \\
+\midrule
+Use of prior knowledge & Not used & Incorporated through prior \\
+\midrule
+Interval interpretation & Probability attached to the confidence interval, not parameter & Probability applies to the parameter \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Comparison between frequentist and Bayesian interpretations.}}
+\end{table}
+
+
+
 % \begin{sidewaystable}[htbp]
 % 	\centering
 % 	\rotatebox{180}{%
@@ -8585,7 +8596,6 @@ Thus, only about 323 individuals are needed when the population is finite.
 
 \begin{sidewaystable}
 	\centering
-	\caption{Important Confidence Interval Formulas}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		\textbf{Parameter} & \textbf{Assumptions} & \textbf{Confidence Interval Formula} \\ \midrule
@@ -8621,6 +8631,7 @@ Thus, only about 323 individuals are needed when the population is finite.
 
 		\bottomrule
 	\end{tabular}
+    \caption{\textit{Important confidence interval formulas.}}
 	\label{tab:ci_sideways}
 \end{sidewaystable}
 
