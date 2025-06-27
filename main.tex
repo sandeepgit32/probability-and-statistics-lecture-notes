@@ -1,10 +1,10 @@
 \documentclass[twoside]{book}
 \setcounter{tocdepth}{1}
 \usepackage[a4paper,
-    inner=4cm,  % Inner margin (binding side)
-    outer=3.5cm,  % Outer margin
-    top=3cm,
-    bottom=3cm
+    inner=3.3cm,  % Inner margin (binding side)
+    outer=2.8cm,  % Outer margin
+    top=2.8cm,
+    bottom=2.8cm
 ]{geometry}
 \usepackage[hidelinks]{hyperref}
 %\usepackage{mathpazo}
@@ -3761,7 +3761,6 @@ Two random variables \( X \) and \( Y \) are \textbf{independent} if and only if
 \begin{itemize}
 
 \item{Discrete Case}:
-
 \begin{align*}
     \mathbb{E}(XY) &= \sum_{x} \sum_{y} xy \cdot p_{X,Y}(x, y)\\
     &=\sum_{x} \sum_{y} xy \cdot p_{X}(x)\cdot p_{Y}(y)\\
@@ -3770,7 +3769,6 @@ Two random variables \( X \) and \( Y \) are \textbf{independent} if and only if
 \end{align*}
 
 \item{Continuous Case}:
-
 \begin{align*}
     \mathbb{E}(XY) &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} xy \cdot f_{X,Y}(x, y) \, dy \, dx\\
     &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} xy \cdot f_X(x)\cdot f_Y(y) \, dy \, dx\\
@@ -4180,7 +4178,6 @@ Or equivalently:
   \[
   F_Y(y) = F_X\left(g^{-1}(y)\right)
   \]
-
   \item If \( g \) is strictly decreasing, then
   \[
   F_Y(y) = 1 - F_X\left(g^{-1}(y)\right)
@@ -9595,7 +9592,7 @@ Alternatively, identify critical values and rejection regions at level $\alpha$:
 
 	\item If \(p\text{-value} \le \alpha\), \textbf{reject} \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 
-	Alternatively, if $t_{obs}$ (for large sample) or $t_{obs}$ (for small sample) lies in the rejection region, \textbf{reject} the \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
+	Alternatively, if $t_{\text{obs}}$ (for large sample) or $t_{\text{obs}}$ (for small sample) lies in the rejection region, \textbf{reject} the \(H_0\); otherwise, \textbf{do not reject} \(H_0\).
 \end{enumerate}
 
 
@@ -10357,729 +10354,6 @@ By varying the critical value \(c\), we obtain different pairs \((\alpha, 1-\bet
 The ROC curve helps us visualize and compare the effectiveness of tests across different thresholds. The closer the ROC curve approaches the top-left corner, the better the test's ability to discriminate between \(H_0\) and \(H_1\). From the Figure~\ref{fig:roc}, we can see as the sample size increases, the ROC curve moves closer to the top-left corner, indicating improved test power and discrimination ability.
 
 The \textbf{Area Under the Curve (AUC)} quantifies overall test performance: an AUC of 1 indicates perfect discrimination, whereas an AUC of 0.5 corresponds to random guessing.
-
-\chapter{Correlation and Regression}
-
-\section{Correlation}
-
-\begin{textbox}
-In statistics, \textbf{correlation} between two random variables is a measure of the degree of linear association between them.
-\end{textbox}
- For example, imagine you record how many hours each of the six students studies in a week and their corresponding exam scores:
-
-\begin{table}[h!]
-	\centering
-	\begin{tabular}{c|c|c}
-		\toprule
-		\textbf{Student} & \textbf{Hours Studied} ($X$) & \textbf{Exam Score} ($Y$) \\
-		\midrule
-		1 & 2 & 65 \\
-		2 & 3 & 70 \\
-		3 & 4 & 76 \\
-		4 & 5 & 78 \\
-		5 & 6 & 82 \\
-		6 & 7 & 89 \\
-		\bottomrule
-	\end{tabular}
-	\caption{\textit{Study hours and exam scores of six students.}}
-	\label{tab:study_scores}
-\end{table}
-
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-	\begin{axis}[
-	xlabel={Hours Studied},
-	ylabel={Exam Score},
-	axis lines=left,
-	xmin=1, xmax=8, ymin=60, ymax=95 ,
-	width=10cm,
-	height=5cm,
-	thick,
-	]
-	\addplot[only marks, blue, mark=*, mark size=2pt] coordinates {
-		(2,65) (3,70) (4,76) (5,78) (6,82) (7,89)
-	};
-	\end{axis}
-	\end{tikzpicture}
-	\caption{\textit{Scatter plot of study time and exam performance.}}
-\end{figure}
-
-
-As illustrated in the table and the accompanying scatter plot, exam scores increase as students dedicate more hours to studying. This clear upward pattern reflects a positive correlation: students who invest more time in preparation tend to achieve higher marks.  In general, the direction of correlation can be classified as follows:
-
-\begin{enumerate}
-	\item \textbf{Positive correlation}: An increase in one variable is accompanied by an increase in the other.
-	\item \textbf{Negative correlation}: An increase in one variable is accompanied by a decrease in the other.
-	\item \textbf{No (zero) correlation}: Changes in one variable show no consistent association with changes in the other.
-\end{enumerate}
-
-
-\section{Pearson Correlation Coefficient}
-
-Pearson's correlation coefficient for a population, commonly denoted by the Greek letter \(\rho\) (rho), is also known as the \textbf{population correlation coefficient}. Given a pair of random variables \(X\) and \(Y\), the population correlation coefficient \(\rho_{XY}\) is defined as
-
-\begin{textbox}
-\[
-\rho_{XY} = \frac{\operatorname{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\mathbb{E}\big[(X - \mu_X)(Y - \mu_Y)\big]}{\sigma_X \sigma_Y}
-\]
-\end{textbox}
-where \(\mu_X = \mathbb{E}[X]\) and \(\mu_Y = \mathbb{E}[Y]\) are the means of \(X\) and \(Y\), \(\sigma_X\) and \(\sigma_Y\) are their standard deviations, and \(\operatorname{Cov}(X,Y)\) is the covariance between \(X\) and \(Y\).
-
-Like all population parameters, The value of $\rho_{XY}$ is not known to us. We may need to estimate it from the random sample observation pairs $(X,Y)$. Let $$ (x_1, y_1), (x_2, y_2), \dots,(x_n, y_n) $$ be $n$ pairs of observations with respective means $\overline{X}, \overline{Y}$ and variances $S_X^2, S_X^2$ respectively. It turns out that a point estimate of $\text{Cov}(X,Y)$ is the sample covariance:
-$$ S_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{n-1} $$
-The point estimate of $\sigma_X$ is sample standard deviation of $X$:
-$$S_X = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (x_i - \overline{x})^2}$$
-The point estimate of $\sigma_Y$ is sample standard deviation of $Y$:
-$$S_Y = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (y_i - \overline{y})^2}$$
-
-Substituting these estimates for their population counterparts, we get the formula for the \textbf{sample correlation coefficient} as
-
-\begin{textbox}
-	\[
-	r_{XY} = \dfrac{S_{XY}}{S_X \cdot S_Y}
-	\]
-\end{textbox}
-Alternatively, $r_{XY}$ can be expressed as
-\begin{textbox}
-\[
-r_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}
-\]
-\end{textbox}
-
-We can simplify the formula for $r_{XY}$ into a form most convenient for computing from raw data by using the identities:
-\begin{align*}
-\sum_i (x_i - \overline{x})(y_i - \overline{y}) &= \sum_i x_i y_i - n\overline{x}\cdot \overline{y} = \sum_i x_i y_i - \frac{\sum_i x_i \sum_i y_i}{n} \\
-\sum_i (x_i - \overline{x})^2 &= \sum_i x_i^2 -n\overline{x}^2= \sum_i x_i^2 - \frac{(\sum_i x_i)^2}{n} \\
-\sum_i (y_i - \overline{y})^2 &= \sum_i y_i^2 -n\overline{y}^2= \sum_i y_i^2 - \frac{(\sum_i y_i)^2}{n}
-\end{align*}
-
-Thus we obtain the formula for $r_{XY}$:
-\begin{textbox}
-\begin{align*}
-r_{XY} = \frac{n \sum x_i y_i - \sum x_i \sum y_i}
-{\sqrt{n \sum x_i^2 - (\sum x_i)^2} \cdot \sqrt{n \sum y_i^2 - (\sum y_i)^2}}
-\end{align*}
-\end{textbox}
-
-The value of $r_{XY}$ lies within -1 and 1 i.e. $-1 \leq r_{XY} \leq 1$.
-\begin{textbox}
-\begin{itemize}
-	\item $r > 0$ indicates a \textbf{positive correlation}.
-	\item $r < 0$ indicates a \textbf{negative correlation}.
-	\item $r = 0$ suggests \textbf{no correlation} (but not necessarily independence).
-	\item $r = \pm 1$ indicates a \textbf{perfect linear correlation} ($+1$ for positive and $-1$ for negative).
-\end{itemize}
-\end{textbox}
-
-% In your document preamble:
-%   \usepackage{pgfplots}
-%   \pgfplotsset{compat=1.17}
-%   \usepgfplotslibrary{groupplots}
-
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-	\begin{groupplot}[
-	group style={
-		group size=2 by 2,
-		horizontal sep=3cm,
-		vertical sep=2cm
-	},
-	width=5cm,
-	height=4cm,
-	axis lines=left,
-	axis line style={thick},
-	xlabel={$X$},
-	ylabel={$Y$},
-	tick align=outside,
-	]
-	% Positive correlation
-	\nextgroupplot[title={Positive Correlation ($r>0$)},xmin=0, xmax=8,	ymin=1]
-	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
-		(1,1.5) (2,1.9) (3,3.1) (4,4.8) (5,4.9) (6,5.9) (7,7.8)
-	};
-
-	% Negative correlation
-	\nextgroupplot[title={Negative Correlation ($r<0$)},xmin=0, xmax=8,	ymin=1]
-	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
-		(1,7.0) (2,6.0) (3,5.0) (4,4.5) (5,3.7) (6,2.2) (7,1.6)
-	};
-
-	% Zero correlation
-	\nextgroupplot[title={Zero Correlation ($r\approx0$)},xmin=0, xmax=8,	ymin=3, ymax=6]
-	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
-		(1,4.5) (2,5.8) (3,4.2) (4,4.9) (5,3.9) (6,5.3) (7,4.0)
-	};
-
-	% Perfect linear correlation
-	\nextgroupplot[title={Perfect Linear Correlation ($r=1$)},xmin=0, xmax=8,ymin=1]
-	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
-		(1,2) (2,4) (3,6) (4,8) (5,10) (6,12) (7,14)
-	};
-
-	\end{groupplot}
-	\end{tikzpicture}
-	\caption{\textit{Scatterplots illustrating positive, negative, zero, and perfect linear correlations.}}
-	\label{fig:correlation_types}
-\end{figure}
-
-% \begin{table}[h!]
-% 	\centering
-% 	\begin{tabular}{c|l}
-% 		\toprule
-% 		\textbf{Value of $r$} & \textbf{Strength of correlation} \\
-% 		\midrule
-% 		$0.90$ to $1.00$ or $-0.90$ to $-1.00$ & Very strong \\
-% 		$0.70$ to $0.89$ or $-0.70$ to $-0.89$ & Strong \\
-% 		$0.40$ to $0.69$ or $-0.40$ to $-0.69$ & Moderate \\
-% 		$0.10$ to $0.39$ or $-0.10$ to $-0.39$ & Weak \\
-% 		$0.00$ to $0.09$ or $-0.00$ to $-0.09$ & Very weak or none\\
-% 		\bottomrule
-% 	\end{tabular}
-% 	\caption{Interpreting the magnitude of correlation coefficient}
-% \end{table}
-
-
-\textbf{Example}: Suppose we have data on students' hours studied ($X$) and exam scores ($Y$) as given in the table \ref{tab:study_scores}. We need to calculate the Pearson corelation coefficient.
-
-The formula we will use:
-
-\[
-r_{XY} = \frac{n \sum x_i y_i - \sum x_i \sum y_i}
-{\sqrt{n \sum x_i^2 - (\sum x_i)^2} \cdot \sqrt{n \sum y_i^2 - (\sum y_i)^2}}
-\]
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c|c|c|c|c|c}
-		\toprule
-		Student & $x_i$ & $y_i$ & $x_i^2$ & $y_i^2$ & $x_iy_i$\\
-		\midrule
-		1 & 2 & 65 & 4 & 4225 & 130\\
-		2 & 3 & 70 & 9 & 4900 & 210\\
-		3 & 4 & 76 & 16 & 5776 & 304\\
-		4 & 5 & 78 & 25 & 6084 & 390\\
-		5 & 6 & 82 & 36 & 6724 & 492\\
-		6 & 7 & 89 & 49 & 7921 & 623\\
-		\midrule
-		\textbf{$n=6$}& $ \sum x_i = 27 $ & $ \sum y_i = 460 $& $ \sum x_i^2 = 139 $& $ \sum y_i^2 = 35630 $ & $ \sum x_iy_i = 2149 $ \\
-		\bottomrule
-	\end{tabular}
-\caption{\textit{Correlation coefficient calculation table.}}
-\end{table}
-
-Substituting the values:
-\begin{align*}
-r_{XY} &= \frac{6 \cdot 2149 - 27 \cdot 460}
-{\sqrt{6 \cdot 139 - 27^2} \cdot \sqrt{6 \cdot 35630 - 460^2}}\\
-&= \frac{12894 - 12420}
-{\sqrt{834 - 729} \cdot \sqrt{213780 - 211600}}\\
-&= \frac{474}
-{\sqrt{105} \cdot \sqrt{2180}}
-\approx \frac{474}{10.247 \cdot 46.690}\\
-&\approx \frac{474}{478.74}
-\approx 0.9907
-\end{align*}
-
-This indicates a very strong positive correlation between hours studied and exam scores.
-
-\section{Effect of Linear Transformations on Correlation Coefficient}
-
-\begin{textbox}
-\textbf{Theorem}: Suppose we have two random variables \(X\) and \(Y\) with correlation coefficient $\rho_{XY}$. Define new variables
-
-\[
-U = a + bX, \quad V = c + dY
-\]
-
-where \(a, c\) are constants (shifts) and \(b, d \neq 0\) are scaling factors. Then the population correlation coefficient between \(U\) and \(V\) is
-
-\begin{align*}
-\rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY}
-\end{align*}
-\end{textbox}
-\textbf{Proof}:
-\begin{align*}
-\rho_{UV} =  \dfrac{\mathrm{Cov}(U,V)}{\sigma_U \sigma_V} = \dfrac{\mathrm{Cov}(a + bX, c + dY)}{\sqrt{\mathrm{Var}(a + bX)} \cdot \sqrt{\mathrm{Var}(c + dY)}}
-\end{align*}
-
-Now,
-\begin{align*}
-\mathrm{Cov}(a + bX, c + dY) &= bd\, \mathrm{Cov}(X,Y)\\
-\mathrm{Var}(a + bX) &= c^2 \mathrm{Var}(X)\\
-\mathrm{Var}(c + dY) &= d^2 \mathrm{Var}(Y)
-\end{align*}
-
-Thus,
-
-$$\rho_{UV}
-= \dfrac{\mathrm{Cov}(bX, dY)}{\sqrt{\mathrm{Var}(bX)}\cdot \sqrt{\mathrm{Var}(dY)}}
-= \dfrac{bd \, \mathrm{Cov}(X, Y)}{|b| \sigma_X \cdot |d| \sigma_Y}
-= \dfrac{bd}{|b||d|} \cdot \frac{\mathrm{Cov}(X, Y)}{\sigma_X \sigma_Y}$$
-
-Since
-
-\[
-\dfrac{bd}{|b||d|} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d)
-\]
-
-where \(\operatorname{sgn}(\cdot)\) is the sign function\footnote{The \textbf{sign function}, denoted by \(\operatorname{sgn}(x)\), is defined as:
-
-	\[
-	\operatorname{sgn}(x) =
-	\begin{cases}
-	-1, & \text{if } x < 0, \\
-	\phantom{-}0, & \text{if } x = 0, \\
-	\phantom{-}1, & \text{if } x > 0.
-	\end{cases}
-	\]
-
-	It extracts the sign of a real number \(x\).}, it follows that
-
-\[
-\rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot \rho_{XY}
-\]
-\hfill $\blacksquare$
-
-This shows that linear transformations preserve the magnitude of the correlation coefficient but may reverse its sign depending on the scaling factors.
-\begin{itemize}
-	\item If \(b\) and \(d\) have the same sign, then \(\rho_{UV} = \rho_{XY}\).
-	\item If \(b\) and \(d\) have opposite signs, then \(\rho_{UV} = -\rho_{XY}\).
-	\item Adding constants \(a\) and \(c\) has no effect on the value of the correlation.
-\end{itemize}
-
-The sample correlation coefficient also satisfies the same transformation relation:
-\[
-r_{UV} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot r_{XY}
-\]
-
-
-\section{Correlation Is Not Causation}
-
-It is important to understand that a high correlation between two variables does not necessarily imply that one variable causes the other. Correlation measures the strength and direction of a linear relationship between variables, but it does not provide evidence about causality.
-
-There are several reasons why correlation does not imply causation:
-
-\begin{itemize}
-	\item \textbf{Confounding variables:} A third variable may influence both variables under study, creating a spurious correlation.
-	\item \textbf{Reverse causality:} The direction of cause and effect may be opposite to what is assumed.
-	\item \textbf{Coincidence:} Sometimes, correlations arise purely by chance.
-\end{itemize}
-
-For example, consider a study might that finds a positive correlation between umbrella sales and slipping accidents. This doesn't mean umbrellas cause slips or vice versa. Instead, rainy weather acts as the common factor: rain simultaneously drives people to buy umbrellas and makes sidewalks slippery, creating the illusion of a direct relationship between the two variables.
-
-This example illustrates why it is crucial to use careful experimental design, statistical controls, and domain knowledge before concluding causal relationships from correlated data.
-
-
-% \subsection{Limitations of Correlation}
-
-% \begin{itemize}
-% 	\item Correlation measures only linear association.
-% 	\item A high correlation does not imply causation.
-% 	\item Outliers can have a strong influence on the value of $r$.
-% 	\item Nonlinear relationships may exist even if $r \approx 0$.
-% \end{itemize}
-
-
-\section{Regression Analysis}
-
-\begin{textbox}
-    \textbf{Regression analysis} is a statistical method used to explore and model the relationship between a dependent variable and one or more independent variables.
-\end{textbox}
- It plays a central role in data analysis, prediction, and inference, particularly when trying to establish a functional relationship between variables.
-
-In its simplest form—\textbf{simple linear regression}—we wish to study the relationship between two variables $X$ and $Y$ and use it to predict $Y$ from $X$. The variable $X$ acts as the \textbf{independent variable} (predictor, causal variable) whose values are controlled by the experimenter and $Y$ is the \textbf{dependent variable} (response) which is also subjected to unaccountable variations (errors).
-
-For example, a teacher wants to examine whether there's a relationship between how long students study and the scores they achieve in a test. By treating the number of hours studied as the independent variable and the test score as the dependent variable, regression helps us determine whether there is a consistent trend between the two.
-
-\section{The Simple Linear Regression Model}
-
-A simple linear regression model assumes the existence of a linear relationship between $X$ (predictor variable) and $Y$ (response) that is disturbed by a random error $\epsilon$ which can be written as an equation of the form:
-
-\begin{textbox}
-\[
-Y = \beta_0 + \beta_1 X + \epsilon
-\]
-\end{textbox}
-
-where:
-\begin{itemize}
-    % \item \( Y \): dependent (response) variable
-    % \item \( X \): independent (predictor) variable
-    \item \( \beta_0 \): $y$-intercept of the line,
-    \item \( \beta_1 \): slope of the line (rate of change in \( Y \) per unit increase in \( X \)),
-    \item \( \epsilon \): random error, accounting for unexplained variation
-\end{itemize}
-
-Given a dataset of \( n \) observations, represented as pairs:
-$$(x_1,y_1), (x_2, y_2), \dots (x_n, y_n)$$
-the objective is to estimate the unknown parameters \( \beta_0 \) and \( \beta_1 \), and then use these estimates to define a straight line that best fits the data.
-
-The \textbf{fitted regression line} (also called the prediction equation) is:
-\begin{textbox}
-    $$\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X$$
-\end{textbox}
-Here, \( \hat{\beta}_0 \) and \( \hat{\beta}_1 \) are the estimated values of the intercept and slope, respectively, obtained from the sample data.
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    width=10cm,
-    height=6.5cm,
-    xlabel={Independent Variable ($X$)},
-    ylabel={Dependent Variable ($Y$)},
-    axis lines=left,
-    % grid=both,
-    xmin=0, xmax=10,
-    ymin=0, ymax=10,
-    enlargelimits=true,
-    clip=false
-]
-
-% Scatter data points
-\addplot[
-    only marks,
-    color=blue,
-    mark=*,
-    mark size=2pt
-] coordinates {
-    (1,1.7) (2,1.7) (3,1.8) (4,4.8) (5,5.2)
-    (6,6.4) (7,6.0) (8,9) (9,8.8)
-};
-
-% Regression line
-\addplot[
-    domain=0:10,
-    samples=2,
-    color=black,
-    very thick
-] {x};
-
-% Arrow to data points
-\draw[->, thin] (axis cs:6,8.2) -- (axis cs:6,6.6);
-\draw[->, thin] (axis cs:6,8.2) -- (axis cs:6.9,6.2);
-\node at (axis cs:6,8.5) {Data Points};
-
-% Arrow to regression line
-\draw[->, thin] (axis cs:2,8.3) -- (axis cs:3.4,3.5);
-\node at (axis cs:1.5,8.7) {Line of Regression};
-
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-% \section{Assumptions of the Linear Model}
-
-% To perform valid inference, the model makes the following assumptions:
-% \begin{enumerate}
-%     \item Linearity: \( Y \) changes linearly with \( X \)
-%     \item Independence: Errors \( \epsilon_i \) are independent
-%     \item Homoscedasticity: Constant variance of errors \( \mathrm{Var}(\epsilon_i) = \sigma^2 \)
-%     \item Normality: Errors are normally distributed (for inference)
-% \end{enumerate}
-
-\section{Estimating Parameters Using Least Squares}
-
-Given \( n \) data points \( (x_1, y_1), \ldots, (x_n, y_n) \), the estimates of the parameters \( \beta_0 \) and \( \beta_1 \) should result in a line that is (in some sense) a ``best ﬁt'' to the data. To define what we mean by a ``best fit'' line, consider each data point \( (x_i, y_i) \) and its corresponding prediction \( \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i \) from the regression line. This predicted value is known as the \textbf{fitted value}. The difference between the observed value \( y_i \) and the fitted value \( \hat{y}_i \) is called the \textbf{residual} (error), denoted by \( \epsilon_i \):
-
-\begin{textbox}
-    \[
-\epsilon_i = y_i - \hat{y}_i
-\]
-\end{textbox}
-
-The residual \( \epsilon_i \) represents the vertical distance between an observed data point and the regression line. A positive residual indicates that the point lies above the regression line, while a negative residual indicates that it lies below. The closer the residuals are to zero, the better the fitted values approximate the observed data. Therefore, the estimates of the parameters \( \beta_0 \) and \( \beta_1 \) should be such that these residuals (errors) are as small as possible. However, minimizing the simple sum of residuals is not appropriate, because the positive and negative errors can cancel each other out, even when individual errors are large. A more effective approach is the \textbf{method of least squares}, which involves minimizing the sum of the squares of the residuals.
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    width=10cm,
-    height=6.5cm,
-    xlabel={Independent Variable ($X$)},
-    ylabel={Dependent Variable ($Y$)},
-    axis lines=left,
-    xmin=0, xmax=10,
-    ymin=0, ymax=10,
-    enlargelimits=true,
-    clip=false,
-    thick
-]
-
-% Scatter data points
-\addplot[
-    only marks,
-    color=blue,
-    mark=*,
-    mark size=2pt
-] coordinates {
-    (1,1.7) (2,1.7) (3,1.8) (4,5.5) (5,5.2)
-    (6,6.4) (7,5.8) (8,9) (9,8.8)
-};
-
-% Regression line y = x
-\addplot[
-    domain=0:10,
-    samples=2,
-    color=black,
-    very thick
-] {x};
-
-% Red vertical line for residual at (4,5.5) to (4,4)
-\draw[red, very thick] (axis cs:4,5.5) -- (axis cs:4,4);
-\node[black] at (axis cs:2.7,4.7) {$\epsilon_i = y_i - \hat{y}_i$};
-\node[black] at (axis cs:4.3,6.2) {$ (x_i, y_i)$};
-\node[black] at (axis cs:4.3,3.3) {$ (x_i, \hat{y}_i)$};
-
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-The \textbf{least-squares line} is the line that minimizes the \textbf{residual sum of squares (RSS)}\footnote{In some texts, the residual sum of squares (RSS) is also called the \textbf{sum of squares of errors (SSE)}}:
-
-\begin{textbox}
-\[
-\text{RSS} = \sum_{i=1}^{n} \epsilon_i^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2
-\]
-\end{textbox}
-
-To derive the expressions for $\hat{\beta_0}$ and $\hat{\beta_1}$, we have to take the partial derivatives of $RSS$ with respect to $\hat{\beta_0}$ and $\hat{\beta_1}$ and set them to zero.
-
-\begin{align*}
-    \dfrac{\partial}{\partial \hat{\beta_0}} (RSS) &=-2\sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) = 0,\\ \dfrac{\partial}{\partial \hat{\beta_1}} (RSS) &= -2\sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)x_i = 0
-\end{align*}
-
-Simplifying these two equations yields
-\begin{align*}
- n\hat{\beta}_0 + \hat{\beta}_1 \sum_{i=1}^{n}x_i &= \sum_{i=1}^{n} y_i, \\
-\hat{\beta}_0\sum_{i=1}^{n}  x_i + \hat{\beta}_1 \sum_{i=1}^{n}x_i^2 &= \sum_{i=1}^{n} y_i x_i
-\end{align*}
-
-Multiplying the first equation by $\sum_{i=1}^n x_i$ and second equation by $n$ and then subtracting second from the first yields
-$$\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right) - n\sum_{i=1}^{n} x_i y_i = \hat{\beta}_1\left(\sum_{i=1}^{n} x_i\right)^2 - n\hat{\beta}_1\sum_{i=1}^{n} x_i^2  $$
-
-Thus we get the expression for $\hat{\beta}_1$
-
-% \begin{align*}
-%     \hat{\beta}_1 &= \dfrac{n\sum_{i=1}^{n} x_i y_i-\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}{n\sum_{i=1}^{n} x_i^2-\left(\sum_{i=1}^{n} x_i\right)^2} \\
-%     &= \dfrac{\sum_{i=1}^{n} x_i y_i-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}{\sum_{i=1}^{n} x_i^2-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2} \\
-%     % &=\dfrac{\frac{1}{n}\sum_{i=1}^{n} x_i y_i-\overline{x}\overline{y}}{\frac{1}{n}\sum_{i=1}^{n} x_i^2-\overline{x}^2} = \dfrac{\frac{1}{n}\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})}{\frac{1}{n}\sum_{i=1}^{n} \left(x_i-\overline{x}\right)^2} \\
-%     % &= \dfrac{\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})}{\sum_{i=1}^{n} \left(x_i-\overline{x}\right)^2}
-% \end{align*}
-
-\begin{align*}
-\hat{\beta}_1 &=
-\left[
-n\sum_{i=1}^{n} x_i y_i
--
-\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)
-\right]
-\bigg/
-\left[
-n\sum_{i=1}^{n} x_i^2
--
-\left(\sum_{i=1}^{n} x_i\right)^2
-\right]
-\\
-&=
-\left[
-\sum_{i=1}^{n} x_i y_i
--
-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right]
-\right)
-\bigg/
-\left[
-\sum_{i=1}^{n} x_i^2
--
-\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2
-\right]
-\end{align*}
-
-
-It is convenient to introduce some notation for the sums of squared deviation from mean and sums of cross-products of deviation.
-
-\begin{textbox}
-\begin{align*}
-S_{xx} &= \sum_{i=1}^{n} (x_i - \overline{x})^2 = \sum_{i=1}^{n} x_i^2 - \frac{1}{n}\left( \sum_{i=1}^{n} x_i \right)^2 \\
-S_{yy} &= \sum_{i=1}^{n} (y_i - \overline{y})^2 = \sum_{i=1}^{n} y_i^2 - \frac{1}{n}\left( \sum_{i=1}^{n} y_i \right)^2 \\
-S_{xy} &= \sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y}) = \sum_{i=1}^{n} x_i y_i - \frac{1}{n}\left( \sum_{i=1}^{n} x_i \right) \left( \sum_{i=1}^{n} y_i \right)
-\end{align*}
-\end{textbox}
-
-Using these notation we can write,
-\begin{textbox}
-$$\hat{\beta}_1 = \dfrac{S_{xy}}{S_{xx}}$$
-\end{textbox}
-The expression for $\hat{\beta}_0$ is calculated as
-\begin{textbox}
-\[
-\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}
-\]
-\end{textbox}
-
-\subsection{Calculation of RSS}
-We can now calculate the value of RSS based on the value of $\hat{\beta}_0$ and $\hat{\beta}_0$ found using the method of least square:
-
-\begin{align*}
-\text{RSS} &= \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \\
-&= \sum_{i=1}^{n} \left[ y_i - (\hat{\beta}_0 + \hat{\beta}_1x_i) \right]^2 \qquad \text{Since }\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i\\
-&= \sum_{i=1}^{n} \left[ y_i - (\overline{y} - \hat{\beta}_1 \overline{x} + \hat{\beta}_1x_i) \right]^2 \qquad \text{Since }\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}\\
-&= \sum_{i=1}^{n} \left[ (y_i - \overline{y}) - \hat{\beta}_1 (x_i - \overline{x}) \right]^2 \\
-&= \sum_{i=1}^{n} (y_i - \overline{y})^2 - 2\hat{\beta}_1 \sum_{i=1}^{n} (y_i - \overline{y})(x_i - \overline{x}) + \hat{\beta}_1^2 \sum_{i=1}^{n} (x_i - \overline{x})^2 \\
-\end{align*}
-\begin{align*}
-&= S_{yy} - 2\hat{\beta}_1 S_{xy} + \hat{\beta}_1^2 S_{xx}\\
-&= S_{yy} - 2\left( \frac{S_{xy}}{S_{xx}} \right) S_{xy} + \left( \frac{S_{xy}}{S_{xx}} \right)^2 S_{xx} \qquad \text{Since }\hat{\beta}_1 = \dfrac{S_{xy}}{S_{xx}} \\
-&= S_{yy} - \frac{2 S_{xy}^2}{S_{xx}} + \frac{S_{xy}^2}{S_{xx}} \\
-&= S_{yy} - \frac{S_{xy}^2}{S_{xx}} \\
-&= S_{yy} - \hat{\beta}_1 S_{xy}
-\end{align*}
-
-\begin{textbox}
-    $$\text{RSS} = S_{yy} - \hat{\beta}_1 S_{xy}$$
-\end{textbox}
-
-\subsection{Example}
-
-We aim to model the relationship between the number of hours studied (\(X\)) and the corresponding test score (\(Y\)) using simple linear regression. The goal is to estimate a linear equation that best describes this relationship based on observed data from five students. Once the model is established, we will use it to predict the expected test score for a student who studies for six hours.
-
-The observed data are as follows:
-
-\begin{center}
-\begin{tabular}{c|c|c}
-\toprule
-\textbf{Student} & \textbf{Hours Studied} (\(x_i\)) & \textbf{Test Score} (\(y_i\)) \\
-\midrule
-1 & 2 & 65 \\
-2 & 3 & 70 \\
-3 & 5 & 75 \\
-4 & 7 & 85 \\
-5 & 9 & 95 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{Step 1: Compute Means}
-
-\begin{align*}
-    \overline{x} &= \frac{2 + 3 + 5 + 7 + 9}{5} = \frac{26}{5} = 5.2, \\
-\overline{y} &= \frac{65 + 70 + 75 + 85 + 95}{5} = \frac{390}{5} = 78
-\end{align*}
-
-\textbf{Step 2: Compute $S_{xx}$ and $S_{xy}$}
-
-\begin{align*}
-    S_{xx} &= \sum (x_i - \overline{x})^2 \\
-    &= (2 - 5.2)^2 + (3 - 5.2)^2 + (5 - 5.2)^2 + (7 - 5.2)^2 + (9 - 5.2)^2 \\
-    &= 32.8
-\end{align*}
-
-\begin{align*}
-    S_{xy} &= \sum (x_i - \overline{x})(y_i - \overline{y}) \\
-    &= (2 - 5.2)(65 - 78) + (3 - 5.2)(70 - 78) + \ldots + (9 - 5.2)(95 - 78) \\
-    &= 137.0
-\end{align*}
-
-
-\textbf{Step 3: Estimate Parameters}
-
-\[
-\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{137.0}{32.80}\approx4.177
-\]
-
-\[
-\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \\\\\\\\overline{x} = 78-4.177\times 5.2\approx56.28
-\]
-
-\textbf{Step 4: Regression Equation}
-
-\[
-\hat{Y} = 56.28 + 4.177X
-\]
-
-\textbf{Step 5: Predict Test Score for $X = 6$}
-
-\[
-\hat{Y} = 56.28 + 4.177\times6 \approx 81.34
-\]
-
-% \textbf{Step 6: Calculate Residuals and RSS}
-
-% \begin{align*}
-%     \text{RSS} &= S_{yy} - \hat{\beta}_1 S_{xy} \\
-%     &=580 - (2.317 \cdot 76) = 580 - 176.092 = 403.91
-% \end{align*}
-
-% \begin{center}
-% \begin{tabular}{cccc}
-% \toprule
-% $x_i$ & $y_i$ & $\hat{y}_i$ & Residual $\epsilon_i = y_i - \hat{y}_i$ \\
-% \midrule
-% 2 & 65 & $65.96 + 2.317(2) = 70.594$ & $65 - 70.594 = -5.594$ \\
-% 3 & 70 & $65.96 + 2.317(3) = 72.911$ & $70 - 72.911 = -2.911$ \\
-% 5 & 75 & $65.96 + 2.317(5) = 77.545$ & $75 - 77.545 = -2.545$ \\
-% 7 & 85 & $65.96 + 2.317(7) = 82.179$ & $85 - 82.179 = 2.821$ \\
-% 9 & 95 & $65.96 + 2.317(9) = 86.813$ & $95 - 86.813 = 8.187$ \\
-% \bottomrule
-% \end{tabular}
-% \end{center}
-
-% \[
-% \text{RSS} = \sum_{i=1}^5 \epsilon_i^2 = (-5.594)^2 + (-2.911)^2 + (-2.545)^2 + (2.821)^2 + (8.187)^2
-% \]
-
-% \[
-% \text{RSS} = 31.30 + 8.47 + 6.48 + 7.96 + 67.02 = \boxed{121.23}
-% \]
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    width=11cm,
-    height=7cm,
-    xlabel={Hours studied ($X$)},
-    ylabel={Test score ($Y$)},
-    axis lines=left,
-    xmin=0, xmax=10,
-    ymin=50, ymax=100,
-    enlargelimits=true,
-    clip=false, thick
-]
-
-% Scatter data points
-\addplot[
-    only marks,
-    color=blue,
-    mark=*,
-    mark size=2pt
-] coordinates {
-    (2,65) (3,70) (5,75) (7,85) (9,95)
-};
-
-% Regression line y = x
-\addplot[
-    domain=0:10,
-    samples=2,
-    color=black,
-    very thick
-] {56.28 + 4.177*x};
-
-
-\node[black] at (axis cs:3.8,92) {\small $\hat{Y} = 56.28 + 4.177X$};
-\draw[->] (axis cs:3.8,90) -- (axis cs:3.8,72.4);
-\draw[dashed] (axis cs:-1,81.34) -- (axis cs:6,81.34);
-\draw[dashed] (axis cs:6,45) -- (axis cs:6,81.34);
-\node[black] at (axis cs:1.2,65) {\small $(2,65)$};
-\node[black] at (axis cs:2.2,70) {\small $(3,70)$};
-\node[black] at (axis cs:5.1,72) {\small $(5,75)$};
-\node[black] at (axis cs:7.8,85) {\small $(7,85)$};
-\node[black] at (axis cs:8.2,95) {\small $(9,95)$};
-\node[purple] at (axis cs:7,80) {\small $(6,81.34)$};
-
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
 
 \chapter{Analysis of Variance (ANOVA)}
 
@@ -13005,6 +12279,1016 @@ Factorial & Multiple factors of interest & Factor interactions \\
 
 Design of Experiments provides a systematic framework for conducting efficient and reliable experiments. By following the principles of randomization, replication, and blocking, and choosing appropriate designs, researchers can obtain maximum information while minimizing costs and ensuring valid conclusions.
 
+
+
+\chapter{Correlation and Regression}
+
+\section{Correlation}
+
+\begin{textbox}
+In statistics, \textbf{correlation} between two random variables is a measure of the degree of linear association between them.
+\end{textbox}
+ For example, imagine you record how many hours each of the six students studies in a week and their corresponding exam scores:
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{c|c|c}
+		\toprule
+		\textbf{Student} & \textbf{Hours Studied} ($X$) & \textbf{Exam Score} ($Y$) \\
+		\midrule
+		1 & 2 & 65 \\
+		2 & 3 & 70 \\
+		3 & 4 & 76 \\
+		4 & 5 & 78 \\
+		5 & 6 & 82 \\
+		6 & 7 & 89 \\
+		\bottomrule
+	\end{tabular}
+	\caption{\textit{Study hours and exam scores of six students.}}
+	\label{tab:study_scores}
+\end{table}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	xlabel={Hours Studied},
+	ylabel={Exam Score},
+	axis lines=left,
+	xmin=1, xmax=8, ymin=60, ymax=95 ,
+	width=10cm,
+	height=5cm,
+	thick,
+	]
+	\addplot[only marks, blue, mark=*, mark size=2pt] coordinates {
+		(2,65) (3,70) (4,76) (5,78) (6,82) (7,89)
+	};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{\textit{Scatter plot of study time and exam performance.}}
+\end{figure}
+
+
+As illustrated in the table and the accompanying scatter plot, exam scores increase as students dedicate more hours to studying. This clear upward pattern reflects a positive correlation: students who invest more time in preparation tend to achieve higher marks.  In general, the direction of correlation can be classified as follows:
+
+\begin{enumerate}
+	\item \textbf{Positive correlation}: An increase in one variable is accompanied by an increase in the other.
+	\item \textbf{Negative correlation}: An increase in one variable is accompanied by a decrease in the other.
+	\item \textbf{No (zero) correlation}: Changes in one variable show no consistent association with changes in the other.
+\end{enumerate}
+
+
+\section{Pearson Correlation Coefficient}
+
+Pearson's correlation coefficient for a population, commonly denoted by the Greek letter \(\rho\) (rho), is also known as the \textbf{population correlation coefficient}. Given a pair of random variables \(X\) and \(Y\), the population correlation coefficient \(\rho_{XY}\) is defined as
+
+\begin{textbox}
+\[
+\rho_{XY} = \frac{\operatorname{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\mathbb{E}\big[(X - \mu_X)(Y - \mu_Y)\big]}{\sigma_X \sigma_Y}
+\]
+\end{textbox}
+where \(\mu_X = \mathbb{E}[X]\) and \(\mu_Y = \mathbb{E}[Y]\) are the means of \(X\) and \(Y\), \(\sigma_X\) and \(\sigma_Y\) are their standard deviations, and \(\operatorname{Cov}(X,Y)\) is the covariance between \(X\) and \(Y\).
+
+Like all population parameters, The value of $\rho_{XY}$ is not known to us. We may need to estimate it from the random sample observation pairs $(X,Y)$. Let $$ (x_1, y_1), (x_2, y_2), \dots,(x_n, y_n) $$ be $n$ pairs of observations with respective means $\overline{X}, \overline{Y}$ and variances $S_X^2, S_X^2$ respectively. It turns out that a point estimate of $\text{Cov}(X,Y)$ is the sample covariance:
+$$ S_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{n-1} $$
+The point estimate of $\sigma_X$ is sample standard deviation of $X$:
+$$S_X = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (x_i - \overline{x})^2}$$
+The point estimate of $\sigma_Y$ is sample standard deviation of $Y$:
+$$S_Y = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (y_i - \overline{y})^2}$$
+
+Substituting these estimates for their population counterparts, we get the formula for the \textbf{sample correlation coefficient} as
+
+\begin{textbox}
+	\[
+	r_{XY} = \dfrac{S_{XY}}{S_X \cdot S_Y}
+	\]
+\end{textbox}
+Alternatively, $r_{XY}$ can be expressed as
+\begin{textbox}
+\[
+r_{XY} = \dfrac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}
+\]
+\end{textbox}
+
+We can simplify the formula for $r_{XY}$ into a form most convenient for computing from raw data by using the identities:
+\begin{align*}
+\sum_i (x_i - \overline{x})(y_i - \overline{y}) &= \sum_i x_i y_i - n\overline{x}\cdot \overline{y} = \sum_i x_i y_i - \frac{\sum_i x_i \sum_i y_i}{n} \\
+\sum_i (x_i - \overline{x})^2 &= \sum_i x_i^2 -n\overline{x}^2= \sum_i x_i^2 - \frac{(\sum_i x_i)^2}{n} \\
+\sum_i (y_i - \overline{y})^2 &= \sum_i y_i^2 -n\overline{y}^2= \sum_i y_i^2 - \frac{(\sum_i y_i)^2}{n}
+\end{align*}
+
+Thus we obtain the formula for $r_{XY}$:
+\begin{textbox}
+\begin{align*}
+r_{XY} = \frac{n \sum x_i y_i - \sum x_i \sum y_i}
+{\sqrt{n \sum x_i^2 - (\sum x_i)^2} \cdot \sqrt{n \sum y_i^2 - (\sum y_i)^2}}
+\end{align*}
+\end{textbox}
+
+The value of $r_{XY}$ lies within -1 and 1 i.e. $-1 \leq r_{XY} \leq 1$.
+\begin{textbox}
+\begin{itemize}
+	\item $r > 0$ indicates a \textbf{positive correlation}.
+	\item $r < 0$ indicates a \textbf{negative correlation}.
+	\item $r = 0$ suggests \textbf{no correlation} (but not necessarily independence).
+	\item $r = \pm 1$ indicates a \textbf{perfect linear correlation} ($+1$ for positive and $-1$ for negative).
+\end{itemize}
+\end{textbox}
+
+% In your document preamble:
+%   \usepackage{pgfplots}
+%   \pgfplotsset{compat=1.17}
+%   \usepgfplotslibrary{groupplots}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[
+	group style={
+		group size=2 by 2,
+		horizontal sep=3cm,
+		vertical sep=2cm
+	},
+	width=5cm,
+	height=4cm,
+	axis lines=left,
+	axis line style={thick},
+	xlabel={$X$},
+	ylabel={$Y$},
+	tick align=outside,
+	]
+	% Positive correlation
+	\nextgroupplot[title={Positive Correlation ($r>0$)},xmin=0, xmax=8,	ymin=1]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,1.5) (2,1.9) (3,3.1) (4,4.8) (5,4.9) (6,5.9) (7,7.8)
+	};
+
+	% Negative correlation
+	\nextgroupplot[title={Negative Correlation ($r<0$)},xmin=0, xmax=8,	ymin=1]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,7.0) (2,6.0) (3,5.0) (4,4.5) (5,3.7) (6,2.2) (7,1.6)
+	};
+
+	% Zero correlation
+	\nextgroupplot[title={Zero Correlation ($r\approx0$)},xmin=0, xmax=8,	ymin=3, ymax=6]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,4.5) (2,5.8) (3,4.2) (4,4.9) (5,3.9) (6,5.3) (7,4.0)
+	};
+
+	% Perfect linear correlation
+	\nextgroupplot[title={Perfect Linear Correlation ($r=1$)},xmin=0, xmax=8,ymin=1]
+	\addplot[only marks, blue, mark=*, mark size=1.5pt] coordinates {
+		(1,2) (2,4) (3,6) (4,8) (5,10) (6,12) (7,14)
+	};
+
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{\textit{Scatterplots illustrating positive, negative, zero, and perfect linear correlations.}}
+	\label{fig:correlation_types}
+\end{figure}
+
+% \begin{table}[h!]
+% 	\centering
+% 	\begin{tabular}{c|l}
+% 		\toprule
+% 		\textbf{Value of $r$} & \textbf{Strength of correlation} \\
+% 		\midrule
+% 		$0.90$ to $1.00$ or $-0.90$ to $-1.00$ & Very strong \\
+% 		$0.70$ to $0.89$ or $-0.70$ to $-0.89$ & Strong \\
+% 		$0.40$ to $0.69$ or $-0.40$ to $-0.69$ & Moderate \\
+% 		$0.10$ to $0.39$ or $-0.10$ to $-0.39$ & Weak \\
+% 		$0.00$ to $0.09$ or $-0.00$ to $-0.09$ & Very weak or none\\
+% 		\bottomrule
+% 	\end{tabular}
+% 	\caption{Interpreting the magnitude of correlation coefficient}
+% \end{table}
+
+
+\textbf{Example}: Suppose we have data on students' hours studied ($X$) and exam scores ($Y$) as given in the table \ref{tab:study_scores}. We need to calculate the Pearson corelation coefficient.
+
+The formula we will use:
+
+\[
+r_{XY} = \frac{n \sum x_i y_i - \sum x_i \sum y_i}
+{\sqrt{n \sum x_i^2 - (\sum x_i)^2} \cdot \sqrt{n \sum y_i^2 - (\sum y_i)^2}}
+\]
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|c|c|c|c|c}
+		\toprule
+		Student & $x_i$ & $y_i$ & $x_i^2$ & $y_i^2$ & $x_iy_i$\\
+		\midrule
+		1 & 2 & 65 & 4 & 4225 & 130\\
+		2 & 3 & 70 & 9 & 4900 & 210\\
+		3 & 4 & 76 & 16 & 5776 & 304\\
+		4 & 5 & 78 & 25 & 6084 & 390\\
+		5 & 6 & 82 & 36 & 6724 & 492\\
+		6 & 7 & 89 & 49 & 7921 & 623\\
+		\midrule
+		\textbf{$n=6$}& $ \sum x_i = 27 $ & $ \sum y_i = 460 $& $ \sum x_i^2 = 139 $& $ \sum y_i^2 = 35630 $ & $ \sum x_iy_i = 2149 $ \\
+		\bottomrule
+	\end{tabular}
+\caption{\textit{Correlation coefficient calculation table.}}
+\end{table}
+
+Substituting the values:
+\begin{align*}
+r_{XY} &= \frac{6 \cdot 2149 - 27 \cdot 460}
+{\sqrt{6 \cdot 139 - 27^2} \cdot \sqrt{6 \cdot 35630 - 460^2}}\\
+&= \frac{12894 - 12420}
+{\sqrt{834 - 729} \cdot \sqrt{213780 - 211600}}\\
+&= \frac{474}
+{\sqrt{105} \cdot \sqrt{2180}}
+\approx \frac{474}{10.247 \cdot 46.690}\\
+&\approx \frac{474}{478.74}
+\approx 0.9907
+\end{align*}
+
+This indicates a very strong positive correlation between hours studied and exam scores.
+
+\section{Effect of Linear Transformations on Correlation Coefficient}
+
+\begin{textbox}
+\textbf{Theorem}: Suppose we have two random variables \(X\) and \(Y\) with correlation coefficient $\rho_{XY}$. Define new variables
+
+\[
+U = a + bX, \quad V = c + dY
+\]
+
+where \(a, c\) are constants (shifts) and \(b, d \neq 0\) are scaling factors. Then the population correlation coefficient between \(U\) and \(V\) is
+
+\begin{align*}
+\rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY}
+\end{align*}
+\end{textbox}
+\textbf{Proof}:
+\begin{align*}
+\rho_{UV} =  \dfrac{\mathrm{Cov}(U,V)}{\sigma_U \sigma_V} = \dfrac{\mathrm{Cov}(a + bX, c + dY)}{\sqrt{\mathrm{Var}(a + bX)} \cdot \sqrt{\mathrm{Var}(c + dY)}}
+\end{align*}
+
+Now,
+\begin{align*}
+\mathrm{Cov}(a + bX, c + dY) &= bd\, \mathrm{Cov}(X,Y)\\
+\mathrm{Var}(a + bX) &= c^2 \mathrm{Var}(X)\\
+\mathrm{Var}(c + dY) &= d^2 \mathrm{Var}(Y)
+\end{align*}
+
+Thus,
+
+$$\rho_{UV}
+= \dfrac{\mathrm{Cov}(bX, dY)}{\sqrt{\mathrm{Var}(bX)}\cdot \sqrt{\mathrm{Var}(dY)}}
+= \dfrac{bd \, \mathrm{Cov}(X, Y)}{|b| \sigma_X \cdot |d| \sigma_Y}
+= \dfrac{bd}{|b||d|} \cdot \frac{\mathrm{Cov}(X, Y)}{\sigma_X \sigma_Y}$$
+
+Since
+
+\[
+\dfrac{bd}{|b||d|} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d)
+\]
+
+where \(\operatorname{sgn}(\cdot)\) is the sign function\footnote{The \textbf{sign function}, denoted by \(\operatorname{sgn}(x)\), is defined as:
+
+	\[
+	\operatorname{sgn}(x) =
+	\begin{cases}
+	-1, & \text{if } x < 0, \\
+	\phantom{-}0, & \text{if } x = 0, \\
+	\phantom{-}1, & \text{if } x > 0.
+	\end{cases}
+	\]
+
+	It extracts the sign of a real number \(x\).}, it follows that
+
+\[
+\rho_{UV} =  \dfrac{bd}{|b||d|} \cdot \rho_{XY} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot \rho_{XY}
+\]
+\hfill $\blacksquare$
+
+This shows that linear transformations preserve the magnitude of the correlation coefficient but may reverse its sign depending on the scaling factors.
+\begin{itemize}
+	\item If \(b\) and \(d\) have the same sign, then \(\rho_{UV} = \rho_{XY}\).
+	\item If \(b\) and \(d\) have opposite signs, then \(\rho_{UV} = -\rho_{XY}\).
+	\item Adding constants \(a\) and \(c\) has no effect on the value of the correlation.
+\end{itemize}
+
+The sample correlation coefficient also satisfies the same transformation relation:
+\[
+r_{UV} = \operatorname{sgn}(b) \cdot \operatorname{sgn}(d) \cdot r_{XY}
+\]
+
+
+\section{Correlation Is Not Causation}
+
+It is important to understand that a high correlation between two variables does not necessarily imply that one variable causes the other. Correlation measures the strength and direction of a linear relationship between variables, but it does not provide evidence about causality.
+
+There are several reasons why correlation does not imply causation:
+
+\begin{itemize}
+	\item \textbf{Confounding variables:} A third variable may influence both variables under study, creating a spurious correlation.
+	\item \textbf{Reverse causality:} The direction of cause and effect may be opposite to what is assumed.
+	\item \textbf{Coincidence:} Sometimes, correlations arise purely by chance.
+\end{itemize}
+
+For example, consider a study might that finds a positive correlation between umbrella sales and slipping accidents. This doesn't mean umbrellas cause slips or vice versa. Instead, rainy weather acts as the common factor: rain simultaneously drives people to buy umbrellas and makes sidewalks slippery, creating the illusion of a direct relationship between the two variables.
+
+This example illustrates why it is crucial to use careful experimental design, statistical controls, and domain knowledge before concluding causal relationships from correlated data.
+
+
+% \subsection{Limitations of Correlation}
+
+% \begin{itemize}
+% 	\item Correlation measures only linear association.
+% 	\item A high correlation does not imply causation.
+% 	\item Outliers can have a strong influence on the value of $r$.
+% 	\item Nonlinear relationships may exist even if $r \approx 0$.
+% \end{itemize}
+
+
+\section{Regression Analysis}
+
+\begin{textbox}
+    \textbf{Regression analysis} is a statistical method used to explore and model the relationship between a dependent variable and one or more independent variables.
+\end{textbox}
+ It plays a central role in data analysis, prediction, and inference, particularly when trying to establish a functional relationship between variables.
+
+In its simplest form—\textbf{simple linear regression}—we wish to study the relationship between two variables $X$ and $Y$ and use it to predict $Y$ from $X$. The variable $X$ acts as the \textbf{independent variable} (predictor, causal variable) whose values are controlled by the experimenter and $Y$ is the \textbf{dependent variable} (response) which is also subjected to unaccountable variations (errors).
+
+For example, a teacher wants to examine whether there's a relationship between how long students study and the scores they achieve in a test. By treating the number of hours studied as the independent variable and the test score as the dependent variable, regression helps us determine whether there is a consistent trend between the two.
+
+\section{The Simple Linear Regression Model}
+
+A simple linear regression model assumes the existence of a linear relationship between $X$ (predictor variable) and $Y$ (response) that is disturbed by a random error $\epsilon$ which can be written as an equation of the form:
+
+\begin{textbox}
+\[
+Y = \beta_0 + \beta_1 X + \varepsilon
+\]
+\end{textbox}
+
+where:
+\begin{itemize}
+    % \item \( Y \): dependent (response) variable
+    % \item \( X \): independent (predictor) variable
+    \item \( \beta_0 \): $y$-intercept of the line,
+    \item \( \beta_1 \): slope of the line (rate of change in \( Y \) per unit increase in \( X \)),
+    \item \( \varepsilon \): random error, accounting for unexplained variation
+\end{itemize}
+
+Given a dataset of \( n \) observations, represented as pairs:
+$$(x_1,y_1), (x_2, y_2), \dots (x_n, y_n)$$
+the objective is to estimate the unknown parameters \( \beta_0 \) and \( \beta_1 \), and then use these estimates to define a straight line that best fits the data.
+
+The \textbf{fitted regression line} (also called the prediction equation) is:
+\begin{textbox}
+    $$\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X$$
+\end{textbox}
+Here, \( \hat{\beta}_0 \) and \( \hat{\beta}_1 \) are the estimated values of the intercept and slope, respectively, obtained from the sample data.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=10cm,
+    height=6.5cm,
+    xlabel={Independent Variable ($X$)},
+    ylabel={Dependent Variable ($Y$)},
+    axis lines=left,
+    % grid=both,
+    xmin=0, xmax=10,
+    ymin=0, ymax=10,
+    enlargelimits=true,
+    clip=false
+]
+
+% Scatter data points
+\addplot[
+    only marks,
+    color=blue,
+    mark=*,
+    mark size=2pt
+] coordinates {
+    (1,1.7) (2,1.7) (3,1.8) (4,4.8) (5,5.2)
+    (6,6.4) (7,6.0) (8,9) (9,8.8)
+};
+
+% Regression line
+\addplot[
+    domain=0:10,
+    samples=2,
+    color=black,
+    very thick
+] {x};
+
+% Arrow to data points
+\draw[->, thin] (axis cs:6,8.2) -- (axis cs:6,6.6);
+\draw[->, thin] (axis cs:6,8.2) -- (axis cs:6.9,6.2);
+\node at (axis cs:6,8.5) {Data Points};
+
+% Arrow to regression line
+\draw[->, thin] (axis cs:2,8.3) -- (axis cs:3.4,3.5);
+\node at (axis cs:1.5,8.7) {Line of Regression};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+% \section{Assumptions of the Linear Model}
+
+% To perform valid inference, the model makes the following assumptions:
+% \begin{enumerate}
+%     \item Linearity: \( Y \) changes linearly with \( X \)
+%     \item Independence: Errors \( \epsilon_i \) are independent
+%     \item Homoscedasticity: Constant variance of errors \( \mathrm{Var}(\epsilon_i) = \sigma^2 \)
+%     \item Normality: Errors are normally distributed (for inference)
+% \end{enumerate}
+
+\section{Estimating Parameters Using Least Squares}
+
+Given \( n \) data points \( (x_1, y_1), \ldots, (x_n, y_n) \), the estimates of the parameters \( \beta_0 \) and \( \beta_1 \) should result in a line that is (in some sense) a ``best ﬁt'' to the data. To define what we mean by a ``best fit'' line, consider each data point \( (x_i, y_i) \) and its corresponding prediction \( \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i \) from the regression line. This predicted value is known as the \textbf{fitted value}. The difference between the observed value \( y_i \) and the fitted value \( \hat{y}_i \) is called the \textbf{residual} (error), denoted by \( \epsilon_i \):
+
+\begin{textbox}
+    \[
+\varepsilon_i = y_i - \hat{y}_i
+\]
+\end{textbox}
+
+The residual \( \epsilon_i \) represents the vertical distance between an observed data point and the regression line. A positive residual indicates that the point lies above the regression line, while a negative residual indicates that it lies below. The closer the residuals are to zero, the better the fitted values approximate the observed data. Therefore, the estimates of the parameters \( \beta_0 \) and \( \beta_1 \) should be such that these residuals (errors) are as small as possible. However, minimizing the simple sum of residuals is not appropriate, because the positive and negative errors can cancel each other out, even when individual errors are large. A more effective approach is the \textbf{method of least squares}, which involves minimizing the sum of the squares of the residuals.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=10cm,
+    height=6.5cm,
+    xlabel={Independent Variable ($X$)},
+    ylabel={Dependent Variable ($Y$)},
+    axis lines=left,
+    xmin=0, xmax=10,
+    ymin=0, ymax=10,
+    enlargelimits=true,
+    clip=false,
+    thick
+]
+
+% Scatter data points
+\addplot[
+    only marks,
+    color=blue,
+    mark=*,
+    mark size=2pt
+] coordinates {
+    (1,1.7) (2,1.7) (3,1.8) (4,5.5) (5,5.2)
+    (6,6.4) (7,5.8) (8,9) (9,8.8)
+};
+
+% Regression line y = x
+\addplot[
+    domain=0:10,
+    samples=2,
+    color=black,
+    very thick
+] {x};
+
+% Red vertical line for residual at (4,5.5) to (4,4)
+\draw[red, very thick] (axis cs:4,5.5) -- (axis cs:4,4);
+\node[black] at (axis cs:2.7,4.7) {$\varepsilon_i = y_i - \hat{y}_i$};
+\node[black] at (axis cs:4.3,6.2) {$ (x_i, y_i)$};
+\node[black] at (axis cs:4.3,3.3) {$ (x_i, \hat{y}_i)$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+The \textbf{least-squares line} is the line that minimizes the \textbf{residual sum of squares (RSS)}\footnote{In some texts, the residual sum of squares (RSS) is also called the \textbf{sum of squares of errors (SSE)}}:
+
+\begin{textbox}
+\[
+\text{RSS} = \sum_{i=1}^{n} \varepsilon_i^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2
+\]
+\end{textbox}
+
+To derive the expressions for $\hat{\beta_0}$ and $\hat{\beta_1}$, we have to take the partial derivatives of $RSS$ with respect to $\hat{\beta_0}$ and $\hat{\beta_1}$ and set them to zero.
+\begin{align*}
+    \dfrac{\partial}{\partial \hat{\beta_0}} (RSS) &=-2\sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) = 0,\\ \dfrac{\partial}{\partial \hat{\beta_1}} (RSS) &= -2\sum_{i=1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)x_i = 0
+\end{align*}
+
+Simplifying these two equations yields
+\begin{align*}
+ n\hat{\beta}_0 + \hat{\beta}_1 \sum_{i=1}^{n}x_i &= \sum_{i=1}^{n} y_i, \\
+\hat{\beta}_0\sum_{i=1}^{n}  x_i + \hat{\beta}_1 \sum_{i=1}^{n}x_i^2 &= \sum_{i=1}^{n} y_i x_i
+\end{align*}
+
+Multiplying the first equation by $\sum_{i=1}^n x_i$ and second equation by $n$ and then subtracting second from the first yields
+$$\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right) - n\sum_{i=1}^{n} x_i y_i = \hat{\beta}_1\left(\sum_{i=1}^{n} x_i\right)^2 - n\hat{\beta}_1\sum_{i=1}^{n} x_i^2  $$
+
+Thus we get the expression for $\hat{\beta}_1$
+\begin{align*}
+\hat{\beta}_1 &=
+\left[
+n\sum_{i=1}^{n} x_i y_i
+-
+\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)
+\right]
+\bigg/
+\left[
+n\sum_{i=1}^{n} x_i^2
+-
+\left(\sum_{i=1}^{n} x_i\right)^2
+\right]
+\\
+&=
+\left[
+\sum_{i=1}^{n} x_i y_i
+-
+\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right]
+\right)
+\bigg/
+\left[
+\sum_{i=1}^{n} x_i^2
+-
+\frac{1}{n}\left(\sum_{i=1}^{n} x_i\right)^2
+\right]
+\end{align*}
+
+
+It is convenient to introduce some notation for the sums of squared deviation from mean and sums of cross-products of deviation.
+
+\begin{textbox}
+\begin{align*}
+S_{xx} &= \sum_{i=1}^{n} (x_i - \overline{x})^2 = \sum_{i=1}^{n} x_i^2 - \frac{1}{n}\left( \sum_{i=1}^{n} x_i \right)^2 \\
+S_{yy} &= \sum_{i=1}^{n} (y_i - \overline{y})^2 = \sum_{i=1}^{n} y_i^2 - \frac{1}{n}\left( \sum_{i=1}^{n} y_i \right)^2 \\
+S_{xy} &= \sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y}) = \sum_{i=1}^{n} x_i y_i - \frac{1}{n}\left( \sum_{i=1}^{n} x_i \right) \left( \sum_{i=1}^{n} y_i \right)
+\end{align*}
+\end{textbox}
+
+Using these notation we can write,
+\begin{textbox}
+$$\hat{\beta}_1 = \dfrac{S_{xy}}{S_{xx}}$$
+\end{textbox}
+The expression for $\hat{\beta}_0$ is calculated as
+\begin{textbox}
+\[
+\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}
+\]
+\end{textbox}
+
+\subsection{Calculation of RSS}
+We can now calculate the value of RSS based on the value of $\hat{\beta}_0$ and $\hat{\beta}_0$ found using the method of least square:
+\begin{align*}
+\text{RSS} &= \sum_{i=1}^{n} (y_i - \hat{y}_i)^2\displaybreak[0] \\
+&= \sum_{i=1}^{n} \left[ y_i - (\hat{\beta}_0 + \hat{\beta}_1x_i) \right]^2 \qquad \text{Since }\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i\displaybreak[0]\\
+&= \sum_{i=1}^{n} \left[ y_i - (\overline{y} - \hat{\beta}_1 \overline{x} + \hat{\beta}_1x_i) \right]^2 \qquad \text{Since }\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}\displaybreak[0]\\
+&= \sum_{i=1}^{n} \left[ (y_i - \overline{y}) - \hat{\beta}_1 (x_i - \overline{x}) \right]^2\displaybreak[0] \\
+&= \sum_{i=1}^{n} (y_i - \overline{y})^2 - 2\hat{\beta}_1 \sum_{i=1}^{n} (y_i - \overline{y})(x_i - \overline{x}) + \hat{\beta}_1^2 \sum_{i=1}^{n} (x_i - \overline{x})^2 \displaybreak[0]\\
+&= S_{yy} - 2\hat{\beta}_1 S_{xy} + \hat{\beta}_1^2 S_{xx}\displaybreak[0]\\
+&= S_{yy} - 2\left( \frac{S_{xy}}{S_{xx}} \right) S_{xy} + \left( \frac{S_{xy}}{S_{xx}} \right)^2 S_{xx} \qquad \text{Since }\hat{\beta}_1 = \dfrac{S_{xy}}{S_{xx}}\displaybreak[0] \\
+&= S_{yy} - \frac{2 S_{xy}^2}{S_{xx}} + \frac{S_{xy}^2}{S_{xx}} \displaybreak[0]\\
+&= S_{yy} - \frac{S_{xy}^2}{S_{xx}} \displaybreak[0]\\
+&= S_{yy} - \hat{\beta}_1 S_{xy}
+\end{align*}
+
+\begin{textbox}
+    $$\text{RSS} = S_{yy} - \hat{\beta}_1 S_{xy}$$
+\end{textbox}
+
+\subsection{Example}
+
+We aim to model the relationship between the number of hours studied (\(X\)) and the corresponding test score (\(Y\)) using simple linear regression. The goal is to estimate a linear equation that best describes this relationship based on observed data from five students. Once the model is established, we will use it to predict the expected test score for a student who studies for six hours.
+
+The observed data are as follows:
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\toprule
+\textbf{Student} & \textbf{Hours Studied} (\(x_i\)) & \textbf{Test Score} (\(y_i\)) \\
+\midrule
+1 & 2 & 65 \\
+2 & 3 & 70 \\
+3 & 5 & 75 \\
+4 & 7 & 85 \\
+5 & 9 & 95 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Step 1: Compute Means}
+
+\begin{align*}
+    \overline{x} &= \frac{2 + 3 + 5 + 7 + 9}{5} = \frac{26}{5} = 5.2, \\
+\overline{y} &= \frac{65 + 70 + 75 + 85 + 95}{5} = \frac{390}{5} = 78
+\end{align*}
+
+\textbf{Step 2: Compute $S_{xx}$ and $S_{xy}$}
+
+\begin{align*}
+    S_{xx} &= \sum (x_i - \overline{x})^2 \\
+    &= (2 - 5.2)^2 + (3 - 5.2)^2 + (5 - 5.2)^2 + (7 - 5.2)^2 + (9 - 5.2)^2 \\
+    &= 32.8
+\end{align*}
+
+\begin{align*}
+    S_{xy} &= \sum (x_i - \overline{x})(y_i - \overline{y}) \\
+    &= (2 - 5.2)(65 - 78) + (3 - 5.2)(70 - 78) + \ldots + (9 - 5.2)(95 - 78) \\
+    &= 137.0
+\end{align*}
+
+
+\textbf{Step 3: Estimate Parameters}
+
+\[
+\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{137.0}{32.80}\approx4.177
+\]
+
+\[
+\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \\\\\\\\overline{x} = 78-4.177\times 5.2\approx56.28
+\]
+
+\textbf{Step 4: Regression Equation}
+
+\[
+\hat{Y} = 56.28 + 4.177X
+\]
+
+\textbf{Step 5: Predict Test Score for $X = 6$}
+
+\[
+\hat{Y} = 56.28 + 4.177\times6 \approx 81.34
+\]
+
+% \textbf{Step 6: Calculate Residuals and RSS}
+
+% \begin{align*}
+%     \text{RSS} &= S_{yy} - \hat{\beta}_1 S_{xy} \\
+%     &=580 - (2.317 \cdot 76) = 580 - 176.092 = 403.91
+% \end{align*}
+
+% \begin{center}
+% \begin{tabular}{cccc}
+% \toprule
+% $x_i$ & $y_i$ & $\hat{y}_i$ & Residual $\epsilon_i = y_i - \hat{y}_i$ \\
+% \midrule
+% 2 & 65 & $65.96 + 2.317(2) = 70.594$ & $65 - 70.594 = -5.594$ \\
+% 3 & 70 & $65.96 + 2.317(3) = 72.911$ & $70 - 72.911 = -2.911$ \\
+% 5 & 75 & $65.96 + 2.317(5) = 77.545$ & $75 - 77.545 = -2.545$ \\
+% 7 & 85 & $65.96 + 2.317(7) = 82.179$ & $85 - 82.179 = 2.821$ \\
+% 9 & 95 & $65.96 + 2.317(9) = 86.813$ & $95 - 86.813 = 8.187$ \\
+% \bottomrule
+% \end{tabular}
+% \end{center}
+
+% \[
+% \text{RSS} = \sum_{i=1}^5 \epsilon_i^2 = (-5.594)^2 + (-2.911)^2 + (-2.545)^2 + (2.821)^2 + (8.187)^2
+% \]
+
+% \[
+% \text{RSS} = 31.30 + 8.47 + 6.48 + 7.96 + 67.02 = \boxed{121.23}
+% \]
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=11cm,
+    height=7cm,
+    xlabel={Hours studied ($X$)},
+    ylabel={Test score ($Y$)},
+    axis lines=left,
+    xmin=0, xmax=10,
+    ymin=50, ymax=100,
+    enlargelimits=true,
+    clip=false, thick
+]
+
+% Scatter data points
+\addplot[
+    only marks,
+    color=blue,
+    mark=*,
+    mark size=2pt
+] coordinates {
+    (2,65) (3,70) (5,75) (7,85) (9,95)
+};
+
+% Regression line y = x
+\addplot[
+    domain=0:10,
+    samples=2,
+    color=black,
+    very thick
+] {56.28 + 4.177*x};
+
+
+\node[black] at (axis cs:3.8,92) {\small $\hat{Y} = 56.28 + 4.177X$};
+\draw[->] (axis cs:3.8,90) -- (axis cs:3.8,72.4);
+\draw[dashed] (axis cs:-1,81.34) -- (axis cs:6,81.34);
+\draw[dashed] (axis cs:6,45) -- (axis cs:6,81.34);
+\node[black] at (axis cs:1.2,65) {\small $(2,65)$};
+\node[black] at (axis cs:2.2,70) {\small $(3,70)$};
+\node[black] at (axis cs:5.1,72) {\small $(5,75)$};
+\node[black] at (axis cs:7.8,85) {\small $(7,85)$};
+\node[black] at (axis cs:8.2,95) {\small $(9,95)$};
+\node[purple] at (axis cs:7,80) {\small $(6,81.34)$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section{Multiple Regression}
+
+Sometimes a response variable $Y$ depends on multiple independent variables $X_1, X_2, \ldots, X_k$. The general form of the multiple regression model is:
+\begin{textbox}
+\begin{equation*}
+Y = \beta_0 + \beta_1 X_{1} + \beta_2 X_{2} + \cdots + \beta_p X_{p} + \varepsilon
+\end{equation*}
+\end{textbox}
+where:
+\begin{itemize}
+    \item $\beta_0$ is the intercept parameter,
+    \item $\beta_j$ is the slope parameter for the $j$-th independent variable,
+    \item $\varepsilon$ is the error term.
+\end{itemize}
+
+Based on data we try to obtain good estimates of the regression coefficients $\hat{\beta_0},\hat{\beta_1} \dots \hat{\beta_p}$. The prediction equation is given by
+\begin{textbox}
+$$\hat{Y} = \hat{\beta_0} + \hat{\beta_1} X_{1} + \hat{\beta_2} X_{2} + \cdots + \hat{\beta_p} X_{p} + \varepsilon$$
+\end{textbox}
+Generally the least square (LS) method is used to estimate the regression coefficients as before. LS method can be applied only if number of samples $n$ is bigger than the number of predictors $p$. Let $x_{ki}$ be the $i$th sample of the $k$th predictor input and $y_i$ be the corresponding response. Then
+\begin{textbox}
+$$\text{RSS} = \sum_{i=1}^{n} \varepsilon_i^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} \left( y_i - \hat{\beta}_0 - \sum_{k=1}^{p}\hat{\beta}_k x_{ki}\right)^2$$
+\end{textbox}
+
+As before we could take the derivatives with respective to $\hat{\beta_0},\hat{\beta_1} \dots \hat{\beta_p}$, set them equal to zero and derive the least square normal equations that our parameters $\hat{\beta_0},\hat{\beta_1} \dots \hat{\beta_p}$ would have to fulfill.
+
+\subsection{Matrix Representation}
+
+The multiple regression model can be expressed compactly in matrix form:
+
+\begin{equation}
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\end{equation}
+
+where:
+\begin{equation}
+\mathbf{Y} = \begin{pmatrix}
+Y_1 \\
+Y_2 \\
+\vdots \\
+Y_n
+\end{pmatrix}, \quad
+\mathbf{X} = \begin{pmatrix}
+1 & X_{11} & X_{21} & \cdots & X_{k1} \\
+1 & X_{12} & X_{22} & \cdots & X_{k2} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & X_{1n} & X_{2n} & \cdots & X_{kn}
+\end{pmatrix}, \quad
+\boldsymbol{\beta} = \begin{pmatrix}
+\beta_0 \\
+\beta_1 \\
+\vdots \\
+\beta_k
+\end{pmatrix}, \quad
+\boldsymbol{\varepsilon} = \begin{pmatrix}
+\varepsilon_1 \\
+\varepsilon_2 \\
+\vdots \\
+\varepsilon_n
+\end{pmatrix}
+\end{equation}
+
+\subsection{Assumptions of Multiple Regression}
+
+The classical multiple regression model relies on the following assumptions:
+
+\begin{enumerate}
+    \item \textbf{Linearity}: The relationship between $Y$ and each $X_j$ is linear
+    \item \textbf{Independence}: Observations are independent of each other
+    \item \textbf{Homoscedasticity}: $\text{Var}(\varepsilon_i) = \sigma^2$ for all $i$
+    \item \textbf{Normality}: $\varepsilon_i \sim N(0, \sigma^2)$
+    \item \textbf{No perfect multicollinearity}: The matrix $\mathbf{X}^T\mathbf{X}$ is invertible
+\end{enumerate}
+
+\subsection{Least Squares Estimation}
+
+The ordinary least squares (OLS) estimator minimizes the sum of squared residuals:
+
+\begin{equation}
+S(\boldsymbol{\beta}) = \sum_{i=1}^{n} \varepsilon_i^2 = \sum_{i=1}^{n} (Y_i - \beta_0 - \beta_1 X_{1i} - \cdots - \beta_k X_{ki})^2
+\end{equation}
+
+In matrix form:
+\begin{equation}
+S(\boldsymbol{\beta}) = (\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})^T(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})
+\end{equation}
+
+Taking the derivative with respect to $\boldsymbol{\beta}$ and setting equal to zero:
+
+\begin{equation}
+\frac{\partial S}{\partial \boldsymbol{\beta}} = -2\mathbf{X}^T\mathbf{Y} + 2\mathbf{X}^T\mathbf{X}\boldsymbol{\beta} = \mathbf{0}
+\end{equation}
+
+The normal equations are:
+\begin{equation}
+\mathbf{X}^T\mathbf{X}\boldsymbol{\beta} = \mathbf{X}^T\mathbf{Y}
+\end{equation}
+
+The OLS estimator is:
+\begin{equation}
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{Y}
+\end{equation}
+
+\subsection{Properties of the OLS Estimator}
+
+Under the classical assumptions, the OLS estimator has the following properties:
+
+\begin{enumerate}
+    \item \textbf{Unbiasedness}: $E[\hat{\boldsymbol{\beta}}] = \boldsymbol{\beta}$
+    \item \textbf{Variance-Covariance Matrix}:
+    \begin{equation}
+    \text{Var}(\hat{\boldsymbol{\beta}}) = \sigma^2(\mathbf{X}^T\mathbf{X})^{-1}
+    \end{equation}
+    \item \textbf{Best Linear Unbiased Estimator (BLUE)}: By the Gauss-Markov theorem
+    \item \textbf{Consistency}: $\hat{\boldsymbol{\beta}} \xrightarrow{p} \boldsymbol{\beta}$ as $n \to \infty$
+    \item \textbf{Asymptotic Normality}: $\hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2(\mathbf{X}^T\mathbf{X})^{-1})$
+\end{enumerate}
+
+\subsection{Estimation of Error Variance}
+
+The unbiased estimator of $\sigma^2$ is:
+\begin{equation}
+s^2 = \frac{\text{SSE}}{n-k-1} = \frac{\sum_{i=1}^{n} e_i^2}{n-k-1}
+\end{equation}
+
+where $e_i = Y_i - \hat{Y}_i$ are the residuals and $n-k-1$ represents the degrees of freedom.
+
+\subsection{Coefficient of Determination ($R^2$)}
+
+The coefficient of determination measures the proportion of variance explained by the regression:
+
+\begin{equation}
+R^2 = \frac{\text{SSR}}{\text{SST}} = 1 - \frac{\text{SSE}}{\text{SST}}
+\end{equation}
+
+where:
+\begin{align}
+\text{SST} &= \sum_{i=1}^{n} (Y_i - \bar{Y})^2 \quad \text{(Total Sum of Squares)} \\
+\text{SSR} &= \sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2 \quad \text{(Regression Sum of Squares)} \\
+\text{SSE} &= \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 \quad \text{(Error Sum of Squares)}
+\end{align}
+
+The adjusted $R^2$ accounts for the number of predictors:
+\begin{equation}
+R^2_{\text{adj}} = 1 - \frac{\text{SSE}/(n-k-1)}{\text{SST}/(n-1)} = 1 - \frac{n-1}{n-k-1}(1-R^2)
+\end{equation}
+
+\subsection{Hypothesis Testing}
+
+\subsubsection{Test for Overall Significance of Regression}
+
+To test whether the regression model is significant overall:
+
+\begin{align}
+H_0: &\quad \beta_1 = \beta_2 = \cdots = \beta_k = 0 \\
+H_1: &\quad \text{At least one } \beta_j \neq 0
+\end{align}
+
+The test statistic follows an F-distribution:
+\begin{equation}
+F = \frac{\text{MSR}}{\text{MSE}} = \frac{\text{SSR}/k}{\text{SSE}/(n-k-1)} \sim F_{k, n-k-1}
+\end{equation}
+
+We reject $H_0$ if $F > F_{\alpha, k, n-k-1}$ or if the p-value $< \alpha$.
+
+\subsubsection{Test for Individual Regression Coefficients}
+
+To test the significance of an individual coefficient $\beta_j$:
+
+\begin{align}
+H_0: &\quad \beta_j = 0 \\
+H_1: &\quad \beta_j \neq 0
+\end{align}
+
+The test statistic is:
+\begin{equation}
+t_j = \frac{\hat{\beta}_j}{\text{SE}(\hat{\beta}_j)} = \frac{\hat{\beta}_j}{s\sqrt{c_{jj}}} \sim t_{n-k-1}
+\end{equation}
+
+where $c_{jj}$ is the $(j+1, j+1)$ element of $(\mathbf{X}^T\mathbf{X})^{-1}$ and $\text{SE}(\hat{\beta}_j) = s\sqrt{c_{jj}}$.
+
+We reject $H_0$ if $|t_j| > t_{\alpha/2, n-k-1}$ or if the p-value $< \alpha$.
+
+\subsubsection{Test for a Group of Predictors (Partial F-Test)}
+
+To test the significance of a subset of predictors, we compare a full model with a reduced model.
+
+Full model: $Y = \beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k + \varepsilon$
+
+Reduced model: $Y = \beta_0 + \beta_1 X_1 + \cdots + \beta_r X_r + \varepsilon$ (where $r < k$)
+
+Hypotheses:
+\begin{align}
+H_0: &\quad \beta_{r+1} = \beta_{r+2} = \cdots = \beta_k = 0 \\
+H_1: &\quad \text{At least one of } \beta_{r+1}, \ldots, \beta_k \neq 0
+\end{align}
+
+The test statistic is:
+\begin{equation}
+F = \frac{(\text{SSE}_R - \text{SSE}_F)/(k-r)}{\text{SSE}_F/(n-k-1)} \sim F_{k-r, n-k-1}
+\end{equation}
+
+where $\text{SSE}_R$ and $\text{SSE}_F$ are the error sums of squares for the reduced and full models, respectively.
+
+\subsection{Confidence Intervals}
+
+\subsubsection{Confidence Interval for Individual Coefficients}
+
+A $(1-\alpha)100\%$ confidence interval for $\beta_j$ is:
+\begin{equation}
+\hat{\beta}_j \pm t_{\alpha/2, n-k-1} \cdot \text{SE}(\hat{\beta}_j)
+\end{equation}
+
+\subsubsection{Confidence Interval for Mean Response}
+
+For a given set of predictor values $\mathbf{x}_0 = (1, x_{10}, x_{20}, \ldots, x_{k0})^T$, the predicted mean response is:
+\begin{equation}
+\hat{Y}_0 = \mathbf{x}_0^T\hat{\boldsymbol{\beta}}
+\end{equation}
+
+The $(1-\alpha)100\%$ confidence interval for the mean response is:
+\begin{equation}
+\hat{Y}_0 \pm t_{\alpha/2, n-k-1} \cdot s\sqrt{\mathbf{x}_0^T(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{x}_0}
+\end{equation}
+
+\subsubsection{Prediction Interval for Individual Response}
+
+The $(1-\alpha)100\%$ prediction interval for a new observation is:
+\begin{equation}
+\hat{Y}_0 \pm t_{\alpha/2, n-k-1} \cdot s\sqrt{1 + \mathbf{x}_0^T(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{x}_0}
+\end{equation}
+
+\subsection{Example: Housing Price Prediction}
+
+Consider predicting house prices based on size (sq ft), number of bedrooms, and age of the house.
+
+Model: $\text{Price} = \beta_0 + \beta_1 \text{Size} + \beta_2 \text{Bedrooms} + \beta_3 \text{Age} + \varepsilon$
+
+Suppose we have the following results from $n = 100$ observations:
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Variable & Coefficient & SE & t-statistic & p-value \\
+\hline
+Intercept & 50,000 & 15,000 & 3.33 & 0.001 \\
+Size & 120 & 10 & 12.00 & $< 0.001$ \\
+Bedrooms & 8,000 & 2,500 & 3.20 & 0.002 \\
+Age & -500 & 200 & -2.50 & 0.014 \\
+\hline
+\end{tabular}
+\end{center}
+
+Additional statistics: $R^2 = 0.85$, $s = 20,000$, $F = 182.4$ (p-value $< 0.001$)
+
+\textbf{Interpretation:}
+\begin{itemize}
+    \item For each additional square foot, price increases by \$120 on average, holding other variables constant
+    \item Each additional bedroom increases price by \$8,000 on average
+    \item Each additional year of age decreases price by \$500 on average
+    \item The model explains 85\% of the variance in house prices
+    \item All coefficients are statistically significant at $\alpha = 0.05$
+    \item The overall model is highly significant ($F = 182.4$, p-value $< 0.001$)
+\end{itemize}
+
+\subsection{ANOVA Table for Multiple Regression}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+Source & DF & SS & MS & F & p-value \\
+\hline
+Regression & $k$ & SSR & MSR = SSR/$k$ & MSR/MSE & \\
+Error & $n-k-1$ & SSE & MSE = SSE/$(n-k-1)$ & & \\
+Total & $n-1$ & SST & & & \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Diagnostic Checks}
+
+After fitting a multiple regression model, it's essential to check the assumptions:
+
+\begin{enumerate}
+    \item \textbf{Residual plots}: Plot residuals vs. fitted values to check linearity and homoscedasticity
+    \item \textbf{Normal Q-Q plot}: Check normality of residuals
+    \item \textbf{Leverage and influence}: Identify outliers and influential observations
+    \item \textbf{Multicollinearity}: Check variance inflation factors (VIF)
+\end{enumerate}
+
+The variance inflation factor for the $j$-th predictor is:
+\begin{equation}
+\text{VIF}_j = \frac{1}{1-R_j^2}
+\end{equation}
+
+where $R_j^2$ is the coefficient of determination from regressing $X_j$ on all other predictors.
+
+
 \chapter{Theory of Errors}
 
 \section{Introduction}
@@ -13492,7 +13776,7 @@ If the process is in statistical control, the sample means—taken at regular in
 \caption{\textit{Control Chart.}}
 \end{figure}
 
-Common types of control charts include:
+Common types of control charts for variables include:
 \begin{itemize}
 \item The $ \overline{X}$ (mean) and the $ R $ (range) charts.
 \item The $ \overline{X}$ (mean) and the $ S $ (standard deviation) charts.
@@ -13505,6 +13789,8 @@ For monitoring the process mean and variability simultaneously, we use $\overlin
 
 \begin{itemize}
 \item \textbf{$\overline{X}$ Chart}
+
+\medskip
 
 This chart tracks the \textbf{average value} of each sample. For a sample of size $n$, the sample mean is:
 \[
@@ -13530,6 +13816,8 @@ Here, $A_2$ is a constant that depends on the sample size $n$ (available from st
 \medskip
 
 \item \textbf{$R$ Chart}
+
+\medskip
 
 This chart tracks the \textbf{range} of each sample, which reflects how much variability exists within each sample. The range for a sample is:
 $$R= \max_i X_i - \min_i X_i$$
