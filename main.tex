@@ -10802,7 +10802,8 @@ The residual \( \epsilon_i \) represents the vertical distance between an observ
     xmin=0, xmax=10,
     ymin=0, ymax=10,
     enlargelimits=true,
-    clip=false
+    clip=false,
+    thick
 ]
 
 % Scatter data points
@@ -10825,7 +10826,7 @@ The residual \( \epsilon_i \) represents the vertical distance between an observ
 ] {x};
 
 % Red vertical line for residual at (4,5.5) to (4,4)
-\draw[red, thick] (axis cs:4,5.5) -- (axis cs:4,4);
+\draw[red, very thick] (axis cs:4,5.5) -- (axis cs:4,4);
 \node[black] at (axis cs:2.7,4.7) {$\epsilon_i = y_i - \hat{y}_i$};
 \node[black] at (axis cs:4.3,6.2) {$ (x_i, y_i)$};
 \node[black] at (axis cs:4.3,3.3) {$ (x_i, \hat{y}_i)$};
@@ -11042,7 +11043,7 @@ The observed data are as follows:
     xmin=0, xmax=10,
     ymin=50, ymax=100,
     enlargelimits=true,
-    clip=false
+    clip=false, thick
 ]
 
 % Scatter data points
@@ -11065,9 +11066,9 @@ The observed data are as follows:
 
 
 \node[black] at (axis cs:3.8,92) {\small $\hat{Y} = 56.28 + 4.177X$};
-\draw[->, thin] (axis cs:3.8,90) -- (axis cs:3.8,72.4);
-\draw[dashed, thin] (axis cs:-1,81.34) -- (axis cs:6,81.34);
-\draw[dashed, thin] (axis cs:6,45) -- (axis cs:6,81.34);
+\draw[->] (axis cs:3.8,90) -- (axis cs:3.8,72.4);
+\draw[dashed] (axis cs:-1,81.34) -- (axis cs:6,81.34);
+\draw[dashed] (axis cs:6,45) -- (axis cs:6,81.34);
 \node[black] at (axis cs:1.2,65) {\small $(2,65)$};
 \node[black] at (axis cs:2.2,70) {\small $(3,70)$};
 \node[black] at (axis cs:5.1,72) {\small $(5,75)$};
@@ -11191,7 +11192,7 @@ where:
 \begin{itemize}
     \item \( \mu \) is the grand mean (the average across all groups and observations),
     \item \( \alpha_i = \mu_i - \mu \) is the treatment effect, i.e., the deviation of the \( i \)-th group mean from the grand mean,
-    \item \( \sum_{i=1}^k n_i \alpha_i = 0 \) is a constraint imposed on the treatment effect.
+    \item \(\displaystyle \sum_{i=1}^k n_i \alpha_i = 0 \) is a constraint imposed on the treatment effect.
 \end{itemize}
 
 This additive decomposition clearly separates the contribution of the overall mean, the group-specific deviation, and random noise, which is central to the analysis of variance.
@@ -11965,12 +11966,19 @@ where:
 \subsection{Constraints on the Model}
 
 To ensure unique parameter estimates, the following constraints are imposed:
-\begin{align*}
-\sum_{i=1}^a \alpha_i &= 0 \\
-\sum_{j=1}^b \beta_j &= 0 \\
-\sum_{i=1}^a (\alpha\beta)_{ij} &= 0 \quad \text{for all } j \\
-\sum_{j=1}^b (\alpha\beta)_{ij} &= 0 \quad \text{for all } i
-\end{align*}
+\begin{itemize}
+\item The main effects of Factor A are centered around zero.
+$$ \sum_{i=1}^a \alpha_i = 0 $$
+
+\item The main effects of Factor B are centered around zero. $$ \sum_{j=1}^b \beta_j = 0 $$
+
+\item For each level $j$ of Factor B, the interaction effects over all levels of Factor A average to zero.
+$$ \sum_{i=1}^a (\alpha\beta)_{ij} = 0 \quad \text{for all } j $$
+
+\item For each level $i$ of Factor A, the interaction effects over all levels of Factor B average to zero.
+$$ \displaystyle \sum_{j=1}^b (\alpha\beta)_{ij} = 0 \quad \text{for all } i $$
+
+\end{itemize}
 
 \subsection{Key Assumptions}
 
@@ -13420,6 +13428,8 @@ Several statistical tools are commonly used in SQC for controlling and improving
 
 For example, an $ \overline{X̄} $ chart may track the average weight of packed sugar bags. If the average weight stays within control limits, the process is considered stable. Points outside the limits or unusual patterns indicate special causes of variation.
 
+There are two main categories of control charts, those that display variables (continuous variables) data, and those that display attribute data.
+
 \item \textbf{Acceptance sampling}: Acceptance sampling involves inspecting a sample from a production lot to decide whether to accept or reject the entire lot. It is widely used when 100\% inspection is costly or impractical.
 
 
@@ -13496,37 +13506,49 @@ For monitoring the process mean and variability simultaneously, we use $\overlin
 \begin{itemize}
 \item \textbf{$\overline{X}$ Chart}
 
-The sample mean is calculated as:
-$$\bar{X} = \frac{1}{n}\sum_{i=1}^{n} X_i$$
+This chart tracks the \textbf{average value} of each sample. For a sample of size $n$, the sample mean is:
+\[
+\overline{X} = \dfrac{1}{n} \sum_{i=1}^{n} X_i
+\]
 
-Control limits for the $\bar{X}$ chart:
-\begin{align}
-UCL &= \bar{\bar{X}} + A_2 \bar{R}\\
-CL &= \bar{\bar{X}}\\
-LCL &= \bar{\bar{X}} - A_2 \bar{R}
-\end{align}
+And the range is
+$$R= \max_i X_i - \min_i X_i$$
 
-where $\bar{\bar{X}}$ is the grand mean and $A_2$ is a constant depending on sample size $n$.
+After collecting many such samples, we calculate the \textbf{grand mean} $\overline{\overline{X}}$, which is the average of all sample means, and the average range $\overline{R}$, which is the average of all ranges.
 
-\item \textbf{$ R $ Chart}
+The control limits for the $\overline{X}$ chart are:
+\begin{textbox}
+\begin{align*}
+UCL &= \overline{\overline{X}} + A_2 \overline{R} \\
+CL &= \overline{\overline{X}} \\
+LCL &= \overline{\overline{X}} - A_2 \overline{R}
+\end{align*}
+\end{textbox}
 
-The range is calculated as:
-$$R = X_{max} - X_{min}$$
+Here, $A_2$ is a constant that depends on the sample size $n$ (available from statistical control chart tables~\ref{table:xbar-r-cc}).
 
-Control limits for the R chart:
-\begin{align}
-UCL &= D_4 \bar{R}\\
-CL &= \bar{R}\\
-LCL &= D_3 \bar{R}
-\end{align}
+\medskip
 
-where $D_3$ and $D_4$ are constants depending on sample size $n$.
+\item \textbf{$R$ Chart}
 
+This chart tracks the \textbf{range} of each sample, which reflects how much variability exists within each sample. The range for a sample is:
+$$R= \max_i X_i - \min_i X_i$$
+
+After collecting several samples, we compute the average range $\overline{R}$ and use it to set the control limits:
+\begin{textbox}
+\begin{align*}
+UCL &= D_4 \overline{R} \\
+CL &= \overline{R} \\
+LCL &= D_3 \overline{R}
+\end{align*}
+\end{textbox}
+
+The constants $D_3$ and $D_4$ also depend on the sample size $n$, and are provided in control chart reference table~\ref{table:xbar-r-cc}.
+\end{itemize}
 
 \begin{table}[H]
 \centering
-\caption{Control Chart Constants}
-\begin{tabular}{cccc}
+\begin{tabular}{c|ccc}
 \toprule
 $n$ & $A_2$ & $D_3$ & $D_4$ \\
 \midrule
@@ -13541,11 +13563,12 @@ $n$ & $A_2$ & $D_3$ & $D_4$ \\
 10 & 0.308 & 0.223 & 1.777 \\
 \bottomrule
 \end{tabular}
+\caption{\textit{Control chart constants for $\overline{X}$ and $R$ charts.}}
+\label{table:xbar-r-cc}
 \end{table}
-\end{itemize}
 
 
-\subsubsection{Example: Manufacturing Process Control}
+\subsubsection{Example}
 
 A manufacturing process produces metal rods. Five samples are taken every hour, and the diameter is measured. Calculate control limits for $\overline{X}$ and R charts.
 
@@ -13567,24 +13590,24 @@ Given data for 10 subgroups:
 \end{table}
 
 Calculations:
-$$\bar{\bar{X}} = \frac{10.14 + 10.16 + 10.08 + 10.18 + 10.08}{5} = 10.13$$
-$$\bar{R} = \frac{0.3 + 0.3 + 0.2 + 0.2 + 0.2}{5} = 0.24$$
+$$\overline{\overline{X}} = \dfrac{10.14 + 10.16 + 10.08 + 10.18 + 10.08}{5} = 10.13$$
+$$\overline{R} = \dfrac{0.3 + 0.3 + 0.2 + 0.2 + 0.2}{5} = 0.24$$
 
 For $n = 5$: $A_2 = 0.577$, $D_3 = 0$, $D_4 = 2.114$
 
-$\bar{X}$ Chart limits:
-\begin{align}
+$\overline{X}$ Chart limits:
+\begin{align*}
 UCL &= 10.13 + 0.577 \times 0.24 = 10.27\\
 CL &= 10.13\\
 LCL &= 10.13 - 0.577 \times 0.24 = 9.99
-\end{align}
+\end{align*}
 
-R Chart limits:
-\begin{align}
+$ R $ Chart limits:
+\begin{align*}
 UCL &= 2.114 \times 0.24 = 0.51\\
 CL &= 0.24\\
 LCL &= 0 \times 0.24 = 0
-\end{align}
+\end{align*}
 
 \begin{figure}[H]
 \centering
@@ -13615,30 +13638,224 @@ LCL &= 0 \times 0.24 = 0
 
 \end{axis}
 \end{tikzpicture}
-\caption{\textit{$\overline{X}$ Control Chart.}}
+\caption{\textit{$\overline{X}$ control chart for rod diameter.}}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=6cm,
+    domain=0:8, samples=200,
+    xlabel={Subgroup Number},
+    ylabel={Range $R$},
+    xmin=0, xmax=6,
+    % ymin=0, ymax=0.6,
+    thick,
+    clip=false % allow labels outside the axis
+]
+
+% Control lines (rounded to two decimal places)
+\addplot[red, dashed, very thick] coordinates {(0,0.51) (6,0.51)};
+\addplot[green, very thick]      coordinates {(0,0.24) (6,0.24)};
+\addplot[red, dashed, very thick] coordinates {(0,0)    (6,0)};
+
+% Sample ranges
+\addplot[blue, mark=o, very thick] coordinates {
+    (1,0.3) (2,0.3) (3,0.2) (4,0.2) (5,0.2)
+};
+
+% Manual labels
+\node[anchor=west, font=\small] at (axis cs:6.05,0.51) {UCL};
+\node[anchor=west, font=\small] at (axis cs:6.05,0.24) {CL};
+\node[anchor=west, font=\small] at (axis cs:6.05,0)    {LCL};
+
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{$R$ control chart for rod diameter.}}
 \end{figure}
 
 
-\subsection{$\bar{X}$ and S Charts}
+\subsection{$\overline{X}$ and $S$ Charts}
 
-For larger sample sizes (typically $n \geq 10$), the sample standard deviation $s$ is preferred over the range $R$.
+When your subgroup size is fairly large (usually $n \ge 10$), the sample standard deviation $S$ gives a more reliable measure of variability than the range $R$.  We therefore pair the $\overline{X}$ chart with an $S$ chart.
 
-Sample standard deviation:
-$$s = \sqrt{\frac{\sum_{i=1}^{n}(X_i - \bar{X})^2}{n-1}}$$
+\begin{itemize}
+  \item \textbf{$\overline{X}$ Chart (Mean Chart)}
 
-Control limits for $\bar{X}$ chart:
-\begin{align}
-UCL &= \bar{\bar{X}} + A_3 \bar{s}\\
-CL &= \bar{\bar{X}}\\
-LCL &= \bar{\bar{X}} - A_3 \bar{s}
-\end{align}
+  This chart still monitors the average of each sample.  For a subgroup of size $n$,
+  \[
+    \overline{X} \;=\; \dfrac{1}{n} \sum_{i=1}^n X_i
+  \]
+  You need to compute the standard deviation in each sample as well.
+  $$S = \sqrt{\dfrac{1}{n-1}\sum_i^n (X_i - \overline{X})^2}$$
 
-Control limits for S chart:
-\begin{align}
-UCL &= B_4 \bar{s}\\
-CL &= \bar{s}\\
-LCL &= B_3 \bar{s}
-\end{align}
+  After you collect many such samples, you need to compute the grand mean $\overline{\overline{X}}$ and average standard deviation $\overline{S}$ over all the samples collected.
+
+  The control limits for the $\overline{X}$ chart are then
+  \begin{textbox}
+  \begin{align*}
+      UCL &= \overline{\overline{X}} \;+\; A_3\,\overline{S}\\
+      CL  &= \overline{\overline{X}}\\
+      LCL &= \overline{\overline{X}} \;-\; A_3\,\overline{S}
+    \end{align*}
+  \end{textbox}
+  where $A_3$ is a constant depending on $n$ (see Table~\ref{table:xbar-s-cc}).
+
+  \medskip
+
+  \item \textbf{$S$ Chart (Standard Deviation Chart)}
+
+  This chart monitors the spread within each subgroup by plotting its standard deviation
+  $$S = \sqrt{\dfrac{1}{n-1}\sum_i^n (X_i - \overline{X})^2}$$
+
+  After collecting several samples we compute the the average $\overline{S}$ and use it to set the control limits.
+  \begin{textbox}
+  \begin{align*}
+      UCL &= B_4\,\overline{S}\\
+      CL  &= \overline{S}\\
+      LCL &= B_3\,\overline{S}
+    \end{align*}
+  \end{textbox}
+  where $B_3$ and $B_4$ depend on $n$ (see Table~\ref{table:xbar-s-cc}).
+
+\end{itemize}
+
+\textbf{Note:}  Always check the $S$ chart first.  If the process variability is out of control, then any signals on the $\overline{X}$ chart may be misleading.
+
+% Example constants table for $S$ charts:
+\begin{table}[H]
+\centering
+\begin{tabular}{c|ccc}
+\toprule
+$n$ & $A_3$ & $B_3$ & $B_4$ \\
+\midrule
+10 & 0.975 & 0.284 & 1.716 \\
+11 & 0.927 & 0.321 & 1.679 \\
+12 & 0.886 & 0.354 & 1.646 \\
+13 & 0.850 & 0.382 & 1.618 \\
+14 & 0.817 & 0.406 & 1.594 \\
+15 & 0.789 & 0.428 & 1.572 \\
+16 & 0.763 & 0.448 & 1.552 \\
+17 & 0.739 & 0.466 & 1.534 \\
+18 & 0.718 & 0.482 & 1.518 \\
+19 & 0.698 & 0.497 & 1.503 \\
+20 & 0.680 & 0.510 & 1.490 \\
+\vdots & \vdots & \vdots & \vdots \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Control chart constants for $\overline{X}$ and $S$ charts.}}
+\label{table:xbar-s-cc}
+\end{table}
+
+\subsubsection{Example}
+
+A manufacturing process produces metal rods. Ten measurements are taken every hour, and the diameter is recorded. Calculate control limits for $\overline{X}$ and $S$ charts.
+
+Given data for 5 subgroups:
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{c|cccccccccc|c|c}
+\toprule
+\textbf{Subgroup} & $X_1$ & $X_2$ & $X_3$ & $X_4$ & $X_5$ & $X_6$ & $X_7$ & $X_8$ & $X_9$ & $X_{10}$ & $\bar{X}$ & $S$ \\
+\midrule
+1 & 10.1 & 10.0 & 10.2 & 10.1 & 10.3 & 10.2 & 10.1 & 10.0 & 10.2 & 10.1 & 10.13 & 0.10 \\
+2 & 10.0 & 10.2 & 10.1 & 10.3 & 10.2 & 10.1 & 10.0 & 10.2 & 10.1 & 10.3 & 10.15 & 0.11 \\
+3 & 10.1 & 10.0 & 10.2 & 10.1 & 10.0 & 10.1 & 10.0 & 10.1 & 10.2 & 10.1 & 10.09 & 0.07 \\
+4 & 10.3 & 10.1 & 10.2 & 10.2 & 10.1 & 10.2 & 10.3 & 10.1 & 10.2 & 10.2 & 10.19 & 0.07 \\
+5 & 10.0 & 10.1 & 10.0 & 10.2 & 10.1 & 10.0 & 10.1 & 10.0 & 10.2 & 10.1 & 10.08 & 0.07 \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Sample data for rod diameter (mm).}}
+\end{table}
+
+Calculations:
+\begin{align*}
+\overline{\overline{X}}
+&= \frac{10.13 + 10.15 + 10.09 + 10.19 + 10.08}{5}
+= 10.13\\
+\overline{S}
+&= \frac{0.10 + 0.11 + 0.07 + 0.07 + 0.07}{5}
+= 0.084
+\end{align*}
+
+For $n = 10$: $A_3 = 0.266$, $B_3 = 0.284$, $B_4 = 1.716$
+
+$\overline{X}$ Chart limits:
+\begin{align*}
+UCL &= 10.13 + 0.266 \times 0.084 \approx 10.15,\\
+CL  &= 10.13,\\
+LCL &= 10.13 - 0.266 \times 0.084 \approx 10.11.
+\end{align*}
+
+$S$ Chart limits:
+\begin{align*}
+UCL &= 1.716 \times 0.084 \approx 0.14,\\
+CL  &= 0.084,\\
+LCL &= 0.284 \times 0.084 \approx 0.024.
+\end{align*}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=6cm,
+    domain=0:6,
+    xlabel={Subgroup Number},
+    ylabel={Sample Mean},
+    xmin=0, xmax=6,
+    thick,
+    clip=false
+]
+
+\addplot[red, dashed, very thick] coordinates {(0,10.15) (6,10.15)};
+\addplot[green, very thick]      coordinates {(0,10.13) (6,10.13)};
+\addplot[red, dashed, very thick] coordinates {(0,10.11) (6,10.11)};
+
+\addplot[blue, mark=o, very thick] coordinates {
+    (1,10.13) (2,10.15) (3,10.09) (4,10.19) (5,10.08)
+};
+
+\node[anchor=west, font=\small] at (axis cs:6.05,10.15) {UCL};
+\node[anchor=west, font=\small] at (axis cs:6.05,10.13) {CL};
+\node[anchor=west, font=\small] at (axis cs:6.05,10.11) {LCL};
+
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{$\overline{X}$ control chart for rod diameter.}}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=6cm,
+    domain=0:6,
+    xlabel={Subgroup Number},
+    ylabel={Standard Deviation $S$},
+    xmin=0, xmax=6,
+    thick,
+    clip=false
+]
+
+\addplot[red, dashed, very thick] coordinates {(0,0.14) (6,0.14)};
+\addplot[green, very thick]      coordinates {(0,0.084) (6,0.084)};
+\addplot[red, dashed, very thick] coordinates {(0,0.024) (6,0.024)};
+
+\addplot[blue, mark=o, very thick] coordinates {
+    (1,0.10) (2,0.11) (3,0.07) (4,0.07) (5,0.07)
+};
+
+\node[anchor=west, font=\small] at (axis cs:6.05,0.14) {UCL};
+\node[anchor=west, font=\small] at (axis cs:6.05,0.084) {CL};
+\node[anchor=west, font=\small] at (axis cs:6.05,0.024) {LCL};
+
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{$S$ control chart for rod diameter.}}
+\end{figure}
+
 
 \section{Control Charts for Attributes}
 
