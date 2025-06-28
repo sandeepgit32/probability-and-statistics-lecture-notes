@@ -12777,7 +12777,7 @@ Simplifying these two equations yields
 \hat{\beta}_0\sum_{i=1}^{n}  x_i + \hat{\beta}_1 \sum_{i=1}^{n}x_i^2 &= \sum_{i=1}^{n} y_i x_i
 \end{align*}
 
-Multiplying the first equation by $\sum_{i=1}^n x_i$ and second equation by $n$ and then subtracting second from the first yields
+This set of two linear equations in the unknowns $\beta_1$ and $\beta_2$, called the \textbf{normal equations}, which provides the best ﬁt to a given set of paired data in accordance with the criterion of least squares. Multiplying the first equation by $\sum_{i=1}^n x_i$ and second equation by $n$ and then subtracting second from the first yields
 $$\left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right) - n\sum_{i=1}^{n} x_i y_i = \hat{\beta}_1\left(\sum_{i=1}^{n} x_i\right)^2 - n\hat{\beta}_1\sum_{i=1}^{n} x_i^2  $$
 
 Thus we get the expression for $\hat{\beta}_1$
@@ -13006,52 +13006,125 @@ where:
     \item $\varepsilon$ is the error term.
 \end{itemize}
 
-Based on data we try to obtain good estimates of the regression coefficients $\hat{\beta_0},\hat{\beta_1} \dots \hat{\beta_p}$. The prediction equation is given by
+Based on data we try to obtain good estimates of the regression coefficients $\hat{\beta}_0,\hat{\beta}_1 \dots \hat{\beta}_p$. The prediction equation is given by
 \begin{textbox}
-$$\hat{Y} = \hat{\beta_0} + \hat{\beta_1} X_{1} + \hat{\beta_2} X_{2} + \cdots + \hat{\beta_p} X_{p} + \varepsilon$$
+$$\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X_{1} + \hat{\beta_2} X_{2} + \cdots + \hat{\beta}_p X_{p} + \varepsilon$$
 \end{textbox}
 Generally the least square (LS) method is used to estimate the regression coefficients as before. LS method can be applied only if number of samples $n$ is bigger than the number of predictors $p$. Let $x_{ki}$ be the $i$th sample of the $k$th predictor input and $y_i$ be the corresponding response. Then
 \begin{textbox}
 $$\text{RSS} = \sum_{i=1}^{n} \varepsilon_i^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} \left( y_i - \hat{\beta}_0 - \sum_{k=1}^{p}\hat{\beta}_k x_{ki}\right)^2$$
 \end{textbox}
 
-As before we could take the derivatives with respective to $\hat{\beta_0},\hat{\beta_1} \dots \hat{\beta_p}$, set them equal to zero and derive the least square normal equations that our parameters $\hat{\beta_0},\hat{\beta_1} \dots \hat{\beta_p}$ would have to fulfill.
+As before we could take the derivatives with respective to $\hat{\beta_0},\hat{\beta_1} \dots \hat{\beta_p}$, set them equal to zero and derive the least square \textbf{normal equations} that our parameters $\hat{\beta_0},\hat{\beta_1} \dots \hat{\beta_p}$ would have to fulfill.
 
-\subsection{Matrix Representation}
+\begin{align*}
+n\hat{\beta}_0
++ \hat{\beta}_1 \sum_{i=1}^n x_{1i}
++ \hat{\beta}_2 \sum_{i=1}^n x_{2i}
++ \cdots
++ \hat{\beta}_p \sum_{i=1}^n x_{pi}
+&= \sum_{i=1}^n y_i \\[1ex]
+%
+\hat{\beta}_0 \sum_{i=1}^n x_{1i}
++ \hat{\beta}_1 \sum_{i=1}^n x_{1i}^2
++ \hat{\beta}_2 \sum_{i=1}^n x_{1i}x_{2i}
++ \cdots
++ \hat{\beta}_p \sum_{i=1}^n x_{1i}x_{pi}
+&= \sum_{i=1}^n x_{1i}y_i \\[1ex]
+%
+\hat{\beta}_0 \sum_{i=1}^n x_{2i}
++ \hat{\beta}_1 \sum_{i=1}^n x_{2i}x_{1i}
++ \hat{\beta}_2 \sum_{i=1}^n x_{2i}^2
++ \cdots
++ \hat{\beta}_p \sum_{i=1}^n x_{2i}x_{pi}
+&= \sum_{i=1}^n x_{2i}y_i \\
+%
+\vdots \hspace{10em} &\vdots \\[1ex]
+%
+\hat{\beta}_0 \sum_{i=1}^n x_{pi}
++ \hat{\beta}_1 \sum_{i=1}^n x_{pi}x_{1i}
++ \hat{\beta}_2 \sum_{i=1}^n x_{pi}x_{2i}
++ \cdots
++ \hat{\beta}_p \sum_{i=1}^n x_{pi}^2
+&= \sum_{i=1}^n x_{pi}y_i \\
+\end{align*}
 
-The multiple regression model can be expressed compactly in matrix form:
-
-\begin{equation}
-\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
-\end{equation}
-
-where:
-\begin{equation}
-\mathbf{Y} = \begin{pmatrix}
-Y_1 \\
-Y_2 \\
+This procedure can be easily carried out if we formulate the following prediction equation in matrix and vector form.
+\begin{align*}
+\hat{y}_1 &= \hat{\beta}_0 + \hat{\beta}_1x_{11} + \hat{\beta}_2x_{21} + \dots + \hat{\beta}_px_{p1}\\
+\hat{y}_2 &= \hat{\beta_0} + \hat{\beta}_1x_{12} + \hat{\beta}_2x_{22} + \dots + \hat{\beta}_px_{p2}\\
+\vdots &\hspace{10em} \vdots \\[1ex]
+\hat{y}_n &= \hat{\beta}_0 + \hat{\beta}_1x_{1n} + \hat{\beta}_2x_{2n} + \dots + \hat{\beta}_px_{pn}\\
+\end{align*}
+In matrix form it is written as
+$$\hat{\mathbf{y}} = \mathbf{X} \hat{\boldsymbol{\beta}}$$
+where,
+\begin{equation*}
+\hat{\mathbf{y}} = \begin{pmatrix}
+\hat{y}_1 \\
+\hat{y}_2 \\
 \vdots \\
-Y_n
+\hat{y}_n
 \end{pmatrix}, \quad
 \mathbf{X} = \begin{pmatrix}
-1 & X_{11} & X_{21} & \cdots & X_{k1} \\
-1 & X_{12} & X_{22} & \cdots & X_{k2} \\
+1 & x_{11} & x_{21} & \cdots & x_{k1} \\
+1 & x_{12} & x_{22} & \cdots & x_{k2} \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
-1 & X_{1n} & X_{2n} & \cdots & X_{kn}
+1 & x_{1n} & x_{2n} & \cdots & x_{kn}
 \end{pmatrix}, \quad
 \boldsymbol{\beta} = \begin{pmatrix}
 \beta_0 \\
 \beta_1 \\
 \vdots \\
 \beta_k
-\end{pmatrix}, \quad
-\boldsymbol{\varepsilon} = \begin{pmatrix}
+\end{pmatrix}
+\end{equation*}
+
+If $\mathbf{y}$ is the vector for observed variable and $\boldsymbol{\varepsilon}$, then $$ \boldsymbol{\varepsilon} = \mathbf{y} - \hat{\mathbf{y}} = \mathbf{y} - \mathbf{X} \hat{\boldsymbol{\beta}} $$ where,
+$$\mathbf{y} = \begin{pmatrix}
+{y_1} \\
+{y_2} \\
+\vdots \\
+{y_n}
+\end{pmatrix}, \quad\boldsymbol{\varepsilon} = \begin{pmatrix}
 \varepsilon_1 \\
 \varepsilon_2 \\
 \vdots \\
 \varepsilon_n
-\end{pmatrix}
-\end{equation}
+\end{pmatrix}$$
+Then the equation for residual sum of square (RSS) in matrix form is given by
+\begin{align*}
+\text{RSS} &= \sum_{i=1}^n \varepsilon_i^2 = \boldsymbol{\varepsilon}^T\boldsymbol{\varepsilon}\displaybreak[0]\\
+&= \left(\mathbf{y} - \mathbf{X} \hat{\boldsymbol{\beta}}\right)^T\left(\mathbf{y} - \mathbf{X} \hat{\boldsymbol{\beta}}\right)\displaybreak[0] \\
+&=\mathbf{y}^T\mathbf{y}-\mathbf{y}^T\mathbf{X} \hat{\boldsymbol{\beta}} - \boldsymbol{\beta}^T\mathbf{X}^Ty + \boldsymbol{\beta}^T\mathbf{X}^T\mathbf{X} \hat{\boldsymbol{\beta}}\displaybreak[0]
+\end{align*}
+To derive the expressions for $\hat{\boldsymbol{\beta}}$, we have to take the partial derivatives of RSS with respect to $\hat{\boldsymbol{\beta}}$ using matrix calculus\footnote{Some matrix calculation formulas:
+\begin{align*}
+\dfrac{\partial}{\partial \mathbf{x}} \left( \mathbf{y}^T\mathbf{A} \mathbf{x} \right) &= \mathbf{y}^T\mathbf{A} \\
+\dfrac{\partial}{\partial \mathbf{y}} \left( \mathbf{y}^T\mathbf{A} \mathbf{x} \right) &= \mathbf{x}^T\mathbf{A}^T \\
+\dfrac{\partial}{\partial \mathbf{x}} \left( \mathbf{x}^T \mathbf{A} \mathbf{x} \right) &= (\mathbf{A} + \mathbf{A}^T)\mathbf{x} \\
+\end{align*}
+
+} and set it equal to zero.
+\begin{align*}
+\dfrac{\partial}{\partial \hat{\boldsymbol{\beta}}}\left( \text{RSS} \right)
+&= \dfrac{\partial}{\partial \hat{\boldsymbol{\beta}}} \left( \mathbf{y}^T\mathbf{y} - 2\hat{\boldsymbol{\beta}}^T \mathbf{X}^T \mathbf{y} + \hat{\boldsymbol{\beta}}^T \mathbf{X}^T \mathbf{X} \hat{\boldsymbol{\beta}} \right) \\
+&= -2 \mathbf{X}^T \mathbf{y} + 2 \mathbf{X}^T \mathbf{X} \hat{\boldsymbol{\beta}} \\
+&= 2 \left( \mathbf{X}^T \mathbf{X} \hat{\boldsymbol{\beta}} - \mathbf{X}^T \mathbf{y} \right)\\
+&=2\left(\hat{\boldsymbol{\beta}}\mathbf{X}^T-\mathbf{y}^T\right) \mathbf{X}
+\end{align*}
+To minimize RSS with respect to $\hat{\boldsymbol{\beta}}$, we set
+
+\begin{align*}
+\dfrac{\partial}{\partial \hat{\boldsymbol{\beta}}} \left( \text{RSS} \right) &= 0 \\[1ex]
+\Rightarrow \left( \hat{\boldsymbol{\beta}} \mathbf{X}^T - \mathbf{y}^T \right) \mathbf{X} &= 0 \\[1ex]
+\Rightarrow \hat{\boldsymbol{\beta}} \mathbf{X}^T \mathbf{X} - \mathbf{y}^T \mathbf{X} &= 0 \\[1ex]
+\Rightarrow \mathbf{X}^T \mathbf{X} \hat{\boldsymbol{\beta}} - \mathbf{X}^T \mathbf{y} &= 0 \\[1ex]
+\end{align*}
+Therefore we can write:
+\begin{textbox}
+$$\hat{\boldsymbol{\beta}} = \left( \mathbf{X}^T \mathbf{X} \right)^{-1} \mathbf{X}^T \mathbf{y}$$
+\end{textbox}
 
 \subsection{Assumptions of Multiple Regression}
 
