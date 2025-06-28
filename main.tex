@@ -224,103 +224,239 @@
 
 \href{https://bookdown.org/egarpor/inference/estmeth-mm.html}{https://bookdown.org/egarpor/inference/estmeth-mm.html}
 
-Statistics is a branch of mathematics that deals with the collection, organization, analysis, interpretation, and presentation of data. It provides tools for making informed decisions in the presence of uncertainty.
+\textbf{Statistics} is a branch of mathematics concerned with the systematic handling of data. It encompasses the processes of collecting, organizing, summarizing, and presenting data in meaningful ways. Whether working with numerical or categorical data, statistics helps process complex information into simpler, interpretable forms using tables, charts, and descriptive measures such as averages and variability.
+
+Beyond description, statistics is fundamentally about \textbf{making inferences}. Using a sample from a larger population, statistical methods allow us to draw conclusions, test hypotheses, and estimate unknown parameters with a quantifiable level of confidence. This inferential power is crucial in fields where data are limited or difficult to obtain in full—such as medicine, economics, environmental science, and the social sciences.
+
+At its core, statistics provides a rigorous framework for \textbf{decision-making under uncertainty}. By modeling randomness and variability, it enables researchers, policymakers, and professionals to make informed judgments backed by data. From predicting market trends to evaluating clinical trials, statistical reasoning underpins modern evidence-based practice across nearly every scientific and industrial domain.
 
 \subsection{Uses of Statistics}
 
 Statistics is widely used in various fields such as:
 
 \begin{itemize}
-    \item \textbf{Education}: Analyzing student performance and improving teaching methods.
-    \item \textbf{Business}: Making informed decisions based on market trends and consumer behavior.
-    \item \textbf{Healthcare}: Understanding the effectiveness of treatments and tracking disease outbreaks.
-    \item \textbf{Government}: Planning and policy-making based on population data.
+    \item \textbf{Business}: Companies use statistics to understand market trends, forecast sales, and study consumer behavior. It plays a key role in product development, marketing strategies, risk analysis, and making data-driven decisions that improve profitability and efficiency.
+
+    \item \textbf{Healthcare}: In medicine and public health, statistics is essential for evaluating the effectiveness of new treatments, analyzing clinical trial data, and tracking the spread of diseases. It supports evidence-based decision-making and helps ensure patient safety and optimal care.
+
+    \item \textbf{Government}: Governments rely on statistical data for policy-making, budget planning, and resource allocation. Population censuses, employment statistics, and health surveys are used to understand societal needs and implement programs for public welfare.
+
+    \item \textbf{Education}: Statistics helps in analyzing student performance through test scores, attendance records, and learning outcomes. It supports curriculum planning, identifying gaps in learning, and measuring the effectiveness of teaching methods or interventions.
 \end{itemize}
+
 
 \subsection{Types of Data}
 
-Data can be categorized based on their nature and measurement levels.
+\textbf{Data} refers to raw information collected through observation, measurement, surveys, experiments, or other methods. It serves as the foundation for statistical analysis. In statistics, we use data to uncover patterns, test hypotheses, make predictions, and support decision-making in various fields such as education, healthcare, business, and science.
+
+Data can be broadly classified into two main types based on their nature: \textbf{qualitative} and \textbf{quantitative}. Understanding these types is essential for choosing the appropriate statistical methods for analysis.
+
+\bigskip
 
 \textbf{1. Qualitative (Categorical) Data}
 
-These are non-numeric data that describe categories or groups.
+Qualitative data represent categories or labels that describe characteristics or qualities. These values are non-numerical and cannot be measured in terms of quantity, although they can be counted or classified.
 
 \begin{itemize}
-    \item \textbf{Nominal}: Categories without any inherent order (e.g., colors, gender).
-    \item \textbf{Ordinal}: Categories with a meaningful order but no fixed interval between them (e.g., rankings).
+    \item \textbf{Nominal data}: These are categories with no natural order or ranking. The categories are simply different from one another.\\
+    \textit{Examples}: Types of fruits (`apple', `banana', `mango'), blood groups (`A', `B', `AB', `O').
+
+    \item \textbf{Ordinal data}: These categories have a meaningful order or ranking, but the intervals between the categories are not necessarily equal or known.\\
+    \textit{Examples}: Customer satisfaction ratings (`poor', `fair', `good', `excellent'), education level (`high school', `undergraduate', `postgraduate').
 \end{itemize}
 
-\textbf{2. Quantitative (Numerical) Data}
+\bigskip
 
-These are numeric data representing counts or measurements.
+\textbf{2. Quantitative (Numerical) data}
+
+Quantitative data represent numerical values that indicate amounts or measurements. These data can be subjected to arithmetic operations such as addition, subtraction, and averaging.
 
 \begin{itemize}
-    \item \textbf{Discrete}: Countable values (e.g., number of students).
-    \item \textbf{Continuous}: Measurable quantities that can take any value within a range (e.g., height, weight).
+    \item \textbf{Discrete data}: These are countable numbers with distinct, separate values. Discrete data usually arise from counting processes.\\
+    \textit{Examples}: Number of children in a family, number of cars in a parking lot, number of questions answered correctly on a test.
+
+    \item \textbf{Continuous data}: These are measurable quantities that can take any value within a given range. Continuous data usually come from measurements and can include fractions and decimals.\\
+    \textit{Examples}: Height of students, weight of a package, temperature of a city, time taken to complete a task.
 \end{itemize}
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.5cm and 2.5cm,
+  every node/.style={align=center}
+]
+  % Root
+  \node (data) {Data};
+
+  % Level 1
+  \node (qual) [below left=of data] {Qualitative\\(Categorical)};
+  \node (quant) [below right=of data] {Quantitative\\(Numerical)};
+
+  % Level 2 – Qualitative
+  \node (nominal) [below=of qual, xshift=-1.6cm] {Nominal\\(Colors, Gender)};
+  \node (ordinal) [below=of qual, xshift=1.6cm] {Ordinal\\(Ranks)};
+
+  % Level 2 – Quantitative
+  \node (discrete) [below=of quant, xshift=-1.6cm] {Discrete\\(No. of Students)};
+  \node (continuous) [below=of quant, xshift=1.6cm] {Continuous\\(Height, Weight)};
+
+  % Connections
+  \draw[->] (data) -- (qual);
+  \draw[->] (data) -- (quant);
+  \draw[->] (qual) -- (nominal);
+  \draw[->] (qual) -- (ordinal);
+  \draw[->] (quant) -- (discrete);
+  \draw[->] (quant) -- (continuous);
+\end{tikzpicture}
+\end{center}
+\caption{\textit{Types of data.}}
+\end{figure}
+
+
 
 \subsection{Data Collection Methods}
 
-Collecting accurate data is crucial for meaningful analysis. Common methods include:
+ Data collection is a fundamental step in any statistical investigation. The method used to collect data affects its reliability, accuracy, and suitability for analysis. Common methods include:
+
 
 \begin{itemize}
-    \item \textbf{Surveys}: Gathering information through questionnaires.
-    \item \textbf{Experiments}: Conducting controlled studies to observe outcomes.
-    \item \textbf{Observations}: Recording data based on direct observation.
-    \item \textbf{Existing Records}: Utilizing previously collected data.
+    \item \textbf{Surveys and questionnaires}: Used to gather information from individuals by asking a set of structured or semi-structured questions. Surveys can be conducted in person, over the phone, via email, or online platforms.
+
+    \item \textbf{Interviews}: Data is collected through verbal interaction between the interviewer and the respondent. Interviews may be structured, semi-structured, or unstructured, and are useful for collecting in-depth qualitative information.
+
+    \item \textbf{Observation}: Involves directly watching subjects in a natural or controlled environment. Useful for behavioral and environmental studies, especially when respondents may not reliably report information.
+
+    \item \textbf{Experiments}: Data is collected under controlled conditions by manipulating variables and observing the outcomes. This method is common in natural and social sciences for studying causal relationships.
+
+    \item \textbf{Document or record review}: Involves collecting data from existing documents, databases, reports, or archives. This method is typically used for gathering secondary data.
 \end{itemize}
 
-Tally for 3: \tallymark{3} \\
-Tally for 5: \tallymark{5} \\
-Tally for 7: \tallymark{7}
+Broadly, data can be classified as either \textbf{primary} or \textbf{secondary} depending on how it is collected.
 
-\subsection{Organizing Data}
+\begin{itemize}
+    \item \textbf{Primary data}: Data collected directly from first-hand sources by the investigator for a specific purpose. It is original, up-to-date, and tailored to the research objective, but can be time-consuming and costly to collect.\\
+    \textit{Examples}: Conducting a survey, performing experiments, direct observations.
 
-Once data is collected, organizing it helps in understanding patterns and trends.
+    \item \textbf{Secondary data}: Data that has already been collected, compiled, and published by others. It is economical and quick to access, but may not perfectly match the researcher’s needs and might be outdated or biased.\\
+    \textit{Examples}: Government census reports, published research papers, company financial statements.
+\end{itemize}
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.5cm and 1.5cm,
+  every node/.style={align=center}
+]
+  % Root
+  \node (data) {Data};
 
-\textbf{1. Frequency Distribution Table}
+  % Level 1
+  \node (primary) [below left=of data] {Primary data\\(Conducting a survey)};
+  \node (secondary) [below right=of data] {Secondary data\\(Published research paper)};
 
-A frequency distribution table lists data values and their corresponding frequencies.
+  % Connections
+  \draw[->] (data) -- (primary);
+  \draw[->] (data) -- (secondary);
+\end{tikzpicture}
+\end{center}
+\caption{\textit{Types of data based on collection methods.}}
+\end{figure}
 
-\begin{table}[h]
+\section{Presentation of Data}
+
+Presentation of data refers to the various ways in which raw data can be organized and displayed to facilitate understanding, comparison, and interpretation. Broadly, these methods fall into three categories:
+\begin{enumerate}
+  \item Textual Representation
+  \item Tabular Representation
+  \item Diagrammatic (Graphical) Representation
+\end{enumerate}
+
+\subsection{Textual Representation}
+Textual representation describes data in words or sentences. It is useful for small data sets or when contextual explanation is needed.
+
+  ``In the month of June, the daily maximum temperatures recorded in City X ranged from 28°C to 35°C, with an average of 31°C. The lowest temperature (28°C) occurred on June 3 and June 17, while the highest (35°C) was on June 24.''
+
+\subsection{Tabular Representation}
+
+Tabular representation organizes data into rows and columns, providing a clear and concise way to display raw observations. Consider the daily maximum temperatures (in °C) recorded in City X for the first 12 days of June 2025:
+\[
+30,\;32,\;28,\;31,\;33,\;34,\;29,\;30,\;32,\;31,\;30,\;29.
+\]
+We first present these observations in a simple day–value table.
+
+\begin{table}[H]
 \centering
-\begin{tabular}{c|c}
-\hline
-\textbf{Number of Books} & \textbf{Number of Students} \\
-\hline
-0--2 & 5 \\
-3--5 & 12 \\
-6--8 & 17 \\
-9--11 & 8 \\
-12--14 & 3 \\
-\hline
+\begin{tabular}{c|cccccccccccc}
+\toprule
+\textbf{Day}        & 1  & 2  & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10 & 11 & 12 \\ \midrule
+\textbf{Temp (°C)}  & 30 & 32 & 28 & 31 & 33 & 34 & 29 & 30 & 32 & 31 & 30 & 29 \\
+\bottomrule
 \end{tabular}
-\caption{Number of Books Read by Students}
+\caption{\textit{Daily maximum temperatures (°C) in city X, June 1–12, 2025.}}
 \end{table}
 
-\textbf{2. Relative Frequency}
+\subsubsection{1. Simple Frequency Distribution}
 
-Relative frequency represents the proportion of observations within each category.
+From the raw data table, it can be difficult to see how often each temperature occurs. To remedy this, we construct a \emph{simple frequency distribution}, which counts the number of times each unique value appears.
 
-\begin{table}[h]
+In statistics, the \textbf{frequency} of a value is the number of times that value appears in a dataset, and a \textbf{frequency distribution} is a tabular summary that pairs each distinct observation with its frequency.  To make it easy to see how often each temperature occurs, we convert our raw list of daily readings into a simple frequency distribution by counting the occurrences of each unique temperature:
+
+\begin{table}[H]
 \centering
-\begin{tabular}{c|c}
-\hline
-\textbf{Number of Books} & \textbf{Relative Frequency} \\
-\hline
-0--2 & 0.10 \\
-3--5 & 0.24 \\
-6--8 & 0.34 \\
-9--11 & 0.16 \\
-12--14 & 0.06 \\
-\hline
+\begin{tabular}{c|ccccccc}
+\toprule
+\textbf{Temp (°C)} & 28 & 29 & 30 & 31 & 32 & 33 & 34 \\
+\midrule
+\textbf{Frequency} &  1 &  2 &  3 &  2 &  2 &  1 &  1 \\
+\bottomrule
 \end{tabular}
-\caption{Relative Frequency of Books Read}
+\caption{\textit{Simple frequency distribution of maximum temperatures (°C).}}
 \end{table}
 
-\subsection{Displaying Data}
+This table immediately shows, for example, for example, that 30 °C was recorded on three days, while 28 °C and 33 °C each occurred only once. Sometimes, to express them proportionally, we also compute \textbf{relative frequencies} and accumulate them in a \textbf{cumulative frequency distribution}.The \emph{relative frequency} is calculated as
+\[
+\text{Relative frequency} = \dfrac{\text{Frequency}}{\text{Total no. of days}} \times 100\%,
+\]
+which is generally expressed in percentages and the \emph{cumulative frequency} at each temperature calculates the total number of observations less than that value. These additional columns help us understand both the proportion and the running total of the data.
 
-Visual representations make it easier to comprehend data.
+\begin{table}[H]
+\centering
+\begin{tabular}{c|ccccccc}
+\toprule
+\textbf{Temp} & 28   & 29    & 30    & 31    & 32    & 33    & 34    \\ \midrule
+Frequency     & 1    & 2     & 3     & 2     & 2     & 1     & 1     \\
+Relative frequency\ (\%) & 8.3 & 16.7 & 25.0 & 16.7 & 16.7 & 8.3  & 8.3  \\
+Cumulative frequency\  & 1    & 3     & 6     & 8     & 10    & 11    & 12    \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Frequency, relative frequency, and cumulative frequency distribution.}}
+\end{table}
+
+
+\subsubsection{2. Grouped Frequency Distribution}
+
+When dealing with larger datasets or continuous measurements, listing every unique value becomes impractical. Instead, we group data into multiple groups or {classes} with definite boundaries, and then tabulate frequencies for each class. Suppose we choose class boundaries with an intervals of 2 °C each to cover the range of our data:
+\[
+[28,\,30),\quad [30,\,32),\quad [32,\,34),\quad [34,\,36)
+\]
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|cccc}
+\toprule
+\textbf{Class Interval} & {[}28,30) & {[}30,32) & {[}32,34) & {[}34,36) \\ \midrule
+Frequency               & 3         & 5         & 3         & 1         \\
+Relative frequency\ (\%)    & 25.0    & 41.7   & 25.0    & 8.3     \\
+Cumulative frequency\       & 3         & 8         & 11        & 12        \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Grouped frequency distribution with relative and cumulative frequencies.}}
+\end{table}
+
+We notice the interval \([30,32)\) contains \(\{30,30,31,31,32\}\), giving a frequency of 5 which is the maximum among all classes. Its relative frequency is \(5/12\approx41.7\%\), and its cumulative frequency of 8 indicates that 8 observations are below 32 °C.
+
+
+\subsection{Diagrammatic (Graphical) Representation}
+Graphical methods transform data into visual form. They allow quick identification of patterns, trends, and outliers.
 
 \textbf{1. Bar Graph}
 
@@ -399,15 +535,127 @@ Line graphs depict data trends over time.
     xtick=data,
     symbolic x coords={Jan, Feb, Mar, Apr, May},
     ymin=0,
-    ymax=40,
+    ymax=40, grid=major,
     width=0.8\textwidth,
-    height=0.4\textwidth
+    height=0.4\textwidth, thick
 ]
-\addplot coordinates {(Jan,15) (Feb,18) (Mar,25) (Apr,30) (May,35)};
+\addplot[blue, very thick] coordinates {(Jan,15) (Feb,18) (Mar,25) (Apr,30) (May,35)};
 \end{axis}
 \end{tikzpicture}
-\caption{Monthly Average Temperature}
+\caption{\textit{Monthly average temperature.}}
 \end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    width=0.7\textwidth,
+    xlabel=Date (June),
+    ylabel=Temperature (°C),
+    xtick={1,5,10,15,20,25,30},
+    grid=major,
+    width=12cm, height=7cm, thick,
+    legend pos= north west
+  ]
+    \addplot[very thick, blue] coordinates {(1,30) (5,33) (10,32) (15,31) (20,34) (25,35) (30,33)};
+    \addlegendentry{City X}
+    \addplot[dashed, very thick, red] coordinates {(1,28) (5,30) (10,29) (15,30) (20,32) (25,33) (30,31)};
+    \addlegendentry{City Y}
+  \end{axis}
+\end{tikzpicture}
+\caption{\textit{Multiple‐line diagram of daily max temperatures.}}
+\end{figure}
+
+\paragraph{Step (Frequency Polygon) Diagram}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    xlabel={Score Mid‐Point},
+    ylabel={Frequency},
+    grid=major
+  ]
+    \addplot[mark=*, thick] coordinates {(54.5,4) (64.5,9) (74.5,15) (84.5,8) (94.5,4)};
+  \end{axis}
+\end{tikzpicture}
+\caption{Frequency Polygon}
+\end{figure}
+
+\paragraph{Ogive (Cumulative Frequency Curve)}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    xlabel={Upper Class Boundary},
+    ylabel={Cumulative Frequency},
+    grid=major
+  ]
+    \addplot[smooth,mark=*] coordinates {(60,4) (70,13) (80,28) (90,36) (100,40)};
+  \end{axis}
+\end{tikzpicture}
+\caption{Ogive}
+\end{figure}
+
+\paragraph{Histogram}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    ybar interval,
+    ymin=0,
+    xlabel={Exam Score},
+    ylabel={Frequency},
+    grid=major
+  ]
+    \addplot+[fill=purple!30] coordinates {(50,4) (60,9) (70,15) (80,8) (90,4) (100,0)};
+  \end{axis}
+\end{tikzpicture}
+\caption{Histogram of Exam Scores}
+\end{figure}
+
+\paragraph{Frequency Curve of Different Types}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    xlabel={Mid‐Point},
+    ylabel={Density},
+    grid=major
+  ]
+    \addplot[smooth] coordinates {(54.5,0.04) (64.5,0.09) (74.5,0.15) (84.5,0.08) (94.5,0.04)};
+  \end{axis}
+\end{tikzpicture}
+\caption{Smooth Frequency Curve}
+\end{figure}
+
+\subsubsection{Stem-and-Leaf Diagram}
+\begin{verbatim}
+Stem | Leaf
+-----------
+  5  | 0 2 4 7
+  6  | 0 1 3 5 9
+  7  | 2 4 4 8
+  8  | 0 1 3
+  9  | 0 5
+\end{verbatim}
+
+\bigskip
+\noindent
+This completes the detailed presentation of data methods. Each technique has its strengths and is chosen based on the nature of the data and the purpose of analysis.
+
+\subsubsection{Tally Marks}
+
+Tally marks are a simple and intuitive method for counting and recording frequencies, especially useful during manual data collection or for small datasets. Each tally mark (\(|\)) represents one occurrence of a value. To improve readability, tallies are grouped in bundles of five, with the fifth mark crossing the previous four represents a count of 5.
+
+Tally marks provide a quick visual count before converting to numerical frequencies in a formal table. They are especially helpful in classroom or field settings where data is collected in real time.
+
+Suppose we record the maximum daily temperatures in City Y over 12 days:
+
+\[
+\{30,\;32,\;32,\;30,\;32,\;30,\;32,\;31,\;32,\;32,\;32,\;31\}
+\]
+
+Using tally marks, we count how many times each temperature appears:
+
+30: \tallymark{3} \\
+31: \tallymark{2} \\
+32: \tallymark{7}
 
 \section{Measures of Central Tendency}
 
@@ -13102,10 +13350,10 @@ To derive the expressions for $\hat{\boldsymbol{\beta}}$, we have to take the pa
 \begin{align*}
 \dfrac{\partial}{\partial \mathbf{x}} \left( \mathbf{y}^T\mathbf{A} \mathbf{x} \right) &= \mathbf{y}^T\mathbf{A} \\
 \dfrac{\partial}{\partial \mathbf{y}} \left( \mathbf{y}^T\mathbf{A} \mathbf{x} \right) &= \mathbf{x}^T\mathbf{A}^T \\
-\dfrac{\partial}{\partial \mathbf{x}} \left( \mathbf{x}^T \mathbf{A} \mathbf{x} \right) &= (\mathbf{A} + \mathbf{A}^T)\mathbf{x} \\
+\dfrac{\partial}{\partial \mathbf{x}} \left( \mathbf{x}^T \mathbf{A} \mathbf{x} \right) &= (\mathbf{A} + \mathbf{A}^T)\mathbf{x}\\
 \end{align*}
 
-} and set it equal to zero.
+} and set it equal to zero. The partial derivative of RSS is
 \begin{align*}
 \dfrac{\partial}{\partial \hat{\boldsymbol{\beta}}}\left( \text{RSS} \right)
 &= \dfrac{\partial}{\partial \hat{\boldsymbol{\beta}}} \left( \mathbf{y}^T\mathbf{y} - 2\hat{\boldsymbol{\beta}}^T \mathbf{X}^T \mathbf{y} + \hat{\boldsymbol{\beta}}^T \mathbf{X}^T \mathbf{X} \hat{\boldsymbol{\beta}} \right) \\
@@ -13114,7 +13362,6 @@ To derive the expressions for $\hat{\boldsymbol{\beta}}$, we have to take the pa
 &=2\left(\hat{\boldsymbol{\beta}}\mathbf{X}^T-\mathbf{y}^T\right) \mathbf{X}
 \end{align*}
 To minimize RSS with respect to $\hat{\boldsymbol{\beta}}$, we set
-
 \begin{align*}
 \dfrac{\partial}{\partial \hat{\boldsymbol{\beta}}} \left( \text{RSS} \right) &= 0 \\[1ex]
 \Rightarrow \left( \hat{\boldsymbol{\beta}} \mathbf{X}^T - \mathbf{y}^T \right) \mathbf{X} &= 0 \\[1ex]
