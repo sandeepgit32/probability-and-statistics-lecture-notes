@@ -1,10 +1,10 @@
 \documentclass[twoside]{book}
 \setcounter{tocdepth}{1}
 \usepackage[a4paper,
-    inner=3.3cm,  % Inner margin (binding side)
+    inner=3cm,  % Inner margin (binding side)
     outer=2.8cm,  % Outer margin
-    top=2.8cm,
-    bottom=2.8cm
+    top=2.6cm,
+    bottom=2.6cm
 ]{geometry}
 \usepackage[hidelinks]{hyperref}
 %\usepackage{mathpazo}
@@ -213,6 +213,11 @@
       \end{center}
 
 \end{titlepage}
+
+\newpage
+\thispagestyle{empty}  % Optional: removes page number
+\vspace*{\fill}
+\newpage
 
 %\maketitle
 
@@ -2382,20 +2387,21 @@ There are various types of events:
 The subject of probability is based on three commonsense rules, known as axioms. They are:
 
 \begin{textbox}
-    \begin{enumerate}
-        \item $P(S) = 1$ where $S$ is the sample space.
-        \item $0 \leq P(E) \leq 1$ for any event $E$.
-        \item For two mutually exclusive events $E_1$ and $E_2$, $$P(E_1 \cup E_2) = P(E_1) + P(E_2)$$
+    \begin{itemize}
+        \item \textbf{First Axiom:} $P(S) = 1$ where $S$ is the sample space.
+        \item \textbf{Second Axiom:} $0 \leq P(E) \leq 1$ for any event $E$.
+        \item \textbf{Third Axiom:} For two mutually exclusive events $E_1$ and $E_2$, $$P(E_1 \cup E_2) = P(E_1) + P(E_2)$$
         More generally, if $E_1, E_2, \dots E_n$ are mutually exclusive events,
         $$P(E_1 \cup E_2 \cup \dots E_n) = P(E_1) + P(E_2) + \dots + E_n$$
-    \end{enumerate}
+    \end{itemize}
 \end{textbox}
 
-The first axiom states that the probability of the entire sample space $S$, which represents all possible outcomes of an experiment, is 1. It reflects the certainty that something in the sample space will occur. For example, when flipping a fair coin, the sample space is $S = \{\text{Head}, \text{Tail}\}$, and the probability that the outcome is either `Head' or `Tail' is 1.
 
-The second axiom ensures that probabilities are valid numerical values between 0 and 1. A probability of 0 means the event is impossible (e.g., rolling a 7 on a standard six-sided die), while a probability of 1 means the event is certain to happen. All other events fall somewhere in between these two extremes.
+The \textbf{first axiom} states that the probability of the entire sample space $S$, which represents all possible outcomes of an experiment, is 1. It reflects the certainty that something in the sample space will occur. For example, when flipping a fair coin, the sample space is $S = \{\text{Head}, \text{Tail}\}$, and the probability that the outcome is either `Head' or `Tail' is 1.
 
-This axiom applies when two events $E_1$ and $E_2$ are mutually exclusive—they cannot both happen at the same time. In such cases, the probability that either event occurs is the sum of their individual probabilities. For instance, when rolling a die, the probability of getting a $2$ or a $5$ is $P(2)+P(5)$, since a single die roll cannot result in both values.
+The \textbf{second axiom} ensures that probabilities are valid numerical values between 0 and 1. A probability of 0 means the event is impossible (e.g., rolling a 7 on a standard six-sided die), while a probability of 1 means the event is certain to happen. All other events fall somewhere in between these two extremes.
+
+The \textbf{third axiom} applies when two events $E_1$ and $E_2$ are mutually exclusive—they cannot both happen at the same time. In such cases, the probability that either event occurs is the sum of their individual probabilities. For instance, when rolling a die, the probability of getting a $2$ or a $5$ is $P(2)+P(5)$, since a single die roll cannot result in both values.
 
 These axioms imply the following theorems.
 \begin{textbox}
@@ -2463,19 +2469,14 @@ Now,
     \item $B$: The event that the die shows a number greater than or equal to 4 (i.e.,  $A = \{4,5,6\}$)
 \end{itemize}
 
-
 The union of \( A \) and \( B \) is the event that either event \( A \) or event \( B \) occurs (or both). The union of \( A \) and \( B \) is denoted by:
-
 \[
 A \cup B = \{1, 3, 5, 4, 6\} = \{1, 3, 4, 5, 6\}
 \]
-
 To find the probability of the union \( P(A \cup B) \), we use the formula:
-
 \[
 P(A \cup B) = P(A) + P(B) - P(A \cap B)
 \]
-
 \begin{itemize}
     \item \( P(A) = \frac{3}{6} = 0.5 \) (since there are 3 odd numbers: 1, 3, 5)
     \item \( P(B) = \frac{3}{6} = 0.5 \) (since there are 3 numbers \( \geq 4 \): 4, 5, 6)
@@ -2483,11 +2484,9 @@ P(A \cup B) = P(A) + P(B) - P(A \cap B)
 \end{itemize}
 
 So, the probability of \( A \cup B \) is:
-
 \[
 P(A \cup B) = 0.5 + 0.5 - \frac{1}{3} = 1 - \frac{1}{3} = \frac{2}{3}
 \]
-
 Thus, the probability of rolling a die and getting either an odd number or a number greater than or equal to 4 is \( \frac{2}{3} \).
 
 
@@ -2500,22 +2499,15 @@ Thus, the probability of rolling a die and getting either an odd number or a num
 \end{textbox}
 
 \textbf{Proof}: We begin by applying the two-event formula to $A \cup (B \cup C)$:
-
 $$P(A \cup B \cup C) = P(A) + P(B \cup C) - P(A \cap (B \cup C))$$
-
 Now, apply the two-event formula to $P(B \cup C)$:
-
 $$P(B \cup C) = P(B) + P(C) - P(B \cap C)$$
-
 Also, apply distributivity to expand \( P(A \cap (B \cup C)) \):
-
 \begin{align*}
 P(A \cap (B \cup C)) &= P((A \cap B) \cup (A \cap C)) \\
 &= P(A \cap B) + P(A \cap C) - P(A \cap B \cap C)
 \end{align*}
-
 Substituting back into the original expression:
-
 \begin{align*}
 P(A \cup B \cup C) &= P(A) + \big[ P(B) + P(C) - P(B \cap C) \big] \\
 &\quad - \big[ P(A \cap B) + P(A \cap C) - P(A \cap B \cap C) \big] \\
@@ -2526,7 +2518,6 @@ P(A \cup B \cup C) &= P(A) + \big[ P(B) + P(C) - P(B \cap C) \big] \\
 
 \begin{textbox}
 \textbf{Theorem}: Let \( A_1, A_2, \ldots, A_n \) be $n$ number of events of a random experiment. Then the probability of their union is given by:
-
 \begin{align*}
 P\left( \bigcup_{i=1}^n A_i \right)
 = &\sum_{i=1}^{n} P(A_i)
@@ -2535,7 +2526,6 @@ P\left( \bigcup_{i=1}^n A_i \right)
 - \cdots \\
 &+ (-1)^{n+1} P(A_1 \cap A_2 \cap \cdots \cap A_n)
 \end{align*}
-
 \end{textbox}
 The proof of this theorem is left as an exercise.
 
@@ -2593,7 +2583,6 @@ We can see it from the Venn diagram:
     &= (P(A) + P(B) - P(A \cap B)) - P(A \cap B) \\
     &= P(A) + P(B) - 2P(A \cap B)
 \end{align*}
-
 Therefore,
 \[
 P(\text{exactly one of } A \text{ or } B) = P(A) + P(B) - 2P(A \cap B)
@@ -2602,43 +2591,34 @@ P(\text{exactly one of } A \text{ or } B) = P(A) + P(B) - 2P(A \cap B)
 
 \begin{textbox}
 \textbf{Boole's Inequality}: Let \( A_1, A_2, \ldots, A_n \) be $n$ events of a random experiment. Then:
-
 \[
 P\left( \bigcup_{i=1}^{n} A_i \right) \leq \sum_{i=1}^{n} P(A_i)
 \]
 \end{textbox}
-
 \textbf{Proof}: We prove the inequality by induction on \( n \).
-
 \underline{Base Case:} For \( n = 1 \),
 \[
 P(A_1) = P(A_1)
 \]
 so the inequality holds with equality.
-
 \underline{Inductive Step:} Assume the inequality holds for \( n = k \), i.e.,
 \[
 P\left( \bigcup_{i=1}^{k} A_i \right) \leq \sum_{i=1}^{k} P(A_i)
 \]
-
 Now consider \( n = k+1 \). Let \( B = \bigcup_{i=1}^{k} A_i \). Then:
 \[
 P\left( \bigcup_{i=1}^{k+1} A_i \right) = P(B \cup A_{k+1})
 \]
-
 Using the formula for the union of two events:
 \[
 P(B \cup A_{k+1}) = P(B) + P(A_{k+1}) - P(B \cap A_{k+1}) \leq P(B) + P(A_{k+1})
 \]
-
 Applying the induction hypothesis to \( P(B) \):
 \[
 P(B \cup A_{k+1}) \leq \sum_{i=1}^{k} P(A_i) + P(A_{k+1}) = \sum_{i=1}^{k+1} P(A_i)
 \]
-
 Thus, the inequality holds for \( n = k+1 \). By the principle of mathematical induction, the inequality holds for all \( n \in \mathbb{N} \).
 \hfill\(\blacksquare\)
-
 
 Boole's inequality provides a simple and conservative upper bound for the probability of the union of multiple events. This is important because, without detailed knowledge of the relationships between the events (e.g., how much they overlap), we can still estimate the probability that at least one of the events occurs by adding their individual probabilities.
 
@@ -2647,22 +2627,17 @@ Boole's inequality provides a simple and conservative upper bound for the probab
 P(A_1) = 0.3, \quad P(A_2) = 0.5, \quad P(A_3) = 0.7,
 \]
 but you don’t know the intersections between them, Boole’s inequality will tell you that the probability of at least one occurring is at most:
-
 \[
 P(A_1 \cup A_2 \cup A_3) \leq 0.3 + 0.5 + 0.7 = 1.5
 \]
-
 Since probabilities cannot exceed 1, this shows that the bound is very loose, but it is still useful for getting a rough estimate.
-
 
 \begin{textbox}
 \textbf{Bonferroni's inequality}: Let \( A_1, A_2, \ldots, A_n \) be events of a random experiment. Then:
-
 \[
 P\left( \bigcap_{i=1}^n A_i \right) \geq \sum_{i=1}^n P(A_i) - (n - 1)
 \]
 \end{textbox}
-
 \textbf{Proof:} We proceed by induction on \( n \).
 
 \underline{Base case:} For \( n = 2 \),
@@ -2670,53 +2645,42 @@ we begin with the identity:
 \[
 P(A_1 \cup A_2) = P(A_1) + P(A_2) - P(A_1 \cap A_2)
 \]
-
 Using the axiom that \( P(A_1 \cup A_2) \leq 1 \), we substitute:
 \[
 P(A_1) + P(A_2) - P(A_1 \cap A_2) \leq 1
 \]
-
 Rearranging:
 \[
  P(A_1 \cap A_2) \geq P(A_1) + P(A_2) - 1
 \]
-
 So the inequality holds for $n = 2$.
-
 \underline{Inductive step:} Assume the result holds for \( n = k \), i.e.,
 \[
 P\left( \bigcap_{i=1}^{k} A_i \right) \geq \sum_{i=1}^{k} P(A_i) - (k - 1)
 \]
-
 Let \( B = \bigcap_{i=1}^{k} A_i \). Then:
 \[
 P\left( \bigcap_{i=1}^{k+1} A_i \right) = P(B \cap A_{k+1}) \geq P(B) + P(A_{k+1}) - 1
 \]
-
 Using the induction hypothesis:
 \[
 P(B \cap A_{k+1}) \geq \left( \sum_{i=1}^{k} P(A_i) - (k - 1) \right) + P(A_{k+1}) - 1 = \sum_{i=1}^{k+1} P(A_i) - k
 \]
-
 Therefore, the inequality holds for \( n = k + 1 \). By induction, it holds for all \( n \in \mathbb{N} \). \
 
 The Bonferroni inequality for intersections provides a lower bound for the probability of the intersection of multiple events.
+
 \hfill\(\blacksquare\)
 
 \textbf{Example}: Consider three events \( A_1 \), \( A_2 \), and \( A_3 \) with probabilities:
-
 \[
 P(A_1) = 0.6, \quad P(A_2) = 0.5, \quad P(A_3) = 0.7
 \]
-
 Using Bonferroni’s inequality, the lower bound for the probability that all three events occur is:
-
 \[
 P(A_1 \cap A_2 \cap A_3) \geq 0.6 + 0.5 + 0.7 - 2 = 0.8
 \]
-
 Thus, the probability that all three events occur simultaneously is at least \( 0.8 \).
-
 
 \section{Conditional Probability}
 
@@ -2724,7 +2688,6 @@ Conditional probability is the probability of an event occurring given that anot
 
 \begin{textbox}
     Let $A$ and $B$ be two events of a random experiment. The \textbf{conditional probability} of event \( A \) given that event \( B \) has already occurred is defined as:
-
 \[
 P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{provided} \, P(B) \neq 0
 \]
@@ -2745,17 +2708,13 @@ This formula tells us how likely event \( A \) is, given that we know event \( B
 \end{align*}
 
 The conditional probability of \( A \) given \( B \) is:
-
 \[
 P(A \mid B) = \frac{P(A \cap B)}{P(B)} = \dfrac{\frac{1}{6}}{\frac{1}{3}}  = \frac{1}{2}
 \]
-
 The conditional probability of \( B \) given \( A \) is:
-
 \[
 P(B \mid A) = \frac{P(A \cap B)}{P(A)} =\frac{\frac{1}{6}}{\frac{1}{2}} = \frac{1}{3}
 \]
-
 \begin{textbox}
 \textbf{Multiplication Rule of Probabilities}: If \( A \) and \( B \) are any events in the sample space \( S \), then:
 \begin{align*}
@@ -2773,31 +2732,23 @@ The Rule of Total Probability allows us to compute the probability of an event b
 \subsection{For Two Events}
 \begin{textbox}
     If \( B \) and its complement \( \overline{B} \) form a partition of the sample space (i.e., mutually exclusive and collectively exhaustive events), then for any event \( A \):
-
 \[
 P(A) = P(A \mid B)P(B) + P(A \mid \overline{B})P(\overline{B})
 \]
 \end{textbox}
 \textbf{Proof}: Let \( B \) and \( \overline{B} \) form a partition (i.e., mutually exclusive and exhaustive events) of the sample space. Then any event \( A \) can be expressed as:
-
 \[
 A = (A \cap B) \cup (A \cap \overline{B})
 \]
-
 Since the sets \( A \cap B \) and \( A \cap \overline{B} \) are disjoint, the two parts are mutually exclusive. So:
-
 \[
 P(A) = P(A \cap B) + P(A \cap \overline{B})
 \]
-
 Using the definition of conditional probability:
-
 \[
 P(A \cap B) = P(A \mid B)P(B), \quad P(A \cap \overline{B}) = P(A \mid \overline{B})P(\overline{B})
 \]
-
 Substituting:
-
 \[
 P(A) = P(A \mid B)P(B) + P(A \mid \overline{B})P(\overline{B})
 \]
@@ -2808,7 +2759,6 @@ P(A) = P(A \mid B)P(B) + P(A \mid \overline{B})P(\overline{B})
 \begin{textbox}
 
 Let \( B_1, B_2, \dots, B_n \) be a partition of the sample space (i.e., mutually exclusive and collectively exhaustive events). Then for any event \( A \):
-
 \[
 P(A) = \sum_{i=1}^{n} P(A \mid B_i)P(B_i)
 \]
@@ -2822,31 +2772,26 @@ P(A) = \sum_{i=1}^{n} P(A \mid B_i)P(B_i)
 \end{itemize}
 
 Then for any event \( A \subseteq S \):
-
 \[
 A = A \cap S = A \cap \left( \bigcup_{i=1}^n B_i \right) = \bigcup_{i=1}^n (A \cap B_i)
 \]
-
 Since the \( B_i \) are disjoint, so are the \( A \cap B_i \), so:
-
 \[
 P(A) = \sum_{i=1}^n P(A \cap B_i)
 \]
-
 Using conditional probability:
-
 \[
 P(A \cap B_i) = P(A \mid B_i)P(B_i)
 \]
-
 Therefore:
-
 \[
 P(A) = \sum_{i=1}^n P(A \mid B_i)P(B_i)
 \]
 \hfill\(\blacksquare\)
 
-\textbf{Example}: Suppose a factory has three machines:
+\subsubsection{Example}
+
+Suppose a factory has three machines:
 
 \begin{itemize}
     \item Machine \( M_1 \) produces 30\% of the items, with a defect rate of 1\%.
@@ -2857,13 +2802,10 @@ P(A) = \sum_{i=1}^n P(A \mid B_i)P(B_i)
 Let \( D \) be the event that an item is defective. We are asked to find \( P(D) \), the total probability that a randomly selected item is defective.
 
 Using the Rule of Total Probability:
-
 \[
 P(D) = P(D \mid M_1)P(M_1) + P(D \mid M_2)P(M_2) + P(D \mid M_3)P(M_3)
 \]
-
 Substituting the known values:
-
 \begin{align*}
     P(D) &= (0.01 \times 0.30) + (0.02 \times 0.50) + (0.03 \times 0.20) \\
     &= 0.003 + 0.010 + 0.006 = 0.019
@@ -2871,6 +2813,7 @@ Substituting the known values:
 
 The probability that a randomly chosen item is defective is $0.019$ or $1.9$\%.
 
+---
 
 \section{Bayes' Theorem}
 Bayes' Theorem is a fundamental result in probability theory that arises directly from the definition of conditional probability and the Rule of Total Probability.
@@ -2879,7 +2822,6 @@ Bayes' Theorem is a fundamental result in probability theory that arises directl
 \[
 P(B_r \mid A) = \frac{P(B_r) \cdot P(A \mid B_r)}{\sum_{i=1}^{n} P(B_i) \cdot P(A \mid B_i)}
 \]
-
 for \( r = 1, 2, \ldots, n \).
 \end{textbox}
 \textbf{Proof}: Let \( B_1, B_2, \ldots, B_n \) be a partition of the sample space \( S \) such that:
@@ -2890,37 +2832,30 @@ for \( r = 1, 2, \ldots, n \).
 \end{itemize}
 
 Let \( A \) be any event with \( P(A) > 0 \). By the definition of conditional probability:
-
 \[
 P(B_r \mid A) = \frac{P(B_r \cap A)}{P(A)}
 \]
-
 We apply the Multiplication Rule of Probabilities:
-
 \[
 P(B_r \cap A) = P(B_r) \cdot P(A \mid B_r)
 \]
-
 So:
-
 \[
 P(B_r \mid A) = \frac{P(B_r) \cdot P(A \mid B_r)}{P(A)}
 \]
-
 Now, using the Rule of Total Probability:
-
 \[
 P(A) = \sum_{i=1}^n P(B_i) \cdot P(A \mid B_i)
 \]
-
 Substitute this into the denominator:
-
 \[
 P(B_r \mid A) = \frac{P(B_r) \cdot P(A \mid B_r)}{\sum_{i=1}^{n} P(B_i) \cdot P(A \mid B_i)}
 \]
 \hfill\(\blacksquare\)
 
-\textbf{Example}: Suppose in a dataset of 1000 emails, 200 are identified as spam and 800 as non-spam. Among the spam emails, 80 contain the word `discount', while 80 of the non-spam emails also contain this word. We need to calculate the probability that an email is spam given that it contains the word `discount'.
+\subsubsection{Example}
+
+Suppose in a dataset of 1000 emails, 200 are identified as spam and 800 as non-spam. Among the spam emails, 80 contain the word `discount', while 80 of the non-spam emails also contain this word. We need to calculate the probability that an email is spam given that it contains the word `discount'.
 \begin{itemize}
     \item \( P(S) = \dfrac{200}{1000} = 0.2 \): Probability that an email is spam.
     \item \( P(\overline{S}) = \dfrac{800}{1000} = 0.8 \): Probability that an email is not spam.
@@ -2934,15 +2869,15 @@ Using Bayes' Theorem:
 \[
 P(S \mid D) = \frac{P(S) \cdot P(D \mid S)}{P(S) \cdot P(D \mid S) + P(\overline{S}) \cdot P(D \mid \overline{S})}
 \]
-
 Substituting the values:
 \[
 P(S \mid D) = \frac{0.2 \times 0.4}{0.2 \cdot 0.4 + 0.8 \cdot 0.1}
 = \frac{0.08}{0.08 + 0.08}
 = \frac{0.08}{0.16} = 0.5
 \]
-
 So, the probability that the email is spam given it contains the word ``discount'' is \( 50\% \). Even though only \(20\%\) of all emails are spam, once we see the word ``discount'' the chance the email is spam rises to \(50\%\), because that word is much more common in spam than in legitimate messages.
+
+---
 
 \subsection{Importance of Bayes' Theorem and Updating Probability}
 
@@ -2951,11 +2886,9 @@ Bayes’ Theorem is important because it provides a mathematical framework for u
 Suppose we want to determine the probability of an event \( A \), such as an email being spam. Initially, we rely on prior knowledge, which is represented by the prior probability \( P(A) \). Now, imagine we observe some new evidence \( B \), such as the presence of a specific word like ``discount'' in the email.
 
 Bayes' Theorem helps us compute the updated probability \( P(A \mid B) \), known as the posterior probability, using the following formula:
-
 \[
 P(A \mid B) = \frac{P(A) \cdot P(B \mid A)}{P(B)}
 \]
-
 Here:
 \begin{itemize}
     \item \( P(A) \) is the \textbf{prior probability} — our initial belief (prediction) about the event \( A \).
@@ -2990,29 +2923,27 @@ Now the question is, if a person tests positive, what is the probability that th
 
 
 To answer this, we apply \textbf{Bayes’ Theorem}:
-
 \[
 P(\text{COVID} \mid \text{Positive}) = \frac{P(\text{Positive} \mid \text{COVID}) \cdot P(\text{COVID})}{P(\text{Positive})}
 \]
 
 We compute the total probability of a positive test as:
-
-\[
-P(\text{Positive}) = P(\text{Positive} \mid \text{COVID}) \cdot P(\text{COVID}) + P(\text{Positive} \mid \text{No COVID}) \cdot P(\text{No COVID})
-\]
-\[
-= 0.99\times 0.01 + 0.05 \times 0.99 = 0.0099 + 0.0495 = 0.0594
-\]
+\begin{align*}
+P(\text{Positive}) &= \underbrace{P(\text{Positive} \mid \text{COVID})}_{0.99} \cdot \underbrace{P(\text{COVID})}_{0.01} + \underbrace{P(\text{Positive} \mid \text{No COVID})}_{1-0.95 = 0.05} \cdot \underbrace{P(\text{No COVID})}_{0.99}\\
+&= 0.99\times 0.01 + 0.05 \times 0.99 \\
+&= 0.0099 + 0.0495 = 0.0594
+\end{align*}
 
 Now, substituting into Bayes' formula:
-
 \[
 P(\text{COVID} \mid \text{Positive}) = \frac{0.99 \times 0.01}{0.0594} \approx \frac{0.0099}{0.0594} \approx 0.167
 \]
 
 That is, even with a \textbf{positive test result}, the probability of actually having COVID is only around \textbf{16.7\%}. Most people wrongly assume that a positive result from a highly accurate test means they almost certainly have the disease. However, because COVID-19 is relatively rare in the population (a low base rate), even highly accurate tests produce many false positives. This is the essence of the \textbf{base rate fallacy}: ignoring the background prevalence (base rate) of the disease and overestimating the significance of the test result.
 
-\textbf{Example}: Imagine testing 10{,}000 people:
+\subsubsection{Example}
+
+Imagine testing 10{,}000 people:
 
 \begin{itemize}
     \item 1\% are infected $\Rightarrow$ 100 people have COVID.
@@ -3031,46 +2962,36 @@ So, total positive tests = 99 (true) + 495 (false) = 594
 
 Probability of actually having COVID given a positive test = $ \dfrac{99}{594} \approx 16.7\% $
 
+---
+
 \section{Statistical Independence of Events}
 
 If $A$ and $B$ are any two events in a sample space $S$, we say that ``$A$ is independent of $B$'' if:
-
 $$
 P(A \mid B) = P(A)
 $$
-
 This means that knowing whether or not $B$ has occurred ``does not change'' the probability of $A$ occurring.
 
 From the definition of conditional probability:
-
 $$
 P(A \mid B) = \frac{P(A \cap B)}{P(B)},
 $$
-
 if we substitute and rearrange the condition $P(A \mid B) = P(A)$, we get:
-
 $$
 \frac{P(A \cap B)}{P(B)} = P(A) \quad \Rightarrow \quad P(A \cap B) = P(A) \cdot P(B)
 $$
-
 Thus, another equivalent definition of independence is:
-
 $$
 P(A \cap B) = P(A) \cdot P(B)
 $$
-
 Now, to check whether $B$ is independent of $A$, we look at:
-
 $$
 P(B \mid A) = \frac{P(B \cap A)}{P(A)} = \frac{P(A \cap B)}{P(A)}
 $$
-
 Since we just showed that $P(A \cap B) = P(A) \cdot P(B)$, substitute:
-
 $$
 P(B \mid A) = \frac{P(A) \cdot P(B)}{P(A)} = P(B)
 $$
-
 Thus, $B$ is also independent of $A$.
 
 \begin{textbox}
@@ -3099,7 +3020,6 @@ P(A) = \frac{6}{36} = \frac{1}{6}, \quad P(B) = \frac{6}{36} = \frac{1}{6}
 \[
 A \cap B = \{(1,2)\} \quad \Rightarrow \quad P(A \cap B) = \frac{1}{36}
 \]
-
 Since
 \[
 P(A \cap B) = P(A) \cdot P(B) = \frac{1}{6} \cdot \frac{1}{6} = \frac{1}{36},
@@ -3145,18 +3065,15 @@ If the events \( A \) and \( B \) are independent, then the following pairs of e
 
 \begin{textbox}
     \textbf{Theorem}: If A and B are independent events, then:
-
 \[
 P(A \cup B) = 1 - P(\overline{A})\cdot P(\overline{B})
 \]
 \end{textbox}
 
 \textbf{Proof}: Using the formula for the union of two events:
-
 \[
 P(A \cup B) = P(A) + P(B) - P(A \cap B)
 \]
-
 Since \( A \) and \( B \) are independent, \( P(A \cap B) = P(A)\cdot P(B) \), so:
 
 \begin{align*}
@@ -3198,7 +3115,6 @@ Let \( A \) and \( B \) be two events in a sample space.
     \[
     A \cap B = \emptyset \quad \Rightarrow \quad P(A \cap B) = 0
     \]
-
     \item If \( A \) and \( B \) are \textbf{independent}, then:
     \[
     P(A \cap B) = P(A) \cdot P(B)
@@ -3260,7 +3176,6 @@ Consider a system with two components, \( A \) and \( B \), connected in \textbf
 
 Suppose the probability that $A$ functions is given by $P(A) = 0.96$, and the probability that $B$ functions is given by
 $P(B) = 0.92$. Assuming that the components function independently, the probability that the system works is:
-
 \[
 \begin{aligned}
 P(\text{System functions}) &= P(A \cap B) \\
@@ -3268,7 +3183,6 @@ P(\text{System functions}) &= P(A \cap B) \\
 &= 0.96\times 0.92 = 0.8832
 \end{aligned}
 \]
-
 Since both components must function, the system's reliability is lower than that of either component individually. The more components in series, the more chances for failure.
 
 \item \textbf{System with Components in Parallel}:
@@ -3297,7 +3211,6 @@ Suppose the probabilities that the components function are:
 \[
 P(C) = 0.88, \quad P(D) = 0.85
 \]
-
 Assuming independence, the probability that the system functions is given by:
 
 \[
