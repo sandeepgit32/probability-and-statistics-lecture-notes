@@ -10610,6 +10610,527 @@ The ROC curve helps us visualize and compare the effectiveness of tests across d
 
 The \textbf{Area Under the Curve (AUC)} quantifies overall test performance: an AUC of 1 indicates perfect discrimination, whereas an AUC of 0.5 corresponds to random guessing.
 
+\chapter{Non-Parametric Tests and Chi-Square Tests}
+
+\section{Introduction}
+
+Statistical tests are broadly classified into two categories: parametric and non-parametric tests. While parametric tests make specific assumptions about the population distribution (typically assuming normality), non-parametric tests make minimal assumptions about the underlying population distribution. This chapter explores the fundamental concepts, applications, and implementations of non-parametric tests, with special emphasis on chi-square tests.
+
+\subsection{Parametric vs. Non-Parametric Tests}
+
+\textbf{Parametric Tests:}
+\begin{itemize}
+    \item Assume specific probability distributions (usually normal)
+    \item Use population parameters ($\mu$, $\sigma$)
+    \item Generally more powerful when assumptions are met
+    \item Examples: t-test, ANOVA, Pearson correlation
+\end{itemize}
+
+\textbf{Non-Parametric Tests:}
+\begin{itemize}
+    \item Make minimal distributional assumptions
+    \item Distribution-free methods
+    \item Robust to outliers
+    \item Less powerful when parametric assumptions are met
+    \item Examples: Mann-Whitney U, Wilcoxon, Kruskal-Wallis, Chi-square
+\end{itemize}
+
+\subsection{When to Use Non-Parametric Tests}
+
+Non-parametric tests are preferred when:
+\begin{enumerate}
+    \item Data violates normality assumptions
+    \item Sample sizes are small
+    \item Data contains outliers
+    \item Variables are ordinal or categorical
+    \item Distribution shape is unknown
+\end{enumerate}
+
+\section{Chi-Square Tests}
+
+The chi-square ($\chi^2$) test is one of the most commonly used non-parametric tests. It is used to test hypotheses about categorical data and examine relationships between categorical variables.
+
+\subsection{Chi-Square Distribution}
+
+The chi-square distribution is a continuous probability distribution defined by:
+
+\begin{equation}
+f(x) = \frac{1}{2^{k/2}\Gamma(k/2)} x^{k/2-1} e^{-x/2}
+\end{equation}
+
+where $k$ is the degrees of freedom and $\Gamma(k/2)$ is the gamma function.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm,
+    height=8cm,
+    xlabel={$x$},
+    ylabel={$f(x)$},
+    domain=0.01:15,
+    samples=200,
+    legend pos=north east,
+    grid=major,
+    title={Chi-Square Distribution for Different Degrees of Freedom}
+]
+\addplot[blue, thick, domain=0.01:15] {1/(2^0.5 * sqrt(pi)) * x^(-0.5) * exp(-x/2)};
+\addplot[red, thick, domain=0.01:15] {1/(2^1 * 1) * x^(1 - 1) * exp(-x/2)};
+\addplot[green, thick, domain=0.01:15] {1/(2^(1.5) * (sqrt(pi)/2)) * x^(1.5 - 1) * exp(-x/2)};
+\addplot[orange, thick, domain=0.01:15] {1/(2^(2.5) * (3*sqrt(pi)/4)) * x^(2.5 - 1) * exp(-x/2)};
+\legend{$df=1$, $df=2$, $df=3$, $df=5$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+
+\subsection{Chi-Square Test Statistic}
+
+The general form of the chi-square test statistic is:
+
+\begin{equation}
+\chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $O_i$ = observed frequency in category $i$
+    \item $E_i$ = expected frequency in category $i$
+    \item $k$ = number of categories
+\end{itemize}
+
+\section{Chi-Square Goodness-of-Fit Test}
+
+The goodness-of-fit test determines whether a sample comes from a population with a specific distribution.
+
+\subsection{Hypotheses}
+
+\begin{align}
+H_0: &\text{ The data follows the specified distribution} \\
+H_1: &\text{ The data does not follow the specified distribution}
+\end{align}
+
+\subsection{Test Procedure}
+
+1. State the null and alternative hypotheses
+2. Choose significance level $\alpha$
+3. Calculate expected frequencies: $E_i = np_i$
+4. Compute test statistic: $\chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i}$
+5. Determine degrees of freedom: $df = k - 1 - \text{number of estimated parameters}$
+6. Find critical value or p-value
+7. Make decision
+
+\subsection{Example 1: Testing Fair Die}
+
+A die is rolled 60 times with the following results:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+Face & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+Observed & 8 & 12 & 10 & 15 & 7 & 8 \\
+\hline
+\end{tabular}
+\end{center}
+
+Test whether the die is fair at $\alpha = 0.05$.
+
+\textbf{Solution:}
+
+$H_0$: The die is fair (each face has probability $\frac{1}{6}$)
+$H_1$: The die is not fair
+
+Expected frequency for each face: $E_i = 60 \times \frac{1}{6} = 10$
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Face & Observed ($O_i$) & Expected ($E_i$) & $(O_i - E_i)^2$ & $\frac{(O_i - E_i)^2}{E_i}$ \\
+\hline
+1 & 8 & 10 & 4 & 0.4 \\
+2 & 12 & 10 & 4 & 0.4 \\
+3 & 10 & 10 & 0 & 0.0 \\
+4 & 15 & 10 & 25 & 2.5 \\
+5 & 7 & 10 & 9 & 0.9 \\
+6 & 8 & 10 & 4 & 0.4 \\
+\hline
+Total & 60 & 60 & 46 & 4.6 \\
+\hline
+\end{tabular}
+\end{center}
+
+$\chi^2 = 4.6$ with $df = 6-1 = 5$
+
+Critical value at $\alpha = 0.05$: $\chi^2_{0.05,5} = 11.07$
+
+Since $4.6 < 11.07$, we fail to reject $H_0$. There is insufficient evidence to conclude the die is unfair.
+
+\section{Chi-Square Test of Independence}
+
+This test determines whether two categorical variables are independent.
+
+\subsection{Hypotheses}
+
+\begin{align}
+H_0: &\text{ The two variables are independent} \\
+H_1: &\text{ The two variables are dependent}
+\end{align}
+
+\subsection{Expected Frequencies}
+
+For a contingency table with $r$ rows and $c$ columns:
+
+\begin{equation}
+E_{ij} = \frac{R_i \times C_j}{n}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $R_i$ = total for row $i$
+    \item $C_j$ = total for column $j$
+    \item $n$ = grand total
+\end{itemize}
+
+Degrees of freedom: $df = (r-1)(c-1)$
+
+\subsection{Example 2: Gender and Preference}
+
+A survey asks 200 people about their preference for coffee or tea, categorized by gender:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+& Coffee & Tea & Total \\
+\hline
+Male & 60 & 40 & 100 \\
+Female & 30 & 70 & 100 \\
+\hline
+Total & 90 & 110 & 200 \\
+\hline
+\end{tabular}
+\end{center}
+
+Test for independence at $\alpha = 0.01$.
+
+\textbf{Solution:}
+
+$H_0$: Gender and beverage preference are independent
+$H_1$: Gender and beverage preference are dependent
+
+Expected frequencies:
+\begin{align}
+E_{11} &= \frac{100 \times 90}{200} = 45 \\
+E_{12} &= \frac{100 \times 110}{200} = 55 \\
+E_{21} &= \frac{100 \times 90}{200} = 45 \\
+E_{22} &= \frac{100 \times 110}{200} = 55
+\end{align}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Cell & Observed & Expected & $(O-E)^2$ & $\frac{(O-E)^2}{E}$ \\
+\hline
+Male-Coffee & 60 & 45 & 225 & 5.00 \\
+Male-Tea & 40 & 55 & 225 & 4.09 \\
+Female-Coffee & 30 & 45 & 225 & 5.00 \\
+Female-Tea & 70 & 55 & 225 & 4.09 \\
+\hline
+Total & 200 & 200 & 900 & 18.18 \\
+\hline
+\end{tabular}
+\end{center}
+
+$\chi^2 = 18.18$ with $df = (2-1)(2-1) = 1$
+
+Critical value at $\alpha = 0.01$: $\chi^2_{0.01,1} = 6.635$
+
+Since $18.18 > 6.635$, we reject $H_0$. There is strong evidence that gender and beverage preference are dependent.
+
+\section{Chi-Square Test of Homogeneity}
+
+This test compares the distribution of a categorical variable across different populations.
+
+\subsection{Example 3: Comparing Three Populations}
+
+Three different teaching methods are used, and student performance is categorized as Pass or Fail:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Method & Pass & Fail & Total \\
+\hline
+A & 25 & 15 & 40 \\
+B & 30 & 10 & 40 \\
+C & 20 & 20 & 40 \\
+\hline
+Total & 75 & 45 & 120 \\
+\hline
+\end{tabular}
+\end{center}
+
+Test whether the three methods have the same success rate at $\alpha = 0.05$.
+
+\textbf{Solution:}
+
+$H_0$: The three methods have the same success rate
+$H_1$: At least one method has a different success rate
+
+Expected frequencies (assuming equal success rates):
+\begin{align}
+E_{A,Pass} &= \frac{40 \times 75}{120} = 25 \\
+E_{A,Fail} &= \frac{40 \times 45}{120} = 15 \\
+E_{B,Pass} &= \frac{40 \times 75}{120} = 25 \\
+E_{B,Fail} &= \frac{40 \times 45}{120} = 15 \\
+E_{C,Pass} &= \frac{40 \times 75}{120} = 25 \\
+E_{C,Fail} &= \frac{40 \times 45}{120} = 15
+\end{align}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Cell & Observed & Expected & $(O-E)^2$ & $\frac{(O-E)^2}{E}$ \\
+\hline
+A-Pass & 25 & 25 & 0 & 0.00 \\
+A-Fail & 15 & 15 & 0 & 0.00 \\
+B-Pass & 30 & 25 & 25 & 1.00 \\
+B-Fail & 10 & 15 & 25 & 1.67 \\
+C-Pass & 20 & 25 & 25 & 1.00 \\
+C-Fail & 20 & 15 & 25 & 1.67 \\
+\hline
+Total & 120 & 120 & 100 & 5.34 \\
+\hline
+\end{tabular}
+\end{center}
+
+$\chi^2 = 5.34$ with $df = (3-1)(2-1) = 2$
+
+Critical value at $\alpha = 0.05$: $\chi^2_{0.05,2} = 5.991$
+
+Since $5.34 < 5.991$, we fail to reject $H_0$. There is insufficient evidence to conclude that the methods have different success rates.
+
+\section{Other Non-Parametric Tests}
+
+\subsection{Mann-Whitney U Test}
+
+The Mann-Whitney U test (also known as the Wilcoxon rank-sum test) is used to compare two independent samples.
+
+\textbf{Test Statistic:}
+\begin{equation}
+U = n_1 n_2 + \frac{n_1(n_1+1)}{2} - R_1
+\end{equation}
+
+where $R_1$ is the sum of ranks for sample 1.
+
+\subsection{Wilcoxon Signed-Rank Test}
+
+Used for comparing two related samples or repeated measurements.
+
+\textbf{Test Statistic:}
+\begin{equation}
+W = \min(W^+, W^-)
+\end{equation}
+
+where $W^+$ and $W^-$ are the sum of positive and negative ranks, respectively.
+
+\subsection{Kruskal-Wallis Test}
+
+Non-parametric alternative to one-way ANOVA for comparing multiple independent groups.
+
+\textbf{Test Statistic:}
+\begin{equation}
+H = \frac{12}{N(N+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(N+1)
+\end{equation}
+
+where $R_i$ is the sum of ranks for group $i$.
+
+\section{Assumptions and Limitations}
+
+\subsection{Chi-Square Test Assumptions}
+
+1. \textbf{Independence}: Observations must be independent
+2. \textbf{Expected Frequencies}: Each expected frequency should be at least 5
+3. \textbf{Sample Size}: Total sample size should be reasonably large
+4. \textbf{Categorical Data}: Variables must be categorical
+
+\subsection{Dealing with Small Expected Frequencies}
+
+When expected frequencies are less than 5:
+\begin{itemize}
+    \item Combine categories when meaningful
+    \item Use Fisher's exact test for 2×2 tables
+    \item Increase sample size
+    \item Use alternative tests
+\end{itemize}
+
+\section{Effect Size Measures}
+
+\subsection{Cramér's V}
+
+For measuring the strength of association in contingency tables:
+
+\begin{equation}
+V = \sqrt{\frac{\chi^2}{n \times \min(r-1, c-1)}}
+\end{equation}
+
+where $r$ and $c$ are the number of rows and columns, respectively.
+
+\textbf{Interpretation:}
+\begin{itemize}
+    \item $V = 0$: No association
+    \item $V = 1$: Perfect association
+    \item $0.1 \leq V < 0.3$: Small effect
+    \item $0.3 \leq V < 0.5$: Medium effect
+    \item $V \geq 0.5$: Large effect
+\end{itemize}
+
+\subsection{Phi Coefficient}
+
+For 2×2 contingency tables:
+
+\begin{equation}
+\phi = \sqrt{\frac{\chi^2}{n}}
+\end{equation}
+
+\section{Power and Sample Size Calculations}
+
+\subsection{Power of Chi-Square Tests}
+
+The power of a chi-square test depends on:
+\begin{itemize}
+    \item Effect size
+    \item Sample size
+    \item Significance level
+    \item Degrees of freedom
+\end{itemize}
+
+\subsection{Sample Size Calculation}
+
+For a chi-square goodness-of-fit test, the required sample size is:
+
+\begin{equation}
+n = \frac{(z_{\alpha/2} + z_{\beta})^2 \sum_{i=1}^{k} \frac{(p_i - p_{0i})^2}{p_{0i}}}{\left(\sum_{i=1}^{k} \frac{(p_i - p_{0i})^2}{p_{0i}}\right)^2}
+\end{equation}
+
+where $p_i$ and $p_{0i}$ are the true and hypothesized proportions, respectively.
+
+\section{Computational Examples}
+
+\subsection{Example 4: Large Contingency Table}
+
+A study examines the relationship between education level and job satisfaction:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Education & Very Satisfied & Satisfied & Dissatisfied & Total \\
+\hline
+High School & 20 & 30 & 10 & 60 \\
+Bachelor's & 35 & 40 & 15 & 90 \\
+Master's & 25 & 20 & 5 & 50 \\
+\hline
+Total & 80 & 90 & 30 & 200 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Expected Frequencies:}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Education & Very Satisfied & Satisfied & Dissatisfied \\
+\hline
+High School & $\frac{60 \times 80}{200} = 24$ & $\frac{60 \times 90}{200} = 27$ & $\frac{60 \times 30}{200} = 9$ \\
+Bachelor's & $\frac{90 \times 80}{200} = 36$ & $\frac{90 \times 90}{200} = 40.5$ & $\frac{90 \times 30}{200} = 13.5$ \\
+Master's & $\frac{50 \times 80}{200} = 20$ & $\frac{50 \times 90}{200} = 22.5$ & $\frac{50 \times 30}{200} = 7.5$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Chi-Square Calculation:}
+
+\begin{align}
+\chi^2 &= \frac{(20-24)^2}{24} + \frac{(30-27)^2}{27} + \frac{(10-9)^2}{9} \\
+&\quad + \frac{(35-36)^2}{36} + \frac{(40-40.5)^2}{40.5} + \frac{(15-13.5)^2}{13.5} \\
+&\quad + \frac{(25-20)^2}{20} + \frac{(20-22.5)^2}{22.5} + \frac{(5-7.5)^2}{7.5} \\
+&= 0.667 + 0.333 + 0.111 + 0.028 + 0.006 + 0.167 \\
+&\quad + 1.250 + 0.278 + 0.833 \\
+&= 3.673
+\end{align}
+
+With $df = (3-1)(3-1) = 4$ and $\alpha = 0.05$, critical value is $\chi^2_{0.05,4} = 9.488$.
+
+Since $3.673 < 9.488$, we fail to reject $H_0$. There is insufficient evidence of an association between education level and job satisfaction.
+
+\section{Advanced Topics}
+
+\subsection{Yates' Continuity Correction}
+
+For 2×2 contingency tables with small expected frequencies, Yates' correction is applied:
+
+\begin{equation}
+\chi^2_{Yates} = \sum_{i=1}^{4} \frac{(|O_i - E_i| - 0.5)^2}{E_i}
+\end{equation}
+
+\subsection{McNemar's Test}
+
+For paired categorical data (e.g., before/after comparisons):
+
+\begin{equation}
+\chi^2 = \frac{(|b - c| - 1)^2}{b + c}
+\end{equation}
+
+where $b$ and $c$ are the discordant pairs in a 2×2 table.
+
+\subsection{Cochran's Q Test}
+
+Extension of McNemar's test for more than two related samples:
+
+\begin{equation}
+Q = \frac{k(k-1)\sum_{j=1}^{k}(C_j - \bar{C})^2}{k\sum_{i=1}^{n}R_i - \sum_{i=1}^{n}R_i^2}
+\end{equation}
+
+\section{Practical Considerations}
+
+\subsection{Choosing the Right Test}
+
+\begin{center}
+\begin{tabular}{|p{3cm}|p{3cm}|p{6cm}|}
+\hline
+\textbf{Data Type} & \textbf{Samples} & \textbf{Appropriate Test} \\
+\hline
+One categorical variable & One sample & Chi-square goodness-of-fit \\
+\hline
+Two categorical variables & Independent samples & Chi-square test of independence \\
+\hline
+One categorical variable & Multiple independent samples & Chi-square test of homogeneity \\
+\hline
+Two categorical variables & Paired samples & McNemar's test \\
+\hline
+One categorical variable & Multiple paired samples & Cochran's Q test \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Reporting Results}
+
+When reporting chi-square test results, include:
+\begin{itemize}
+    \item Test statistic and degrees of freedom
+    \item P-value or critical value comparison
+    \item Effect size measure
+    \item Interpretation in context
+\end{itemize}
+
+\textbf{Example:} "A chi-square test of independence revealed a significant association between gender and beverage preference, $\chi^2(1, N = 200) = 18.18, p < 0.001$. The effect size was large (Cramér's V = 0.30)."
+
+\section{Conclusion}
+
+Non-parametric tests, particularly chi-square tests, are essential tools in statistical analysis when dealing with categorical data or when parametric assumptions are violated. They provide robust methods for testing hypotheses about proportions, independence, and homogeneity. While generally less powerful than their parametric counterparts when assumptions are met, they offer valuable alternatives that are widely applicable across various fields of research.
+
+The key to successful application of these tests lies in understanding their assumptions, choosing the appropriate test for the research question, and correctly interpreting the results in the context of the study. As with all statistical procedures, these tests should be used as part of a comprehensive analytical approach that includes careful data exploration, assumption checking, and thoughtful interpretation of results.
+
+
 \chapter{Analysis of Variance (ANOVA)}
 
 \section{One-Way ANOVA}
@@ -14891,6 +15412,516 @@ Statistical Quality Control provides a comprehensive framework for monitoring, c
 \end{itemize}
 
 The successful implementation of SQC requires understanding of statistical concepts, proper data collection, and commitment to continuous improvement. These methods, when properly applied, lead to reduced variability, improved quality, and enhanced customer satisfaction.
+
+
+\chapter{Index Numbers}
+
+\section{Introduction}
+
+\section{Introduction to Index Numbers}
+
+An \textbf{index number} is a statistical measure that shows the relative change in a variable or group of variables with respect to time, geographical location, or other characteristics. Index numbers are expressed as percentages or ratios that compare the value of a variable in a given period to its value in a base period.
+
+To illustrate why we need index number we consider the following example. Suppose a consumer purchases two commodities: rice and cooking oil. The prices and quantities in the base year and current year are given below:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c}
+\toprule
+\textbf{Commodity} & \textbf{Price (Base Year)} & \textbf{Price (Current Year)} \\
+\midrule
+Rice (per kg) & ₹40 & ₹50 \\
+Oil (per litre) & ₹100 & ₹120 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+If we want to understand how much prices have risen overall, it would be misleading to simply average the percentage increases, because it does not account for how much of each commodity is actually purchased. Instead, we fix quantities from the base period and compute a weighted average of the price increases using index numbers.
+
+Assume the consumer bought 30 kg of rice and 10 litres of oil in the base year. Then:
+
+\begin{itemize}
+    \item Cost in base year = \( 40 \times 30 + 100 \times 10 = ₹2200 \)
+    \item Cost in current year = \( 50 \times 30 + 120 \times 10 = ₹2700 \)
+\end{itemize}
+
+The \textbf{Price Index Number} is calculated as:
+
+\[
+\text{Index Number} = \frac{\text{Cost in Current Year}}{\text{Cost in Base Year}} \times 100 = \frac{2700}{2200} \times 100 \approx 122.73
+\]
+
+This means that, overall, prices have increased by approximately 22.73\% compared to the base year.
+
+This example highlights the importance of index numbers. Instead of comparing the price of each item separately, an index number provides a single, meaningful figure that summarizes the overall change in the price level. Such measures are invaluable in economic analysis for tracking inflation, evaluating cost-of-living adjustments, comparing standards of living across regions, or measuring industrial and agricultural output over time. They help policymakers, businesses, and consumers make informed decisions based on relative changes rather than absolute values.
+
+Index numbers serve as powerful tools for:
+\begin{itemize}
+    \item Measuring changes in economic variables over time
+    \item Comparing economic conditions across different regions
+    \item Making informed business and policy decisions
+    \item Deflating monetary values to real terms
+\end{itemize}
+
+The concept of index numbers originated in the 18th century when economists needed to measure price changes over time. Today, they are extensively used in economics, business, and social sciences.
+
+\section{Basic Concepts and Terminology}
+
+\subsection{Key Terms}
+
+\begin{description}
+    \item[Base Period:] The period against which comparisons are made, typically assigned an index value of 100.
+    \item[Current Period:] The period for which the index is being calculated.
+    \item[Base Year:] The reference year for comparison (e.g., 2010 = 100).
+    \item[Weights:] Numerical values representing the relative importance of different items.
+    \item[Price Relative:] The ratio of current price to base price, expressed as a percentage.
+    \item[Quantity Relative:] The ratio of current quantity to base quantity, expressed as a percentage.
+\end{description}
+
+\subsection{Mathematical Foundation}
+
+For a single commodity, the price relative is given by:
+\begin{equation}
+    P_r = \frac{P_1}{P_0} \times 100
+\end{equation}
+
+Where:
+\begin{align}
+    P_r &= \text{Price relative} \\
+    P_1 &= \text{Price in current period} \\
+    P_0 &= \text{Price in base period}
+\end{align}
+
+Similarly, for quantity relative:
+\begin{equation}
+    Q_r = \frac{Q_1}{Q_0} \times 100
+\end{equation}
+
+\section{Types of Index Numbers}
+
+\subsection{Classification by Purpose}
+
+\subsubsection{Price Index Numbers}
+Price index numbers measure the average change in prices of a basket of goods and services over time.
+
+\textbf{Example:} Consumer Price Index (CPI) calculation
+
+\begin{table}[h]
+\centering
+\caption{Price Data for CPI Calculation}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Item} & \textbf{Base Price} & \textbf{Current Price} & \textbf{Weight} & \textbf{Price Relative} & \textbf{Weighted Price Relative} \\
+ & $(P_0)$ & $(P_1)$ & $(W)$ & $(P_r)$ & $(W \times P_r)$ \\
+\midrule
+Food & 100 & 120 & 40 & 120 & 4800 \\
+Housing & 200 & 240 & 30 & 120 & 3600 \\
+Transport & 80 & 100 & 20 & 125 & 2500 \\
+Healthcare & 150 & 180 & 10 & 120 & 1200 \\
+\midrule
+\textbf{Total} & & & 100 & & 12100 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Weighted Price Index = $\frac{\sum W \times P_r}{\sum W} = \frac{12100}{100} = 121$
+
+This indicates a 21\% increase in prices from the base period.
+
+\subsubsection{Quantity Index Numbers}
+These measure changes in the physical quantities of goods produced, consumed, or traded.
+
+\subsubsection{Value Index Numbers}
+Value indices measure changes in the total value (price × quantity) of goods and services.
+
+\begin{equation}
+    \text{Value Index} = \frac{\sum P_1 Q_1}{\sum P_0 Q_0} \times 100
+\end{equation}
+
+\section{Methods of Constructing Price Index Numbers}
+
+\subsection{Simple Price Index Numbers}
+
+\subsubsection{Simple Aggregative Method}
+\begin{equation}
+    P_{01} = \frac{\sum P_1}{\sum P_0} \times 100
+\end{equation}
+
+\subsubsection{Simple Average of Price Relatives Method}
+\begin{equation}
+    P_{01} = \frac{\sum \left(\frac{P_1}{P_0} \times 100\right)}{n}
+\end{equation}
+
+\textbf{Example:} Calculate simple aggregative and average of relatives index
+
+\begin{table}[h]
+\centering
+\caption{Price Data for Simple Index Calculation}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Commodity} & \textbf{Base Price} & \textbf{Current Price} & \textbf{Price Relative} \\
+ & $(P_0)$ & $(P_1)$ & $\left(\frac{P_1}{P_0} \times 100\right)$ \\
+\midrule
+A & 10 & 12 & 120 \\
+B & 20 & 26 & 130 \\
+C & 15 & 18 & 120 \\
+D & 25 & 30 & 120 \\
+\midrule
+\textbf{Total} & 70 & 86 & 490 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Simple Aggregative Index = $\frac{86}{70} \times 100 = 122.86$
+
+Simple Average of Relatives = $\frac{490}{4} = 122.5$
+
+\subsection{Weighted Price Index Numbers}
+
+\subsubsection{Weighted Aggregative Method}
+
+\paragraph{Laspeyres' Price Index}
+Uses base period quantities as weights:
+\begin{equation}
+    P_{01}^L = \frac{\sum P_1 Q_0}{\sum P_0 Q_0} \times 100
+\end{equation}
+
+\paragraph{Paasche's Price Index}
+Uses current period quantities as weights:
+\begin{equation}
+    P_{01}^P = \frac{\sum P_1 Q_1}{\sum P_0 Q_1} \times 100
+\end{equation}
+
+\paragraph{Fisher's Ideal Price Index}
+Geometric mean of Laspeyres' and Paasche's indices:
+\begin{equation}
+    P_{01}^F = \sqrt{P_{01}^L \times P_{01}^P}
+\end{equation}
+
+\textbf{Comprehensive Example:}
+
+\begin{table}[h]
+\centering
+\caption{Data for Weighted Index Calculation}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Item} & $P_0$ & $P_1$ & $Q_0$ & $Q_1$ \\
+\midrule
+Wheat & 20 & 25 & 100 & 110 \\
+Rice & 30 & 36 & 80 & 85 \\
+Sugar & 40 & 48 & 50 & 45 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Calculations for Weighted Indices}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Item} & $P_0Q_0$ & $P_1Q_0$ & $P_0Q_1$ & $P_1Q_1$ \\
+\midrule
+Wheat & 2000 & 2500 & 2200 & 2750 \\
+Rice & 2400 & 2880 & 2550 & 3060 \\
+Sugar & 2000 & 2400 & 1800 & 2160 \\
+\midrule
+\textbf{Total} & 6400 & 7780 & 6550 & 7970 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Calculations:
+\begin{align}
+    P_{01}^L &= \frac{7780}{6400} \times 100 = 121.56 \\
+    P_{01}^P &= \frac{7970}{6550} \times 100 = 121.68 \\
+    P_{01}^F &= \sqrt{121.56 \times 121.68} = 121.62
+\end{align}
+
+\section{Quantity Index Numbers}
+
+\subsection{Laspeyres' Quantity Index}
+\begin{equation}
+    Q_{01}^L = \frac{\sum P_0 Q_1}{\sum P_0 Q_0} \times 100
+\end{equation}
+
+\subsection{Paasche's Quantity Index}
+\begin{equation}
+    Q_{01}^P = \frac{\sum P_1 Q_1}{\sum P_1 Q_0} \times 100
+\end{equation}
+
+\subsection{Fisher's Quantity Index}
+\begin{equation}
+    Q_{01}^F = \sqrt{Q_{01}^L \times Q_{01}^P}
+\end{equation}
+
+Using the previous data:
+\begin{align}
+    Q_{01}^L &= \frac{6550}{6400} \times 100 = 102.34 \\
+    Q_{01}^P &= \frac{7970}{7780} \times 100 = 102.44 \\
+    Q_{01}^F &= \sqrt{102.34 \times 102.44} = 102.39
+\end{align}
+
+\section{Properties and Tests of Index Numbers}
+
+\subsection{Fisher's Tests}
+
+\subsubsection{Time Reversal Test}
+An index should satisfy: $P_{01} \times P_{10} = 1$ (or 100 if expressed as percentage)
+
+\subsubsection{Factor Reversal Test}
+Price index × Quantity index should equal Value index:
+\begin{equation}
+    P_{01} \times Q_{01} = V_{01}
+\end{equation}
+
+Where $V_{01} = \frac{\sum P_1 Q_1}{\sum P_0 Q_0} \times 100$
+
+\subsubsection{Circular Test}
+For three periods: $P_{01} \times P_{12} \times P_{20} = 1$
+
+\subsection{Test Results Summary}
+
+\begin{table}[h]
+\centering
+\caption{Test Results for Different Index Methods}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Index Method} & \textbf{Time Reversal} & \textbf{Factor Reversal} & \textbf{Circular Test} \\
+\midrule
+Laspeyres' & Fails & Fails & Fails \\
+Paasche's & Fails & Fails & Fails \\
+Fisher's & Satisfies & Satisfies & Fails \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Chain Index Numbers}
+
+Chain indices compare each period with the immediately preceding period, then link them together.
+
+\begin{equation}
+    \text{Chain Index}_{0n} = \frac{P_1}{P_0} \times \frac{P_2}{P_1} \times \frac{P_3}{P_2} \times \ldots \times \frac{P_n}{P_{n-1}}
+\end{equation}
+
+\textbf{Example:}
+
+\begin{table}[h]
+\centering
+\caption{Chain Index Calculation}
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Year} & \textbf{Price} & \textbf{Link Relative} & \textbf{Chain Index} \\
+\midrule
+2020 & 100 & - & 100.0 \\
+2021 & 105 & 105.0 & 105.0 \\
+2022 & 110 & 104.8 & 110.0 \\
+2023 & 115 & 104.5 & 115.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Deflating and Real Values}
+
+Index numbers are used to convert nominal values to real values by removing the effect of price changes.
+
+\begin{equation}
+    \text{Real Value} = \frac{\text{Nominal Value}}{\text{Price Index}} \times 100
+\end{equation}
+
+\textbf{Example:} If nominal wage increased from \$1000 to \$1200, but price index increased from 100 to 125:
+
+Real wage change = $\frac{1200}{125} \times 100 = 960$
+
+This shows that despite nominal increase, real purchasing power decreased.
+
+\section{Graphical Representation}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    title={Price Index Trends (2020-2025)},
+    xlabel={Year},
+    ylabel={Index Value},
+    xmin=2020, xmax=2025,
+    ymin=95, ymax=130,
+    xtick={2020,2021,2022,2023,2024,2025},
+    ytick={100,105,110,115,120,125},
+    legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+    width=12cm,
+    height=8cm
+]
+
+\addplot[
+    color=blue,
+    mark=square,
+    thick
+    ]
+    coordinates {
+    (2020,100)(2021,105)(2022,110)(2023,115)(2024,120)(2025,125)
+    };
+    \addlegendentry{Price Index}
+
+\addplot[
+    color=red,
+    mark=triangle,
+    thick
+    ]
+    coordinates {
+    (2020,100)(2021,102)(2022,104)(2023,106)(2024,108)(2025,110)
+    };
+    \addlegendentry{Quantity Index}
+
+\addplot[
+    color=green,
+    mark=circle,
+    thick
+    ]
+    coordinates {
+    (2020,100)(2021,107)(2022,114)(2023,122)(2024,130)(2025,138)
+    };
+    \addlegendentry{Value Index}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section{Applications of Index Numbers}
+
+\subsection{Economic Applications}
+\begin{itemize}
+    \item \textbf{Consumer Price Index (CPI):} Measures inflation
+    \item \textbf{Producer Price Index (PPI):} Measures wholesale price changes
+    \item \textbf{GDP Deflator:} Converts nominal GDP to real GDP
+    \item \textbf{Stock Market Indices:} Track market performance
+\end{itemize}
+
+\subsection{Business Applications}
+\begin{itemize}
+    \item Cost of living adjustments in salaries
+    \item Escalation clauses in contracts
+    \item Performance measurement
+    \item Budgeting and forecasting
+\end{itemize}
+
+\section{Limitations of Index Numbers}
+
+\begin{enumerate}
+    \item \textbf{Quality Changes:} Don't account for improvements in product quality
+    \item \textbf{New Products:} Difficulty in incorporating new goods and services
+    \item \textbf{Substitution Bias:} Consumers may substitute expensive items with cheaper alternatives
+    \item \textbf{Base Period Selection:} Choice of base period affects results
+    \item \textbf{Sampling Issues:} Representative sampling challenges
+    \item \textbf{Aggregation Problems:} Combining diverse items into single index
+\end{enumerate}
+
+\section{Worked Examples}
+
+\subsection{Example 1: Consumer Price Index}
+
+A household's monthly expenditure pattern and price changes:
+
+\begin{table}[h]
+\centering
+\caption{Household Expenditure Data}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Category} & \textbf{Weight (\%)} & \textbf{2020 Price} & \textbf{2023 Price} & \textbf{Price Relative} \\
+\midrule
+Food & 35 & 100 & 125 & 125 \\
+Housing & 25 & 100 & 115 & 115 \\
+Transportation & 20 & 100 & 140 & 140 \\
+Healthcare & 10 & 100 & 110 & 110 \\
+Education & 10 & 100 & 105 & 105 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+CPI calculation:
+\begin{align}
+\text{CPI} &= \frac{\sum (Weight \times Price\ Relative)}{\sum Weight} \\
+&= \frac{35 \times 125 + 25 \times 115 + 20 \times 140 + 10 \times 110 + 10 \times 105}{100} \\
+&= \frac{4375 + 2875 + 2800 + 1100 + 1050}{100} \\
+&= \frac{12200}{100} = 122
+\end{align}
+
+The CPI indicates a 22\% increase in cost of living from 2020 to 2023.
+
+\subsection{Example 2: Fixed Base vs Chain Base}
+
+\begin{table}[h]
+\centering
+\caption{Comparison of Fixed Base and Chain Base Methods}
+\begin{tabular}{cccccc}
+\toprule
+\textbf{Year} & \textbf{Price} & \textbf{Fixed Base} & \textbf{Link Relative} & \textbf{Chain Index} \\
+ & & \textbf{(2020=100)} & & \\
+\midrule
+2020 & 50 & 100.0 & - & 100.0 \\
+2021 & 55 & 110.0 & 110.0 & 110.0 \\
+2022 & 62 & 124.0 & 112.7 & 124.0 \\
+2023 & 68 & 136.0 & 109.7 & 136.0 \\
+2024 & 75 & 150.0 & 110.3 & 150.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Summary of Key Formulas}
+
+\subsection{Basic Relatives}
+\begin{align}
+\text{Price Relative} &= \frac{P_1}{P_0} \times 100 \\
+\text{Quantity Relative} &= \frac{Q_1}{Q_0} \times 100 \\
+\text{Value Relative} &= \frac{P_1 Q_1}{P_0 Q_0} \times 100
+\end{align}
+
+\subsection{Simple Index Numbers}
+\begin{align}
+\text{Simple Aggregative} &= \frac{\sum P_1}{\sum P_0} \times 100 \\
+\text{Simple Average of Relatives} &= \frac{\sum \left(\frac{P_1}{P_0} \times 100\right)}{n}
+\end{align}
+
+\subsection{Weighted Price Indices}
+\begin{align}
+\text{Laspeyres' Index} &= \frac{\sum P_1 Q_0}{\sum P_0 Q_0} \times 100 \\
+\text{Paasche's Index} &= \frac{\sum P_1 Q_1}{\sum P_0 Q_1} \times 100 \\
+\text{Fisher's Index} &= \sqrt{P_{01}^L \times P_{01}^P}
+\end{align}
+
+\subsection{Weighted Quantity Indices}
+\begin{align}
+\text{Laspeyres' Quantity Index} &= \frac{\sum P_0 Q_1}{\sum P_0 Q_0} \times 100 \\
+\text{Paasche's Quantity Index} &= \frac{\sum P_1 Q_1}{\sum P_1 Q_0} \times 100 \\
+\text{Fisher's Quantity Index} &= \sqrt{Q_{01}^L \times Q_{01}^P}
+\end{align}
+
+\subsection{Weighted Average of Relatives}
+\begin{align}
+\text{Price Index} &= \frac{\sum W \times P_r}{\sum W} \\
+\text{where } P_r &= \frac{P_1}{P_0} \times 100
+\end{align}
+
+\subsection{Chain Index}
+\begin{equation}
+\text{Chain Index}_{0n} = \prod_{i=1}^{n} \frac{P_i}{P_{i-1}} \times 100
+\end{equation}
+
+\subsection{Tests of Adequacy}
+\begin{align}
+\text{Time Reversal Test:} \quad & P_{01} \times P_{10} = 1 \\
+\text{Factor Reversal Test:} \quad & P_{01} \times Q_{01} = V_{01} \\
+\text{Circular Test:} \quad & P_{01} \times P_{12} \times P_{20} = 1
+\end{align}
+
+\subsection{Deflation}
+\begin{equation}
+\text{Real Value} = \frac{\text{Nominal Value}}{\text{Price Index}} \times 100
+\end{equation}
+
+\vspace{1cm}
+
+\textbf{Note:} Fisher's Ideal Index satisfies both Time Reversal and Factor Reversal tests, making it theoretically superior, though computationally more complex than Laspeyres' or Paasche's indices.
 
 
 \end{document}
