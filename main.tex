@@ -4845,7 +4845,9 @@ The random variable $X$ is said to follow a \textbf{Bernoulli distribution} with
 \[
 X \sim \text{Bernoulli}(p)
 \]
-\textbf{Example}: In a fair coin toss, the outcomes can be either `Head' or `Tail'. If we define a success as getting `Head', then $p = 0.5$. The PMF of the distribution is then given by
+\subsubsection{Example}
+
+In a fair coin toss, the outcomes can be either `Head' or `Tail'. If we define a success as getting `Head', then $p = 0.5$. The PMF of the distribution is then given by
 \[
 f_X(x) = P(X = x) =
 \begin{cases}
@@ -4855,6 +4857,7 @@ f_X(x) = P(X = x) =
 \end{cases}
 \]
 
+\begin{figure}[H]
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
@@ -4870,7 +4873,6 @@ f_X(x) = P(X = x) =
     xticklabels={$x=0$, $x=1$},
     xlabel={$x$},
     ylabel={$f_X(x)$},
-    title={Bernoulli Distribution: $p = 0.5$},
     % ymajorgrids=true,
     % grid style=dashed
 ]
@@ -4878,6 +4880,10 @@ f_X(x) = P(X = x) =
 \end{axis}
 \end{tikzpicture}
 \end{center}
+\caption{\textit{Bernoulli distribution: $p = 0.5$.}}
+\end{figure}
+
+---
 
 \subsection{Mean and Variance of the Bernoulli Distribution}
 
@@ -4898,12 +4904,12 @@ The mean of a Bernoulli distribution is simply the probability of success, $p$.
 
 \item \textbf{Variance}:
 \[
-\text{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}(X))^2
+\text{Var}(X) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2
 \]
 
 Note that for a Bernoulli variable, $X^2 = X$ (since $X$ is either 0 or 1), so:
 \[
-\mathbb{E}[X^2] = \mathbb{E}(X) = p
+\mathbb{E}(X^2) = \mathbb{E}(X) = p
 \]
 \[
 \text{Var}(X) = p - p^2 = p(1 - p)
@@ -4969,7 +4975,8 @@ This expression defines the PMF of the binomial distribution.
 
 \vspace{2mm}
 
-\textbf{Example}: Suppose a fair coin (with $p = 0.5$) is tossed 4 times. Let $X$ be the number of heads observed. Then $X \sim \text{Binomial}(4, 0.5)$. The PMF is:
+\subsubsection{Example}
+Suppose a fair coin (with $p = 0.5$) is tossed 4 times. Let $X$ be the number of heads observed. Then $X \sim \text{Binomial}(4, 0.5)$. The PMF is:
 
 \[
 p_X(x) = \binom{4}{x} \times (0.5)^x \times (0.5)^{4 - x}, \quad x = 0, 1, 2, 3, 4
@@ -4986,7 +4993,7 @@ p_X(4) &= \binom{4}{4} \times (0.5)^4 \times (0.5)^0 = 1 \times 0.0625 \times 1 
 \end{aligned}
 \]
 
-
+\begin{figure}[H]
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
@@ -5001,7 +5008,6 @@ p_X(4) &= \binom{4}{4} \times (0.5)^4 \times (0.5)^0 = 1 \times 0.0625 \times 1 
     xtick={0,1,2,3,4},
     xlabel={$x$ (Number of successes)},
     ylabel={$f_X(x)$},
-    title={Binomial Distribution: $n = 4$, $p = 0.5$},
     % ymajorgrids=true,
     % grid style=dashed
 ]
@@ -5015,29 +5021,31 @@ p_X(4) &= \binom{4}{4} \times (0.5)^4 \times (0.5)^0 = 1 \times 0.0625 \times 1 
 \end{axis}
 \end{tikzpicture}
 \end{center}
+\caption{\textit{Binomial distribution: $n = 4$, $p = 0.5$.}}
+\end{figure}
 
-\textbf{Example:} A fair six-sided die is rolled 8 times. What is the probability that the number 3 or 4 appears exactly 3 times?
+---
+
+\subsubsection{Example}
+
+A fair six-sided die is rolled 8 times. What is the probability that the number 3 or 4 appears exactly 3 times?
 
 Let a `success' be defined as getting either a 3 or a 4 in a single roll. The probability of success on one roll is:
-
 \[
 p = P(3 \text{ or } 4) = \frac{1}{6} + \frac{1}{6} = \frac{2}{6} = \frac{1}{3}
 \]
 
 Let $X$ be the number of successes (i.e., times 3 or 4 occurs) in $n = 8$ independent die rolls. Then $X$ follows a binomial distribution:
-
 \[
 X \sim \text{Binomial}\left(n =8, p = \frac{1}{3}\right)
 \]
 
 We want to find the probability three successes i.e. $X = 3$:
-
 \[
 P(X = 3) = \binom{8}{3} \times \left( \frac{1}{3} \right)^3 \times \left( \frac{2}{3} \right)^5
 \]
 
 Now, compute the values:
-
 \[
 \binom{8}{3} = 56, \quad \left( \frac{1}{3} \right)^3 = \frac{1}{27}, \quad \left( \frac{2}{3} \right)^5 = \frac{32}{243}
 \]
@@ -5045,6 +5053,8 @@ Now, compute the values:
 \[
 P(X = 3) = 56 \times \frac{1}{27} \times \frac{32}{243} = \frac{1792}{6561} \approx 0.273
 \]
+
+---
 
 \subsection{Mean and Variance of the Binomial Distribution}
 
@@ -5114,17 +5124,15 @@ p_X(x) = P(X = x) =
 \]
 \end{textbox}
 
-\textbf{Example:} Suppose a call center receives an average of 4 calls per minute. What is the probability that exactly 2 calls are received in a particular minute?
+\subsubsection{Example}
+Suppose a call center receives an average of 4 calls per minute. What is the probability that exactly 2 calls are received in a particular minute?
 
 Let $X$ be the number of calls per minute. Then:
 \[
 X \sim \text{Poisson}(\lambda = 4)
 \]
-We want to find $P(X = 2)$:
-\[
-P(X = 2) = \frac{e^{-4} \cdot 4^2}{2!} = \frac{e^{-4} \cdot 16}{2} = 8e^{-4} \approx 0.1465
-\]
 
+\begin{figure}[H]
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
@@ -5139,7 +5147,7 @@ P(X = 2) = \frac{e^{-4} \cdot 4^2}{2!} = \frac{e^{-4} \cdot 16}{2} = 8e^{-4} \ap
     xtick={0,1,2,3,4,5,6,7,8,9},
     xlabel={$x$ (Number of occurrences)},
     ylabel={$f_X(x)$},
-    title={Poisson Distribution: $\lambda = 4$},
+    title={Poisson distribution: $\lambda = 4$.},
 ]
 \addplot+[blue, fill=blue!30] coordinates {
     (0,0.0183)
@@ -5155,9 +5163,17 @@ P(X = 2) = \frac{e^{-4} \cdot 4^2}{2!} = \frac{e^{-4} \cdot 16}{2} = 8e^{-4} \ap
 };
 \end{axis}
 \end{tikzpicture}
+\caption{\textit{Poisson distribution: $\lambda = 4$.}}
 \end{center}
+\end{figure}
+We want to find $P(X = 2)$:
+\[
+P(X = 2) = \frac{e^{-4} \cdot 4^2}{2!} = \frac{e^{-4} \cdot 16}{2} = 8e^{-4} \approx 0.1465
+\]
+---
 
-\textbf{Example}: In a football league, the number of goals scored by a team in a match is modeled using a Poisson distribution. Based on historical performance, Team A scores an average of $2.1$ goals per match.
+\subsubsection{Example}
+In a football league, the number of goals scored by a team in a match is modeled using a Poisson distribution. Based on historical performance, Team A scores an average of $2.1$ goals per match.
 
 \begin{enumerate}
     \item What is the probability that Team A scores exactly 3 goals in an upcoming match?
@@ -5203,6 +5219,8 @@ f_X(x) = P(X=x)= \frac{e^{-\lambda} \lambda^x}{x!}
     5 \times \mathbb{E}(X) = 5 \times \lambda = 5 \times 2.1 = 10.5
     \]
 \end{enumerate}
+
+---
 
 \begin{textbox}
 \textbf{Theorem}: The Poisson distribution can be obtained as the limiting distribution of the Binomial distribution when the number of trials \( n \to \infty \), the success probability \( p \to 0\), while the expected number of successes \( \lambda = np \) remains constant. Formally,
@@ -5282,17 +5300,17 @@ Let $X \sim \text{Poisson}(\lambda)$.
 
     \item \textbf{Variance}:
     \[
-    \text{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}(X))^2
+    \text{Var}(X) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2
     \]
 
     First we evaluate
 \[
-\mathbb{E}[X^2] = \sum_{x=0}^{\infty} x^2 \cdot \frac{e^{-\lambda} \lambda^x}{x!}
+\mathbb{E}(X^2) = \sum_{x=0}^{\infty} x^2 \cdot \frac{e^{-\lambda} \lambda^x}{x!}
 \]
 
 We use the identity \(x^2 = x(x - 1) + x\), giving:
 \[
-\mathbb{E}[X^2] = \sum_{x=0}^{\infty} \left[x(x - 1) + x\right] \cdot \frac{e^{-\lambda} \lambda^x}{x!}
+\mathbb{E}(X^2) = \sum_{x=0}^{\infty} \left[x(x - 1) + x\right] \cdot \frac{e^{-\lambda} \lambda^x}{x!}
 = e^{-\lambda} \left( \sum_{x=0}^{\infty} \frac{x(x-1) \lambda^x}{x!} + \sum_{x=0}^{\infty} \frac{x \lambda^x}{x!} \right)
 \]
 
@@ -5306,7 +5324,7 @@ $$\sum_{x=0}^{\infty} \frac{x \lambda^x}{x!} = =\sum_{x=1}^{\infty} \frac{\lambd
 
 Therefore,
 \[
-\mathbb{E}[X^2] = e^{-\lambda} \left( \lambda^2 e^{\lambda} + \lambda e^{\lambda} \right) = \lambda^2 + \lambda
+\mathbb{E}(X^2) = e^{-\lambda} \left( \lambda^2 e^{\lambda} + \lambda e^{\lambda} \right) = \lambda^2 + \lambda
 \]
 
   Therefore:
@@ -5326,7 +5344,7 @@ Therefore,
 
     The moment generating function (MGF) of \( X \) is defined as:
     \[
-M_X(t) = \mathbb{E}[e^{tX}] = \sum_{k=0}^{\infty} e^{t x} \cdot \frac{e^{-\lambda} \lambda^x}{x!}
+M_X(t) = \mathbb{E}(e^{tX}) = \sum_{k=0}^{\infty} e^{t x} \cdot \frac{e^{-\lambda} \lambda^x}{x!}
 \]
 
 Factor out the constant \( e^{-\lambda} \):
@@ -5346,14 +5364,14 @@ M_X(t) = e^{-\lambda} \cdot e^{\lambda e^t} = e^{\lambda(e^t - 1)}
 
 To compute the variance \( \mathrm{Var}(X) \), we use the identity:
 \[
-\mathrm{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}(X))^2 = \mu_2' - \mu^2 = \mu_2' - (\mu_1')^2
+\mathrm{Var}(X) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2 = \mu_2' - \mu^2 = \mu_2' - (\mu_1')^2
 \]
 
 We compute the first and second raw moments using derivatives of the MGF:
 
 \underline{First raw moment (mean):}
 \[
-M_X'(t) = \frac{d}{dt} \left[ e^{\lambda(e^t - 1)} \right]
+M_X'(t) = \dfrac{d}{dt} \left[ e^{\lambda(e^t - 1)} \right]
 = \lambda e^t \cdot e^{\lambda(e^t - 1)}
 \]
 
@@ -5364,7 +5382,7 @@ Evaluating at \( t = 0 \):
 
 \underline{Second raw moment:}
 \[
-M_X''(t) = \frac{d}{dt} \left[ \lambda e^t \cdot e^{\lambda(e^t - 1)} \right]
+M_X''(t) = \dfrac{d}{dt} \left[ \lambda e^t \cdot e^{\lambda(e^t - 1)} \right]
 = \lambda e^t \left[ \lambda e^t \cdot e^{\lambda(e^t - 1)} + e^{\lambda(e^t - 1)} \right]
 = \lambda e^t e^{\lambda(e^t - 1)} (\lambda e^t + 1)
 \]
@@ -5398,7 +5416,7 @@ The probability density function (PDF) of $X$ is given by:
 \[
 f_X(x) =
 \begin{cases}
-\frac{1}{b - a}, & a \le x \le b \\
+\dfrac{1}{b - a}, & a \le x \le b \\
 0, & \text{otherwise}
 \end{cases}
 \]
@@ -5408,8 +5426,9 @@ That is, the probability density is constant between $a$ and $b$, and zero elsew
 
 A continuous uniform distribution models situations where every outcome in an interval is equally likely—such as the exact time (within an hour) a bus arrives, or the position of a point randomly placed on a stick.
 
-\vspace{2mm}
-\textbf{Example:} Suppose that a variable $X$ is uniformly distributed over the interval $[2, 5]$. Then:
+
+\subsubsection{Example}
+Suppose that a variable $X$ is uniformly distributed over the interval $[2, 5]$. Then:
 
 \[
 f_X(x) =
@@ -5419,12 +5438,7 @@ f_X(x) =
 \end{cases}
 \]
 
-We can compute probabilities over intervals by integrating the density. For example:
-
-\[
-P(3 \le X \le 4) = \int_{3}^{4} \frac{1}{3} dx = \frac{1}{3}(4 - 3) = \frac{1}{3}
-\]
-
+\begin{figure}[H]
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
@@ -5435,12 +5449,11 @@ P(3 \le X \le 4) = \int_{3}^{4} \frac{1}{3} dx = \frac{1}{3}(4 - 3) = \frac{1}{3
     axis lines=left,
     xlabel={$x$},
     ylabel={$f_X(x)$},
-    title={Uniform Distribution: $a = 2$, $b = 5$},
     xtick={2,3,4,5},
     ytick={0.33},
     yticklabels={$1/3$},
     domain=2:5,
-    samples=2
+    samples=2, thick
 ]
 % \addplot+[blue, thick, fill=blue!30, draw=none, domain=3:4] {1/3} \closedcycle;
 % \addplot[blue, thick] {1/3};
@@ -5481,7 +5494,15 @@ P(3 \le X \le 4) = \int_{3}^{4} \frac{1}{3} dx = \frac{1}{3}(4 - 3) = \frac{1}{3
 };
 \end{axis}
 \end{tikzpicture}
+\caption{\textit{Uniform distribution: $a = 2$, $b = 5$.}}
 \end{center}
+\end{figure}
+
+We can compute probabilities over intervals by integrating the density. For example:
+\[
+P(3 \le X \le 4) = \int_{3}^{4} \frac{1}{3} dx = \frac{1}{3}(4 - 3) = \frac{1}{3}
+\]
+---
 
 \subsection{Mean and Variance of the Uniform Distribution}
 
@@ -5519,14 +5540,14 @@ Let $X \sim \text{Uniform}(a, b)$.
     \end{textbox}
 \end{itemize}
 
-\vspace{2mm}
-
-\textbf{Example:} For $X \sim \text{Uniform}(2, 5)$:
+\subsubsection{Example}
+For $X \sim \text{Uniform}(2, 5)$:
 
 \[
 \mathbb{E}(X) = \frac{2 + 5}{2} = 3.5, \quad \text{Var}(X) = \frac{(5 - 2)^2}{12} = \frac{9}{12} = 0.75
 \]
 
+---
 
 \section{Normal Distribution}
 
@@ -5544,13 +5565,34 @@ f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2}
 
 The distribution is completely determined by the parameters $\mu$ and $\sigma^2$. In future, we will show that the mean and variance of the normal distribution are those parameters $\mu$ and $\sigma^2$ respectively.
 
-\textbf{Example}: Let $X \sim \mathcal{N}(2, 1^2)$, i.e., a normal distribution with mean $\mu = 2$ and standard deviation $\sigma = 1$.
+\subsubsection{Example}
+Let $X \sim \mathcal{N}(2, 1^2)$, i.e., a normal distribution with mean $\mu = 2$ and standard deviation $\sigma = 1$.
 We want to compute the value of the probability density function (PDF) at $x = 1.5$.
 
 The PDF of a normal distribution is:
 \[
 f_X(x) = \frac{1}{\sigma\sqrt{2\pi }} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right)
 \]
+
+The plot of the PDF of $X \sim \mathcal{N}(2,1)$ is shown in the figure below:
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    no markers, domain=-2:6, samples=100,
+    axis lines=left,
+    xlabel=$x$, ylabel={$f_X(x)$},
+    height=5cm, width=10cm,
+    ymin=0, ymax=0.5,
+    xmin=-2, xmax=6, thick
+]
+\addplot [very thick,blue] {1/sqrt(2*pi)*exp(-(x-2)^2/2)};
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{Normal distribution $\mathcal{N}(2,1)$}.}
+\end{center}
+\end{figure}
 
 Substitute $\mu = 2$, $\sigma = 1$, and $x = 1.5$:
 \[
@@ -5563,28 +5605,11 @@ Now compute numerically:
 \[
 \frac{1}{\sqrt{2\pi}} \approx 0.3989, \quad \exp(-0.125) \approx 0.8825
 \]
-
 \[
 f_X(1.5) \approx 0.3989 \times 0.8825 \approx 0.3521
 \]
 
-The plot of the PDF of $X \sim \mathcal{N}(2,1)$ is shown in the figure below:
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    no markers, domain=-2:6, samples=100,
-    axis lines=left,
-    xlabel=$x$, ylabel={$f_X(x)$},
-    height=5cm, width=10cm,
-    ymin=0, ymax=0.5,
-    xmin=-2, xmax=6,
-    title={\small Normal Distribution $\mathcal{N}(2,1)$}
-]
-\addplot [very thick,blue] {1/sqrt(2*pi)*exp(-(x-2)^2/2)};
-\end{axis}
-\end{tikzpicture}
-\end{center}
+---
 
 \subsection{Mean and Variance of the Normal Distribution}
 
@@ -5594,7 +5619,7 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
     \item \textbf{Mean}:
 
     \begin{align*}
-    \mathbb{E}[X]
+    \mathbb{E}(X)
     &= \int_{-\infty}^{\infty} x \; f_X(x)\,dx
     = \int_{-\infty}^{\infty} x \;\frac{1}{\sqrt{2\pi}\,\sigma}
     \exp\!\biggl(-\frac{(x-\mu)^2}{2\sigma^2}\biggr)\,dx \\[6pt]
@@ -5604,7 +5629,7 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
     x = \sigma u + \mu,
     \quad dx = \sigma\,du, \\[3pt]
     %
-    \mathbb{E}[X] &= \int_{-\infty}^{\infty}
+    \mathbb{E}(X) &= \int_{-\infty}^{\infty}
     (\sigma u + \mu)\;
     \frac{1}{\sqrt{2\pi}\,\sigma}
     \exp\!\bigl(-\tfrac{u^2}{2}\bigr)\;\sigma\,du \\[6pt]
@@ -5691,7 +5716,7 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
 
 \subsection{Moment Generating Function of the Normal Distribution}
 
-Let \( X \sim N(\mu, \sigma^2) \) be a normal random variable with mean \(\mu\) and variance \(\sigma^2\). The moment generating function (MGF) of \(X\) is defined as
+Let \( X \sim \mathcal{N}(\mu, \sigma^2) \) be a normal random variable with mean \(\mu\) and variance \(\sigma^2\). The moment generating function (MGF) of \(X\) is defined as
 \begin{align*}
 M_X(t) = \mathbb{E}\left( e^{tX}\right)  &= \int_{-\infty}^{\infty} e^{tx} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right) \, dx \\
 &=\frac{1}{\sqrt{2\pi\sigma^2}} \int_{-\infty}^{\infty} \exp\left(tx - \frac{(x-\mu)^2}{2\sigma^2}\right) dx
@@ -5737,7 +5762,7 @@ This moment generating function exists for all real values of \(t\) and uniquely
 \subsection{Properties of the Normal Distribution}
 
 \begin{enumerate}
-  \item The \textbf{support} of a normal random variable \(X \sim N(\mu,\sigma^2)\) is the entire real line:
+  \item The \textbf{support} of a normal random variable \(X \sim \mathcal{N}(\mu,\sigma^2)\) is the entire real line:
     \[
 	(-\infty \leq X \leq\,+\infty)
     \]
@@ -5792,9 +5817,73 @@ This moment generating function exists for all real values of \(t\) and uniquely
   \begin{textbox}
   For normal distribution, all measures of central tendency coincide:
       \[
-        \text{Mean} = \text{Median} = \text{Mode} = \mu.
+        \text{Mean} = \text{Median} = \text{Mode} = \mu
       \]
   \end{textbox}
+
+  \item A normal distribution \(X\sim \mathcal{N}(\mu,\sigma^2)\) satisfies the following empirical rules:
+
+    \begin{textbox}
+    \textbf{Empirical Rule (68-95-99.7 Rule)}:
+      \begin{itemize}
+          \item About 68.27\% of the values lie within $\sigma$ of the mean ($\mu \pm \sigma$).
+          \item About 95.45\% of the values lie within $2\sigma$ of the mean ($\mu \pm 2\sigma$).
+          \item About 99.73\% of the values lie within $3\sigma$ of mean ($\mu \pm 3\sigma$).
+      \end{itemize}
+    \end{textbox}
+
+    \begin{figure}[H]
+    \begin{center}
+          \begin{tikzpicture}
+              \begin{axis}[
+                  no markers, domain=-4:4, samples=100,
+                  axis lines=center,
+                  xlabel={$x$},
+                  axis y line=none,
+                  ymin=0, ymax=0.5,
+                  xmin=-4, xmax=4,
+                  height=7cm, width=14cm,
+                  ytick=\empty,
+                  xtick={-4, -3,-2,-1,0,1,2,3, 4},
+                  xticklabels={-4$\sigma$,-3$\sigma$,-2$\sigma$,-$\sigma$,0,$\sigma$,2$\sigma$,3$\sigma$,4$\sigma$},
+                  xticklabel style={
+                  	text height=2ex,
+                  	text depth=0.25ex
+                  },
+                ]
+                % PDF curve
+                \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
+                % Shaded right-tail for z>1.5
+
+
+                \addplot [draw=none, fill=red!20, domain=-3:3] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
+                % Vertical guide line
+                \draw[dashed] (axis cs:-3,0) -- (axis cs:-3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+                \draw[dashed] (axis cs:3,0) -- (axis cs:3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+
+
+                \addplot [draw=none, fill=green!20, domain=-2:2] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
+                % Vertical guide line
+                \draw[dashed] (axis cs:-2,0) -- (axis cs:-2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+                \draw[dashed] (axis cs:2,0) -- (axis cs:2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+
+                \addplot [draw=none, fill=blue!20, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
+                % Vertical guide line
+                \draw[dashed] (axis cs:-1,0) -- (axis cs:-1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+                \draw[dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
+
+                \node at (axis cs:0,0.3) { $68.27\%$};
+                \node at (axis cs:0,0.2) { $95.45\%$};
+                \node at (axis cs:0,0.1) { $99.73\%$};
+
+                \draw[<->, black] (axis cs:-3,0.08) -- (axis cs:3,0.08);
+                \draw[<->, black] (axis cs:-2,0.18) -- (axis cs:2,0.18);
+                \draw[<->, black] (axis cs:-1,0.28) -- (axis cs:1,0.28);
+              \end{axis}
+            \end{tikzpicture}
+            \caption{\textit{68-95-99.7 rule.}}
+        \end{center}
+    \end{figure}
 
 
   \item The normal distribution curve has two \textbf{points of inflection}\footnote{A \textbf{point of inflection} of a function $f(x)$ is a point $x = a$ such that
@@ -5823,67 +5912,6 @@ This moment generating function exists for all real values of \(t\) and uniquely
     In particular, the variance is \(E[(X-\mu)^2]=\sigma^2\), and the fourth central moment is \(3\sigma^4\), etc.
 
    \item The kurtosis of normal distribution is 3. (prove it)
-
-  \item A normal distribution \(X\sim N(\mu,\sigma^2)\) satisfies the following empirical rules:
-
-  \begin{textbox}
-  \textbf{Empirical Rule (68-95-99.7 Rule)}:
-    \begin{itemize}
-        \item About 68.27\% of the values lie within $\sigma$ of the mean ($\mu \pm \sigma$).
-        \item About 95.45\% of the values lie within $2\sigma$ of the mean ($\mu \pm 2\sigma$).
-        \item About 99.73\% of the values lie within $3\sigma$ of mean ($\mu \pm 3\sigma$).
-    \end{itemize}
-  \end{textbox}
-
-  \begin{center}
-    \begin{tikzpicture}
-        \begin{axis}[
-            no markers, domain=-4:4, samples=100,
-            axis lines=center,
-            xlabel={$x$},
-            axis y line=none,
-            ymin=0, ymax=0.5,
-            xmin=-4, xmax=4,
-            height=7cm, width=14cm,
-            ytick=\empty,
-            xtick={-4, -3,-2,-1,0,1,2,3, 4},
-            xticklabels={-4$\sigma$,-3$\sigma$,-2$\sigma$,-$\sigma$,0,$\sigma$,2$\sigma$,3$\sigma$,4$\sigma$},
-            xticklabel style={
-            	text height=2ex,
-            	text depth=0.25ex
-            },
-          ]
-          % PDF curve
-          \addplot [very thick, blue] {1/sqrt(2*pi)*exp(-x^2/2)};
-          % Shaded right-tail for z>1.5
-
-
-          \addplot [draw=none, fill=red!20, domain=-3:3] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
-          % Vertical guide line
-          \draw[dashed] (axis cs:-3,0) -- (axis cs:-3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-          \draw[dashed] (axis cs:3,0) -- (axis cs:3,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-
-
-          \addplot [draw=none, fill=green!20, domain=-2:2] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
-          % Vertical guide line
-          \draw[dashed] (axis cs:-2,0) -- (axis cs:-2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-          \draw[dashed] (axis cs:2,0) -- (axis cs:2,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-
-          \addplot [draw=none, fill=blue!20, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)-0.004} \closedcycle;
-          % Vertical guide line
-          \draw[dashed] (axis cs:-1,0) -- (axis cs:-1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-          \draw[dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-0.1^2/2)});
-
-          \node at (axis cs:0,0.3) { $68.27\%$};
-          \node at (axis cs:0,0.2) { $95.45\%$};
-          \node at (axis cs:0,0.1) { $99.73\%$};
-
-          \draw[<->, black] (axis cs:-3,0.08) -- (axis cs:3,0.08);
-          \draw[<->, black] (axis cs:-2,0.18) -- (axis cs:2,0.18);
-          \draw[<->, black] (axis cs:-1,0.28) -- (axis cs:1,0.28);
-        \end{axis}
-      \end{tikzpicture}
-  \end{center}
 
 	\item The linear combination of two independent normal variables is also normal.
 
@@ -6139,7 +6167,8 @@ To look up \(F_Z(k)\), follow the following steps:
   $$P(k_1 \leq Z \leq k_2) = P(Z \leq k_2) - P(Z \leq k_1) = F_Z(k_2) - F_Z(k_1)$$
 \end{enumerate}
 
-\textbf{Example:} Suppose the heights of adult males are normally distributed with mean $\mu = 175$ cm and standard deviation $\sigma = 10$ cm. Let $X$ denote the height of a randomly chosen male. Then:
+\subsubsection{Example}
+Suppose the heights of adult males are normally distributed with mean $\mu = 175$ cm and standard deviation $\sigma = 10$ cm. Let $X$ denote the height of a randomly chosen male. Then:
 \[
 X \sim \mathcal{N}(175, 100)
 \]
@@ -6158,38 +6187,7 @@ P(X > 190) = P(Z > 1.5) = 1 - F_Z(1.5) \approx 1 - 0.9332 = 0.0668
 
 Thus, approximately $6.68\%$ of adult males are taller than 190 cm.
 
-
-% \begin{table}[!h]
-%   \centering
-%   \footnotesize
-%   \caption{Standard Normal CDF values $F_Z(z)=P(Z\le z)$.}
-%   \label{tab:Ztable}
-%   \begin{tabular}{l|*{10}{r}}
-%     \toprule
-%     $z$ & 0    & 0.01  & 0.02  & 0.03  & 0.04  & 0.05  & 0.06  & 0.07  & 0.08  & 0.09  \\
-%     \midrule
-%     0.0 & 0.5000 & 0.50399 & 0.50798 & 0.51197 & 0.51595 & 0.51994 & 0.52392 & 0.52790 & 0.53188 & 0.53586 \\
-%     0.1 & 0.53983 & 0.54380 & 0.54776 & 0.55172 & 0.55567 & 0.55962 & 0.56356 & 0.56749 & 0.57142 & 0.57535 \\
-%     0.2 & 0.57926 & 0.58317 & 0.58706 & 0.59095 & 0.59483 & 0.59871 & 0.60257 & 0.60642 & 0.61026 & 0.61409 \\
-%     0.3 & 0.61791 & 0.62172 & 0.62552 & 0.62930 & 0.63307 & 0.63683 & 0.64058 & 0.64431 & 0.64803 & 0.65173 \\
-%     0.4 & 0.65542 & 0.65910 & 0.66276 & 0.66640 & 0.67003 & 0.67364 & 0.67724 & 0.68082 & 0.68439 & 0.68793 \\
-%     0.5 & 0.69146 & 0.69497 & 0.69847 & 0.70194 & 0.70540 & 0.70884 & 0.71226 & 0.71566 & 0.71904 & 0.72240 \\
-%     0.6 & 0.72575 & 0.72907 & 0.73237 & 0.73565 & 0.73891 & 0.74215 & 0.74537 & 0.74857 & 0.75175 & 0.75490 \\
-%     0.7 & 0.75804 & 0.76115 & 0.76424 & 0.76730 & 0.77035 & 0.77337 & 0.77637 & 0.77935 & 0.78230 & 0.78524 \\
-%     0.8 & 0.78814 & 0.79103 & 0.79389 & 0.79673 & 0.79955 & 0.80234 & 0.80511 & 0.80785 & 0.81057 & 0.81327 \\
-%     0.9 & 0.81594 & 0.81859 & 0.82121 & 0.82381 & 0.82639 & 0.82894 & 0.83147 & 0.83398 & 0.83646 & 0.83891 \\
-%     1.0 & 0.84134 & 0.84375 & 0.84614 & 0.84849 & 0.85083 & 0.85314 & 0.85543 & 0.85769 & 0.85993 & 0.86214 \\
-%     1.1 & 0.86433 & 0.86650 & 0.86864 & 0.87076 & 0.87286 & 0.87493 & 0.87698 & 0.87900 & 0.88100 & 0.88298 \\
-%     1.2 & 0.88493 & 0.88686 & 0.88877 & 0.89065 & 0.89251 & 0.89435 & 0.89617 & 0.89796 & 0.89973 & 0.90147 \\
-%     1.3 & 0.90320 & 0.90490 & 0.90658 & 0.90824 & 0.90988 & 0.91149 & 0.91309 & 0.91466 & 0.91621 & 0.91774 \\
-%     1.4 & 0.91924 & 0.92073 & 0.92220 & 0.92364 & 0.92507 & 0.92647 & 0.92785 & 0.92922 & 0.93056 & 0.93189 \\
-%     1.5 & 0.93319 & 0.93448 & 0.93574 & 0.93699 & 0.93822 & 0.93943 & 0.94062 & 0.94179 & 0.94295 & 0.94408 \\
-%     \addlinespace
-%     \bottomrule
-%   \end{tabular}
-% \end{table}
-
-\begin{figure}[!h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}
     \begin{axis}[
@@ -6211,18 +6209,23 @@ Thus, approximately $6.68\%$ of adult males are taller than 190 cm.
       \node at (axis cs:3,0.1) {\small $P(Z>1.5)=0.0668$};
     \end{axis}
   \end{tikzpicture}
+  \caption{\textit{Distribution of the heights of adult males.}}
 \end{figure}
+
+---
 
 \subsection{Critical Points of the Standard Normal Distribution}
 
 In the standard normal distribution, certain values on the horizontal axis divide the distribution into regions with specified probabilities. These special values are called \textbf{critical points}.
 
-\textbf{One‐sided critical point}: For a given probability \(\alpha\), the one‐sided critical point $z_{\alpha}$ is such that
+\subsubsection{One‐sided critical point}
+For a given probability \(\alpha\), the one‐sided critical point $z_{\alpha}$ is such that
 \[
 P(Z > z_{\alpha}) = \alpha
 \]
-or equivalently \(P(Z \le z_{\alpha}) = 1 - \alpha\).
+or equivalently, \[P(Z \le z_{\alpha}) = 1 - \alpha\]
 
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}
 	\begin{axis}[
@@ -6245,23 +6248,27 @@ or equivalently \(P(Z \le z_{\alpha}) = 1 - \alpha\).
 	\node[above] at (axis cs:-0.57,0.12) {\(1 - \alpha\)};
 	\end{axis}
 	\end{tikzpicture}
+    \caption{\textit{One‐sided critical point.}}
 \end{center}
+\end{figure}
 
 \begin{itemize}
 	\item For \(\alpha = 0.05\), the one‐sided critical point is approximately \(z_{0.05} \approx 1.645\).
 	\item For \(\alpha = 0.01\), the one‐sided critical point is approximately \(z_{0.01} \approx 2.326\).
 \end{itemize}
 
-\textbf{Two‐sided critical points}: For a given probability \(\alpha\), the two‐sided critical points \(\pm z_{\alpha/2}\) are such that
+\subsubsection{Two‐sided critical points}
+For a given probability \(\alpha\), the two‐sided critical points \(\pm z_{\alpha/2}\) are such that
 
 \[
 P(Z > z_{\alpha/2}) = \alpha/2, \quad P(Z < -z_{\alpha/2}) = \alpha/2
 \]
-or equivalently
+or equivalently,
 \[
 P(-z_{\alpha/2} \le Z \le z_{\alpha/2}) \;=\; 1 - \alpha
 \]
 
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}
 	\begin{axis}[
@@ -6307,7 +6314,9 @@ P(-z_{\alpha/2} \le Z \le z_{\alpha/2}) \;=\; 1 - \alpha
 	\node[above, black] at (axis cs:0.57,0.1) { \(1-\alpha\)};
 	\end{axis}
 	\end{tikzpicture}
+    \caption{\textit{Two‐sided critical points.}}
 \end{center}
+\end{figure}
 
 \begin{itemize}
 	\item For \(\alpha = 0.05\), the two-sided critical points are approximately \(\pm 1.96\).
