@@ -15334,12 +15334,48 @@ Likewise, if only a lower specification limit (LSL) is applicable, the formula b
 \[
 C_{pk, lower} = \frac{\mu - LSL}{3\sigma}
 \]
+Thus
+$$C_{pk} = \min \left(C_{pk, upper}, C_{pk, lower}\right) $$
 These one-sided indices are useful in scenarios where deviations in only one direction are undesirable—for example, when there is a maximum allowable concentration of a chemical, or a minimum required tensile strength in materials.
+
+\subsubsection*{Relationship Between \(C_{pk}\) and Defect Rate}
+
+The index \(C_{pk}\) not only quantify how well a process is performing relative to its specification limits but also provide insights into the expected defect rate. Assuming the process output is normally distributed, this index can be translated into the proportion of defective items produced. For example, a \(C_{pk} = 1.00\) corresponds to 3-sigma capability, implying about 0.27\% of the output lies outside the specification limits, or 2,700 defective parts per million (ppm).
+
+Let the specification limits be \(USL\) and \(LSL\), and the process mean and standard deviation be \(\mu\) and \(\sigma\), respectively. Then, the defect rate can be estimated using the tails of the normal distribution:
+\begin{align*}
+P(\text{Defect}) &= P(X < LSL) + P(X > USL)\\ &= 1+\Phi\left(\dfrac{LSL - \mu}{\sigma}\right) - \Phi\left(\dfrac{USL - \mu}{\sigma}\right)\\
+&=1 + \underbrace{\Phi\left(-3C_{k,lower}\right)}_{1-\Phi\left(3C_{k,lower}\right)} - \Phi\left(3C_{k,upper}\right) \\
+&=2 - \Phi\left(3C_{k,lower}\right) - \Phi\left(3C_{k,lower}\right)
+\end{align*}
+
+where \(\Phi(\cdot)\) is the cumulative distribution function (CDF) of the standard normal distribution. When $C_{pk, upper} = C_{pk, lower}=C_{pk}$,
+\begin{align*}
+P(\text{Defect}) =2\left( 1 - \Phi\left(3C_{pk}\right)\right)
+\end{align*}
+
+%\begin{table}[H]
+% \begin{center}
+% \begin{tabular}{c|c}
+% \toprule
+% \textbf{\(C_{pk}\)} & \textbf{Defect Rate (ppm)} \\
+% \midrule
+% 0.33 & \(\approx 317,000\) \\
+% 0.67 & \(\approx 45,500\) \\
+% 1.00 & \(\approx 2,700\) \\
+% 1.33 & \(\approx 64\) \\
+% 1.50 & \(\approx 6.8\) \\
+% 2.00 & \(\approx 0.002\) \\
+% \bottomrule
+% \end{tabular}
+% \end{center}
+% \caption{\textit{Expected defect rate (ppm) for different $ C_{pk} $ values.}}
+% \end{table}
 
 
 \subsection{$P_{p}$ Index}
 
-The $P_{p}$ index measures the \textbf{overall process performance capability}, using the total variation observed in the process data. It does not consider process centering.
+The $P_{p}$ index measures the \textbf{actual overall process performance capability}, using the total variation observed in the process data. It does not consider process centering.
 
 \begin{textbox}
 $$P_{p} = \frac{USL - LSL}{6s}$$
@@ -15379,10 +15415,10 @@ This suggests the process has adequate performance, but this does not consider w
 The $P_{pk}$ index evaluates the {actual process performance considering both variation and centering}, using overall process data.
 
 \begin{textbox}
-$$P_{pk} = \min\left(\frac{USL - \bar{x}}{3s}, \frac{\bar{x} - LSL}{3s}\right)$$
+$$P_{pk} = \min\left(\frac{USL - \overline{x}}{3s}, \frac{\overline{x} - LSL}{3s}\right)$$
 \end{textbox}
 
-where $\bar{x}$ and $s$ are the caulated values of the sample mean and the sample standard deviation respetively.
+where $\overline{x}$ and $s$ are the caulated values of the sample mean and the sample standard deviation respetively.
 
 \subsubsection{Interpretation}
 
@@ -15401,7 +15437,7 @@ Interpreting \(C_{pk}\) and \(P_{pk}\) together provides insight into both the p
 
 Suppose a process has $LSL=95$ mm, $USL=105$ mm, sample mean $\bar{x} = 102$ mm, and sample standard deviation $s=1$ mm. Then,
 \[
-\frac{USL - \bar{x}}{3s} = \frac{105 - 102}{3 \times 1} = 1, \quad \frac{\bar{x} - LSL}{3s} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
+\frac{USL - \overline{x}}{3s} = \frac{105 - 102}{3 \times 1} = 1, \quad \frac{\overline{x} - LSL}{3s} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
 \]
 \[
 P_{pk} = \min(1, 2.33) = 1.0
@@ -15409,6 +15445,32 @@ P_{pk} = \min(1, 2.33) = 1.0
 This indicates marginal performance capability, similar to the $C_{pk}$ case but based on sample estimates rather than true parameters.
 
 ---
+
+\subsubsection{Relationship Between \(P_{pk}\) and Defect Rate}
+
+The performance index \(P_{pk}\) measures how the process is performing relative to specification limits when considering the \textbf{long‑term} variability of the process. Unlike \(C_{pk}\), which uses the within‑subgroup standard deviation \(\sigma\), \(P_{pk}\) uses the overall standard deviation \(\sigma_{\text{overall}}\), often estimated from the long‑term data. Under the assumption of a normally distributed long‑term process, \(P_{pk}\) can likewise be translated into an expected defect rate.
+
+The total defect probability is
+\begin{align*}
+P(\text{Defect})
+&= P(X < LSL) + P(X > USL)\\
+&= \Phi\Bigl(\frac{LSL - \mu}{\sigma_{\text{overall}}}\Bigr)
+  + \bigl[1 - \Phi\bigl(\tfrac{USL - \mu}{\sigma_{\text{overall}}}\bigr)\bigr]\\
+&= \Phi\bigl(-3\,P_{pk,\,\text{lower}}\bigr)
+  + \bigl[1 - \Phi\bigl(3\,P_{pk,\,\text{upper}}\bigr)\bigr]\\
+&= 1 - \Phi\bigl(3\,P_{pk,\,\text{upper}}\bigr)
+  + 1 - \Phi\bigl(3\,P_{pk,\,\text{lower}}\bigr)\\
+&= 2 - \Phi\bigl(3\,P_{pk,\,\text{lower}}\bigr)
+      - \Phi\bigl(3\,P_{pk,\,\text{upper}}\bigr).
+\end{align*}
+
+When the process is centered so that \(P_{pk,\,\text{upper}}=P_{pk,\,\text{lower}}=P_{pk}\), this simplifies to
+\[
+P(\text{Defect}) \;=\; 2\Bigl[1 - \Phi\bigl(3\,P_{pk}\bigr)\Bigr].
+\]
+
+Thus, for example, a long‑term performance index of \(P_{pk}=1.00\) corresponds to approximately 0.27\% defects (or 2,700 ppm), exactly as with \(C_{pk}\), but reflecting the actual long‑term variation of the process.
+
 
 \section{Complete Worked Example}
 
@@ -15426,7 +15488,7 @@ Quality control collected 100 samples over a production period. The analysis rev
 
 \textbf{Sample Data Summary:}
 \begin{itemize}
-\item Sample size: n = 100
+\item Sample size: $ n = 100 $
 \item Sample mean: $\bar{x} = 25.15$ mm
 \item Sample standard deviation: $s = 0.18$ mm
 \item Process standard deviation (from control charts): $\sigma = 0.15$ mm
@@ -15445,22 +15507,22 @@ C_p &= \frac{USL - LSL}{6\sigma}\\
 &= 1.11
 \end{align}
 
-\textbf{Interpretation:} Cp = 1.11 indicates marginal process capability. The process variation is close to the specification width.
+\textbf{Interpretation:} $ C_p = 1.11 $ indicates marginal process capability. The process variation is close to the specification width.
 
 \subsubsection{Step 2: Calculate Cpk}
 
 First, calculate the upper and lower capability indices:
 
 \begin{align}
-C_{pk\_upper} &= \frac{USL - \mu}{3\sigma} = \frac{25.5 - 25.12}{3 \times 0.15} = \frac{0.38}{0.45} = 0.84\\
-C_{pk\_lower} &= \frac{\mu - LSL}{3\sigma} = \frac{25.12 - 24.5}{3 \times 0.15} = \frac{0.62}{0.45} = 1.38
+C_{pk,upper} &= \frac{USL - \mu}{3\sigma} = \frac{25.5 - 25.12}{3 \times 0.15} = \frac{0.38}{0.45} = 0.84\\
+C_{pk,lower} &= \frac{\mu - LSL}{3\sigma} = \frac{25.12 - 24.5}{3 \times 0.15} = \frac{0.62}{0.45} = 1.38
 \end{align}
 
 \begin{align}
 C_{pk} &= \min(0.84, 1.38) = 0.84
 \end{align}
 
-\textbf{Interpretation:} Cpk = 0.84 indicates inadequate process capability. The process mean is shifted toward the upper specification limit.
+\textbf{Interpretation:} $ C_{pk} = 0.84 $ indicates inadequate process capability. The process mean is shifted toward the upper specification limit.
 
 \subsubsection{Step 3: Calculate Pp}
 
@@ -15471,20 +15533,20 @@ P_p &= \frac{USL - LSL}{6s}\\
 &= 0.93
 \end{align}
 
-\textbf{Interpretation:} Pp = 0.93 indicates inadequate process performance based on actual sample data.
+\textbf{Interpretation:} $ P_p = 0.93 $ indicates inadequate process performance based on actual sample data.
 
 \subsubsection{Step 4: Calculate Ppk}
 
 \begin{align}
-P_{pk\_upper} &= \frac{USL - \bar{x}}{3s} = \frac{25.5 - 25.15}{3 \times 0.18} = \frac{0.35}{0.54} = 0.65\\
-P_{pk\_lower} &= \frac{\bar{x} - LSL}{3s} = \frac{25.15 - 24.5}{3 \times 0.18} = \frac{0.65}{0.54} = 1.20
+P_{pk,upper} &= \frac{USL - \bar{x}}{3s} = \frac{25.5 - 25.15}{3 \times 0.18} = \frac{0.35}{0.54} = 0.65\\
+P_{pk,lower} &= \frac{\bar{x} - LSL}{3s} = \frac{25.15 - 24.5}{3 \times 0.18} = \frac{0.65}{0.54} = 1.20
 \end{align}
 
 \begin{align}
 P_{pk} &= \min(0.65, 1.20) = 0.65
 \end{align}
 
-\textbf{Interpretation:} Ppk = 0.65 indicates inadequate process performance with poor centering.
+\textbf{Interpretation:} $ P_{pk} = 0.65 $ indicates inadequate process performance with poor centering.
 
 \subsection{Results Summary}
 
@@ -15584,37 +15646,25 @@ Based on the capability analysis results:
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|l|}
-\hline
+\begin{tabular}{c|c|l}
+\toprule
 \textbf{Cp/Pp} & \textbf{Cpk/Ppk} & \textbf{Action Required} \\
-\hline
+\midrule
 \multirow{3}{*}{$\geq 1.33$} & $\geq 1.33$ & Continue monitoring \\
 & $1.0 - 1.33$ & Improve centering \\
 & $< 1.0$ & Improve centering immediately \\
-\hline
+\midrule
 \multirow{3}{*}{$1.0 - 1.33$} & $\geq 1.33$ & Reduce variation \\
 & $1.0 - 1.33$ & Reduce variation \& improve centering \\
-& $< 1.0$ & Reduce variation \& center immediately \\
-\hline
+& $< 1.0$ & Reduce variation \& improve centering immediately \\
+\midrule
 \multirow{3}{*}{$< 1.0$} & $\geq 1.33$ & Major process redesign \\
 & $1.0 - 1.33$ & Major process redesign \\
 & $< 1.0$ & Complete process overhaul \\
-\hline
+\bottomrule
 \end{tabular}
-\caption{Decision Matrix Based on Capability Indices}
+\caption{\textit{Decision matrix based on capability indices.}}
 \end{table}
-
-\section{Conclusion}
-
-Process capability indices provide crucial insights into process performance. This example demonstrates how Cp, Cpk, Pp, and Ppk work together to give a complete picture:
-
-\begin{itemize}
-\item \textbf{Cp and Pp} indicate whether the process variation is acceptable relative to specifications
-\item \textbf{Cpk and Ppk} show the combined effect of variation and centering
-\item Comparing process capability (Cp, Cpk) with performance (Pp, Ppk) reveals the difference between theoretical and actual process behavior
-\end{itemize}
-
-Regular monitoring and improvement of these indices is essential for maintaining product quality and customer satisfaction.
 
 
 \section{Acceptance Sampling}
