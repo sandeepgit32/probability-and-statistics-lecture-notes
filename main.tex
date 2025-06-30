@@ -15077,7 +15077,7 @@ The Pareto chart for the above data is shown below:
       };
     \end{axis}
   \end{tikzpicture}
-  \caption{\textit{Pareto Chart for Defect Types.}}
+  \caption{\textit{Pareto chart for defect types.}}
 \end{figure}
 
 \textbf{Interpretation}
@@ -15085,10 +15085,7 @@ The Pareto chart for the above data is shown below:
 From the Pareto chart, it is evident that the majority of the defects (70\%) come from the first three types: surface scratches, paint defects, and loose screws. Therefore, quality improvement efforts should focus on these issues first to achieve the greatest impact with minimal effort.
 
 
-
 \section{Process Capability Analysis}
-
-
 
 \begin{textbox}
 The \textbf{process capability} allow us to measure or quantify the capability of a process to outputs that meet our design specification.
@@ -15100,21 +15097,53 @@ The \textbf{Process Capability Index} is the specific measure we use to quantify
 
 Every manufacturing or production process has some natural variability, and the goal is to ensure that this variability stays within the acceptable range set by customer or engineering requirements. The Process capability index helps us understand whether the process is capable of producing results that consistently fall within these limits.
 
-For example, consider a process that manufactures plastic bottles with an acceptable weight range of 95 to 105 grams. If the process consistently produces bottles between 96 and 104 grams, it is considered capable. But if the weights vary from 92 to 108 grams, many units may fall outside the limits, indicating poor capability. The Process Capability Index summarizes this relationship between process variation and specification limits in a single number that summarizes this relationship between process variation and specification limits.
+For example, consider a process that manufactures plastic bottles with an acceptable weight range of 95 to 105 grams. If the process consistently produces bottles between 96 and 104 grams, it is considered capable. But if the weights vary from 92 to 108 grams, many units may fall outside the limits, indicating poor capability. The Process Capability Index summarizes this relationship between process variation and specification limits in a single number.
+
+\subsection{Statistical Control and Its Importance}
+
+A process is said to be in \textbf{statistical control} when it operates consistently over time, with variation coming only from natural, random factors known as \textbf{common causes}. These are small, unavoidable fluctuations that are inherent to the system.
+
+In contrast, there are \textbf{special causes} which are unusual variations caused by specific issues like operator changes, equipment drift, raw material shifts, and environmental conditions. A process in statistical control shows no unexpected patterns or points outside control limits on a control chart. This is an essential condition or using capability indices like $C_k$ and $C_{pk}$ reliably which we will discuss in coming subsections.
+
+\subsection{Understanding Short-term vs. Long-term Variation}
+
+To interpret process capability indices meaningfully, we must first distinguish between two types of process variation: \textbf{short-term} and \textbf{long-term} variation. These two reflect different time horizons and include different sources of variability.
+
+\subsubsection*{Short-term Variation (Within-subgroup)}
+
+Short-term variation is measured over a limited time frame—such as within a shift or over a few hours. It represents the natural, inherent variability in the process when no major changes or external disturbances occur. This variation is quantified using the \textbf{within-subgroup standard deviation} (\(\sigma_{\text{within}}\)) and assumes that the process is stable and under statistical control. It captures only common-cause (natural) variation.
+
+\subsubsection*{Long-term Variation (Overall)}
+
+Long-term variation is observed over extended periods such as days, weeks, or months. Unlike short-term variation, it incorporates additional sources of variability that occur between subgroups or over time. This variation is quantified using the \textbf{overall standard deviation} (\(\sigma_{\text{overall}}\)). It includes both common-cause and special-cause variation
+
+\subsubsection*{Example: Coffee Machine}
+
+Imagine a coffee machine programmed to dispense exactly 8 oz of coffee per cup.
+
+\begin{itemize}
+    \item \textbf{Short-term:} If you record 20 cups dispensed within 10 minutes, the weights might range from 7.9 to 8.1 oz with \(\sigma = 0.05\) oz. This shows the machine's precision in a stable, controlled environment.
+    \item \textbf{Long-term:} Over three months of operation, including different shifts, bean types, and maintenance cycles, the weights might range from 7.7 to 8.3 oz with \(\sigma_{\text{overall}} = 0.15\) oz. This reflects the process’s real-world variation.
+\end{itemize}
+
+---
 
 \subsection{$C_p$ Index}
 
-The $C_p$ index measures the \textbf{potential capability of a process} to produce output within the given specification limits, assuming the process is stable (in statistical control\footnote{A process is said to be in \textbf{statistical control} when it operates consistently over time, with variation coming only from natural, random factors known as \textbf{common causes}. These are small, unavoidable fluctuations that are inherent to the system. In contrast, there are \textbf{special causes} which are unusual variations caused by specific issues like equipment failure or human error. A process in statistical control shows no unexpected patterns or points outside control limits on a control chart. This is an essential condition or using capability indices like $C_k$ and $C_{pk}$ reliably.}) and perfectly centered (i.e., the mean lies exactly midway between the upper and lower specification limits):
+The $C_p$ index measures the \textbf{potential capability of a process} to produce output within the given specification limits, assuming the process is stable (in statistical control) and perfectly centered (i.e., the mean lies exactly midway between the upper and lower specification limits):
 \begin{textbox}
-$$C_p = \frac{USL - LSL}{6\sigma}$$
+$$C_p = \frac{USL - LSL}{6\sigma_{\text{within}}}$$
 \end{textbox}
 where,
 \begin{itemize}
 \item \textit{USL} = Upper specification limit,
 \item \textit{LSL} = Lower specification limit,
-\item $\sigma$ is the process standard deviation.
+\item $\sigma_{\text{within}}$ is the short-term process standard deviation.
 \end{itemize}
-The denominator $6\sigma$ represents the total spread of the process assuming that it follows a normal distribution (covering approximately 99.73\% of the data). The numerator $USL-LSL$ is the allowable spread as specified by the customer or design requirements.
+
+Importantly, \(C_p\) is calculated using the \textbf{within-subgroup standard deviation} \(\sigma_{\text{within}}\), which reflects \textbf{short-term variation}—the natural, inherent fluctuation observed when the process is operating without any external disturbances or special causes. As a result, it reflects the potential capability or {maximum capability} the process could achieve—if all special causes were eliminated and only inherent variation remained.
+
+The denominator $6\sigma_{\text{within}}$ represents the total spread of the process assuming that it follows a normal distribution (covering approximately 99.73\% of the data). The numerator $USL-LSL$ is the allowable spread as specified by the customer or design requirements.
 
 \subsubsection{Interpretation}
 \begin{itemize}
@@ -15185,7 +15214,7 @@ The denominator $6\sigma$ represents the total spread of the process assuming th
   \end{axis}
 \end{tikzpicture}
 \end{subfigure}
-\caption{\textit{Normal distributions illustrating process capability index \(C_k\) relative to specification limits (LSL and USL) and process variation (\(\pm 3\sigma\)).}}
+\caption{\textit{Normal distributions illustrating process capability index \(C_k\) relative to specification limits (LSL and USL) and process variation (\(\pm 3\sigma_{\text{within}}\)).}}
 \end{figure}
 
 \begin{table}[H]
@@ -15206,9 +15235,9 @@ $C_{p} \geq 2.0$ & Excellent \\
 It is important to remember that $C_p$ does not account for how well the process is centered. A process with a high $C_p$ can still produce defects if the mean is not aligned with the target. To evaluate both spread and centering, other indices like $C_{pk}$ are used.
 
 \subsubsection{Example}
-Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The standard deviation of the process is 1 mm. Then,
+Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The short-term standard deviation of the process is 1 mm. Then,
 \[
-C_p = \frac{105 - 95}{6 \times 1} = \frac{10}{6} \approx 1.67
+C_p = \dfrac{105 - 95}{6 \times 1} = \dfrac{10}{6} \approx 1.67
 \]
 This value suggests that the process has a good potential to meet specifications, provided it is properly centered.
 
@@ -15466,7 +15495,7 @@ P(\text{Defect})
 
 When the process is centered so that \(P_{pk,\,\text{upper}}=P_{pk,\,\text{lower}}=P_{pk}\), this simplifies to
 \[
-P(\text{Defect}) \;=\; 2\Bigl[1 - \Phi\bigl(3\,P_{pk}\bigr)\Bigr].
+P(\text{Defect}) \;=\; 2\Bigl[1 - \Phi\bigl(3\,P_{pk}\bigr)\Bigr]
 \]
 
 Thus, for example, a long‑term performance index of \(P_{pk}=1.00\) corresponds to approximately 0.27\% defects (or 2,700 ppm), exactly as with \(C_{pk}\), but reflecting the actual long‑term variation of the process.
