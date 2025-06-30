@@ -15088,17 +15088,23 @@ From the Pareto chart, it is evident that the majority of the defects (70\%) com
 
 \section{Process Capability Analysis}
 
+
+
 \begin{textbox}
-The \textbf{Process Capability Index} is a measure used in quality control to assess how well a process can produce outputs within predefined specification limits.
+The \textbf{process capability} allow us to measure or quantify the capability of a process to outputs that meet our design specification.
+
+---
+
+The \textbf{Process Capability Index} is the specific measure we use to quantify process capability.
 \end{textbox}
 
-Every manufacturing or production process has some natural variability, and the goal is to ensure that this variability stays within the acceptable range set by customer or engineering requirements. The Process Capability Index helps us understand whether the process is capable of producing results that consistently fall within these limits.
+Every manufacturing or production process has some natural variability, and the goal is to ensure that this variability stays within the acceptable range set by customer or engineering requirements. The Process capability index helps us understand whether the process is capable of producing results that consistently fall within these limits.
 
 For example, consider a process that manufactures plastic bottles with an acceptable weight range of 95 to 105 grams. If the process consistently produces bottles between 96 and 104 grams, it is considered capable. But if the weights vary from 92 to 108 grams, many units may fall outside the limits, indicating poor capability. The Process Capability Index summarizes this relationship between process variation and specification limits in a single number that summarizes this relationship between process variation and specification limits.
 
 \subsection{$C_p$ Index}
 
-The $C_p$ index measures the potential capability of a process to produce output within the given specification limits, assuming the process is perfectly centered (i.e., the mean lies exactly midway between the upper and lower specification limits):
+The $C_p$ index measures the \textbf{potential capability of a process} to produce output within the given specification limits, assuming the process is stable (in statistical control\footnote{A process is said to be in \textbf{statistical control} when it operates consistently over time, with variation coming only from natural, random factors known as \textbf{common causes}. These are small, unavoidable fluctuations that are inherent to the system. In contrast, there are \textbf{special causes} which are unusual variations caused by specific issues like equipment failure or human error. A process in statistical control shows no unexpected patterns or points outside control limits on a control chart. This is an essential condition or using capability indices like $C_k$ and $C_{pk}$ reliably.}) and perfectly centered (i.e., the mean lies exactly midway between the upper and lower specification limits):
 \begin{textbox}
 $$C_p = \frac{USL - LSL}{6\sigma}$$
 \end{textbox}
@@ -15181,6 +15187,21 @@ The denominator $6\sigma$ represents the total spread of the process assuming th
 \end{subfigure}
 \caption{\textit{Normal distributions illustrating process capability index \(C_k\) relative to specification limits (LSL and USL) and process variation (\(\pm 3\sigma\)).}}
 \end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c}
+\toprule
+\textbf{$C_{p}$ Value} & \textbf{Process Capability} \\
+\midrule
+$C_{p} < 1.0$ & Inadequate \\
+$1.0 \leq C_{p} < 1.33$ & Marginal \\
+$1.33 \leq C_{p} < 2.0$ & Adequate \\
+$C_{p} \geq 2.0$ & Excellent \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Interpretation of process capability index $C_{p}$.}}
+\end{table}
 
 It is important to remember that $C_p$ does not account for how well the process is centered. A process with a high $C_p$ can still produce defects if the mean is not aligned with the target. To evaluate both spread and centering, other indices like $C_{pk}$ are used.
 
@@ -15301,7 +15322,7 @@ Although the process has a relatively low variation, the mean is not centered wi
 
 ---
 
-\subsection{One-Sided $C_{pk}$:}
+\subsubsection{One-Sided $C_{pk}$:}
 
 The \( C_{pk} \) index checks how close the process mean is to the specification limits. Sometimes, only one limit matters—either just an upper or just a lower limit. In such cases, we use a one-sided version of \( C_{pk} \).
 
@@ -15314,6 +15335,286 @@ Likewise, if only a lower specification limit (LSL) is applicable, the formula b
 C_{pk, lower} = \frac{\mu - LSL}{3\sigma}
 \]
 These one-sided indices are useful in scenarios where deviations in only one direction are undesirable—for example, when there is a maximum allowable concentration of a chemical, or a minimum required tensile strength in materials.
+
+
+\subsection{$P_{p}$ Index}
+
+The $P_{p}$ index measures the \textbf{overall process performance capability}, using the total variation observed in the process data. It does not consider process centering.
+
+\begin{textbox}
+$$P_{p} = \frac{USL - LSL}{6s}$$
+\end{textbox}
+
+where $s$ is the calculated sample standard deviation of the process using all the data. Note that the only difference between $ C_p $ and $ P_p $ is how the process variation is calculated. The calculated standard deviation includes all the
+past data and does not take into account if the process is in statistical control. If the process is not in statistical control, the value of the calculated standard deviation will often be inflated.
+\subsubsection{Interpretation}
+
+A higher $P_p$ means the process variation is small relative to the specification width. However, since $P_p$ ignores centering, it might overestimate capability if the process mean is off-center.
+
+Interpreting \(C_p\) and \(P_p\) together helps evaluate both the potential and actual performance of a process.
+
+%If \(C_p\) is close to \(P_p\), it indicates the process is likely stable and in control. When both values are low, the process needs improvement in design or control. A high value of both suggests the process is capable and performing well. If \(C_p\) is much higher than \(P_p\), the process has good potential but is currently affected by special causes of variation, leading to poor performance.
+
+\begin{itemize}
+    \item When \(C_p \approx P_p\), the process is likely \textbf{in statistical control}, meaning the actual performance closely matches the potential capability. If both values are low, the process likely suffers from high variation and requires improvement in design or control. If both values are high, it indicates the process is capable and performing well.
+
+    \item When \(C_p > P_p\), the process has \textbf{good potential capability}, but is currently \textbf{unstable} due to the presence of special cause variation. In this case, efforts should be directed toward identifying and eliminating those special causes to stabilize the process.
+
+    \item The condition \(C_p < P_p\) is a \textbf{rare and unexpected situation} that may suggest an error in calculation or a misestimation of the standard deviation. It is advisable to recheck the data, assumptions, and analysis methods used.
+\end{itemize}
+
+
+\subsubsection{Example}
+
+Suppose the process has specification limits 95 mm and 105 mm, and the sample standard deviation $s = 1.2$ mm. Then,
+\[
+P_p = \frac{105 - 95}{6 \times 1.2} = \frac{10}{7.2} \approx 1.39
+\]
+This suggests the process has adequate performance, but this does not consider whether the process mean is centered.
+
+---
+
+\subsection{$P_{pk}$ Index}
+
+The $P_{pk}$ index evaluates the {actual process performance considering both variation and centering}, using overall process data.
+
+\begin{textbox}
+$$P_{pk} = \min\left(\frac{USL - \bar{x}}{3s}, \frac{\bar{x} - LSL}{3s}\right)$$
+\end{textbox}
+
+where $\bar{x}$ and $s$ are the caulated values of the sample mean and the sample standard deviation respetively.
+
+\subsubsection{Interpretation}
+
+A high $P_{pk}$ means the process performs well, with low variation and good centering. A low $P_{pk}$ indicates either high variation or poor centering, increasing defect risk.
+
+Interpreting \(C_{pk}\) and \(P_{pk}\) together provides insight into both the potential and actual performance of a process with respect to centering.
+
+\begin{itemize}
+\item When \(C_{pk} \approx P_{pk}\), the process is likely \textbf{in statistical control} and stable. When both values are low, the process is not well-centered or has high variability. If both are high and close, the process is performing excellently and is well-centered.
+\item When \(C_{pk} > P_{pk}\), the process \textbf{has the potential to be well-centered and low in defects}, but is currently affected by special causes of variation.
+\item The condition \(C_{pk} < P_{pk}\) is \textbf{very rare} which may indicate calculation error or incorrect standard deviation used.
+\end{itemize}
+
+
+\subsubsection{Example}
+
+Suppose a process has $LSL=95$ mm, $USL=105$ mm, sample mean $\bar{x} = 102$ mm, and sample standard deviation $s=1$ mm. Then,
+\[
+\frac{USL - \bar{x}}{3s} = \frac{105 - 102}{3 \times 1} = 1, \quad \frac{\bar{x} - LSL}{3s} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
+\]
+\[
+P_{pk} = \min(1, 2.33) = 1.0
+\]
+This indicates marginal performance capability, similar to the $C_{pk}$ case but based on sample estimates rather than true parameters.
+
+---
+
+\section{Complete Worked Example}
+
+\subsection{Problem Statement}
+
+A manufacturing company produces steel rods with a target diameter of 25.0 mm. The specification limits are:
+\begin{itemize}
+\item Lower Specification Limit (LSL) = 24.5 mm
+\item Upper Specification Limit (USL) = 25.5 mm
+\item Target = 25.0 mm
+\end{itemize}
+
+Quality control collected 100 samples over a production period. The analysis revealed:
+
+
+\textbf{Sample Data Summary:}
+\begin{itemize}
+\item Sample size: n = 100
+\item Sample mean: $\bar{x} = 25.15$ mm
+\item Sample standard deviation: $s = 0.18$ mm
+\item Process standard deviation (from control charts): $\sigma = 0.15$ mm
+\item Process mean: $\mu = 25.12$ mm
+\end{itemize}
+
+
+\subsection{Step-by-Step Calculations}
+
+\subsubsection{Step 1: Calculate Cp}
+
+\begin{align}
+C_p &= \frac{USL - LSL}{6\sigma}\\
+&= \frac{25.5 - 24.5}{6 \times 0.15}\\
+&= \frac{1.0}{0.9}\\
+&= 1.11
+\end{align}
+
+\textbf{Interpretation:} Cp = 1.11 indicates marginal process capability. The process variation is close to the specification width.
+
+\subsubsection{Step 2: Calculate Cpk}
+
+First, calculate the upper and lower capability indices:
+
+\begin{align}
+C_{pk\_upper} &= \frac{USL - \mu}{3\sigma} = \frac{25.5 - 25.12}{3 \times 0.15} = \frac{0.38}{0.45} = 0.84\\
+C_{pk\_lower} &= \frac{\mu - LSL}{3\sigma} = \frac{25.12 - 24.5}{3 \times 0.15} = \frac{0.62}{0.45} = 1.38
+\end{align}
+
+\begin{align}
+C_{pk} &= \min(0.84, 1.38) = 0.84
+\end{align}
+
+\textbf{Interpretation:} Cpk = 0.84 indicates inadequate process capability. The process mean is shifted toward the upper specification limit.
+
+\subsubsection{Step 3: Calculate Pp}
+
+\begin{align}
+P_p &= \frac{USL - LSL}{6s}\\
+&= \frac{25.5 - 24.5}{6 \times 0.18}\\
+&= \frac{1.0}{1.08}\\
+&= 0.93
+\end{align}
+
+\textbf{Interpretation:} Pp = 0.93 indicates inadequate process performance based on actual sample data.
+
+\subsubsection{Step 4: Calculate Ppk}
+
+\begin{align}
+P_{pk\_upper} &= \frac{USL - \bar{x}}{3s} = \frac{25.5 - 25.15}{3 \times 0.18} = \frac{0.35}{0.54} = 0.65\\
+P_{pk\_lower} &= \frac{\bar{x} - LSL}{3s} = \frac{25.15 - 24.5}{3 \times 0.18} = \frac{0.65}{0.54} = 1.20
+\end{align}
+
+\begin{align}
+P_{pk} &= \min(0.65, 1.20) = 0.65
+\end{align}
+
+\textbf{Interpretation:} Ppk = 0.65 indicates inadequate process performance with poor centering.
+
+\subsection{Results Summary}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|l|}
+\hline
+\textbf{Index} & \textbf{Value} & \textbf{Category} & \textbf{Key Insight} \\
+\hline
+Cp & 1.11 & Marginal & Process spread nearly fills spec width \\
+Cpk & 0.84 & Inadequate & Process off-center toward USL \\
+Pp & 0.93 & Inadequate & Actual variation exceeds acceptable \\
+Ppk & 0.65 & Inadequate & Poor performance with centering issues \\
+\hline
+\end{tabular}
+\caption{Process Capability Analysis Results}
+\end{table}
+
+\section{Defect Rate Analysis}
+
+Using the normal distribution, we can estimate the defect rates:
+
+\subsection{Process-Based Defect Rate (using $\mu$ and $\sigma$)}
+
+\begin{align}
+Z_{LSL} &= \frac{LSL - \mu}{\sigma} = \frac{24.5 - 25.12}{0.15} = -4.13\\
+Z_{USL} &= \frac{USL - \mu}{\sigma} = \frac{25.5 - 25.12}{0.15} = 2.53
+\end{align}
+
+\begin{itemize}
+\item P(X $<$ LSL) $\approx$ 0 (extremely small)
+\item P(X $>$ USL) $\approx$ 0.57\%
+\item Total defect rate $\approx$ 0.57\% or 5,700 PPM
+\end{itemize}
+
+\subsection{Sample-Based Defect Rate (using $\bar{x}$ and $s$)}
+
+\begin{align}
+Z_{LSL} &= \frac{LSL - \bar{x}}{s} = \frac{24.5 - 25.15}{0.18} = -3.61\\
+Z_{USL} &= \frac{USL - \bar{x}}{s} = \frac{25.5 - 25.15}{0.18} = 1.94
+\end{align}
+
+\begin{itemize}
+\item P(X $<$ LSL) $\approx$ 0.015\%
+\item P(X $>$ USL) $\approx$ 2.62\%
+\item Total defect rate $\approx$ 2.64\% or 26,400 PPM
+\end{itemize}
+
+\section{Comparison and Key Insights}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|l|}
+\hline
+\textbf{Aspect} & \textbf{Cp/Cpk} & \textbf{Pp/Ppk} & \textbf{Difference} \\
+\hline
+Data Source & Control charts & Sample data & Process vs. actual \\
+Standard Deviation & $\sigma = 0.15$ & $s = 0.18$ & 20\% higher variation \\
+Mean & $\mu = 25.12$ & $\bar{x} = 25.15$ & Slight shift \\
+Capability & Cp = 1.11 & Pp = 0.93 & Lower performance \\
+Centering Effect & Cpk = 0.84 & Ppk = 0.65 & Worse actual performance \\
+\hline
+\end{tabular}
+\caption{Comparison of Process Capability vs. Performance}
+\end{table}
+
+
+\textbf{Key Insights from this Example:}
+\begin{enumerate}
+\item The process shows marginal theoretical capability (Cp = 1.11) but inadequate actual performance (Pp = 0.93)
+\item Both Cpk and Ppk indicate the process is off-center, closer to the upper specification limit
+\item The sample data shows higher variation than the process parameters suggest
+\item Immediate action is needed to center the process and reduce variation
+\item The defect rate is unacceptably high, especially based on sample data (26,400 PPM)
+\end{enumerate}
+
+
+\section{Recommended Actions}
+
+Based on the capability analysis results:
+
+\subsection{Short-term Actions}
+\begin{enumerate}
+\item \textbf{Process Centering}: Adjust the process mean from 25.15 mm to 25.0 mm (target)
+\item \textbf{Control Charts}: Implement real-time monitoring to detect shifts
+\item \textbf{Sampling Plan}: Increase sampling frequency to better monitor process stability
+\end{enumerate}
+
+\subsection{Long-term Actions}
+\begin{enumerate}
+\item \textbf{Variation Reduction}: Investigate and eliminate sources of variation to improve both Cp and Pp
+\item \textbf{Process Improvement}: Target achieving Cpk and Ppk $\geq$ 1.33 (adequate capability)
+\item \textbf{Continuous Monitoring}: Regular capability studies to ensure sustained improvement
+\end{enumerate}
+
+\section{Decision Matrix for Process Capability}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|l|}
+\hline
+\textbf{Cp/Pp} & \textbf{Cpk/Ppk} & \textbf{Action Required} \\
+\hline
+\multirow{3}{*}{$\geq 1.33$} & $\geq 1.33$ & Continue monitoring \\
+& $1.0 - 1.33$ & Improve centering \\
+& $< 1.0$ & Improve centering immediately \\
+\hline
+\multirow{3}{*}{$1.0 - 1.33$} & $\geq 1.33$ & Reduce variation \\
+& $1.0 - 1.33$ & Reduce variation \& improve centering \\
+& $< 1.0$ & Reduce variation \& center immediately \\
+\hline
+\multirow{3}{*}{$< 1.0$} & $\geq 1.33$ & Major process redesign \\
+& $1.0 - 1.33$ & Major process redesign \\
+& $< 1.0$ & Complete process overhaul \\
+\hline
+\end{tabular}
+\caption{Decision Matrix Based on Capability Indices}
+\end{table}
+
+\section{Conclusion}
+
+Process capability indices provide crucial insights into process performance. This example demonstrates how Cp, Cpk, Pp, and Ppk work together to give a complete picture:
+
+\begin{itemize}
+\item \textbf{Cp and Pp} indicate whether the process variation is acceptable relative to specifications
+\item \textbf{Cpk and Ppk} show the combined effect of variation and centering
+\item Comparing process capability (Cp, Cpk) with performance (Pp, Ppk) reveals the difference between theoretical and actual process behavior
+\end{itemize}
+
+Regular monitoring and improvement of these indices is essential for maintaining product quality and customer satisfaction.
 
 
 \section{Acceptance Sampling}
