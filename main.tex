@@ -15088,51 +15088,233 @@ From the Pareto chart, it is evident that the majority of the defects (70\%) com
 
 \section{Process Capability Analysis}
 
-Process capability analysis assesses whether a process can meet specifications consistently.
+\begin{textbox}
+The \textbf{Process Capability Index} is a measure used in quality control to assess how well a process can produce outputs within predefined specification limits.
+\end{textbox}
 
-\subsection{Process Capability Indices}
+Every manufacturing or production process has some natural variability, and the goal is to ensure that this variability stays within the acceptable range set by customer or engineering requirements. The Process Capability Index helps us understand whether the process is capable of producing results that consistently fall within these limits.
 
-\subsubsection{$C_p$ Index}
+For example, consider a process that manufactures plastic bottles with an acceptable weight range of 95 to 105 grams. If the process consistently produces bottles between 96 and 104 grams, it is considered capable. But if the weights vary from 92 to 108 grams, many units may fall outside the limits, indicating poor capability. The Process Capability Index summarizes this relationship between process variation and specification limits in a single number that summarizes this relationship between process variation and specification limits.
 
-The $C_p$ index measures the potential capability of a process:
+\subsection{$C_p$ Index}
+
+The $C_p$ index measures the potential capability of a process to produce output within the given specification limits, assuming the process is perfectly centered (i.e., the mean lies exactly midway between the upper and lower specification limits):
+\begin{textbox}
 $$C_p = \frac{USL - LSL}{6\sigma}$$
+\end{textbox}
+where,
+\begin{itemize}
+\item \textit{USL} = Upper specification limit,
+\item \textit{LSL} = Lower specification limit,
+\item $\sigma$ is the process standard deviation.
+\end{itemize}
+The denominator $6\sigma$ represents the total spread of the process assuming that it follows a normal distribution (covering approximately 99.73\% of the data). The numerator $USL-LSL$ is the allowable spread as specified by the customer or design requirements.
 
-where USL = Upper Specification Limit, LSL = Lower Specification Limit, and $\sigma$ is the process standard deviation.
+\subsubsection{Interpretation}
+\begin{itemize}
+\item $ C_p =1 $: The process spread exactly fits the specification limits.
+\item $ C_p >1 $: The process variation is smaller than the specification limits—suggesting the process has potential to perform well.
+\item $ C_p < $1: The process variation is wider than the specification limits—indicating that a significant portion of output may fall outside the acceptable range.
+\end{itemize}
 
-\subsubsection{$C_{pk}$ Index}
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.46\textwidth}
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    domain=80:120,
+    samples=100,
+    no markers,
+    height=6cm,
+    width=\textwidth,
+    axis lines*=left,
+    xlabel={Measurement},
+    ylabel={PDF},
+    xtick={85,90,100,110,115},
+    xticklabels={LSL, $-3\sigma$, $\mu$, $3\sigma$, USL},
+    ytick=\empty,
+    enlargelimits=false,
+    clip=false,title={Good capability, \(C_k > 1\)},
+    axis on top,thick
+  ]
+    % Normal distribution curve with sigma=3, mu=100
+    \addplot [very thick,blue]
+      {1/(3*sqrt(2*pi)) * exp(-((x-100)^2)/(2*3^2))};
 
-The $C_{pk}$ index considers process centering:
+    % Specification limits
+    \addplot [very thick, red, dashed] coordinates {(85,0) (85,0.15)} node[pos=0.9, above, black] {};
+    \addplot [very thick, red, dashed] coordinates {(115,0) (115,0.15)} node[pos=0.9, above, black] {};
+  \end{axis}
+\end{tikzpicture}
+\end{subfigure}
+\hspace{0.02\textwidth}
+\begin{subfigure}[t]{0.46\textwidth}
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    domain=85:115,
+    samples=100,
+    no markers,
+    height=6cm,
+    width=\textwidth,
+    axis lines*=left,
+    xlabel={Measurement},
+    ylabel={PDF},
+    xtick={90,95,100,105,110},
+    xticklabels={$-3\sigma$, LSL, $\mu$, USL, $3\sigma$},
+    ytick=\empty,
+    enlargelimits=false,
+    clip=false,title={Poor capability, \(C_k < 1\)},
+    axis on top,thick
+  ]
+    % Normal distribution curve with sigma=6, mu=100
+    \addplot [very thick,blue]
+      {1/(6*sqrt(2*pi)) * exp(-((x-100)^2)/(2*6^2))};
+
+    % Specification limits
+    \addplot [very thick, red, dashed] coordinates {(95,0) (95,0.08)} node[pos=0.9, above, black] {};
+    \addplot [very thick, red, dashed] coordinates {(105,0) (105,0.08)} node[pos=0.9, above, black] {};
+
+  \end{axis}
+\end{tikzpicture}
+\end{subfigure}
+\caption{\textit{Normal distributions illustrating process capability index \(C_k\) relative to specification limits (LSL and USL) and process variation (\(\pm 3\sigma\)).}}
+\end{figure}
+
+It is important to remember that $C_p$ does not account for how well the process is centered. A process with a high $C_p$ can still produce defects if the mean is not aligned with the target. To evaluate both spread and centering, other indices like $C_{pk}$ are used.
+
+\subsubsection{Example}
+Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The standard deviation of the process is 1 mm. Then,
+\[
+C_p = \frac{105 - 95}{6 \times 1} = \frac{10}{6} \approx 1.67
+\]
+This value suggests that the process has a good potential to meet specifications, provided it is properly centered.
+
+---
+
+\subsection{$C_{pk}$ Index}
+
+The $C_{pk}$ index measures the potential capability of a process, considering that the process mean may not be centered between the specification limits.
+
+\begin{textbox}
 $$C_{pk} = \min\left(\frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma}\right)$$
+\end{textbox}
 
 where $\mu$ is the process mean.
 
-\textbf{Interpretation}
+The formula takes the minimum of the two distances (in terms of standard deviations) from the process mean to each specification limit. This ensures that any shift in the process mean away from the center reduces the $C_{pk}$ value, even if $C_{p}$ remains high.
+
+\subsubsection{Interpretation}
+
+A high $C_{pk}$ value means the process is both low in variability and well-centered. A low $C_{pk}$ indicates either high variation or that the process mean is deviated from the center, increasing the risk of defects.
 
 \begin{table}[H]
 \centering
-\caption{Process Capability Interpretation}
-\begin{tabular}{cc}
+\begin{tabular}{l|c}
 \toprule
-$C_{pk}$ Value & Process Capability \\
+\textbf{$C_{pk}$ Value} & \textbf{Process Capability} \\
 \midrule
-$C_{pk} \geq 2.0$ & Excellent \\
-$1.33 \leq C_{pk} < 2.0$ & Adequate \\
-$1.0 \leq C_{pk} < 1.33$ & Marginal \\
 $C_{pk} < 1.0$ & Inadequate \\
+$1.0 \leq C_{pk} < 1.33$ & Marginal \\
+$1.33 \leq C_{pk} < 2.0$ & Adequate \\
+$C_{pk} \geq 2.0$ & Excellent \\
 \bottomrule
 \end{tabular}
+\caption{\textit{Interpretation of process capability index $C_{pk}$.}}
 \end{table}
 
-\subsubsection{Example: Process Capability Calculation}
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.46\textwidth}
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    domain=85:115,
+    samples=100,
+    no markers,
+    height=6cm,
+    width=\textwidth,
+    axis lines*=left,
+    xlabel={Measurement},
+    ylabel={PDF},
+    xtick={90,95,100,105,110},
+    xticklabels={$-3\sigma$, LSL, $\mu$, USL, $3\sigma$},
+    ytick=\empty,
+    enlargelimits=false,
+    clip=false,title={Large variation, centered mean},
+    axis on top,thick
+  ]
+    % Normal distribution curve with sigma=6, mu=100
+    \addplot [very thick,blue]
+      {1/(6*sqrt(2*pi)) * exp(-((x-100)^2)/(2*6^2))};
 
-A process has specifications: LSL = 95, USL = 105
-Process data: $\mu = 100$, $\sigma = 1.5$
+    % Specification limits
+    \addplot [very thick, red, dashed] coordinates {(95,0) (95,0.08)} node[pos=0.9, above, black] {};
+    \addplot [very thick, red, dashed] coordinates {(105,0) (105,0.08)} node[pos=0.9, above, black] {};
 
-$$C_p = \frac{105 - 95}{6 \times 1.5} = \frac{10}{9} = 1.11$$
+  \end{axis}
+\end{tikzpicture}
+\end{subfigure}
+\hspace{0.02\textwidth}
+\begin{subfigure}[t]{0.46\textwidth}
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    domain=80:120,
+    samples=100,
+    no markers,
+    height=6cm,
+    width=\textwidth,
+    axis lines*=left,
+    xlabel={Measurement},
+    ylabel={PDF},
+    xtick={85,90,100,105,110},
+    xticklabels={LSL, $-3\sigma$, $\mu$, USL, $3\sigma$},
+    ytick=\empty,
+    enlargelimits=false,
+    clip=false,title={Small variation, shifted mean},
+    axis on top,thick
+  ]
+    % Normal distribution curve with sigma=3, mu=100
+    \addplot [very thick,blue]
+      {1/(3*sqrt(2*pi)) * exp(-((x-100)^2)/(2*3^2))};
 
-$$C_{pk} = \min\left(\frac{105 - 100}{3 \times 1.5}, \frac{100 - 95}{3 \times 1.5}\right) = \min(1.11, 1.11) = 1.11$$
+    % Specification limits
+    \addplot [very thick, red, dashed] coordinates {(85,0) (85,0.15)} node[pos=0.9, above, black] {};
+    \addplot [very thick, red, dashed] coordinates {(105,0) (105,0.15)} node[pos=0.9, above, black] {};
+  \end{axis}
+\end{tikzpicture}
+\end{subfigure}
+\caption{\textit{Illustration of poor \(C_{pk}\) scenarios: (Left) large variation with centered mean and (Right) small variation with shifted mean causing poor \(C_{pk}\) values.}}
+\end{figure}
 
-The process is marginally capable but centered.
+\subsubsection{Example}
+Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The process mean is 102 mm, and the standard deviation is 1 mm. Then,
+\[
+\frac{USL - \mu}{3\sigma} = \frac{105 - 102}{3 \times 1} = \frac{3}{3} = 1, \quad \frac{\mu - LSL}{3\sigma} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
+\]
+\[
+C_{pk} = \min\left(1,\ 2.33\right) = 1.0
+\]
+Although the process has a relatively low variation, the mean is not centered within the specification limits. The value \( C_{pk} = 1.0 \) indicates that the process is only marginally capable and may produce defects near the upper limit.
+
+---
+
+\subsection{One-Sided $C_{pk}$:}
+
+The \( C_{pk} \) index checks how close the process mean is to the specification limits. Sometimes, only one limit matters—either just an upper or just a lower limit. In such cases, we use a one-sided version of \( C_{pk} \).
+
+If there is only an upper specification limit (USL), the formula becomes:
+\[
+C_{pk, upper} = \frac{USL - \mu}{3\sigma}
+\]
+Likewise, if only a lower specification limit (LSL) is applicable, the formula becomes:
+\[
+C_{pk, lower} = \frac{\mu - LSL}{3\sigma}
+\]
+These one-sided indices are useful in scenarios where deviations in only one direction are undesirable—for example, when there is a maximum allowable concentration of a chemical, or a minimum required tensile strength in materials.
+
 
 \section{Acceptance Sampling}
 
