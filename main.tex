@@ -14075,6 +14075,516 @@ The variance inflation factor for the $j$-th predictor is:
 where $R_j^2$ is the coefficient of determination from regressing $X_j$ on all other predictors.
 
 
+\chapter{Index Numbers}
+
+\section{Introduction}
+
+\section{Introduction to Index Numbers}
+
+An \textbf{index number} is a statistical measure that shows the relative change in a variable or group of variables with respect to time, geographical location, or other characteristics. Index numbers are expressed as percentages or ratios that compare the value of a variable in a given period to its value in a base period.
+
+To illustrate why we need index number we consider the following example. Suppose a consumer purchases two commodities: rice and cooking oil. The prices and quantities in the base year and current year are given below:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c}
+\toprule
+\textbf{Commodity} & \textbf{Price (Base Year)} & \textbf{Price (Current Year)} \\
+\midrule
+Rice (per kg) & ₹40 & ₹50 \\
+Oil (per litre) & ₹100 & ₹120 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+If we want to understand how much prices have risen overall, it would be misleading to simply average the percentage increases, because it does not account for how much of each commodity is actually purchased. Instead, we fix quantities from the base period and compute a weighted average of the price increases using index numbers.
+
+Assume the consumer bought 30 kg of rice and 10 litres of oil in the base year. Then:
+
+\begin{itemize}
+    \item Cost in base year = \( 40 \times 30 + 100 \times 10 = ₹2200 \)
+    \item Cost in current year = \( 50 \times 30 + 120 \times 10 = ₹2700 \)
+\end{itemize}
+
+The \textbf{Price Index Number} is calculated as:
+
+\[
+\text{Index Number} = \frac{\text{Cost in Current Year}}{\text{Cost in Base Year}} \times 100 = \frac{2700}{2200} \times 100 \approx 122.73
+\]
+
+This means that, overall, prices have increased by approximately 22.73\% compared to the base year.
+
+This example highlights the importance of index numbers. Instead of comparing the price of each item separately, an index number provides a single, meaningful figure that summarizes the overall change in the price level. Such measures are invaluable in economic analysis for tracking inflation, evaluating cost-of-living adjustments, comparing standards of living across regions, or measuring industrial and agricultural output over time. They help policymakers, businesses, and consumers make informed decisions based on relative changes rather than absolute values.
+
+Index numbers serve as powerful tools for:
+\begin{itemize}
+    \item Measuring changes in economic variables over time
+    \item Comparing economic conditions across different regions
+    \item Making informed business and policy decisions
+    \item Deflating monetary values to real terms
+\end{itemize}
+
+The concept of index numbers originated in the 18th century when economists needed to measure price changes over time. Today, they are extensively used in economics, business, and social sciences.
+
+\section{Basic Concepts and Terminology}
+
+\subsection{Key Terms}
+
+\begin{description}
+    \item[Base Period:] The period against which comparisons are made, typically assigned an index value of 100.
+    \item[Current Period:] The period for which the index is being calculated.
+    \item[Base Year:] The reference year for comparison (e.g., 2010 = 100).
+    \item[Weights:] Numerical values representing the relative importance of different items.
+    \item[Price Relative:] The ratio of current price to base price, expressed as a percentage.
+    \item[Quantity Relative:] The ratio of current quantity to base quantity, expressed as a percentage.
+\end{description}
+
+\subsection{Mathematical Foundation}
+
+For a single commodity, the price relative is given by:
+\begin{equation}
+    P_r = \frac{P_1}{P_0} \times 100
+\end{equation}
+
+Where:
+\begin{align}
+    P_r &= \text{Price relative} \\
+    P_1 &= \text{Price in current period} \\
+    P_0 &= \text{Price in base period}
+\end{align}
+
+Similarly, for quantity relative:
+\begin{equation}
+    Q_r = \frac{Q_1}{Q_0} \times 100
+\end{equation}
+
+\section{Types of Index Numbers}
+
+\subsection{Classification by Purpose}
+
+\subsubsection{Price Index Numbers}
+Price index numbers measure the average change in prices of a basket of goods and services over time.
+
+\textbf{Example:} Consumer Price Index (CPI) calculation
+
+\begin{table}[h]
+\centering
+\caption{Price Data for CPI Calculation}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Item} & \textbf{Base Price} & \textbf{Current Price} & \textbf{Weight} & \textbf{Price Relative} & \textbf{Weighted Price Relative} \\
+ & $(P_0)$ & $(P_1)$ & $(W)$ & $(P_r)$ & $(W \times P_r)$ \\
+\midrule
+Food & 100 & 120 & 40 & 120 & 4800 \\
+Housing & 200 & 240 & 30 & 120 & 3600 \\
+Transport & 80 & 100 & 20 & 125 & 2500 \\
+Healthcare & 150 & 180 & 10 & 120 & 1200 \\
+\midrule
+\textbf{Total} & & & 100 & & 12100 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Weighted Price Index = $\frac{\sum W \times P_r}{\sum W} = \frac{12100}{100} = 121$
+
+This indicates a 21\% increase in prices from the base period.
+
+\subsubsection{Quantity Index Numbers}
+These measure changes in the physical quantities of goods produced, consumed, or traded.
+
+\subsubsection{Value Index Numbers}
+Value indices measure changes in the total value (price × quantity) of goods and services.
+
+\begin{equation}
+    \text{Value Index} = \frac{\sum P_1 Q_1}{\sum P_0 Q_0} \times 100
+\end{equation}
+
+\section{Methods of Constructing Price Index Numbers}
+
+\subsection{Simple Price Index Numbers}
+
+\subsubsection{Simple Aggregative Method}
+\begin{equation}
+    P_{01} = \frac{\sum P_1}{\sum P_0} \times 100
+\end{equation}
+
+\subsubsection{Simple Average of Price Relatives Method}
+\begin{equation}
+    P_{01} = \frac{\sum \left(\frac{P_1}{P_0} \times 100\right)}{n}
+\end{equation}
+
+\textbf{Example:} Calculate simple aggregative and average of relatives index
+
+\begin{table}[h]
+\centering
+\caption{Price Data for Simple Index Calculation}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Commodity} & \textbf{Base Price} & \textbf{Current Price} & \textbf{Price Relative} \\
+ & $(P_0)$ & $(P_1)$ & $\left(\frac{P_1}{P_0} \times 100\right)$ \\
+\midrule
+A & 10 & 12 & 120 \\
+B & 20 & 26 & 130 \\
+C & 15 & 18 & 120 \\
+D & 25 & 30 & 120 \\
+\midrule
+\textbf{Total} & 70 & 86 & 490 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Simple Aggregative Index = $\frac{86}{70} \times 100 = 122.86$
+
+Simple Average of Relatives = $\frac{490}{4} = 122.5$
+
+\subsection{Weighted Price Index Numbers}
+
+\subsubsection{Weighted Aggregative Method}
+
+\paragraph{Laspeyres' Price Index}
+Uses base period quantities as weights:
+\begin{equation}
+    P_{01}^L = \frac{\sum P_1 Q_0}{\sum P_0 Q_0} \times 100
+\end{equation}
+
+\paragraph{Paasche's Price Index}
+Uses current period quantities as weights:
+\begin{equation}
+    P_{01}^P = \frac{\sum P_1 Q_1}{\sum P_0 Q_1} \times 100
+\end{equation}
+
+\paragraph{Fisher's Ideal Price Index}
+Geometric mean of Laspeyres' and Paasche's indices:
+\begin{equation}
+    P_{01}^F = \sqrt{P_{01}^L \times P_{01}^P}
+\end{equation}
+
+\textbf{Comprehensive Example:}
+
+\begin{table}[h]
+\centering
+\caption{Data for Weighted Index Calculation}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Item} & $P_0$ & $P_1$ & $Q_0$ & $Q_1$ \\
+\midrule
+Wheat & 20 & 25 & 100 & 110 \\
+Rice & 30 & 36 & 80 & 85 \\
+Sugar & 40 & 48 & 50 & 45 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Calculations for Weighted Indices}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Item} & $P_0Q_0$ & $P_1Q_0$ & $P_0Q_1$ & $P_1Q_1$ \\
+\midrule
+Wheat & 2000 & 2500 & 2200 & 2750 \\
+Rice & 2400 & 2880 & 2550 & 3060 \\
+Sugar & 2000 & 2400 & 1800 & 2160 \\
+\midrule
+\textbf{Total} & 6400 & 7780 & 6550 & 7970 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Calculations:
+\begin{align}
+    P_{01}^L &= \frac{7780}{6400} \times 100 = 121.56 \\
+    P_{01}^P &= \frac{7970}{6550} \times 100 = 121.68 \\
+    P_{01}^F &= \sqrt{121.56 \times 121.68} = 121.62
+\end{align}
+
+\section{Quantity Index Numbers}
+
+\subsection{Laspeyres' Quantity Index}
+\begin{equation}
+    Q_{01}^L = \frac{\sum P_0 Q_1}{\sum P_0 Q_0} \times 100
+\end{equation}
+
+\subsection{Paasche's Quantity Index}
+\begin{equation}
+    Q_{01}^P = \frac{\sum P_1 Q_1}{\sum P_1 Q_0} \times 100
+\end{equation}
+
+\subsection{Fisher's Quantity Index}
+\begin{equation}
+    Q_{01}^F = \sqrt{Q_{01}^L \times Q_{01}^P}
+\end{equation}
+
+Using the previous data:
+\begin{align}
+    Q_{01}^L &= \frac{6550}{6400} \times 100 = 102.34 \\
+    Q_{01}^P &= \frac{7970}{7780} \times 100 = 102.44 \\
+    Q_{01}^F &= \sqrt{102.34 \times 102.44} = 102.39
+\end{align}
+
+\section{Properties and Tests of Index Numbers}
+
+\subsection{Fisher's Tests}
+
+\subsubsection{Time Reversal Test}
+An index should satisfy: $P_{01} \times P_{10} = 1$ (or 100 if expressed as percentage)
+
+\subsubsection{Factor Reversal Test}
+Price index × Quantity index should equal Value index:
+\begin{equation}
+    P_{01} \times Q_{01} = V_{01}
+\end{equation}
+
+Where $V_{01} = \frac{\sum P_1 Q_1}{\sum P_0 Q_0} \times 100$
+
+\subsubsection{Circular Test}
+For three periods: $P_{01} \times P_{12} \times P_{20} = 1$
+
+\subsection{Test Results Summary}
+
+\begin{table}[h]
+\centering
+\caption{Test Results for Different Index Methods}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Index Method} & \textbf{Time Reversal} & \textbf{Factor Reversal} & \textbf{Circular Test} \\
+\midrule
+Laspeyres' & Fails & Fails & Fails \\
+Paasche's & Fails & Fails & Fails \\
+Fisher's & Satisfies & Satisfies & Fails \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Chain Index Numbers}
+
+Chain indices compare each period with the immediately preceding period, then link them together.
+
+\begin{equation}
+    \text{Chain Index}_{0n} = \frac{P_1}{P_0} \times \frac{P_2}{P_1} \times \frac{P_3}{P_2} \times \ldots \times \frac{P_n}{P_{n-1}}
+\end{equation}
+
+\textbf{Example:}
+
+\begin{table}[h]
+\centering
+\caption{Chain Index Calculation}
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Year} & \textbf{Price} & \textbf{Link Relative} & \textbf{Chain Index} \\
+\midrule
+2020 & 100 & - & 100.0 \\
+2021 & 105 & 105.0 & 105.0 \\
+2022 & 110 & 104.8 & 110.0 \\
+2023 & 115 & 104.5 & 115.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Deflating and Real Values}
+
+Index numbers are used to convert nominal values to real values by removing the effect of price changes.
+
+\begin{equation}
+    \text{Real Value} = \frac{\text{Nominal Value}}{\text{Price Index}} \times 100
+\end{equation}
+
+\textbf{Example:} If nominal wage increased from \$1000 to \$1200, but price index increased from 100 to 125:
+
+Real wage change = $\frac{1200}{125} \times 100 = 960$
+
+This shows that despite nominal increase, real purchasing power decreased.
+
+\section{Graphical Representation}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    title={Price Index Trends (2020-2025)},
+    xlabel={Year},
+    ylabel={Index Value},
+    xmin=2020, xmax=2025,
+    ymin=95, ymax=130,
+    xtick={2020,2021,2022,2023,2024,2025},
+    ytick={100,105,110,115,120,125},
+    legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+    width=12cm,
+    height=8cm
+]
+
+\addplot[
+    color=blue,
+    mark=square,
+    thick
+    ]
+    coordinates {
+    (2020,100)(2021,105)(2022,110)(2023,115)(2024,120)(2025,125)
+    };
+    \addlegendentry{Price Index}
+
+\addplot[
+    color=red,
+    mark=triangle,
+    thick
+    ]
+    coordinates {
+    (2020,100)(2021,102)(2022,104)(2023,106)(2024,108)(2025,110)
+    };
+    \addlegendentry{Quantity Index}
+
+\addplot[
+    color=green,
+    mark=circle,
+    thick
+    ]
+    coordinates {
+    (2020,100)(2021,107)(2022,114)(2023,122)(2024,130)(2025,138)
+    };
+    \addlegendentry{Value Index}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section{Applications of Index Numbers}
+
+\subsection{Economic Applications}
+\begin{itemize}
+    \item \textbf{Consumer Price Index (CPI):} Measures inflation
+    \item \textbf{Producer Price Index (PPI):} Measures wholesale price changes
+    \item \textbf{GDP Deflator:} Converts nominal GDP to real GDP
+    \item \textbf{Stock Market Indices:} Track market performance
+\end{itemize}
+
+\subsection{Business Applications}
+\begin{itemize}
+    \item Cost of living adjustments in salaries
+    \item Escalation clauses in contracts
+    \item Performance measurement
+    \item Budgeting and forecasting
+\end{itemize}
+
+\section{Limitations of Index Numbers}
+
+\begin{enumerate}
+    \item \textbf{Quality Changes:} Don't account for improvements in product quality
+    \item \textbf{New Products:} Difficulty in incorporating new goods and services
+    \item \textbf{Substitution Bias:} Consumers may substitute expensive items with cheaper alternatives
+    \item \textbf{Base Period Selection:} Choice of base period affects results
+    \item \textbf{Sampling Issues:} Representative sampling challenges
+    \item \textbf{Aggregation Problems:} Combining diverse items into single index
+\end{enumerate}
+
+\section{Worked Examples}
+
+\subsection{Example 1: Consumer Price Index}
+
+A household's monthly expenditure pattern and price changes:
+
+\begin{table}[h]
+\centering
+\caption{Household Expenditure Data}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Category} & \textbf{Weight (\%)} & \textbf{2020 Price} & \textbf{2023 Price} & \textbf{Price Relative} \\
+\midrule
+Food & 35 & 100 & 125 & 125 \\
+Housing & 25 & 100 & 115 & 115 \\
+Transportation & 20 & 100 & 140 & 140 \\
+Healthcare & 10 & 100 & 110 & 110 \\
+Education & 10 & 100 & 105 & 105 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+CPI calculation:
+\begin{align}
+\text{CPI} &= \frac{\sum (Weight \times Price\ Relative)}{\sum Weight} \\
+&= \frac{35 \times 125 + 25 \times 115 + 20 \times 140 + 10 \times 110 + 10 \times 105}{100} \\
+&= \frac{4375 + 2875 + 2800 + 1100 + 1050}{100} \\
+&= \frac{12200}{100} = 122
+\end{align}
+
+The CPI indicates a 22\% increase in cost of living from 2020 to 2023.
+
+\subsection{Example 2: Fixed Base vs Chain Base}
+
+\begin{table}[h]
+\centering
+\caption{Comparison of Fixed Base and Chain Base Methods}
+\begin{tabular}{cccccc}
+\toprule
+\textbf{Year} & \textbf{Price} & \textbf{Fixed Base} & \textbf{Link Relative} & \textbf{Chain Index} \\
+ & & \textbf{(2020=100)} & & \\
+\midrule
+2020 & 50 & 100.0 & - & 100.0 \\
+2021 & 55 & 110.0 & 110.0 & 110.0 \\
+2022 & 62 & 124.0 & 112.7 & 124.0 \\
+2023 & 68 & 136.0 & 109.7 & 136.0 \\
+2024 & 75 & 150.0 & 110.3 & 150.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Summary of Key Formulas}
+
+\subsection{Basic Relatives}
+\begin{align}
+\text{Price Relative} &= \frac{P_1}{P_0} \times 100 \\
+\text{Quantity Relative} &= \frac{Q_1}{Q_0} \times 100 \\
+\text{Value Relative} &= \frac{P_1 Q_1}{P_0 Q_0} \times 100
+\end{align}
+
+\subsection{Simple Index Numbers}
+\begin{align}
+\text{Simple Aggregative} &= \frac{\sum P_1}{\sum P_0} \times 100 \\
+\text{Simple Average of Relatives} &= \frac{\sum \left(\frac{P_1}{P_0} \times 100\right)}{n}
+\end{align}
+
+\subsection{Weighted Price Indices}
+\begin{align}
+\text{Laspeyres' Index} &= \frac{\sum P_1 Q_0}{\sum P_0 Q_0} \times 100 \\
+\text{Paasche's Index} &= \frac{\sum P_1 Q_1}{\sum P_0 Q_1} \times 100 \\
+\text{Fisher's Index} &= \sqrt{P_{01}^L \times P_{01}^P}
+\end{align}
+
+\subsection{Weighted Quantity Indices}
+\begin{align}
+\text{Laspeyres' Quantity Index} &= \frac{\sum P_0 Q_1}{\sum P_0 Q_0} \times 100 \\
+\text{Paasche's Quantity Index} &= \frac{\sum P_1 Q_1}{\sum P_1 Q_0} \times 100 \\
+\text{Fisher's Quantity Index} &= \sqrt{Q_{01}^L \times Q_{01}^P}
+\end{align}
+
+\subsection{Weighted Average of Relatives}
+\begin{align}
+\text{Price Index} &= \frac{\sum W \times P_r}{\sum W} \\
+\text{where } P_r &= \frac{P_1}{P_0} \times 100
+\end{align}
+
+\subsection{Chain Index}
+\begin{equation}
+\text{Chain Index}_{0n} = \prod_{i=1}^{n} \frac{P_i}{P_{i-1}} \times 100
+\end{equation}
+
+\subsection{Tests of Adequacy}
+\begin{align}
+\text{Time Reversal Test:} \quad & P_{01} \times P_{10} = 1 \\
+\text{Factor Reversal Test:} \quad & P_{01} \times Q_{01} = V_{01} \\
+\text{Circular Test:} \quad & P_{01} \times P_{12} \times P_{20} = 1
+\end{align}
+
+\subsection{Deflation}
+\begin{equation}
+\text{Real Value} = \frac{\text{Nominal Value}}{\text{Price Index}} \times 100
+\end{equation}
+
+\vspace{1cm}
+
+\textbf{Note:} Fisher's Ideal Index satisfies both Time Reversal and Factor Reversal tests, making it theoretically superior, though computationally more complex than Laspeyres' or Paasche's indices.
+
+
 \chapter{Theory of Errors}
 
 \section{Introduction}
@@ -14430,7 +14940,7 @@ Proper error analysis ensures that experimental results are reliable, reproducib
 
 \chapter{Statistical Quality Control}
 
-\section{Introduction to Quality and Statistical Quality Control}
+\section{Introduction}
 
 \subsection{Meaning of Quality}
 
@@ -14472,19 +14982,19 @@ SQC typically involves three main steps:
 
 These steps help prevent defects, reduce waste, and promote a culture of quality control throughout the production system.
 
-\subsection{Benefits of SQC}
-
-Some key benefits of implementing SQC in manufacturing and service industries include:
-
-\begin{enumerate}
-    \item \textbf{Early detection of problems:} SQC helps in identifying defects and unusual variations in the process at an early stage, enabling timely corrective actions and preventing large-scale production issues.
-
-    \item \textbf{Improved product quality:} Continuous monitoring ensures that the products conform to quality standards, leading to higher consistency and improved customer satisfaction.
-
-    \item \textbf{Reduced waste and cost:} By minimizing defective output, SQC reduces the need for rework and scrap, thereby lowering production costs and improving efficiency.
-
-    \item \textbf{Data-driven decision making:} SQC uses statistical evidence for process evaluation, eliminating guesswork and personal bias, and promoting informed decision-making.
-\end{enumerate}
+%\subsection{Benefits of SQC}
+%
+%Some key benefits of implementing SQC in manufacturing and service industries include:
+%
+%\begin{enumerate}
+%    \item \textbf{Early detection of problems:} SQC helps in identifying defects and unusual variations in the process at an early stage, enabling timely corrective actions and preventing large-scale production issues.
+%
+%    \item \textbf{Improved product quality:} Continuous monitoring ensures that the products conform to quality standards, leading to higher consistency and improved customer satisfaction.
+%
+%    \item \textbf{Reduced waste and cost:} By minimizing defective output, SQC reduces the need for rework and scrap, thereby lowering production costs and improving efficiency.
+%
+%    \item \textbf{Data-driven decision making:} SQC uses statistical evidence for process evaluation, eliminating guesswork and personal bias, and promoting informed decision-making.
+%\end{enumerate}
 
 \subsection{Key Statistical Tools in SQC}
 
@@ -15129,7 +15639,7 @@ Short-term variation is measured over a limited time frame—such as within a sh
 
 Long-term variation is observed over extended periods such as days, weeks, or months. Unlike short-term variation, it incorporates additional sources of variability that occur between subgroups or over time. This variation is quantified using the \textbf{overall standard deviation} (\(\sigma_{\text{overall}}\)). It includes both common-cause and special-cause variation
 
-\subsubsection*{Example: Coffee Machine}
+\subsubsection*{Example}
 
 Imagine a coffee machine programmed to dispense exactly 8 oz of coffee per cup.
 
@@ -15157,6 +15667,12 @@ Importantly, \(C_p\) is calculated using the \textbf{within-subgroup standard de
 
 The denominator $6\sigma_{\text{within}}$ represents the total spread of the process assuming that it follows a normal distribution (covering approximately 99.73\% of the data). The numerator $USL-LSL$ is the allowable spread as specified by the customer or design requirements.
 
+It is to be noted that in calculating $C_p$, individual subgroup standard deviations are not directly used. The within-subgroup standard deviation can be estimated using the average range $\overline{R}$ across all subgroups and a constant $d_2$ (which depends on subgroup size $n$). The estimator is given by:
+\[
+\hat{\sigma}_{\text{within}} = \frac{\overline{R}}{d_2}
+\]
+The relationship is based on the fact that the expected range of a sample from a normal distribution is proportional to the standard deviation.
+
 \subsubsection{Interpretation}
 \begin{itemize}
 \item $ C_p =1 $: The process spread exactly fits the specification limits.
@@ -15178,8 +15694,8 @@ The denominator $6\sigma_{\text{within}}$ represents the total spread of the pro
     axis lines*=left,
     xlabel={Measurement},
     ylabel={PDF},
-    xtick={85,90,100,110,115},
-    xticklabels={LSL, $-3\sigma$, $\mu$, $3\sigma$, USL},
+    xtick={90,100,110},
+    xticklabels={$-3\sigma_{\text{within}}$, $\mu$, $3\sigma_{\text{within}}$},
     ytick=\empty,
     enlargelimits=false,
     clip=false,title={Good capability, \(C_k > 1\)},
@@ -15190,8 +15706,8 @@ The denominator $6\sigma_{\text{within}}$ represents the total spread of the pro
       {1/(3*sqrt(2*pi)) * exp(-((x-100)^2)/(2*3^2))};
 
     % Specification limits
-    \addplot [very thick, red, dashed] coordinates {(85,0) (85,0.15)} node[pos=0.9, above, black] {};
-    \addplot [very thick, red, dashed] coordinates {(115,0) (115,0.15)} node[pos=0.9, above, black] {};
+    \addplot [very thick, red, dashed] coordinates {(85,0) (85,0.125)} node[pos=1, above, black] {LSL};
+    \addplot [very thick, red, dashed] coordinates {(115,0) (115,0.125)} node[pos=1, above, black] {USL};
   \end{axis}
 \end{tikzpicture}
 \end{subfigure}
@@ -15208,8 +15724,8 @@ The denominator $6\sigma_{\text{within}}$ represents the total spread of the pro
     axis lines*=left,
     xlabel={Measurement},
     ylabel={PDF},
-    xtick={90,95,100,105,110},
-    xticklabels={$-3\sigma$, LSL, $\mu$, USL, $3\sigma$},
+    xtick={90,100,110},
+    xticklabels={$-3\sigma_{\text{within}}$, $\mu$, $3\sigma_{\text{within}}$},
     ytick=\empty,
     enlargelimits=false,
     clip=false,title={Poor capability, \(C_k < 1\)},
@@ -15220,8 +15736,8 @@ The denominator $6\sigma_{\text{within}}$ represents the total spread of the pro
       {1/(6*sqrt(2*pi)) * exp(-((x-100)^2)/(2*6^2))};
 
     % Specification limits
-    \addplot [very thick, red, dashed] coordinates {(95,0) (95,0.08)} node[pos=0.9, above, black] {};
-    \addplot [very thick, red, dashed] coordinates {(105,0) (105,0.08)} node[pos=0.9, above, black] {};
+    \addplot [very thick, red, dashed] coordinates {(95,0) (95,0.06)} node[pos=1, above, black] {LSL};
+    \addplot [very thick, red, dashed] coordinates {(105,0) (105,0.06)} node[pos=1, above, black] {USL};
 
   \end{axis}
 \end{tikzpicture}
@@ -15713,6 +16229,319 @@ Typically:
     \item LTPD (Lot Tolerance Percent Defective): $\beta = 0.10$
 \end{itemize}
 
+\section{Introduction to Acceptance Sampling}
+
+Acceptance sampling is a statistical quality control technique used to determine whether to accept or reject an entire batch (lot) of products based on the inspection of a representative sample. This method is particularly useful when:
+
+\begin{itemize}
+    \item Testing is destructive (e.g., testing the strength of materials)
+    \item 100\% inspection is too costly or time-consuming
+    \item The lot size is very large
+    \item The cost of accepting defective items is not extremely high
+\end{itemize}
+
+\textbf{Key Concept:} Instead of inspecting every item in a lot, we inspect only a sample and make a decision about the entire lot based on the sample results.
+
+\subsection{Basic Terminology}
+
+\begin{itemize}
+    \item \textbf{Lot:} A collection of items from which a sample is drawn
+    \item \textbf{Sample:} A subset of items selected from the lot for inspection
+    \item \textbf{Defective:} An item that does not meet specified quality requirements
+    \item \textbf{Fraction Defective (p):} The proportion of defective items in the lot
+    \item \textbf{Acceptance Number (c):} Maximum number of defective items allowed in the sample for lot acceptance
+\end{itemize}
+
+\section{Single Sampling Plans}
+
+A single sampling plan is the most basic form of acceptance sampling, characterized by two parameters: $(n, c)$.
+
+\subsection{Plan Parameters}
+
+\begin{itemize}
+    \item \textbf{Sample Size ($n$):} Number of items randomly selected from the lot
+    \item \textbf{Acceptance Number ($c$):} Maximum number of defective items allowed in the sample
+\end{itemize}
+
+\subsection{Decision Rule}
+
+The decision rule for a single sampling plan is straightforward:
+\begin{center}
+\boxed{
+\begin{aligned}
+\text{Accept the lot if } d \leq c \\
+\text{Reject the lot if } d > c
+\end{aligned}
+}
+\end{center}
+
+where $d$ is the number of defective items found in the sample.
+
+\subsection{Simple Example}
+
+\textbf{Example 1:} A manufacturer receives a lot of 1000 electronic components. They use a sampling plan $(n=20, c=1)$.
+
+\textbf{Procedure:}
+\begin{enumerate}
+    \item Randomly select 20 components from the lot
+    \item Inspect each component for defects
+    \item Count the number of defective components ($d$)
+    \item Decision:
+    \begin{itemize}
+        \item If $d = 0$ or $d = 1$: Accept the lot
+        \item If $d \geq 2$: Reject the lot
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Possible Outcomes:}
+\begin{itemize}
+    \item Sample contains 0 defective items $\rightarrow$ Accept lot
+    \item Sample contains 1 defective item $\rightarrow$ Accept lot
+    \item Sample contains 2 or more defective items $\rightarrow$ Reject lot
+\end{itemize}
+
+\section{Operating Characteristic (OC) Curve}
+
+The Operating Characteristic (OC) curve is fundamental to understanding the performance of any sampling plan. It shows the probability of accepting a lot as a function of the actual fraction defective in the lot.
+
+\subsection{Mathematical Foundation}
+
+For a single sampling plan $(n, c)$, assuming the number of defective items follows a binomial distribution, the probability of acceptance is:
+
+$$P_a(p) = \sum_{d=0}^{c} \binom{n}{d} p^d (1-p)^{n-d}$$
+
+where:
+\begin{itemize}
+    \item $P_a(p)$ = Probability of accepting a lot with fraction defective $p$
+    \item $\binom{n}{d}$ = Binomial coefficient
+    \item $p$ = True fraction defective in the lot
+    \item $d$ = Number of defective items in the sample
+\end{itemize}
+
+\subsection{Detailed Example: OC Curve Calculation}
+
+Let's calculate the OC curve for sampling plan $(n=50, c=2)$.
+
+\textbf{Step-by-step calculation for $p = 0.04$:}
+
+$$P_a(0.04) = \sum_{d=0}^{2} \binom{50}{d} (0.04)^d (0.96)^{50-d}$$
+
+$$= \binom{50}{0}(0.04)^0(0.96)^{50} + \binom{50}{1}(0.04)^1(0.96)^{49} + \binom{50}{2}(0.04)^2(0.96)^{48}$$
+
+$$= 1 \times 1 \times 0.1299 + 50 \times 0.04 \times 0.1353 + 1225 \times 0.0016 \times 0.1409$$
+
+$$= 0.1299 + 0.2706 + 0.2765 = 0.677$$
+
+\textbf{Complete OC Curve Data:}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c}
+\toprule
+Fraction Defective ($p$) & Probability of Acceptance ($P_a$) \\
+\midrule
+0.00 & 1.000 \\
+0.01 & 0.986 \\
+0.02 & 0.922 \\
+0.03 & 0.812 \\
+0.04 & 0.677 \\
+0.05 & 0.540 \\
+0.06 & 0.416 \\
+0.07 & 0.312 \\
+0.08 & 0.228 \\
+0.09 & 0.164 \\
+0.10 & 0.115 \\
+\bottomrule
+\end{tabular}
+\caption{OC Curve Values for $(n=50, c=2)$}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={Fraction Defective ($p$)},
+    ylabel={Probability of Acceptance ($P_a$)},
+    xtick={0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1},
+    xticklabels={0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1},
+    xmin=0, xmax=0.1,
+    ymin=0, ymax=1,
+    legend pos=north east,
+    grid=major,
+    width=12cm,
+    height=7cm
+]
+\addplot[blue, thick, smooth, mark=*] coordinates {
+    (0,1.000) (0.01,0.986) (0.02,0.922) (0.03,0.812) (0.04,0.677)
+    (0.05,0.540) (0.06,0.416) (0.07,0.312) (0.08,0.228) (0.09,0.164) (0.10,0.115)
+};
+\legend{OC Curve}
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{Operating characteristic curve for $(n=50, c=2)$.}}
+\end{figure}
+
+\subsection{Interpretation of OC Curve}
+
+The OC curve tells us:
+\begin{itemize}
+    \item When $p = 0$ (perfect lot): $P_a = 1.0$ (always accept)
+    \item When $p = 0.02$: $P_a = 0.922$ (92.2\% chance of acceptance)
+    \item When $p = 0.05$: $P_a = 0.540$ (54\% chance of acceptance)
+    \item When $p = 0.10$: $P_a = 0.115$ (11.5\% chance of acceptance)
+\end{itemize}
+
+\textbf{Key Insight:} As the fraction defective increases, the probability of acceptance decreases, which is the desired behavior of a sampling plan.
+
+\section{Producer's and Consumer's Risks}
+
+In acceptance sampling, there are two types of errors that can occur, leading to risks for both the producer and consumer.
+
+\subsection{Type I and Type II Errors}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+& \textbf{Lot is Good} & \textbf{Lot is Bad} \\
+\hline
+\textbf{Accept Lot} & Correct Decision & Type II Error \\
+\hline
+\textbf{Reject Lot} & Type I Error & Correct Decision \\
+\hline
+\end{tabular}
+\caption{Decision Matrix for Acceptance Sampling}
+\end{table}
+
+\subsection{Producer's Risk ($\alpha$)}
+
+\textbf{Definition:} The probability of rejecting a lot that should be accepted (Type I error).
+
+\textbf{Mathematical Expression:}
+$$\alpha = P(\text{Reject lot} | \text{Lot is good}) = 1 - P_a(p_0)$$
+
+where $p_0$ is the Acceptable Quality Level (AQL).
+
+\textbf{Typical Value:} $\alpha = 0.05$ (5\%)
+
+\subsection{Consumer's Risk ($\beta$)}
+
+\textbf{Definition:} The probability of accepting a lot that should be rejected (Type II error).
+
+\textbf{Mathematical Expression:}
+$$\beta = P(\text{Accept lot} | \text{Lot is bad}) = P_a(p_1)$$
+
+where $p_1$ is the Lot Tolerance Percent Defective (LTPD).
+
+\textbf{Typical Value:} $\beta = 0.10$ (10\%)
+
+\subsection{Quality Levels}
+
+\subsubsection{Acceptable Quality Level (AQL)}
+
+The AQL is the maximum percent defective that can be considered satisfactory as a process average. It represents the quality level the producer aims to achieve.
+
+\textbf{Example:} If AQL = 2\%, then lots with 2\% or fewer defective items should be accepted most of the time (95\% of the time if $\alpha = 0.05$).
+
+\subsubsection{Lot Tolerance Percent Defective (LTPD)}
+
+The LTPD is the percent defective that the consumer considers unsatisfactory. Lots with this level of quality should be rejected most of the time.
+
+\textbf{Example:} If LTPD = 8\%, then lots with 8\% or more defective items should be rejected most of the time (90\% of the time if $\beta = 0.10$).
+
+\subsection{Comprehensive Example}
+
+\textbf{Problem:} Design a sampling plan with AQL = 2\%, LTPD = 8\%, $\alpha = 0.05$, and $\beta = 0.10$.
+
+\textbf{Requirements:}
+\begin{itemize}
+    \item $P_a(0.02) \geq 0.95$ (Producer's requirement)
+    \item $P_a(0.08) \leq 0.10$ (Consumer's requirement)
+\end{itemize}
+
+\textbf{Solution Process:}
+We need to find values of $n$ and $c$ that satisfy both conditions. Let's try $(n=89, c=3)$.
+
+For $p = 0.02$ (AQL):
+$$P_a(0.02) = \sum_{d=0}^{3} \binom{89}{d} (0.02)^d (0.98)^{89-d} = 0.952$$
+
+For $p = 0.08$ (LTPD):
+$$P_a(0.08) = \sum_{d=0}^{3} \binom{89}{d} (0.08)^d (0.92)^{89-d} = 0.096$$
+
+\textbf{Verification:}
+\begin{itemize}
+    \item Producer's Risk: $\alpha = 1 - 0.952 = 0.048 < 0.05$ ✓
+    \item Consumer's Risk: $\beta = 0.096 < 0.10$ ✓
+\end{itemize}
+
+Therefore, the sampling plan $(n=89, c=3)$ meets the specified requirements.
+
+\section{Practical Applications and Examples}
+
+\subsection{Manufacturing Example}
+
+\textbf{Scenario:} A bicycle manufacturer receives shipments of 5000 brake pads. They want to ensure quality while minimizing inspection costs.
+
+\textbf{Current Plan:} $(n=100, c=2)$
+
+\textbf{Analysis:}
+\begin{itemize}
+    \item If the lot has 1\% defective: $P_a(0.01) = 0.999$ (Very likely to accept)
+    \item If the lot has 5\% defective: $P_a(0.05) = 0.124$ (Very likely to reject)
+\end{itemize}
+
+\textbf{Interpretation:} This plan effectively discriminates between good and bad lots, providing strong protection for both producer and consumer.
+
+\subsection{Service Industry Example}
+
+\textbf{Scenario:} A call center wants to monitor service quality by sampling customer interactions.
+
+\textbf{Plan:} $(n=50, c=1)$ where "defective" means unsatisfactory service.
+
+\textbf{Decision Process:}
+\begin{enumerate}
+    \item Randomly select 50 customer interactions from the day's total
+    \item Evaluate each interaction for service quality
+    \item If 0 or 1 interactions are unsatisfactory: Day's performance is acceptable
+    \item If 2 or more interactions are unsatisfactory: Investigate and implement corrective actions
+\end{enumerate}
+
+\section{Advantages and Limitations}
+
+\subsection{Advantages}
+
+\begin{itemize}
+    \item \textbf{Cost-effective:} Reduces inspection costs compared to 100\% inspection
+    \item \textbf{Time-efficient:} Faster decision-making process
+    \item \textbf{Suitable for destructive testing:} Preserves most of the product
+    \item \textbf{Flexible:} Can be tailored to specific quality requirements
+    \item \textbf{Standardized:} Industry standards (MIL-STD, ANSI/ASQ) provide guidance
+\end{itemize}
+
+\subsection{Limitations}
+
+\begin{itemize}
+    \item \textbf{Risk of error:} Always some probability of wrong decisions
+    \item \textbf{No quality improvement:} Only sorts good from bad lots
+    \item \textbf{Sample size limitations:} May not detect all quality issues
+    \item \textbf{Assumption dependency:} Relies on statistical assumptions that may not hold
+    \item \textbf{Lot homogeneity:} Assumes random distribution of defects
+\end{itemize}
+
+\section{Conclusion}
+
+Acceptance sampling is a powerful statistical tool for quality control that balances the need for quality assurance with practical constraints of time and cost. The key to successful implementation lies in:
+
+\begin{enumerate}
+    \item Understanding the OC curve and its implications
+    \item Properly defining AQL and LTPD based on business requirements
+    \item Selecting appropriate values for producer's and consumer's risks
+    \item Regular review and adjustment of sampling plans based on historical data
+\end{enumerate}
+
+When properly designed and implemented, acceptance sampling plans provide an effective means of maintaining quality standards while optimizing resource utilization.
+
+
 \section{Reliability and Life Testing}
 
 Reliability is the probability that a system performs successfully during a specified time interval under specified conditions.
@@ -15857,517 +16686,6 @@ Statistical Quality Control provides a comprehensive framework for monitoring, c
 \end{itemize}
 
 The successful implementation of SQC requires understanding of statistical concepts, proper data collection, and commitment to continuous improvement. These methods, when properly applied, lead to reduced variability, improved quality, and enhanced customer satisfaction.
-
-
-\chapter{Index Numbers}
-
-\section{Introduction}
-
-\section{Introduction to Index Numbers}
-
-An \textbf{index number} is a statistical measure that shows the relative change in a variable or group of variables with respect to time, geographical location, or other characteristics. Index numbers are expressed as percentages or ratios that compare the value of a variable in a given period to its value in a base period.
-
-To illustrate why we need index number we consider the following example. Suppose a consumer purchases two commodities: rice and cooking oil. The prices and quantities in the base year and current year are given below:
-
-\begin{table}[H]
-\centering
-\begin{tabular}{l|c|c}
-\toprule
-\textbf{Commodity} & \textbf{Price (Base Year)} & \textbf{Price (Current Year)} \\
-\midrule
-Rice (per kg) & ₹40 & ₹50 \\
-Oil (per litre) & ₹100 & ₹120 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-If we want to understand how much prices have risen overall, it would be misleading to simply average the percentage increases, because it does not account for how much of each commodity is actually purchased. Instead, we fix quantities from the base period and compute a weighted average of the price increases using index numbers.
-
-Assume the consumer bought 30 kg of rice and 10 litres of oil in the base year. Then:
-
-\begin{itemize}
-    \item Cost in base year = \( 40 \times 30 + 100 \times 10 = ₹2200 \)
-    \item Cost in current year = \( 50 \times 30 + 120 \times 10 = ₹2700 \)
-\end{itemize}
-
-The \textbf{Price Index Number} is calculated as:
-
-\[
-\text{Index Number} = \frac{\text{Cost in Current Year}}{\text{Cost in Base Year}} \times 100 = \frac{2700}{2200} \times 100 \approx 122.73
-\]
-
-This means that, overall, prices have increased by approximately 22.73\% compared to the base year.
-
-This example highlights the importance of index numbers. Instead of comparing the price of each item separately, an index number provides a single, meaningful figure that summarizes the overall change in the price level. Such measures are invaluable in economic analysis for tracking inflation, evaluating cost-of-living adjustments, comparing standards of living across regions, or measuring industrial and agricultural output over time. They help policymakers, businesses, and consumers make informed decisions based on relative changes rather than absolute values.
-
-Index numbers serve as powerful tools for:
-\begin{itemize}
-    \item Measuring changes in economic variables over time
-    \item Comparing economic conditions across different regions
-    \item Making informed business and policy decisions
-    \item Deflating monetary values to real terms
-\end{itemize}
-
-The concept of index numbers originated in the 18th century when economists needed to measure price changes over time. Today, they are extensively used in economics, business, and social sciences.
-
-\section{Basic Concepts and Terminology}
-
-\subsection{Key Terms}
-
-\begin{description}
-    \item[Base Period:] The period against which comparisons are made, typically assigned an index value of 100.
-    \item[Current Period:] The period for which the index is being calculated.
-    \item[Base Year:] The reference year for comparison (e.g., 2010 = 100).
-    \item[Weights:] Numerical values representing the relative importance of different items.
-    \item[Price Relative:] The ratio of current price to base price, expressed as a percentage.
-    \item[Quantity Relative:] The ratio of current quantity to base quantity, expressed as a percentage.
-\end{description}
-
-\subsection{Mathematical Foundation}
-
-For a single commodity, the price relative is given by:
-\begin{equation}
-    P_r = \frac{P_1}{P_0} \times 100
-\end{equation}
-
-Where:
-\begin{align}
-    P_r &= \text{Price relative} \\
-    P_1 &= \text{Price in current period} \\
-    P_0 &= \text{Price in base period}
-\end{align}
-
-Similarly, for quantity relative:
-\begin{equation}
-    Q_r = \frac{Q_1}{Q_0} \times 100
-\end{equation}
-
-\section{Types of Index Numbers}
-
-\subsection{Classification by Purpose}
-
-\subsubsection{Price Index Numbers}
-Price index numbers measure the average change in prices of a basket of goods and services over time.
-
-\textbf{Example:} Consumer Price Index (CPI) calculation
-
-\begin{table}[h]
-\centering
-\caption{Price Data for CPI Calculation}
-\begin{tabular}{lccccc}
-\toprule
-\textbf{Item} & \textbf{Base Price} & \textbf{Current Price} & \textbf{Weight} & \textbf{Price Relative} & \textbf{Weighted Price Relative} \\
- & $(P_0)$ & $(P_1)$ & $(W)$ & $(P_r)$ & $(W \times P_r)$ \\
-\midrule
-Food & 100 & 120 & 40 & 120 & 4800 \\
-Housing & 200 & 240 & 30 & 120 & 3600 \\
-Transport & 80 & 100 & 20 & 125 & 2500 \\
-Healthcare & 150 & 180 & 10 & 120 & 1200 \\
-\midrule
-\textbf{Total} & & & 100 & & 12100 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Weighted Price Index = $\frac{\sum W \times P_r}{\sum W} = \frac{12100}{100} = 121$
-
-This indicates a 21\% increase in prices from the base period.
-
-\subsubsection{Quantity Index Numbers}
-These measure changes in the physical quantities of goods produced, consumed, or traded.
-
-\subsubsection{Value Index Numbers}
-Value indices measure changes in the total value (price × quantity) of goods and services.
-
-\begin{equation}
-    \text{Value Index} = \frac{\sum P_1 Q_1}{\sum P_0 Q_0} \times 100
-\end{equation}
-
-\section{Methods of Constructing Price Index Numbers}
-
-\subsection{Simple Price Index Numbers}
-
-\subsubsection{Simple Aggregative Method}
-\begin{equation}
-    P_{01} = \frac{\sum P_1}{\sum P_0} \times 100
-\end{equation}
-
-\subsubsection{Simple Average of Price Relatives Method}
-\begin{equation}
-    P_{01} = \frac{\sum \left(\frac{P_1}{P_0} \times 100\right)}{n}
-\end{equation}
-
-\textbf{Example:} Calculate simple aggregative and average of relatives index
-
-\begin{table}[h]
-\centering
-\caption{Price Data for Simple Index Calculation}
-\begin{tabular}{lccc}
-\toprule
-\textbf{Commodity} & \textbf{Base Price} & \textbf{Current Price} & \textbf{Price Relative} \\
- & $(P_0)$ & $(P_1)$ & $\left(\frac{P_1}{P_0} \times 100\right)$ \\
-\midrule
-A & 10 & 12 & 120 \\
-B & 20 & 26 & 130 \\
-C & 15 & 18 & 120 \\
-D & 25 & 30 & 120 \\
-\midrule
-\textbf{Total} & 70 & 86 & 490 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Simple Aggregative Index = $\frac{86}{70} \times 100 = 122.86$
-
-Simple Average of Relatives = $\frac{490}{4} = 122.5$
-
-\subsection{Weighted Price Index Numbers}
-
-\subsubsection{Weighted Aggregative Method}
-
-\paragraph{Laspeyres' Price Index}
-Uses base period quantities as weights:
-\begin{equation}
-    P_{01}^L = \frac{\sum P_1 Q_0}{\sum P_0 Q_0} \times 100
-\end{equation}
-
-\paragraph{Paasche's Price Index}
-Uses current period quantities as weights:
-\begin{equation}
-    P_{01}^P = \frac{\sum P_1 Q_1}{\sum P_0 Q_1} \times 100
-\end{equation}
-
-\paragraph{Fisher's Ideal Price Index}
-Geometric mean of Laspeyres' and Paasche's indices:
-\begin{equation}
-    P_{01}^F = \sqrt{P_{01}^L \times P_{01}^P}
-\end{equation}
-
-\textbf{Comprehensive Example:}
-
-\begin{table}[h]
-\centering
-\caption{Data for Weighted Index Calculation}
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Item} & $P_0$ & $P_1$ & $Q_0$ & $Q_1$ \\
-\midrule
-Wheat & 20 & 25 & 100 & 110 \\
-Rice & 30 & 36 & 80 & 85 \\
-Sugar & 40 & 48 & 50 & 45 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[h]
-\centering
-\caption{Calculations for Weighted Indices}
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Item} & $P_0Q_0$ & $P_1Q_0$ & $P_0Q_1$ & $P_1Q_1$ \\
-\midrule
-Wheat & 2000 & 2500 & 2200 & 2750 \\
-Rice & 2400 & 2880 & 2550 & 3060 \\
-Sugar & 2000 & 2400 & 1800 & 2160 \\
-\midrule
-\textbf{Total} & 6400 & 7780 & 6550 & 7970 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Calculations:
-\begin{align}
-    P_{01}^L &= \frac{7780}{6400} \times 100 = 121.56 \\
-    P_{01}^P &= \frac{7970}{6550} \times 100 = 121.68 \\
-    P_{01}^F &= \sqrt{121.56 \times 121.68} = 121.62
-\end{align}
-
-\section{Quantity Index Numbers}
-
-\subsection{Laspeyres' Quantity Index}
-\begin{equation}
-    Q_{01}^L = \frac{\sum P_0 Q_1}{\sum P_0 Q_0} \times 100
-\end{equation}
-
-\subsection{Paasche's Quantity Index}
-\begin{equation}
-    Q_{01}^P = \frac{\sum P_1 Q_1}{\sum P_1 Q_0} \times 100
-\end{equation}
-
-\subsection{Fisher's Quantity Index}
-\begin{equation}
-    Q_{01}^F = \sqrt{Q_{01}^L \times Q_{01}^P}
-\end{equation}
-
-Using the previous data:
-\begin{align}
-    Q_{01}^L &= \frac{6550}{6400} \times 100 = 102.34 \\
-    Q_{01}^P &= \frac{7970}{7780} \times 100 = 102.44 \\
-    Q_{01}^F &= \sqrt{102.34 \times 102.44} = 102.39
-\end{align}
-
-\section{Properties and Tests of Index Numbers}
-
-\subsection{Fisher's Tests}
-
-\subsubsection{Time Reversal Test}
-An index should satisfy: $P_{01} \times P_{10} = 1$ (or 100 if expressed as percentage)
-
-\subsubsection{Factor Reversal Test}
-Price index × Quantity index should equal Value index:
-\begin{equation}
-    P_{01} \times Q_{01} = V_{01}
-\end{equation}
-
-Where $V_{01} = \frac{\sum P_1 Q_1}{\sum P_0 Q_0} \times 100$
-
-\subsubsection{Circular Test}
-For three periods: $P_{01} \times P_{12} \times P_{20} = 1$
-
-\subsection{Test Results Summary}
-
-\begin{table}[h]
-\centering
-\caption{Test Results for Different Index Methods}
-\begin{tabular}{lccc}
-\toprule
-\textbf{Index Method} & \textbf{Time Reversal} & \textbf{Factor Reversal} & \textbf{Circular Test} \\
-\midrule
-Laspeyres' & Fails & Fails & Fails \\
-Paasche's & Fails & Fails & Fails \\
-Fisher's & Satisfies & Satisfies & Fails \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\section{Chain Index Numbers}
-
-Chain indices compare each period with the immediately preceding period, then link them together.
-
-\begin{equation}
-    \text{Chain Index}_{0n} = \frac{P_1}{P_0} \times \frac{P_2}{P_1} \times \frac{P_3}{P_2} \times \ldots \times \frac{P_n}{P_{n-1}}
-\end{equation}
-
-\textbf{Example:}
-
-\begin{table}[h]
-\centering
-\caption{Chain Index Calculation}
-\begin{tabular}{ccccc}
-\toprule
-\textbf{Year} & \textbf{Price} & \textbf{Link Relative} & \textbf{Chain Index} \\
-\midrule
-2020 & 100 & - & 100.0 \\
-2021 & 105 & 105.0 & 105.0 \\
-2022 & 110 & 104.8 & 110.0 \\
-2023 & 115 & 104.5 & 115.0 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\section{Deflating and Real Values}
-
-Index numbers are used to convert nominal values to real values by removing the effect of price changes.
-
-\begin{equation}
-    \text{Real Value} = \frac{\text{Nominal Value}}{\text{Price Index}} \times 100
-\end{equation}
-
-\textbf{Example:} If nominal wage increased from \$1000 to \$1200, but price index increased from 100 to 125:
-
-Real wage change = $\frac{1200}{125} \times 100 = 960$
-
-This shows that despite nominal increase, real purchasing power decreased.
-
-\section{Graphical Representation}
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    title={Price Index Trends (2020-2025)},
-    xlabel={Year},
-    ylabel={Index Value},
-    xmin=2020, xmax=2025,
-    ymin=95, ymax=130,
-    xtick={2020,2021,2022,2023,2024,2025},
-    ytick={100,105,110,115,120,125},
-    legend pos=north west,
-    ymajorgrids=true,
-    grid style=dashed,
-    width=12cm,
-    height=8cm
-]
-
-\addplot[
-    color=blue,
-    mark=square,
-    thick
-    ]
-    coordinates {
-    (2020,100)(2021,105)(2022,110)(2023,115)(2024,120)(2025,125)
-    };
-    \addlegendentry{Price Index}
-
-\addplot[
-    color=red,
-    mark=triangle,
-    thick
-    ]
-    coordinates {
-    (2020,100)(2021,102)(2022,104)(2023,106)(2024,108)(2025,110)
-    };
-    \addlegendentry{Quantity Index}
-
-\addplot[
-    color=green,
-    mark=circle,
-    thick
-    ]
-    coordinates {
-    (2020,100)(2021,107)(2022,114)(2023,122)(2024,130)(2025,138)
-    };
-    \addlegendentry{Value Index}
-
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-\section{Applications of Index Numbers}
-
-\subsection{Economic Applications}
-\begin{itemize}
-    \item \textbf{Consumer Price Index (CPI):} Measures inflation
-    \item \textbf{Producer Price Index (PPI):} Measures wholesale price changes
-    \item \textbf{GDP Deflator:} Converts nominal GDP to real GDP
-    \item \textbf{Stock Market Indices:} Track market performance
-\end{itemize}
-
-\subsection{Business Applications}
-\begin{itemize}
-    \item Cost of living adjustments in salaries
-    \item Escalation clauses in contracts
-    \item Performance measurement
-    \item Budgeting and forecasting
-\end{itemize}
-
-\section{Limitations of Index Numbers}
-
-\begin{enumerate}
-    \item \textbf{Quality Changes:} Don't account for improvements in product quality
-    \item \textbf{New Products:} Difficulty in incorporating new goods and services
-    \item \textbf{Substitution Bias:} Consumers may substitute expensive items with cheaper alternatives
-    \item \textbf{Base Period Selection:} Choice of base period affects results
-    \item \textbf{Sampling Issues:} Representative sampling challenges
-    \item \textbf{Aggregation Problems:} Combining diverse items into single index
-\end{enumerate}
-
-\section{Worked Examples}
-
-\subsection{Example 1: Consumer Price Index}
-
-A household's monthly expenditure pattern and price changes:
-
-\begin{table}[h]
-\centering
-\caption{Household Expenditure Data}
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Category} & \textbf{Weight (\%)} & \textbf{2020 Price} & \textbf{2023 Price} & \textbf{Price Relative} \\
-\midrule
-Food & 35 & 100 & 125 & 125 \\
-Housing & 25 & 100 & 115 & 115 \\
-Transportation & 20 & 100 & 140 & 140 \\
-Healthcare & 10 & 100 & 110 & 110 \\
-Education & 10 & 100 & 105 & 105 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-CPI calculation:
-\begin{align}
-\text{CPI} &= \frac{\sum (Weight \times Price\ Relative)}{\sum Weight} \\
-&= \frac{35 \times 125 + 25 \times 115 + 20 \times 140 + 10 \times 110 + 10 \times 105}{100} \\
-&= \frac{4375 + 2875 + 2800 + 1100 + 1050}{100} \\
-&= \frac{12200}{100} = 122
-\end{align}
-
-The CPI indicates a 22\% increase in cost of living from 2020 to 2023.
-
-\subsection{Example 2: Fixed Base vs Chain Base}
-
-\begin{table}[h]
-\centering
-\caption{Comparison of Fixed Base and Chain Base Methods}
-\begin{tabular}{cccccc}
-\toprule
-\textbf{Year} & \textbf{Price} & \textbf{Fixed Base} & \textbf{Link Relative} & \textbf{Chain Index} \\
- & & \textbf{(2020=100)} & & \\
-\midrule
-2020 & 50 & 100.0 & - & 100.0 \\
-2021 & 55 & 110.0 & 110.0 & 110.0 \\
-2022 & 62 & 124.0 & 112.7 & 124.0 \\
-2023 & 68 & 136.0 & 109.7 & 136.0 \\
-2024 & 75 & 150.0 & 110.3 & 150.0 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\section{Summary of Key Formulas}
-
-\subsection{Basic Relatives}
-\begin{align}
-\text{Price Relative} &= \frac{P_1}{P_0} \times 100 \\
-\text{Quantity Relative} &= \frac{Q_1}{Q_0} \times 100 \\
-\text{Value Relative} &= \frac{P_1 Q_1}{P_0 Q_0} \times 100
-\end{align}
-
-\subsection{Simple Index Numbers}
-\begin{align}
-\text{Simple Aggregative} &= \frac{\sum P_1}{\sum P_0} \times 100 \\
-\text{Simple Average of Relatives} &= \frac{\sum \left(\frac{P_1}{P_0} \times 100\right)}{n}
-\end{align}
-
-\subsection{Weighted Price Indices}
-\begin{align}
-\text{Laspeyres' Index} &= \frac{\sum P_1 Q_0}{\sum P_0 Q_0} \times 100 \\
-\text{Paasche's Index} &= \frac{\sum P_1 Q_1}{\sum P_0 Q_1} \times 100 \\
-\text{Fisher's Index} &= \sqrt{P_{01}^L \times P_{01}^P}
-\end{align}
-
-\subsection{Weighted Quantity Indices}
-\begin{align}
-\text{Laspeyres' Quantity Index} &= \frac{\sum P_0 Q_1}{\sum P_0 Q_0} \times 100 \\
-\text{Paasche's Quantity Index} &= \frac{\sum P_1 Q_1}{\sum P_1 Q_0} \times 100 \\
-\text{Fisher's Quantity Index} &= \sqrt{Q_{01}^L \times Q_{01}^P}
-\end{align}
-
-\subsection{Weighted Average of Relatives}
-\begin{align}
-\text{Price Index} &= \frac{\sum W \times P_r}{\sum W} \\
-\text{where } P_r &= \frac{P_1}{P_0} \times 100
-\end{align}
-
-\subsection{Chain Index}
-\begin{equation}
-\text{Chain Index}_{0n} = \prod_{i=1}^{n} \frac{P_i}{P_{i-1}} \times 100
-\end{equation}
-
-\subsection{Tests of Adequacy}
-\begin{align}
-\text{Time Reversal Test:} \quad & P_{01} \times P_{10} = 1 \\
-\text{Factor Reversal Test:} \quad & P_{01} \times Q_{01} = V_{01} \\
-\text{Circular Test:} \quad & P_{01} \times P_{12} \times P_{20} = 1
-\end{align}
-
-\subsection{Deflation}
-\begin{equation}
-\text{Real Value} = \frac{\text{Nominal Value}}{\text{Price Index}} \times 100
-\end{equation}
-
-\vspace{1cm}
-
-\textbf{Note:} Fisher's Ideal Index satisfies both Time Reversal and Factor Reversal tests, making it theoretically superior, though computationally more complex than Laspeyres' or Paasche's indices.
-
 
 \end{document}
 
