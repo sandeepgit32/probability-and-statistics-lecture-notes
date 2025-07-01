@@ -15265,11 +15265,13 @@ Sometimes, only one-sided limit matters—either just an upper or just a lower l
 
 If there is only an upper specification limit (USL), the formula becomes:
 \[
-C_{p, \text{upper}} = \frac{USL - \mu}{3\sigma_{\text{within}}}
+C_{p, \text{upper}} = \frac{USL - \mu_w}{3\sigma_{\text{within}}}
 \]
+where $\mu_w$ is the process mean within subgroup.
+
 Likewise, if only a lower specification limit (LSL) is applicable, the formula becomes:
 \[
-C_{p, \text{lower}} = \frac{\mu - LSL}{3\sigma_{\text{within}}}
+C_{p, \text{lower}} = \frac{\mu_w - LSL}{3\sigma_{\text{within}}}
 \]
 
 These one-sided indices are useful in scenarios where deviations in only one direction are undesirable—for example, when there is a maximum allowable concentration of a chemical, or a minimum required tensile strength in materials.
@@ -15279,10 +15281,10 @@ These one-sided indices are useful in scenarios where deviations in only one dir
 The $C_{pk}$ index measures the potential capability of a process, considering that the process mean may not be centered between the specification limits.
 
 \begin{textbox}
-$$C_{pk} = \min\left(\frac{USL - \mu}{3\sigma_{\text{within}}}, \frac{\mu - LSL}{3\sigma_{\text{within}}}\right)=\min \left(C_{p, \text{upper}}, C_{p, \text{lower}}\right)$$
+$$C_{pk} = \min\left(\frac{USL - \mu_w}{3\sigma_{\text{within}}}, \frac{\mu_w - LSL}{3\sigma_{\text{within}}}\right)=\min \left(C_{p, \text{upper}}, C_{p, \text{lower}}\right)$$
 \end{textbox}
 
-where $\mu$ is the process mean within subgroup.
+where $\mu_w$ is the process mean within subgroup.
 
 The formula takes the minimum of the two distances (in terms of standard deviations) from the process mean to each specification limit. This ensures that any shift in the process mean away from the center reduces the $C_{pk}$ value, even if $C_{p}$ remains high.
 
@@ -15373,12 +15375,12 @@ $C_{pk} \geq 2.0$ & Excellent \\
 \subsubsection{Example}
 Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The process mean is 102 mm, and the standard deviation is 1 mm (within subgroup). Then,
 \[
-\frac{USL - \mu}{3\sigma_{\text{within}}} = \frac{105 - 102}{3 \times 1} = \frac{3}{3} = 1, \quad \frac{\mu - LSL}{3\sigma_{\text{within}}} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
+\frac{USL - \mu_w}{3\sigma_{\text{within}}} = \frac{105 - 102}{3 \times 1} = \frac{3}{3} = 1, \quad \frac{\mu_w - LSL}{3\sigma_{\text{within}}} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
 \]
 \[
 C_{pk} = \min\left(1,\ 2.33\right) = 1.0
 \]
-Although the process has a relatively low variation, the mean is not centered within the specification limits. The value \( C_{pk} = 1.0 \) indicates that the process is only marginally capable and may produce defects near the upper limit.
+Although the process has a relatively low variation, the mean is not centered within the specification limits. The value \( C_{pk} = 1.0 \) indicates that the process is only {marginally capable} and may produce defects near the upper limit.
 
 ---
 
@@ -15388,12 +15390,12 @@ Assuming the process output is normally distributed, the process capability inde
 
 Let the specification limits be \(USL\) and \(LSL\), and the process mean and standard deviation be \(\mu\) and \(\sigma\), respectively. Then, the defect rate can be estimated using the tails of the normal distribution:
 \begin{align*}
-P(\text{Defect}) &= P(X < LSL) + P(X > USL)\\ &= 1+\Phi\left(\dfrac{LSL - \mu}{\sigma}\right) - \Phi\left(\dfrac{USL - \mu}{\sigma}\right)\\
+P(\text{Defect}) &= P(X < LSL) + P(X > USL)\\ &= 1+\Phi\left(\dfrac{LSL - \mu_w}{\sigma_{\text{within}}}\right) - \Phi\left(\dfrac{USL - \mu_w}{\sigma_{\text{within}}}\right)\\
 &=1 + \underbrace{\Phi\left(-3C_{p,\text{lower}}\right)}_{1-\Phi\left(3C_{p,\text{lower}}\right)} - \Phi\left(3C_{p,\text{upper}}\right) \\
 &=2 - \Phi\left(3C_{p,\text{lower}}\right) - \Phi\left(3C_{p,\text{lower}}\right)
 \end{align*}
 
-where \(\Phi(\cdot)\) is the cumulative distribution function (CDF) of the standard normal distribution. When the process is centered $C_{p, \text{upper}} = C_{p, \text{lower}}=C_{pk}$,
+where \(\Phi(\cdot)\) is the CDF of the standard normal distribution. When the process is centered $C_{p, \text{upper}} = C_{p, \text{lower}}=C_{pk}$,
 \begin{align*}
 P(\text{Defect}) =2\left( 1 - \Phi\left(3C_{pk}\right)\right)
 \end{align*}
@@ -15422,11 +15424,10 @@ P(\text{Defect}) =2\left( 1 - \Phi\left(3C_{pk}\right)\right)
 The $P_{p}$ index measures the \textbf{actual overall process performance capability}, using the total variation observed in the process data. It does not consider process centering.
 
 \begin{textbox}
-$$P_{p} = \frac{USL - LSL}{6s}$$
+$$P_{p} = \frac{USL - LSL}{6\sigma_{\text{overall}}}$$
 \end{textbox}
 
-where $s$ is the calculated sample standard deviation of the process using all the data. Note that the only difference between $ C_p $ and $ P_p $ is how the process variation is calculated. The calculated standard deviation includes all the
-past data and does not take into account if the process is in statistical control. If the process is not in statistical control, the value of the calculated standard deviation will often be inflated.
+where $\sigma_{\text{overall}}$ is the calculated overall standard deviation of the process using all the data. Note that the only difference between $ C_p $ and $ P_p $ is how the process variation is calculated. The calculated standard deviation includes all the past data and does not take into account if the process is in statistical control. If the process is not in statistical control, the value of the calculated standard deviation will often be inflated.
 \subsubsection{Interpretation}
 
 A higher $P_p$ means the process variation is small relative to the specification width. However, since $P_p$ ignores centering, it might overestimate capability if the process mean is off-center.
@@ -15446,9 +15447,9 @@ Interpreting \(C_p\) and \(P_p\) together helps evaluate both the potential and 
 
 \subsubsection{Example}
 
-Suppose the process has specification limits 95 mm and 105 mm, and the sample standard deviation $s = 1.2$ mm. Then,
+Suppose the process has specification limits 95 mm and 105 mm, and the sample standard deviation $\sigma_{\text{overall}} = 1.2$ mm. Then,
 \[
-P_p = \frac{105 - 95}{6 \times 1.2} = \frac{10}{7.2} \approx 1.39
+P_p = \dfrac{105 - 95}{6 \times 1.2} = \frac{10}{7.2} \approx 1.39
 \]
 This suggests the process has adequate performance, but this does not consider whether the process mean is centered.
 
@@ -15459,10 +15460,10 @@ This suggests the process has adequate performance, but this does not consider w
 The $P_{pk}$ index evaluates the {actual process performance considering both variation and centering}, using overall process data.
 
 \begin{textbox}
-$$P_{pk} = \min\left(\frac{USL - \overline{x}}{3s}, \frac{\overline{x} - LSL}{3s}\right)$$
+$$P_{pk} = \min\left(\dfrac{USL - \mu_o}{3\sigma_{\text{overall}}}, \dfrac{\mu_o - LSL}{3\sigma_{\text{overall}}}\right)$$
 \end{textbox}
 
-where $\overline{x}$ and $s$ are the caulated values of the sample mean and the sample standard deviation respetively.
+where $\mu_o$ and $\sigma_{\text{overall}}$ are the values of the overall process mean and the overall process standard deviation respetively.
 
 \subsubsection{Interpretation}
 
@@ -15479,9 +15480,9 @@ Interpreting \(C_{pk}\) and \(P_{pk}\) together provides insight into both the p
 
 \subsubsection{Example}
 
-Suppose a process has $LSL=95$ mm, $USL=105$ mm, sample mean $\bar{x} = 102$ mm, and sample standard deviation $s=1$ mm. Then,
+Suppose a process has $LSL=95$ mm, $USL=105$ mm, sample mean $\overline{x} = 102$ mm, and sample standard deviation $\sigma_{\text{overall}}=1$ mm. Then,
 \[
-\frac{USL - \overline{x}}{3s} = \frac{105 - 102}{3 \times 1} = 1, \quad \frac{\overline{x} - LSL}{3s} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
+\dfrac{USL - \mu_o}{3\sigma_{\text{overall}}} = \dfrac{105 - 102}{3 \times 1} = 1, \quad \frac{\mu_o - LSL}{3s} = \dfrac{102 - 95}{3 \times 1} = \dfrac{7}{3} \approx 2.33
 \]
 \[
 P_{pk} = \min(1, 2.33) = 1.0
@@ -15490,203 +15491,7 @@ This indicates marginal performance capability, similar to the $C_{pk}$ case but
 
 ---
 
-\subsubsection{Relationship Between \(P_{pk}\) and Defect Rate}
-
-The performance index \(P_{pk}\) measures how the process is performing relative to specification limits when considering the \textbf{long‑term} variability of the process. Unlike \(C_{pk}\), which uses the within‑subgroup standard deviation \(\sigma\), \(P_{pk}\) uses the overall standard deviation \(\sigma_{\text{overall}}\), often estimated from the long‑term data. Under the assumption of a normally distributed long‑term process, \(P_{pk}\) can likewise be translated into an expected defect rate.
-
-The total defect probability is
-\begin{align*}
-P(\text{Defect})
-&= P(X < LSL) + P(X > USL)\\
-&= \Phi\Bigl(\frac{LSL - \mu}{\sigma_{\text{overall}}}\Bigr)
-  + \bigl[1 - \Phi\bigl(\tfrac{USL - \mu}{\sigma_{\text{overall}}}\bigr)\bigr]\\
-&= \Phi\bigl(-3\,P_{pk,\,\text{lower}}\bigr)
-  + \bigl[1 - \Phi\bigl(3\,P_{pk,\,\text{upper}}\bigr)\bigr]\\
-&= 1 - \Phi\bigl(3\,P_{pk,\,\text{upper}}\bigr)
-  + 1 - \Phi\bigl(3\,P_{pk,\,\text{lower}}\bigr)\\
-&= 2 - \Phi\bigl(3\,P_{pk,\,\text{lower}}\bigr)
-      - \Phi\bigl(3\,P_{pk,\,\text{upper}}\bigr).
-\end{align*}
-
-When the process is centered so that \(P_{pk,\,\text{upper}}=P_{pk,\,\text{lower}}=P_{pk}\), this simplifies to
-\[
-P(\text{Defect}) \;=\; 2\Bigl[1 - \Phi\bigl(3\,P_{pk}\bigr)\Bigr]
-\]
-
-Thus, for example, a long‑term performance index of \(P_{pk}=1.00\) corresponds to approximately 0.27\% defects (or 2,700 ppm), exactly as with \(C_{pk}\), but reflecting the actual long‑term variation of the process.
-
-
-\section{Complete Worked Example}
-
-\subsection{Problem Statement}
-
-A manufacturing company produces steel rods with a target diameter of 25.0 mm. The specification limits are:
-\begin{itemize}
-\item Lower Specification Limit (LSL) = 24.5 mm
-\item Upper Specification Limit (USL) = 25.5 mm
-\item Target = 25.0 mm
-\end{itemize}
-
-Quality control collected 100 samples over a production period. The analysis revealed:
-
-
-\textbf{Sample Data Summary:}
-\begin{itemize}
-\item Sample size: $ n = 100 $
-\item Sample mean: $\bar{x} = 25.15$ mm
-\item Sample standard deviation: $s = 0.18$ mm
-\item Process standard deviation (from control charts): $\sigma = 0.15$ mm
-\item Process mean: $\mu = 25.12$ mm
-\end{itemize}
-
-
-\subsection{Step-by-Step Calculations}
-
-\subsubsection{Step 1: Calculate Cp}
-
-\begin{align}
-C_p &= \frac{USL - LSL}{6\sigma}\\
-&= \frac{25.5 - 24.5}{6 \times 0.15}\\
-&= \frac{1.0}{0.9}\\
-&= 1.11
-\end{align}
-
-\textbf{Interpretation:} $ C_p = 1.11 $ indicates marginal process capability. The process variation is close to the specification width.
-
-\subsubsection{Step 2: Calculate Cpk}
-
-First, calculate the upper and lower capability indices:
-
-\begin{align}
-C_{pk,upper} &= \frac{USL - \mu}{3\sigma} = \frac{25.5 - 25.12}{3 \times 0.15} = \frac{0.38}{0.45} = 0.84\\
-C_{pk,lower} &= \frac{\mu - LSL}{3\sigma} = \frac{25.12 - 24.5}{3 \times 0.15} = \frac{0.62}{0.45} = 1.38
-\end{align}
-
-\begin{align}
-C_{pk} &= \min(0.84, 1.38) = 0.84
-\end{align}
-
-\textbf{Interpretation:} $ C_{pk} = 0.84 $ indicates inadequate process capability. The process mean is shifted toward the upper specification limit.
-
-\subsubsection{Step 3: Calculate Pp}
-
-\begin{align}
-P_p &= \frac{USL - LSL}{6s}\\
-&= \frac{25.5 - 24.5}{6 \times 0.18}\\
-&= \frac{1.0}{1.08}\\
-&= 0.93
-\end{align}
-
-\textbf{Interpretation:} $ P_p = 0.93 $ indicates inadequate process performance based on actual sample data.
-
-\subsubsection{Step 4: Calculate Ppk}
-
-\begin{align}
-P_{pk,upper} &= \frac{USL - \bar{x}}{3s} = \frac{25.5 - 25.15}{3 \times 0.18} = \frac{0.35}{0.54} = 0.65\\
-P_{pk,lower} &= \frac{\bar{x} - LSL}{3s} = \frac{25.15 - 24.5}{3 \times 0.18} = \frac{0.65}{0.54} = 1.20
-\end{align}
-
-\begin{align}
-P_{pk} &= \min(0.65, 1.20) = 0.65
-\end{align}
-
-\textbf{Interpretation:} $ P_{pk} = 0.65 $ indicates inadequate process performance with poor centering.
-
-\subsection{Results Summary}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|c|c|l|}
-\hline
-\textbf{Index} & \textbf{Value} & \textbf{Category} & \textbf{Key Insight} \\
-\hline
-Cp & 1.11 & Marginal & Process spread nearly fills spec width \\
-Cpk & 0.84 & Inadequate & Process off-center toward USL \\
-Pp & 0.93 & Inadequate & Actual variation exceeds acceptable \\
-Ppk & 0.65 & Inadequate & Poor performance with centering issues \\
-\hline
-\end{tabular}
-\caption{Process Capability Analysis Results}
-\end{table}
-
-\section{Defect Rate Analysis}
-
-Using the normal distribution, we can estimate the defect rates:
-
-\subsection{Process-Based Defect Rate (using $\mu$ and $\sigma$)}
-
-\begin{align}
-Z_{LSL} &= \frac{LSL - \mu}{\sigma} = \frac{24.5 - 25.12}{0.15} = -4.13\\
-Z_{USL} &= \frac{USL - \mu}{\sigma} = \frac{25.5 - 25.12}{0.15} = 2.53
-\end{align}
-
-\begin{itemize}
-\item P(X $<$ LSL) $\approx$ 0 (extremely small)
-\item P(X $>$ USL) $\approx$ 0.57\%
-\item Total defect rate $\approx$ 0.57\% or 5,700 PPM
-\end{itemize}
-
-\subsection{Sample-Based Defect Rate (using $\bar{x}$ and $s$)}
-
-\begin{align}
-Z_{LSL} &= \frac{LSL - \bar{x}}{s} = \frac{24.5 - 25.15}{0.18} = -3.61\\
-Z_{USL} &= \frac{USL - \bar{x}}{s} = \frac{25.5 - 25.15}{0.18} = 1.94
-\end{align}
-
-\begin{itemize}
-\item P(X $<$ LSL) $\approx$ 0.015\%
-\item P(X $>$ USL) $\approx$ 2.62\%
-\item Total defect rate $\approx$ 2.64\% or 26,400 PPM
-\end{itemize}
-
-\section{Comparison and Key Insights}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|c|c|l|}
-\hline
-\textbf{Aspect} & \textbf{Cp/Cpk} & \textbf{Pp/Ppk} & \textbf{Difference} \\
-\hline
-Data Source & Control charts & Sample data & Process vs. actual \\
-Standard Deviation & $\sigma = 0.15$ & $s = 0.18$ & 20\% higher variation \\
-Mean & $\mu = 25.12$ & $\bar{x} = 25.15$ & Slight shift \\
-Capability & Cp = 1.11 & Pp = 0.93 & Lower performance \\
-Centering Effect & Cpk = 0.84 & Ppk = 0.65 & Worse actual performance \\
-\hline
-\end{tabular}
-\caption{Comparison of Process Capability vs. Performance}
-\end{table}
-
-
-\textbf{Key Insights from this Example:}
-\begin{enumerate}
-\item The process shows marginal theoretical capability (Cp = 1.11) but inadequate actual performance (Pp = 0.93)
-\item Both Cpk and Ppk indicate the process is off-center, closer to the upper specification limit
-\item The sample data shows higher variation than the process parameters suggest
-\item Immediate action is needed to center the process and reduce variation
-\item The defect rate is unacceptably high, especially based on sample data (26,400 PPM)
-\end{enumerate}
-
-
-\section{Recommended Actions}
-
-Based on the capability analysis results:
-
-\subsection{Short-term Actions}
-\begin{enumerate}
-\item \textbf{Process Centering}: Adjust the process mean from 25.15 mm to 25.0 mm (target)
-\item \textbf{Control Charts}: Implement real-time monitoring to detect shifts
-\item \textbf{Sampling Plan}: Increase sampling frequency to better monitor process stability
-\end{enumerate}
-
-\subsection{Long-term Actions}
-\begin{enumerate}
-\item \textbf{Variation Reduction}: Investigate and eliminate sources of variation to improve both Cp and Pp
-\item \textbf{Process Improvement}: Target achieving Cpk and Ppk $\geq$ 1.33 (adequate capability)
-\item \textbf{Continuous Monitoring}: Regular capability studies to ensure sustained improvement
-\end{enumerate}
-
-\section{Decision Matrix for Process Capability}
+\subsection{Recommended Actions for Process Capability}
 
 \begin{table}[H]
 \centering
@@ -15707,8 +15512,159 @@ Based on the capability analysis results:
 & $< 1.0$ & Complete process overhaul \\
 \bottomrule
 \end{tabular}
-\caption{\textit{Decision matrix based on capability indices.}}
+\caption{\textit{Recommended actions based on capability indices.}}
 \end{table}
+
+\subsection{A Case Study of Process Capability Analysis}
+
+\subsubsection{Problem Statement}
+
+A steel rod manufacturing company produces rods with a target diameter of 25.0 mm. The specification limits are:
+\begin{itemize}
+    \item Lower Specification Limit (LSL) = 24.7 mm
+    \item Upper Specification Limit (USL) = 25.3 mm
+    \item Target Value = 25.0 mm
+\end{itemize}
+
+Quality engineers collected 100 measurements over 20 subgroups (5 measurements per subgroup) to assess process capability as follows:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c|c|c}
+\toprule
+\textbf{Subgroup} & $ {X_1} $ & $ {X_2} $ & $ {X_3} $ & $ {X_4} $ & $ {X_5} $ & $\overline{X}$ & {R} \\
+\midrule
+1 & 24.95 & 25.02 & 24.98 & 25.01 & 24.97 & 24.986 & 0.07 \\
+2 & 25.03 & 24.96 & 25.00 & 24.99 & 25.02 & 25.000 & 0.07 \\
+3 & 24.92 & 25.05 & 24.98 & 25.01 & 24.94 & 24.980 & 0.13 \\
+4 & 25.08 & 24.97 & 25.03 & 24.99 & 25.01 & 25.016 & 0.11 \\
+5 & 24.99 & 25.04 & 24.96 & 25.02 & 25.00 & 25.002 & 0.08 \\
+6 & 25.01 & 24.95 & 25.07 & 24.98 & 25.03 & 25.008 & 0.12 \\
+7 & 24.94 & 25.01 & 24.97 & 25.05 & 24.99 & 24.992 & 0.11 \\
+8 & 25.06 & 24.98 & 25.02 & 24.96 & 25.04 & 25.012 & 0.10 \\
+9 & 24.97 & 25.03 & 24.99 & 25.01 & 24.95 & 24.990 & 0.08 \\
+10 & 25.05 & 24.99 & 25.01 & 24.97 & 25.08 & 25.020 & 0.11 \\
+11 & 24.96 & 25.02 & 25.04 & 24.98 & 25.00 & 25.000 & 0.08 \\
+12 & 25.01 & 24.94 & 25.06 & 25.02 & 24.97 & 25.000 & 0.12 \\
+13 & 24.98 & 25.05 & 24.99 & 25.03 & 25.01 & 25.012 & 0.07 \\
+14 & 25.04 & 24.97 & 25.00 & 24.96 & 25.09 & 25.012 & 0.13 \\
+15 & 24.93 & 25.01 & 24.98 & 25.04 & 24.99 & 24.990 & 0.11 \\
+16 & 25.07 & 24.99 & 25.02 & 24.95 & 25.03 & 25.012 & 0.12 \\
+17 & 24.98 & 25.06 & 25.00 & 25.01 & 24.97 & 25.004 & 0.09 \\
+18 & 25.02 & 24.94 & 25.05 & 24.99 & 25.01 & 25.002 & 0.11 \\
+19 & 24.99 & 25.03 & 24.96 & 25.07 & 25.00 & 25.010 & 0.11 \\
+20 & 25.01 & 24.98 & 25.04 & 24.97 & 25.05 & 25.010 & 0.08 \\
+\midrule
+\end{tabular}
+\caption{\textit{Steel rod diameter measurements (mm)}}
+\end{table}
+
+Using the collected data, evaluate the process capability.
+
+
+\subsubsection{Overall Mean}
+\[
+\overline{\overline{X}} = \dfrac{24.986 + 25.000 + 24.980 + \dots}{20} = \dfrac{500.202}{20} = 25.001 \text{ mm}
+\]
+
+\subsubsection{Average Range}
+\[
+\overline{R} = \dfrac{0.07 + 0.07 + 0.13 + \dots}{20} = \dfrac{2.01}{20} = 0.1005 \text{ mm}
+\]
+
+\subsubsection{Short-term Variation (Within Subgroups)}
+
+For short-term capability indices, we estimate the within-subgroup standard deviation using:
+
+\[
+\hat{\sigma}_{\text{within}} = \dfrac{\overline{R}}{d_2}
+\]
+
+where \(d_2 = 2.326\) for subgroup size \(n = 5\).
+
+\[
+\hat{\sigma}_{\text{within}} = \dfrac{0.1005}{2.326} = 0.0432 \text{ mm}
+\]
+
+\subsubsection{Long-term Variation (Overall Process)}
+
+For long-term capability indices, we use the overall standard deviation from all \(n = 100\) measurements:
+
+\[
+\hat{\sigma}_{\text{overall}} = 0.0376 \text{ mm}
+\]
+
+\subsubsection{Process Capability (\texorpdfstring{$C_p$}{Cp})}
+
+\[
+C_p = \dfrac{USL - LSL}{6\hat{\sigma}_{\text{within}}} = \dfrac{25.3 - 24.7}{6 \times 0.0432} = \dfrac{0.6}{0.2592} = 2.31
+\]
+
+\subsubsection{Process Capability Index (\texorpdfstring{$C_{pk}$}{Cpk})}
+
+\[
+C_{pk} = \min\left(\dfrac{USL - \overline{\overline{X}}}{3\hat{\sigma}_{\text{within}}}, \dfrac{\overline{\overline{X}} - LSL}{3\hat{\sigma}_{\text{within}}}\right)
+\]
+\begin{align*}
+C_{pk} &= \min\left(\dfrac{25.3 - 25.001}{3 \times 0.0432}, \dfrac{25.001 - 24.7}{3 \times 0.0432}\right)\\
+&= \min\left(\dfrac{0.299}{0.1296}, \dfrac{0.301}{0.1296}\right)
+= \min(2.31, 2.32) = 2.31
+\end{align*}
+
+\subsubsection{Process Performance (\texorpdfstring{$P_p$}{Pp})}
+
+\[
+P_p = \dfrac{USL - LSL}{6\hat{\sigma}_{\text{overall}}} = \dfrac{25.3 - 24.7}{6 \times 0.0376} = \dfrac{0.6}{0.2256} = 2.66
+\]
+
+\subsubsection{Process Performance Index (\texorpdfstring{$P_{pk}$}{Ppk})}
+
+\[
+P_{pk} = \min\left(\dfrac{USL - \overline{\overline{X}}}{3\hat{\sigma}_{\text{overall}}}, \dfrac{\overline{\overline{X}} - LSL}{3\hat{\sigma}_{\text{overall}}}\right)
+\]
+\begin{align*}
+P_{pk} &= \min\left(\dfrac{25.3 - 25.001}{3 \times 0.0376}, \dfrac{25.001 - 24.7}{3 \times 0.0376}\right)\\
+&= \min\left(\dfrac{0.299}{0.1128}, \dfrac{0.301}{0.1128}\right)
+= \min(2.65, 2.67) = 2.65
+\end{align*}
+\subsubsection{Interpretation of Results}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c}
+\toprule
+\textbf{Index} & \textbf{Value} & \textbf{Interpretation} \\
+\midrule
+$C_p$ & 2.31 & Excellent \textbf{potential} capability (short-term, assuming centered) \\
+$C_{pk}$ & 2.31 & Excellent \textbf{potential} capability (short-term, actual centering) \\
+$P_p$ & 2.66 & Excellent \textbf{overall} performance (long-term, assuming centered) \\
+$P_{pk}$ & 2.65 & Excellent \textbf{overall} performance (long-term, actual centering) \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Process capability results based on short-term and long-term data.}}
+\end{table}
+
+\subsubsection{Defect Rate Estimation}
+
+Based on the capability indices, we can estimate defect rates:
+
+For $C_{pk} = 2.31$:
+$$\text{Defect Rate} \approx 2 \times \left( 1-\Phi(C_{pk})\right)  = 2 \times(1- \Phi(2.31)) \approx 0.021 \text{ ppm}$$
+
+This means approximately 0.021 parts per million would be outside specifications - essentially zero defects.
+
+\subsubsection{Conclusion}
+
+The steel rod manufacturing process demonstrates excellent capability with all indices well above acceptable thresholds. The process is:
+
+\begin{itemize}
+    \item Excellent process capability (all indices > 2.0).
+    \item Well-centered on target.
+    \item Stable over time.
+    \item Producing virtually zero defects (less than 0.002 ppm).
+\end{itemize}
+
+The primary focus should be on maintaining this excellent performance. No corrective actions are needed, but continuous monitoring and documentation of best practices are recommended.
 
 
 \section{Acceptance Sampling}
