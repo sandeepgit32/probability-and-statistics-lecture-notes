@@ -15103,23 +15103,19 @@ From the Pareto chart, it is evident that the majority of the defects (70\%) com
 
 \section{Process Capability Analysis}
 
+Every manufacturing or production process has some natural variability, and the goal of \textbf{process capability} is to ensure that this variability stays within the acceptable range set by customer or engineering requirements. The Process capability index helps us understand whether the process is capable of producing results that consistently fall within these limits.
+
 \begin{textbox}
-The \textbf{process capability} allow us to measure or quantify the capability of a process to outputs that meet our design specification.
-
----
-
-The \textbf{Process Capability Index} is the specific measure we use to quantify process capability.
+The \textbf{process capability index} is the specific measure we use to quantify the capability of a process for producing outputs that meet our design specification.
 \end{textbox}
 
-Every manufacturing or production process has some natural variability, and the goal is to ensure that this variability stays within the acceptable range set by customer or engineering requirements. The Process capability index helps us understand whether the process is capable of producing results that consistently fall within these limits.
-
-For example, consider a process that manufactures plastic bottles with an acceptable weight range of 95 to 105 grams. If the process consistently produces bottles between 96 and 104 grams, it is considered capable. But if the weights vary from 92 to 108 grams, many units may fall outside the limits, indicating poor capability. The Process Capability Index summarizes this relationship between process variation and specification limits in a single number.
+For example, consider a process that manufactures plastic bottles with an acceptable weight range between 95 to 105 grams. If the process consistently produces bottles between 96 and 104 grams, it is considered capable. But if the weights vary from 92 to 108 grams, many units may fall outside the limits, indicating poor capability. The Process Capability Index summarizes this relationship between process variation and specification limits in a single number.
 
 \subsection{Statistical Control and Its Importance}
 
 A process is said to be in \textbf{statistical control} when it operates consistently over time, with variation coming only from natural, random factors known as \textbf{common causes}. These are small, unavoidable fluctuations that are inherent to the system.
 
-In contrast, there are \textbf{special causes} which are unusual variations caused by specific issues like operator changes, equipment drift, raw material shifts, and environmental conditions. A process in statistical control shows no unexpected patterns or points outside control limits on a control chart. This is an essential condition or using capability indices like $C_k$ and $C_{pk}$ reliably which we will discuss in coming subsections.
+In contrast, there are \textbf{special causes} which are unusual variations caused by specific issues like operator changes, equipment drift, raw material shifts, and environmental conditions. A process in statistical control shows no unexpected patterns or points outside control limits on a control chart. This is an essential condition for using capability indices like $C_k$ and $C_{pk}$ reliably which we will discuss in coming subsections.
 
 \subsection{Understanding Short-term vs. Long-term Variation}
 
@@ -15250,14 +15246,14 @@ $C_{p} \geq 2.0$ & Excellent \\
 
 It is important to remember that $C_p$ does not account for how well the process is centered. A process with a high $C_p$ can still produce defects if the mean is not aligned with the target. To evaluate both spread and centering, other indices like $C_{pk}$ are used.
 
-\subsubsection{Example}
-Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The short-term standard deviation of the process is 1 mm. Then,
-\[
-C_p = \dfrac{105 - 95}{6 \times 1} = \dfrac{10}{6} \approx 1.67
-\]
-This value suggests that the process has a good potential to meet specifications, provided it is properly centered.
-
----
+%\subsubsection{Example}
+%Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The short-term standard deviation of the process is 1 mm. Then,
+%\[
+%C_p = \dfrac{105 - 95}{6 \times 1} = \dfrac{10}{6} \approx 1.67
+%\]
+%This value suggests that the process has a good potential to meet specifications, provided it is properly centered.
+%
+%---
 
 \subsubsection{One-Sided $C_{p}$:}
 
@@ -15265,13 +15261,13 @@ Sometimes, only one-sided limit matters—either just an upper or just a lower l
 
 If there is only an upper specification limit (USL), the formula becomes:
 \[
-C_{p, \text{upper}} = \frac{USL - \mu_w}{3\sigma_{\text{within}}}
+C_{p, \text{upper}} = \frac{USL - \mu}{3\sigma_{\text{within}}}
 \]
-where $\mu_w$ is the process mean within subgroup.
+where $\mu$ is the process mean.
 
 Likewise, if only a lower specification limit (LSL) is applicable, the formula becomes:
 \[
-C_{p, \text{lower}} = \frac{\mu_w - LSL}{3\sigma_{\text{within}}}
+C_{p, \text{lower}} = \frac{\mu - LSL}{3\sigma_{\text{within}}}
 \]
 
 These one-sided indices are useful in scenarios where deviations in only one direction are undesirable—for example, when there is a maximum allowable concentration of a chemical, or a minimum required tensile strength in materials.
@@ -15281,10 +15277,10 @@ These one-sided indices are useful in scenarios where deviations in only one dir
 The $C_{pk}$ index measures the potential capability of a process, considering that the process mean may not be centered between the specification limits.
 
 \begin{textbox}
-$$C_{pk} = \min\left(\frac{USL - \mu_w}{3\sigma_{\text{within}}}, \frac{\mu_w - LSL}{3\sigma_{\text{within}}}\right)=\min \left(C_{p, \text{upper}}, C_{p, \text{lower}}\right)$$
+$$C_{pk} = \min\left(\frac{USL - \mu}{3\sigma_{\text{within}}}, \frac{\mu - LSL}{3\sigma_{\text{within}}}\right)=\min \left(C_{p, \text{upper}}, C_{p, \text{lower}}\right)$$
 \end{textbox}
 
-where $\mu_w$ is the process mean within subgroup.
+where $\mu$ is the process mean.
 
 The formula takes the minimum of the two distances (in terms of standard deviations) from the process mean to each specification limit. This ensures that any shift in the process mean away from the center reduces the $C_{pk}$ value, even if $C_{p}$ remains high.
 
@@ -15372,17 +15368,17 @@ $C_{pk} \geq 2.0$ & Excellent \\
 \caption{\textit{Illustration of poor \(C_{pk}\) scenarios: (Left) large variation with centered mean and (Right) small variation with shifted mean causing poor \(C_{pk}\) values.}}
 \end{figure}
 
-\subsubsection{Example}
-Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The process mean is 102 mm, and the standard deviation is 1 mm (within subgroup). Then,
-\[
-\frac{USL - \mu_w}{3\sigma_{\text{within}}} = \frac{105 - 102}{3 \times 1} = \frac{3}{3} = 1, \quad \frac{\mu_w - LSL}{3\sigma_{\text{within}}} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
-\]
-\[
-C_{pk} = \min\left(1,\ 2.33\right) = 1.0
-\]
-Although the process has a relatively low variation, the mean is not centered within the specification limits. The value \( C_{pk} = 1.0 \) indicates that the process is only {marginally capable} and may produce defects near the upper limit.
-
----
+%\subsubsection{Example}
+%Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The process mean is 102 mm, and the standard deviation is 1 mm (within subgroup). Then,
+%\[
+%\frac{USL - \mu_w}{3\sigma_{\text{within}}} = \frac{105 - 102}{3 \times 1} = \frac{3}{3} = 1, \quad \frac{\mu_w - LSL}{3\sigma_{\text{within}}} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
+%\]
+%\[
+%C_{pk} = \min\left(1,\ 2.33\right) = 1.0
+%\]
+%Although the process has a relatively low variation, the mean is not centered within the specification limits. The value \( C_{pk} = 1.0 \) indicates that the process is only {marginally capable} and may produce defects near the upper limit.
+%
+%---
 
 \subsubsection*{Relationship Between \(C_{pk}\) and Defect Rate}
 
@@ -15390,7 +15386,7 @@ Assuming the process output is normally distributed, the process capability inde
 
 Let the specification limits be \(USL\) and \(LSL\), and the process mean and standard deviation be \(\mu\) and \(\sigma\), respectively. Then, the defect rate can be estimated using the tails of the normal distribution:
 \begin{align*}
-P(\text{Defect}) &= P(X < LSL) + P(X > USL)\\ &= 1+\Phi\left(\dfrac{LSL - \mu_w}{\sigma_{\text{within}}}\right) - \Phi\left(\dfrac{USL - \mu_w}{\sigma_{\text{within}}}\right)\\
+P(\text{Defect}) &= P(X < LSL) + P(X > USL)\\ &= 1+\Phi\left(\dfrac{LSL - \mu}{\sigma_{\text{within}}}\right) - \Phi\left(\dfrac{USL - \mu}{\sigma_{\text{within}}}\right)\\
 &=1 + \underbrace{\Phi\left(-3C_{p,\text{lower}}\right)}_{1-\Phi\left(3C_{p,\text{lower}}\right)} - \Phi\left(3C_{p,\text{upper}}\right) \\
 &=2 - \Phi\left(3C_{p,\text{lower}}\right) - \Phi\left(3C_{p,\text{lower}}\right)
 \end{align*}
@@ -15445,25 +15441,25 @@ Interpreting \(C_p\) and \(P_p\) together helps evaluate both the potential and 
 \end{itemize}
 
 
-\subsubsection{Example}
-
-Suppose the process has specification limits 95 mm and 105 mm, and the sample standard deviation $\sigma_{\text{overall}} = 1.2$ mm. Then,
-\[
-P_p = \dfrac{105 - 95}{6 \times 1.2} = \frac{10}{7.2} \approx 1.39
-\]
-This suggests the process has adequate performance, but this does not consider whether the process mean is centered.
-
----
+%\subsubsection{Example}
+%
+%Suppose the process has specification limits 95 mm and 105 mm, and the sample standard deviation $\sigma_{\text{overall}} = 1.2$ mm. Then,
+%\[
+%P_p = \dfrac{105 - 95}{6 \times 1.2} = \frac{10}{7.2} \approx 1.39
+%\]
+%This suggests the process has adequate performance, but this does not consider whether the process mean is centered.
+%
+%---
 
 \subsection{$P_{pk}$ Index}
 
 The $P_{pk}$ index evaluates the {actual process performance considering both variation and centering}, using overall process data.
 
 \begin{textbox}
-$$P_{pk} = \min\left(\dfrac{USL - \mu_o}{3\sigma_{\text{overall}}}, \dfrac{\mu_o - LSL}{3\sigma_{\text{overall}}}\right)$$
+$$P_{pk} = \min\left(\dfrac{USL - \mu}{3\sigma_{\text{overall}}}, \dfrac{\mu - LSL}{3\sigma_{\text{overall}}}\right)$$
 \end{textbox}
 
-where $\mu_o$ and $\sigma_{\text{overall}}$ are the values of the overall process mean and the overall process standard deviation respetively.
+where $\mu$ and $\sigma_{\text{overall}}$ are the values of the process mean and the overall process standard deviation respetively.
 
 \subsubsection{Interpretation}
 
@@ -15478,18 +15474,18 @@ Interpreting \(C_{pk}\) and \(P_{pk}\) together provides insight into both the p
 \end{itemize}
 
 
-\subsubsection{Example}
-
-Suppose a process has $LSL=95$ mm, $USL=105$ mm, sample mean $\overline{x} = 102$ mm, and sample standard deviation $\sigma_{\text{overall}}=1$ mm. Then,
-\[
-\dfrac{USL - \mu_o}{3\sigma_{\text{overall}}} = \dfrac{105 - 102}{3 \times 1} = 1, \quad \frac{\mu_o - LSL}{3s} = \dfrac{102 - 95}{3 \times 1} = \dfrac{7}{3} \approx 2.33
-\]
-\[
-P_{pk} = \min(1, 2.33) = 1.0
-\]
-This indicates marginal performance capability, similar to the $C_{pk}$ case but based on sample estimates rather than true parameters.
-
----
+%\subsubsection{Example}
+%
+%Suppose a process has $LSL=95$ mm, $USL=105$ mm, sample mean $ = 102$ mm, and sample standard deviation $\sigma_{\text{overall}}=1$ mm. Then,
+%\[
+%\dfrac{USL - \mu}{3\sigma_{\text{overall}}} = \dfrac{105 - 102}{3 \times 1} = 1, \quad \frac{\mu - LSL}{3s} = \dfrac{102 - 95}{3 \times 1} = \dfrac{7}{3} \approx 2.33
+%\]
+%\[
+%P_{pk} = \min(1, 2.33) = 1.0
+%\]
+%This indicates marginal performance capability, similar to the $C_{pk}$ case but based on sample estimates rather than true parameters.
+%
+%---
 
 \subsection{Recommended Actions for Process Capability}
 
@@ -15556,13 +15552,14 @@ Quality engineers collected 100 measurements over 20 subgroups (5 measurements p
 20 & 25.01 & 24.98 & 25.04 & 24.97 & 25.05 & 25.010 & 0.08 \\
 \midrule
 \end{tabular}
-\caption{\textit{Steel rod diameter measurements (mm)}}
+\caption{\textit{Steel rod diameter measurements (mm).}}
 \end{table}
 
 Using the collected data, evaluate the process capability.
 
 
 \subsubsection{Overall Mean}
+The true process mean $\mu$ is estimated by the overall sample mean calculated from data given by
 \[
 \overline{\overline{X}} = \dfrac{24.986 + 25.000 + 24.980 + \dots}{20} = \dfrac{500.202}{20} = 25.001 \text{ mm}
 \]
@@ -15575,23 +15572,20 @@ Using the collected data, evaluate the process capability.
 \subsubsection{Short-term Variation (Within Subgroups)}
 
 For short-term capability indices, we estimate the within-subgroup standard deviation using:
-
 \[
 \hat{\sigma}_{\text{within}} = \dfrac{\overline{R}}{d_2}
 \]
 
 where \(d_2 = 2.326\) for subgroup size \(n = 5\).
-
 \[
 \hat{\sigma}_{\text{within}} = \dfrac{0.1005}{2.326} = 0.0432 \text{ mm}
 \]
 
 \subsubsection{Long-term Variation (Overall Process)}
 
-For long-term capability indices, we use the overall standard deviation from all \(n = 100\) measurements:
-
+For long-term capability indices, we calculate the overall sample standard deviation from all \(n = 100\) measurements which acts as an estimate of the overall process standard deviation.
 \[
-\hat{\sigma}_{\text{overall}} = 0.0376 \text{ mm}
+\hat{\sigma}_{\text{overall}} = \sqrt{\dfrac{1}{100-1}\left((24.95-25.001)^2 + (25.02-25.001)^2+ \dots \right)} \approx 0.0376 \text{ mm}
 \]
 
 \subsubsection{Process Capability (\texorpdfstring{$C_p$}{Cp})}
@@ -15602,13 +15596,11 @@ C_p = \dfrac{USL - LSL}{6\hat{\sigma}_{\text{within}}} = \dfrac{25.3 - 24.7}{6 \
 
 \subsubsection{Process Capability Index (\texorpdfstring{$C_{pk}$}{Cpk})}
 
-\[
-C_{pk} = \min\left(\dfrac{USL - \overline{\overline{X}}}{3\hat{\sigma}_{\text{within}}}, \dfrac{\overline{\overline{X}} - LSL}{3\hat{\sigma}_{\text{within}}}\right)
-\]
 \begin{align*}
-C_{pk} &= \min\left(\dfrac{25.3 - 25.001}{3 \times 0.0432}, \dfrac{25.001 - 24.7}{3 \times 0.0432}\right)\\
-&= \min\left(\dfrac{0.299}{0.1296}, \dfrac{0.301}{0.1296}\right)
-= \min(2.31, 2.32) = 2.31
+C_{pk} &= \min\left(\dfrac{USL - \overline{\overline{X}}}{3\hat{\sigma}_{\text{within}}}, \dfrac{\overline{\overline{X}} - LSL}{3\hat{\sigma}_{\text{within}}}\right)\\
+&= \min\left(\dfrac{25.3 - 25.001}{3 \times 0.0432}, \dfrac{25.001 - 24.7}{3 \times 0.0432}\right)\\
+&= \min\left(\dfrac{0.299}{0.1296}, \dfrac{0.301}{0.1296}\right)\\
+&= \min(2.31, 2.32) = 2.31
 \end{align*}
 
 \subsubsection{Process Performance (\texorpdfstring{$P_p$}{Pp})}
@@ -15619,11 +15611,9 @@ P_p = \dfrac{USL - LSL}{6\hat{\sigma}_{\text{overall}}} = \dfrac{25.3 - 24.7}{6 
 
 \subsubsection{Process Performance Index (\texorpdfstring{$P_{pk}$}{Ppk})}
 
-\[
-P_{pk} = \min\left(\dfrac{USL - \overline{\overline{X}}}{3\hat{\sigma}_{\text{overall}}}, \dfrac{\overline{\overline{X}} - LSL}{3\hat{\sigma}_{\text{overall}}}\right)
-\]
 \begin{align*}
-P_{pk} &= \min\left(\dfrac{25.3 - 25.001}{3 \times 0.0376}, \dfrac{25.001 - 24.7}{3 \times 0.0376}\right)\\
+P_{pk} &= \min\left(\dfrac{USL - \overline{\overline{X}}}{3\hat{\sigma}_{\text{overall}}}, \dfrac{\overline{\overline{X}} - LSL}{3\hat{\sigma}_{\text{overall}}}\right)\\
+&= \min\left(\dfrac{25.3 - 25.001}{3 \times 0.0376}, \dfrac{25.001 - 24.7}{3 \times 0.0376}\right)\\
 &= \min\left(\dfrac{0.299}{0.1128}, \dfrac{0.301}{0.1128}\right)
 = \min(2.65, 2.67) = 2.65
 \end{align*}
