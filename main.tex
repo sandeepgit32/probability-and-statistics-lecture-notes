@@ -5972,18 +5972,20 @@ Z \sim \mathcal{N}(0, 1)
 Its PDF becomes:
 \begin{textbox}
 \[
-f_Z(z) = \frac{1}{\sqrt{2\pi}} \exp\left( -\frac{z^2}{2} \right)
+f_Z(z) = \dfrac{1}{\sqrt{2\pi}} \exp\left( -\frac{z^2}{2} \right)
 \]
 \end{textbox}
 
 
-Cumulative PDF:
+Cumulative distribution:
 \begin{textbox}
 $$F_Z(z) = P(Z \leq z) = \int_{-\infty}^z f_Z(t)dt$$
 \end{textbox}
 
-\vspace{2mm}
+In many standard textbook, the CDF of the standard normal distribution is denoted by a special symbol $\Phi(.)$ such that
+$$\Phi(z) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^z \exp\left( -\frac{z^2}{2} \right)$$
 
+\begin{figure}
 \begin{center}
 \begin{tikzpicture}
       \begin{axis}[
@@ -6001,17 +6003,20 @@ $$F_Z(z) = P(Z \leq z) = \int_{-\infty}^z f_Z(t)dt$$
         \addplot [draw=none, fill=blue!20, domain=-4:1] {1/sqrt(2*pi)*exp(-x^2/2)-0.005} \closedcycle;
         % Vertical guide line
         \draw[dashed] (axis cs:1,0) -- (axis cs:1,{1/sqrt(2*pi)*exp(-1^2/2)});
-        \node at (axis cs:-0.3,0.1) {\small $F_Z(z) = P(Z\leq z)$};
+        \node at (axis cs:-0.3,0.1) {\small $\Phi(z) = P(Z\leq z)$};
       \end{axis}
     \end{tikzpicture}
 \end{center}
+\caption{\textit{Standard normal distribution function.}}
+\end{figure}
+
 
 \begin{textbox}
-\textbf{Theorem.} Let \( X \sim N(\mu, \sigma^2) \) be a normally distributed random variable and let \( Z \sim N(0, 1) \) be a standard normal random variable. Then, for any real number \( k \),
+\textbf{Theorem.} Let \( X \sim \mathcal{N}(\mu, \sigma^2) \) be a normally distributed random variable and let \( Z \sim \mathcal{N}(0, 1) \) be a standard normal random variable. Then, for any real number \( k \),
 \[
-F_X(k) = F_Z\left( \frac{k - \mu}{\sigma} \right)
+F_X(k) = \Phi\left( \frac{k - \mu}{\sigma} \right)
 \]
-where \( F_X \) and \( F_Z \) denote the cumulative distribution functions of \( X \) and \( Z \), respectively.
+where \( F_X \) and \( \Phi \) denote the cumulative distribution functions of \( X \) and \( Z \), respectively.
 \end{textbox}
 
 \textbf{Proof}: Define the function
@@ -6026,9 +6031,9 @@ Set
 \[
 Y \;=\; g(X) \;=\; \frac{X - \mu}{\sigma}
 \]
-Then \(Y\) has the same distribution as \(Z\), i.e.\ \(Y\sim N(0,1)\).  By the change‐of‐variable theorem for CDFs (strictly increasing case),
+Then \(Y\) has the same distribution as \(Z\), i.e.\ \(Y\sim \mathcal{N}(0,1)\).  By the change‐of‐variable theorem for CDFs (strictly increasing case),
 \[
-F_Z(z)
+\Phi(z)
 \;=\;
 P\bigl(Z \le z\bigr)
 \;=\;
@@ -6036,14 +6041,14 @@ F_X\!\bigl(g^{-1}(z)\bigr)
 \]
 Hence,
 \[
-F_Z(z)
+\Phi(z)
 \;=\;
 F_X\!\bigl(\sigma z + \mu\bigr)
 \]
 Now replace \(z\) by \(\tfrac{k-\mu}{\sigma}\).  Since
 \(\sigma\cdot\tfrac{k-\mu}{\sigma} + \mu = k\), we obtain
 \[
-F_Z\!\left( \dfrac{k - \mu}{\sigma}\right)  = F_X(k)
+\Phi\!\left( \dfrac{k - \mu}{\sigma}\right)  = F_X(k)
 \]
 as required.
 
@@ -6056,9 +6061,9 @@ Z = \dfrac{X - \mu}{\sigma}
 \]
 
 \begin{textbox}
-\textbf{Theorem}: Let \( Z \sim N(0,1) \) be a standard normal random variable with CDF \( F_Z(z) \). Then, for any real number \( k \),
+\textbf{Theorem}: Let \( Z \sim \mathcal{N}(0,1) \) be a standard normal random variable with CDF \( \Phi(z) \). Then, for any real number \( k \),
 \[
-F_Z(-k) = 1 - F_Z(k)
+\Phi(-k) = 1 - \Phi(k)
 \]
 \end{textbox}
 
@@ -6066,23 +6071,23 @@ Since $f_Z(z)$ is symmetrical about zero, so for any $k$
 $$f_Z(-k) = f_Z(k)$$
 Now,
 \begin{align*}
-F_Z(-k)
+\Phi(-k)
 &= P(Z \le -k) \\
 &= \int_{-\infty}^{-k} f_Z(z)dz\\
 \intertext{Change variable $t=-z$, so when $z=-\infty\to t=+\infty$, and $z=-k\to t=k$, with $dz=-dt$:}
-F_Z(-k) &= \int_{\infty}^{k} f_Z(-t)\,(-dt) \\
+\Phi(-k) &= \int_{\infty}^{k} f_Z(-t)\,(-dt) \\
 &= -\int_{\infty}^{k} f_Z(t)\,dt \\
 &= \int_{k}^{\infty} f_Z(t)dt\\
 &= P(Z \ge k)\\
 &= 1 - P(Z < k)\\
-&= 1 - F_Z(k)
+&= 1 - \Phi(k)
 \end{align*}
 
 \hfill $\blacksquare$
 
 \subsection{Standard Normal Table}
 
-The \textbf{standard normal table} (or $Z$-table)  shown in Table~\ref{table:Ztable} is used to quickly find cumulative probabilities for the standard normal distribution \(Z\sim\mathcal{N}(0,1)\) without evaluating the integral $$\int_{-\infty}^z \frac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt$$ by hand.  By converting any normal random variable \(X\sim N(\mu,\sigma^2)\) into the standard form \(Z=(X-\mu)/\sigma\), one can look up probabilities such as \(P(X\le x)\) in a single, universal table, greatly simplifying calculations in statistical inference and hypothesis testing.
+The \textbf{standard normal table} (or $Z$-table)  shown in Table~\ref{table:Ztable} is used to quickly find cumulative probabilities for the standard normal distribution \(Z\sim\mathcal{N}(0,1)\) without evaluating the integral $$\int_{-\infty}^z \dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt$$ by hand.  By converting any normal random variable \(X\sim \mathcal{N}(\mu,\sigma^2)\) into the standard form \(Z=(X-\mu)/\sigma\), one can look up probabilities such as \(P(X\le x)\) in a single, universal table, greatly simplifying calculations in statistical inference and hypothesis testing.
 
 
 \begin{table}[!h]
@@ -6136,11 +6141,11 @@ z   & 0       & 0.01    & 0.02    & 0.03    & 0.04    & 0.05    & 0.06    & 0.07
 \addlinespace
 \bottomrule
 \end{tabular}
-\caption{\textit{Standard Normal CDF values $F_Z(z)=P(Z\le z)$.}}
+\caption{\textit{Standard normal CDF values $\Phi(z)=P(Z\le z)$.}}
 \label{table:Ztable}
 \end{table}
 
-To look up \(F_Z(k)\), follow the following steps:
+To look up \(\Phi(k)\), follow the following steps:
 
 \begin{enumerate}
   \item Write \(k\) to \textbf{two decimal places}, e.g.\ \(k=1.23\).
@@ -6152,19 +6157,19 @@ To look up \(F_Z(k)\), follow the following steps:
   \item In Table~\ref{table:Ztable}, go to the row labeled “1.2” and the column
     labeled “0.03”.  The entry at their intersection is
     \[
-      F_Z(1.23) = P(Z\le 1.23) \;=\; 0.89065
+      \Phi(1.23) = P(Z\le 1.23) \;=\; 0.89065
     \]
   \item For negative \(z\), use symmetry:
     \[
-      F_Z(-k) = P(Z\le -k)
-      = 1 - P(Z\le k) = 1 - F_Z(k)
+      \Phi(-k) = P(Z\le -k)
+      = 1 - P(Z\le k) = 1 - \Phi(k)
     \]
   \item For right‐tail probabilities,
     \[
-      P(Z>k) = 1 - F_Z(k)
+      P(Z>k) = 1 - \Phi(k)
     \]
   \item For probabilities within a specified interval of $ Z $ values,
-  $$P(k_1 \leq Z \leq k_2) = P(Z \leq k_2) - P(Z \leq k_1) = F_Z(k_2) - F_Z(k_1)$$
+  $$P(k_1 \leq Z \leq k_2) = P(Z \leq k_2) - P(Z \leq k_1) = \Phi(k_2) - \Phi(k_1)$$
 \end{enumerate}
 
 \subsubsection{Example}
@@ -6182,7 +6187,7 @@ Z = \frac{190 - 175}{10} = 1.5
 
 Using the standard normal table:
 \[
-P(X > 190) = P(Z > 1.5) = 1 - F_Z(1.5) \approx 1 - 0.9332 = 0.0668
+P(X > 190) = P(Z > 1.5) = 1 - \Phi(1.5) \approx 1 - 0.9332 = 0.0668
 \]
 
 Thus, approximately $6.68\%$ of adult males are taller than 190 cm.
@@ -6394,39 +6399,50 @@ There are two main types of simple random sampling:
 
 \subsection{Other Sampling Methods}
 
-\begin{enumerate}
-    \item \textbf{Stratified Sampling}: In stratified sampling, the population is divided into distinct subgroups or strata based on a specific characteristic (e.g., age, income, region), and a random sample is drawn from each stratum. This method ensures representation from all key subgroups.
 
-\textit{Example:} A company wants to sample employee opinions. Employees are divided into departments (e.g., HR, Sales, R\&D), and a random sample is taken from each department.
+\subsubsection{Stratified Sampling}
+In stratified sampling, the population is divided into distinct subgroups or strata based on a specific characteristic (e.g., age, income, region), and a random sample is drawn from each stratum. This method ensures representation from all key subgroups.
 
-\textit{Advantages:} Increases accuracy by reducing variability; ensures important groups are represented.
+\begin{itemize}
+\item \textit{Example:} A company wants to sample employee opinions. Employees are divided into departments (e.g., HR, Sales, R\&D), and a random sample is taken from each department.
 
-\textit{Disadvantages:} Requires knowledge of strata and population characteristics in advance.
+\item \textit{Advantages:} Increases accuracy by reducing variability; ensures important groups are represented.
 
-\item \textbf{Systematic Sampling}: Systematic sampling selects every $k$-th individual from a population list after a random starting point. The interval $k$ is calculated by dividing the population size by the desired sample size.
+\item \textit{Disadvantages:} Requires knowledge of strata and population characteristics in advance.
+\end{itemize}
 
-\textit{Example:} If a company has a list of 1,000 employees and wants to survey 100, it selects a random starting point between 1 and 10, then picks every 10th employee on the list.
+\subsubsection{Systematic Sampling}
+Systematic sampling selects every $k$-th individual from a population list after a random starting point. The interval $k$ is calculated by dividing the population size by the desired sample size.
 
-\textit{Advantages:} Simple and quick to implement; useful when population is ordered.
+\begin{itemize}
+\item \textit{Example:} If a company has a list of 1,000 employees and wants to survey 100, it selects a random starting point between 1 and 10, then picks every 10th employee on the list.
 
-\textit{Disadvantages:} Can introduce bias if there is a hidden pattern in the population that coincides with the sampling interval.
+\item \textit{Advantages:} Simple and quick to implement; useful when population is ordered.
 
-\item \textbf{Cluster Sampling}: In cluster sampling, the population is divided into clusters (often based on geography or natural groupings). A few clusters are randomly selected, and then all individuals within those clusters are included in the sample.
+\item \textit{Disadvantages:} Can introduce bias if there is a hidden pattern in the population that coincides with the sampling interval.
+\end{itemize}
 
-\textit{Example:} A research team wants to survey households in a city. The city is divided into neighborhoods (clusters), a few neighborhoods are selected at random, and all households in those neighborhoods are surveyed.
+\subsubsection{Cluster Sampling}
+In cluster sampling, the population is divided into clusters (often based on geography or natural groupings). A few clusters are randomly selected, and then all individuals within those clusters are included in the sample.
 
-\textit{Advantages:} Cost-effective and practical for large, dispersed populations.
+\begin{itemize}
+\item \textit{Example:} A research team wants to survey households in a city. The city is divided into neighborhoods (clusters), a few neighborhoods are selected at random, and all households in those neighborhoods are surveyed.
 
-\textit{Disadvantages:} Can lead to higher sampling error if clusters are not homogeneous.
+\item \textit{Advantages:} Cost-effective and practical for large, dispersed populations.
 
-\item \textbf{Multistage Sampling}: Multistage sampling combines several sampling techniques. Typically, it begins with cluster sampling to select large groups, and then simple random or stratified sampling is used within those groups.
+\item \textit{Disadvantages:} Can lead to higher sampling error if clusters are not homogeneous.
+\end{itemize}
 
-\textit{Example:} In a national education survey, schools are randomly selected (cluster sampling), then students within each selected school are randomly chosen (simple random sampling).
+\subsubsection{Multistage Sampling}
+Multistage sampling combines several sampling techniques. Typically, it begins with cluster sampling to select large groups, and then simple random or stratified sampling is used within those groups.
 
-\textit{Advantages:} Flexible and practical for large-scale surveys; reduces cost and time.
+\begin{itemize}
+\item \textit{Example:} In a national education survey, schools are randomly selected (cluster sampling), then students within each selected school are randomly chosen (simple random sampling).
 
-\textit{Disadvantages:} More complex design and analysis; potential for increased sampling error if stages are not carefully planned.
-\end{enumerate}
+\item \textit{Advantages:} Flexible and practical for large-scale surveys; reduces cost and time.
+
+\item \textit{Disadvantages:} More complex design and analysis; potential for increased sampling error if stages are not carefully planned.
+\end{itemize}
 
 \section{Sample Mean, Sample Variance and Sample Proportion}
 
@@ -15243,15 +15259,30 @@ This value suggests that the process has a good potential to meet specifications
 
 ---
 
+\subsubsection{One-Sided $C_{p}$:}
+
+Sometimes, only one-sided limit matters—either just an upper or just a lower limit. In such cases, we use a one-sided version of \( C_{p} \).
+
+If there is only an upper specification limit (USL), the formula becomes:
+\[
+C_{p, \text{upper}} = \frac{USL - \mu}{3\sigma_{\text{within}}}
+\]
+Likewise, if only a lower specification limit (LSL) is applicable, the formula becomes:
+\[
+C_{p, \text{lower}} = \frac{\mu - LSL}{3\sigma_{\text{within}}}
+\]
+
+These one-sided indices are useful in scenarios where deviations in only one direction are undesirable—for example, when there is a maximum allowable concentration of a chemical, or a minimum required tensile strength in materials.
+
 \subsection{$C_{pk}$ Index}
 
 The $C_{pk}$ index measures the potential capability of a process, considering that the process mean may not be centered between the specification limits.
 
 \begin{textbox}
-$$C_{pk} = \min\left(\frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma}\right)$$
+$$C_{pk} = \min\left(\frac{USL - \mu}{3\sigma_{\text{within}}}, \frac{\mu - LSL}{3\sigma_{\text{within}}}\right)=\min \left(C_{p, \text{upper}}, C_{p, \text{lower}}\right)$$
 \end{textbox}
 
-where $\mu$ is the process mean.
+where $\mu$ is the process mean within subgroup.
 
 The formula takes the minimum of the two distances (in terms of standard deviations) from the process mean to each specification limit. This ensures that any shift in the process mean away from the center reduces the $C_{pk}$ value, even if $C_{p}$ remains high.
 
@@ -15288,8 +15319,8 @@ $C_{pk} \geq 2.0$ & Excellent \\
     axis lines*=left,
     xlabel={Measurement},
     ylabel={PDF},
-    xtick={90,95,100,105,110},
-    xticklabels={$-3\sigma$, LSL, $\mu$, USL, $3\sigma$},
+    xtick={90,100,110},
+    xticklabels={$-3\sigma_{\text{within}}$, $\mu$, $3\sigma_{\text{within}}$},
     ytick=\empty,
     enlargelimits=false,
     clip=false,title={Large variation, centered mean},
@@ -15300,8 +15331,8 @@ $C_{pk} \geq 2.0$ & Excellent \\
       {1/(6*sqrt(2*pi)) * exp(-((x-100)^2)/(2*6^2))};
 
     % Specification limits
-    \addplot [very thick, red, dashed] coordinates {(95,0) (95,0.08)} node[pos=0.9, above, black] {};
-    \addplot [very thick, red, dashed] coordinates {(105,0) (105,0.08)} node[pos=0.9, above, black] {};
+    \addplot [very thick, red, dashed] coordinates {(95,0) (95,0.06)} node[pos=1, above, black] {LSL};
+    \addplot [very thick, red, dashed] coordinates {(105,0) (105,0.06)} node[pos=1, above, black] {USL};
 
   \end{axis}
 \end{tikzpicture}
@@ -15319,8 +15350,8 @@ $C_{pk} \geq 2.0$ & Excellent \\
     axis lines*=left,
     xlabel={Measurement},
     ylabel={PDF},
-    xtick={85,90,100,105,110},
-    xticklabels={LSL, $-3\sigma$, $\mu$, USL, $3\sigma$},
+    xtick={90,100,110},
+    xticklabels={$-3\sigma_{\text{within}}$, $\mu$,  $3\sigma_{\text{within}}$},
     ytick=\empty,
     enlargelimits=false,
     clip=false,title={Small variation, shifted mean},
@@ -15331,8 +15362,8 @@ $C_{pk} \geq 2.0$ & Excellent \\
       {1/(3*sqrt(2*pi)) * exp(-((x-100)^2)/(2*3^2))};
 
     % Specification limits
-    \addplot [very thick, red, dashed] coordinates {(85,0) (85,0.15)} node[pos=0.9, above, black] {};
-    \addplot [very thick, red, dashed] coordinates {(105,0) (105,0.15)} node[pos=0.9, above, black] {};
+    \addplot [very thick, red, dashed] coordinates {(85,0) (85,0.125)} node[pos=1, above, black] {LSL};
+    \addplot [very thick, red, dashed] coordinates {(105,0) (105,0.125)} node[pos=1, above, black] {USL};
   \end{axis}
 \end{tikzpicture}
 \end{subfigure}
@@ -15340,9 +15371,9 @@ $C_{pk} \geq 2.0$ & Excellent \\
 \end{figure}
 
 \subsubsection{Example}
-Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The process mean is 102 mm, and the standard deviation is 1 mm. Then,
+Suppose a manufacturing process has a lower specification limit of 95 mm and an upper specification limit of 105 mm. The process mean is 102 mm, and the standard deviation is 1 mm (within subgroup). Then,
 \[
-\frac{USL - \mu}{3\sigma} = \frac{105 - 102}{3 \times 1} = \frac{3}{3} = 1, \quad \frac{\mu - LSL}{3\sigma} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
+\frac{USL - \mu}{3\sigma_{\text{within}}} = \frac{105 - 102}{3 \times 1} = \frac{3}{3} = 1, \quad \frac{\mu - LSL}{3\sigma_{\text{within}}} = \frac{102 - 95}{3 \times 1} = \frac{7}{3} \approx 2.33
 \]
 \[
 C_{pk} = \min\left(1,\ 2.33\right) = 1.0
@@ -15351,34 +15382,18 @@ Although the process has a relatively low variation, the mean is not centered wi
 
 ---
 
-\subsubsection{One-Sided $C_{pk}$:}
-
-The \( C_{pk} \) index checks how close the process mean is to the specification limits. Sometimes, only one limit matters—either just an upper or just a lower limit. In such cases, we use a one-sided version of \( C_{pk} \).
-
-If there is only an upper specification limit (USL), the formula becomes:
-\[
-C_{pk, upper} = \frac{USL - \mu}{3\sigma}
-\]
-Likewise, if only a lower specification limit (LSL) is applicable, the formula becomes:
-\[
-C_{pk, lower} = \frac{\mu - LSL}{3\sigma}
-\]
-Thus
-$$C_{pk} = \min \left(C_{pk, upper}, C_{pk, lower}\right) $$
-These one-sided indices are useful in scenarios where deviations in only one direction are undesirable—for example, when there is a maximum allowable concentration of a chemical, or a minimum required tensile strength in materials.
-
 \subsubsection*{Relationship Between \(C_{pk}\) and Defect Rate}
 
-The index \(C_{pk}\) not only quantify how well a process is performing relative to its specification limits but also provide insights into the expected defect rate. Assuming the process output is normally distributed, this index can be translated into the proportion of defective items produced. For example, a \(C_{pk} = 1.00\) corresponds to 3-sigma capability, implying about 0.27\% of the output lies outside the specification limits, or 2,700 defective parts per million (ppm).
+Assuming the process output is normally distributed, the process capability index can be translated into the proportion of defective items produced. For example, a \(C_{pk} = 1.00\) corresponds to 3-sigma capability, implying about 0.27\% of the output lies outside the specification limits, or 2,700 defective parts per million (ppm).
 
 Let the specification limits be \(USL\) and \(LSL\), and the process mean and standard deviation be \(\mu\) and \(\sigma\), respectively. Then, the defect rate can be estimated using the tails of the normal distribution:
 \begin{align*}
 P(\text{Defect}) &= P(X < LSL) + P(X > USL)\\ &= 1+\Phi\left(\dfrac{LSL - \mu}{\sigma}\right) - \Phi\left(\dfrac{USL - \mu}{\sigma}\right)\\
-&=1 + \underbrace{\Phi\left(-3C_{k,lower}\right)}_{1-\Phi\left(3C_{k,lower}\right)} - \Phi\left(3C_{k,upper}\right) \\
-&=2 - \Phi\left(3C_{k,lower}\right) - \Phi\left(3C_{k,lower}\right)
+&=1 + \underbrace{\Phi\left(-3C_{p,\text{lower}}\right)}_{1-\Phi\left(3C_{p,\text{lower}}\right)} - \Phi\left(3C_{p,\text{upper}}\right) \\
+&=2 - \Phi\left(3C_{p,\text{lower}}\right) - \Phi\left(3C_{p,\text{lower}}\right)
 \end{align*}
 
-where \(\Phi(\cdot)\) is the cumulative distribution function (CDF) of the standard normal distribution. When $C_{pk, upper} = C_{pk, lower}=C_{pk}$,
+where \(\Phi(\cdot)\) is the cumulative distribution function (CDF) of the standard normal distribution. When the process is centered $C_{p, \text{upper}} = C_{p, \text{lower}}=C_{pk}$,
 \begin{align*}
 P(\text{Defect}) =2\left( 1 - \Phi\left(3C_{pk}\right)\right)
 \end{align*}
