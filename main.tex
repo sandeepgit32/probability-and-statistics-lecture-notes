@@ -16409,6 +16409,7 @@ In the following, a plot is shown comparing the operating characteristic curves 
   \end{axis}
 \end{tikzpicture}
 \caption{\textit{Comparison of OC curves for the sampling plans \((50,1)\), \((50,2)\), and \((80,2)\).}}
+\label{fig:OC-curve-different-sampling-plans}
 \end{figure}
 
 The sampling plan with \(n=50,\,c=1\) yields the steepest decline in acceptance probability as the fraction defective \(p\) increases.  Because only a single defect is tolerated, \(P_a\) starts at 1 when \(p=0\) but falls below 0.5 already around \(p\approx0.04\).  This plan is therefore the most stringent of the three: it protects the consumer best when defect levels are low, but quickly rejects lots as soon as \(p\) rises above a few percent.
@@ -16525,7 +16526,18 @@ These two parameters anchor the operating characteristic (OC) curve at \((\text{
 \end{axis}
 \end{tikzpicture}
 \caption{\textit{OC curve illustrating AQL, LTPD, producer's risk (\(\alpha\)) and consumer's risk (\(\beta\)).}}
+\label{fig:OC-curve-producer-consumer}
 \end{figure}
+
+\subsubsection{Effect of Sample Size \(n\) and Acceptance Level \(c\)}
+
+The shape of the Operating Characteristic (OC) curve—and hence the producer’s risk \(\alpha=1-P_a(\text{AQL})\) and the consumer’s risk \(\beta=P_a(\text{LTPD})\)—depends critically on the sample size \(n\) and the acceptance number \(c\). Based on Figure~\ref{fig:OC-curve-different-sampling-plans} and Figure~\ref{fig:OC-curve-producer-consumer}, we can draw the following observations:
+
+\begin{itemize}
+\item Increasing $n$ while holding $c$ constant increases the producer's risk ($\alpha$) and reduces the consumer's risk ($\beta$).
+\item Increasing $c$ while holding $n$ constant decreases the producer's risk ($\alpha$) and increases the consumer’s risk ($\beta$).
+\end{itemize}
+
 
 \subsection{An Example of Designing a Sampling Plan}
 
@@ -16619,153 +16631,195 @@ This plan ensures that:
 
 Thus, the plan meets the specified risk constraints and is optimal under the given conditions.
 
-\subsection{Rectified Inspection Program}
-
-A \textbf{rectified inspection program} (also called \emph{screening inspection}) combines a sampling plan with 100\% inspection of all units in any lot that is initially rejected. The goal is to ensure that no defectives leave the inspection station, while still reducing average inspection effort compared to inspecting every lot in full.
-
-\subsubsection*{Procedure}
-
-\begin{textbox}
-Let $(n,c)$ be a single‐sampling plan applied to each incoming lot of size $N$:
-\begin{enumerate}
-  \item Inspect a random sample of $n$ units.
-  \item If the number of defectives $d \le c$, \textbf{accept} the lot and ship it without further inspection.
-  \item If $d > c$, \textbf{reject} the lot and perform 100\% inspection (``screening'') on the remaining $N - n$ units, removing all defectives before shipment.
-\end{enumerate}
-\end{textbox}
-
-\subsubsection*{Advantages and Disadvantages}
-
-\begin{itemize}
-  \item \textit{Advantages:}
-    \begin{itemize}
-      \item Guarantees defect‐free outgoing product.
-      \item Often lower average inspection effort than 100\% inspection of every lot.
-    \end{itemize}
-  \item \textit{Disadvantages:}
-    \begin{itemize}
-      \item Requires infrastructure for rapid screening and rework.
-      \item Inspection effort can spike when incoming quality deteriorates (ATI rises sharply).
-    \end{itemize}
-\end{itemize}
-
-\subsubsection*{Key Metrics}
-
-\begin{itemize}
-\item \textbf{Average Outgoing Quality (AOQ)}
-Because all defectives in a rejected lot are removed, the final outgoing defect rate is zero.  In effect, the rectified program guarantees perfect outgoing quality.
-
-\item \textbf{Average Total Inspection (ATI)}
-The expected number of units inspected per lot, as a function of the true incoming defect rate $p$, is
-\[
-\mathrm{ATI}(p)
-= n \;+\; \bigl[1 - P_a(p)\bigr]\,(N - n),
-\]
-where $P_a(p)$ is the acceptance probability of the sampling plan.  Here:
-\begin{itemize}
-  \item With probability $P_a(p)$, only the first $n$ units are inspected.
-  \item With probability $1 - P_a(p)$, all $N$ units are inspected.
-\end{itemize}
-
-\item \textbf{Average Screening Inspection (ASI)}
-\[
-\mathrm{ASI}(p)
-= (1 - P_a(p))\,(N - n),
-\]
-the expected number of units requiring 100\% inspection (beyond the initial sample).
-\end{itemize}
-
-\begin{figure}[H]
-  \centering
-  \begin{subfigure}[b]{0.48\textwidth}
-    \centering
-    \begin{tikzpicture}
-      \begin{axis}[
-          width=0.9\textwidth,
-          height=6cm,
-          xlabel={Fraction Defective ($p$)},
-          ylabel={AOQ($p$)},
-          xmin=0, xmax=0.1,
-          ymin=0, ymax=0.03,
-          xtick={0,0.05,0.1,0.15,0.2},
-          xticklabels={0,0.05,0.1,0.15,0.2},
-          ytick={0,0.01,0.02,0.03},
-          yticklabels={0,0.01,0.02,0.03},
-          thick, axis lines=left
-        ]
-        \addplot[very thick,smooth, blue, mark=*] coordinates {
-          (0.00,0.000000)
-          (0.02,0.019193)
-          (0.04,0.024639)
-          (0.06,0.013980)
-          (0.08,0.004759)
-          (0.10,0.001143)
-        };
-        \addlegendentry{AOQ}
-      \end{axis}
-    \end{tikzpicture}
-    \label{fig:aoq}
-  \end{subfigure}
-  \hspace{0.01\textwidth}
-  \begin{subfigure}[b]{0.48\textwidth}
-    \centering
-    \begin{tikzpicture}
-      \begin{axis}[
-          width=0.9\textwidth,
-          height=6cm,
-          xlabel={Fraction Defective ($p$)},
-          ylabel={ATI($p$)},
-          xmin=0, xmax=0.1,
-          ymin=120, ymax=1000,
-          xtick={0,0.05,0.1,0.15,0.2},
-          xticklabels={0,0.05,0.1,0.15,0.2},
-          ytick={200,400,600,800,1000},
-          yticklabels={200,400,600,800,1000},
-          thick,axis lines=left,
-          legend pos=north west,
-        ]
-        \addplot[very thick,smooth, blue,mark=*] coordinates {
-          (0.00,125.0)
-          (0.02,160.3)
-          (0.04,461.0)
-          (0.06,796.1)
-          (0.08,948.0)
-          (0.10,990.0)
-        };
-        \addlegendentry{ATI}
-      \end{axis}
-    \end{tikzpicture}
-    \label{fig:ati}
-  \end{subfigure}
-  \caption{(a) AOQ and (b) ATI curves for plan $(N=1000,\;n=125,\;c=5)$.}
-  \label{fig:aoq_ati}
-\end{figure}
-
-
-
-\subsubsection*{Example}
-
-Suppose $N = 1000$, $(n,c) = (125,5)$, and the true defect rate is $p=0.02$.  Then
-\[
-P_a(0.02)
-= \sum_{i=0}^{5} \binom{125}{i}(0.02)^i(0.98)^{125 - i}
-\approx 0.95.
-\]
-Thus
-\[
-\mathrm{ATI}(0.02)
-=125 + (1 - 0.95)\times(1000 - 125)
-=125 + 0.05\times875
-\approx168.75,
-\]
-and
-\[
-\mathrm{ASI}(0.02)
-=0.05 \times875
-\approx43.75.
-\]
-
----
+%\subsection{Rectified Inspection Program}
+%
+%A \textbf{rectified inspection program} (also called \emph{screening inspection}) combines a sampling plan with 100\% inspection of all units in any lot that is initially rejected. The goal is to ensure that no defectives leave the inspection station, while still reducing average inspection effort compared to inspecting every lot in full. This is generally done by the producer or vendor.
+%
+%\subsubsection*{Procedure}
+%
+%\begin{textbox}
+%Let $(n,c)$ be a single‐sampling plan applied to each incoming lot of size $N$:
+%\begin{enumerate}
+%  \item Inspect a random sample of $n$ units.
+%  \item If the number of defectives $d \le c$, \textbf{accept} the lot and ship it without further inspection.
+%  \item If $d > c$, \textbf{reject} the lot and perform 100\% inspection (``screening'') on the remaining $N - n$ units, removing all defectives before shipment.
+%\end{enumerate}
+%\end{textbox}
+%
+%\subsubsection*{Advantages and Disadvantages}
+%
+%\begin{itemize}
+%  \item \textit{Advantages:}
+%    \begin{itemize}
+%      \item Guarantees defect‐free outgoing product.
+%      \item Often lower average inspection effort than 100\% inspection of every lot.
+%    \end{itemize}
+%  \item \textit{Disadvantages:}
+%    \begin{itemize}
+%      \item Requires infrastructure for rapid screening and rework.
+%      \item Inspection effort can spike when incoming quality deteriorates.
+%    \end{itemize}
+%\end{itemize}
+%
+%\subsubsection*{Key Metrics}
+%
+%\begin{itemize}
+%  \item \textbf{Average Outgoing Quality (AOQ)}
+%
+%  \medskip
+%
+%  In a rectified inspection program, all defective units found in a rejected lot are replaced or removed. As a result, the final defect rate in outgoing product is effectively zero for rejected lots. The \textit{Average Outgoing Quality} reflects the average fraction defective in the product delivered to the customer. Since rejected lots are fully screened and corrected, the AOQ represents only the defectives passed through accepted lots.
+%
+%  Let the true fraction defective be \(p\) and the lot size is $N$, so that there are \(pN\) defectives in the lot.  The number of defectives passing through inspection in the accepted lot is
+%    \[
+%    pN \cdot P_a(p) \;+\; 0 \cdot \bigl[1 - P_a(p)\bigr]
+%    \;=\;p\,N\,P_a(p).
+%    \]
+%  where \(P_a(p)\) is the probability of accepting the lot on the initial sample. Since the outgoing shipment still contains \(N\) units, the \emph{Average Outgoing Quality} (fraction defective) becomes
+%    \[
+%    \mathrm{AOQ}_N(p)
+%    =\frac{p\,N\,P_a(p)}{N}
+%    = p \cdot P_a(p),
+%    \]
+%
+%   and is given by:
+%  \[
+%  \mathrm{AOQ}(p) = p \cdot P_a(p)
+%  \]
+%  where \(p\) is the true proportion defective in the lot, and \(P_a(p)\) is the probability that the lot is accepted. When $p=0, \mathrm{AOQ}(p) = 0$ and when When $p=0, P_a(p) = 0 \text{ which implies }\mathrm{AOQ}(p) = 0$. Thus the AOQ has a maximum at some value of \(p\) between 0 and 1, which is termed as the \textbf{Average Outgoing Quality Limit (AOQL)}.
+%
+%
+%  \item \textbf{Average Total Inspection (ATI)}
+%
+%  \medskip
+%
+%  The \textit{Average Total Inspection} is the expected number of units inspected per lot as a function of the actual defect rate \(p\). It accounts for both accepted and rejected lots:
+%  \[
+%  \mathrm{ATI}(p) = n + \left[1 - P_a(p)\right](N - n)
+%  \]
+%  where \(n\) is the sample size, \(N\) is the lot size and \(P_a(p)\) is the probability of accepting the lot. This expression reflects that:
+%  \begin{itemize}
+%    \item With probability \(P_a(p)\), only the sample of size \(n\) is inspected.
+%    \item With probability \(1 - P_a(p)\), the entire lot of size \(N\) is inspected (including the initial sample).
+%  \end{itemize}
+%  The ATI curve helps assess inspection workload across varying levels of lot quality.
+%
+%  \item \textbf{Average Screening Inspection (ASI)}
+%
+%  \medskip
+%
+%  The \textit{Average Screening Inspection} represents the expected number of units that must undergo 100\% inspection beyond the initial sample, and is given by:
+%  \[
+%  \mathrm{ASI}(p) = \left[1 - P_a(p)\right](N - n)
+%  \]
+%  This measures the additional inspection effort required when a lot is rejected. ASI is always zero for accepted lots and increases with the likelihood of rejection.
+%\end{itemize}
+%
+%\begin{figure}[H]
+%  \centering
+%  \begin{subfigure}[b]{0.48\textwidth}
+%    \centering
+%    \begin{tikzpicture}
+%      \begin{axis}[
+%          width=0.9\textwidth,
+%          height=6cm,
+%          xlabel={Fraction Defective ($p$)},
+%          ylabel={AOQ($p$)},
+%          xmin=0, xmax=0.10,
+%          ymin=0, ymax=0.03,
+%          xtick={0.00,0.02,0.04,0.06,0.08,0.10},
+%          xticklabels={0.00,0.02,0.04,0.06,0.08,0.10},
+%          ytick={0.00,0.01,0.02,0.03},
+%          yticklabels={0.00,0.01,0.02,0.03},
+%          thick,
+%          axis lines=left
+%        ]
+%        \addplot[very thick,smooth,blue,mark=*] coordinates {
+%          (0.00,0.000000)
+%          (0.02,0.019193)
+%          (0.04,0.024639)
+%          (0.06,0.013980)
+%          (0.08,0.004759)
+%          (0.10,0.001143)
+%        };
+%        \addlegendentry{AOQ}
+%      \end{axis}
+%    \end{tikzpicture}
+%    \caption{Average Outgoing Quality (AOQ)}
+%    \label{fig:aoq}
+%  \end{subfigure}
+%  \hspace{0.01\textwidth}
+%  \begin{subfigure}[b]{0.48\textwidth}
+%    \centering
+%    \begin{tikzpicture}
+%      \begin{axis}[
+%          width=0.9\textwidth,
+%          height=6cm,
+%          xlabel={Fraction Defective ($p$)},
+%          ylabel={ATI($p$)},
+%          xmin=0, xmax=0.10,
+%          ymin=120, ymax=1000,
+%          xtick={0.00,0.02,0.04,0.06,0.08,0.10},
+%          xticklabels={0.00,0.02,0.04,0.06,0.08,0.10},
+%          ytick={125,200,400,600,800,1000},
+%          yticklabels={125,200,400,600,800,1000},
+%          thick,
+%          axis lines=left,
+%          legend pos=north west,
+%        ]
+%        \addplot[very thick,smooth,blue,mark=*] coordinates {
+%          (0.00,125.0)
+%          (0.02,160.3)
+%          (0.04,461.0)
+%          (0.06,796.1)
+%          (0.08,948.0)
+%          (0.10,990.0)
+%        };
+%        \addlegendentry{ATI}
+%      \end{axis}
+%    \end{tikzpicture}
+%    \caption{Average Total Inspection (ATI)}
+%    \label{fig:ati}
+%  \end{subfigure}
+%  \caption{\textit{(a) AOQ and (b) ATI curves for plan $(N=1000,\;n=125,\;c=5)$.}}
+%  \label{fig:aoq_ati}
+%\end{figure}
+%
+%
+%Figure~\ref{fig:aoq_ati} shows the \textbf{Average Outgoing Quality (AOQ)} and \textbf{Average Total Inspection (ATI)} as functions of the incoming fraction defective \(p\) for the sampling plan \((N = 1000,\; n = 125,\; c = 5)\).
+%
+%\begin{itemize}
+%  \item \textbf{AOQ Curve:} The AOQ curve initially increases with \(p\), reaches a maximum value (known as the \textbf{Average Outgoing Quality Limit (AOQL)}), and then decreases as more lots are rejected and subject to rectification. This behavior occurs because, at low values of \(p\), most lots are accepted and some defectives pass through. As \(p\) increases, more lots are rejected and corrected, lowering the average defectives that leave the system.
+%
+%  \item \textbf{ATI Curve:} The ATI curve represents the average number of units inspected per lot. At low defect levels (\(p \approx 0\)), most lots are accepted, so only the initial sample size (\(n = 125\)) is inspected. As \(p\) increases, more lots are rejected and require full inspection of all \(N = 1000\) units, causing ATI to rise toward the maximum value. The curve reflects this transition from minimal to extensive inspection as quality deteriorates.
+%\end{itemize}
+%
+%Together, these plots provide insight into the effectiveness and inspection burden of a given sampling plan under varying quality conditions.
+%
+%
+%\subsubsection*{Example}
+%
+%Suppose $N = 1000$, $(n,c) = (125,5)$, and the true defect rate is $p=0.02$.  Then
+%\[
+%P_a(0.02)
+%= \sum_{i=0}^{5} \binom{125}{i}(0.02)^i(0.98)^{125 - i}
+%\approx 0.95.
+%\]
+%Thus
+%\[
+%\mathrm{ATI}(0.02)
+%=125 + (1 - 0.95)\times(1000 - 125)
+%=125 + 0.05\times875
+%\approx168.75,
+%\]
+%and
+%\[
+%\mathrm{ASI}(0.02)
+%=0.05 \times875
+%\approx43.75.
+%\]
+%
+%---
 
 \subsection{Double Sampling Plan}
 
