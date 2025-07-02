@@ -70,7 +70,7 @@
 	belowskip=3mm,
 	showstringspaces=false,
 	columns=flexible,
-	basicstyle={\small\ttfamily\bfseries},
+	basicstyle={\ttfamily\bfseries},
 	numbers=none,
 	numberstyle=\tiny\color{gray},
 	keywordstyle=\color{blue},
@@ -15898,7 +15898,7 @@ $C_{pk} \geq 2.0$ & Excellent \\
 
 \subsubsection*{Relationship Between \(C_{pk}\) and Defect Rate}
 
-Assuming the process output is normally distributed, the process capability index can be translated into the proportion of defective items produced. For example, a \(C_{pk} = 1.00\) corresponds to 3-sigma capability, implying about 0.27\% of the output lies outside the specification limits, or 2,700 defective parts per million (ppm).
+Assuming the process output is normally distributed, the process capability index can be translated into the proportion of defective (non-conforming\footnote{People often prefer the term ``\textbf{non-conforming}'' instead of ``\textbf{defective}'' because it sounds less harsh and more neutral. Calling a product defective can carry a strong negative connotation and may suggest serious flaws or failure. This can harm the reputation of a company or brand, especially when communicating with clients or stakeholders. Non-conforming simply means the item does not meet a specific standard or requirement—it avoids suggesting total failure.}) items produced. For example, a \(C_{pk} = 1.00\) corresponds to 3-sigma capability, implying about 0.27\% of the output lies outside the specification limits, or 2,700 defective parts per million (ppm).
 
 Let the specification limits be \(USL\) and \(LSL\), and the process mean and standard deviation be \(\mu\) and \(\sigma\), respectively. Then, the defect rate can be estimated using the tails of the normal distribution:
 \begin{align*}
@@ -16173,172 +16173,137 @@ The steel rod manufacturing process demonstrates excellent capability with all i
 The primary focus should be on maintaining this excellent performance. No corrective actions are needed, but continuous monitoring and documentation of best practices are recommended.
 
 
+
 \section{Acceptance Sampling}
 
-Acceptance sampling is a statistical method used to determine whether to accept or reject a batch of products based on inspection of a sample.
+Suppose that a supermarket gets large batches of packaged cakes from a bakery. To make sure the cakes are fresh and good to eat, a few cakes from each batch are opened and tasted. Once opened, these cakes cannot be sold. So, the manager has to decide whether to accept or reject the whole batch based on the small number tested. This method is called acceptance sampling.
+
+\begin{textbox}
+\textbf{Acceptance sampling} is a statistical quality control technique used to determine whether to accept or reject an entire batch (lot) of products based on the inspection of a representative sample.
+\end{textbox}
+
+On the contrary, there are \textbf{100\% inspection} method which involve checking every single item in the batch. This ensures that no defective items are missed, as each product is individually examined or tested. While this method provides a high level of quality assurance, it is often time-consuming, expensive, and sometimes impractical—especially when testing destroys the item, such as in the case of food products. Therefore, 100\% inspection is typically used only when the cost of a defect is very high or when the inspection process is non-destructive and quick.
+
+\subsection{When to Use Acceptace Sampling}
+
+Acceptance sampling method is particularly useful when:
+
+\begin{itemize}
+    \item Testing is destructive (e.g., testing the strength of materials).
+    \item 100\% inspection is too costly or time-consuming
+    \item The lot size is very large.
+    \item The cost of accepting defective items is not extremely high.
+\end{itemize}
+
+While acceptance sampling is widely used, it also comes with limitations that should not be overlooked.:
+\begin{itemize}
+\item There are risks of accepting bad `lots' and `rejecting' good lots.
+\item It only tells whether to accept or reject a batch—it does not provide feedback about the underlying production process or help in process improvement.
+\item When inspection is destructive (e.g., food), the sample size must be small to minimize waste, reducing the accuracy of the decision.
+\end{itemize}
+
+%\subsection{Basic Terminology}
+%
+%\begin{itemize}
+%    \item \textbf{Lot:} A collection of items from which a sample is drawn.
+%    \item \textbf{Sample:} A subset of items selected from the lot for inspection.
+%    \item \textbf{Defective or Non-conforming item:} An item that does not meet specified quality requirements.
+%    \item \textbf{Fraction defective (p):} The proportion of defective items in the lot.
+%    \item \textbf{Acceptance number (c):} Maximum number of defective or non-conforming items allowed in the sample for lot acceptance.
+%\end{itemize}
 
 \subsection{Single Sampling Plans}
 
-A single sampling plan is characterized by $(n, c)$ where:
-\begin{itemize}
-    \item $n$ = sample size
-    \item $c$ = acceptance number
-\end{itemize}
+A \textbf{single sampling plan} is one of the simplest forms of acceptance sampling used in quality control. It is characterized by two parameters: $(n, c)$ where $n$ is the sample size and $c$ is the acceptance number which is basically the maximum number of defective or non-conforming items allowed in the sample.
 
-Decision rule: Accept the lot if the number of defective items $d \leq c$
-
-\subsection{Operating Characteristic (OC) Curve}
-
-The OC curve shows the probability of accepting a lot as a function of the lot fraction defective $p$.
-
-For a binomial distribution:
-$$P_a(p) = \sum_{d=0}^{c} \binom{n}{d} p^d (1-p)^{n-d}$$
-
-\subsubsection{Example: OC Curve Calculation}
-
-For a sampling plan $(n=50, c=2)$:
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[scale=0.8]
-\begin{axis}[
-    title={Operating Characteristic Curve},
-    xlabel={Fraction Defective (p)},
-    ylabel={Probability of Acceptance},
-    xmin=0, xmax=0.2,
-    ymin=0, ymax=1,
-    grid=major
-]
-\addplot[blue, thick, smooth] coordinates {
-    (0,1) (0.02,0.92) (0.04,0.68) (0.06,0.42) (0.08,0.24) (0.10,0.12) (0.12,0.06) (0.14,0.03) (0.16,0.01) (0.18,0.005) (0.20,0.002)
-};
-\end{axis}
-\end{tikzpicture}
-\end{figure}
-
-\subsection{Producer's and Consumer's Risks}
-
-\begin{itemize}
-    \item \textbf{Producer's Risk ($\alpha$)}: Probability of rejecting a good lot
-    \item \textbf{Consumer's Risk ($\beta$)}: Probability of accepting a bad lot
-\end{itemize}
-
-Typically:
-\begin{itemize}
-    \item AQL (Acceptable Quality Level): $\alpha = 0.05$
-    \item LTPD (Lot Tolerance Percent Defective): $\beta = 0.10$
-\end{itemize}
-
-\section{Introduction to Acceptance Sampling}
-
-Acceptance sampling is a statistical quality control technique used to determine whether to accept or reject an entire batch (lot) of products based on the inspection of a representative sample. This method is particularly useful when:
-
-\begin{itemize}
-    \item Testing is destructive (e.g., testing the strength of materials)
-    \item 100\% inspection is too costly or time-consuming
-    \item The lot size is very large
-    \item The cost of accepting defective items is not extremely high
-\end{itemize}
-
-\textbf{Key Concept:} Instead of inspecting every item in a lot, we inspect only a sample and make a decision about the entire lot based on the sample results.
-
-\subsection{Basic Terminology}
-
-\begin{itemize}
-    \item \textbf{Lot:} A collection of items from which a sample is drawn
-    \item \textbf{Sample:} A subset of items selected from the lot for inspection
-    \item \textbf{Defective:} An item that does not meet specified quality requirements
-    \item \textbf{Fraction Defective (p):} The proportion of defective items in the lot
-    \item \textbf{Acceptance Number (c):} Maximum number of defective items allowed in the sample for lot acceptance
-\end{itemize}
-
-\section{Single Sampling Plans}
-
-A single sampling plan is the most basic form of acceptance sampling, characterized by two parameters: $(n, c)$.
-
-\subsection{Plan Parameters}
-
-\begin{itemize}
-    \item \textbf{Sample Size ($n$):} Number of items randomly selected from the lot
-    \item \textbf{Acceptance Number ($c$):} Maximum number of defective items allowed in the sample
-\end{itemize}
-
-\subsection{Decision Rule}
-
-The decision rule for a single sampling plan is straightforward:
-\begin{center}
-\boxed{
-\begin{aligned}
-\text{Accept the lot if } d \leq c \\
-\text{Reject the lot if } d > c
-\end{aligned}
-}
-\end{center}
-
-where $d$ is the number of defective items found in the sample.
-
-\subsection{Simple Example}
-
-\textbf{Example 1:} A manufacturer receives a lot of 1000 electronic components. They use a sampling plan $(n=20, c=1)$.
-
-\textbf{Procedure:}
+The steps are:
 \begin{enumerate}
-    \item Randomly select 20 components from the lot
-    \item Inspect each component for defects
-    \item Count the number of defective components ($d$)
-    \item Decision:
+    \item Randomly select $n$ items from the lot.
+    \item Inspect all $n$ items and count the number of non-conforming items. Let the number be $d$.
+    \item Make the decision to accept or reject the lot based on the following decision rule:
+    \begin{align*}
+    \text{Accept the lot if } d &\leq c \\
+    \text{Reject the lot if } d &> c
+    \end{align*}
+\end{enumerate}
+
+\subsubsection{Example}
+
+A manufacturer receives a lot of 1000 electronic components. They use a single sampling plan $(n=20, c=1)$ for acceptance sampling.
+
+\textit{Steps}:
+\begin{enumerate}
+    \item Randomly select 20 components from the lot and inspect each component for defects.
+    \item Count the number of defective components ($d$).
+    \item Decision rule:
     \begin{itemize}
-        \item If $d = 0$ or $d = 1$: Accept the lot
-        \item If $d \geq 2$: Reject the lot
+        \item  Accept the lot if $d = 0$ or $d = 1$.
+        \item Reject the lot if $d \geq 2$.
     \end{itemize}
 \end{enumerate}
 
-\textbf{Possible Outcomes:}
+\textit{Possible Outcomes:}
 \begin{itemize}
-    \item Sample contains 0 defective items $\rightarrow$ Accept lot
-    \item Sample contains 1 defective item $\rightarrow$ Accept lot
-    \item Sample contains 2 or more defective items $\rightarrow$ Reject lot
+    \item Sample contains 0 defective items $\rightarrow$ Accept lot.
+    \item Sample contains 1 defective item $\rightarrow$ Accept lot.
+    \item Sample contains 2 or more defective items $\rightarrow$ Reject lot.
 \end{itemize}
 
-\section{Operating Characteristic (OC) Curve}
+---
 
-The Operating Characteristic (OC) curve is fundamental to understanding the performance of any sampling plan. It shows the probability of accepting a lot as a function of the actual fraction defective in the lot.
+\subsection{Operating Characteristic (OC) Curve}
 
-\subsection{Mathematical Foundation}
-
-For a single sampling plan $(n, c)$, assuming the number of defective items follows a binomial distribution, the probability of acceptance is:
+The Operating Characteristic (OC) curve is fundamental to understanding the performance of any sampling plan. It shows the probability of accepting a lot as a function of the true fraction defective in the lot. For a single sampling plan $(n, c)$, assuming the number of defective items follows a binomial distribution, the probability of acceptance is:
 
 $$P_a(p) = \sum_{d=0}^{c} \binom{n}{d} p^d (1-p)^{n-d}$$
 
 where:
 \begin{itemize}
     \item $P_a(p)$ = Probability of accepting a lot with fraction defective $p$
-    \item $\binom{n}{d}$ = Binomial coefficient
+    \item $n$ = Sample size
     \item $p$ = True fraction defective in the lot
     \item $d$ = Number of defective items in the sample
 \end{itemize}
+The OC curve is basically a plot of $P_a(p)$ as $p$ is varied.
 
-\subsection{Detailed Example: OC Curve Calculation}
+\subsubsection{Example}
 
 Let's calculate the OC curve for sampling plan $(n=50, c=2)$.
 
-\textbf{Step-by-step calculation for $p = 0.04$:}
+When $p = 0$, the acceptance probability $P_a(0)$ is one because there are no products which are non-conforming or defective.
 
-$$P_a(0.04) = \sum_{d=0}^{2} \binom{50}{d} (0.04)^d (0.96)^{50-d}$$
-
-$$= \binom{50}{0}(0.04)^0(0.96)^{50} + \binom{50}{1}(0.04)^1(0.96)^{49} + \binom{50}{2}(0.04)^2(0.96)^{48}$$
-
-$$= 1 \times 1 \times 0.1299 + 50 \times 0.04 \times 0.1353 + 1225 \times 0.0016 \times 0.1409$$
-
-$$= 0.1299 + 0.2706 + 0.2765 = 0.677$$
-
-\textbf{Complete OC Curve Data:}
-
+When $p=0.01$, the acceptance probability is:
+\begin{align*}
+P_a(0.01)
+&= \sum_{d=0}^{2} \binom{50}{d} (0.01)^d (0.99)^{50-d} \\[6pt]
+&= \binom{50}{0}(0.01)^0(0.99)^{50}
+   + \binom{50}{1}(0.01)^1(0.99)^{49}
+   + \binom{50}{2}(0.01)^2(0.99)^{48} \\[6pt]
+&= 1 \times 1 \times 0.6050
+  + 50 \times 0.01 \times 0.6111
+  + 1225 \times 0.0001 \times 0.6173 \\[6pt]
+&= 0.6050 + 0.3056 + 0.0756 \\
+&\approx 0.986
+\end{align*}
+When $p=0.02$, the acceptance probability is:
+\begin{align*}
+P_a(0.02)
+&= \sum_{d=0}^{2} \binom{50}{d} (0.02)^d (0.98)^{50-d} \\[6pt]
+&= \binom{50}{0}(0.02)^0(0.98)^{50}
+   + \binom{50}{1}(0.02)^1(0.98)^{49}
+   + \binom{50}{2}(0.02)^2(0.98)^{48} \\[6pt]
+&= 1 \times 1 \times 0.3642
+  + 50 \times 0.02 \times 0.3716
+  + 1225 \times 0.0004 \times 0.3796 \\[6pt]
+&= 0.3642 + 0.3716 + 0.1858 \\
+&\approx 0.922
+\end{align*}
+We can continue in this way to find the acceptance probability for different $p$ values. The results are tabulated below:
 \begin{table}[H]
 \centering
 \begin{tabular}{c|c}
 \toprule
-Fraction Defective ($p$) & Probability of Acceptance ($P_a$) \\
+\textbf{Fraction Defective ($p$)} & \textbf{Probability of Acceptance} ($P_a$) \\
 \midrule
 0.00 & 1.000 \\
 0.01 & 0.986 \\
@@ -16353,8 +16318,10 @@ Fraction Defective ($p$) & Probability of Acceptance ($P_a$) \\
 0.10 & 0.115 \\
 \bottomrule
 \end{tabular}
-\caption{OC Curve Values for $(n=50, c=2)$}
+\caption{\textit{Probability of acceptance for different $p$ values for sampling plan $(n=50, c=2)$.}}
 \end{table}
+
+The plot of $P_a(p)$ with respect to $p$ is the OC curve which is shown below:
 
 \begin{figure}[H]
 \centering
@@ -16362,14 +16329,15 @@ Fraction Defective ($p$) & Probability of Acceptance ($P_a$) \\
 \begin{axis}[
     xlabel={Fraction Defective ($p$)},
     ylabel={Probability of Acceptance ($P_a$)},
-    xtick={0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1},
-    xticklabels={0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1},
+    xtick={0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1},
+    xticklabels={0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1},
     xmin=0, xmax=0.1,
-    ymin=0, ymax=1,
+    ymin=0, ymax=1.1,
     legend pos=north east,
-    grid=major,
-    width=12cm,
-    height=7cm
+    % grid=major,
+    width=11cm,
+    height=7cm,
+    axis lines=left, thick
 ]
 \addplot[blue, thick, smooth, mark=*] coordinates {
     (0,1.000) (0.01,0.986) (0.02,0.922) (0.03,0.812) (0.04,0.677)
@@ -16381,8 +16349,6 @@ Fraction Defective ($p$) & Probability of Acceptance ($P_a$) \\
 \caption{\textit{Operating characteristic curve for $(n=50, c=2)$.}}
 \end{figure}
 
-\subsection{Interpretation of OC Curve}
-
 The OC curve tells us:
 \begin{itemize}
     \item When $p = 0$ (perfect lot): $P_a = 1.0$ (always accept)
@@ -16391,155 +16357,337 @@ The OC curve tells us:
     \item When $p = 0.10$: $P_a = 0.115$ (11.5\% chance of acceptance)
 \end{itemize}
 
-\textbf{Key Insight:} As the fraction defective increases, the probability of acceptance decreases, which is the desired behavior of a sampling plan.
+As the fraction defective increases, the probability of acceptance decreases, which is the desired behavior of a sampling plan.
 
-\section{Producer's and Consumer's Risks}
+---
 
-In acceptance sampling, there are two types of errors that can occur, leading to risks for both the producer and consumer.
+\subsubsection*{Behavior of OC Curves for Different Sampling Plans}
 
-\subsection{Type I and Type II Errors}
+In the following, a plot is shown comparing the operating characteristic curves for the sampling plans \((50,1)\), \((50,2)\), and \((80,2)\).
 
-\begin{table}[H]
+\begin{figure}[H]
 \centering
-\begin{tabular}{|c|c|c|}
-\hline
-& \textbf{Lot is Good} & \textbf{Lot is Bad} \\
-\hline
-\textbf{Accept Lot} & Correct Decision & Type II Error \\
-\hline
-\textbf{Reject Lot} & Type I Error & Correct Decision \\
-\hline
-\end{tabular}
-\caption{Decision Matrix for Acceptance Sampling}
-\end{table}
+\begin{tikzpicture}
+  \begin{axis}[
+      xlabel={Fraction Defective (\(p\))},
+      ylabel={Probability of Acceptance (\(P_a\))},
+      xtick={0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.10},xticklabels={0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1},
+      xmin=0, xmax=0.10,
+      ymin=0, ymax=1.1,
+      legend pos=north east,
+      width=11cm,
+      height=7cm,
+      axis lines=left, thick
+    ]
 
-\subsection{Producer's Risk ($\alpha$)}
+    % (n=50, c=1)
+    \addplot[red, very thick, smooth, mark=o] coordinates {
+      (0.00,1.0000) (0.01,0.9106) (0.02,0.7358) (0.03,0.5553) (0.04,0.4005)
+      (0.05,0.2794) (0.06,0.1900) (0.07,0.1265) (0.08,0.0827) (0.09,0.0532)
+      (0.10,0.0338)
+    };
+    \addlegendentry{\(n=50,\;c=1\)}
 
-\textbf{Definition:} The probability of rejecting a lot that should be accepted (Type I error).
+    % (n=50, c=2)
+    \addplot[blue, very thick, smooth, mark=*] coordinates {
+      (0.00,1.0000) (0.01,0.9862) (0.02,0.9216) (0.03,0.8108) (0.04,0.6767)
+      (0.05,0.5404) (0.06,0.4163) (0.07,0.3108) (0.08,0.2260) (0.09,0.1605)
+      (0.10,0.1117)
+    };
+    \addlegendentry{\(n=50,\;c=2\)}
 
-\textbf{Mathematical Expression:}
-$$\alpha = P(\text{Reject lot} | \text{Lot is good}) = 1 - P_a(p_0)$$
+    % (n=80, c=2)
+    \addplot[green!60!black, very thick, smooth, mark=triangle*] coordinates {
+      (0.00,1.0000) (0.01,0.9534) (0.02,0.7844) (0.03,0.5681) (0.04,0.3748)
+      (0.05,0.2306) (0.06,0.1344) (0.07,0.0750) (0.08,0.0404) (0.09,0.0211)
+      (0.10,0.0107)
+    };
+    \addlegendentry{\(n=80,\;c=2\)}
 
-where $p_0$ is the Acceptable Quality Level (AQL).
+  \end{axis}
+\end{tikzpicture}
+\caption{\textit{Comparison of OC curves for the sampling plans \((50,1)\), \((50,2)\), and \((80,2)\).}}
+\end{figure}
 
-\textbf{Typical Value:} $\alpha = 0.05$ (5\%)
+The sampling plan with \(n=50,\,c=1\) yields the steepest decline in acceptance probability as the fraction defective \(p\) increases.  Because only a single defect is tolerated, \(P_a\) starts at 1 when \(p=0\) but falls below 0.5 already around \(p\approx0.04\).  This plan is therefore the most stringent of the three: it protects the consumer best when defect levels are low, but quickly rejects lots as soon as \(p\) rises above a few percent.
 
-\subsection{Consumer's Risk ($\beta$)}
+In contrast, the plan with \(n=50,\,c=2\) is more lenient—requiring at least three defects before rejection—so its OC curve declines more gradually.  Around \(p=0.05\), \(P_a\) is still near 0.54, whereas for \((50,1)\) it has already dropped to roughly 0.28.
 
-\textbf{Definition:} The probability of accepting a lot that should be rejected (Type II error).
-
-\textbf{Mathematical Expression:}
-$$\beta = P(\text{Accept lot} | \text{Lot is bad}) = P_a(p_1)$$
-
-where $p_1$ is the Lot Tolerance Percent Defective (LTPD).
-
-\textbf{Typical Value:} $\beta = 0.10$ (10\%)
+Finally, increasing the sample size to \(n=80\) (with \(c=2\)) sharpens discrimination: the OC curve for \((80,2)\) remains very high when \(p<0.02\) (protecting against false rejects) but plummets below 0.1 by \(p\approx0.06\), offering better risk control on both producer’s and consumer’s sides compared to the \(n=50\) plans.
 
 \subsection{Quality Levels}
 
-\subsubsection{Acceptable Quality Level (AQL)}
+In acceptance sampling, both the producer and the consumer understand that it is not practical to expect every lot to be completely free from defects. Instead, they agree on certain quality levels—one that is considered acceptable. These agreed-upon levels are known as the \textbf{Acceptance Quality Level (AQL)} and the \textbf{Lot Tolerance Percent Defective (LTPD)} and they play an important role in designing and evaluating sampling plans.
 
-The AQL is the maximum percent defective that can be considered satisfactory as a process average. It represents the quality level the producer aims to achieve.
 
-\textbf{Example:} If AQL = 2\%, then lots with 2\% or fewer defective items should be accepted most of the time (95\% of the time if $\alpha = 0.05$).
+\subsubsection{Acceptance Quality Level (AQL)}
+
+\begin{textbox}
+The \textbf{Acceptance Quality Level (AQL)} is the maximum percentage of defective items in a lot that the buyer is willing to accept as satisfactory.
+\end{textbox}
+
+The producer would like to design a sampling plan such that there is a high probability of accepting a lot if roportion of defectives in a lot is less than or equal to AQL.
 
 \subsubsection{Lot Tolerance Percent Defective (LTPD)}
 
-The LTPD is the percent defective that the consumer considers unsatisfactory. Lots with this level of quality should be rejected most of the time.
+In order to reduce the producer’s risk, the buyer agrees to tolerate a lot of quality worse than the acceptance quality level (AQL) up to a certain limit but not beyond it. This level is known as the Lot Tolerance Percent Defective (LTPD), also referred to as the Rejectable Quality Level (RQL).
 
-\textbf{Example:} If LTPD = 8\%, then lots with 8\% or more defective items should be rejected most of the time (90\% of the time if $\beta = 0.10$).
+\begin{textbox}
+The \textbf{Lot Tolerance Percent Defective (LTPD)} is the defect rate that a consumer deems unacceptable in an individual lot.
+\end{textbox}
+The consumer would like to design a sampling plan such that there is a low probability of accepting a lot (equivalently high probability of rejecting a lot) if roportion of defectives in a lot is greater than or equal to AQL. The LTPD is typically greater than the AQL.
 
-\subsection{Comprehensive Example}
+If the proportion of defective items in a lot is equal to or greater than this level, the lot will definitely be rejected. If the proportion of defectives is below the LTPD but above the AQL, the decision to accept or reject the lot depends on the result of the sampling plan.
 
-\textbf{Problem:} Design a sampling plan with AQL = 2\%, LTPD = 8\%, $\alpha = 0.05$, and $\beta = 0.10$.
+\subsubsection*{Example}
 
-\textbf{Requirements:}
+A shopkeeper purchases pens from a pen manufacturing company in cartons (lots), each containing 1,000 pens. It is understood by both parties that producing completely defect-free lots is impractical. Therefore, they agree on an \textbf{Acceptance Quality Level (AQL)} of 2\%, meaning that the shopkeeper will accept lots that contain up to 2\% defective pens (i.e., up to 20 defective pens per lot) most of the time.
+
+At the same time, to protect against receiving poor-quality lots, the shopkeeper also specifies a \textbf{Lot Tolerance Percent Defective (LTPD)} of 8\%. This means that if a lot has 80 or more defective pens, it should be rejected with high probability. Based on these quality levels, a suitable sampling plan is designed that ensures:
 \begin{itemize}
-    \item $P_a(0.02) \geq 0.95$ (Producer's requirement)
-    \item $P_a(0.08) \leq 0.10$ (Consumer's requirement)
+  \item Lots with 2\% defectives are accepted at least 95\% of the time,
+  \item Lots with 8\% defectives are rejected at least 90\% of the time.
 \end{itemize}
 
-\textbf{Solution Process:}
-We need to find values of $n$ and $c$ that satisfy both conditions. Let's try $(n=89, c=3)$.
+This agreement allows both the manufacturer and the shopkeeper to operate fairly: the producer is protected from unfair rejections of acceptably good lots, and the buyer is protected from routinely accepting poor-quality shipments.
 
-For $p = 0.02$ (AQL):
-$$P_a(0.02) = \sum_{d=0}^{3} \binom{89}{d} (0.02)^d (0.98)^{89-d} = 0.952$$
+---
 
-For $p = 0.08$ (LTPD):
-$$P_a(0.08) = \sum_{d=0}^{3} \binom{89}{d} (0.08)^d (0.92)^{89-d} = 0.096$$
+\subsection{Producer's and Consumer's Risks}
 
-\textbf{Verification:}
+In acceptance sampling, there are two types of errors that can occur, leading to risks for both the producer and consumer.
+
 \begin{itemize}
-    \item Producer's Risk: $\alpha = 1 - 0.952 = 0.048 < 0.05$ ✓
-    \item Consumer's Risk: $\beta = 0.096 < 0.10$ ✓
+\item \textbf{Producer's risk} ($\alpha$) is the probability of rejecting a lot when the defect rate is equal to AQL (Type I Error).
+$$\alpha = P(\text{Reject lot} \mid \text{defect rate = AQL}) = 1 - P_a(\text{AQL})$$
+
+The producer suffers when this occurs because a good quality lot is rejected. {Typical value:} $\alpha = 0.05$ (5\%)
+
+\medskip
+
+\item \textbf{Consumer's risk} ($\beta$) is the probability of accepting a lot when the defect rate is equal to LTPD (Type II Error).
+$$\beta = P(\text{Accept lot} \mid \text{defect rate = LTPD}) = P_a(\text{LTPD})$$
+
+The consumer suffers when this occurs because an unacceptable quality lot is accepted. {Typical value:} $\beta = 0.10$ (10\%)
 \end{itemize}
 
-Therefore, the sampling plan $(n=89, c=3)$ meets the specified requirements.
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c}
+\toprule
+& \textbf{Defect Rate = AQL} & \textbf{Defect Rate = LTPD} \\
+\midrule
+\textbf{Prob. of Accepting Lot} & $1-\alpha$ & $\beta$ \\
+\midrule
+\textbf{Prob. of Rejecting Lot} & $\alpha$ & $1-\beta$ \\
+\bottomrule
+\end{tabular}
+\caption{\textit{Producer's and consumer's risks.}}
+\end{table}
 
-\section{Practical Applications and Examples}
+These two parameters anchor the operating characteristic (OC) curve at \((\text{AQL}, 1-\alpha)\) and \((\text{LTPD}, \beta)\) respectively.
 
-\subsection{Manufacturing Example}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={Fraction Defective ($p$)},
+    ylabel={Probability of Acceptance ($P_a$)},
+    xtick={0.02, 0.08},
+    xticklabels={AQL, LTPD},
+    xmin=0, xmax=0.1,
+    ymin=0, ymax=1.1,
+    legend pos=north east,
+    width=11cm,
+    height=7cm,
+    axis lines=left, thick
+]
 
-\textbf{Scenario:} A bicycle manufacturer receives shipments of 5000 brake pads. They want to ensure quality while minimizing inspection costs.
+% OC curve
+\addplot[blue, very thick, smooth, mark=*] coordinates {
+    (0,1.000) (0.01,0.986) (0.02,0.922) (0.03,0.812) (0.04,0.677)
+    (0.05,0.540) (0.06,0.416) (0.07,0.312) (0.08,0.228) (0.09,0.164) (0.10,0.115)
+};
+\addlegendentry{OC Curve}
 
-\textbf{Current Plan:} $(n=100, c=2)$
+% Highlight AQL
+\draw[dashed, red, very thick] (axis cs:0.02,0) -- (axis cs:0.02,0.922);
+\draw[dashed, red, very thick] (axis cs:0,0.922) -- (axis cs:0.02,0.922);
+\node[above right, black, very thick] at (axis cs:0.02,0.93) {$1 - \alpha$};
 
-\textbf{Analysis:}
+% Highlight LTPD
+\draw[dashed, teal!70!black, very thick] (axis cs:0.08,0) -- (axis cs:0.08,0.228);
+\draw[dashed, teal!70!black, very thick] (axis cs:0,0.228) -- (axis cs:0.08,0.228);
+\node[above right, black, very thick] at (axis cs:0.08,0.228) {$\beta$};
+
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{OC curve illustrating AQL, LTPD, producer's risk (\(\alpha\)) and consumer's risk (\(\beta\)).}}
+\end{figure}
+
+\subsection{An Example of Designing a Sampling Plan}
+
+Let us design a single sampling plan based on the following requirements:
 \begin{itemize}
-    \item If the lot has 1\% defective: $P_a(0.01) = 0.999$ (Very likely to accept)
-    \item If the lot has 5\% defective: $P_a(0.05) = 0.124$ (Very likely to reject)
+    \item Acceptance Quality Level (AQL): $p_1 = 2\% = 0.02$
+    \item Lot Tolerance Percent Defective (LTPD): $p_2 = 8\% = 0.08$
+    \item Producer's Risk: $\alpha = 0.05$
+    \item Consumer's Risk: $\beta = 0.10$
 \end{itemize}
 
-\textbf{Interpretation:} This plan effectively discriminates between good and bad lots, providing strong protection for both producer and consumer.
+\subsubsection{Objective}
 
-\subsection{Service Industry Example}
+The objective is to determine the smallest sample size $n$ and the acceptance number $c$ such that:
+\begin{align*}
+    P_a(p_1) &= \sum_{i=0}^c \binom{n}{i} p_1^i (1 - p_1)^{n - i} \ge 1 - \alpha = 0.95 \\
+    P_a(p_2) &= \sum_{i=0}^c \binom{n}{i} p_2^i (1 - p_2)^{n - i} \le \beta = 0.10
+\end{align*}
 
-\textbf{Scenario:} A call center wants to monitor service quality by sampling customer interactions.
+To find such a plan, we use the following Python program, which iteratively checks all $(n, c)$ combinations up to a maximum $n$ and returns the first valid pair that satisfies both inequalities.
 
-\textbf{Plan:} $(n=50, c=1)$ where "defective" means unsatisfactory service.
+\subsubsection{Python Program}
 
-\textbf{Decision Process:}
+\begin{lstlisting}[language=Python]
+from scipy.stats import binom
+
+
+def acceptance_probability(n, c, p):
+    return binom.cdf(c, n, p)
+
+
+def satisfies_criteria(n, c, p1, p2, alpha, beta):
+    Pa1 = acceptance_probability(n, c, p1)
+    Pa2 = acceptance_probability(n, c, p2)
+    return Pa1 >= 1 - alpha and Pa2 <= beta
+
+
+def find_sampling_plan(p1, p2, alpha, beta, n_max=500):
+    for n in range(1, n_max + 1):
+        for c in range(0, n):
+            if satisfies_criteria(n, c, p1, p2, alpha, beta):
+                Pa1 = acceptance_probability(n, c, p1)
+                Pa2 = acceptance_probability(n, c, p2)
+                return n, c, Pa1, Pa2
+    return None, None, None, None
+
+
+def main():
+    p1 = 0.02      # AQL
+    p2 = 0.08      # LTPD
+    alpha = 0.05   # Producer's risk
+    beta = 0.10    # Consumer's risk
+
+    # Find sampling plan
+    n, c, Pa1, Pa2 = find_sampling_plan(p1, p2, alpha, beta)
+
+    # Display output
+    if n is not None:
+        print("✅ Sampling Plan Found:")
+        print(f"  Sample size (n): {n}")
+        print(f"  Acceptance number (c): {c}")
+        print(f"  P_a at AQL ({p1:.2%}): {Pa1:.4f}")
+        print(f"  P_a at LTPD ({p2:.2%}): {Pa2:.4f}")
+    else:
+        print("❌ No plan found within the given range.")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsubsection*{Output}
+When this script is executed, it outputs the following:
+
+\begin{lstlisting}
+✅ Sampling Plan Found:
+  Sample size (n): 125
+  Acceptance number (c): 5
+  P_a at AQL (2.00%): 0.9531
+  P_a at LTPD (8.00%): 0.0954
+\end{lstlisting}
+
+\subsubsection*{Interpretation}
+The sampling plan that satisfies the specified producer's and consumer's risks is:
+\begin{itemize}
+    \item Inspect $n = 125$ items from the lot
+    \item Accept the lot if there are $c \leq 5$ defectives
+    \item Reject the lot if there are $c \geq 6$ defectives
+\end{itemize}
+
+This plan ensures that:
+\begin{itemize}
+    \item Lots at AQL = 2\% are accepted at least 95.31\% of the time
+    \item Lots at LTPD = 8\% are accepted only 9.54\% of the time
+\end{itemize}
+
+Thus, the plan meets the specified risk constraints and is optimal under the given conditions.
+
+\subsection{Double Sampling Plans}
+
+In a \textbf{double sampling plan}, the decision to accept or reject a lot is made in two stages instead of inspecting the entire sample at once. This approach can lead to significant savings in inspection effort while maintaining control over the quality risks.
+
+\subsubsection*{Definition}
+
+A double sampling plan is defined by the tuple $(n_1, c_1, n_2, c_2)$, where:
+\begin{itemize}
+    \item $n_1$ is the size of the first sample,
+    \item $c_1$ is the acceptance number for the first sample,
+    \item $n_2$ is the size of the second sample (additional units),
+    \item $c_2$ is the acceptance number for the combined total $n_1 + n_2$.
+\end{itemize}
+
+\textbf{Decision Rules:}
 \begin{enumerate}
-    \item Randomly select 50 customer interactions from the day's total
-    \item Evaluate each interaction for service quality
-    \item If 0 or 1 interactions are unsatisfactory: Day's performance is acceptable
-    \item If 2 or more interactions are unsatisfactory: Investigate and implement corrective actions
+    \item Inspect $n_1$ units. Let $x_1$ be the number of defectives.
+    \item If $x_1 \leq c_1$, \textbf{accept} the lot.
+    \item If $x_1 > c_2$, \textbf{reject} the lot.
+    \item If $c_1 < x_1 \leq c_2$, take a second sample of $n_2$ additional units. Let $x_2$ be the number of defectives in the second sample.
+    \item If the total number of defectives $x_1 + x_2 \leq c_2$, \textbf{accept} the lot; otherwise, \textbf{reject} it.
 \end{enumerate}
 
-\section{Advantages and Limitations}
+\subsubsection*{Operating Characteristic Function}
 
-\subsection{Advantages}
+Let $p$ be the true fraction defective. The probability of acceptance, $P_a(p)$, in a double sampling plan is given by:
 
+\[
+P_a(p) = P_1(p) + P_2(p)
+\]
+where:
+\begin{align*}
+P_1(p) &= \sum_{x_1=0}^{c_1} \binom{n_1}{x_1} p^{x_1} (1 - p)^{n_1 - x_1} \quad \text{(accept at first sample)} \\
+P_2(p) &= \sum_{x_1=c_1+1}^{c_2} \binom{n_1}{x_1} p^{x_1} (1 - p)^{n_1 - x_1} \cdot \sum_{x_2=0}^{c_2 - x_1} \binom{n_2}{x_2} p^{x_2} (1 - p)^{n_2 - x_2}
+\end{align*}
+
+This is the total probability of acceptance across both sampling stages.
+
+\subsubsection*{Advantages of Double Sampling}
 \begin{itemize}
-    \item \textbf{Cost-effective:} Reduces inspection costs compared to 100\% inspection
-    \item \textbf{Time-efficient:} Faster decision-making process
-    \item \textbf{Suitable for destructive testing:} Preserves most of the product
-    \item \textbf{Flexible:} Can be tailored to specific quality requirements
-    \item \textbf{Standardized:} Industry standards (MIL-STD, ANSI/ASQ) provide guidance
+    \item Saves inspection effort if the lot quality is clearly good or bad.
+    \item Provides a flexible compromise between sample size and risk.
+    \item Reduces unnecessary inspections for lots with quality close to the AQL.
 \end{itemize}
 
-\subsection{Limitations}
+\subsubsection*{Example}
 
+Let us consider the following double sampling plan:
+\[
+(n_1 = 50, c_1 = 1, n_2 = 50, c_2 = 4)
+\]
+
+\textbf{Procedure:}
 \begin{itemize}
-    \item \textbf{Risk of error:} Always some probability of wrong decisions
-    \item \textbf{No quality improvement:} Only sorts good from bad lots
-    \item \textbf{Sample size limitations:} May not detect all quality issues
-    \item \textbf{Assumption dependency:} Relies on statistical assumptions that may not hold
-    \item \textbf{Lot homogeneity:} Assumes random distribution of defects
+    \item Take a first sample of $n_1 = 50$ items.
+    \item If there are 0 or 1 defectives, accept the lot.
+    \item If there are 5 or more defectives, reject the lot.
+    \item If there are 2, 3, or 4 defectives, take an additional sample of 50 units.
+    \item Combine both samples. If total defectives $\leq 4$, accept; otherwise, reject.
 \end{itemize}
 
-\section{Conclusion}
+Let’s compute the probability of acceptance at $p = 0.02$ (AQL level) and $p = 0.08$ (LTPD level). This can be done using a Python script (not shown here) that evaluates $P_a(p)$ using the binomial distribution formula given above.
 
-Acceptance sampling is a powerful statistical tool for quality control that balances the need for quality assurance with practical constraints of time and cost. The key to successful implementation lies in:
+\subsubsection*{Interpretation}
 
-\begin{enumerate}
-    \item Understanding the OC curve and its implications
-    \item Properly defining AQL and LTPD based on business requirements
-    \item Selecting appropriate values for producer's and consumer's risks
-    \item Regular review and adjustment of sampling plans based on historical data
-\end{enumerate}
-
-When properly designed and implemented, acceptance sampling plans provide an effective means of maintaining quality standards while optimizing resource utilization.
+The double sampling plan attempts to accept lots of quality at or better than AQL with high probability (typically $1 - \alpha$), and reject lots with defect level at or worse than LTPD with high probability ($1 - \beta$). Compared to a single sampling plan, it allows for early termination in many cases and can be more efficient.
 
 
 \section{Reliability and Life Testing}
