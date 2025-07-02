@@ -16217,15 +16217,17 @@ While acceptance sampling is widely used, it also comes with limitations that sh
 A \textbf{single sampling plan} is one of the simplest forms of acceptance sampling used in quality control. It is characterized by two parameters: $(n, c)$ where $n$ is the sample size and $c$ is the acceptance number which is basically the maximum number of defective or non-conforming items allowed in the sample.
 
 The steps are:
+\begin{textbox}
 \begin{enumerate}
     \item Randomly select $n$ items from the lot.
     \item Inspect all $n$ items and count the number of non-conforming items. Let the number be $d$.
     \item Make the decision to accept or reject the lot based on the following decision rule:
     \begin{align*}
-    \text{Accept the lot if } d &\leq c \\
-    \text{Reject the lot if } d &> c
+    \textbf{Accept} \text{ the lot if } d &\leq c. \\
+    \textbf{Reject} \text{ the lot if } d &> c.
     \end{align*}
 \end{enumerate}
+\end{textbox}
 
 \subsubsection{Example}
 
@@ -16237,8 +16239,8 @@ A manufacturer receives a lot of 1000 electronic components. They use a single s
     \item Count the number of defective components ($d$).
     \item Decision rule:
     \begin{itemize}
-        \item  Accept the lot if $d = 0$ or $d = 1$.
-        \item Reject the lot if $d \geq 2$.
+        \item  \textbf{Accept} the lot if $d = 0$ or $d = 1$.
+        \item \textbf{Reject} the lot if $d \geq 2$.
     \end{itemize}
 \end{enumerate}
 
@@ -16550,16 +16552,13 @@ To find such a plan, we use the following Python program, which iteratively chec
 \begin{lstlisting}[language=Python]
 from scipy.stats import binom
 
-
 def acceptance_probability(n, c, p):
     return binom.cdf(c, n, p)
-
 
 def satisfies_criteria(n, c, p1, p2, alpha, beta):
     Pa1 = acceptance_probability(n, c, p1)
     Pa2 = acceptance_probability(n, c, p2)
     return Pa1 >= 1 - alpha and Pa2 <= beta
-
 
 def find_sampling_plan(p1, p2, alpha, beta, n_max=500):
     for n in range(1, n_max + 1):
@@ -16569,7 +16568,6 @@ def find_sampling_plan(p1, p2, alpha, beta, n_max=500):
                 Pa2 = acceptance_probability(n, c, p2)
                 return n, c, Pa1, Pa2
     return None, None, None, None
-
 
 def main():
     p1 = 0.02      # AQL
@@ -16582,14 +16580,13 @@ def main():
 
     # Display output
     if n is not None:
-        print("✅ Sampling Plan Found:")
-        print(f"  Sample size (n): {n}")
-        print(f"  Acceptance number (c): {c}")
-        print(f"  P_a at AQL ({p1:.2%}): {Pa1:.4f}")
-        print(f"  P_a at LTPD ({p2:.2%}): {Pa2:.4f}")
+        print("Sampling Plan Found:")
+        print(f"Sample size (n): {n}")
+        print(f"Acceptance number (c): {c}")
+        print(f"P_a at AQL ({p1:.2%}): {Pa1:.4f}")
+        print(f"P_a at LTPD ({p2:.2%}): {Pa2:.4f}")
     else:
-        print("❌ No plan found within the given range.")
-
+        print("No plan found within the given range.")
 
 if __name__ == "__main__":
     main()
@@ -16599,11 +16596,11 @@ if __name__ == "__main__":
 When this script is executed, it outputs the following:
 
 \begin{lstlisting}
-✅ Sampling Plan Found:
-  Sample size (n): 125
-  Acceptance number (c): 5
-  P_a at AQL (2.00%): 0.9531
-  P_a at LTPD (8.00%): 0.0954
+Sampling Plan Found:
+Sample size (n): 125
+Acceptance number (c): 5
+P_a at AQL (2.00%): 0.9531
+P_a at LTPD (8.00%): 0.0954
 \end{lstlisting}
 
 \subsubsection*{Interpretation}
@@ -16622,13 +16619,157 @@ This plan ensures that:
 
 Thus, the plan meets the specified risk constraints and is optimal under the given conditions.
 
-\subsection{Double Sampling Plans}
+\subsection{Rectified Inspection Program}
 
-In a \textbf{double sampling plan}, the decision to accept or reject a lot is made in two stages instead of inspecting the entire sample at once. This approach can lead to significant savings in inspection effort while maintaining control over the quality risks.
+A \textbf{rectified inspection program} (also called \emph{screening inspection}) combines a sampling plan with 100\% inspection of all units in any lot that is initially rejected. The goal is to ensure that no defectives leave the inspection station, while still reducing average inspection effort compared to inspecting every lot in full.
 
-\subsubsection*{Definition}
+\subsubsection*{Procedure}
 
-A double sampling plan is defined by the tuple $(n_1, c_1, n_2, c_2)$, where:
+\begin{textbox}
+Let $(n,c)$ be a single‐sampling plan applied to each incoming lot of size $N$:
+\begin{enumerate}
+  \item Inspect a random sample of $n$ units.
+  \item If the number of defectives $d \le c$, \textbf{accept} the lot and ship it without further inspection.
+  \item If $d > c$, \textbf{reject} the lot and perform 100\% inspection (``screening'') on the remaining $N - n$ units, removing all defectives before shipment.
+\end{enumerate}
+\end{textbox}
+
+\subsubsection*{Advantages and Disadvantages}
+
+\begin{itemize}
+  \item \textit{Advantages:}
+    \begin{itemize}
+      \item Guarantees defect‐free outgoing product.
+      \item Often lower average inspection effort than 100\% inspection of every lot.
+    \end{itemize}
+  \item \textit{Disadvantages:}
+    \begin{itemize}
+      \item Requires infrastructure for rapid screening and rework.
+      \item Inspection effort can spike when incoming quality deteriorates (ATI rises sharply).
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Key Metrics}
+
+\begin{itemize}
+\item \textbf{Average Outgoing Quality (AOQ)}
+Because all defectives in a rejected lot are removed, the final outgoing defect rate is zero.  In effect, the rectified program guarantees perfect outgoing quality.
+
+\item \textbf{Average Total Inspection (ATI)}
+The expected number of units inspected per lot, as a function of the true incoming defect rate $p$, is
+\[
+\mathrm{ATI}(p)
+= n \;+\; \bigl[1 - P_a(p)\bigr]\,(N - n),
+\]
+where $P_a(p)$ is the acceptance probability of the sampling plan.  Here:
+\begin{itemize}
+  \item With probability $P_a(p)$, only the first $n$ units are inspected.
+  \item With probability $1 - P_a(p)$, all $N$ units are inspected.
+\end{itemize}
+
+\item \textbf{Average Screening Inspection (ASI)}
+\[
+\mathrm{ASI}(p)
+= (1 - P_a(p))\,(N - n),
+\]
+the expected number of units requiring 100\% inspection (beyond the initial sample).
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}[
+          width=0.9\textwidth,
+          height=6cm,
+          xlabel={Fraction Defective ($p$)},
+          ylabel={AOQ($p$)},
+          xmin=0, xmax=0.1,
+          ymin=0, ymax=0.03,
+          xtick={0,0.05,0.1,0.15,0.2},
+          xticklabels={0,0.05,0.1,0.15,0.2},
+          ytick={0,0.01,0.02,0.03},
+          yticklabels={0,0.01,0.02,0.03},
+          thick, axis lines=left
+        ]
+        \addplot[very thick,smooth, blue, mark=*] coordinates {
+          (0.00,0.000000)
+          (0.02,0.019193)
+          (0.04,0.024639)
+          (0.06,0.013980)
+          (0.08,0.004759)
+          (0.10,0.001143)
+        };
+        \addlegendentry{AOQ}
+      \end{axis}
+    \end{tikzpicture}
+    \label{fig:aoq}
+  \end{subfigure}
+  \hspace{0.01\textwidth}
+  \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}[
+          width=0.9\textwidth,
+          height=6cm,
+          xlabel={Fraction Defective ($p$)},
+          ylabel={ATI($p$)},
+          xmin=0, xmax=0.1,
+          ymin=120, ymax=1000,
+          xtick={0,0.05,0.1,0.15,0.2},
+          xticklabels={0,0.05,0.1,0.15,0.2},
+          ytick={200,400,600,800,1000},
+          yticklabels={200,400,600,800,1000},
+          thick,axis lines=left,
+          legend pos=north west,
+        ]
+        \addplot[very thick,smooth, blue,mark=*] coordinates {
+          (0.00,125.0)
+          (0.02,160.3)
+          (0.04,461.0)
+          (0.06,796.1)
+          (0.08,948.0)
+          (0.10,990.0)
+        };
+        \addlegendentry{ATI}
+      \end{axis}
+    \end{tikzpicture}
+    \label{fig:ati}
+  \end{subfigure}
+  \caption{(a) AOQ and (b) ATI curves for plan $(N=1000,\;n=125,\;c=5)$.}
+  \label{fig:aoq_ati}
+\end{figure}
+
+
+
+\subsubsection*{Example}
+
+Suppose $N = 1000$, $(n,c) = (125,5)$, and the true defect rate is $p=0.02$.  Then
+\[
+P_a(0.02)
+= \sum_{i=0}^{5} \binom{125}{i}(0.02)^i(0.98)^{125 - i}
+\approx 0.95.
+\]
+Thus
+\[
+\mathrm{ATI}(0.02)
+=125 + (1 - 0.95)\times(1000 - 125)
+=125 + 0.05\times875
+\approx168.75,
+\]
+and
+\[
+\mathrm{ASI}(0.02)
+=0.05 \times875
+\approx43.75.
+\]
+
+---
+
+\subsection{Double Sampling Plan}
+
+In a \textbf{double sampling plan}, the decision to accept or reject a lot is made in two stages instead of inspecting the entire sample at once. A double sampling plan is defined by the tuple $(n_1, c_1, n_2, c_2)$, where:
 \begin{itemize}
     \item $n_1$ is the size of the first sample,
     \item $c_1$ is the acceptance number for the first sample,
@@ -16636,58 +16777,97 @@ A double sampling plan is defined by the tuple $(n_1, c_1, n_2, c_2)$, where:
     \item $c_2$ is the acceptance number for the combined total $n_1 + n_2$.
 \end{itemize}
 
-\textbf{Decision Rules:}
+The steps are:
+\begin{textbox}
 \begin{enumerate}
-    \item Inspect $n_1$ units. Let $x_1$ be the number of defectives.
-    \item If $x_1 \leq c_1$, \textbf{accept} the lot.
+    \item Take a sample of size $n_1$ units from the lot and count the defective items. Let $d_1$ be the number of defectives.
+    \item If $d_1 \leq c_1$, \textbf{accept} the lot.
     \item If $x_1 > c_2$, \textbf{reject} the lot.
-    \item If $c_1 < x_1 \leq c_2$, take a second sample of $n_2$ additional units. Let $x_2$ be the number of defectives in the second sample.
-    \item If the total number of defectives $x_1 + x_2 \leq c_2$, \textbf{accept} the lot; otherwise, \textbf{reject} it.
+    \item If $c_1 < x_1 \leq c_2$, take a second sample of size $n_2$ (additional units). Let $d_2$ be the number of defectives in the second sample.
+    \item If the total number of defectives $d_1 + d_2 \leq c_2$, \textbf{accept} the lot; otherwise, \textbf{reject} it.
 \end{enumerate}
+\end{textbox}
 
-\subsubsection*{Operating Characteristic Function}
+A double-sampling plan can significantly reduce the costs of inspection relative to a single-sampling plan for lots with a very low or very high proportion defective because a decision can be made after taking the first sample (often small). However, if the decision requires two samples, the sampling costs can be greater than those for the single-sampling plan. It also provides a flexible compromise between sample size and risk.
 
-Let $p$ be the true fraction defective. The probability of acceptance, $P_a(p)$, in a double sampling plan is given by:
+A full mathematical analysis of double sampling plan is skipped because it is beyond the scope of this text.
 
-\[
-P_a(p) = P_1(p) + P_2(p)
-\]
-where:
-\begin{align*}
-P_1(p) &= \sum_{x_1=0}^{c_1} \binom{n_1}{x_1} p^{x_1} (1 - p)^{n_1 - x_1} \quad \text{(accept at first sample)} \\
-P_2(p) &= \sum_{x_1=c_1+1}^{c_2} \binom{n_1}{x_1} p^{x_1} (1 - p)^{n_1 - x_1} \cdot \sum_{x_2=0}^{c_2 - x_1} \binom{n_2}{x_2} p^{x_2} (1 - p)^{n_2 - x_2}
-\end{align*}
+%\subsubsection*{Operating Characteristic (OC) Curve}
+%
+%Let $p$ be the true fraction defective. The probability of acceptance, $P_a(p)$, in a double sampling plan is given by:
+%\[
+%P_a(p) = P_a^{I}(p) + P_a^{II}(p)
+%\]
+%
+%where, $P_a^{I}(p)$ is the probability of acceptance on the first sample:
+%\begin{align*}
+%P_a^{I}(p) = P(d_1 \leq c_1)
+%\end{align*}
+%
+%and $P_a^{II}(p)$ is the probability of acceptance on the second sample:
+%\begin{align*}
+%P_2(p) &=P(c_1 < d_1 \leq c_2 \text{ and } d_1 + d_2 \leq c_2)\\
+%&=P(c_1 < d_1 \leq c_2)\times P(d_1 + d_2 \leq c_2)
+%\end{align*}
+%
+%Since, $d_1 \sim \mathrm{Bin}(n_1, p)$ $d_2 \sim \mathrm{Bin}(n_2, p)$:
+%\begin{align*}
+%P_a^{I}(p) = \underbrace{\sum_{d_1=0}^{c_1} \binom{n_1}{d_1}\,p^{d_1}(1-p)^{n_1 - d_1}}_{P(d_1 \leq c_1)}
+%\end{align*}
+%\begin{align*}
+%P_2(p) =\underbrace{\sum_{d_1=c_1+1}^{c_2} \binom{n_1}{d_1} p^{d_1} (1 - p)^{n_1 - d_1}}_{P(c_1 < d_1 \leq c_2)} \times \underbrace{\sum_{d_2=0}^{c_2 - d_1} \binom{n_2}{d_2} p^{d_2} (1 - p)^{n_2 - d_2}}_{P(d_1 + d_2 \leq c_2)}
+%\end{align*}
+%
+%Thus, the OC function is fully expressed as:
+%\[
+%P_a(p) = \underbrace{\sum_{d_1=0}^{c_1} \binom{n_1}{d_1} p^{d_1}(1-p)^{n_1 - d_1}}_{P_1(p)} \;+\;
+%\underbrace{\sum_{d_1=c_1+1}^{c_2}
+%\binom{n_1}{d_1} p^{d_1}(1-p)^{n_1-d_1}
+%\sum_{d_2=0}^{c_2 - d_1}
+%\binom{n_2}{d_2} p^{d_2}(1-p)^{n_2-d_2}}_{P_2(p)}
+%\]
 
-This is the total probability of acceptance across both sampling stages.
+%\subsection{Sequential Sampling Plan}
+%
+%A \textbf{sequential sampling plan} is a further refinement of double sampling in which units are inspected one at a time and a decision to accept, reject, or continue is made immediately after each inspection.  At each step, the cumulative number of defectives is plotted against the cumulative sample size, and compared to two decision boundaries:
+%
+%\begin{itemize}
+%  \item A lower boundary \(c_1(n)\), below which the lot is \emph{accepted}.
+%  \item An upper boundary \(c_2(n)\), above which the lot is \emph{rejected}.
+%  \item If the cumulative defect count lies strictly between \(c_1(n)\) and \(c_2(n)\), sampling continues.
+%\end{itemize}
+%
+%\begin{textbox}
+%\begin{enumerate}
+%  \item Inspect the first item; let \(d =\) number of defectives so far (0 or 1), and \(n=1\).
+%  \item If \(d \le c_1(1)\), \textbf{accept} the lot and stop.
+%  \item If \(d \ge c_2(1)\), \textbf{reject} the lot and stop.
+%  \item Otherwise, inspect the next item.  Increment \(n\) by 1, update \(d\), and repeat steps 2–4 using the boundaries \(c_1(n)\) and \(c_2(n)\).
+%\end{enumerate}
+%\end{textbox}
+%
+%\paragraph{Decision Boundaries.}
+%The sequences \(\{c_1(n)\}\) and \(\{c_2(n)\}\) are chosen to control producer’s risk \(\alpha\) and consumer’s risk \(\beta\) at specified quality levels \(p_1\) (AQL) and \(p_2\) (LTPD).  These boundaries can be derived from the Sequential Probability Ratio Test (SPRT) as:
+%
+%\[
+%c_1(n) = \frac{\ln\bigl(\tfrac{\beta}{1-\alpha}\bigr)}{\ln\bigl(\tfrac{1-p_2}{1-p_1}\bigr) + \ln\bigl(\tfrac{p_1}{p_2}\bigr)} + n\,\frac{\ln\bigl(\tfrac{1-p_1}{1-p_2}\bigr)}{\ln\bigl(\tfrac{1-p_2}{1-p_1}\bigr) + \ln\bigl(\tfrac{p_1}{p_2}\bigr)},
+%\quad
+%c_2(n) = \frac{\ln\bigl(\tfrac{1-\beta}{\alpha}\bigr)}{\ln\bigl(\tfrac{1-p_2}{1-p_1}\bigr) + \ln\bigl(\tfrac{p_1}{p_2}\bigr)} + n\,\frac{\ln\bigl(\tfrac{1-p_1}{1-p_2}\bigr)}{\ln\bigl(\tfrac{1-p_2}{1-p_1}\bigr) + \ln\bigl(\tfrac{p_1}{p_2}\bigr)}.
+%\]
+%
+%In practice, tables or software generate integer boundary values for each \(n\).
+%
+%\paragraph{Illustration.}
+%Figure G.1 shows a typical sequential chart.  After each inspection, the point \((n,d)\) is plotted.  In this example, the cumulative defects exceed \(c_2(40)\) at \(n=40\), so the lot is rejected at that stage.
 
-\subsubsection*{Advantages of Double Sampling}
-\begin{itemize}
-    \item Saves inspection effort if the lot quality is clearly good or bad.
-    \item Provides a flexible compromise between sample size and risk.
-    \item Reduces unnecessary inspections for lots with quality close to the AQL.
-\end{itemize}
+%\begin{figure}[H]
+%  \centering
+%  % replace with actual TikZ or graphic
+%  \includegraphics[width=0.7\textwidth]{figures/sequential_chart.png}
+%  \caption{Sequential sampling decision chart: reject at \(n=40\) when \(d > c_2(40)\).}
+%\end{figure}
 
-\subsubsection*{Example}
-
-Let us consider the following double sampling plan:
-\[
-(n_1 = 50, c_1 = 1, n_2 = 50, c_2 = 4)
-\]
-
-\textbf{Procedure:}
-\begin{itemize}
-    \item Take a first sample of $n_1 = 50$ items.
-    \item If there are 0 or 1 defectives, accept the lot.
-    \item If there are 5 or more defectives, reject the lot.
-    \item If there are 2, 3, or 4 defectives, take an additional sample of 50 units.
-    \item Combine both samples. If total defectives $\leq 4$, accept; otherwise, reject.
-\end{itemize}
-
-Let’s compute the probability of acceptance at $p = 0.02$ (AQL level) and $p = 0.08$ (LTPD level). This can be done using a Python script (not shown here) that evaluates $P_a(p)$ using the binomial distribution formula given above.
-
-\subsubsection*{Interpretation}
-
-The double sampling plan attempts to accept lots of quality at or better than AQL with high probability (typically $1 - \alpha$), and reject lots with defect level at or worse than LTPD with high probability ($1 - \beta$). Compared to a single sampling plan, it allows for early termination in many cases and can be more efficient.
+%Sequential sampling plans typically yield the smallest average sample number (ASN) among attribute plans, especially when the true defect rate is far from the indifference region between \(p_1\) and \(p_2\).  They are most effective when rapid decisions are desired and when real‐time computation or precomputed tables are available.
 
 
 \section{Reliability and Life Testing}
