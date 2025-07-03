@@ -17054,6 +17054,422 @@ $$R_p(t) = 1 - [1 - e^{-0.001t}]^3$$
 \end{tikzpicture}
 \end{figure}
 
+\subsection{Introduction to Reliability}
+
+Reliability is a key concept in quality control. It measures how likely a product or system is to function properly without failure over a specified period under stated conditions. While traditional quality control checks whether a product meets standards at the time of inspection, reliability focuses on its performance over time.
+
+\begin{textbox}
+The \textbf{Reliability function}, denoted by $R(t)$, is defined as the probability that a system or component continues to operate without failure for at least time $t$:
+\begin{equation*}
+R(t) = P(T > t)
+\end{equation*}
+where $T$ is a random variable representing the time to failure.
+\end{textbox}
+
+\medskip
+
+The complement of the reliability function is called the \textbf{unreliability function}, also known as the \textbf{failure distribution function}. It gives the probability that the system fails by time $t$:
+\begin{equation*}
+F(t) = P(T \leq t) = 1 - R(t)
+\end{equation*}
+
+The \textbf{failure density function}, denoted by $f(t)$, is defined as:
+\begin{equation*}
+f(t) = \frac{dF(t)}{dt} = -\frac{dR(t)}{dt}
+\end{equation*}
+
+Conversely, the cumulative failure distribution function can be obtained from the density function as:
+\begin{equation*}
+F(t) = \int_0^{t} f(u)\,du
+\end{equation*}
+
+The probability that the product fails between time $t$ and $t + \Delta t$ is approximately $f(t)\Delta t$. The failure density function has the following properties:
+\begin{equation*}
+f(t) \geq 0, \quad \text{and} \quad \int_0^{\infty} f(t)\,dt = 1
+\end{equation*}
+
+The reliability function can also be obtained from the failure density function.
+$$R(t) = 1 - \int_0^{t} f(u)\,du = \int_t^{\infty} f(u)\,du$$
+
+The probability of failure occuring within some interval $[a,b]$ may be found using any of the three functions:
+$$P(a \leq T \leq b) = F(b) - F(a) = R(a) - R(b) =  \int_a^{b} f(t)\,dt$$
+
+\subsection{Failure Rate and Hazard Function}
+
+\subsubsection{Failure Rate}
+
+The rate at which failures occur in a certain time interval $[t_1, t_2]$ is called the \textbf{failure rate} during that interval. It is defined as the probability of failure that occur in the interval per unit time, given that a failure has not occured prior to $t_1$, the begining of the interval.
+
+The conditional probability that the system fails between $t_1$ and $t_2$, given survival up to $t_1$, is:
+\[
+P(t_1 < T \leq t_2 \mid T > t_1) = \frac{P(t_1 < T \leq t_2)}{P(T > t_1)} = \dfrac{R(t_1) - R(t_2)}{R(t_1)}
+\]
+where $R(t)$ is the reliability function. Dividing this conditional probability by the interval length $(t_2 - t_1)$ gives the {failure rate} over $[t_1, t_2]$:
+\[
+\text{Failure rate on } [t_1, t_2] = \dfrac{R(t_1) - R(t_2)}{(t_2 - t_1) R(t_1)}
+\]
+
+Note that the failure rate is a function of time. If we redefine the interval as $[t, t+\Delta t]$, the previous expression for railure rate becomes
+\[
+\dfrac{R(t) - R(t+\Delta t)}{\Delta t \cdot R(t_1)}
+\]
+
+
+\subsubsection{Hazard Function (Instantaneous Failure Rate)}
+
+The \textbf{hazard function} $h(t)$, also called the \textbf{instantaneous failure rate}, is defined as the limiting value of the failure rate as the interval $\Delta t$ approaches zero. That is,
+\[
+h(t) = \lim_{\Delta t \to 0} \dfrac{R(t) - R(t+\Delta t)}{\Delta t \cdot R(t)} = \dfrac{1}{R(t)} \left(-\dfrac{d}{dt} R(t) \right) = \dfrac{f(t)}{R(t)}
+\]
+
+The hazard function $h(t)$ gives the instantaneous rate of failure at time $t$, assuming the system has survived up to time $t$.
+The quantity $h(t)dt$ represents the probability that a device which has survived the interval $[0,t]$ will fail in the small interval of time $t$ and $t+\Delta t$. the importance of hazard function is that it indicates the failure rate over the lifetime of a device.
+
+Let us now find the converse relationship between $R(t)$ and $h(t)$.
+$$h(t)=\dfrac{1}{R(t)} \left(-\dfrac{d}{dt} R(t) \right) = -\dfrac{d}{dt} \ln R(t)$$
+
+Now, integrate both sides from \(0\) to \(t\):
+\[
+\int_0^t h(u)\,du = -\int_0^t \frac{d}{du} \ln R(u)\,du = -\left[ \ln R(u) \right]_0^t = \ln R(0) - \ln R(t)
+\]
+
+Since \( R(0) = 1 \), we have \( \ln R(0) = 0 \), so:
+\[
+\int_0^t h(u)\,du = -\ln R(t)
+\quad \Rightarrow \quad
+\ln R(t) = -\int_0^t h(u)\,du
+\]
+
+Taking exponentials on both sides:
+\[
+R(t) = \exp\left( -\int_0^t h(u)\,du \right)
+\]
+
+This equation can be used to derive the reliability function from a known hazard function.
+
+The cumulative hazard function $H(t)$ is defined as:
+\begin{equation*}
+H(t) = \int_0^t h(u) du = -\ln R(t)
+\end{equation*}
+
+\subsection{Common Life Distributions}
+
+\subsubsection{Exponential Distribution}
+
+The exponential distribution is the most fundamental life distribution, characterized by a constant failure rate.
+
+For an exponential distribution with parameter $\lambda$:
+\begin{align}
+f(t) &= \lambda e^{-\lambda t}, \quad t \geq 0\\
+R(t) &= e^{-\lambda t}\\
+h(t) &= \lambda \quad \text{(constant)}\\
+\text{MTTF} &= \frac{1}{\lambda}
+\end{align}
+
+where MTTF is the Mean Time To Failure.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=8cm,
+    xlabel={Time (t)},
+    ylabel={Function Value},
+    legend pos=north east,
+    grid=major,
+    domain=0:5,
+    samples=100
+]
+% Reliability function
+\addplot[blue, thick] {exp(-0.5*x)};
+\addlegendentry{$R(t) = e^{-0.5t}$}
+
+% PDF
+\addplot[red, thick] {0.5*exp(-0.5*x)};
+\addlegendentry{$f(t) = 0.5e^{-0.5t}$}
+
+% Hazard function (constant)
+\addplot[green, thick] {0.5};
+\addlegendentry{$h(t) = 0.5$}
+\end{axis}
+\end{tikzpicture}
+\caption{Exponential Distribution: PDF, Reliability, and Hazard Functions ($\lambda = 0.5$)}
+\end{figure}
+
+\subsubsection{Weibull Distribution}
+
+The Weibull distribution is widely used in reliability analysis due to its flexibility in modeling different failure patterns.
+
+The two-parameter Weibull distribution has:
+\begin{align}
+f(t) &= \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta-1} \exp\left[-\left(\frac{t}{\eta}\right)^\beta\right]\\
+R(t) &= \exp\left[-\left(\frac{t}{\eta}\right)^\beta\right]\\
+h(t) &= \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta-1}
+\end{align}
+
+where $\beta > 0$ is the shape parameter and $\eta > 0$ is the scale parameter.
+
+The behavior of the Weibull hazard function depends on $\beta$:
+\begin{itemize}
+\item $\beta < 1$: Decreasing failure rate (early failures)
+\item $\beta = 1$: Constant failure rate (exponential distribution)
+\item $\beta > 1$: Increasing failure rate (wear-out failures)
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=8cm,
+    xlabel={Time (t)},
+    ylabel={Hazard Rate h(t)},
+    legend pos=north west,
+    grid=major,
+    domain=0.1:5,
+    samples=100,
+    ymax=3
+]
+% Beta < 1 (decreasing)
+\addplot[blue, thick] {0.5/2 * (x/2)^(-0.5)};
+\addlegendentry{$\beta = 0.5$ (decreasing)}
+
+% Beta = 1 (constant)
+\addplot[red, thick] {0.5};
+\addlegendentry{$\beta = 1$ (constant)}
+
+% Beta > 1 (increasing)
+\addplot[green, thick] {2/2 * (x/2)^(1)};
+\addlegendentry{$\beta = 2$ (increasing)}
+\end{axis}
+\end{tikzpicture}
+\caption{Weibull Hazard Functions for Different Shape Parameters ($\eta = 2$)}
+\end{figure}
+
+\subsection{Bathtub Curve}
+
+The bathtub curve describes the typical failure pattern of many engineered systems over their operational life.
+
+%\begin{figure}[h]
+%\centering
+%\begin{tikzpicture}[scale=1.2]
+%\begin{axis}[
+%    width=12cm, height=8cm,
+%    xlabel={Time},
+%    ylabel={Failure Rate},
+%    xtick={1,3,6},
+%    xticklabels={Early Life, Useful Life, Wear-out},
+%    ytick=\empty,
+%    grid=major,
+%    domain=0:8,
+%    samples=200
+%]
+%% Bathtub curve approximation
+%\addplot[blue, very thick] {2*exp(-2*x) + 0.3 + 0.05*(x-4)^2*heaviside(x-4)};
+%
+%% Phase labels
+%\node[anchor=south] at (axis cs:1,1.5) {\textbf{Infant Mortality}};
+%\node[anchor=south] at (axis cs:3,0.5) {\textbf{Random Failures}};
+%\node[anchor=south] at (axis cs:6.5,1.2) {\textbf{Wear-out}};
+%
+%% Phase boundaries
+%\draw[dashed, gray] (axis cs:2,0) -- (axis cs:2,2);
+%\draw[dashed, gray] (axis cs:4.5,0) -- (axis cs:4.5,2);
+%\end{axis}
+%\end{tikzpicture}
+%\caption{The Bathtub Curve: Typical Failure Rate Pattern}
+%\end{figure}
+
+\subsection{Life Testing Procedures}
+
+Life testing involves subjecting products to controlled conditions to estimate their reliability characteristics. The main types of life testing are:
+
+\subsubsection{Complete Testing}
+
+In complete testing, all test units are run until failure. While this provides complete information, it is often impractical for highly reliable products.
+
+\subsubsection{Censored Testing}
+
+Censoring occurs when complete failure information is not available for all test units.
+
+\textbf{Type I Censoring (Time Censoring):} Testing is terminated at a predetermined time $t_c$.
+
+\textbf{Type II Censoring (Failure Censoring):} Testing continues until a predetermined number of failures $r$ occurs.
+
+
+Consider Type II censoring with $n = 10$ units and $r = 6$ failures. The test continues until the 6th failure occurs, and the remaining 4 units are censored.
+
+
+\subsection{Parameter Estimation}
+
+\subsubsection{Maximum Likelihood Estimation for Exponential Distribution}
+
+For complete data with failure times $t_1, t_2, \ldots, t_n$, the likelihood function is:
+\begin{equation}
+L(\lambda) = \prod_{i=1}^n \lambda e^{-\lambda t_i} = \lambda^n \exp\left(-\lambda \sum_{i=1}^n t_i\right)
+\end{equation}
+
+Taking the natural logarithm:
+\begin{equation}
+\ln L(\lambda) = n \ln \lambda - \lambda \sum_{i=1}^n t_i
+\end{equation}
+
+Setting the derivative equal to zero:
+\begin{equation}
+\frac{d \ln L(\lambda)}{d\lambda} = \frac{n}{\lambda} - \sum_{i=1}^n t_i = 0
+\end{equation}
+
+The maximum likelihood estimator is:
+\begin{equation}
+\hat{\lambda} = \frac{n}{\sum_{i=1}^n t_i} = \frac{1}{\bar{t}}
+\end{equation}
+
+where $\bar{t}$ is the sample mean time to failure.
+
+\subsubsection{Estimation with Type II Censoring}
+
+For Type II censored data with $r$ failures out of $n$ units, the MLE becomes:
+\begin{equation}
+\hat{\lambda} = \frac{r}{\sum_{i=1}^r t_{(i)} + (n-r)t_{(r)}}
+\end{equation}
+
+where $t_{(i)}$ are the ordered failure times and $t_{(r)}$ is the time of the $r$-th failure.
+
+\subsection{Confidence Intervals}
+
+For the exponential distribution with Type II censoring, the $(1-\alpha)100\%$ confidence interval for $\lambda$ is:
+\begin{equation}
+\left[\frac{\chi^2_{\alpha/2, 2r}}{2T}, \frac{\chi^2_{1-\alpha/2, 2r}}{2T}\right]
+\end{equation}
+
+where $T = \sum_{i=1}^r t_{(i)} + (n-r)t_{(r)}$ is the total test time.
+
+\subsection{Reliability Demonstration Testing}
+
+Reliability demonstration testing is used to verify that a product meets specified reliability requirements.
+
+\subsubsection{Success-Run Testing}
+
+For a required reliability $R_0$ at mission time $t_0$, assuming exponential distribution, the number of success runs $n$ needed for confidence level $1-\alpha$ is:
+\begin{equation}
+n = \frac{\ln \alpha}{\ln R_0}
+\end{equation}
+
+
+To demonstrate $R_0 = 0.90$ at 95\% confidence:
+\begin{equation}
+n = \frac{\ln 0.05}{\ln 0.90} = \frac{-2.996}{-0.105} \approx 28.5 \rightarrow 29 \text{ units}
+\end{equation}
+
+
+\subsection{Accelerated Life Testing}
+
+Accelerated life testing (ALT) subjects products to elevated stress levels to accelerate failure mechanisms and reduce testing time.
+
+\subsubsection{Arrhenius Model}
+
+For temperature acceleration:
+\begin{equation}
+\lambda(T) = A \exp\left(\frac{E_a}{kT}\right)
+\end{equation}
+
+where:
+\begin{itemize}
+\item $A$ is a constant
+\item $E_a$ is the activation energy
+\item $k$ is Boltzmann's constant
+\item $T$ is absolute temperature
+\end{itemize}
+
+The acceleration factor between temperatures $T_1$ and $T_2$ is:
+\begin{equation}
+AF = \frac{\lambda(T_2)}{\lambda(T_1)} = \exp\left(\frac{E_a}{k}\left(\frac{1}{T_2} - \frac{1}{T_1}\right)\right)
+\end{equation}
+
+\subsection{Practical Example: Electronic Component Testing}
+
+
+A manufacturer tests 50 electronic components at 125°C. The failure times (in hours) for the first 8 failures are:
+\begin{center}
+\begin{tabular}{ccccccccc}
+\toprule
+Failure & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+\midrule
+Time (hrs) & 120 & 180 & 240 & 320 & 380 & 450 & 520 & 600 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Using Type II censoring with $r = 8$ failures:
+
+Total test time: $T = 120 + 180 + 240 + 320 + 380 + 450 + 520 + 600 + (50-8) \times 600 = 28,010$ hours
+
+MLE of failure rate: $\hat{\lambda} = \frac{8}{28,010} = 2.86 \times 10^{-4}$ failures/hour
+
+MTTF estimate: $\widehat{MTTF} = \frac{1}{\hat{\lambda}} = 3,501$ hours
+
+Using the Arrhenius model with activation energy $E_a = 0.8$ eV to extrapolate to normal operating temperature of 25°C:
+
+$AF = \exp\left(\frac{0.8 \times 1.6 \times 10^{-19}}{1.38 \times 10^{-23}}\left(\frac{1}{298} - \frac{1}{398}\right)\right) = \exp(2.63) = 13.9$
+
+Estimated MTTF at 25°C: $3,501 \times 13.9 = 48,664$ hours
+
+
+\subsection{System Reliability}
+
+For systems with multiple components, reliability depends on the system configuration.
+
+\subsubsection{Series System}
+
+For $n$ components in series with reliabilities $R_1(t), R_2(t), \ldots, R_n(t)$:
+\begin{equation}
+R_{sys}(t) = \prod_{i=1}^n R_i(t)
+\end{equation}
+
+For identical components with reliability $R(t)$:
+\begin{equation}
+R_{sys}(t) = [R(t)]^n
+\end{equation}
+
+\subsubsection{Parallel System}
+
+For $n$ components in parallel:
+\begin{equation}
+R_{sys}(t) = 1 - \prod_{i=1}^n [1 - R_i(t)]
+\end{equation}
+
+For identical components:
+\begin{equation}
+R_{sys}(t) = 1 - [1 - R(t)]^n
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=8cm,
+    xlabel={Time (t)},
+    ylabel={System Reliability},
+    legend pos=south west,
+    grid=major,
+    domain=0:5,
+    samples=100
+]
+% Single component
+\addplot[blue, thick] {exp(-0.5*x)};
+\addlegendentry{Single Component}
+
+% Series system (2 components)
+\addplot[red, thick] {(exp(-0.5*x))^2};
+\addlegendentry{Series (2 components)}
+
+% Parallel system (2 components)
+\addplot[green, thick] {1-(1-exp(-0.5*x))^2};
+\addlegendentry{Parallel (2 components)}
+\end{axis}
+\end{tikzpicture}
+\caption{System Reliability Comparison ($\lambda = 0.5$ for each component)}
+\end{figure}
+
 \section{Conclusion}
 
 Statistical Quality Control provides a comprehensive framework for monitoring, controlling, and improving quality in manufacturing and service processes. The key principles include:
