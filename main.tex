@@ -17440,50 +17440,22 @@ The behavior of the Weibull hazard function depends on $\beta$:
 \caption{\textit{Weibull hazard functions for different shape parameters ($\eta = 2$).}}
 \end{figure}
 
-\subsection{Bathtub Curve}
+\subsubsection{Bathtub Curve}
 
-The \textbf{bathtub curve} describes the typical behavior of the \textbf{failure rate function} (or hazard rate) \( h(t) \) over the operational life of many products or systems. It consists of three sequential phases:
+The \textbf{bathtub curve} describes the typical behavior of the hazard rate {failure rate function} \( h(t) \) over the operational life of many products or systems. It consists of three sequential phases:
 
 \begin{enumerate}
-    \item \textbf{Early Failure Period (Infant Mortality):}
-    \begin{itemize}
-        \item Characterized by a high, rapidly decreasing failure rate.
-        \item Failures arise from manufacturing defects, poor quality control, or early-use stresses.
-        \item Mathematically, this corresponds to a hazard function \( h(t) \) such that:
-        \[
-        \frac{dh(t)}{dt} < 0
-        \]
-    \end{itemize}
+    \item \textbf{Infant Mortality:} \\
+    During this phase, the failure rate decreases over time. Failures are primarily due to manufacturing defects, poor quality control, or early-use stresses. \\
 
-    \item \textbf{Constant Failure Rate Period (Useful Life):}
-    \begin{itemize}
-        \item Failures occur randomly and are independent of the product's age.
-        \item The hazard function is constant:
-        \[
-        h(t) = \lambda
-        \]
-        which corresponds to the \textbf{exponential distribution}:
-        \[
-        R(t) = e^{-\lambda t}, \quad f(t) = \lambda e^{-\lambda t}
-        \]
-        \item This period is ideal for long-term system operation.
-    \end{itemize}
+    \item \textbf{Useful Life:} \\
+    This is the most stable phase where the product operates reliably. Failures occur randomly and are usually independent of time. \\
 
-    \item \textbf{Wear-out Period:}
-    \begin{itemize}
-        \item Failure rate increases due to aging, fatigue, wear, corrosion, etc.
-        \item Mathematically, the hazard function satisfies:
-        \[
-        \frac{dh(t)}{dt} > 0
-        \]
-        \item A common model is the \textbf{Weibull distribution} with shape parameter \( \beta > 1 \):
-        \[
-        h(t) = \frac{\beta}{\eta} \left( \frac{t}{\eta} \right)^{\beta - 1}
-        \]
-    \end{itemize}
+    \item \textbf{Wear-out Period:} \\
+    As the product ages, components begin to degrade due to fatigue, corrosion, wear, etc. The likelihood of failure increases with time.
 \end{enumerate}
 
-The combined behavior of these three phases forms a characteristic "bathtub" shape when the failure rate \( h(t) \) is plotted against time.
+The combined behavior of these three phases forms a characteristic ``bathtub'' shape when the failure rate \( h(t) \) is plotted against time.
 
 \begin{figure}[H]
 \centering
@@ -17512,13 +17484,24 @@ The combined behavior of these three phases forms a characteristic "bathtub" sha
 \caption{\textit{Bathtub curve: Plot of failure rate \( h(t) \) over time.}}
 \end{figure}
 
-\paragraph{Note:}
-The bathtub curve provides essential insights for designing quality assurance protocols:
-\begin{itemize}
-    \item \textbf{Burn-in Testing} during the early phase to eliminate early failures.
-    \item \textbf{Random inspections} and minimal intervention during useful life.
-    \item \textbf{Predictive or preventive maintenance} during the wear-out phase.
-\end{itemize}
+A distribution which could be used for each of the 3 parts of bathtub curve is Weibull distribution with different shape
+parameter $ \alpha $:
+
+\begin{enumerate}
+    \item {Early Failure Period (Infant Mortality):} $0<\alpha<1$
+
+    \item {Normal Life Period (Useful Life):} $\alpha=1$
+
+    \item {Wear-out Period:} $\alpha>1$
+\end{enumerate}
+
+%\paragraph{Note:}
+%The bathtub curve provides essential insights for designing quality assurance protocols:
+%\begin{itemize}
+%    \item \textbf{Burn-in Testing} during the early phase to eliminate early failures.
+%    \item \textbf{Random inspections} and minimal intervention during useful life.
+%    \item \textbf{Predictive or preventive maintenance} during the wear-out phase.
+%\end{itemize}
 
 \subsection{Life Testing Procedures}
 
