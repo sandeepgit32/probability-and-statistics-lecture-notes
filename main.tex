@@ -17209,17 +17209,64 @@ $$\mathbb{E}(T) = \int_0^\infty R(t)\, dt$$
 
 This interpretation shows that MTTF is the area under the reliability curve.
 
-\subsubsection{Example}
-If the failure time follows an exponential distribution with parameter $\lambda$, then:
+\subsubsection{Mean Time Between Failures (MTBF)}
+
+\begin{textbox}
+The \textbf{Mean Time Between Failures (MTBF)} is the expected time interval between successive failures of a system that is repaired and restored to operating condition after failure. It is applicable to repairable systems.
+\end{textbox}
+
+In systems where repair time is negligible, MTBF is numerically equal to MTTF. However, in general,
+
+\begin{textbox}
+\[
+\text{MTBF} = \text{MTTF} + \text{MTTR}
+\]
+\end{textbox}
+
+where MTTR is the \textbf{Mean Time To Repair}.
+
+\vspace{2mm}
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}
+\draw[->, thick] (0,0) -- (11,0) node[below] {Time};
+\draw[line width=4pt, blue] (0,0.3) -- (4,0.3);
+\draw[dashed] (4,0.3) -- (4,-0.2) node[below] {\small Failure};
+\draw[ultra thick, dashed, red] (4,0.3) -- (6,0.3);
+\draw[dashed] (6,0.3) -- (6,-0.2) node[below] {\small Repaired};
+\draw[line width=4pt, blue] (6,0.3) -- (10,0.3);
+\draw[dashed] (10,0.3) -- (10,-0.2) node[below] {\small Failure};
+
+\node[above] at (2,0.4) {\small  MTTF};
+\node[above] at (5,0.4) {\small  MTTR};
+\node[above] at (8,0.4) {\small  MTTF};
+\end{tikzpicture}
+\end{center}
+\caption{\textit{Graphical view of MTTF and MTTR.}}
+\end{figure}
+
+
+\subsubsection{Key Summary}
+\begin{itemize}
+\item \textbf{MTTF}: Time from initial use until first failure (non-repairable systems).
+\item \textbf{MTBF}: Average time between failures (repairable systems).
+\item \textbf{MTTR}: Time spent in repairing a failure.
+\end{itemize}
+
+
+\subsection{Common Life Distributions}
+
+\subsubsection{Exponential Distribution}
+
+The exponential distribution is the most fundamental life distribution, characterized by a constant failure rate. For an exponential distribution with parameter $\lambda$:
 \[
 f(t) = \lambda e^{-\lambda t}, \quad t \geq 0
 \]
-Then,
+
+Reliability function
 \[
 R(t) = \int_t^{\infty} f(u)\,du = \int_t^{\infty} \lambda e^{-\lambda u}\,du =\lambda\left[-\dfrac{1}{\lambda}e^{-\lambda u}\right]_t^{\infty} = e^{-\lambda t}
-\]
-\[
-\text{MTTF} = \int_0^\infty R(t)\, dt= \int_0^\infty e^{-\lambda t} \, dt = \frac{1}{\lambda}
 \]
 
 \begin{figure}[H]
@@ -17276,110 +17323,86 @@ R(t) = \int_t^{\infty} f(u)\,du = \int_t^{\infty} \lambda e^{-\lambda u}\,du =\l
 \caption{\textit{Exponential distribution: comparison of $f(t)$ and $R(t)$ for different values of $\lambda$.}}
 \end{figure}
 
----
+Hazard function
+$$h(t) =\dfrac{f(t)}{R(t)}= \lambda \quad \text{(constant)}$$
 
-\subsubsection{Mean Time Between Failures (MTBF)}
 
-\begin{textbox}
-The \textbf{Mean Time Between Failures (MTBF)} is the expected time interval between successive failures of a system that is repaired and restored to operating condition after failure. It is applicable to repairable systems.
-\end{textbox}
-
-In systems where repair time is negligible, MTBF is numerically equal to MTTF. However, in general,
-
-\begin{textbox}
+Mean time to failure
 \[
-\text{MTBF} = \text{MTTF} + \text{MTTR}
+\text{MTTF} = \int_0^\infty R(t)\, dt= \int_0^\infty e^{-\lambda t} \, dt = \frac{1}{\lambda}
 \]
-\end{textbox}
-
-where MTTR is the \textbf{Mean Time To Repair}.
-
-\vspace{2mm}
-
-\begin{figure}[H]
-\begin{center}
-\begin{tikzpicture}
-\draw[->, thick] (0,0) -- (11,0) node[below] {Time};
-\draw[very thick, blue] (0,0.3) -- (4,0.3);
-\draw[dashed] (4,0.3) -- (4,-0.2) node[below] {\small Failure};
-\draw[very thick, dashed, red] (4,0.3) -- (6,0.3);
-\draw[dashed] (6,0.3) -- (6,-0.2) node[below] {\small Repaired};
-\draw[very thick, blue] (6,0.3) -- (10,0.3);
-\draw[dashed] (10,0.3) -- (10,-0.2) node[below] {\small Failure};
-
-\node[above] at (2,0.4) {\small  MTTF};
-\node[above] at (5,0.4) {\small  MTTR};
-\node[above] at (8,0.4) {\small  MTTF};
-\end{tikzpicture}
-\end{center}
-\caption{\textit{Graphical view of MTTF and MTTR.}}
-\end{figure}
-
-
-\subsubsection{Key Summary}
-\begin{itemize}
-\item \textbf{MTTF}: Time from initial use until first failure (non-repairable systems).
-\item \textbf{MTBF}: Average time between failures (repairable systems).
-\item \textbf{MTTR}: Time spent in repairing a failure.
-\end{itemize}
-
-
-\subsection{Common Life Distributions}
-
-\subsubsection{Exponential Distribution}
-
-The exponential distribution is the most fundamental life distribution, characterized by a constant failure rate.
-
-For an exponential distribution with parameter $\lambda$:
-\begin{align}
-f(t) &= \lambda e^{-\lambda t}, \quad t \geq 0\\
-R(t) &= e^{-\lambda t}\\
-h(t) &= \lambda \quad \text{(constant)}\\
-\text{MTTF} &= \frac{1}{\lambda}
-\end{align}
-
-where MTTF is the Mean Time To Failure.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-    width=12cm, height=8cm,
-    xlabel={Time (t)},
-    ylabel={Function Value},
-    legend pos=north east,
-    grid=major,
-    domain=0:5,
-    samples=100
-]
-% Reliability function
-\addplot[blue, thick] {exp(-0.5*x)};
-\addlegendentry{$R(t) = e^{-0.5t}$}
-
-% PDF
-\addplot[red, thick] {0.5*exp(-0.5*x)};
-\addlegendentry{$f(t) = 0.5e^{-0.5t}$}
-
-% Hazard function (constant)
-\addplot[green, thick] {0.5};
-\addlegendentry{$h(t) = 0.5$}
-\end{axis}
-\end{tikzpicture}
-\caption{Exponential Distribution: PDF, Reliability, and Hazard Functions ($\lambda = 0.5$)}
-\end{figure}
 
 \subsubsection{Weibull Distribution}
 
-The Weibull distribution is widely used in reliability analysis due to its flexibility in modeling different failure patterns.
+The Weibull distribution is widely used in reliability analysis due to its flexibility in modeling different failure patterns. The two‐parameter Weibull distribution is defined for \(t \ge 0\) by the failure density function
+\[
+f(t) \;=\; \dfrac{\beta}{\eta}\left( \dfrac{t}{\eta}\right)^{\beta-1}
+\exp\left[-\left( \dfrac{t}{\eta}\right)^\beta\right]
+\]
+where \(\beta>0\) is the \textbf{shape} parameter and \(\eta>0\) the \textbf{scale} parameter.
 
-The two-parameter Weibull distribution has:
-\begin{align}
-f(t) &= \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta-1} \exp\left[-\left(\frac{t}{\eta}\right)^\beta\right]\\
-R(t) &= \exp\left[-\left(\frac{t}{\eta}\right)^\beta\right]\\
-h(t) &= \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta-1}
-\end{align}
+\medskip
 
-where $\beta > 0$ is the shape parameter and $\eta > 0$ is the scale parameter.
+\paragraph{1. Cumulative distribution function \(F(t)\)}
+By definition,
+\[
+F(t)\;=\;\int_0^t f(u)\,du
+=\int_0^t \frac{\beta}{\eta}\Bigl(\tfrac{u}{\eta}\Bigr)^{\beta-1}
+e^{-(u/\eta)^\beta}\,du.
+\]
+Make the substitution \(x=(u/\eta)^\beta\), so \(u = \eta\,x^{1/\beta}\) and
+\(\,du = \eta\,\tfrac{1}{\beta}\,x^{1/\beta - 1}\,dx\).  Then
+\[
+F(t)
+= \int_{x=0}^{(t/\eta)^\beta}
+\frac{\beta}{\eta}\;x^{1 - 1}\;e^{-x}\;\eta\;\tfrac{1}{\beta}\,x^{\tfrac{1}{\beta}-1}\,dx
+= \int_{0}^{(t/\eta)^\beta} e^{-x}\,dx
+= 1 - e^{-(t/\eta)^\beta}.
+\]
+Thus
+\[
+\boxed{F(t) = 1 - \exp\bigl[-(t/\eta)^\beta\bigr].}
+\]
+
+\medskip
+
+\paragraph{2. Reliability (Survival) function \(R(t)\)}
+By definition \(R(t)=1-F(t)\), so
+\[
+\boxed{R(t) = \exp\!\bigl[-(t/\eta)^\beta\bigr].}
+\]
+
+\medskip
+
+\paragraph{3. Hazard (Instantaneous failure) rate \(h(t)\)}
+\[
+h(t)=\frac{f(t)}{R(t)}
+= \frac{\frac{\beta}{\eta}(t/\eta)^{\beta-1}e^{-(t/\eta)^\beta}}
+       {e^{-(t/\eta)^\beta}}
+= \frac{\beta}{\eta}\Bigl(\frac{t}{\eta}\Bigr)^{\beta-1}.
+\]
+Hence
+\[
+\boxed{h(t) = \frac{\beta}{\eta}\Bigl(\tfrac{t}{\eta}\Bigr)^{\beta-1}\,.}
+\]
+
+\medskip
+
+\paragraph{5. Mean Time To Failure (MTTF)}
+\[
+\text{MTTF} = \mathbb{E}[T] = \int_0^\infty t\,f(t)\,dt.
+\]
+Using the same substitution \(x=(t/\eta)^\beta\):
+\[
+\mathbb{E}[T]
+= \int_{0}^{\infty} t \,\frac{\beta}{\eta}(t/\eta)^{\beta-1} e^{-(t/\eta)^\beta}\,dt
+= \eta \int_{0}^{\infty} x^{1/\beta} e^{-x}\,dx
+= \eta\,\Gamma\!\bigl(1 + \tfrac{1}{\beta}\bigr),
+\]
+where \(\Gamma(z)=\int_0^\infty x^{z-1}e^{-x}dx\).  Hence
+\[
+\boxed{\text{MTTF} = \eta\,\Gamma\!\bigl(1 + \tfrac{1}{\beta}\bigr).}
+\]
 
 The behavior of the Weibull hazard function depends on $\beta$:
 \begin{itemize}
@@ -17388,91 +17411,114 @@ The behavior of the Weibull hazard function depends on $\beta$:
 \item $\beta > 1$: Increasing failure rate (wear-out failures)
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-    width=12cm, height=8cm,
+    width=12cm, height=7cm,
     xlabel={Time (t)},
-    ylabel={Hazard Rate h(t)},
+    ylabel={Hazard Rate $ h(t) $},
     legend pos=north west,
-    grid=major,
-    domain=0.1:5,
+    domain=0.1:4,
     samples=100,
-    ymax=3
+    ymax=2.5,
+    axis lines=left, thick,
 ]
 % Beta < 1 (decreasing)
-\addplot[blue, thick] {0.5/2 * (x/2)^(-0.5)};
+\addplot[blue, very thick] {0.5/2 * (x/2)^(-0.5)};
 \addlegendentry{$\beta = 0.5$ (decreasing)}
 
 % Beta = 1 (constant)
-\addplot[red, thick] {0.5};
+\addplot[red, dashdotted, very thick] {0.5};
 \addlegendentry{$\beta = 1$ (constant)}
 
 % Beta > 1 (increasing)
-\addplot[green, thick] {2/2 * (x/2)^(1)};
+\addplot[teal, dashed, very thick] {2/2 * (x/2)^(1)};
 \addlegendentry{$\beta = 2$ (increasing)}
 \end{axis}
 \end{tikzpicture}
-\caption{Weibull Hazard Functions for Different Shape Parameters ($\eta = 2$)}
+\caption{\textit{Weibull hazard functions for different shape parameters ($\eta = 2$).}}
 \end{figure}
 
 \subsection{Bathtub Curve}
 
-The bathtub curve describes the typical failure pattern of many engineered systems over their operational life.
+The \textbf{bathtub curve} describes the typical behavior of the \textbf{failure rate function} (or hazard rate) \( h(t) \) over the operational life of many products or systems. It consists of three sequential phases:
 
-%\begin{figure}[h]
-%\centering
-%\begin{tikzpicture}[scale=1.2]
-%\begin{axis}[
-%    width=12cm, height=8cm,
-%    xlabel={Time},
-%    ylabel={Failure Rate},
-%    xtick={1,3,6},
-%    xticklabels={Early Life, Useful Life, Wear-out},
-%    ytick=\empty,
-%    grid=major,
-%    domain=0:8,
-%    samples=200
-%]
-%% Bathtub curve approximation
-%\addplot[blue, very thick] {2*exp(-2*x) + 0.3 + 0.05*(x-4)^2*heaviside(x-4)};
-%
-%% Phase labels
-%\node[anchor=south] at (axis cs:1,1.5) {\textbf{Infant Mortality}};
-%\node[anchor=south] at (axis cs:3,0.5) {\textbf{Random Failures}};
-%\node[anchor=south] at (axis cs:6.5,1.2) {\textbf{Wear-out}};
-%
-%% Phase boundaries
-%\draw[dashed, gray] (axis cs:2,0) -- (axis cs:2,2);
-%\draw[dashed, gray] (axis cs:4.5,0) -- (axis cs:4.5,2);
-%\end{axis}
-%\end{tikzpicture}
-%\caption{The Bathtub Curve: Typical Failure Rate Pattern}
-%\end{figure}
+\begin{enumerate}
+    \item \textbf{Early Failure Period (Infant Mortality):}
+    \begin{itemize}
+        \item Characterized by a high, rapidly decreasing failure rate.
+        \item Failures arise from manufacturing defects, poor quality control, or early-use stresses.
+        \item Mathematically, this corresponds to a hazard function \( h(t) \) such that:
+        \[
+        \frac{dh(t)}{dt} < 0
+        \]
+    \end{itemize}
+
+    \item \textbf{Constant Failure Rate Period (Useful Life):}
+    \begin{itemize}
+        \item Failures occur randomly and are independent of the product's age.
+        \item The hazard function is constant:
+        \[
+        h(t) = \lambda
+        \]
+        which corresponds to the \textbf{exponential distribution}:
+        \[
+        R(t) = e^{-\lambda t}, \quad f(t) = \lambda e^{-\lambda t}
+        \]
+        \item This period is ideal for long-term system operation.
+    \end{itemize}
+
+    \item \textbf{Wear-out Period:}
+    \begin{itemize}
+        \item Failure rate increases due to aging, fatigue, wear, corrosion, etc.
+        \item Mathematically, the hazard function satisfies:
+        \[
+        \frac{dh(t)}{dt} > 0
+        \]
+        \item A common model is the \textbf{Weibull distribution} with shape parameter \( \beta > 1 \):
+        \[
+        h(t) = \frac{\beta}{\eta} \left( \frac{t}{\eta} \right)^{\beta - 1}
+        \]
+    \end{itemize}
+\end{enumerate}
+
+The combined behavior of these three phases forms a characteristic "bathtub" shape when the failure rate \( h(t) \) is plotted against time.
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}
 \begin{axis}[
-    title={Bathtub Curve},
+    width=12cm, height=7cm,
     xlabel={Time},
-    ylabel={Failure Rate},
+    ylabel={Hazard function $h(t)$},
     xmin=0, xmax=10,
     ymin=0, ymax=3,
-    grid=major,
     xtick={2,6,8},
-    xticklabels={Early Life, Useful Life, Wear-out}
+    xticklabels={Early Life, Useful Life, Wear-out},
+    axis lines=left, thick
 ]
-\addplot[blue, thick, smooth] coordinates {
-    (0,2.5) (0.5,2.0) (1,1.5) (1.5,1.2) (2,1.0) (3,0.8) (4,0.7) (5,0.6) (6,0.5) (7,0.6) (8,1.0) (9,1.8) (10,3.0)
+\addplot[blue, very thick, smooth] coordinates {
+    (0,2.5) (0.5,2.0) (1,1.5) (1.5,1.2) (2,1.0)
+    (3,0.8) (4,0.7) (5,0.6) (6,0.5) (7,0.6)
+    (8,1.0) (9,1.8) (10,3.0)
 };
-\node at (axis cs:1,2.2) {Infant Mortality};
-\node at (axis cs:4,0.3) {Random Failures};
-\node at (axis cs:8.5,2.5) {Wear-out};
+
+\node at (axis cs:1.2,2.2) {\small Infant Mortality};
+\node at (axis cs:4.2,0.3) {\small Random Failures};
+\node at (axis cs:9,2.5) {\small Wear-out};
 \end{axis}
 \end{tikzpicture}
+\caption{\textit{Bathtub curve: Plot of failure rate \( h(t) \) over time.}}
 \end{figure}
+
+\paragraph{Note:}
+The bathtub curve provides essential insights for designing quality assurance protocols:
+\begin{itemize}
+    \item \textbf{Burn-in Testing} during the early phase to eliminate early failures.
+    \item \textbf{Random inspections} and minimal intervention during useful life.
+    \item \textbf{Predictive or preventive maintenance} during the wear-out phase.
+\end{itemize}
 
 \subsection{Life Testing Procedures}
 
