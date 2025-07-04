@@ -17152,6 +17152,178 @@ The cumulative hazard function $H(t)$ is defined as:
 H(t) = \int_0^t h(u) du = -\ln R(t)
 \end{equation*}
 
+\subsection{Expected Life: MTTF and MTBF}
+
+\subsubsection{Mean Time To Failure (MTTF)}
+
+\begin{textbox}
+The \textbf{Mean Time To Failure (MTTF)} is the expected (average) lifetime of a system or component that is not repaired once it fails. It applies primarily to non-repairable items.
+\end{textbox}
+
+Mathematically, MTTF is the expected value of the random variable $T$ representing time to failure, given by:
+
+\begin{textbox}
+\[
+\text{MTTF} = \mathbb{E}(T) = \int_0^{\infty} t \cdot f(t) \, dt
+\]
+\end{textbox}
+
+where $f(t)$ is the failure density function.
+
+Alternatively, MTTF can be expressed in terms of the reliability function. Apply integration by parts:
+\[
+\int_a^b u\, dv = uv \big|_a^b - \int_a^b v\, du
+\]
+
+Let us choose:
+\[
+u = t \quad \Rightarrow \quad du = dt
+\]
+\[
+dv = f(t)\,dt  = -\dfrac{d}{dt} R(t)\quad \Rightarrow \quad v = -R(t)
+\]
+
+Now apply the formula:
+\[
+\mathbb{E}(T) = \int_0^\infty t f(t)\, dt = \left[ -t R(t) \right]_0^\infty + \int_0^\infty R(t)\, dt
+\]
+
+Evaluate the boundary term:
+\begin{itemize}
+    \item At \( t = 0 \), \( t R(t) = 0 \)
+    \item As \( t \to \infty \), we assume \( R(t) \to 0 \) fast enough so that \( t R(t) \to 0 \)
+\end{itemize}
+Hence,
+\[
+\left[ -t R(t) \right]_0^\infty = 0
+\]
+
+Therefore,
+$$\mathbb{E}(T) = \int_0^\infty R(t)\, dt$$
+
+\begin{textbox}
+\[
+\text{MTTF} = \int_0^\infty R(t)\, dt
+\]
+\end{textbox}
+
+This interpretation shows that MTTF is the area under the reliability curve.
+
+\subsubsection{Example}
+If the failure time follows an exponential distribution with parameter $\lambda$, then:
+\[
+f(t) = \lambda e^{-\lambda t}, \quad t \geq 0
+\]
+Then,
+\[
+R(t) = \int_t^{\infty} f(u)\,du = \int_t^{\infty} \lambda e^{-\lambda u}\,du =\lambda\left[-\dfrac{1}{\lambda}e^{-\lambda u}\right]_t^{\infty} = e^{-\lambda t}
+\]
+\[
+\text{MTTF} = \int_0^\infty R(t)\, dt= \int_0^\infty e^{-\lambda t} \, dt = \frac{1}{\lambda}
+\]
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    width=\linewidth,
+    height=6cm,
+    xlabel={$t$},
+    ylabel={$f(t)$},
+    xmin=0, xmax=6,
+    ymin=0, ymax=0.6,
+    legend style={at={(0.97,0.97)},anchor=north east},
+    axis lines=left, thick,
+    domain=0:6,
+    samples=100
+  ]
+    \addplot [very thick, blue] {0.2*exp(-0.2*x)};
+    \addlegendentry{$\lambda = 0.2$}
+
+    \addplot [very thick, red, dashed] {0.5*exp(-0.5*x)};
+    \addlegendentry{$\lambda = 0.5$}
+  \end{axis}
+\end{tikzpicture}
+\caption{\textit{$f(t)$ for different $\lambda$ values}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    width=\linewidth,
+    height=6cm,
+    xlabel={$t$},
+    ylabel={$R(t)$},
+    xmin=0, xmax=6,
+    ymin=0, ymax=1.1,
+    legend style={at={(0.97,0.97)},anchor=north east},
+    axis lines=left, thick,
+    domain=0:6,
+    samples=100
+  ]
+    \addplot [very thick, blue] {exp(-0.2*x)};
+    \addlegendentry{$\lambda = 0.2$}
+
+    \addplot [very thick, red, dashed] {exp(-0.5*x)};
+    \addlegendentry{$\lambda = 0.5$}
+  \end{axis}
+\end{tikzpicture}
+\caption{\textit{$R(t)$ for different $\lambda$ values}}
+\end{subfigure}
+\caption{\textit{Exponential distribution: comparison of $f(t)$ and $R(t)$ for different values of $\lambda$.}}
+\end{figure}
+
+---
+
+\subsubsection{Mean Time Between Failures (MTBF)}
+
+\begin{textbox}
+The \textbf{Mean Time Between Failures (MTBF)} is the expected time interval between successive failures of a system that is repaired and restored to operating condition after failure. It is applicable to repairable systems.
+\end{textbox}
+
+In systems where repair time is negligible, MTBF is numerically equal to MTTF. However, in general,
+
+\begin{textbox}
+\[
+\text{MTBF} = \text{MTTF} + \text{MTTR}
+\]
+\end{textbox}
+
+where MTTR is the \textbf{Mean Time To Repair}.
+
+\vspace{2mm}
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}
+\draw[->, thick] (0,0) -- (11,0) node[below] {Time};
+\draw[very thick, blue] (0,0.3) -- (4,0.3);
+\draw[dashed] (4,0.3) -- (4,-0.2) node[below] {\small Failure};
+\draw[very thick, dashed, red] (4,0.3) -- (6,0.3);
+\draw[dashed] (6,0.3) -- (6,-0.2) node[below] {\small Repaired};
+\draw[very thick, blue] (6,0.3) -- (10,0.3);
+\draw[dashed] (10,0.3) -- (10,-0.2) node[below] {\small Failure};
+
+\node[above] at (2,0.4) {\small  MTTF};
+\node[above] at (5,0.4) {\small  MTTR};
+\node[above] at (8,0.4) {\small  MTTF};
+\end{tikzpicture}
+\end{center}
+\caption{\textit{Graphical view of MTTF and MTTR.}}
+\end{figure}
+
+
+\subsubsection{Key Summary}
+\begin{itemize}
+\item \textbf{MTTF}: Time from initial use until first failure (non-repairable systems).
+\item \textbf{MTBF}: Average time between failures (repairable systems).
+\item \textbf{MTTR}: Time spent in repairing a failure.
+\end{itemize}
+
+
 \subsection{Common Life Distributions}
 
 \subsubsection{Exponential Distribution}
@@ -17279,6 +17451,29 @@ The bathtub curve describes the typical failure pattern of many engineered syste
 %\caption{The Bathtub Curve: Typical Failure Rate Pattern}
 %\end{figure}
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+    title={Bathtub Curve},
+    xlabel={Time},
+    ylabel={Failure Rate},
+    xmin=0, xmax=10,
+    ymin=0, ymax=3,
+    grid=major,
+    xtick={2,6,8},
+    xticklabels={Early Life, Useful Life, Wear-out}
+]
+\addplot[blue, thick, smooth] coordinates {
+    (0,2.5) (0.5,2.0) (1,1.5) (1.5,1.2) (2,1.0) (3,0.8) (4,0.7) (5,0.6) (6,0.5) (7,0.6) (8,1.0) (9,1.8) (10,3.0)
+};
+\node at (axis cs:1,2.2) {Infant Mortality};
+\node at (axis cs:4,0.3) {Random Failures};
+\node at (axis cs:8.5,2.5) {Wear-out};
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
 \subsection{Life Testing Procedures}
 
 Life testing involves subjecting products to controlled conditions to estimate their reliability characteristics. The main types of life testing are:
@@ -17390,11 +17585,11 @@ AF = \frac{\lambda(T_2)}{\lambda(T_1)} = \exp\left(\frac{E_a}{k}\left(\frac{1}{T
 
 A manufacturer tests 50 electronic components at 125°C. The failure times (in hours) for the first 8 failures are:
 \begin{center}
-\begin{tabular}{ccccccccc}
+\begin{tabular}{c|cccccccc}
 \toprule
-Failure & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+\textbf{Failure} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
 \midrule
-Time (hrs) & 120 & 180 & 240 & 320 & 380 & 450 & 520 & 600 \\
+\textbf{Time (hrs)} & 120 & 180 & 240 & 320 & 380 & 450 & 520 & 600 \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -17403,13 +17598,13 @@ Using Type II censoring with $r = 8$ failures:
 
 Total test time: $T = 120 + 180 + 240 + 320 + 380 + 450 + 520 + 600 + (50-8) \times 600 = 28,010$ hours
 
-MLE of failure rate: $\hat{\lambda} = \frac{8}{28,010} = 2.86 \times 10^{-4}$ failures/hour
+MLE of failure rate: $\hat{\lambda} = \dfrac{8}{28,010} = 2.86 \times 10^{-4}$ failures/hour
 
-MTTF estimate: $\widehat{MTTF} = \frac{1}{\hat{\lambda}} = 3,501$ hours
+MTTF estimate: $\widehat{MTTF} = \dfrac{1}{\hat{\lambda}} = 3,501$ hours
 
 Using the Arrhenius model with activation energy $E_a = 0.8$ eV to extrapolate to normal operating temperature of 25°C:
 
-$AF = \exp\left(\frac{0.8 \times 1.6 \times 10^{-19}}{1.38 \times 10^{-23}}\left(\frac{1}{298} - \frac{1}{398}\right)\right) = \exp(2.63) = 13.9$
+$AF = \exp\left(\dfrac{0.8 \times 1.6 \times 10^{-19}}{1.38 \times 10^{-23}}\left(\dfrac{1}{298} - \dfrac{1}{398}\right)\right) = \exp(2.63) = 13.9$
 
 Estimated MTTF at 25°C: $3,501 \times 13.9 = 48,664$ hours
 
@@ -17449,7 +17644,7 @@ R_{sys}(t) = 1 - [1 - R(t)]^n
     width=12cm, height=8cm,
     xlabel={Time (t)},
     ylabel={System Reliability},
-    legend pos=south west,
+    legend pos=north east,
     grid=major,
     domain=0:5,
     samples=100
