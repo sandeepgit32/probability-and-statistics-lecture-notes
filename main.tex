@@ -17415,7 +17415,7 @@ The behavior of the Weibull hazard function depends on $\beta$:
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-    width=12cm, height=7cm,
+    width=11cm, height=7cm,
     xlabel={Time (t)},
     ylabel={Hazard Rate $ h(t) $},
     legend pos=north west,
@@ -17445,10 +17445,10 @@ The behavior of the Weibull hazard function depends on $\beta$:
 The \textbf{bathtub curve} describes the typical behavior of the hazard rate {failure rate function} \( h(t) \) over the operational life of many products or systems. It consists of three sequential phases:
 
 \begin{enumerate}
-    \item \textbf{Infant Mortality:} \\
+    \item \textbf{Early Failure Period (Infant Mortality):} \\
     During this phase, the failure rate decreases over time. Failures are primarily due to manufacturing defects, poor quality control, or early-use stresses. \\
 
-    \item \textbf{Useful Life:} \\
+    \item \textbf{Normal Life Period (Useful Life):} \\
     This is the most stable phase where the product operates reliably. Failures occur randomly and are usually independent of time. \\
 
     \item \textbf{Wear-out Period:} \\
@@ -17461,24 +17461,29 @@ The combined behavior of these three phases forms a characteristic ``bathtub'' s
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-    width=12cm, height=7cm,
+    width=11cm, height=7cm,
     xlabel={Time},
     ylabel={Hazard function $h(t)$},
     xmin=0, xmax=10,
     ymin=0, ymax=3,
-    xtick={2,6,8},
-    xticklabels={Early Life, Useful Life, Wear-out},
+    xtick={2.0,7.8},
+    xticklabels={$t_1$, $t_2$},
     axis lines=left, thick
 ]
 \addplot[blue, very thick, smooth] coordinates {
-    (0,2.5) (0.5,2.0) (1,1.5) (1.5,1.2) (2,1.0)
-    (3,0.8) (4,0.7) (5,0.6) (6,0.5) (7,0.6)
-    (8,1.0) (9,1.8) (10,3.0)
+    (0,2.5)
+        (0.8,1.5)
+        (2.2,0.5)
+        % Flat useful‑life plateau
+        (7.5,0.5)
+        % Wear‑out ascent (mirror of early‑life)
+        (9.2,1.5)
+        (10,2.5)
 };
 
-\node at (axis cs:1.2,2.2) {\small Infant Mortality};
-\node at (axis cs:4.2,0.3) {\small Random Failures};
-\node at (axis cs:9,2.5) {\small Wear-out};
+\node at (axis cs:1.5,2.2) {\small Infant Mortality};
+\node at (axis cs:5,0.6) {\small Useful Life};
+\node at (axis cs:9,2.2) {\small Wear-out};
 \end{axis}
 \end{tikzpicture}
 \caption{\textit{Bathtub curve: Plot of failure rate \( h(t) \) over time.}}
@@ -17499,115 +17504,405 @@ parameter $ \alpha $:
 %The bathtub curve provides essential insights for designing quality assurance protocols:
 %\begin{itemize}
 %    \item \textbf{Burn-in Testing} during the early phase to eliminate early failures.
+%    \it%\paragraph{Note:}
+%The bathtub curve provides essential insights for designing quality assurance protocols:
+%\begin{itemize}
+%    \item \textbf{Burn-in Testing} during the early phase to eliminate early failures.
 %    \item \textbf{Random inspections} and minimal intervention during useful life.
 %    \item \textbf{Predictive or preventive maintenance} during the wear-out phase.
 %\end{itemize}
 
-\subsection{Life Testing Procedures}
+\subsection{System Reliability}
 
-Life testing involves subjecting products to controlled conditions to estimate their reliability characteristics. The main types of life testing are:
+System reliability is the probability that a system will perform its required function under stated conditions for a specified period of time. Unlike individual component reliability, system reliability depends heavily on how components are arranged and interact within the system architecture.
 
-\subsubsection{Complete Testing}
+The key insight is that the overall system reliability is not simply the average of individual component reliabilities, but rather depends on the logical structure of the system and how component failures affect system performance.
+
+\subsubsection{Series Systems}
+
+A series system is one where \textbf{all components must function for the system to function}. If any single component fails, the entire system fails. This represents the weakest-link scenario.
+
+\textbf{Real-world examples:}
+\begin{itemize}
+    \item Christmas lights (old-style, where one bulb failure causes all to go out)
+    \item Manufacturing assembly line (failure of any station stops production)
+    \item Aircraft engine (failure of any critical component causes engine failure)
+    \item Series-connected electronic circuits
+\end{itemize}
+
+\subsubsection{Mathematical Analysis}
+
+For $n$ components in series with individual reliabilities $R_1(t), R_2(t), \ldots, R_n(t)$:
+
+\begin{equation}
+R_{\text{series}}(t) = \prod_{i=1}^n R_i(t) = R_1(t) \times R_2(t) \times \cdots \times R_n(t)
+\end{equation}
+
+For identical components with reliability $R(t)$:
+\begin{equation}
+R_{\text{series}}(t) = [R(t)]^n
+\end{equation}
+
+\subsubsection{Key Properties of Series Systems}
+\begin{enumerate}
+    \item \textbf{Multiplicative effect:} System reliability is the product of component reliabilities
+    \item \textbf{Decreasing reliability:} Adding more components always decreases system reliability
+    \item \textbf{Weakest link:} System reliability is always less than or equal to the reliability of the least reliable component
+    \item \textbf{Exponential decay:} For identical components, reliability decreases exponentially with the number of components
+\end{enumerate}
+
+\subsubsection{Failure Rate Analysis}
+If components have exponential lifetimes with failure rates $\lambda_1, \lambda_2, \ldots, \lambda_n$, then:
+\begin{equation}
+\lambda_{\text{series}} = \sum_{i=1}^n \lambda_i
+\end{equation}
+
+This means failure rates add in series systems, making the system less reliable than any individual component.
+
+\subsubsection{Parallel Systems}
+
+A parallel system is one where \textbf{at least one component must function for the system to function}. The system fails only when all components fail simultaneously. This represents redundancy.
+
+\textbf{Real-world examples:}
+\begin{itemize}
+    \item Aircraft with multiple engines (twin-engine aircraft can fly on one engine)
+    \item Parallel processors in computers
+    \item Multiple backup power supplies
+    \item Redundant communication links
+    \item Multiple parachutes in aerospace applications
+\end{itemize}
+
+\subsubsection{Mathematical Analysis}
+
+For $n$ components in parallel with individual reliabilities $R_1(t), R_2(t), \ldots, R_n(t)$:
+
+\begin{equation}
+R_{\text{parallel}}(t) = 1 - \prod_{i=1}^n [1 - R_i(t)]
+\end{equation}
+
+For identical components with reliability $R(t)$:
+\begin{equation}
+R_{\text{parallel}}(t) = 1 - [1 - R(t)]^n
+\end{equation}
+
+\subsubsection{Alternative Formulation}
+The parallel system reliability can also be expressed as:
+\begin{equation}
+R_{\text{parallel}}(t) = 1 - F_1(t) \times F_2(t) \times \cdots \times F_n(t)
+\end{equation}
+where $F_i(t) = 1 - R_i(t)$ is the failure probability of component $i$.
+
+\subsubsection{Key Properties of Parallel Systems}
+\begin{enumerate}
+    \item \textbf{Improved reliability:} System reliability is always greater than the reliability of any individual component
+    \item \textbf{Diminishing returns:} Each additional parallel component provides less reliability improvement
+    \item \textbf{Graceful degradation:} System continues to function even with some component failures
+    \item \textbf{Cost vs. benefit trade-off:} More redundancy costs more but provides higher reliability
+\end{enumerate}
+
+\section{System Reliability Comparison}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=8cm,
+    xlabel={Time (t)},
+    ylabel={System Reliability},
+    legend pos=north east,
+    grid=major,
+    domain=0:5,
+    samples=100,
+    ymin=0, ymax=1
+]
+% Single component
+\addplot[blue, thick] {exp(-0.5*x)};
+\addlegendentry{Single Component}
+% Series system (2 components)
+\addplot[red, thick] {(exp(-0.5*x))^2};
+\addlegendentry{Series (2 components)}
+% Series system (3 components)
+\addplot[red, thick, dashed] {(exp(-0.5*x))^3};
+\addlegendentry{Series (3 components)}
+% Parallel system (2 components)
+\addplot[green, thick] {1-(1-exp(-0.5*x))^2};
+\addlegendentry{Parallel (2 components)}
+% Parallel system (3 components)
+\addplot[green, thick, dashed] {1-(1-exp(-0.5*x))^3};
+\addlegendentry{Parallel (3 components)}
+\end{axis}
+\end{tikzpicture}
+\caption{System Reliability Comparison ($\lambda = 0.5$ for each component)}
+\end{figure}
+
+\subsection{Series System Example}
+
+\textbf{Problem:} A manufacturing line has 4 stations in series. Each station has a reliability of 0.95 over an 8-hour shift. What is the system reliability?
+
+\textbf{Solution:}
+\begin{align}
+R_{\text{series}} &= [R(t)]^n \\
+&= (0.95)^4 \\
+&= 0.8145
+\end{align}
+
+\textbf{Interpretation:} Even though each station is 95\% reliable, the overall line is only 81.45\% reliable due to the series configuration.
+
+\subsection{Parallel System Example}
+
+\textbf{Problem:} A data center has 3 backup generators in parallel. Each generator has a reliability of 0.90 during a power outage. What is the probability that at least one generator will work?
+
+\textbf{Solution:}
+\begin{align}
+R_{\text{parallel}} &= 1 - [1 - R(t)]^n \\
+&= 1 - (1 - 0.90)^3 \\
+&= 1 - (0.10)^3 \\
+&= 1 - 0.001 \\
+&= 0.999
+\end{align}
+
+\textbf{Interpretation:} The parallel configuration provides 99.9\% reliability, much higher than any individual generator.
+
+\subsection{Series-Parallel Systems}
+
+Many real systems combine both series and parallel elements. For example, a system might have parallel subsystems, where each subsystem contains components in series.
+
+\textbf{Analysis approach:}
+\begin{enumerate}
+    \item Identify parallel subsystems
+    \item Calculate reliability of each subsystem (usually series components)
+    \item Combine subsystem reliabilities using parallel formula
+\end{enumerate}
+
+\subsection{Parallel-Series Systems}
+
+These systems have series subsystems arranged in parallel. Each parallel path must have all its series components working.
+
+\subsection{Complex Systems}
+
+For more complex configurations:
+\begin{itemize}
+    \item Use reliability block diagrams
+    \item Apply conditional probability methods
+    \item Consider using fault tree analysis
+    \item Employ Monte Carlo simulation for very complex systems
+\end{itemize}
+
+\subsection{When to Use Series vs. Parallel}
+
+\textbf{Series systems are appropriate when:}
+\begin{itemize}
+    \item Cost is the primary concern
+    \item Space/weight constraints exist
+    \item Simple design is required
+    \item Components have very high individual reliability
+\end{itemize}
+
+\textbf{Parallel systems are appropriate when:}
+\begin{itemize}
+    \item High reliability is critical
+    \item Failure consequences are severe
+    \item Maintenance can be performed on individual components
+    \item Cost of redundancy is justified by reliability improvement
+\end{itemize}
+
+\subsection{Life Testing}
+
+Life testing involves conducting experiments to determine how long items last before failure. The resulting data help estimate important reliability measures such as the \textbf{mean time to failure (MTTF)}, the \textbf{failure rate}, and the \textbf{reliability function}, and support decisions like accepting or rejecting a batch of products.
+
+The main types of life testing are:
+
+\subsubsection{1. Complete Testing}
 
 In complete testing, all test units are run until failure. While this provides complete information, it is often impractical for highly reliable products.
 
-\subsubsection{Censored Testing}
+\subsubsection{2. Censored Testing}
 
 Censoring occurs when complete failure information is not available for all test units.
+\begin{itemize}
+\item \textbf{Type I Censoring (Time Censoring):} Testing is terminated at a predetermined time $t_c$.
 
-\textbf{Type I Censoring (Time Censoring):} Testing is terminated at a predetermined time $t_c$.
+\item \textbf{Type II Censoring (Failure Censoring):} Testing continues until a predetermined number of failures $r$ occurs.
+\end{itemize}
 
-\textbf{Type II Censoring (Failure Censoring):} Testing continues until a predetermined number of failures $r$ occurs.
+\subsubsection{1. Complete Testing}
+
+In complete testing, all test units are run until failure. This approach yields full information about the lifetimes of all items. However, for highly reliable products with long life spans, running tests until every item fails can be time-consuming, costly, or even infeasible.
+
+\subsubsection{2. Censored Testing}
+
+Censoring occurs when complete failure information is not available for all test units. This is often necessary due to time constraints, cost considerations, or the high reliability of products. There are mainly two types of censoring:
+
+\begin{itemize}
+  \item \textbf{Type I Censoring:}
+    Testing is stopped at a fixed time \(t_0\). Suppose \(n\) units are on test and \(s\) of them have failed by \(t_0\), with failure times
+    \[
+      X_{(1)} \le X_{(2)} \le \cdots \le X_{(s)}.
+    \]
+    The remaining \(n - s\) units are known only to have survived at least to \(t_0\).  If lifetimes are i.i.d.\ exponential with density
+    \[
+      f(t;\lambda) = \lambda e^{-\lambda t},\quad t\ge0,
+    \]
+    then the likelihood is
+    \[
+      L(\lambda)
+      = \Bigl[\prod_{i=1}^s \lambda e^{-\lambda X_{(i)}}\Bigr]
+        \Bigl[e^{-\lambda t_0}\Bigr]^{\,n-s}
+      = \lambda^s \exp\!\Bigl\{-\lambda\bigl(\sum_{i=1}^s X_{(i)} + (n-s)\,t_0\bigr)\Bigr\}.
+    \]
+    The log‐likelihood is
+    \[
+      \ell(\lambda)
+      = s\ln\lambda \;-\;\lambda\Bigl(\sum_{i=1}^s X_{(i)} + (n-s)\,t_0\Bigr).
+    \]
+    Setting \(\dfrac{d\ell}{d\lambda}=0\) gives
+    \[
+      \frac{s}{\lambda} \;-\;\Bigl(\sum_{i=1}^s X_{(i)} + (n-s)\,t_0\Bigr)
+      \;=\;0
+      \quad\Longrightarrow\quad
+      \hat\lambda
+      = \frac{s}{\sum_{i=1}^s X_{(i)} + (n-s)\,t_0}.
+    \]
+    Hence the MLE of the mean life \(\theta=1/\lambda\) is
+    \[
+      \hat\theta
+      = \frac{1}{\hat\lambda}
+      = \frac{1}{s}\,\Bigl(\sum_{i=1}^s X_{(i)} + (n-s)\,t_0\Bigr).
+    \]
+
+    \bigskip
+
+  \item \textbf{Type II Censoring:}
+    Testing continues until the \(r\)th failure occurs (so \(r\le n\)), at time \(X_{(r)}\).  The first \(r\) ordered failure times
+    \(\;X_{(1)}\le X_{(2)}\le\cdots\le X_{(r)}\!\)\; are observed; the remaining \(n-r\) units survive beyond \(X_{(r)}\).  The exponential likelihood is
+    \[
+      L(\lambda)
+      = \Bigl[\prod_{i=1}^r \lambda e^{-\lambda X_{(i)}}\Bigr]
+        \Bigl[e^{-\lambda X_{(r)}}\Bigr]^{\,n-r}
+      = \lambda^r \exp\!\Bigl\{-\lambda\bigl(\sum_{i=1}^r X_{(i)} + (n-r)\,X_{(r)}\bigr)\Bigr\}.
+    \]
+    Thus
+    \[
+      \ell(\lambda)
+      = r\ln\lambda \;-\;\lambda\Bigl(\sum_{i=1}^r X_{(i)} + (n-r)\,X_{(r)}\Bigr).
+    \]
+    Solving \(d\ell/d\lambda=0\) yields
+    \[
+      \frac{r}{\lambda} \;-\;\Bigl(\sum_{i=1}^r X_{(i)} + (n-r)\,X_{(r)}\Bigr)
+      =0
+      \quad\Longrightarrow\quad
+      \hat\lambda
+      = \frac{r}{\sum_{i=1}^r X_{(i)} + (n-r)\,X_{(r)}}.
+    \]
+    Hence the MLE of \(\theta=1/\lambda\) is
+    \[
+      \hat\theta
+      = \frac{1}{\hat\lambda}
+      = \frac{1}{r}\,\Bigl(\sum_{i=1}^r X_{(i)} + (n-r)\,X_{(r)}\Bigr).
+    \]
+\end{itemize}
 
 
-Consider Type II censoring with $n = 10$ units and $r = 6$ failures. The test continues until the 6th failure occurs, and the remaining 4 units are censored.
+Censored tests save time and resources while still enabling meaningful reliability analysis, though they may require more sophisticated statistical methods for parameter estimation.
 
+\subsubsection*{Example: Type I Censoring}
 
-\subsection{Parameter Estimation}
-
-\subsubsection{Maximum Likelihood Estimation for Exponential Distribution}
-
-For complete data with failure times $t_1, t_2, \ldots, t_n$, the likelihood function is:
-\begin{equation}
-L(\lambda) = \prod_{i=1}^n \lambda e^{-\lambda t_i} = \lambda^n \exp\left(-\lambda \sum_{i=1}^n t_i\right)
-\end{equation}
-
-Taking the natural logarithm:
-\begin{equation}
-\ln L(\lambda) = n \ln \lambda - \lambda \sum_{i=1}^n t_i
-\end{equation}
-
-Setting the derivative equal to zero:
-\begin{equation}
-\frac{d \ln L(\lambda)}{d\lambda} = \frac{n}{\lambda} - \sum_{i=1}^n t_i = 0
-\end{equation}
-
-The maximum likelihood estimator is:
-\begin{equation}
-\hat{\lambda} = \frac{n}{\sum_{i=1}^n t_i} = \frac{1}{\bar{t}}
-\end{equation}
-
-where $\bar{t}$ is the sample mean time to failure.
-
-\subsubsection{Estimation with Type II Censoring}
-
-For Type II censored data with $r$ failures out of $n$ units, the MLE becomes:
-\begin{equation}
-\hat{\lambda} = \frac{r}{\sum_{i=1}^r t_{(i)} + (n-r)t_{(r)}}
-\end{equation}
-
-where $t_{(i)}$ are the ordered failure times and $t_{(r)}$ is the time of the $r$-th failure.
-
-\subsection{Confidence Intervals}
-
-For the exponential distribution with Type II censoring, the $(1-\alpha)100\%$ confidence interval for $\lambda$ is:
-\begin{equation}
-\left[\frac{\chi^2_{\alpha/2, 2r}}{2T}, \frac{\chi^2_{1-\alpha/2, 2r}}{2T}\right]
-\end{equation}
-
-where $T = \sum_{i=1}^r t_{(i)} + (n-r)t_{(r)}$ is the total test time.
+Suppose $n = 10$ items are tested and failures are observed at:
+\[
+4, 9, 11, 18, 27, 38
+\]
+with censoring time $t_0 = 50$, so $s = 6$. Then the MLE of $\theta$ is:
+\[
+\hat{\theta} = \frac{1}{6} \left(4 + 9 + 11 + 18 + 27 + 38 + 4 \times 50\right) = \frac{307}{6} \approx 51.17
+\]
 
 \subsection{Reliability Demonstration Testing}
 
-Reliability demonstration testing is used to verify that a product meets specified reliability requirements.
+Reliability demonstration testing (RDT) is used to show that a product meets a specified reliability target \(R_0\) over a mission time \(t_0\) with a specified level of confidence.  Under the common assumption of exponential lifetimes, one can derive closed‐form sample‐size requirements for zero‐failure (success‐run) testing.
 
-\subsubsection{Success-Run Testing}
+We assume,
+\begin{itemize}
+  \item Lifetimes \(T\) of identical units are i.i.d.\ exponential with rate \(\lambda\):
+    \[
+      f(t)=\lambda e^{-\lambda t},\quad
+      R(t)=P(T>t)=e^{-\lambda t}.
+    \]
+  \item Mission time: \(t_0\).
+  \item Target reliability at \(t_0\):
+    \[
+      R_0 = R(t_0) = e^{-\lambda t_0}
+      \quad\Longrightarrow\quad
+      \lambda = -\frac{\ln R_0}{t_0}.
+    \]
+  \item Significance level: \(\alpha\) (probability of wrongly declaring reliability \(\ge R_0\) when it is not).
+  \item Number of units tested with no failures observed: \(n\).
+\end{itemize}
 
-For a required reliability $R_0$ at mission time $t_0$, assuming exponential distribution, the number of success runs $n$ needed for confidence level $1-\alpha$ is:
-\begin{equation}
-n = \frac{\ln \alpha}{\ln R_0}
-\end{equation}
+\subsubsection{Derivation of the Success‐Run Formula}
+When \(n\) units are tested each for time \(t_0\), the probability that \emph{all} survive is
+\[
+  P(\text{no failures in }n\text{ units})
+  = \bigl[R(t_0)\bigr]^n
+  = R_0^n
+\]
+To demonstrate that the true reliability is at least \(R_0\) with confidence level \(1-\alpha\), we require the probability of observing zero failures under the \emph{worst‐case} (i.e.\ exactly \(R_0\)) to be at least \(1-\alpha\):
+\[
+  P(\text{no failures}\mid R=R_0)
+  = R_0^n
+  \;\ge\; 1-\alpha
+\]
+Taking natural logarithms (noting \(\ln R_0<0\), \(\ln(1-\alpha)<0\)) gives
+\[
+  n\,\ln R_0 \;\ge\;\ln(1-\alpha)
+  \quad\Longrightarrow\quad
+  n \;\ge\;\frac{\ln(1-\alpha)}{\ln R_0}
+  = \frac{\ln \alpha'}{\ln R_0}
+\]
+where \(\alpha' = 1-\alpha\).  Equivalently, defining \(\alpha\) as the \emph{upper‐tail} error probability,
+\[
+  n = \frac{\ln\alpha}{\ln R_0}
+  \quad(\text{both numerator and denominator negative, so }n>0)
+\]
 
+\subsubsection{Example Calculation}
+To demonstrate \(R_0=0.90\) at \(t_0\) with 95\% confidence (\(\alpha=0.05\)):
+\[
+  n \;=\;\frac{\ln(0.05)}{\ln(0.90)}
+     = \frac{-2.9957}{-0.1054}
+     \approx 28.42
+     \quad\Longrightarrow\quad 29\text{ units (round up)}
+\]
 
-To demonstrate $R_0 = 0.90$ at 95\% confidence:
-\begin{equation}
-n = \frac{\ln 0.05}{\ln 0.90} = \frac{-2.996}{-0.105} \approx 28.5 \rightarrow 29 \text{ units}
-\end{equation}
+\subsubsection{Extension: Allowing Up to \(c\) Failures}
+One can generalize to allow up to \(c\) failures in \(n\) units.  Under the binomial model
+\[
+  P(\le c \text{ failures}) \;=\;
+    \sum_{k=0}^c \binom{n}{k} (1-R_0)^k \, R_0^{\,n-k},
+\]
+and one chooses the smallest \(n\) such that
+\[
+  \sum_{k=0}^c \binom{n}{k} (1-R_0)^k \, R_0^{\,n-k} \;\ge\; 1-\alpha.
+\]
+This “\(c\)‑failures” plan reduces sample size when allowing a small number of failures.
+
+\subsubsection{Discussion}
+\begin{itemize}
+  \item Zero‐failure (success‐run) tests are simple but can require large \(n\) when \(R_0\) is high.
+  \item Allowing \(c>0\) failures (at cost of slightly more complex analysis) can markedly reduce \(n\).
+  \item These formulas assume independence and exponential lifetimes; other models (e.g.\ Weibull) require different derivations.
+\end{itemize}
 
 
 \subsection{Accelerated Life Testing}
 
-Accelerated life testing (ALT) subjects products to elevated stress levels to accelerate failure mechanisms and reduce testing time.
+Accelerated life testing (ALT) subjects products to elevated stress conditions to accelerate failure mechanisms and reduce testing time. Data from ALT are then extrapolated back to use conditions via a \emph{time‐transformation function} that relates life under stress to life under normal conditions.
 
-\subsubsection{Arrhenius Model}
-
-For temperature acceleration:
-\begin{equation}
-\lambda(T) = A \exp\left(\frac{E_a}{kT}\right)
-\end{equation}
-
-where:
+Common acceleration models include:
 \begin{itemize}
-\item $A$ is a constant
-\item $E_a$ is the activation energy
-\item $k$ is Boltzmann's constant
-\item $T$ is absolute temperature
+\item \textbf{Arrhenius model}: For temperature acceleration
+\item \textbf{Power law model}: For mechanical stress
+\item \textbf{Eyring model}: For multiple stress factors
 \end{itemize}
-
-The acceleration factor between temperatures $T_1$ and $T_2$ is:
-\begin{equation}
-AF = \frac{\lambda(T_2)}{\lambda(T_1)} = \exp\left(\frac{E_a}{k}\left(\frac{1}{T_2} - \frac{1}{T_1}\right)\right)
-\end{equation}
 
 \subsection{Practical Example: Electronic Component Testing}
 
