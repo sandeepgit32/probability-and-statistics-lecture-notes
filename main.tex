@@ -17254,17 +17254,16 @@ where MTTR is the \textbf{Mean Time To Repair}.
 \item \textbf{MTTR}: Time spent in repairing a failure.
 \end{itemize}
 
-
-\subsection{Common Life Distributions}
-
-\subsubsection{Exponential Distribution}
+\subsection{Exponential Model of Life Distribution}
 
 The exponential distribution is the most fundamental life distribution, characterized by a constant failure rate. For an exponential distribution with parameter $\lambda$:
+\begin{textbox}
 \[
 f(t) = \lambda e^{-\lambda t}, \quad t \geq 0
 \]
+\end{textbox}
 
-Reliability function
+\subsubsection{Reliability Function}
 \[
 R(t) = \int_t^{\infty} f(u)\,du = \int_t^{\infty} \lambda e^{-\lambda u}\,du =\lambda\left[-\dfrac{1}{\lambda}e^{-\lambda u}\right]_t^{\infty} = e^{-\lambda t}
 \]
@@ -17323,74 +17322,64 @@ R(t) = \int_t^{\infty} f(u)\,du = \int_t^{\infty} \lambda e^{-\lambda u}\,du =\l
 \caption{\textit{Exponential distribution: comparison of $f(t)$ and $R(t)$ for different values of $\lambda$.}}
 \end{figure}
 
-Hazard function
+\subsubsection{Hazard Function}
 $$h(t) =\dfrac{f(t)}{R(t)}= \lambda \quad \text{(constant)}$$
 
 
-Mean time to failure
+\subsubsection{Mean Time To Failure (MTTF)}
 \[
 \text{MTTF} = \int_0^\infty R(t)\, dt= \int_0^\infty e^{-\lambda t} \, dt = \frac{1}{\lambda}
 \]
 
-\subsubsection{Weibull Distribution}
+\subsection{Weibull Model of Life Distribution}
 
 The Weibull distribution is widely used in reliability analysis due to its flexibility in modeling different failure patterns. The two‐parameter Weibull distribution is defined for \(t \ge 0\) by the failure density function
+\begin{textbox}
 \[
 f(t) \;=\; \dfrac{\beta}{\eta}\left( \dfrac{t}{\eta}\right)^{\beta-1}
 \exp\left[-\left( \dfrac{t}{\eta}\right)^\beta\right]
 \]
+\end{textbox}
 where \(\beta>0\) is the \textbf{shape} parameter and \(\eta>0\) the \textbf{scale} parameter.
 
 \medskip
 
-\paragraph{1. Cumulative distribution function \(F(t)\)}
-By definition,
+\subsubsection{Cumulative Distribution Function}
 \[
 F(t)\;=\;\int_0^t f(u)\,du
-=\int_0^t \frac{\beta}{\eta}\Bigl(\tfrac{u}{\eta}\Bigr)^{\beta-1}
-e^{-(u/\eta)^\beta}\,du.
+=\int_0^t \dfrac{\beta}{\eta}\left( \dfrac{u}{\eta}\right) ^{\beta-1}
+e^{-(u/\eta)^\beta}\,du
 \]
+
 Make the substitution \(x=(u/\eta)^\beta\), so \(u = \eta\,x^{1/\beta}\) and
-\(\,du = \eta\,\tfrac{1}{\beta}\,x^{1/\beta - 1}\,dx\).  Then
+\(\,du = \dfrac{\eta}{\beta}\,x^{1/\beta - 1}\,dx\).  Then
 \[
 F(t)
 = \int_{x=0}^{(t/\eta)^\beta}
-\frac{\beta}{\eta}\;x^{1 - 1}\;e^{-x}\;\eta\;\tfrac{1}{\beta}\,x^{\tfrac{1}{\beta}-1}\,dx
+\frac{\beta}{\eta}\;x^{1 - 1}\;e^{-x}\;\dfrac{\eta}{\beta}\,x^{\tfrac{1}{\beta}-1}\,dx
 = \int_{0}^{(t/\eta)^\beta} e^{-x}\,dx
-= 1 - e^{-(t/\eta)^\beta}.
-\]
-Thus
-\[
-\boxed{F(t) = 1 - \exp\bigl[-(t/\eta)^\beta\bigr].}
+= 1 - e^{-(t/\eta)^\beta}
 \]
 
-\medskip
-
-\paragraph{2. Reliability (Survival) function \(R(t)\)}
-By definition \(R(t)=1-F(t)\), so
 \[
-\boxed{R(t) = \exp\!\bigl[-(t/\eta)^\beta\bigr].}
+\Rightarrow F(t) = 1 - \exp\left[-\left( \dfrac{t}{\eta}^\beta\right)\right]
 \]
 
-\medskip
+\subsubsection{Reliability Function}
+$$R(t) = 1-F(t) =  \exp\left[-\left( \dfrac{t}{\eta}^\beta\right)\right]$$
 
-\paragraph{3. Hazard (Instantaneous failure) rate \(h(t)\)}
+\subsubsection{Hazard Function}
 \[
-h(t)=\frac{f(t)}{R(t)}
-= \frac{\frac{\beta}{\eta}(t/\eta)^{\beta-1}e^{-(t/\eta)^\beta}}
-       {e^{-(t/\eta)^\beta}}
-= \frac{\beta}{\eta}\Bigl(\frac{t}{\eta}\Bigr)^{\beta-1}.
-\]
-Hence
-\[
-\boxed{h(t) = \frac{\beta}{\eta}\Bigl(\tfrac{t}{\eta}\Bigr)^{\beta-1}\,.}
+h(t)=\dfrac{f(t)}{R(t)}
+= \dfrac{f(t) \;=\; \dfrac{\beta}{\eta}\left( \dfrac{t}{\eta}\right)^{\beta-1}
+\exp\left[-\left( \dfrac{t}{\eta}\right)^\beta\right]}
+       {\exp\left[-\left( \dfrac{t}{\eta}\right)^\beta\right]}
+= \dfrac{\beta}{\eta}\left( \frac{t}{\eta}\right)^{\beta-1}
 \]
 
-\medskip
-
-\paragraph{5. Mean Time To Failure (MTTF)}
+\subsubsection{Mean Time To Failure (MTTF)}
 \[
-\text{MTTF} = \mathbb{E}[T] = \int_0^\infty t\,f(t)\,dt.
+\text{MTTF} = \mathbb{E}(T) = \int_0^\infty t\,f(t)\,dt.
 \]
 Using the same substitution \(x=(t/\eta)^\beta\):
 \[
@@ -17440,7 +17429,7 @@ The behavior of the Weibull hazard function depends on $\beta$:
 \caption{\textit{Weibull hazard functions for different shape parameters ($\eta = 2$).}}
 \end{figure}
 
-\subsubsection{Bathtub Curve}
+\subsection{Bathtub Curve}
 
 The \textbf{bathtub curve} describes the typical behavior of the hazard rate {failure rate function} \( h(t) \) over the operational life of many products or systems. It consists of three sequential phases:
 
@@ -17711,19 +17700,6 @@ For more complex configurations:
 Life testing involves conducting experiments to determine how long items last before failure. The resulting data help estimate important reliability measures such as the \textbf{mean time to failure (MTTF)}, the \textbf{failure rate}, and the \textbf{reliability function}, and support decisions like accepting or rejecting a batch of products.
 
 The main types of life testing are:
-
-\subsubsection{1. Complete Testing}
-
-In complete testing, all test units are run until failure. While this provides complete information, it is often impractical for highly reliable products.
-
-\subsubsection{2. Censored Testing}
-
-Censoring occurs when complete failure information is not available for all test units.
-\begin{itemize}
-\item \textbf{Type I Censoring (Time Censoring):} Testing is terminated at a predetermined time $t_c$.
-
-\item \textbf{Type II Censoring (Failure Censoring):} Testing continues until a predetermined number of failures $r$ occurs.
-\end{itemize}
 
 \subsubsection{1. Complete Testing}
 
