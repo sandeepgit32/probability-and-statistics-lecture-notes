@@ -16460,19 +16460,19 @@ This agreement allows both the manufacturer and the shopkeeper to operate fairly
 
 In acceptance sampling, there are two types of errors that can occur, leading to risks for both the producer and consumer.
 
-\begin{itemize}
-\item \textbf{Producer's risk} ($\alpha$) is the probability of rejecting a lot when the defect rate is equal to AQL (Type I Error).
+\begin{textbox}
+\textbf{Producer's risk} ($\alpha$) is the probability of rejecting a lot when the defect rate is equal to AQL (Type I Error).
 $$\alpha = P(\text{Reject lot} \mid \text{defect rate = AQL}) = 1 - P_a(\text{AQL})$$
+\end{textbox}
 
 The producer suffers when this occurs because a good quality lot is rejected. {Typical value:} $\alpha = 0.05$ (5\%)
 
-\medskip
-
-\item \textbf{Consumer's risk} ($\beta$) is the probability of accepting a lot when the defect rate is equal to LTPD (Type II Error).
+\begin{textbox}
+\textbf{Consumer's risk} ($\beta$) is the probability of accepting a lot when the defect rate is equal to LTPD (Type II Error).
 $$\beta = P(\text{Accept lot} \mid \text{defect rate = LTPD}) = P_a(\text{LTPD})$$
+\end{textbox}
 
 The consumer suffers when this occurs because an unacceptable quality lot is accepted. {Typical value:} $\beta = 0.10$ (10\%)
-\end{itemize}
 
 \begin{table}[H]
 \centering
@@ -16926,134 +16926,6 @@ A full mathematical analysis of double sampling plan is skipped because it is be
 
 \section{Reliability and Life Testing}
 
-Reliability is the probability that a system performs successfully during a specified time interval under specified conditions.
-
-\subsection{Reliability Function}
-
-The reliability function $R(t)$ is defined as:
-$$R(t) = P(T > t) = 1 - F(t)$$
-
-where $T$ is the random variable representing time to failure and $F(t)$ is the cumulative distribution function.
-
-\subsection{Failure Rate Function}
-
-The hazard rate or failure rate function $h(t)$ is:
-$$h(t) = \frac{f(t)}{R(t)} = \frac{f(t)}{1-F(t)}$$
-
-where $f(t)$ is the probability density function.
-
-\subsection{Common Life Distributions}
-
-\subsubsection{Exponential Distribution}
-
-For constant failure rate $\lambda$:
-$$f(t) = \lambda e^{-\lambda t}, \quad t \geq 0$$
-$$R(t) = e^{-\lambda t}$$
-$$h(t) = \lambda$$
-
-Mean Time To Failure (MTTF):
-$$MTTF = \frac{1}{\lambda}$$
-
-\subsubsection{Weibull Distribution}
-
-The Weibull distribution is widely used in reliability analysis:
-$$f(t) = \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta-1} e^{-(t/\eta)^{\beta}}$$
-
-where $\beta$ is the shape parameter and $\eta$ is the scale parameter.
-
-$$R(t) = e^{-(t/\eta)^{\beta}}$$
-
-$$h(t) = \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta-1}$$
-
-\subsubsection{Bathtub Curve}
-
-The bathtub curve describes the failure rate pattern over product lifetime:
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[scale=0.8]
-\begin{axis}[
-    title={Bathtub Curve},
-    xlabel={Time},
-    ylabel={Failure Rate},
-    xmin=0, xmax=10,
-    ymin=0, ymax=3,
-    grid=major,
-    xtick={2,6,8},
-    xticklabels={Early Life, Useful Life, Wear-out}
-]
-\addplot[blue, thick, smooth] coordinates {
-    (0,2.5) (0.5,2.0) (1,1.5) (1.5,1.2) (2,1.0) (3,0.8) (4,0.7) (5,0.6) (6,0.5) (7,0.6) (8,1.0) (9,1.8) (10,3.0)
-};
-\node at (axis cs:1,2.2) {Infant Mortality};
-\node at (axis cs:4,0.3) {Random Failures};
-\node at (axis cs:8.5,2.5) {Wear-out};
-\end{axis}
-\end{tikzpicture}
-\end{figure}
-
-\subsection{Life Testing}
-
-\subsubsection{Complete Testing}
-
-All units are tested until failure. Provides complete information but time-consuming.
-
-\subsubsection{Censored Testing}
-
-\textbf{Type I Censoring}: Testing stops at predetermined time $t_0$
-
-\textbf{Type II Censoring}: Testing stops after predetermined number of failures $r$
-
-\subsubsection{Accelerated Life Testing}
-
-Testing under elevated stress conditions to accelerate failures.
-
-Arrhenius model:
-$$\lambda(T) = A e^{E_a/(kT)}$$
-
-where $T$ is temperature, $E_a$ is activation energy, $k$ is Boltzmann constant, and $A$ is a constant.
-
-\subsection{System Reliability}
-
-\subsubsection{Series System}
-
-For a series system with $n$ components:
-$$R_s(t) = \prod_{i=1}^{n} R_i(t)$$
-
-\subsubsection{Parallel System}
-
-For a parallel system with $n$ components:
-$$R_p(t) = 1 - \prod_{i=1}^{n} [1 - R_i(t)]$$
-
-\subsubsection{Example: System Reliability Calculation}
-
-Consider a system with 3 components in series, each with reliability $R(t) = e^{-0.001t}$:
-
-$$R_s(t) = [e^{-0.001t}]^3 = e^{-0.003t}$$
-
-For the same components in parallel:
-$$R_p(t) = 1 - [1 - e^{-0.001t}]^3$$
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[scale=0.8]
-\begin{axis}[
-    title={System Reliability Comparison},
-    xlabel={Time (hours)},
-    ylabel={Reliability},
-    xmin=0, xmax=2000,
-    ymin=0, ymax=1,
-    grid=major,
-    legend pos=north east
-]
-\addplot[blue, thick] coordinates {(0,1) (200,0.82) (400,0.67) (600,0.55) (800,0.45) (1000,0.37) (1200,0.30) (1400,0.25) (1600,0.20) (1800,0.17) (2000,0.14)};
-\addplot[red, thick] coordinates {(0,1) (200,0.67) (400,0.45) (600,0.30) (800,0.20) (1000,0.14) (1200,0.09) (1400,0.06) (1600,0.04) (1800,0.03) (2000,0.02)};
-\addplot[green, thick] coordinates {(0,1) (200,0.9997) (400,0.9988) (600,0.9973) (800,0.9955) (1000,0.9933) (1200,0.9909) (1400,0.9882) (1600,0.9853) (1800,0.9822) (2000,0.9789)};
-\legend{Single Component, Series System, Parallel System}
-\end{axis}
-\end{tikzpicture}
-\end{figure}
-
 \subsection{Introduction to Reliability}
 
 Reliability is a key concept in quality control. It measures how likely a product or system is to function properly without failure over a specified period under stated conditions. While traditional quality control checks whether a product meets standards at the time of inspection, reliability focuses on its performance over time.
@@ -17381,16 +17253,16 @@ h(t)=\dfrac{f(t)}{R(t)}
 \[
 \text{MTTF} = \mathbb{E}(T) = \int_0^\infty t\,f(t)\,dt.
 \]
-Using the same substitution \(x=(t/\eta)^\beta\):
+Using the same substitution \(x=\left(\dfrac{t}{\eta}\right)^\beta\),
 \[
-\mathbb{E}[T]
-= \int_{0}^{\infty} t \,\frac{\beta}{\eta}(t/\eta)^{\beta-1} e^{-(t/\eta)^\beta}\,dt
+\mathbb{E}(T)
+= \int_{0}^{\infty} t \,\dfrac{\beta}{\eta}\left(\dfrac{t}{\eta}\right)^{\beta-1} e^{-(t/\eta)^\beta}\,dt
 = \eta \int_{0}^{\infty} x^{1/\beta} e^{-x}\,dx
-= \eta\,\Gamma\!\bigl(1 + \tfrac{1}{\beta}\bigr),
+= \eta\,\Gamma\left( 1 + \dfrac{1}{\beta}\right)
 \]
 where \(\Gamma(z)=\int_0^\infty x^{z-1}e^{-x}dx\).  Hence
 \[
-\boxed{\text{MTTF} = \eta\,\Gamma\!\bigl(1 + \tfrac{1}{\beta}\bigr).}
+\text{MTTF} = \eta\,\Gamma\left( 1 + \dfrac{1}{\beta}\right)
 \]
 
 The behavior of the Weibull hazard function depends on $\beta$:
@@ -17479,14 +17351,14 @@ The combined behavior of these three phases forms a characteristic ``bathtub'' s
 \end{figure}
 
 A distribution which could be used for each of the 3 parts of bathtub curve is Weibull distribution with different shape
-parameter $ \alpha $:
+parameter $ \beta $:
 
 \begin{enumerate}
-    \item {Early Failure Period (Infant Mortality):} $0<\alpha<1$
+    \item {Early Failure Period (Infant Mortality):} $0<\beta<1$
 
-    \item {Normal Life Period (Useful Life):} $\alpha=1$
+    \item {Normal Life Period (Useful Life):} $\beta=1$
 
-    \item {Wear-out Period:} $\alpha>1$
+    \item {Wear-out Period:} $\beta>1$
 \end{enumerate}
 
 %\paragraph{Note:}
@@ -17509,85 +17381,105 @@ The key insight is that the overall system reliability is not simply the average
 
 \subsubsection{Series Systems}
 
-A series system is one where \textbf{all components must function for the system to function}. If any single component fails, the entire system fails. This represents the weakest-link scenario.
+A series system is one in which all components are so interrelated
+that the entire system will fail if any one of its components fails. For example, series-connected electronic circuits.
 
-\textbf{Real-world examples:}
-\begin{itemize}
-    \item Christmas lights (old-style, where one bulb failure causes all to go out)
-    \item Manufacturing assembly line (failure of any station stops production)
-    \item Aircraft engine (failure of any critical component causes engine failure)
-    \item Series-connected electronic circuits
-\end{itemize}
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[thick]
+  % Draw lines before and after the blocks
+  \draw (0,0) -- (1,0);
+  \draw (2,0) -- (3,0);
+  \draw (4,0) -- (5,0);
 
-\subsubsection{Mathematical Analysis}
+  % Draw component A
+  \draw (1, -0.5) rectangle (2, 0.5);
+  \node at (1.5, 0) {$R_1$};
+
+  % Draw component B
+  \draw (3, -0.5) rectangle (4, 0.5);
+  \node at (3.5, 0) {$R_2$};
+\end{tikzpicture}
+\end{center}
+\caption{\textit{Series system of two components.}}
+\end{figure}
+
+Let us consider a system consists of two componenets 1 and 2 connected in series with their corresonding relabilities $R_1(t)$ and $R_2(t)$ respectively. We also suppose that the components are independent so that the performance of any one part does not affect the reliability of the others. Under this condition one can write
+\begin{align*}
+R_{\text{parallel}}(t)
+&= P(\text{System working at time }t) \displaybreak[0]\\
+&= P(\text{Component 1 working at time }t \cap \text{Component 2 working at time }t)\displaybreak[0]\\
+&=P(\text{Component 1 working at time }t) \times P(\text{Component 2 working at time }t)\displaybreak[0]\\
+&= R_1(t) \times R_2(t)
+\end{align*}
 
 For $n$ components in series with individual reliabilities $R_1(t), R_2(t), \ldots, R_n(t)$:
-
-\begin{equation}
+\begin{equation*}
 R_{\text{series}}(t) = \prod_{i=1}^n R_i(t) = R_1(t) \times R_2(t) \times \cdots \times R_n(t)
-\end{equation}
+\end{equation*}
 
 For identical components with reliability $R(t)$:
-\begin{equation}
+\begin{equation*}
 R_{\text{series}}(t) = [R(t)]^n
-\end{equation}
+\end{equation*}
 
-\subsubsection{Key Properties of Series Systems}
-\begin{enumerate}
-    \item \textbf{Multiplicative effect:} System reliability is the product of component reliabilities
-    \item \textbf{Decreasing reliability:} Adding more components always decreases system reliability
-    \item \textbf{Weakest link:} System reliability is always less than or equal to the reliability of the least reliable component
-    \item \textbf{Exponential decay:} For identical components, reliability decreases exponentially with the number of components
-\end{enumerate}
-
-\subsubsection{Failure Rate Analysis}
 If components have exponential lifetimes with failure rates $\lambda_1, \lambda_2, \ldots, \lambda_n$, then:
-\begin{equation}
+\begin{equation*}
 \lambda_{\text{series}} = \sum_{i=1}^n \lambda_i
-\end{equation}
+\end{equation*}
 
 This means failure rates add in series systems, making the system less reliable than any individual component.
 
 \subsubsection{Parallel Systems}
 
-A parallel system is one where \textbf{at least one component must function for the system to function}. The system fails only when all components fail simultaneously. This represents redundancy.
+A parallel system is one in which all components are so connected
+that the entire system will fail if all components fail simultaneously. For example, multiple backup power supplies.
 
-\textbf{Real-world examples:}
-\begin{itemize}
-    \item Aircraft with multiple engines (twin-engine aircraft can fly on one engine)
-    \item Parallel processors in computers
-    \item Multiple backup power supplies
-    \item Redundant communication links
-    \item Multiple parachutes in aerospace applications
-\end{itemize}
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[thick]
+  % Nodes for parallel components
+  \node[draw, minimum width=1cm, minimum height=0.8cm] (R1) at (0,1) {$R_1$};
+  \node[draw, minimum width=1cm, minimum height=0.8cm] (R2) at (0,-1) {$R_2$};
 
-\subsubsection{Mathematical Analysis}
+  % Connectors for parallel section
+  \draw (-2, 0) -- (-1, 0);
+  \draw (-1,1) -- (R1.west);
+  \draw (-1,-1) -- (R2.west);
+  \draw (R1.east) -- (1,1);
+  \draw (R2.east) -- (1,-1);
+  \draw (-1,1) -- (-1,-1);
+  \draw (1,1) -- (1,-1);
+
+  % Midpoint after parallel
+  \coordinate (P) at (1,0);
+  \draw (1,-1) -- (P);
+  \draw (P) -- (2,0);
+\end{tikzpicture}
+\end{center}
+\caption{\textit{Parallel system of two components.}}
+\end{figure}
+
+Let us consider a system consists of two componenets 1 and 2 connected in parallel with their corresonding relabilities $R_1(t)$ and $R_2(t)$ respectively. We also suppose that the reliabilities of the components are independent. Under this condition one can write
+\begin{align*}
+R_{\text{series}}(t) &= P(\text{System working at time }t) \displaybreak[0]\\
+&= 1 - P(\text{System failing by time }t) \displaybreak[0]\\
+&= 1 - P(\text{Component 1 failing by time }t \cap \text{Component 2 failing by time }t)\displaybreak[0]\\
+&=1 - P(\text{Component 1 failing by time }t) \times P(\text{Component 2 failing by time }t)\displaybreak[0]\\
+&= 1 - F_1(t) \times F_2(t)\displaybreak[0]\\
+& = 1 - (1-R_1(t))\times (1-R_2(t))
+\end{align*}
 
 For $n$ components in parallel with individual reliabilities $R_1(t), R_2(t), \ldots, R_n(t)$:
-
-\begin{equation}
+\begin{equation*}
 R_{\text{parallel}}(t) = 1 - \prod_{i=1}^n [1 - R_i(t)]
-\end{equation}
+\end{equation*}
 
 For identical components with reliability $R(t)$:
-\begin{equation}
+\begin{equation*}
 R_{\text{parallel}}(t) = 1 - [1 - R(t)]^n
-\end{equation}
+\end{equation*}
 
-\subsubsection{Alternative Formulation}
-The parallel system reliability can also be expressed as:
-\begin{equation}
-R_{\text{parallel}}(t) = 1 - F_1(t) \times F_2(t) \times \cdots \times F_n(t)
-\end{equation}
-where $F_i(t) = 1 - R_i(t)$ is the failure probability of component $i$.
-
-\subsubsection{Key Properties of Parallel Systems}
-\begin{enumerate}
-    \item \textbf{Improved reliability:} System reliability is always greater than the reliability of any individual component
-    \item \textbf{Diminishing returns:} Each additional parallel component provides less reliability improvement
-    \item \textbf{Graceful degradation:} System continues to function even with some component failures
-    \item \textbf{Cost vs. benefit trade-off:} More redundancy costs more but provides higher reliability
-\end{enumerate}
 
 \section{System Reliability Comparison}
 
@@ -17623,6 +17515,88 @@ where $F_i(t) = 1 - R_i(t)$ is the failure probability of component $i$.
 \end{tikzpicture}
 \caption{System Reliability Comparison ($\lambda = 0.5$ for each component)}
 \end{figure}
+
+\subsubsection{Series-Parallel System}
+
+Many real systems combine both series and parallel elements. For example, consider a system composed of four components arranged in a mixed series-parallel configuration:
+\begin{itemize}
+    \item Components $R_1$ and $R_2$ are connected in parallel.
+    \item This parallel subsystem is connected in series with components $R_3$ and $R_4$.
+\end{itemize}
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[thick]
+  % Nodes for parallel components
+  \node[draw, minimum width=1cm, minimum height=0.8cm] (R1) at (0,1) {$R_1$};
+  \node[draw, minimum width=1cm, minimum height=0.8cm] (R2) at (0,-1) {$R_2$};
+
+  % Connectors for parallel section
+  \draw (-2, 0) -- (-1, 0);
+  \draw (-1,1) -- (R1.west);
+  \draw (-1,-1) -- (R2.west);
+  \draw (R1.east) -- (1,1);
+  \draw (R2.east) -- (1,-1);
+  \draw (-1,1) -- (-1,-1);
+  \draw (1,1) -- (1,-1);
+
+  % Midpoint after parallel
+  \coordinate (P) at (1,0);
+  \draw (1,-1) -- (P);
+
+  % Series components R3 and R4
+  \node[draw, minimum width=1cm, minimum height=0.8cm] (R3) at (2.5,0) {$R_3$};
+  \node[draw, minimum width=1cm, minimum height=0.8cm] (R4) at (4,0) {$R_4$};
+
+  % Final connections
+  \draw (P) -- (R3.west);
+  \draw (R3.east) -- (R4.west);
+  \draw (R4.east) -- (5,0);
+\end{tikzpicture}
+\end{center}
+\caption{\textit{A system with series-parallel configuration.}}
+\end{figure}
+
+\paragraph{System Structure:}
+\[
+(R_1 \parallel R_2) \longrightarrow R_3 \longrightarrow R_4
+\]
+
+\paragraph{Step 1: Reliability of Parallel Subsystem}
+
+The reliability of two components in parallel is given by:
+\[
+R_{12}(t) = 1 - (1 - R_1(t))(1 - R_2(t))
+\]
+
+\paragraph{Step 2: Reliability of Series System}
+
+The overall system reliability is the product of the reliabilities of the series-connected parts:
+\[
+R_{\text{system}}(t) = R_{12}(t) \cdot R_3(t) \cdot R_4(t) = \left[1 - (1 - R_1(t))(1 - R_2(t))\right] \cdot R_3(t) \cdot R_4(t)
+\]
+
+\paragraph{Numerical Example}
+
+Assume the following reliabilities at time $t$:
+\[
+R_1 = 0.9, \quad R_2 = 0.8, \quad R_3 = 0.95, \quad R_4 = 0.85
+\]
+
+Compute the reliability of the parallel subsystem:
+\[
+R_{12} = 1 - (1 - 0.9)(1 - 0.8) = 1 - (0.1)(0.2) = 0.98
+\]
+
+Now compute the overall system reliability:
+\[
+R_{\text{system}} = 0.98 \times 0.95 \times 0.85 = 0.79065
+\]
+
+So, the system has a reliability of approximately $\boxed{0.7907}$.
+
+\paragraph{System Diagram}
+
 
 \subsection{Series System Example}
 
