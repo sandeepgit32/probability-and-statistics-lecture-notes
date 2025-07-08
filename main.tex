@@ -17042,7 +17042,7 @@ Mathematically, MTTF is the expected value of the random variable $T$ representi
 
 where $f(t)$ is the failure density function.
 
-Alternatively, MTTF can be expressed in terms of the reliability function. Apply integration by parts:
+Alternatively, MTTF can be expressed in terms of the reliability function. Apply the formula for integration by parts:
 \[
 \int_a^b u\, dv = uv \big|_a^b - \int_a^b v\, du
 \]
@@ -17057,7 +17057,7 @@ dv = f(t)\,dt  = -\dfrac{d}{dt} R(t)\quad \Rightarrow \quad v = -R(t)
 
 Now apply the formula:
 \[
-\mathbb{E}(T) = \int_0^\infty t f(t)\, dt = \left[ -t R(t) \right]_0^\infty + \int_0^\infty R(t)\, dt
+\mathbb{E}(T) = \int_0^\infty t f(t)\, dt = \Bigl[ -t R(t) \Bigr]_0^\infty + \int_0^\infty R(t)\, dt
 \]
 
 Evaluate the boundary term:
@@ -17067,7 +17067,7 @@ Evaluate the boundary term:
 \end{itemize}
 Hence,
 \[
-\left[ -t R(t) \right]_0^\infty = 0
+\Bigl[ -t R(t) \Bigr]_0^\infty = 0
 \]
 
 Therefore,
@@ -17430,6 +17430,17 @@ If components have exponential lifetimes with failure rates $\lambda_1, \lambda_
 
 This means failure rates add in series systems, making the system less reliable than any individual component.
 
+\subsubsection{Example: Series System}
+
+A manufacturing line has 4 stations in series. Each station has a reliability of 0.95 over an 8-hour shift. What is the system reliability?
+\begin{align*}
+R_{\text{series}} &= [R(t)]^n = (0.95)^4 = 0.8145
+\end{align*}
+
+Even though each station is 95\% reliable, the overall line is only 81.45\% reliable due to the series configuration.
+
+---
+
 \subsubsection{Parallel Systems}
 
 A parallel system is one in which all components are so connected
@@ -17480,8 +17491,22 @@ For identical components with reliability $R(t)$:
 R_{\text{parallel}}(t) = 1 - [1 - R(t)]^n
 \end{equation*}
 
+\subsubsection{Example: Parallel System}
 
-\section{System Reliability Comparison}
+A data center has 3 backup generators in parallel. Each generator has a reliability of 0.90 during a power outage. What is the probability that at least one generator will work?
+\begin{align*}
+R_{\text{parallel}} &= 1 - [1 - R(t)]^n \\
+&= 1 - (1 - 0.90)^3 \\
+&= 1 - (0.10)^3 \\
+&= 1 - 0.001 \\
+&= 0.999
+\end{align*}
+
+The parallel configuration provides 99.9\% reliability, much higher than any individual generator.
+
+---
+
+\subsubsection{System Reliability Comparison}
 
 \begin{figure}[H]
 \centering
@@ -17489,31 +17514,33 @@ R_{\text{parallel}}(t) = 1 - [1 - R(t)]^n
 \begin{axis}[
     width=12cm, height=8cm,
     xlabel={Time (t)},
-    ylabel={System Reliability},
+    ylabel={System Reliability $R_{\text{system}}(t)$},
     legend pos=north east,
-    grid=major,
-    domain=0:5,
+    thick,
+    domain=0:5.5,
     samples=100,
-    ymin=0, ymax=1
+    ymin=0, ymax=1.1,
+    xmin=0, xmax=5.5,
+    axis lines=left
 ]
 % Single component
-\addplot[blue, thick] {exp(-0.5*x)};
+\addplot[blue, very thick] {exp(-0.5*x)};
 \addlegendentry{Single Component}
 % Series system (2 components)
-\addplot[red, thick] {(exp(-0.5*x))^2};
+\addplot[red, very thick, densely dashed] {(exp(-0.5*x))^2};
 \addlegendentry{Series (2 components)}
 % Series system (3 components)
-\addplot[red, thick, dashed] {(exp(-0.5*x))^3};
+\addplot[red, very thick, dashdotted] {(exp(-0.5*x))^3};
 \addlegendentry{Series (3 components)}
 % Parallel system (2 components)
-\addplot[green, thick] {1-(1-exp(-0.5*x))^2};
+\addplot[teal, very thick, densely dotted] {1-(1-exp(-0.5*x))^2};
 \addlegendentry{Parallel (2 components)}
 % Parallel system (3 components)
-\addplot[green, thick, dashed] {1-(1-exp(-0.5*x))^3};
+\addplot[teal, very thick, loosely dashed] {1-(1-exp(-0.5*x))^3};
 \addlegendentry{Parallel (3 components)}
 \end{axis}
 \end{tikzpicture}
-\caption{System Reliability Comparison ($\lambda = 0.5$ for each component)}
+\caption{\textit{System reliability comparison for exponential lifetime distribution ($\lambda = 0.5$ for each component).}}
 \end{figure}
 
 \subsubsection{Series-Parallel System}
@@ -17595,79 +17622,6 @@ R_{\text{system}} = 0.98 \times 0.95 \times 0.85 = 0.79065
 
 So, the system has a reliability of approximately $\boxed{0.7907}$.
 
-\paragraph{System Diagram}
-
-
-\subsection{Series System Example}
-
-\textbf{Problem:} A manufacturing line has 4 stations in series. Each station has a reliability of 0.95 over an 8-hour shift. What is the system reliability?
-
-\textbf{Solution:}
-\begin{align}
-R_{\text{series}} &= [R(t)]^n \\
-&= (0.95)^4 \\
-&= 0.8145
-\end{align}
-
-\textbf{Interpretation:} Even though each station is 95\% reliable, the overall line is only 81.45\% reliable due to the series configuration.
-
-\subsection{Parallel System Example}
-
-\textbf{Problem:} A data center has 3 backup generators in parallel. Each generator has a reliability of 0.90 during a power outage. What is the probability that at least one generator will work?
-
-\textbf{Solution:}
-\begin{align}
-R_{\text{parallel}} &= 1 - [1 - R(t)]^n \\
-&= 1 - (1 - 0.90)^3 \\
-&= 1 - (0.10)^3 \\
-&= 1 - 0.001 \\
-&= 0.999
-\end{align}
-
-\textbf{Interpretation:} The parallel configuration provides 99.9\% reliability, much higher than any individual generator.
-
-\subsection{Series-Parallel Systems}
-
-Many real systems combine both series and parallel elements. For example, a system might have parallel subsystems, where each subsystem contains components in series.
-
-\textbf{Analysis approach:}
-\begin{enumerate}
-    \item Identify parallel subsystems
-    \item Calculate reliability of each subsystem (usually series components)
-    \item Combine subsystem reliabilities using parallel formula
-\end{enumerate}
-
-\subsection{Parallel-Series Systems}
-
-These systems have series subsystems arranged in parallel. Each parallel path must have all its series components working.
-
-\subsection{Complex Systems}
-
-For more complex configurations:
-\begin{itemize}
-    \item Use reliability block diagrams
-    \item Apply conditional probability methods
-    \item Consider using fault tree analysis
-    \item Employ Monte Carlo simulation for very complex systems
-\end{itemize}
-
-\subsection{When to Use Series vs. Parallel}
-
-\textbf{Series systems are appropriate when:}
-\begin{itemize}
-    \item Cost is the primary concern
-    \item Space/weight constraints exist
-    \item Simple design is required
-    \item Components have very high individual reliability
-\end{itemize}
-
-\textbf{Parallel systems are appropriate when:}
-\begin{itemize}
-    \item High reliability is critical
-    \item Failure consequences are severe
-    \item Maintenance can be performed on individual components
-    \item Cost of redundancy is justified by reliability improvement
-\end{itemize}
 
 \subsection{Life Testing}
 
@@ -17882,62 +17836,6 @@ $AF = \exp\left(\dfrac{0.8 \times 1.6 \times 10^{-19}}{1.38 \times 10^{-23}}\lef
 
 Estimated MTTF at 25°C: $3,501 \times 13.9 = 48,664$ hours
 
-
-\subsection{System Reliability}
-
-For systems with multiple components, reliability depends on the system configuration.
-
-\subsubsection{Series System}
-
-For $n$ components in series with reliabilities $R_1(t), R_2(t), \ldots, R_n(t)$:
-\begin{equation}
-R_{sys}(t) = \prod_{i=1}^n R_i(t)
-\end{equation}
-
-For identical components with reliability $R(t)$:
-\begin{equation}
-R_{sys}(t) = [R(t)]^n
-\end{equation}
-
-\subsubsection{Parallel System}
-
-For $n$ components in parallel:
-\begin{equation}
-R_{sys}(t) = 1 - \prod_{i=1}^n [1 - R_i(t)]
-\end{equation}
-
-For identical components:
-\begin{equation}
-R_{sys}(t) = 1 - [1 - R(t)]^n
-\end{equation}
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-    width=12cm, height=8cm,
-    xlabel={Time (t)},
-    ylabel={System Reliability},
-    legend pos=north east,
-    grid=major,
-    domain=0:5,
-    samples=100
-]
-% Single component
-\addplot[blue, thick] {exp(-0.5*x)};
-\addlegendentry{Single Component}
-
-% Series system (2 components)
-\addplot[red, thick] {(exp(-0.5*x))^2};
-\addlegendentry{Series (2 components)}
-
-% Parallel system (2 components)
-\addplot[green, thick] {1-(1-exp(-0.5*x))^2};
-\addlegendentry{Parallel (2 components)}
-\end{axis}
-\end{tikzpicture}
-\caption{System Reliability Comparison ($\lambda = 0.5$ for each component)}
-\end{figure}
 
 \section{Conclusion}
 
