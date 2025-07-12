@@ -14199,19 +14199,93 @@ Value indices measure changes in the total value (price × quantity) of goods an
     \text{Value Index} = \frac{\sum P_1 Q_1}{\sum P_0 Q_0} \times 100
 \end{equation}
 
-\section{Methods of Constructing Price Index Numbers}
+\section{Methods of Constructing Index Numbers}
 
-\subsection{Simple Price Index Numbers}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.32]{pic/index number.png}
+\end{center}
+\caption{\textit{Methods for index number construction.}}
+\end{figure}
+
+\subsection{Aggregative Method}
+
+In this method, the aggregate price of all items in the given year is expressed as a percentage of the same in the base year.
+\begin{align*}
+\text{Index number} = \dfrac{\text{Aggregate price in the given year}}{\text{Aggregate price in the base year}} \times 100
+\end{align*}
 
 \subsubsection{Simple Aggregative Method}
-\begin{equation}
-    P_{01} = \frac{\sum P_1}{\sum P_0} \times 100
-\end{equation}
+In simple aggregative method, the aggregation is done by taking the simple average (arithmatic mean) of the prices of the items in the given year as well as in the base year. The formula is:
+\begin{textbox}
+\begin{equation*}
+    \text{Simple aggregative index } (I_{01}) = \frac{\displaystyle \sum_i p_1^{(i)}}{\displaystyle\sum_i p_0^{(i)}} \times 100
+\end{equation*}
+\end{textbox}
 
-\subsubsection{Simple Average of Price Relatives Method}
-\begin{equation}
-    P_{01} = \frac{\sum \left(\frac{P_1}{P_0} \times 100\right)}{n}
-\end{equation}
+\subsubsection{Weighted Aggregative Method}
+In weighted aggregative method, the aggregation is done by taking the weighted average of the prices of the items in the given year as well as in the base year. The formula is:
+\begin{textbox}
+\begin{equation*}
+    \text{Weighted aggregative index} (I_{01}) = \frac{\displaystyle\sum_i p_1^{(i)} w^{(i)}}{\displaystyle\sum_i p_0 w^{(i)}} \times 100
+\end{equation*}
+\end{textbox}
+
+Here $w^{(i)}$ represents the weight of the $i$th item. In the constrution of a price index, quantities ($q$) are used as weights. It should be noted that the same set of weights must be used both for base year and for the current year. There are several formulae for weighted aggregative index based on the nature of the weights employed:
+\begin{itemize}
+\item \textbf{Laspeyres' index:} If the base period quantities as weights.
+\begin{textbox}
+\begin{equation*}
+    \text{Laspeyres' index } (I_{01}) = \frac{\displaystyle\sum_i p_1^{(i)} q_0^{(i)}}{\displaystyle\sum_i p_0^{(i)} q_0^{(i)}} \times 100
+\end{equation*}
+\end{textbox}
+
+\item \textbf{Paasche's index:} If the current period quantities as weights.
+\begin{textbox}
+\begin{equation*}
+    \text{Paasche's index } (I_{01}) = \frac{\displaystyle\sum_i p_1^{(i)} q_1^{(i)}}{\displaystyle\sum_i p_0^{(i)} q_1^{(i)}} \times 100
+\end{equation*}
+\end{textbox}
+
+\item \textbf{Edgeworth-Marshall's index:} If the average (arithmatic mean) of the base and current period quantities as weights.
+\begin{textbox}
+\begin{equation*}
+    \text{Edgeworth-Marshall's index } (I_{01}) =
+    \frac{\displaystyle\sum_i p_1^{(i)} (q_0^{(i)} + q_1^{(i)})}
+         {\displaystyle\sum_i p_0^{(i)} (q_0^{(i)} + q_1^{(i)})} \times 100
+\end{equation*}
+\end{textbox}
+
+\item \textbf{Fisher's index:} The geometric mean of the Laspeyres' index and the Paasche's index.
+\begin{textbox}
+\begin{equation*}
+    \text{Fisher's index } (I_{01}) = \sqrt{\frac{\displaystyle\sum_i p_1^{(i)} q_0^{(i)}}{\displaystyle\sum_i p_0^{(i)} q_0^{(i)}} \times \frac{\displaystyle\sum_i p_1^{(i)} q_1^{(i)}}{\displaystyle\sum_i p_0^{(i)} q_1^{(i)}}} \times 100
+\end{equation*}
+\end{textbox}
+
+\item \textbf{Bowley's index:} The arithmatic mean of the Laspeyres' index and the Paasche's index.
+\begin{textbox}
+\begin{equation*}
+    \text{Bowley's index } (I_{01}) = \dfrac{1}{2}\left[\frac{\displaystyle\sum_i p_1^{(i)} q_0^{(i)}}{\displaystyle\sum_i p_0^{(i)} q_0^{(i)}} +  \frac{\displaystyle\sum_i p_1^{(i)} q_1^{(i)}}{\displaystyle\sum_i p_0^{(i)} q_1^{(i)}}\right] \times 100
+\end{equation*}
+\end{textbox}
+
+\item \textbf{Welsh's index:} If the geometric mean of the base and current period quantities as weights.
+\begin{textbox}
+\begin{equation*}
+    \text{Welsh's index } (I_{01}) = \frac{\displaystyle\sum_i p_1^{(i)} \sqrt{q_0^{(i)}q_1^{(i)}}}{\displaystyle\sum_i p_0^{(i)} \sqrt{q_0^{(i)}q_1^{(i)}}} \times 100
+\end{equation*}
+\end{textbox}
+
+\item \textbf{Kelly's index:} If the weights used are kept fixed for all periods without any reference to base or current period.
+\begin{textbox}
+\begin{equation*}
+    \text{Kelly's index } (I_{01}) = \frac{\displaystyle\sum_i p_1^{(i)} w^{(i)}}{\displaystyle\sum_i p_0^{(i)} w^{(i)}} \times 100
+\end{equation*}
+\end{textbox}
+
+\end{itemize}
+
 
 \textbf{Example:} Calculate simple aggregative and average of relatives index
 
@@ -14235,29 +14309,7 @@ D & 25 & 30 & 120 \\
 
 Simple Aggregative Index = $\frac{86}{70} \times 100 = 122.86$
 
-Simple Average of Relatives = $\frac{490}{4} = 122.5$
 
-\subsection{Weighted Price Index Numbers}
-
-\subsubsection{Weighted Aggregative Method}
-
-\paragraph{Laspeyres' Price Index}
-Uses base period quantities as weights:
-\begin{equation}
-    P_{01}^L = \frac{\sum P_1 Q_0}{\sum P_0 Q_0} \times 100
-\end{equation}
-
-\paragraph{Paasche's Price Index}
-Uses current period quantities as weights:
-\begin{equation}
-    P_{01}^P = \frac{\sum P_1 Q_1}{\sum P_0 Q_1} \times 100
-\end{equation}
-
-\paragraph{Fisher's Ideal Price Index}
-Geometric mean of Laspeyres' and Paasche's indices:
-\begin{equation}
-    P_{01}^F = \sqrt{P_{01}^L \times P_{01}^P}
-\end{equation}
 
 \textbf{Comprehensive Example:}
 
