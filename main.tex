@@ -14203,20 +14203,29 @@ Value indices measure changes in the total value (price × quantity) of goods an
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[scale=0.32]{pic/index number.png}
+\includegraphics[scale=0.35]{pic/index number.png}
 \end{center}
 \caption{\textit{Methods for index number construction.}}
 \end{figure}
 
+Index numbers can be constructed using two main methods: the \textbf{aggregative method} and the \textbf{relative method}. The aggregative method combines prices or quantities directly and is classified into two based on whether the \textit{simple aggregate formula}, and the \textit{weighted aggregate foumula} is being used. The relative method involves first converting prices or quantities into relatives (typically percentages), and then averaging them. This method is further divided into the \textit{simple average of relatives}, and the \textit{weighted average of relatives}. Each approach offers different ways of capturing overall changes in price or quantity levels across time.
+
+In order to discuss the construction of price index formula the following notation will be used:
+\begin{itemize}
+\item $p_0^{(i)}, p_1^{(i)}$: Price per unit in base period and current period respectively,
+\item $q_0^{(i)}, q_1^{(i)}$: Quantity purchased in base period and current period respectively,
+\item $I_{0n}$: Index number for the current period ($n$th period) with respect to the base period (0th period).
+\end{itemize}
+
 \subsection{Aggregative Method}
 
-In this method, the aggregate price of all items in the given year is expressed as a percentage of the same in the base year.
+In this method, the aggregate price of all items in the given year is expressed as a percentage of the same in the base period.
 \begin{align*}
-\text{Index number} = \dfrac{\text{Aggregate price in the given year}}{\text{Aggregate price in the base year}} \times 100
+\text{Index number} = \dfrac{\text{Aggregate price in the given period}}{\text{Aggregate price in the base period}} \times 100
 \end{align*}
 
 \subsubsection{Simple Aggregative Method}
-In simple aggregative method, the aggregation is done by taking the simple average (arithmatic mean) of the prices of the items in the given year as well as in the base year. The formula is:
+In simple aggregative method, the aggregation is done by taking the simple average (arithmatic mean) of the prices of the items in the given year as well as in the base period. The formula is:
 \begin{textbox}
 \begin{equation*}
     \text{Simple aggregative index } (I_{01}) = \frac{\displaystyle \sum_i p_1^{(i)}}{\displaystyle\sum_i p_0^{(i)}} \times 100
@@ -14224,10 +14233,10 @@ In simple aggregative method, the aggregation is done by taking the simple avera
 \end{textbox}
 
 \subsubsection{Weighted Aggregative Method}
-In weighted aggregative method, the aggregation is done by taking the weighted average of the prices of the items in the given year as well as in the base year. The formula is:
+In weighted aggregative method, the aggregation is done by taking the weighted average of the prices of the items in the given year as well as in the base period. The formula is:
 \begin{textbox}
 \begin{equation*}
-    \text{Weighted aggregative index} (I_{01}) = \frac{\displaystyle\sum_i p_1^{(i)} w^{(i)}}{\displaystyle\sum_i p_0 w^{(i)}} \times 100
+    \text{Weighted aggregative index } (I_{01}) = \frac{\displaystyle\sum_i p_1^{(i)} w^{(i)}}{\displaystyle\sum_i p_0^{(i)} w^{(i)}} \times 100
 \end{equation*}
 \end{textbox}
 
