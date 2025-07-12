@@ -14203,7 +14203,7 @@ Value indices measure changes in the total value (price × quantity) of goods an
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[scale=0.35]{pic/index number.png}
+\includegraphics[scale=0.32]{pic/index number.png}
 \end{center}
 \caption{\textit{Methods for index number construction.}}
 \end{figure}
@@ -14213,9 +14213,9 @@ Index numbers can be constructed using two main methods: the \textbf{aggregative
 In order to discuss the construction of price index formula the following notation will be used:
 \begin{itemize}
 \item $k$: Total number of items indexed by $i$,
-\item $p_0^{(i)}, p_1^{(i)}$: Price per unit in base period and current period respectively,
-\item $q_0^{(i)}, q_1^{(i)}$: Quantity purchased in base period and current period respectively,
-\item $I_{0n}$: Index number for the current period ($n$th period) with respect to the base period (0th period).
+\item $I_{0n}$: Index number for the current period ($n$th period) with respect to the base period (0th period),
+\item $p_0^{(i)}, p_n^{(i)}$: Price per unit in base period and current period respectively,
+\item $q_0^{(i)}, q_n^{(i)}$: Quantity purchased in base period and current period respectively.
 \end{itemize}
 
 \subsection{Aggregative Method}
@@ -14229,7 +14229,7 @@ In this method, the aggregate price of all items in the given year is expressed 
 In simple aggregative method, the aggregation is done by taking the simple average (arithmatic mean) of the prices of the items in the given year as well as in the base period. The formula is:
 \begin{textbox}
 \begin{equation*}
-    \text{Simple aggregative index } (I_{01}) = \frac{\displaystyle \sum_i p_1^{(i)}}{\displaystyle\sum_i p_0^{(i)}} \times 100
+    \text{Simple aggregative index } (I_{0n}) = \frac{\displaystyle \sum_i p_n^{(i)}}{\displaystyle\sum_i p_0^{(i)}} \times 100
 \end{equation*}
 \end{textbox}
 
@@ -14237,7 +14237,7 @@ In simple aggregative method, the aggregation is done by taking the simple avera
 In weighted aggregative method, the aggregation is done by taking the weighted average of the prices of the items in the given year as well as in the base period. The formula is:
 \begin{textbox}
 \begin{equation*}
-    \text{Weighted aggregative index } (I_{01}) = \frac{\displaystyle\sum_i p_1^{(i)} w^{(i)}}{\displaystyle\sum_i p_0^{(i)} w^{(i)}} \times 100
+    \text{Weighted aggregative index } (I_{0n}) = \frac{\displaystyle\sum_i p_n^{(i)} w^{(i)}}{\displaystyle\sum_i p_0^{(i)} w^{(i)}} \times 100
 \end{equation*}
 \end{textbox}
 
@@ -14336,7 +14336,7 @@ Sugar & 40 & 48 & 50 & 45 \\
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Calculations for Weighted Indices}
 \begin{tabular}{lcccccc}
@@ -14386,7 +14386,14 @@ Usually the arithmatic mean or the geometric mean is used for averaging the rela
 \end{itemize}
 
 \subsubsection{Weighted Average of Relatives}
-Depending of the nature of the weights, the weighted average leads to several index number formula.
+In weighted average of relatives method, the average is done by taking the weighted average of the price relatives over all items. The formula is:
+\begin{textbox}
+\begin{equation*}
+    I_{0n} = \dfrac{\displaystyle\sum_i \left(\frac{p_n^{(i)}}{p_0^{(i)}}\times 100\right) \times w^{(i)}}{\displaystyle\sum_i w^{(i)}}
+\end{equation*}
+\end{textbox}
+
+Here $w^{(i)}$ represents the weight of the $i$th item. Depending of the nature of the weights, the weighted average leads to several index number formula.
 \begin{itemize}
 \item The arithmatic mean (A.M.) of price relatives weighted by base period values ($p_0q_0$) gives exactly the same formula as Laspeyres' index.
 \begin{textbox}
