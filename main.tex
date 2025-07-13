@@ -12,6 +12,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \allowdisplaybreaks[1]
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 \usepackage{multirow}
 \usepackage{rotating}
 \usepackage{booktabs}
@@ -14210,6 +14212,8 @@ Value indices measure changes in the total value (price × quantity) of goods an
 
 Index numbers can be constructed using two main methods: the \textbf{aggregative method} and the \textbf{relative method}. The aggregative method combines prices or quantities directly and is classified into two based on whether the \textit{simple aggregate formula}, and the \textit{weighted aggregate foumula} is being used. The relative method involves first converting prices or quantities into relatives (typically percentages), and then averaging them. This method is further divided into the \textit{simple average of relatives}, and the \textit{weighted average of relatives}. Each approach offers different ways of capturing overall changes in price or quantity levels across time.
 
+
+\section{Price Index Number}
 In order to discuss the construction of price index formula the following notation will be used:
 \begin{itemize}
 \item $k$: Total number of items indexed by $i$,
@@ -14296,69 +14300,81 @@ Here $w^{(i)}$ represents the weight of the $i$th item. In the constrution of a 
 
 \end{itemize}
 
+\subsubsection{Example: Price Index Calculations Using Aggregative Methods}
 
-\textbf{Example:} Calculate simple aggregative and average of relatives index
-
-\begin{table}[h]
-\centering
-\caption{Price Data for Simple Index Calculation}
-\begin{tabular}{lccc}
-\toprule
-\textbf{Commodity} & \textbf{Base Price} & \textbf{Current Price} & \textbf{Price Relative} \\
- & $(P_0)$ & $(P_1)$ & $\left(\frac{P_1}{P_0} \times 100\right)$ \\
-\midrule
-A & 10 & 12 & 120 \\
-B & 20 & 26 & 130 \\
-C & 15 & 18 & 120 \\
-D & 25 & 30 & 120 \\
-\midrule
-\textbf{Total} & 70 & 86 & 490 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Simple Aggregative Index = $\frac{86}{70} \times 100 = 122.86$
-
-
-\textbf{Comprehensive Example:}
-
-\begin{table}[h]
-\centering
-\caption{Data for Weighted Index Calculation}
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Item} & $P_0$ & $P_1$ & $Q_0$ & $Q_1$ \\
-\midrule
-Wheat & 20 & 25 & 100 & 110 \\
-Rice & 30 & 36 & 80 & 85 \\
-Sugar & 40 & 48 & 50 & 45 \\
-\bottomrule
-\end{tabular}
-\end{table}
+Consider four commodities: rice, wheat, sugar, and pulses. Table~\ref{tab:prices_quantities} shows their prices in the base year (0) and the current year ($ n $), together with relevant weights.
 
 \begin{table}[H]
 \centering
-\caption{Calculations for Weighted Indices}
-\begin{tabular}{lcccccc}
+\begin{tabular}{l|cc|cc}
 \toprule
-\textbf{Item} & $P_0Q_0$ & $P_1Q_0$ & $P_0Q_1$ & $P_1Q_1$ \\
+\textbf{Item}    & \textbf{Base Price} & \textbf{Current Price} & \textbf{Base Quantity} & \textbf{Current Quantity} \\
+   & \textbf{(per kg)} & \textbf{(per kg)} & \textbf{(kg)} & \textbf{(kg)} \\
+    & ($p_0$) & ($p_n$) & ($q_0$) & ($q_n$) \\
 \midrule
-Wheat & 2000 & 2500 & 2200 & 2750 \\
-Rice & 2400 & 2880 & 2550 & 3060 \\
-Sugar & 2000 & 2400 & 1800 & 2160 \\
-\midrule
-\textbf{Total} & 6400 & 7780 & 6550 & 7970 \\
+Rice    & 20             & 25             & 100        & 120 \\
+Wheat   & 15             & 18             & 150        & 130\\
+Sugar   & 30             & 28             &  80        &  90\\
+Pulses  & 40             & 45             &  60        &  50\\
 \bottomrule
 \end{tabular}
+\caption{\textit{Prices and quantities for base and current periods.}}
+\label{tab:prices_quantities}
 \end{table}
 
-Calculations:
-\begin{align}
-    P_{01}^L &= \frac{7780}{6400} \times 100 = 121.56 \\
-    P_{01}^P &= \frac{7970}{6550} \times 100 = 121.68 \\
-    P_{01}^F &= \sqrt{121.56 \times 121.68} = 121.62
-\end{align}
+\subsubsection{Simple Aggregative Index}
+\begin{align*}
+I_{0n} = \frac{\sum_i p_n^{(i)}}{\sum_i p_0^{(i)}} \times 100
+= \frac{25 + 18 + 28 + 45}{20 + 15 + 30 + 40} \times 100
+= \frac{116}{105} \times 100 \approx 110.48
+\end{align*}
 
+\subsubsection{Laspeyres' Index}
+\begin{align*}
+I_{0n} &= \frac{\sum_i p_n^{(i)} q_0^{(i)}}{\sum_i p_0^{(i)} q_0^{(i)}} \times 100
+= \frac{25\times100 + 18\times150 + 28\times80 + 45\times60}{20\times100 + 15\times150 + 30\times80 + 40\times60} \times 100 \\
+&= \frac{10140}{9050} \times 100 \approx 112.04
+\end{align*}
+
+\subsubsection{Paasche's Index}
+\begin{align*}
+I_{0n} &= \frac{\sum_i p_n^{(i)} q_n^{(i)}}{\sum_i p_0^{(i)} q_n^{(i)}} \times 100
+= \frac{25\times120 + 18\times130 + 28\times90 + 45\times50}{20\times120 + 15\times130 + 30\times90 + 40\times50} \times 100 \\
+&= \frac{10110}{9050} \times 100 \approx 111.72
+\end{align*}
+
+\subsubsection{Edgeworth--Marshall's Index}
+\begin{align*}
+I_{0n} &= \frac{\sum_i p_n^{(i)} (q_0^{(i)} + q_n^{(i)})}{\sum_i p_0^{(i)} (q_0^{(i)} + q_n^{(i)})} \times 100
+= \frac{25\times110 + 18\times140 + 28\times85 + 45\times55}{20\times110 + 15\times140 + 30\times85 + 40\times55} \times 100 \\
+&= \frac{10125}{9050} \times 100 \approx 111.85
+\end{align*}
+
+\subsubsection{Fisher's Ideal Index}
+\begin{align*}
+I_{0n} = \sqrt{I_{0n}^{L} \times I_{0n}^{P}} = \sqrt{112.04 \times 111.72} \approx 111.88
+\end{align*}
+
+\subsubsection{Bowley's Index}
+\begin{align*}
+I_{0n} = \tfrac{1}{2}\bigl(I_{0n}^{L} + I_{0n}^{P}\bigr) = \tfrac{1}{2}(112.04 + 111.72) = 111.88
+\end{align*}
+
+\subsubsection{Welsh's Index}
+\begin{align*}
+I_{0n} &= \frac{\sum_i p_n^{(i)} \sqrt{q_0^{(i)} q_n^{(i)}}}{\sum_i p_0^{(i)} \sqrt{q_0^{(i)} q_n^{(i)}}} \times 100
+= \frac{25\times109.54 + 18\times139.64 + 28\times84.85 + 45\times54.77}{20\times109.54 + 15\times139.64 + 30\times84.85 + 40\times54.77} \times 100\\
+&\approx \frac{10092.5}{9021.7} \times 100 \approx 111.89
+\end{align*}
+
+\subsubsection{Kelly's Index}
+Using fixed weights $w^{(i)}$ (e.g.\ average of base quantities):
+\begin{align*}
+I_{0n} = \frac{\sum_i p_n^{(i)} w^{(i)}}{\sum_i p_0^{(i)} w^{(i)}} \times 100
+= \frac{10125}{9050} \times 100 \approx 111.85
+\end{align*}
+
+---
 
 \subsection{Relative Method}
 In this method, the price of each item in the current period is expressed as a percentage of the price in the base period. This is called the price relative.
@@ -14417,32 +14433,162 @@ I_{0n} = \dfrac{\displaystyle\sum_i p_n^{(i)}q_n^{(i)}}{\displaystyle\sum_i \dfr
 \end{textbox}
 \end{itemize}
 
+\subsubsection{Example: Price Index Calculations Using Relative Method}
+Consider the same example in Table~\ref{tab:prices_quantities} with four commodities: rice, wheat, sugar, and pulses showing their prices in the base year (0) and the current year ($ n $), together with relevant weights. The price relatives are calculated as:
+\begin{align*}
+\dfrac{p_n^{(\text{rice})}}{p_0^{(\text{rice})}}   &= \frac{25}{20}\times100 = 125, &
+\dfrac{p_n^{(\text{wheat})}}{p_0^{(\text{wheat})}}   &= \frac{18}{15}\times100 = 120,\\
+\dfrac{p_n^{(\text{sugar})}}{p_0^{(\text{sugar})}}   &= \frac{28}{30}\times100 \approx 93.33, &
+\dfrac{p_n^{(\text{pulse})}}{p_0^{(\text{pulse})}}  &= \frac{45}{40}\times100 = 112.5.
+\end{align*}
 
-\section{Quantity Index Numbers}
+\begin{table}[H]
+\centering
+\begin{tabular}{p{2cm}|C{1.5cm}C{1.5cm}|C{1.5cm}C{1.5cm}|C{2cm}}
+\toprule
+\textbf{Item} & $p_0$ & $p_n$ & $q_0$ & $q_n$ &  $\dfrac{p_n}{p_0}\times 100$\\
+\midrule
+Rice    & 20  & 25  & 100 & 120 & 125\\
+Wheat   & 15  & 18  & 150 & 130 & 120\\
+Sugar   & 30  & 28  &  80 &  90 & 93.33\\
+Pulses  & 40  & 45  &  60 &  50 & 112.5\\
+\bottomrule
+\end{tabular}
+\caption{\textit{Prices and quantities for base and current periods and corresponding price relatives.}}
+\label{tab:prices_quantities2}
+\end{table}
 
-\subsection{Laspeyres' Quantity Index}
-\begin{equation}
-    Q_{01}^L = \frac{\sum P_0 Q_1}{\sum P_0 Q_0} \times 100
-\end{equation}
+\subsubsection{Simple Average of Relatives}
+Arithmetic mean:
+\begin{align*}
+I_{0n}^{\mathrm{AM}}
+  &= \frac{1}{4}\,(125 + 120 + 93.33 + 112.5)
+  = \frac{450.83}{4} \approx 112.71
+\end{align*}
 
-\subsection{Paasche's Quantity Index}
-\begin{equation}
-    Q_{01}^P = \frac{\sum P_1 Q_1}{\sum P_1 Q_0} \times 100
-\end{equation}
+Geometric mean:
+\begin{align*}
+I_{0n}^{\mathrm{GM}}
+  &= \bigl(125 \times 120 \times 93.33 \times 112.5\bigr)^{1/4}
+  \approx 112.62
+\end{align*}
 
-\subsection{Fisher's Quantity Index}
-\begin{equation}
-    Q_{01}^F = \sqrt{Q_{01}^L \times Q_{01}^P}
-\end{equation}
+\subsubsection{Weighted Average of Relatives}
+\begin{itemize}
+\item Using base‐period value weights $w^{(i)} = p_0^{(i)}q_0^{(i)}$ (Laspeyres' index):
+\begin{align*}
+I_{0n}
+  &= \frac{125\,(20\cdot100) \;+\; 120\,(15\cdot150)\;+\;93.33\,(30\cdot80)\;+\;112.5\,(40\cdot60)}
+         {20\cdot100 + 15\cdot150 + 30\cdot80 + 40\cdot60}\\
+  &= \frac{10140}{9050} \approx 112.04
+\end{align*}
 
-Using the previous data:
-\begin{align}
-    Q_{01}^L &= \frac{6550}{6400} \times 100 = 102.34 \\
-    Q_{01}^P &= \frac{7970}{7780} \times 100 = 102.44 \\
-    Q_{01}^F &= \sqrt{102.34 \times 102.44} = 102.39
-\end{align}
+\item Using current‐period value weights $w^{(i)} = p_0^{(i)}q_n^{(i)}$ (Paasche's index):
+\begin{align*}
+I_{0n}
+  &= \frac{125\,(20\cdot120) + 120\,(15\cdot130) + 93.33\,(30\cdot90) + 112.5\,(40\cdot50)}
+         {20\cdot120 + 15\cdot130 + 30\cdot90 + 40\cdot50}\\
+  &= \frac{10110}{9050} \approx 111.72
+\end{align*}
 
-\section{Properties and Tests of Index Numbers}
+\item Harmonic‐mean weighting by $p_n^{(i)}q_n^{(i)}$ likewise gives Paasche's index:
+\begin{align*}
+I_{0n}
+  &= \frac{\displaystyle\sum_i p_n^{(i)}q_n^{(i)}}{\displaystyle\sum_i \dfrac{p_n^{(i)}q_n^{(i)}}{RR_i}}
+  = \frac{10110}{9050} \approx 111.72
+\end{align*}
+\end{itemize}
+
+---
+
+\section{Quantity Index Number}
+
+Quantity index numbers do for quantities what price index numbers do for prices: they let you compare total amounts of goods between two periods. To obtain a quantity index formula, simply replace every price \(p\) by its corresponding quantity \(q\) (and vice versa) in the usual price‐index expressions.
+
+\subsection{Aggregative Method for Quantity Index}
+
+\begin{itemize}
+    \item \textbf{Simple aggregative index:}
+    $$
+    Q_{0n} = \frac{\sum_i q_n^{(i)}}{\sum_i q_0^{(i)}} \times 100
+    $$
+
+    \item \textbf{Weighted aggregative index:}
+    $$
+    Q_{0n} = \frac{\sum_i q_n^{(i)}\,w^{(i)}}{\sum_i q_0^{(i)}\,w^{(i)}} \times 100
+    $$
+
+    \item \textbf{Laspeyres' index (base‐price weights):}
+    $$
+    Q_{0n} = \frac{\sum_i q_n^{(i)}\,p_0^{(i)}}{\sum_i q_0^{(i)}\,p_0^{(i)}} \times 100
+    $$
+
+    \item \textbf{Paasche's index (current‐price weights):}
+    $$
+    Q_{0n} = \frac{\sum_i q_n^{(i)}\,p_n^{(i)}}{\sum_i q_0^{(i)}\,p_n^{(i)}} \times 100
+    $$
+
+    \item \textbf{Edgeworth–Marshall's index (average‐price weights):}
+    $$
+    Q_{0n} = \frac{\sum_i q_n^{(i)}\,(p_0^{(i)} + p_n^{(i)})}{\sum_i q_0^{(i)}\,(p_0^{(i)} + p_n^{(i)})} \times 100
+    $$
+
+    \item \textbf{Fisher's index (G.M. of Laspeyres' index and Paasche's index):}
+    $$
+    Q_{0n} = \sqrt{
+      \frac{\sum_i q_n^{(i)}p_0^{(i)}}{\sum_i q_0^{(i)}p_0^{(i)}}
+      \;\times\;
+      \frac{\sum_i q_n^{(i)}p_n^{(i)}}{\sum_i q_0^{(i)}p_n^{(i)}}
+    } \times 100
+    $$
+
+    \item \textbf{Bowley's index (A.M. of Laspeyres' index and Paasche's index):}
+    $$
+    Q_{0n} = \frac12 \Biggl[
+      \frac{\sum_i q_n^{(i)}p_0^{(i)}}{\sum_i q_0^{(i)}p_0^{(i)}} +
+      \frac{\sum_i q_n^{(i)}p_n^{(i)}}{\sum_i q_0^{(i)}p_n^{(i)}}
+    \Biggr] \times 100
+    $$
+
+    \item \textbf{Welsh's index (geometric‐price weights):}
+    $$
+    Q_{0n} = \frac{\sum_i q_n^{(i)}\,\sqrt{p_0^{(i)}\,p_n^{(i)}}}
+                  {\sum_i q_0^{(i)}\,\sqrt{p_0^{(i)}\,p_n^{(i)}}}
+    \times 100
+    $$
+
+    \item \textbf{Kelly's index (fixed weights):}
+    $$
+    Q_{0n} = \frac{\sum_i q_n^{(i)}\,w^{(i)}}{\sum_i q_0^{(i)}\,w^{(i)}} \times 100
+    $$
+\end{itemize}
+
+\subsection{Relative Method for Quantity Index}
+
+\begin{itemize}
+    \item \textbf{Quantity relative:}
+    $$
+    R_{0n}^{(i)} = \frac{q_n^{(i)}}{q_0^{(i)}} \times 100
+    $$
+
+    \item \textbf{Simple average of relatives (A.M.):}
+    $$
+    Q_{0n} = \frac{1}{k} \sum_i R_{0n}^{(i)}
+    $$
+
+    \item \textbf{Simple average of relatives (G.M.):}
+    $$
+    Q_{0n} = \Bigl(\prod_i R_{0n}^{(i)}\Bigr)^{1/k}
+    $$
+
+    \item \textbf{Weighted average of relatives:}
+    $$
+    Q_{0n} = \frac{\sum_i R_{0n}^{(i)}\,w^{(i)}}{\sum_i w^{(i)}}
+    $$
+\end{itemize}
+
+
+\section{Tests of Index Numbers}
 
 \subsection{Fisher's Tests}
 
