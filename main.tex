@@ -645,9 +645,9 @@ Suppose we record the maximum daily temperatures in City Y over 12 days:
 
 Using tally marks, we count how many times each temperature appears:
 
-30: \tallymark{3} \\
-31: \tallymark{2} \\
-32: \tallymark{7}
+3: \tallymark{3} \\
+2: \tallymark{2} \\
+7: \tallymark{7}
 
 \subsubsection{Stem-and-Leaf Diagram}
 \begin{verbatim}
@@ -14214,7 +14214,7 @@ Index numbers can be constructed using two main methods: the \textbf{aggregative
 
 
 \section{Price Index Number}
-In order to discuss the construction of price index formula the following notation will be used:
+In order to discuss the construction of price index formula the following notations will be used:
 \begin{itemize}
 \item $k$: Total number of items indexed by $i$,
 \item $I_{0n}$: Index number for the current period ($n$th period) with respect to the base period (0th period),
@@ -14322,57 +14322,61 @@ Pulses  & 40             & 45             &  60        &  50\\
 \label{tab:prices_quantities}
 \end{table}
 
-\subsubsection{Simple Aggregative Index}
+\begin{itemize}
+\item \textbf{Simple aggregative index}
 \begin{align*}
 I_{0n} = \frac{\sum_i p_n^{(i)}}{\sum_i p_0^{(i)}} \times 100
 = \frac{25 + 18 + 28 + 45}{20 + 15 + 30 + 40} \times 100
 = \frac{116}{105} \times 100 \approx 110.48
 \end{align*}
 
-\subsubsection{Laspeyres' Index}
+\item \textbf{Laspeyres' index}
 \begin{align*}
 I_{0n} &= \frac{\sum_i p_n^{(i)} q_0^{(i)}}{\sum_i p_0^{(i)} q_0^{(i)}} \times 100
 = \frac{25\times100 + 18\times150 + 28\times80 + 45\times60}{20\times100 + 15\times150 + 30\times80 + 40\times60} \times 100 \\
 &= \frac{10140}{9050} \times 100 \approx 112.04
 \end{align*}
 
-\subsubsection{Paasche's Index}
+\item \textbf{Paasche's index}
 \begin{align*}
 I_{0n} &= \frac{\sum_i p_n^{(i)} q_n^{(i)}}{\sum_i p_0^{(i)} q_n^{(i)}} \times 100
 = \frac{25\times120 + 18\times130 + 28\times90 + 45\times50}{20\times120 + 15\times130 + 30\times90 + 40\times50} \times 100 \\
 &= \frac{10110}{9050} \times 100 \approx 111.72
 \end{align*}
 
-\subsubsection{Edgeworth--Marshall's Index}
+\item \textbf{Edgeworth--Marshall's Index}
 \begin{align*}
 I_{0n} &= \frac{\sum_i p_n^{(i)} (q_0^{(i)} + q_n^{(i)})}{\sum_i p_0^{(i)} (q_0^{(i)} + q_n^{(i)})} \times 100
 = \frac{25\times110 + 18\times140 + 28\times85 + 45\times55}{20\times110 + 15\times140 + 30\times85 + 40\times55} \times 100 \\
 &= \frac{10125}{9050} \times 100 \approx 111.85
 \end{align*}
 
-\subsubsection{Fisher's Ideal Index}
+\item \textbf{Fisher's ideal index}
 \begin{align*}
-I_{0n} = \sqrt{I_{0n}^{L} \times I_{0n}^{P}} = \sqrt{112.04 \times 111.72} \approx 111.88
+I_{0n} &= \sqrt{\text{Laspeyres' index} \times \text{Paasche's index}} \\
+&= \sqrt{112.04 \times 111.72} \approx 111.88
 \end{align*}
 
-\subsubsection{Bowley's Index}
+\item \textbf{Bowley's index}
 \begin{align*}
-I_{0n} = \tfrac{1}{2}\bigl(I_{0n}^{L} + I_{0n}^{P}\bigr) = \tfrac{1}{2}(112.04 + 111.72) = 111.88
+I_{0n} &= \dfrac{1}{2}\bigl(\text{Laspeyres' index} + \text{Paasche's index}\bigr) \\
+&= \dfrac{1}{2}(112.04 + 111.72) = 111.88
 \end{align*}
 
-\subsubsection{Welsh's Index}
+\item \textbf{Welsh's index}
 \begin{align*}
 I_{0n} &= \frac{\sum_i p_n^{(i)} \sqrt{q_0^{(i)} q_n^{(i)}}}{\sum_i p_0^{(i)} \sqrt{q_0^{(i)} q_n^{(i)}}} \times 100
 = \frac{25\times109.54 + 18\times139.64 + 28\times84.85 + 45\times54.77}{20\times109.54 + 15\times139.64 + 30\times84.85 + 40\times54.77} \times 100\\
 &\approx \frac{10092.5}{9021.7} \times 100 \approx 111.89
 \end{align*}
 
-\subsubsection{Kelly's Index}
+\item \textbf{Kelly's index}
 Using fixed weights $w^{(i)}$ (e.g.\ average of base quantities):
 \begin{align*}
 I_{0n} = \frac{\sum_i p_n^{(i)} w^{(i)}}{\sum_i p_0^{(i)} w^{(i)}} \times 100
 = \frac{10125}{9050} \times 100 \approx 111.85
 \end{align*}
+\end{itemize}
 
 ---
 
@@ -14458,7 +14462,9 @@ Pulses  & 40  & 45  &  60 &  50 & 112.5\\
 \label{tab:prices_quantities2}
 \end{table}
 
-\subsubsection{Simple Average of Relatives}
+\begin{itemize}
+\item \textbf{Simple average of relatives}
+
 Arithmetic mean:
 \begin{align*}
 I_{0n}^{\mathrm{AM}}
@@ -14473,7 +14479,7 @@ I_{0n}^{\mathrm{GM}}
   \approx 112.62
 \end{align*}
 
-\subsubsection{Weighted Average of Relatives}
+\item \textbf{Weighted average of relatives}
 \begin{itemize}
 \item Using base‐period value weights $w^{(i)} = p_0^{(i)}q_0^{(i)}$ (Laspeyres' index):
 \begin{align*}
@@ -14497,6 +14503,7 @@ I_{0n}
   &= \frac{\displaystyle\sum_i p_n^{(i)}q_n^{(i)}}{\displaystyle\sum_i \dfrac{p_n^{(i)}q_n^{(i)}}{RR_i}}
   = \frac{10110}{9050} \approx 111.72
 \end{align*}
+\end{itemize}
 \end{itemize}
 
 ---
