@@ -14701,72 +14701,197 @@ P_{0n} \times Q_{0n}
 The result shows that it satisfies the factor reversal test.
 
 \subsection{Circular Test}
-    For any three periods $a,b,c$, price indices must close the loop:
-    \[
-      P_{a,b} \times P_{b,c} \times P_{c,a} = 1.
-    \]
-    This ensures that chaining indices across subperiods yields the same result as direct comparison :contentReference[oaicite:4]{index=4}.
+
+The circular test (also known as the transitivity test) states that if we compute an index from period 0 to 1, then from 1 to 2, and finally from 2 back to 0, the product of these three indices should be 1. Symbolically,
+\[
+   I_{01} \times I_{12} \times I_{20} = 1
+\]
+
+In general for $n$ time teriods,
+
+\begin{textbox}
+\[
+   I_{01} \times I_{12} \times \cdots I_{(n-1),n} \times I_{n0} = 1
+\]
+\end{textbox}
+
+The circular test is important for consistency in time-series comparisons across multiple periods: if you move through time and return to the starting point, the net change should be neutral (i.e., no change overall).
 
 
+Suppose the price of a commodity in 2010 is \$10, 2011 is \$20 and 2012 is \$30. We compute the price relatives:
 
-\section{Tests of Index Numbers}
+\begin{itemize}
+  \item {2010 to 2011:}
+  \[
+  \dfrac{20}{10} = 2
+  \]
 
-\subsection{Fisher's Tests}
+  \item {2015 to 2011:}
+  \[
+  \dfrac{30}{20} = 1.5
+  \]
 
-\subsubsection{Time Reversal Test}
-An index should satisfy: $P_{01} \times P_{10} = 1$ (or 100 if expressed as percentage)
+  \item {2012 to 2010:}
+  \[
+  \dfrac{10}{30} = \dfrac{1}{3} \approx 0.333
+  \]
+\end{itemize}
 
-\subsubsection{Factor Reversal Test}
-Price index × Quantity index should equal Value index:
-\begin{equation}
-    P_{01} \times Q_{01} = V_{01}
-\end{equation}
+\noindent
+Now, compute the product:
+\[
+2 \times 1.5 \times \dfrac{1}{3} = 1
+\]
 
-Where $V_{01} = \frac{\sum P_1 Q_1}{\sum P_0 Q_0} \times 100$
+This confirms that the circularity condition is satisfied for this single commodity.
 
-\subsubsection{Circular Test}
-For three periods: $P_{01} \times P_{12} \times P_{20} = 1$
+\noindent
+However, in practical applications involving baskets of goods and index number formulas like Laspeyres or Paasche, the circular test generally does not hold. This is because such indices are not transitive across time due to fixed base weights. Chain indices attempt to address this, but they too may fail under certain conditions.
 
-\subsection{Test Results Summary}
-
-\begin{table}[h]
+\begin{table}[H]
 \centering
-\caption{Test Results for Different Index Methods}
-\begin{tabular}{lccc}
+\begin{tabular}{l|c|c|c}
 \toprule
 \textbf{Index Method} & \textbf{Time Reversal} & \textbf{Factor Reversal} & \textbf{Circular Test} \\
 \midrule
-Laspeyres' & Fails & Fails & Fails \\
-Paasche's & Fails & Fails & Fails \\
-Fisher's & Satisfies & Satisfies & Fails \\
+Laspeyres' index & Fails & Fails & Fails \\
+Paasche's index & Fails & Fails & Fails \\
+Fisher's index & Satisfies & Satisfies & Fails \\
 \bottomrule
 \end{tabular}
+\caption{\textit{Test results for different index methods.}}
 \end{table}
 
-\section{Chain Index Numbers}
+Fisher's Ideal Index satisfies both Time Reversal and Factor Reversal tests, making it theoretically superior, though computationally more complex than Laspeyres' or Paasche's indices.
 
-Chain indices compare each period with the immediately preceding period, then link them together.
 
-\begin{equation}
-    \text{Chain Index}_{0n} = \frac{P_1}{P_0} \times \frac{P_2}{P_1} \times \frac{P_3}{P_2} \times \ldots \times \frac{P_n}{P_{n-1}}
-\end{equation}
+\subsection{Chain Index Numbers}
 
-\textbf{Example:}
+Chain index numbers are used to measure changes over time by linking a series of short-term indices instead of comparing each period directly to a fixed base year. This method is particularly useful when the basket of goods or relative importance (weights) changes over time.
 
-\begin{table}[h]
+A chain index is constructed by multiplying successive \textbf{link relatives} (i.e., period-to-period index numbers \( I_{(i-1),i} \) which represents the index number of period \(i\) with respect to period \(i-1\)), starting from a base period with index 100.
+\begin{textbox}
+\begin{align*}
+\text{Chain index for year } 1: \quad I'_{01} &= I_{01} \\
+\text{Chain index for year } 2: \quad I'_{02} &= I_{01} \times I_{12}\\
+\text{Chain index for year } 3: \quad I'_{03} &= I_{01} \times I_{12} \times I_{23}\\
+&\cdots \\
+\text{Chain index for year } n: \quad I'_{0n} &= I_{01} \times I_{12} \times I_{23} \times \cdots \times I_{(n-1),n}\\
+\end{align*}
+\end{textbox}
+
+
+\subsubsection{Example}
+
+Consider the prices and quantities of two commodities over three years (with updated quantities):
+
+\begin{table}[H]
 \centering
-\caption{Chain Index Calculation}
-\begin{tabular}{ccccc}
+\begin{tabular}{p{2.5cm}|cc|cc|cc}
 \toprule
-\textbf{Year} & \textbf{Price} & \textbf{Link Relative} & \textbf{Chain Index} \\
+\textbf{Item} 
+  & \multicolumn{2}{c|}{\textbf{2010}} 
+  & \multicolumn{2}{c|}{\textbf{2011}} 
+  & \multicolumn{2}{c}{\textbf{2012}} \\
+  
+  & Price ($p_0$) & Qty ($q_0$) 
+  & Price ($p_1$) & Qty ($q_1$)  
+  & Price ($p_2$) & Qty ($q_2$)  \\
 \midrule
-2020 & 100 & - & 100.0 \\
-2021 & 105 & 105.0 & 105.0 \\
-2022 & 110 & 104.8 & 110.0 \\
-2023 & 115 & 104.5 & 115.0 \\
+Commodity A & 10 & 5 & 12 & 6 & 15 & 7 \\
+Commodity B & 20 & 4 & 25 & 3 & 30 & 6 \\
 \bottomrule
 \end{tabular}
+\caption{\textit{Prices and (updated) quantities of two commodities for the years 2010, 2011, and 2012.}}
+\label{tab:prices_quantities_updated}
 \end{table}
+
+To compute the chain index ($I'_{02}$) we follow the same two steps:
+
+\begin{itemize}
+  \item \textbf{Step 1:} Compute link relatives using Laspeyres' formula
+    \begin{itemize}
+      \item {Laspeyres' index from 2010 to 2011:}
+      \[
+      I_{01}
+      = \frac{\sum p_{1} q_{0}}{\sum p_{0} q_{0}}
+      = \frac{12 \times 5 + 25 \times 4}{10 \times 5 + 20 \times 4}
+      = \frac{60 + 100}{50 + 80}
+      = \frac{160}{130}
+      \approx 1.2308
+      \]
+      
+      \item {Laspeyres' index from 2011 to 2012 (using 2011 quantities):}
+      \[
+      I_{12}
+      = \frac{\sum p_{2} q_{1}}{\sum p_{1} q_{1}}
+      = \frac{15 \times 6 + 30 \times 3}{12 \times 6 + 25 \times 3}
+      = \frac{90 + 90}{72 + 75}
+      = \frac{180}{147}
+      \approx 1.2245
+      \]
+    \end{itemize}
+
+  \item \textbf{Step 2:} Compute chain index
+    \begin{align*}
+    I'_{02} &= \underbrace{1.2308}_{I_{01}} \times \underbrace{1.2245}_{I_{12}} \times \underbrace{100}_{\text{Base year}}\approx 150.6
+    \end{align*}
+\end{itemize}
+
+\subsubsection{Do Chain Indices Always Satisfy the Circular Test?}
+
+A {chain index} is constructed by multiplying successive link relatives. For \(n = 2\), the chain index from period 0 to 2 is:
+\[
+I'_{02} = I_{01} \times I_{12}
+\]
+
+In the case of {Laspeyres' chain index}, each link \(I_{t-1,t}\) is computed using {quantities from the earlier period} \(t-1\) as weights. Hence, the expression becomes:
+\[
+I'_{02} = \frac{\sum p_1 q_0}{\sum p_0 q_0} \times \frac{\sum p_2 q_1}{\sum p_1 q_1}
+\]
+
+Now, consider the reverse path—from period 2 back to 0—computed as a chain of reverse links:
+\[
+I'_{20} = I_{21} \times I_{10} = \frac{\sum p_1 q_2}{\sum p_2 q_2} \times \frac{\sum p_0 q_1}{\sum p_1 q_1}
+\]
+
+Thus, the complete cycle becomes:
+\[
+I'_{01} \times I'_{12} \times I'_{20}
+= \frac{\sum p_1 q_0}{\sum p_0 q_0}
+  \times \frac{\sum p_2 q_1}{\sum p_1 q_1}
+  \times \frac{\sum p_1 q_2}{\sum p_2 q_2}
+  \times \frac{\sum p_0 q_1}{\sum p_1 q_1}
+\]
+
+This expression clearly shows that unless the weights \(q_0\), \(q_1\), and \(q_2\) are same, the product will not simplify to 1 and thus the chain index numbers may violate the circular test:
+\[
+I'_{01} \times I'_{12} \times I'_{20} \ne 1
+\]
+
+When $q_0 = q_1 = q_2$, the circular test is satisfied as in that case
+\[
+I'_{01} \times I'_{12} \times I'_{20} = 1
+\]
+
+\subsubsection{Advantages of Chain Index:}
+\begin{itemize}
+\item Chain indices allow periodic updating of weights (quantities) and are therefore more adaptable than fixed-base indices, especially when the consumption pattern changes significantly over time.
+  \item Reflects gradual and realistic changes over time and therefore more up-to-date than fixed-base index.
+\end{itemize}
+
+
+\subsubsection{Disadvantages:}
+\begin{itemize}
+  \item Cumulative errors can arise due to successive multiplications.
+  \item Comparisons over longer time spans may become unstable or less meaningful.
+  \item Does not always satisfy the circular test.
+\end{itemize}
+
+\medskip
+
+\noindent
+Chain index numbers are widely used in modern economic statistics such as GDP deflators, price indices, and national income accounting, especially when the economic structure changes over time.
 
 \section{Deflating and Real Values}
 
@@ -14782,87 +14907,87 @@ Real wage change = $\frac{1200}{125} \times 100 = 960$
 
 This shows that despite nominal increase, real purchasing power decreased.
 
-\section{Graphical Representation}
+%\section{Graphical Representation}
+%
+%\begin{center}
+%\begin{tikzpicture}
+%\begin{axis}[
+%    title={Price Index Trends (2020-2025)},
+%    xlabel={Year},
+%    ylabel={Index Value},
+%    xmin=2020, xmax=2025,
+%    ymin=95, ymax=130,
+%    xtick={2020,2021,2022,2023,2024,2025},
+%    ytick={100,105,110,115,120,125},
+%    legend pos=north west,
+%    ymajorgrids=true,
+%    grid style=dashed,
+%    width=12cm,
+%    height=8cm
+%]
+%
+%\addplot[
+%    color=blue,
+%    mark=square,
+%    thick
+%    ]
+%    coordinates {
+%    (2020,100)(2021,105)(2022,110)(2023,115)(2024,120)(2025,125)
+%    };
+%    \addlegendentry{Price Index}
+%
+%\addplot[
+%    color=red,
+%    mark=triangle,
+%    thick
+%    ]
+%    coordinates {
+%    (2020,100)(2021,102)(2022,104)(2023,106)(2024,108)(2025,110)
+%    };
+%    \addlegendentry{Quantity Index}
+%
+%\addplot[
+%    color=green,
+%    mark=circle,
+%    thick
+%    ]
+%    coordinates {
+%    (2020,100)(2021,107)(2022,114)(2023,122)(2024,130)(2025,138)
+%    };
+%    \addlegendentry{Value Index}
+%
+%\end{axis}
+%\end{tikzpicture}
+%\end{center}
 
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    title={Price Index Trends (2020-2025)},
-    xlabel={Year},
-    ylabel={Index Value},
-    xmin=2020, xmax=2025,
-    ymin=95, ymax=130,
-    xtick={2020,2021,2022,2023,2024,2025},
-    ytick={100,105,110,115,120,125},
-    legend pos=north west,
-    ymajorgrids=true,
-    grid style=dashed,
-    width=12cm,
-    height=8cm
-]
-
-\addplot[
-    color=blue,
-    mark=square,
-    thick
-    ]
-    coordinates {
-    (2020,100)(2021,105)(2022,110)(2023,115)(2024,120)(2025,125)
-    };
-    \addlegendentry{Price Index}
-
-\addplot[
-    color=red,
-    mark=triangle,
-    thick
-    ]
-    coordinates {
-    (2020,100)(2021,102)(2022,104)(2023,106)(2024,108)(2025,110)
-    };
-    \addlegendentry{Quantity Index}
-
-\addplot[
-    color=green,
-    mark=circle,
-    thick
-    ]
-    coordinates {
-    (2020,100)(2021,107)(2022,114)(2023,122)(2024,130)(2025,138)
-    };
-    \addlegendentry{Value Index}
-
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-\section{Applications of Index Numbers}
-
-\subsection{Economic Applications}
-\begin{itemize}
-    \item \textbf{Consumer Price Index (CPI):} Measures inflation
-    \item \textbf{Producer Price Index (PPI):} Measures wholesale price changes
-    \item \textbf{GDP Deflator:} Converts nominal GDP to real GDP
-    \item \textbf{Stock Market Indices:} Track market performance
-\end{itemize}
-
-\subsection{Business Applications}
-\begin{itemize}
-    \item Cost of living adjustments in salaries
-    \item Escalation clauses in contracts
-    \item Performance measurement
-    \item Budgeting and forecasting
-\end{itemize}
-
-\section{Limitations of Index Numbers}
-
-\begin{enumerate}
-    \item \textbf{Quality Changes:} Don't account for improvements in product quality
-    \item \textbf{New Products:} Difficulty in incorporating new goods and services
-    \item \textbf{Substitution Bias:} Consumers may substitute expensive items with cheaper alternatives
-    \item \textbf{Base Period Selection:} Choice of base period affects results
-    \item \textbf{Sampling Issues:} Representative sampling challenges
-    \item \textbf{Aggregation Problems:} Combining diverse items into single index
-\end{enumerate}
+%\section{Applications of Index Numbers}
+%
+%\subsection{Economic Applications}
+%\begin{itemize}
+%    \item \textbf{Consumer Price Index (CPI):} Measures inflation
+%    \item \textbf{Producer Price Index (PPI):} Measures wholesale price changes
+%    \item \textbf{GDP Deflator:} Converts nominal GDP to real GDP
+%    \item \textbf{Stock Market Indices:} Track market performance
+%\end{itemize}
+%
+%\subsection{Business Applications}
+%\begin{itemize}
+%    \item Cost of living adjustments in salaries
+%    \item Escalation clauses in contracts
+%    \item Performance measurement
+%    \item Budgeting and forecasting
+%\end{itemize}
+%
+%\section{Limitations of Index Numbers}
+%
+%\begin{enumerate}
+%    \item \textbf{Quality Changes:} Don't account for improvements in product quality
+%    \item \textbf{New Products:} Difficulty in incorporating new goods and services
+%    \item \textbf{Substitution Bias:} Consumers may substitute expensive items with cheaper alternatives
+%    \item \textbf{Base Period Selection:} Choice of base period affects results
+%    \item \textbf{Sampling Issues:} Representative sampling challenges
+%    \item \textbf{Aggregation Problems:} Combining diverse items into single index
+%\end{enumerate}
 
 \section{Worked Examples}
 
@@ -14887,12 +15012,12 @@ Education & 10 & 100 & 105 & 105 \\
 \end{table}
 
 CPI calculation:
-\begin{align}
+\begin{align*}
 \text{CPI} &= \frac{\sum (Weight \times Price\ Relative)}{\sum Weight} \\
 &= \frac{35 \times 125 + 25 \times 115 + 20 \times 140 + 10 \times 110 + 10 \times 105}{100} \\
 &= \frac{4375 + 2875 + 2800 + 1100 + 1050}{100} \\
 &= \frac{12200}{100} = 122
-\end{align}
+\end{align*}
 
 The CPI indicates a 22\% increase in cost of living from 2020 to 2023.
 
@@ -14914,63 +15039,6 @@ The CPI indicates a 22\% increase in cost of living from 2020 to 2023.
 \bottomrule
 \end{tabular}
 \end{table}
-
-\section{Summary of Key Formulas}
-
-\subsection{Basic Relatives}
-\begin{align}
-\text{Price Relative} &= \frac{P_1}{P_0} \times 100 \\
-\text{Quantity Relative} &= \frac{Q_1}{Q_0} \times 100 \\
-\text{Value Relative} &= \frac{P_1 Q_1}{P_0 Q_0} \times 100
-\end{align}
-
-\subsection{Simple Index Numbers}
-\begin{align}
-\text{Simple Aggregative} &= \frac{\sum P_1}{\sum P_0} \times 100 \\
-\text{Simple Average of Relatives} &= \frac{\sum \left(\frac{P_1}{P_0} \times 100\right)}{n}
-\end{align}
-
-\subsection{Weighted Price Indices}
-\begin{align}
-\text{Laspeyres' Index} &= \frac{\sum P_1 Q_0}{\sum P_0 Q_0} \times 100 \\
-\text{Paasche's Index} &= \frac{\sum P_1 Q_1}{\sum P_0 Q_1} \times 100 \\
-\text{Fisher's Index} &= \sqrt{P_{01}^L \times P_{01}^P}
-\end{align}
-
-\subsection{Weighted Quantity Indices}
-\begin{align}
-\text{Laspeyres' Quantity Index} &= \frac{\sum P_0 Q_1}{\sum P_0 Q_0} \times 100 \\
-\text{Paasche's Quantity Index} &= \frac{\sum P_1 Q_1}{\sum P_1 Q_0} \times 100 \\
-\text{Fisher's Quantity Index} &= \sqrt{Q_{01}^L \times Q_{01}^P}
-\end{align}
-
-\subsection{Weighted Average of Relatives}
-\begin{align}
-\text{Price Index} &= \frac{\sum W \times P_r}{\sum W} \\
-\text{where } P_r &= \frac{P_1}{P_0} \times 100
-\end{align}
-
-\subsection{Chain Index}
-\begin{equation}
-\text{Chain Index}_{0n} = \prod_{i=1}^{n} \frac{P_i}{P_{i-1}} \times 100
-\end{equation}
-
-\subsection{Tests of Adequacy}
-\begin{align}
-\text{Time Reversal Test:} \quad & P_{01} \times P_{10} = 1 \\
-\text{Factor Reversal Test:} \quad & P_{01} \times Q_{01} = V_{01} \\
-\text{Circular Test:} \quad & P_{01} \times P_{12} \times P_{20} = 1
-\end{align}
-
-\subsection{Deflation}
-\begin{equation}
-\text{Real Value} = \frac{\text{Nominal Value}}{\text{Price Index}} \times 100
-\end{equation}
-
-\vspace{1cm}
-
-\textbf{Note:} Fisher's Ideal Index satisfies both Time Reversal and Factor Reversal tests, making it theoretically superior, though computationally more complex than Laspeyres' or Paasche's indices.
-
 
 \chapter{Theory of Errors}
 
