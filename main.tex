@@ -150,7 +150,7 @@
 
     \end{tikzpicture}
 
-    {\fontsize{24pt}{28pt}\bfseries\scshape Basics of Probability and Statistics\par}
+    {\fontsize{24pt}{28pt}\bfseries\scshape Probability and Statistics: An Introductory Course\par}
     \vspace{1.2cm}
 
 
@@ -14082,133 +14082,68 @@ where $R_j^2$ is the coefficient of determination from regressing $X_j$ on all o
 
 \chapter{Index Numbers}
 
-\section{Introduction}
-
 \section{Introduction to Index Numbers}
 
-An \textbf{index number} is a statistical measure that shows the relative change in a variable or group of variables with respect to time, geographical location, or other characteristics. Index numbers are expressed as percentages or ratios that compare the value of a variable in a given period to its value in a base period.
+An \textbf{index number} is a statistical measure that shows the relative change in a variable or group of variables mainly with respect to time (or geographical location, or other characteristics). Index numbers are expressed as percentages or ratios that compare the value of a variable in a given period to its value in a base period.
 
-To illustrate why we need index number we consider the following example. Suppose a consumer purchases two commodities: rice and cooking oil. The prices and quantities in the base year and current year are given below:
+To illustrate why we need index number let us consider the following example. Suppose a consumer purchases two commodities: rice and cooking oil. The prices and quantities in the base year and current year are given below:
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c}
+\begin{tabular}{l|c|c|c}
 \toprule
-\textbf{Commodity} & \textbf{Price (Base Year)} & \textbf{Price (Current Year)} \\
+\textbf{Commodity} & \textbf{Price (Base Year)} & \textbf{Price (Current Year)} & \textbf{Price Increase}\\
 \midrule
-Rice (per kg) & ₹40 & ₹50 \\
-Oil (per litre) & ₹100 & ₹120 \\
+Rice (per kg) & 40 & 50 & 12.5\%\\
+Oil (per litre) & 100 & 120 & 20\%\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-If we want to understand how much prices have risen overall, it would be misleading to simply average the percentage increases, because it does not account for how much of each commodity is actually purchased. Instead, we fix quantities from the base period and compute a weighted average of the price increases using index numbers.
+If we want to understand how much prices have risen overall, it would be misleading to simply average the percentage increases, because it does not account for how much of each commodity is actually purchased. Instead, we may fix quantities from the base period and compute a weighted average of the price increases using index numbers\footnote{There are also other ways to select the weights for calculating the index number which we will see in the following sections.}. 
 
 Assume the consumer bought 30 kg of rice and 10 litres of oil in the base year. Then:
 
 \begin{itemize}
     \item Cost in base year = \( 40 \times 30 + 100 \times 10 = ₹2200 \)
-    \item Cost in current year = \( 50 \times 30 + 120 \times 10 = ₹2700 \)
+    \item Cost in current year for the same quantities = \( 50 \times 30 + 120 \times 10 = ₹2700 \)
 \end{itemize}
 
-The \textbf{Price Index Number} is calculated as:
+The \textbf{price index number} is calculated as:
+\begin{align*}
+\text{Price index number} &= \frac{\text{Cost in current year for quantities used in base year}}{\text{Cost in base year}} \times 100 \\
+&= \dfrac{2700}{2200} \times 100 \approx 122.73
+\end{align*}
 
-\[
-\text{Index Number} = \frac{\text{Cost in Current Year}}{\text{Cost in Base Year}} \times 100 = \frac{2700}{2200} \times 100 \approx 122.73
-\]
+This means that, overall, prices have increased by approximately 22.73\% compared to the base year. This example highlights the importance of index numbers. Instead of comparing the price of each item separately, an index number provides a single, meaningful figure that summarizes the overall change in the price level. Such measures are invaluable in economic analysis for tracking inflation, evaluating cost-of-living adjustments, comparing standards of living across regions, or measuring industrial and agricultural output over time.
 
-This means that, overall, prices have increased by approximately 22.73\% compared to the base year.
-
-This example highlights the importance of index numbers. Instead of comparing the price of each item separately, an index number provides a single, meaningful figure that summarizes the overall change in the price level. Such measures are invaluable in economic analysis for tracking inflation, evaluating cost-of-living adjustments, comparing standards of living across regions, or measuring industrial and agricultural output over time. They help policymakers, businesses, and consumers make informed decisions based on relative changes rather than absolute values.
-
-Index numbers serve as powerful tools for:
-\begin{itemize}
-    \item Measuring changes in economic variables over time
-    \item Comparing economic conditions across different regions
-    \item Making informed business and policy decisions
-    \item Deflating monetary values to real terms
-\end{itemize}
-
-The concept of index numbers originated in the 18th century when economists needed to measure price changes over time. Today, they are extensively used in economics, business, and social sciences.
-
-\section{Basic Concepts and Terminology}
-
-\subsection{Key Terms}
-
-\begin{description}
-    \item[Base Period:] The period against which comparisons are made, typically assigned an index value of 100.
-    \item[Current Period:] The period for which the index is being calculated.
-    \item[Base Year:] The reference year for comparison (e.g., 2010 = 100).
-    \item[Weights:] Numerical values representing the relative importance of different items.
-    \item[Price Relative:] The ratio of current price to base price, expressed as a percentage.
-    \item[Quantity Relative:] The ratio of current quantity to base quantity, expressed as a percentage.
-\end{description}
-
-\subsection{Mathematical Foundation}
-
-For a single commodity, the price relative is given by:
-\begin{equation}
-    P_r = \frac{P_1}{P_0} \times 100
-\end{equation}
-
-Where:
-\begin{align}
-    P_r &= \text{Price relative} \\
-    P_1 &= \text{Price in current period} \\
-    P_0 &= \text{Price in base period}
-\end{align}
-
-Similarly, for quantity relative:
-\begin{equation}
-    Q_r = \frac{Q_1}{Q_0} \times 100
-\end{equation}
+%The concept of index numbers originated in the 18th century when economists needed to measure price changes over time. Today, they are extensively used in economics, business, and social sciences.
 
 \section{Types of Index Numbers}
 
-\subsection{Classification by Purpose}
+Depending on what aspect is being measured, index numbers can be classified into the following types:
 
-\subsubsection{Price Index Numbers}
-Price index numbers measure the average change in prices of a basket of goods and services over time.
+\begin{itemize}
+    \item \textbf{Price Index Numbers}:
+    These index numbers measure the average change in the prices of a fixed basket of goods and services over a specific period. They are widely used to track inflation and cost of living. Examples include the Consumer Price Index (CPI) and the Wholesale Price Index (WPI).
+    
+    \item \textbf{Quantity Index Numbers}:
+    Quantity indices measure changes in the physical quantities of goods produced, consumed, or traded over time. These are useful for studying production trends, industrial output, or international trade volumes. For example, a quantity index might track the increase in agricultural output or the number of manufactured items over successive years.
+    
+    \item \textbf{Value Index Numbers}:
+    Value index numbers reflect changes in the total monetary value of goods and services, taking into account both price and quantity. Since value is the product of price and quantity ($\text{Value} = \text{Price} \times \text{Quantity}$), a change in the value index can result from changes in either or both components. These indices are useful in analyzing changes in total sales, trade values, or national income over time.
+\end{itemize}
 
-\textbf{Example:} Consumer Price Index (CPI) calculation
 
-\begin{table}[h]
-\centering
-\caption{Price Data for CPI Calculation}
-\begin{tabular}{lccccc}
-\toprule
-\textbf{Item} & \textbf{Base Price} & \textbf{Current Price} & \textbf{Weight} & \textbf{Price Relative} & \textbf{Weighted Price Relative} \\
- & $(P_0)$ & $(P_1)$ & $(W)$ & $(P_r)$ & $(W \times P_r)$ \\
-\midrule
-Food & 100 & 120 & 40 & 120 & 4800 \\
-Housing & 200 & 240 & 30 & 120 & 3600 \\
-Transport & 80 & 100 & 20 & 125 & 2500 \\
-Healthcare & 150 & 180 & 10 & 120 & 1200 \\
-\midrule
-\textbf{Total} & & & 100 & & 12100 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Weighted Price Index = $\frac{\sum W \times P_r}{\sum W} = \frac{12100}{100} = 121$
-
-This indicates a 21\% increase in prices from the base period.
-
-\subsubsection{Quantity Index Numbers}
-These measure changes in the physical quantities of goods produced, consumed, or traded.
-
-\subsubsection{Value Index Numbers}
-Value indices measure changes in the total value (price × quantity) of goods and services.
-
-\begin{equation}
-    \text{Value Index} = \frac{\sum P_1 Q_1}{\sum P_0 Q_0} \times 100
-\end{equation}
+%\begin{equation}
+%    \text{Value Index} = \frac{\sum P_1 Q_1}{\sum P_0 Q_0} \times 100
+%\end{equation}
 
 \section{Methods of Constructing Index Numbers}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.32]{pic/index number.png}
+\includegraphics[scale=0.3]{pic/index number.png}
 \end{center}
 \caption{\textit{Methods for index number construction.}}
 \end{figure}
@@ -14221,8 +14156,8 @@ In order to discuss the construction of price index formula the following notati
 \begin{itemize}
 \item $k$: Total number of items indexed by $i$,
 \item $I_{0n}$: Index number for the current period ($n$th period) with respect to the base period (0th period),
-\item $p_0^{(i)}, p_n^{(i)}$: Price per unit in base period and current period respectively,
-\item $q_0^{(i)}, q_n^{(i)}$: Quantity purchased in base period and current period respectively.
+\item $p_0^{(i)}, p_n^{(i)}$: Price per unit of $i$th item in base period and current period respectively,
+\item $q_0^{(i)}, q_n^{(i)}$: Quantity purchased for $i$th item in base period and current period respectively.
 \end{itemize}
 
 \subsection{Aggregative Method}
@@ -14328,28 +14263,28 @@ Pulses  & 40             & 45             &  60        &  50\\
 \begin{itemize}
 \item \textbf{Simple aggregative index}
 \begin{align*}
-I_{0n} = \frac{\sum_i p_n^{(i)}}{\sum_i p_0^{(i)}} \times 100
+I_{0n} = \frac{\displaystyle\sum_i p_n^{(i)}}{\displaystyle\sum_i p_0^{(i)}} \times 100
 = \frac{25 + 18 + 28 + 45}{20 + 15 + 30 + 40} \times 100
 = \frac{116}{105} \times 100 \approx 110.48
 \end{align*}
 
 \item \textbf{Laspeyres' index}
 \begin{align*}
-I_{0n} &= \frac{\sum_i p_n^{(i)} q_0^{(i)}}{\sum_i p_0^{(i)} q_0^{(i)}} \times 100
+I_{0n} &= \frac{\displaystyle\sum_i p_n^{(i)} q_0^{(i)}}{\displaystyle\sum_i p_0^{(i)} q_0^{(i)}} \times 100
 = \frac{25\times100 + 18\times150 + 28\times80 + 45\times60}{20\times100 + 15\times150 + 30\times80 + 40\times60} \times 100 \\
 &= \frac{10140}{9050} \times 100 \approx 112.04
 \end{align*}
 
 \item \textbf{Paasche's index}
 \begin{align*}
-I_{0n} &= \frac{\sum_i p_n^{(i)} q_n^{(i)}}{\sum_i p_0^{(i)} q_n^{(i)}} \times 100
+I_{0n} &= \frac{\displaystyle\sum_i p_n^{(i)} q_n^{(i)}}{\displaystyle\sum_i p_0^{(i)} q_n^{(i)}} \times 100
 = \frac{25\times120 + 18\times130 + 28\times90 + 45\times50}{20\times120 + 15\times130 + 30\times90 + 40\times50} \times 100 \\
 &= \frac{10110}{9050} \times 100 \approx 111.72
 \end{align*}
 
 \item \textbf{Edgeworth--Marshall's Index}
 \begin{align*}
-I_{0n} &= \frac{\sum_i p_n^{(i)} (q_0^{(i)} + q_n^{(i)})}{\sum_i p_0^{(i)} (q_0^{(i)} + q_n^{(i)})} \times 100
+I_{0n} &= \frac{\displaystyle\sum_i p_n^{(i)} (q_0^{(i)} + q_n^{(i)})}{\displaystyle\sum_i p_0^{(i)} (q_0^{(i)} + q_n^{(i)})} \times 100
 = \frac{25\times110 + 18\times140 + 28\times85 + 45\times55}{20\times110 + 15\times140 + 30\times85 + 40\times55} \times 100 \\
 &= \frac{10125}{9050} \times 100 \approx 111.85
 \end{align*}
@@ -14368,7 +14303,7 @@ I_{0n} &= \dfrac{1}{2}\bigl(\text{Laspeyres' index} + \text{Paasche's index}\big
 
 \item \textbf{Welsh's index}
 \begin{align*}
-I_{0n} &= \frac{\sum_i p_n^{(i)} \sqrt{q_0^{(i)} q_n^{(i)}}}{\sum_i p_0^{(i)} \sqrt{q_0^{(i)} q_n^{(i)}}} \times 100
+I_{0n} &= \frac{\displaystyle\sum_i p_n^{(i)} \sqrt{q_0^{(i)} q_n^{(i)}}}{\displaystyle\sum_i p_0^{(i)} \sqrt{q_0^{(i)} q_n^{(i)}}} \times 100
 = \frac{25\times109.54 + 18\times139.64 + 28\times84.85 + 45\times54.77}{20\times109.54 + 15\times139.64 + 30\times84.85 + 40\times54.77} \times 100\\
 &\approx \frac{10092.5}{9021.7} \times 100 \approx 111.89
 \end{align*}
@@ -14376,7 +14311,7 @@ I_{0n} &= \frac{\sum_i p_n^{(i)} \sqrt{q_0^{(i)} q_n^{(i)}}}{\sum_i p_0^{(i)} \s
 \item \textbf{Kelly's index}
 Using fixed weights $w^{(i)}$ (e.g.\ average of base quantities):
 \begin{align*}
-I_{0n} = \frac{\sum_i p_n^{(i)} w^{(i)}}{\sum_i p_0^{(i)} w^{(i)}} \times 100
+I_{0n} = \frac{\displaystyle\sum_i p_n^{(i)} w^{(i)}}{\displaystyle\sum_i p_0^{(i)} w^{(i)}} \times 100
 = \frac{10125}{9050} \times 100 \approx 111.85
 \end{align*}
 \end{itemize}
@@ -14397,7 +14332,7 @@ Usually the arithmatic mean or the geometric mean is used for averaging the rela
 \item Arithmatic mean of relatives:
 \begin{textbox}
 \begin{equation*}
-    I_{0n} = \dfrac{1}{k}\sum_i \left(\frac{p_n^{(i)}}{p_0^{(i)}}\times 100\right)
+    I_{0n} = \dfrac{1}{k}\displaystyle\sum_i \left(\frac{p_n^{(i)}}{p_0^{(i)}}\times 100\right)
 \end{equation*}
 \end{textbox}
 \item Geometric mean of relatives:
@@ -14520,56 +14455,56 @@ Quantity index numbers do for quantities what price index numbers do for prices:
 \begin{itemize}
     \item \textbf{Simple aggregative index:}
     $$
-    Q_{0n} = \frac{\sum_i q_n^{(i)}}{\sum_i q_0^{(i)}} \times 100
+    Q_{0n} = \frac{\displaystyle\sum_i q_n^{(i)}}{\displaystyle\sum_i q_0^{(i)}} \times 100
     $$
 
     \item \textbf{Weighted aggregative index:}
     $$
-    Q_{0n} = \frac{\sum_i q_n^{(i)}\,w^{(i)}}{\sum_i q_0^{(i)}\,w^{(i)}} \times 100
+    Q_{0n} = \frac{\displaystyle\sum_i q_n^{(i)}\,w^{(i)}}{\displaystyle\sum_i q_0^{(i)}\,w^{(i)}} \times 100
     $$
 
     \item \textbf{Laspeyres' index (base‐price weights):}
     $$
-    Q_{0n} = \frac{\sum_i q_n^{(i)}\,p_0^{(i)}}{\sum_i q_0^{(i)}\,p_0^{(i)}} \times 100
+    Q_{0n} = \frac{\displaystyle\sum_i q_n^{(i)}\,p_0^{(i)}}{\displaystyle\sum_i q_0^{(i)}\,p_0^{(i)}} \times 100
     $$
 
     \item \textbf{Paasche's index (current‐price weights):}
     $$
-    Q_{0n} = \frac{\sum_i q_n^{(i)}\,p_n^{(i)}}{\sum_i q_0^{(i)}\,p_n^{(i)}} \times 100
+    Q_{0n} = \frac{\displaystyle\sum_i q_n^{(i)}\,p_n^{(i)}}{\displaystyle\sum_i q_0^{(i)}\,p_n^{(i)}} \times 100
     $$
 
     \item \textbf{Edgeworth–Marshall's index (average‐price weights):}
     $$
-    Q_{0n} = \frac{\sum_i q_n^{(i)}\,(p_0^{(i)} + p_n^{(i)})}{\sum_i q_0^{(i)}\,(p_0^{(i)} + p_n^{(i)})} \times 100
+    Q_{0n} = \frac{\displaystyle\sum_i q_n^{(i)}\,(p_0^{(i)} + p_n^{(i)})}{\displaystyle\sum_i q_0^{(i)}\,(p_0^{(i)} + p_n^{(i)})} \times 100
     $$
 
     \item \textbf{Fisher's index (G.M. of Laspeyres' index and Paasche's index):}
     $$
     Q_{0n} = \sqrt{
-      \frac{\sum_i q_n^{(i)}p_0^{(i)}}{\sum_i q_0^{(i)}p_0^{(i)}}
+      \frac{\displaystyle\sum_i q_n^{(i)}p_0^{(i)}}{\displaystyle\sum_i q_0^{(i)}p_0^{(i)}}
       \;\times\;
-      \frac{\sum_i q_n^{(i)}p_n^{(i)}}{\sum_i q_0^{(i)}p_n^{(i)}}
+      \frac{\displaystyle\sum_i q_n^{(i)}p_n^{(i)}}{\displaystyle\sum_i q_0^{(i)}p_n^{(i)}}
     } \times 100
     $$
 
     \item \textbf{Bowley's index (A.M. of Laspeyres' index and Paasche's index):}
     $$
-    Q_{0n} = \frac12 \Biggl[
-      \frac{\sum_i q_n^{(i)}p_0^{(i)}}{\sum_i q_0^{(i)}p_0^{(i)}} +
-      \frac{\sum_i q_n^{(i)}p_n^{(i)}}{\sum_i q_0^{(i)}p_n^{(i)}}
-    \Biggr] \times 100
+    Q_{0n} = \frac12 \left[
+      \frac{\displaystyle\sum_i q_n^{(i)}p_0^{(i)}}{\displaystyle\sum_i q_0^{(i)}p_0^{(i)}} +
+      \frac{\displaystyle\sum_i q_n^{(i)}p_n^{(i)}}{\displaystyle\sum_i q_0^{(i)}p_n^{(i)}}
+    \right] \times 100
     $$
 
     \item \textbf{Welsh's index (geometric‐price weights):}
     $$
-    Q_{0n} = \frac{\sum_i q_n^{(i)}\,\sqrt{p_0^{(i)}\,p_n^{(i)}}}
-                  {\sum_i q_0^{(i)}\,\sqrt{p_0^{(i)}\,p_n^{(i)}}}
+    Q_{0n} = \frac{\displaystyle\sum_i q_n^{(i)}\,\sqrt{p_0^{(i)}\,p_n^{(i)}}}
+                  {\displaystyle\sum_i q_0^{(i)}\,\sqrt{p_0^{(i)}\,p_n^{(i)}}}
     \times 100
     $$
 
     \item \textbf{Kelly's index (fixed weights):}
     $$
-    Q_{0n} = \frac{\sum_i q_n^{(i)}\,w^{(i)}}{\sum_i q_0^{(i)}\,w^{(i)}} \times 100
+    Q_{0n} = \frac{\displaystyle\sum_i q_n^{(i)}\,w^{(i)}}{\sum_i q_0^{(i)}\,w^{(i)}} \times 100
     $$
 \end{itemize}
 
@@ -14762,7 +14697,7 @@ Fisher's index & Satisfies & Satisfies & Fails \\
 \caption{\textit{Test results for different index methods.}}
 \end{table}
 
-Fisher's Ideal Index satisfies both Time Reversal and Factor Reversal tests, making it theoretically superior, though computationally more complex than Laspeyres' or Paasche's indices.
+Fisher's Ideal Index satisfies both time reversal and factor reversal tests, making it theoretically superior, though computationally more complex than Laspeyres' or Paasche's indices.
 
 
 \subsection{Chain Index Numbers}
@@ -14869,9 +14804,12 @@ This expression clearly shows that unless the weights \(q_0\), \(q_1\), and \(q_
 I'_{01} \times I'_{12} \times I'_{20} \ne 1
 \]
 
-When $q_0 = q_1 = q_2$, the circular test is satisfied as in that case
+When $q_0 = q_1 = q_2 = q$, the circular test is satisfied as in that case
 \[
-I'_{01} \times I'_{12} \times I'_{20} = 1
+I'_{01} \times I'_{12} \times I'_{20} = \frac{\sum p_1 q}{\sum p_0 q}
+  \times \frac{\sum p_2 q}{\sum p_1 q}
+  \times \frac{\sum p_1 q}{\sum p_2 q}
+  \times \frac{\sum p_0 q}{\sum p_1 q} = 1
 \]
 
 \subsubsection{Advantages of Chain Index:}
@@ -14888,24 +14826,6 @@ I'_{01} \times I'_{12} \times I'_{20} = 1
   \item Does not always satisfy the circular test.
 \end{itemize}
 
-\medskip
-
-\noindent
-Chain index numbers are widely used in modern economic statistics such as GDP deflators, price indices, and national income accounting, especially when the economic structure changes over time.
-
-\section{Deflating and Real Values}
-
-Index numbers are used to convert nominal values to real values by removing the effect of price changes.
-
-\begin{equation}
-    \text{Real Value} = \frac{\text{Nominal Value}}{\text{Price Index}} \times 100
-\end{equation}
-
-\textbf{Example:} If nominal wage increased from \$1000 to \$1200, but price index increased from 100 to 125:
-
-Real wage change = $\frac{1200}{125} \times 100 = 960$
-
-This shows that despite nominal increase, real purchasing power decreased.
 
 %\section{Graphical Representation}
 %
@@ -14989,31 +14909,116 @@ This shows that despite nominal increase, real purchasing power decreased.
 %    \item \textbf{Aggregation Problems:} Combining diverse items into single index
 %\end{enumerate}
 
-\section{Worked Examples}
+\section{Deflating an Index Number}
 
-\subsection{Example 1: Consumer Price Index}
+Deflating is the process of removing the effect of price changes (inflation or deflation) from monetary values in order to measure the \textbf{real value} of a variable. It allows for meaningful comparisons over time by expressing values in constant prices, rather than current prices.
 
-A household's monthly expenditure pattern and price changes:
+Consider an economy where nominal income has increased over a decade. This rise could be due to:
 
-\begin{table}[h]
+\begin{itemize}
+\item Increase in actual production (real growth), or
+
+\item Increase in prices (inflation), or
+
+\item A combination of both.
+\end{itemize}
+
+To isolate the real growth, we must must eliminate the effect of price changes (inflation). This is achieved by deflating the nominal figures using a suitable price index.
+
+Let:
+\begin{itemize}
+  \item \( V \) = Nominal value (e.g., revenue, GDP)
+  \item \( P \) = Price index (base year = 100)
+  \item \( R \) = Real value (deflated or constant price value)
+\end{itemize}
+
+Then the real value is calculated as:
+\begin{textbox}
+\[
+R = \frac{V}{P} \times 100
+\]
+\end{textbox}
+
+\subsubsection{Example}
+
+Suppose a company's revenue in the year 2020 is \$150{,}000 and the price index (with base year 2010 = 100) is 150.
+
+\[
+R = \dfrac{150{,}000}{150} \times 100 = 100{,}000
+\]
+
+Thus, the real revenue in 2010 prices is \$100{,}000. This means that after removing the effect of inflation, the actual value of the company's output corresponds to \$100{,}000 in base year terms.
+
+\subsubsection{Example} 
+
+If nominal wage increased from \$1000 to \$1200, but price index increased from 100 to 125:
+$$\text{Real wage change} = \dfrac{1200}{125} \times 100 = 960$$
+
+This shows that despite nominal increase, real purchasing power decreased.
+
+\section{Consumer Price Index (CPI)}
+
+The \textbf{Consumer Price Index (CPI)}, also known as the \textbf{Cost of Living Index (CLI)}, is an index that measures the average change over time in the prices of goods and services typically consumed by average households over time. It serves as a key indicator of inflation and cost of living, helping policymakers to assess price stability and make informed economic decisions. Governments use the CPI to adjust wages, pensions, and social security benefits, while economists rely on it to deflate income and expenditure data for real-term analysis.
+
+The CPI and \textbf{purchasing power} are closely related economic concepts. As the CPI increases, indicating a rise in the general price level (inflation), the purchasing power of money decreases—each unit of currency buys fewer goods and services. Conversely, when the CPI falls or remains stable, purchasing power is preserved or improves. Therefore, the reciprocal of the CPI (relative to a base year) is often used as a measure of purchasing power.
+
+The CLI is generally constructed by selecting a representative consumption basket based on a \textit{Family Living Survey}\footnote{A \textbf{Family Living Survey (FLS)} is a comprehensive data collection method designed to gather detailed information on various aspects of household life. It typically covers household composition, income levels, patterns of consumption and expenditure, and indicators of social and economic well-being. These surveys play a vital role in understanding the living standards and behavioral patterns of families. The data obtained from FLS are essential for constructing indices such as the Consumer Price Index (CPI), formulating evidence-based public policies, and designing targeted welfare and development programs.}. Prices are collected from various retail markets, and the major categories included in the index are:
+\begin{enumerate}
+    \item Food
+    \item House Rent
+    \item Transportation
+    \item Clothing
+    \item Miscellaneous (e.g., medical care, education, recreation)
+\end{enumerate}
+
+Each major group includes several subgroups. For instance, \textit{Food} includes cereals, pulses, oils, vegetables, fruits, beverages, etc., while \textit{Miscellaneous} covers expenses like education, transport, medical care, and so on.
+
+\subsection{Method of Construction of CPI}
+When multiple price quotations are available for a commodity, a simple average is used. Then, a \textbf{weighted average} of the price relatives is calculated for each group, using weights based on the base year expenditure on that group by an average family. This gives rise to Laspeyres’ index formula:
+\begin{textbox}
+\begin{equation*}
+I = \dfrac{\sum_i w^{(i)} \left( \dfrac{p_n^{(i)}}{p_0^{(i)}} \times 100 \right)}{\sum_i w^{(i)}}
+\end{equation*}
+\end{textbox}
+
+where:
+\begin{itemize}
+    \item $p_n^{(i)}$ = current price of $i$th item,
+    \item $p_0^{(i)}$ = base price of $i$th item,
+    \item $w^{(i)}$ = weight based on base year expenditure i.e. \( w^{(i)} = {p_0^{(i)} q_0^{(i)}} \).
+\end{itemize}
+
+
+%\begin{itemize}
+%    \item Used to adjust wages and dearness allowances (DA).
+%    \item Helps in deflating nominal values to obtain real income or real wages.
+%    \item Its reciprocal indicates the \textbf{purchasing power of money}.
+%\end{itemize}
+
+\subsection{Example: Construction of Consumer Price Index}
+
+A household's monthly expenditure pattern in 2020 (`Weight' in table) and price changes from year 2020 to 2023 are shown in the table below:
+
+\begin{table}[H]
 \centering
-\caption{Household Expenditure Data}
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Category} & \textbf{Weight (\%)} & \textbf{2020 Price} & \textbf{2023 Price} & \textbf{Price Relative} \\
+& $(w)$ & $(p_0)$ & $(p_n)$ & $\left(\dfrac{p_n}{p_0}\times 100\right) $ \\
 \midrule
 Food & 35 & 100 & 125 & 125 \\
 Housing & 25 & 100 & 115 & 115 \\
 Transportation & 20 & 100 & 140 & 140 \\
-Healthcare & 10 & 100 & 110 & 110 \\
-Education & 10 & 100 & 105 & 105 \\
+Clothing & 10 & 100 & 110 & 110 \\
+Miscellaneous & 10 & 100 & 105 & 105 \\
 \bottomrule
 \end{tabular}
+\caption{\textit{Household expenditure data.}}
 \end{table}
 
 CPI calculation:
 \begin{align*}
-\text{CPI} &= \frac{\sum (Weight \times Price\ Relative)}{\sum Weight} \\
+\text{CPI} &= \dfrac{\displaystyle \sum_i w^{(i)} \left( \dfrac{p_n^{(i)}}{p_0^{(i)}} \times 100 \right)}{\displaystyle \sum_i w^{(i)}} \\
 &= \frac{35 \times 125 + 25 \times 115 + 20 \times 140 + 10 \times 110 + 10 \times 105}{100} \\
 &= \frac{4375 + 2875 + 2800 + 1100 + 1050}{100} \\
 &= \frac{12200}{100} = 122
@@ -15021,24 +15026,6 @@ CPI calculation:
 
 The CPI indicates a 22\% increase in cost of living from 2020 to 2023.
 
-\subsection{Example 2: Fixed Base vs Chain Base}
-
-\begin{table}[h]
-\centering
-\caption{Comparison of Fixed Base and Chain Base Methods}
-\begin{tabular}{cccccc}
-\toprule
-\textbf{Year} & \textbf{Price} & \textbf{Fixed Base} & \textbf{Link Relative} & \textbf{Chain Index} \\
- & & \textbf{(2020=100)} & & \\
-\midrule
-2020 & 50 & 100.0 & - & 100.0 \\
-2021 & 55 & 110.0 & 110.0 & 110.0 \\
-2022 & 62 & 124.0 & 112.7 & 124.0 \\
-2023 & 68 & 136.0 & 109.7 & 136.0 \\
-2024 & 75 & 150.0 & 110.3 & 150.0 \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \chapter{Theory of Errors}
 
@@ -18037,30 +18024,27 @@ Many real systems combine both series and parallel elements. For example, consid
 \end{tikzpicture}
 \end{center}
 \caption{\textit{A system with series-parallel configuration.}}
+\label{fig:series-parallel-system}
 \end{figure}
 
-\paragraph{System Structure:}
+{System Structure:}
 \[
 (R_1 \parallel R_2) \longrightarrow R_3 \longrightarrow R_4
 \]
 
-\paragraph{Step 1: Reliability of Parallel Subsystem}
-
-The reliability of two components in parallel is given by:
+Reliability of two components in parallel is given by:
 \[
 R_{12}(t) = 1 - (1 - R_1(t))(1 - R_2(t))
 \]
-
-\paragraph{Step 2: Reliability of Series System}
 
 The overall system reliability is the product of the reliabilities of the series-connected parts:
 \[
 R_{\text{system}}(t) = R_{12}(t) \cdot R_3(t) \cdot R_4(t) = \left[1 - (1 - R_1(t))(1 - R_2(t))\right] \cdot R_3(t) \cdot R_4(t)
 \]
 
-\paragraph{Numerical Example}
+\subsubsection{Example: Series Parallel System}
 
-Assume the following reliabilities at time $t$:
+Assume the following reliabilities at time $t$ for the system in Figure~\ref{fig:series-parallel-system}:
 \[
 R_1 = 0.9, \quad R_2 = 0.8, \quad R_3 = 0.95, \quad R_4 = 0.85
 \]
@@ -18075,7 +18059,7 @@ Now compute the overall system reliability:
 R_{\text{system}} = 0.98 \times 0.95 \times 0.85 = 0.79065
 \]
 
-So, the system has a reliability of approximately $\boxed{0.7907}$.
+So, the system has a reliability of approximately ${0.7907}$.
 
 
 \subsection{Life Testing}
