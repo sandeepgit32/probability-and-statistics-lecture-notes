@@ -6790,8 +6790,8 @@ follows a $ t $\textbf{-distribution} with \( \nu = n - 1 \) degrees of freedom.
     domain=-5:5,
     samples=200,
     axis lines=middle,
-    xlabel={$x$},
-    ylabel={$f(x)$},
+    xlabel={$t$},
+    ylabel={$f(t)$},
     legend style={at={(1.07,0.95)}, anchor=north east},
     % grid=both,
     width=12cm,
@@ -6829,8 +6829,8 @@ The \( t \)-distribution with \( \nu \) degrees of freedom converges to the stan
     domain=-3.5:3.5,
     samples=100,
     axis lines=middle,
-    xlabel={$t$},
-    width=8cm, height=4.5cm,
+    xlabel={$t$}, ylabel={$f(t)$},
+    width=10cm, height=5cm,
     ymin=0, ymax=0.5,
     xtick=\empty,
     ytick=\empty,
@@ -6845,11 +6845,11 @@ The \( t \)-distribution with \( \nu \) degrees of freedom converges to the stan
       domain=2.015:3.5,
       samples=100,
       draw=none,
-      fill=red!30
+      fill=blue!30
     ] {0.379*(1 + x^2/5)^(-3)} \closedcycle;
 
     % Vertical line at t_{0.05}
-    \addplot [red, dashed, thick] coordinates
+    \addplot [black, thick] coordinates
       {(2.015,0) (2.015,{0.379*(1 + 2.015^2/5)^(-3)})};
 
     % Annotations
@@ -6868,8 +6868,9 @@ t_{1-\alpha, \nu} = -\,t_{\alpha, \nu}
 \]
 So the critical point for a left‐tail area of \(\alpha\) is \(-t_{\alpha, \nu}\).
 
-\textbf{Example}: Suppose we take a random sample of \( n = 10 \) measurements of battery lifespans (in hours) from a normally distributed population. The data are:
+\subsubsection{Example}
 
+Suppose we take a random sample of \( n = 10 \) measurements of battery lifespans (in hours) from a normally distributed population. The data are:
 \[
 \{42,\ 38,\ 41,\ 39,\ 40,\ 37,\ 44,\ 36,\ 38,\ 40\}
 \]
@@ -6877,7 +6878,6 @@ So the critical point for a left‐tail area of \(\alpha\) is \(-t_{\alpha, \nu}
 We want to estimate the population mean \( \mu \) and test whether the mean battery life is significantly different from 40 hours.
 
 This is a case where the population standard deviation \( \sigma \) is unknown, so we use the sample standard deviation \( S \), and apply the following test statistic:
-
 \[
 t = \frac{\overline{X} - \mu_0}{S / \sqrt{n}}
 \]
@@ -6893,23 +6893,19 @@ where:
 The statistic \( t \) follows a \( t \)-distribution with \( \nu = n - 1 = 9 \) degrees of freedom under the assumption that the population is normal.
 
 Sample mean:
-
 \[
 \overline{X} = \frac{1}{10} (42 + 38 + 41 + 39 + 40 + 37 + 44 + 36 + 38 + 40) = \frac{395}{10} = 39.5
 \]
 
 Sample variance:
-
 \[
 S^2 = \frac{1}{n - 1} \sum_{i=1}^{10} (X_i - \overline{X})^2 = \frac{1}{9} \sum_{i=1}^{10} (X_i - 39.5)^2 \approx 6.17
 \]
-
 \[
 S = \sqrt{6.17} \approx 2.48
 \]
 
 Test statistic:
-
 \[
 t = \frac{\overline{X} - \mu}{S / \sqrt{n}} = \frac{39.5 - 40}{2.48 / \sqrt{10}} \approx \frac{-0.5}{0.784} \approx -0.637
 \]
@@ -7004,7 +7000,7 @@ This theorem tells us how the sample variance \( S^2 \) is distributed around th
 % ν = 10: f(x) = (1 / (2^5 * Γ(5))) * x^4 * exp(-x/2)
 % Γ(5) = 24, 2^5 = 32
 % Constant = 1 / (32 * 24) = 1 / 768 ≈ 0.0013
-\addplot [green!50!black, very thick, dotted] {0.0013 * x^4 * exp(-x/2)};
+\addplot [green!50!black, very thick, dashdotted] {0.0013 * x^4 * exp(-x/2)};
 \addlegendentry{$\nu = 10$}
 
 \end{axis}
@@ -15075,46 +15071,46 @@ where $\mu$ is the true mean value. Random errors satisfy the following conditio
 
 For a set of $n$ measurements $\{x_1, x_2, \ldots, x_n\}$, the sample mean (best estimate) is:
 
-\begin{equation}
+\begin{equation*}
 \bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i
-\end{equation}
+\end{equation*}
 
 The sample variance is:
 
-\begin{equation}
+\begin{equation*}
 s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2
-\end{equation}
+\end{equation*}
 
 The standard deviation is:
 
-\begin{equation}
+\begin{equation*}
 s = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2}
-\end{equation}
+\end{equation*}
 
 \textbf{Derivation of Standard Error of the Mean:}
 
 The standard error of the mean $\sigma_{\bar{x}}$ represents the uncertainty in our estimate of the true mean. For independent measurements with individual standard deviation $\sigma$:
 
-\begin{align}
+\begin{align*}
 \sigma_{\bar{x}}^2 &= \text{Var}\left(\frac{1}{n}\sum_{i=1}^{n} x_i\right) \\
 &= \frac{1}{n^2}\sum_{i=1}^{n}\text{Var}(x_i) \\
 &= \frac{1}{n^2} \cdot n \sigma^2 \\
 &= \frac{\sigma^2}{n}
-\end{align}
+\end{align*}
 
 Therefore:
 
-\begin{equation}
+\begin{equation*}
 \sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}} = \frac{s}{\sqrt{n}}
-\end{equation}
+\end{equation*}
 
 \subsubsection{Normal Distribution}
 
 For large $n$, random errors typically follow a normal (Gaussian) distribution:
 
-\begin{equation}
+\begin{equation*}
 f(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
-\end{equation}
+\end{equation*}
 
 This leads to important statistical properties:
 \begin{itemize}
@@ -15128,7 +15124,7 @@ This leads to important statistical properties:
 Consider measuring the length of a rod 10 times with a ruler:
 
 \begin{center}
-\begin{tabular}{cc}
+\begin{tabular}{c|c}
 \toprule
 Measurement & Length (cm) \\
 \midrule
@@ -15147,11 +15143,11 @@ Measurement & Length (cm) \\
 \end{center}
 
 Calculations:
-\begin{align}
+\begin{align*}
 \bar{x} &= \frac{152.33}{10} = 15.233 \text{ cm} \\
 s &= \sqrt{\frac{\sum(x_i - \bar{x})^2}{n-1}} = 0.019 \text{ cm} \\
 \sigma_{\bar{x}} &= \frac{s}{\sqrt{n}} = \frac{0.019}{\sqrt{10}} = 0.006 \text{ cm}
-\end{align}
+\end{align*}
 
 Result: $L = 15.233 \pm 0.006$ cm
 
@@ -15186,17 +15182,17 @@ where $\epsilon_i$ are random errors. The mean of measurements becomes:
 
 Use known reference standards to determine systematic bias:
 
-\begin{equation}
+\begin{equation*}
 \delta = \bar{x}_{\text{standard}} - X_{\text{known}}
-\end{equation}
+\end{equation*}
 
 \textbf{Method 2: Comparison with Independent Methods}
 
 If two independent methods give results $\bar{x}_1$ and $\bar{x}_2$, the systematic difference is:
 
-\begin{equation}
+\begin{equation*}
 \Delta_{\text{sys}} = \bar{x}_1 - \bar{x}_2
-\end{equation}
+\end{equation*}
 
 \subsubsection{Example: Voltmeter Calibration}
 
@@ -15239,9 +15235,9 @@ A data point should be rejected if the probability of obtaining such a deviation
 
 For a normal distribution, reject $x_i$ if:
 
-\begin{equation}
+\begin{equation*}
 \left|\frac{x_i - \bar{x}}{s}\right| > t_{\text{Chauvenet}}
-\end{equation}
+\end{equation*}
 
 where $t_{\text{Chauvenet}}$ depends on $n$:
 
@@ -15263,9 +15259,9 @@ $n$ & $t_{\text{Chauvenet}}$ \\
 
 The test statistic is:
 
-\begin{equation}
+\begin{equation*}
 G = \frac{\max|x_i - \bar{x}|}{s}
-\end{equation}
+\end{equation*}
 
 Compare with critical value $G_{\text{critical}}(\alpha, n)$ from Grubbs' table.
 
@@ -15275,11 +15271,11 @@ Measurements of gravitational acceleration (m/s²):
 9.78, 9.82, 9.79, 9.81, 9.85, 10.15, 9.80
 
 Calculations:
-\begin{align}
+\begin{align*}
 \bar{x} &= 9.86 \text{ m/s}^2 \\
 s &= 0.13 \text{ m/s}^2 \\
 G &= \frac{|10.15 - 9.86|}{0.13} = 2.23
-\end{align}
+\end{align*}
 
 For $n = 7$ and $\alpha = 0.05$, $G_{\text{critical}} = 2.02$
 
@@ -15293,78 +15289,78 @@ When quantities with uncertainties are combined in calculations, the uncertainti
 
 For a function $f(x, y, z, \ldots)$ where $x, y, z$ have uncertainties $\delta x, \delta y, \delta z$:
 
-\begin{equation}
+\begin{equation*}
 (\delta f)^2 = \left(\frac{\partial f}{\partial x}\right)^2(\delta x)^2 + \left(\frac{\partial f}{\partial y}\right)^2(\delta y)^2 + \left(\frac{\partial f}{\partial z}\right)^2(\delta z)^2 + \ldots
-\end{equation}
+\end{equation*}
 
 \subsection{Specific Cases}
 
 \textbf{Addition/Subtraction:} $f = x \pm y$
 
-\begin{equation}
+\begin{equation*}
 \delta f = \sqrt{(\delta x)^2 + (\delta y)^2}
-\end{equation}
+\end{equation*}
 
 \textbf{Multiplication/Division:} $f = \frac{xy}{z}$
 
-\begin{equation}
+\begin{equation*}
 \frac{\delta f}{f} = \sqrt{\left(\frac{\delta x}{x}\right)^2 + \left(\frac{\delta y}{y}\right)^2 + \left(\frac{\delta z}{z}\right)^2}
-\end{equation}
+\end{equation*}
 
 \textbf{Powers:} $f = x^n$
 
-\begin{equation}
+\begin{equation*}
 \frac{\delta f}{f} = |n|\frac{\delta x}{x}
-\end{equation}
+\end{equation*}
 
 \subsection{Derivation Example: Product of Two Variables}
 
 For $f = xy$:
 
-\begin{align}
+\begin{align*}
 \frac{\partial f}{\partial x} &= y \\
 \frac{\partial f}{\partial y} &= x
-\end{align}
+\end{align*}
 
 Therefore:
-\begin{align}
+\begin{align*}
 (\delta f)^2 &= y^2(\delta x)^2 + x^2(\delta y)^2 \\
 \frac{(\delta f)^2}{f^2} &= \frac{y^2(\delta x)^2 + x^2(\delta y)^2}{x^2y^2} \\
 &= \left(\frac{\delta x}{x}\right)^2 + \left(\frac{\delta y}{y}\right)^2
-\end{align}
+\end{align*}
 
 \section{Practical Example: Pendulum Experiment}
 
 Consider measuring the acceleration due to gravity using a simple pendulum:
 
-\begin{equation}
+\begin{equation*}
 g = \frac{4\pi^2 L}{T^2}
-\end{equation}
+\end{equation*}
 
 Measurements:
-\begin{align}
+\begin{align*}
 L &= 1.000 \pm 0.001 \text{ m} \\
 T &= 2.006 \pm 0.003 \text{ s}
-\end{align}
+\end{align*}
 
 \textbf{Error Propagation:}
 
-\begin{equation}
+\begin{equation*}
 \frac{\delta g}{g} = \sqrt{\left(\frac{\delta L}{L}\right)^2 + \left(2\frac{\delta T}{T}\right)^2}
-\end{equation}
+\end{equation*}
 
 Calculations:
-\begin{align}
+\begin{align*}
 \frac{\delta L}{L} &= \frac{0.001}{1.000} = 0.001 \\
 \frac{\delta T}{T} &= \frac{0.003}{2.006} = 0.00150 \\
 \frac{\delta g}{g} &= \sqrt{(0.001)^2 + (2 \times 0.00150)^2} = 0.00316
-\end{align}
+\end{align*}
 
 Result:
-\begin{align}
+\begin{align*}
 g &= \frac{4\pi^2 \times 1.000}{(2.006)^2} = 9.79 \text{ m/s}^2 \\
 \delta g &= 9.79 \times 0.00316 = 0.03 \text{ m/s}^2
-\end{align}
+\end{align*}
 
 Final answer: $g = 9.79 \pm 0.03$ m/s²
 
@@ -17011,7 +17007,7 @@ The objective is to determine the smallest sample size $n$ and the acceptance nu
     P_a(p_2) &= \sum_{i=0}^c \binom{n}{i} p_2^i (1 - p_2)^{n - i} \le \beta = 0.10
 \end{align*}
 
-To find such a plan, we use the following Python program, which iteratively checks all $(n, c)$ combinations up to a maximum $n$ and returns the first valid pair that satisfies both inequalities.
+To find such a plan, we use the following python program, which iteratively checks all $(n, c)$ combinations up to a maximum $n$ and returns the first valid pair that satisfies both inequalities.
 
 \subsubsection{Python Program}
 
@@ -17069,7 +17065,7 @@ P_a at AQL (2.00%): 0.9531
 P_a at LTPD (8.00%): 0.0954
 \end{lstlisting}
 
-\subsubsection*{Interpretation}
+\subsubsection{Interpretation}
 The sampling plan that satisfies the specified producer's and consumer's risks is:
 \begin{itemize}
     \item Inspect $n = 125$ items from the lot
@@ -17084,196 +17080,6 @@ This plan ensures that:
 \end{itemize}
 
 Thus, the plan meets the specified risk constraints and is optimal under the given conditions.
-
-%\subsection{Rectified Inspection Program}
-%
-%A \textbf{rectified inspection program} (also called \emph{screening inspection}) combines a sampling plan with 100\% inspection of all units in any lot that is initially rejected. The goal is to ensure that no defectives leave the inspection station, while still reducing average inspection effort compared to inspecting every lot in full. This is generally done by the producer or vendor.
-%
-%\subsubsection*{Procedure}
-%
-%\begin{textbox}
-%Let $(n,c)$ be a single‐sampling plan applied to each incoming lot of size $N$:
-%\begin{enumerate}
-%  \item Inspect a random sample of $n$ units.
-%  \item If the number of defectives $d \le c$, \textbf{accept} the lot and ship it without further inspection.
-%  \item If $d > c$, \textbf{reject} the lot and perform 100\% inspection (``screening'') on the remaining $N - n$ units, removing all defectives before shipment.
-%\end{enumerate}
-%\end{textbox}
-%
-%\subsubsection*{Advantages and Disadvantages}
-%
-%\begin{itemize}
-%  \item \textit{Advantages:}
-%    \begin{itemize}
-%      \item Guarantees defect‐free outgoing product.
-%      \item Often lower average inspection effort than 100\% inspection of every lot.
-%    \end{itemize}
-%  \item \textit{Disadvantages:}
-%    \begin{itemize}
-%      \item Requires infrastructure for rapid screening and rework.
-%      \item Inspection effort can spike when incoming quality deteriorates.
-%    \end{itemize}
-%\end{itemize}
-%
-%\subsubsection*{Key Metrics}
-%
-%\begin{itemize}
-%  \item \textbf{Average Outgoing Quality (AOQ)}
-%
-%  \medskip
-%
-%  In a rectified inspection program, all defective units found in a rejected lot are replaced or removed. As a result, the final defect rate in outgoing product is effectively zero for rejected lots. The \textit{Average Outgoing Quality} reflects the average fraction defective in the product delivered to the customer. Since rejected lots are fully screened and corrected, the AOQ represents only the defectives passed through accepted lots.
-%
-%  Let the true fraction defective be \(p\) and the lot size is $N$, so that there are \(pN\) defectives in the lot.  The number of defectives passing through inspection in the accepted lot is
-%    \[
-%    pN \cdot P_a(p) \;+\; 0 \cdot \bigl[1 - P_a(p)\bigr]
-%    \;=\;p\,N\,P_a(p).
-%    \]
-%  where \(P_a(p)\) is the probability of accepting the lot on the initial sample. Since the outgoing shipment still contains \(N\) units, the \emph{Average Outgoing Quality} (fraction defective) becomes
-%    \[
-%    \mathrm{AOQ}_N(p)
-%    =\frac{p\,N\,P_a(p)}{N}
-%    = p \cdot P_a(p),
-%    \]
-%
-%   and is given by:
-%  \[
-%  \mathrm{AOQ}(p) = p \cdot P_a(p)
-%  \]
-%  where \(p\) is the true proportion defective in the lot, and \(P_a(p)\) is the probability that the lot is accepted. When $p=0, \mathrm{AOQ}(p) = 0$ and when When $p=0, P_a(p) = 0 \text{ which implies }\mathrm{AOQ}(p) = 0$. Thus the AOQ has a maximum at some value of \(p\) between 0 and 1, which is termed as the \textbf{Average Outgoing Quality Limit (AOQL)}.
-%
-%
-%  \item \textbf{Average Total Inspection (ATI)}
-%
-%  \medskip
-%
-%  The \textit{Average Total Inspection} is the expected number of units inspected per lot as a function of the actual defect rate \(p\). It accounts for both accepted and rejected lots:
-%  \[
-%  \mathrm{ATI}(p) = n + \left[1 - P_a(p)\right](N - n)
-%  \]
-%  where \(n\) is the sample size, \(N\) is the lot size and \(P_a(p)\) is the probability of accepting the lot. This expression reflects that:
-%  \begin{itemize}
-%    \item With probability \(P_a(p)\), only the sample of size \(n\) is inspected.
-%    \item With probability \(1 - P_a(p)\), the entire lot of size \(N\) is inspected (including the initial sample).
-%  \end{itemize}
-%  The ATI curve helps assess inspection workload across varying levels of lot quality.
-%
-%  \item \textbf{Average Screening Inspection (ASI)}
-%
-%  \medskip
-%
-%  The \textit{Average Screening Inspection} represents the expected number of units that must undergo 100\% inspection beyond the initial sample, and is given by:
-%  \[
-%  \mathrm{ASI}(p) = \left[1 - P_a(p)\right](N - n)
-%  \]
-%  This measures the additional inspection effort required when a lot is rejected. ASI is always zero for accepted lots and increases with the likelihood of rejection.
-%\end{itemize}
-%
-%\begin{figure}[H]
-%  \centering
-%  \begin{subfigure}[b]{0.48\textwidth}
-%    \centering
-%    \begin{tikzpicture}
-%      \begin{axis}[
-%          width=0.9\textwidth,
-%          height=6cm,
-%          xlabel={Fraction Defective ($p$)},
-%          ylabel={AOQ($p$)},
-%          xmin=0, xmax=0.10,
-%          ymin=0, ymax=0.03,
-%          xtick={0.00,0.02,0.04,0.06,0.08,0.10},
-%          xticklabels={0.00,0.02,0.04,0.06,0.08,0.10},
-%          ytick={0.00,0.01,0.02,0.03},
-%          yticklabels={0.00,0.01,0.02,0.03},
-%          thick,
-%          axis lines=left
-%        ]
-%        \addplot[very thick,smooth,blue,mark=*] coordinates {
-%          (0.00,0.000000)
-%          (0.02,0.019193)
-%          (0.04,0.024639)
-%          (0.06,0.013980)
-%          (0.08,0.004759)
-%          (0.10,0.001143)
-%        };
-%        \addlegendentry{AOQ}
-%      \end{axis}
-%    \end{tikzpicture}
-%    \caption{Average Outgoing Quality (AOQ)}
-%    \label{fig:aoq}
-%  \end{subfigure}
-%  \hspace{0.01\textwidth}
-%  \begin{subfigure}[b]{0.48\textwidth}
-%    \centering
-%    \begin{tikzpicture}
-%      \begin{axis}[
-%          width=0.9\textwidth,
-%          height=6cm,
-%          xlabel={Fraction Defective ($p$)},
-%          ylabel={ATI($p$)},
-%          xmin=0, xmax=0.10,
-%          ymin=120, ymax=1000,
-%          xtick={0.00,0.02,0.04,0.06,0.08,0.10},
-%          xticklabels={0.00,0.02,0.04,0.06,0.08,0.10},
-%          ytick={125,200,400,600,800,1000},
-%          yticklabels={125,200,400,600,800,1000},
-%          thick,
-%          axis lines=left,
-%          legend pos=north west,
-%        ]
-%        \addplot[very thick,smooth,blue,mark=*] coordinates {
-%          (0.00,125.0)
-%          (0.02,160.3)
-%          (0.04,461.0)
-%          (0.06,796.1)
-%          (0.08,948.0)
-%          (0.10,990.0)
-%        };
-%        \addlegendentry{ATI}
-%      \end{axis}
-%    \end{tikzpicture}
-%    \caption{Average Total Inspection (ATI)}
-%    \label{fig:ati}
-%  \end{subfigure}
-%  \caption{\textit{(a) AOQ and (b) ATI curves for plan $(N=1000,\;n=125,\;c=5)$.}}
-%  \label{fig:aoq_ati}
-%\end{figure}
-%
-%
-%Figure~\ref{fig:aoq_ati} shows the \textbf{Average Outgoing Quality (AOQ)} and \textbf{Average Total Inspection (ATI)} as functions of the incoming fraction defective \(p\) for the sampling plan \((N = 1000,\; n = 125,\; c = 5)\).
-%
-%\begin{itemize}
-%  \item \textbf{AOQ Curve:} The AOQ curve initially increases with \(p\), reaches a maximum value (known as the \textbf{Average Outgoing Quality Limit (AOQL)}), and then decreases as more lots are rejected and subject to rectification. This behavior occurs because, at low values of \(p\), most lots are accepted and some defectives pass through. As \(p\) increases, more lots are rejected and corrected, lowering the average defectives that leave the system.
-%
-%  \item \textbf{ATI Curve:} The ATI curve represents the average number of units inspected per lot. At low defect levels (\(p \approx 0\)), most lots are accepted, so only the initial sample size (\(n = 125\)) is inspected. As \(p\) increases, more lots are rejected and require full inspection of all \(N = 1000\) units, causing ATI to rise toward the maximum value. The curve reflects this transition from minimal to extensive inspection as quality deteriorates.
-%\end{itemize}
-%
-%Together, these plots provide insight into the effectiveness and inspection burden of a given sampling plan under varying quality conditions.
-%
-%
-%\subsubsection*{Example}
-%
-%Suppose $N = 1000$, $(n,c) = (125,5)$, and the true defect rate is $p=0.02$.  Then
-%\[
-%P_a(0.02)
-%= \sum_{i=0}^{5} \binom{125}{i}(0.02)^i(0.98)^{125 - i}
-%\approx 0.95.
-%\]
-%Thus
-%\[
-%\mathrm{ATI}(0.02)
-%=125 + (1 - 0.95)\times(1000 - 125)
-%=125 + 0.05\times875
-%\approx168.75,
-%\]
-%and
-%\[
-%\mathrm{ASI}(0.02)
-%=0.05 \times875
-%\approx43.75.
-%\]
-%
-%---
 
 \subsection{Double Sampling Plan}
 
@@ -18416,9 +18222,9 @@ Accelerated life testing (ALT) subjects products to elevated stress conditions t
 
 Common acceleration models include:
 \begin{itemize}
-\item \textbf{Arrhenius model}: For temperature acceleration
-\item \textbf{Power law model}: For mechanical stress
-\item \textbf{Eyring model}: For multiple stress factors
+\item \textbf{Arrhenius model}: For temperature acceleration.
+\item \textbf{Power law model}: For mechanical stress.
+\item \textbf{Eyring model}: For multiple stress factors.
 \end{itemize}
 
 \end{document}
