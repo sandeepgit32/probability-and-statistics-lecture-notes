@@ -4299,7 +4299,7 @@ So, the expected lifetime of a randomly chosen bulb is $2300$ hours.
 % Thus, the expected value of \(X\) is \(\frac{1}{4}\).
 
 
-\section{Functions of a Random Variable}
+\section{Transformation of a Random Variable}
 
 In many practical scenarios, we are interested not just in a random variable $X$, but in some transformation or {function} of $X$, such as $Y = g(X)$. $Y$ is also a random variable. Understanding how the distribution of $X$ affects the distribution of $Y$ is a key part of probability theory.
 
@@ -4496,15 +4496,15 @@ Let \(X\) be a random variable with mean \(\mu = \mathbb{E}(X)\) and variance \(
 
 By construction, \(X^*\) has
 \[
-  \text{Mean} = \mathbb{E}[X^*]
-  = \mathbb{E}\!\biggl[\frac{X - \mu}{\sigma}\biggr]
+  \text{Mean} = \mathbb{E}\left( X^*\right) 
+  = \mathbb{E}\left( \frac{X - \mu}{\sigma}\right) 
   = \frac{\mathbb{E}(X) - \mu}{\sigma}
   = 0,
 \]
 and
 \[
   \text{Variance} = \mathrm{Var}(X^*)
-  = \mathrm{Var}\!\biggl(\frac{X - \mu}{\sigma}\biggr)
+  = \mathrm{Var}\biggl(\frac{X - \mu}{\sigma}\biggr)
   = \frac{1}{\sigma^2}\,\mathrm{Var}(X)
   = 1
 \]
@@ -4813,6 +4813,55 @@ Thus,
     \mu'_k = \left. \frac{d^k}{dt^k} M_X(t) \right|_{t=0}
 \end{align*}
 \hfill\(\blacksquare\)
+
+A basic property relates the moment generating function of $ a + bX $ to that of $ X $.
+\begin{textbox}
+\textbf{Theorem:} Let $X$ be a random variable with moment generating function $M_X(t)$, and let $a$ and $b$ be constants. Then the moment generating function of $Y = a + bX$ is given by:
+\[
+M_Y(t) = e^{at} \cdot M_X(bt)
+\]
+\end{textbox}
+
+\textbf{Proof:} Let $Y = a + bX$. The moment generating function of $Y$ is defined as:
+\begin{align*}
+M_Y(t) &= \mathbb{E}\left( e^{tY}\right) = \mathbb{E}\left( e^{t(a + bX)}\right) \\
+&=\mathbb{E}\left( e^{at}\cdot e^{btX}\right) =e^{at}\cdot\mathbb{E}\left(  e^{btX}\right)  \\
+&= e^{at}\cdot M_X(bt)
+\end{align*}
+\hfill $\blacksquare$
+
+One of most useful properties of moment generating functions is a multiplication property for independent random variables.
+\begin{textbox}
+\textbf{Theorem:} Let $X$ and $Y$ be independent random variables with moment generating functions $M_X(t)$ and $M_Y(t)$, respectively. Then the moment generating function of $Z = X + Y$ is given by:
+\[
+M_Z(t) = M_X(t) \cdot M_Y(t)
+\]
+\end{textbox}
+
+\textbf{Proof:} Let $Z = X + Y$. The moment generating function of $Z$ is defined as:
+\begin{align*}
+M_Z(t) &= \mathbb{E}\left( e^{tZ} \right) = \mathbb{E}\left( e^{t(X + Y)} \right) \\
+&= \mathbb{E}\left( e^{tX} \cdot e^{tY} \right)
+\end{align*}
+
+Since $X$ and $Y$ are independent, the expectation of the product is the product of the expectations:
+\[
+\mathbb{E}\left( e^{tX} \cdot e^{tY} \right) = \mathbb{E}\left( e^{tX} \right) \cdot \mathbb{E}\left( e^{tY} \right)
+\]
+
+Thus:
+\[
+M_Z(t) = M_X(t) \cdot M_Y(t)
+\]
+\hfill $\blacksquare$
+
+This can be extended to more than two independent random variables as well:
+\begin{textbox}
+\textbf{Theorem:} Let $X_1, X_2, \ldots, X_n$ be independent random variables with moment generating functions $M_{X_1}(t), M_{X_2}(t), \ldots, M_{X_n}(t)$, respectively. Then the moment generating function of the sum $S_n = X_1 + X_2 + \cdots + X_n$ is:
+\[
+M_{S_n}(t) = M_{X_1}(t) \cdot M_{X_2}(t) \cdots M_{X_n}(t) = \prod_{i=1}^n M_{X_i}(t)
+\]
+\end{textbox}
 
 
 \chapter{Common Distributions}
@@ -6334,6 +6383,304 @@ P(-z_{\alpha/2} \le Z \le z_{\alpha/2}) \;=\; 1 - \alpha
 \end{itemize}
 
 These critical points help us identify how extreme a value is relative to the overall distribution, and they are fundamental when constructing intervals to estimate population parameters. These critical points are used in hypothesis tests and to construct confidence intervals which we will see in future chapters.
+
+
+\section{$\chi^2$, $t$, and $F$ Distributions}
+When working with samples from normal populations, several important probability distributions naturally emerge. These distributions form the theoretical foundation for statistical inference procedures such as confidence intervals and hypothesis testing. In this section, we dexamine three fundamental distributions: the $\chi$-square distribution, the Student's $ t $-distribution, and the $F$-distribution.
+
+\subsection{The Chi-Square Distribution}
+
+\subsubsection{Definition and Derivation}
+
+The chi-square distribution arises when we consider the sum of squares of independent standard normal random variables.
+
+\begin{textbox}
+\textbf{Theorem:} Let $Z_1, Z_2, \ldots, Z_n$ be independent random variables, each following the standard normal distribution $\mathcal{N}(0,1)$. Then the random variable
+$$Y = Z_1^2 + Z_2^2 + \cdots + Z_n^2 = \sum_{i=1}^{n} Z_i^2$$
+follows a chi-square distribution with $n$ degrees of freedom, denoted by $Y \sim \chi^2(n)$.
+\end{textbox}
+
+To derive the probability density function, we begin with the case $n = 1$.
+
+\begin{textbox}
+\textbf{Theorem:} If $Z \sim \mathcal{N}(0,1)$, then $Y = Z^2$ has the probability density function
+$$f_Y(y) = \frac{1}{\sqrt{2\pi y}} e^{-y/2}, \quad y > 0$$
+\end{textbox}
+
+\textbf{Proof:} Let $Y = Z^2$ where $Z \sim \mathcal{N}(0,1)$. Using the transformation method, we have:
+$$P(Y \leq y) = P(Z^2 \leq y) = P(-\sqrt{y} \leq Z \leq \sqrt{y})$$
+
+For $y > 0$:
+\begin{align*}
+F_Y(y) &= \int_{-\sqrt{y}}^{\sqrt{y}} \frac{1}{\sqrt{2\pi}} e^{-z^2/2} dz\\
+&= 2\int_{0}^{\sqrt{y}} \frac{1}{\sqrt{2\pi}} e^{-z^2/2} dz
+\end{align*}
+
+Taking the derivative with respect to $y$:
+\begin{align*}
+f_Y(y) &= \frac{d}{dy} F_Y(y)\\
+&= 2 \cdot \frac{1}{\sqrt{2\pi}} e^{-y/2} \cdot \frac{1}{2\sqrt{y}}\\
+&= \frac{1}{\sqrt{2\pi y}} e^{-y/2}
+\end{align*}
+\hfill $\blacksquare$
+
+
+For the general case of $n$ degrees of freedom, we can write the following statement about the PDF for the $\chi^2$: distribution:
+
+\begin{textbox}
+The probability density function of $X \sim \chi^2(n)$ is
+$$f_X(x) = \frac{1}{2^{n/2}\Gamma(n/2)} x^{n/2-1} e^{-x/2}, \quad x > 0$$
+where $\Gamma(\cdot)$ is the gamma function.
+\end{textbox}
+
+The detailed derivation of this formula is skipped as it is outside the scope of the text.
+
+%\textbf{Proof:} The moment generating function of $Z^2$ where $Z \sim \mathcal{N}(0,1)$ is:
+%\begin{align*}
+%M_{Z^2}(t) &= E\left( e^{tZ^2}\right)  = \int_{-\infty}^{\infty} e^{tz^2} \frac{1}{\sqrt{2\pi}} e^{-z^2/2} dz \\
+%&= \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-z^2\left(\frac{1}{2} - t\right)} \, dz
+%\end{align*}
+%
+%We now simplify the exponent by assuming $\alpha = \frac{1}{2} - t$, so $\alpha > 0 \text{ when } t < \dfrac{1}{2}$. Then
+%\[
+%M_{Z^2}(t) = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-\alpha z^2} \, dz
+%\]
+%
+%We recognize this as a Gaussian integral with variance \( \sigma^2 = \frac{1}{2\alpha} \). The general result is:
+%\[
+%\int_{-\infty}^{\infty} e^{-\beta z^2} \, dz = \sqrt{\frac{\pi}{\beta}}, \quad \text{for } \beta > 0
+%\]
+%
+%So:
+%\begin{align*}
+%M_{Z^2}(t) &= \frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{\pi}{\alpha}} = \frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{\pi}{\frac{1}{2} - t}} \\
+%&=\frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{\pi}{\frac{1 - 2t}{2}}} = \frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{2\pi}{1 - 2t}} \\
+%&= (1 - 2t)^{-1/2}
+%\end{align*}
+%Therefore,
+%\[
+%M_{Z^2}(t) = (1 - 2t)^{-1/2}, \quad \text{for } t < \frac{1}{2}
+%\]
+%
+%Now for the variabvle $X = Z_1^2 + Z_2^2 + \cdots + Z_n^2$ each following $\mathcal{N}(0,1)$ distribution:
+%$$M_X(t) = \left( M_{Z_1^2}(t)\cdot M_{Z_2^2}(t) \dots M_{Z_n^2}(t)\right)^n = (1-2t)^{-n/2}$$
+%
+%This is the moment generating function of a distribution with density:
+%$$f_X(x) = \frac{1}{2^{n/2}\Gamma(n/2)} x^{n/2-1} e^{-x/2}$$
+%\hfill $\blacksquare$
+
+\begin{textbox}
+\textbf{Theorem:} Let \( X \sim \chi^2(n) \). Then the moment generating function of \( X \), defined by is given by
+\[
+M_X(t) = (1 - 2t)^{-n/2}, \quad \text{for } t < \frac{1}{2}
+\]
+\end{textbox}
+
+\textbf{Proof:} By definition of the moment generating function:
+\[
+M_X(t) = \mathbb{E}\left( e^{tX}\right)  = \int_0^\infty e^{tx} f_X(x) \, dx
+\]
+
+\begin{align*}
+M_X(t) &= \int_0^\infty e^{tx} \cdot \frac{1}{2^{n/2} \Gamma(n/2)} x^{n/2 - 1} e^{-x/2} \, dx\\
+&= \frac{1}{2^{n/2} \Gamma(n/2)} \int_0^\infty x^{n/2 - 1} e^{-x(1/2 - t)} \, dx
+\end{align*}
+
+
+This integral converges for \( t < \frac{1}{2} \). Recognizing the integral as the gamma integral:
+\[
+\int_0^\infty x^{a - 1} e^{-bx} \, dx = \dfrac{\Gamma(a)}{b^a}, \quad \text{for } a > 0,\, b > 0,
+\]
+
+we identify \( a = \dfrac{n}{2} \), \( b = \dfrac{1}{2} - t \), giving:
+\begin{align*}
+M_X(t) &= \dfrac{1}{2^{n/2} \Gamma(n/2)} \cdot \dfrac{\Gamma(n/2)}{(1/2 - t)^{n/2}}\\
+&= \dfrac{1}{2^{n/2}} \cdot \frac{1}{(1/2 - t)^{n/2}} = \left( \frac{1}{2(1/2 - t)} \right)^{n/2}\\
+&=\dfrac{1}{(1 - 2t)^{-n/2}}
+\end{align*}
+
+Therefore:
+\[
+M_X(t) = (1 - 2t)^{-n/2}, \quad \text{for } t < \frac{1}{2}
+\]
+\hfill $\blacksquare$
+
+
+\subsubsection{Properties of the Chi-Square Distribution}
+
+\begin{textbox}
+If $X \sim \chi^2(n)$, then:
+\begin{enumerate}
+\item $E[X] = n$
+\item $\text{Var}(X) = 2n$
+\item The mode is $n-2$ for $n \geq 2$
+\end{enumerate}
+\end{textbox}
+
+\textbf{Proof:} Using the moment generating function $M_X(t) = (1-2t)^{-n/2}$:
+
+For the mean:
+$$E[X] = M_X'(0) = \left.\frac{d}{dt}(1-2t)^{-n/2}\right|_{t=0} = n$$
+
+For the second moment:
+$$E[X^2] = M_X''(0) = n(n+2)$$
+
+Therefore:
+$$\text{Var}(X) = E[X^2] - (E[X])^2 = n(n+2) - n^2 = 2n$$
+
+The mode is found by setting $f'_X(x) = 0$, which yields $x = n-2$ for $n \geq 2$.
+
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+    xlabel={$x$},
+    ylabel={$f(x)$},
+    domain=0:15,
+    samples=200,
+    grid=major,
+    legend pos=north east,
+    width=12cm,
+    height=8cm
+]
+\addplot[blue, thick] {(x^(1/2-1)*exp(-x/2))/(2^(1/2)*1.77245)};
+\addplot[red, thick] {(x^(5/2-1)*exp(-x/2))/(2^(5/2)*11.6317)};
+\addplot[green, thick] {(x^(10/2-1)*exp(-x/2))/(2^(10/2)*120)};
+\legend{$\chi^2(1)$, $\chi^2(5)$, $\chi^2(10)$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsection{The Student's $t$-Distribution}
+
+\subsubsection{Definition and Derivation}
+
+The $t$-distribution arises when we standardize the sample mean using the sample standard deviation instead of the known population standard deviation.
+
+\begin{textbox}
+Let $Z \sim N(0,1)$ and $V \sim \chi^2(\nu)$ be independent random variables. Then the random variable
+$$T = \frac{Z}{\sqrt{V/\nu}}$$
+follows a Student's t-distribution with $\nu$ degrees of freedom, denoted $T \sim t(\nu)$.
+\end{textbox}
+
+\begin{textbox}
+The probability density function of $T \sim t(\nu)$ is
+$$f_T(t) = \frac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\Gamma(\nu/2)} \left(1 + \frac{t^2}{\nu}\right)^{-(\nu+1)/2}, \quad -\infty < t < \infty$$
+\end{textbox}
+
+\textbf{Proof:} Let $Z \sim N(0,1)$ and $V \sim \chi^2(\nu)$ be independent. We want to find the density of $T = Z/\sqrt{V/\nu}$.
+
+The joint density of $(Z,V)$ is:
+$$f_{Z,V}(z,v) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2} \cdot \frac{1}{2^{\nu/2}\Gamma(\nu/2)} v^{\nu/2-1} e^{-v/2}$$
+
+Using the transformation $T = Z/\sqrt{V/\nu}$ and $W = V$, we have $Z = T\sqrt{W/\nu}$ and $V = W$.
+
+The Jacobian of this transformation is $|J| = \sqrt{W/\nu}$.
+
+The joint density of $(T,W)$ is:
+$$f_{T,W}(t,w) = \frac{1}{\sqrt{2\pi}} e^{-t^2w/(2\nu)} \cdot \frac{1}{2^{\nu/2}\Gamma(\nu/2)} w^{\nu/2-1} e^{-w/2} \cdot \sqrt{\frac{w}{\nu}}$$
+
+Integrating out $w$:
+\begin{align*}
+f_T(t) &= \int_0^{\infty} f_{T,W}(t,w) dw\\
+&= \frac{1}{\sqrt{2\pi\nu}} \cdot \frac{1}{2^{\nu/2}\Gamma(\nu/2)} \int_0^{\infty} w^{(\nu+1)/2-1} e^{-w(1+t^2/\nu)/2} dw
+\end{align*}
+
+Using the integral representation of the gamma function:
+$$\int_0^{\infty} w^{a-1} e^{-bw} dw = \frac{\Gamma(a)}{b^a}$$
+
+We get:
+\begin{align*}
+f_T(t) &= \frac{1}{\sqrt{2\pi\nu}} \cdot \frac{1}{2^{\nu/2}\Gamma(\nu/2)} \cdot \frac{\Gamma((\nu+1)/2)}{(1+t^2/\nu)^{(\nu+1)/2} \cdot 2^{(\nu+1)/2}}\\
+&= \frac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\Gamma(\nu/2)} \left(1 + \frac{t^2}{\nu}\right)^{-(\nu+1)/2}
+\end{align*}
+
+
+\subsubsection{Properties of the t-Distribution}
+
+\begin{textbox}
+If $T \sim t(\nu)$, then:
+\begin{enumerate}
+\item $E[T] = 0$ for $\nu > 1$
+\item $\text{Var}(T) = \frac{\nu}{\nu-2}$ for $\nu > 2$
+\item As $\nu \to \infty$, the t-distribution converges to the standard normal distribution
+\end{enumerate}
+\end{textbox}
+
+\textbf{Proof:} The symmetry of the density function around zero immediately gives $E[T] = 0$ when the expectation exists.
+
+For the variance, using integration by parts and properties of the gamma function:
+$$\text{Var}(T) = E[T^2] = \int_{-\infty}^{\infty} t^2 f_T(t) dt = \frac{\nu}{\nu-2}$$ for $\nu > 2$.
+
+The convergence to the standard normal follows from examining the limit:
+$$\lim_{\nu \to \infty} \left(1 + \frac{t^2}{\nu}\right)^{-(\nu+1)/2} = e^{-t^2/2}$$
+
+
+\subsection{The F-Distribution}
+
+\subsubsection{Definition and Derivation}
+
+The F-distribution arises when comparing variances of two normal populations or in analysis of variance.
+
+\begin{textbox}
+Let $U \sim \chi^2(\nu_1)$ and $V \sim \chi^2(\nu_2)$ be independent chi-square random variables. Then the random variable
+$$F = \frac{U/\nu_1}{V/\nu_2}$$
+follows an F-distribution with $\nu_1$ and $\nu_2$ degrees of freedom, denoted $F \sim F(\nu_1, \nu_2)$.
+\end{textbox}
+
+\begin{textbox}
+The probability density function of $F \sim F(\nu_1, \nu_2)$ is
+$$f_F(x) = \frac{\Gamma((\nu_1+\nu_2)/2)}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} \frac{x^{\nu_1/2-1}}{(1+\nu_1 x/\nu_2)^{(\nu_1+\nu_2)/2}}, \quad x > 0$$
+\end{textbox}
+
+\textbf{Proof:} Let $U \sim \chi^2(\nu_1)$ and $V \sim \chi^2(\nu_2)$ be independent. We seek the density of $F = (U/\nu_1)/(V/\nu_2)$.
+
+The joint density of $(U,V)$ is:
+$$f_{U,V}(u,v) = \frac{1}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} u^{\nu_1/2-1} v^{\nu_2/2-1} e^{-(u+v)/2}$$
+
+Using the transformation $F = (U/\nu_1)/(V/\nu_2)$ and $W = V$, we have:
+$$U = F \cdot \frac{\nu_1 W}{\nu_2}, \quad V = W$$
+
+The Jacobian is $|J| = \frac{\nu_1 W}{\nu_2}$.
+
+The joint density of $(F,W)$ becomes:
+$$f_{F,W}(f,w) = \frac{1}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \left(\frac{\nu_1 f w}{\nu_2}\right)^{\nu_1/2-1} w^{\nu_2/2-1} e^{-w(1+\nu_1 f/\nu_2)/2} \cdot \frac{\nu_1 w}{\nu_2}$$
+
+Simplifying:
+$$f_{F,W}(f,w) = \frac{\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} f^{\nu_1/2-1}}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} w^{(\nu_1+\nu_2)/2-1} e^{-w(1+\nu_1 f/\nu_2)/2}$$
+
+Integrating out $w$:
+\begin{align*}
+f_F(f) &= \int_0^{\infty} f_{F,W}(f,w) dw\\
+&= \frac{\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} f^{\nu_1/2-1}}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \int_0^{\infty} w^{(\nu_1+\nu_2)/2-1} e^{-w(1+\nu_1 f/\nu_2)/2} dw
+\end{align*}
+
+Using the gamma function integral:
+$$f_F(f) = \frac{\Gamma((\nu_1+\nu_2)/2)}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} \frac{f^{\nu_1/2-1}}{(1+\nu_1 f/\nu_2)^{(\nu_1+\nu_2)/2}}$$
+
+
+\subsubsection{Properties of the F-Distribution}
+
+\begin{textbox}
+If $F \sim F(\nu_1, \nu_2)$, then:
+\begin{enumerate}
+\item $E[F] = \frac{\nu_2}{\nu_2-2}$ for $\nu_2 > 2$
+\item $\text{Var}(F) = \frac{2\nu_2^2(\nu_1+\nu_2-2)}{\nu_1(\nu_2-2)^2(\nu_2-4)}$ for $\nu_2 > 4$
+\item If $F \sim F(\nu_1, \nu_2)$, then $1/F \sim F(\nu_2, \nu_1)$
+\end{enumerate}
+\end{textbox}
+
+\begin{textbox}
+If $T \sim t(\nu)$, then $T^2 \sim F(1, \nu)$.
+\end{textbox}
+
+\textbf{Proof:} Let $T = Z/\sqrt{V/\nu}$ where $Z \sim N(0,1)$ and $V \sim \chi^2(\nu)$ are independent.
+
+Then:
+$$T^2 = \frac{Z^2}{V/\nu} = \frac{Z^2/1}{V/\nu}$$
+
+Since $Z^2 \sim \chi^2(1)$, we have $T^2 \sim F(1, \nu)$ by definition.
+
 
 \chapter{Sampling Theory}
 \section{Introduction}
