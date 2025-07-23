@@ -4543,7 +4543,7 @@ f_{U,V}(u,v) = f_{X,Y}\big(h_1(u,v), h_2(u,v)\big) \cdot |J|
 where $J$ is the \textbf{Jacobian} of the transformation:
 \[
 J = \dfrac{\partial(x, y)}{\partial(u, v)} = \begin{vmatrix}
-\dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\
+\dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\[0.6em]
 \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v}
 \end{vmatrix} = \dfrac{\partial x}{\partial u}\dfrac{\partial y}{\partial v} - \dfrac{\partial x}{\partial v}\dfrac{\partial y}{\partial u}
 \]
@@ -4567,7 +4567,7 @@ this rectangle maps to a region $S$ in the $(x, y)$ plane. We want to understand
 
         % Rectangle R
         \fill[blue!20, opacity=0.7] (1.5,1) rectangle (2.5,2);
-        \draw[blue, thick] (1.5,1) rectangle (2.5,2);
+        \draw[black, thick] (1.5,1) rectangle (2.5,2);
 
         % Rectangle label
         \node[black, font=\large\bfseries] at (2,1.5) {$R$};
@@ -4600,7 +4600,7 @@ this rectangle maps to a region $S$ in the $(x, y)$ plane. We want to understand
         \coordinate (D) at (1.5,2.0);
 
         \fill[green!20, opacity=0.7] (A) -- (B) -- (C) -- (D) -- cycle;
-        \draw[green, thick] (A) -- (B) -- (C) -- (D) -- cycle;
+        \draw[black, thick] (A) -- (B) -- (C) -- (D) -- cycle;
 
         % Region label
         \node[black, font=\large\bfseries] at (2.1,1.55) {$S$};
@@ -4633,7 +4633,7 @@ The infinitisimal changes $\Delta u$ and $\Delta v$, which constitutte the sides
 These two vectors form a parallelogram in the $(u,v)$ plane. The area of that parallelogram is:
 \begin{align*}
 \text{Area} &= |\vec{A} \times \vec{B}| \approx \left|\begin{vmatrix}
-\dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\
+\dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\[0.6em]
 \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v}
 \end{vmatrix}\right| \cdot \Delta u \Delta v = \left| \dfrac{\partial(x, y)}{\partial(u, v)} \right| \cdot \Delta u \Delta v = \left| J \right| \cdot \Delta u \Delta v
 \end{align*}
@@ -4674,14 +4674,14 @@ Let $(X,Y)$ have joint PDF $f_{X,Y}(x,y) = 1$ for $0 \leq x \leq 1, 0 \leq y \le
 
 The inverse transformation is:
 \begin{align*}
-x &= \dfrac{u + v}{2} \\
-y &= \dfrac{u - v}{2}
+X &= \dfrac{U + V}{2} \\
+Y &= \dfrac{U - V}{2}
 \end{align*}
 
 The Jacobian is:
 \[
 J = \begin{vmatrix}
-\dfrac{1}{2} & \dfrac{1}{2} \\
+\dfrac{1}{2} & \dfrac{1}{2} \\[0.6em]
 \dfrac{1}{2} & -\dfrac{1}{2}
 \end{vmatrix} = \dfrac{1}{2} \cdot \left(-\dfrac{1}{2}\right) - \dfrac{1}{2} \cdot \dfrac{1}{2} = -\dfrac{1}{2}
 \]
