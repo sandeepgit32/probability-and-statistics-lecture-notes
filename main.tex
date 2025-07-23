@@ -4513,11 +4513,13 @@ That is, for each possible pair $(u,v)$, sum the joint probabilities of all pair
 Let $(X,Y)$ be independent discrete uniform random variables on $\{1,2,3\}$, so $$P(X=i, Y=j) = \dfrac{1}{9} \text{ for } i,j \in \{1,2,3\}$$
 Define transformation: $$ U = X + Y, \quad V = X - Y $$
 
-For $(u,v) = (3,1)$, we need $(x,y)$ such that $x + y = 3$ and $x - y = 1$. Solving: $x = 2, y = 1$.
+\begin{itemize}
+\item For $(u,v) = (3,1)$, we need $(x,y)$ such that $x + y = 3$ and $x - y = 1$. Solving: $x = 2, y = 1$.
 Thus: $p_{U,V}(3,1) = p_{X,Y}(2,1) = \dfrac{1}{9}$.
 
-For $(u,v) = (4,0)$, we need $x + y = 4$ and $x - y = 0$, giving $x = y = 2$.
+\item For $(u,v) = (4,0)$, we need $x + y = 4$ and $x - y = 0$, giving $x = y = 2$.
 Thus: $p_{U,V}(4,0) = p_{X,Y}(2,2) = \dfrac{1}{9}$.
+\end{itemize}
 
 \subsection{Continuous Case}
 
@@ -4538,7 +4540,7 @@ then the joint PDF of $(U,V)$ is:
 \[
 f_{U,V}(u,v) = f_{X,Y}\big(h_1(u,v), h_2(u,v)\big) \cdot |J|
 \]
-where $J$ is the Jacobian of the transformation:
+where $J$ is the \textbf{Jacobian} of the transformation:
 \[
 J = \dfrac{\partial(x, y)}{\partial(u, v)} = \begin{vmatrix}
 \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\
@@ -4547,12 +4549,11 @@ J = \dfrac{\partial(x, y)}{\partial(u, v)} = \begin{vmatrix}
 \]
 \end{textbox}
 
-The Jacobian $|J|$ represents the factor by which areas are scaled under the transformation, ensuring that the total probability is preserved.
-
 \textbf{Proof}: Consider a small rectangle $R$ in the $(u, v)$ plane with area $\Delta u \Delta v$. Under the inverse transformation
 \[
 x = h_1(u, v), \quad y = h_2(u, v)
 \]
+
 this rectangle maps to a region $S$ in the $(x, y)$ plane. We want to understand how the area element transforms under this change of variables.
 
 \begin{figure}[H]
@@ -4615,53 +4616,55 @@ this rectangle maps to a region $S$ in the $(x, y)$ plane. We want to understand
 \caption{\textit{Transformation from $(u,v)$ plane to $(x,y)$ plane.}}
 \end{figure}
 
-For small changes $\Delta u$ and $\Delta v$, the sides of rectangle $R$ map to the following vectors in the $(x, y)$ plane:
+The infinitisimal changes $\Delta u$ and $\Delta v$, which constitutte the sides of rectangle $R$ in the $(u, v)$ plane map to the following displacement vectors in the $(x, y)$ plane:
 
 \begin{itemize}
-  \item When $v$ is fixed and $u$ increases by $\Delta u$, the displacement is approximately:
+  \item When $v$ is fixed and $u$ increases by $\Delta u$, the displacement vector is approximately:
   \[
-  \left( \dfrac{\partial x}{\partial u} \Delta u, \dfrac{\partial y}{\partial u} \Delta u \right)
+  \vec{A} \approx \left( \dfrac{\partial x}{\partial u} \Delta u, \dfrac{\partial y}{\partial u} \Delta u \right)
   \]
 
-  \item When $u$ is fixed and $v$ increases by $\Delta v$, the displacement is approximately:
+  \item When $u$ is fixed and $v$ increases by $\Delta v$, the displacement vector is approximately:
   \[
-  \left( \dfrac{\partial x}{\partial v} \Delta v, \dfrac{\partial y}{\partial v} \Delta v \right)
+  \vec{B} \approx \left( \dfrac{\partial x}{\partial v} \Delta v, \dfrac{\partial y}{\partial v} \Delta v \right)
   \]
 \end{itemize}
 
-These two displacements in the $(u,v)$ plane define two vectors:
+These two vectors form a parallelogram in the $(u,v)$ plane. The area of that parallelogram is:
 \begin{align*}
-\vec{A} = \left( \dfrac{\partial x}{\partial u} \Delta u, \dfrac{\partial y}{\partial u} \Delta u \right),\quad \vec{B} = \left( \dfrac{\partial x}{\partial v} \Delta v, \dfrac{\partial y}{\partial v} \Delta v \right)
-\end{align*}
-
-These form a parallelogram in the $(u,v)$ plane. The area of that parallelogram is:
-\begin{align*}
-\text{Area} &= |\vec{A} \times \vec{B}| = \left|\begin{vmatrix}
+\text{Area} &= |\vec{A} \times \vec{B}| \approx \left|\begin{vmatrix}
 \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\
 \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v}
-\end{vmatrix}\right| \cdot \Delta u \Delta v = \left| \dfrac{\partial(x, y)}{\partial(u, v)} \right| \cdot \Delta u \Delta v
+\end{vmatrix}\right| \cdot \Delta u \Delta v = \left| \dfrac{\partial(x, y)}{\partial(u, v)} \right| \cdot \Delta u \Delta v = \left| J \right| \cdot \Delta u \Delta v
 \end{align*}
 
 
 Therefore, we have:
 \[
-dx\,dy \approx \left| \frac{\partial(x, y)}{\partial(u, v)} \right| du\,dv
+dx\,dy \approx \left| \frac{\partial(x, y)}{\partial(u, v)} \right| du\,dv = \left| J \right| \cdot du\,dv
 \]
 
-Or equivalently, taking the inverse transformation:
-\[
-du\,dv = \left| \frac{\partial(u, v)}{\partial(x, y)} \right| dx\,dy
-\]
+%Or equivalently, taking the inverse transformation:
+%\[
+%du\,dv = \left| \frac{\partial(u, v)}{\partial(x, y)} \right| dx\,dy
+%\]
 
 The probability that $(U,V) \in R$ equals the probability that $(X,Y) \in S$:
 \begin{align*}
-P((U,V) \in R) &= \iint_R f_{U,V}(u,v) \, du \, dv \\
-&\approx f_{U,V}(u,v) \Delta u \Delta v \\
+P((U,V) \in R) &= \iint_R f_{U,V}(u,v) du\, dv \\
+&\approx f_{U,V}(u,v) \underbrace{\iint_R du\, dv}_{\text{Area of }R = \Delta u \Delta v} \\
+&= f_{U,V}(u,v) \Delta u \Delta v \\
 P((X,Y) \in S) &= \iint_S f_{X,Y}(x,y) \, dx \, dy \\
-&\approx f_{X,Y}(h_1(u,v), h_2(u,v)) \cdot |\Delta u \Delta v \cdot J|
+&\approx  f_{X,Y}(x,y) \underbrace{\iint_S dx \,dy}_{\text{Area of }S = |J|\cdot\Delta u \Delta v} \\
+&= f_{X,Y}(h_1(u,v), h_2(u,v)) \cdot |J|\cdot\Delta u \Delta v
 \end{align*}
 
-Setting these equal and simplifying gives the desired result.
+Setting these equal and simplifying gives the result:
+\[
+f_{U,V}(u,v) = f_{X,Y}\big(h_1(u,v), h_2(u,v)\big) \cdot |J|
+\]
+
+The Jacobian $|J|$ represents the factor by which areas are scaled under the transformation, ensuring that the total probability is preserved.
 
 \hfill$\blacksquare$
 
@@ -4671,21 +4674,19 @@ Let $(X,Y)$ have joint PDF $f_{X,Y}(x,y) = 1$ for $0 \leq x \leq 1, 0 \leq y \le
 
 The inverse transformation is:
 \begin{align*}
-x &= \frac{u + v}{2} \\
-y &= \frac{u - v}{2}
+x &= \dfrac{u + v}{2} \\
+y &= \dfrac{u - v}{2}
 \end{align*}
 
 The Jacobian is:
 \[
 J = \begin{vmatrix}
-\frac{1}{2} & \frac{1}{2} \\
-\frac{1}{2} & -\frac{1}{2}
-\end{vmatrix} = \frac{1}{2} \cdot \left(-\frac{1}{2}\right) - \frac{1}{2} \cdot \frac{1}{2} = -\frac{1}{2}
+\dfrac{1}{2} & \dfrac{1}{2} \\
+\dfrac{1}{2} & -\dfrac{1}{2}
+\end{vmatrix} = \dfrac{1}{2} \cdot \left(-\dfrac{1}{2}\right) - \dfrac{1}{2} \cdot \dfrac{1}{2} = -\dfrac{1}{2}
 \]
 
-So $|J| = \frac{1}{2}$.
-
-The domain transformation: $0 \leq x \leq 1, 0 \leq y \leq 1$ becomes:
+So $|J| = \dfrac{1}{2}$. The domain transformation: $0 \leq x \leq 1, 0 \leq y \leq 1$ becomes:
 \begin{align*}
 0 &\leq \frac{u+v}{2} \leq 1 \quad \Rightarrow \quad 0 \leq u+v \leq 2 \\
 0 &\leq \frac{u-v}{2} \leq 1 \quad \Rightarrow \quad 0 \leq u-v \leq 2
@@ -4696,6 +4697,7 @@ This defines a diamond-shaped region in the $(u,v)$ plane. The joint PDF of $(U,
 f_{U,V}(u,v) = f_{X,Y}\left(\frac{u+v}{2}, \frac{u-v}{2}\right) \cdot \frac{1}{2} = \frac{1}{2}
 \]
 for $(u,v)$ in the transformed domain.
+
 
 \subsubsection*{Many-to-One Transformation}
 
