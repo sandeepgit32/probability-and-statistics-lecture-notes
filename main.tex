@@ -150,7 +150,7 @@
 
     \end{tikzpicture}
 
-    {\fontsize{24pt}{28pt}\bfseries\scshape Probability and Statistics: An Introductory Course\par}
+    {\fontsize{24pt}{28pt}\bfseries\scshape An Introductory Course on Probability and Statistics\par}
     \vspace{1.2cm}
 
 
@@ -224,6 +224,8 @@
 %\maketitle
 
 \tableofcontents
+
+\mainmatter
 
 \chapter{Descriptive Statistics}
 
@@ -6647,435 +6649,6 @@ P(-z_{\alpha/2} \le Z \le z_{\alpha/2}) \;=\; 1 - \alpha
 These critical points help us identify how extreme a value is relative to the overall distribution, and they are fundamental when constructing intervals to estimate population parameters. These critical points are used in hypothesis tests and to construct confidence intervals which we will see in future chapters.
 
 
-\section{$\chi^2$, $t$, and $F$ Distributions}
-When working with samples from normal populations, several important probability distributions naturally emerge. These distributions form the theoretical foundation for statistical inference procedures such as confidence intervals and hypothesis testing. In this section, we dexamine three fundamental distributions: the $\chi^2$-distribution, the Student's $ t $-distribution, and the $F$-distribution.
-
-\subsection{The $\chi^2$ (Chi-Square) Distribution}
-
-The $\chi^2$ (chi-square) distribution arises when we consider the sum of squares of independent standard normal random variables. The chi-square distribution is not a single distribution but a family of distributions, each defined by its \textbf{degrees of freedom} ($ df $), which determine its shape and spread.
-
-\begin{textbox}
-\textbf{Theorem:} Let $Z_1, Z_2, \ldots, Z_{\nu}$ be independent random variables, each following the standard normal distribution $\mathcal{N}(0,1)$. Then the random variable
-$$Y = Z_1^2 + Z_2^2 + \cdots + Z_{\nu}^2 = \sum_{i=1}^{\nu} Z_i^2$$
-follows a chi-square distribution with $n$ degrees of freedom, denoted by $Y \sim \chi^2_{\nu}$.
-\end{textbox}
-
-\subsubsection{Probability Density Function}
-
-To derive the probability density function, we begin with the case ${\nu} = 1$.
-
-\begin{textbox}
-\textbf{The PDF of chi-square distribution for one degree of freedom:} If $Z \sim \mathcal{N}(0,1)$, then $Y = Z^2$ has the probability density function
-$$f_Y(y) = \frac{1}{\sqrt{2\pi y}} e^{-y/2}, \quad y > 0$$
-\end{textbox}
-
-\textbf{Proof:} Let $Y = Z^2$ where $Z \sim \mathcal{N}(0,1)$. Using the transformation method, we have:
-$$P(Y \leq y) = P(Z^2 \leq y) = P(-\sqrt{y} \leq Z \leq \sqrt{y})$$
-
-For $y > 0$:
-\begin{align*}
-F_Y(y) &= \int_{-\sqrt{y}}^{\sqrt{y}} \frac{1}{\sqrt{2\pi}} e^{-z^2/2} dz\\
-&= 2\int_{0}^{\sqrt{y}} \frac{1}{\sqrt{2\pi}} e^{-z^2/2} dz
-\end{align*}
-
-Taking the derivative with respect to $y$:
-\begin{align*}
-f_Y(y) &= \frac{d}{dy} F_Y(y)\\
-&= 2 \cdot \frac{1}{\sqrt{2\pi}} e^{-y/2} \cdot \frac{1}{2\sqrt{y}}\\
-&= \frac{1}{\sqrt{2\pi y}} e^{-y/2}
-\end{align*}
-\hfill $\blacksquare$
-
-
-For the general case of $n$ degrees of freedom, we can write the following statement about the PDF for the $\chi^2$ distribution:
-
-\begin{textbox}
-\textbf{The PDF of chi-square distribution for ${\nu}$ degrees of freedom:} The probability density function of $X \sim \chi^2_{\nu}$ is
-$$f_X(x) = \frac{1}{2^{{\nu}/2}\Gamma({\nu}/2)} x^{{\nu}/2-1} e^{-x/2}, \quad x > 0$$
-where $\Gamma(\cdot)$ is the gamma function.
-\end{textbox}
-
-The detailed derivation of this formula is skipped as it is outside the scope of the text.
-
-\subsubsection{Properties of Chi-square Distribution}
-A Chi-squared distribution has the following properties:
-\begin{itemize}
-    \item The chi-squared distribution is not symmetric; it is skewed to the right, especially for small degrees of freedom.
-    \item As the degrees of freedom increases (\( n \to \infty \)), the distribution becomes more symmetric and approaches normality.
-%    \item The expected value of the distribution is \( \mathbb{E}(\chi^2) = n \).
-    \item The critical point (upper) \(\chi^2_{\alpha,{\nu}}\) is defined as a point such that
-\[
-P\bigl(\chi^2_{\nu} > \chi^2_{\alpha,{\nu}}\bigr) \;=\;\alpha
-\]
-where \(\chi^2_{\nu}\) denotes a chi-square random variable with \(df = {\nu}\). The lower critical point is denoted by \(\chi^2_{1-\alpha,{\nu}}\).
-\end{itemize}
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-    width=12cm, height=7cm,
-    domain=0:25, samples=200,
-    axis lines=left,
-    xlabel={$x$},
-    ylabel={$f(x)$},
-    legend style={at={(0.97,0.95)}, anchor=north east},
-    % title={\small Chi-Squared Distributions for Different Degrees of Freedom},
-    % grid=major,
-    thick,
-]
-
-% ν = 2: f(x) = (1/2) * exp(-x/2)
-\addplot [blue, very thick] {(1/2) * exp(-x/2)};
-\addlegendentry{${\nu} = 2$}
-
-% ν = 5: f(x) = (1 / (2^{5/2} * Γ(5/2))) * x^{3/2} * exp(-x/2)
-% Γ(5/2) = 1.3293..., 2^{5/2} = 5.6568...
-% Constant = 1 / (5.6568 * 1.3293) ≈ 0.133
-\addplot [red, very thick, dashed] {0.133 * x^(1.5) * exp(-x/2)};
-\addlegendentry{${\nu} = 5$}
-
-% ν = 10: f(x) = (1 / (2^5 * Γ(5))) * x^4 * exp(-x/2)
-% Γ(5) = 24, 2^5 = 32
-% Constant = 1 / (32 * 24) = 1 / 768 ≈ 0.0013
-\addplot [green!50!black, very thick, dashdotted] {0.0013 * x^4 * exp(-x/2)};
-\addlegendentry{${\nu} = 10$}
-
-\end{axis}
-\end{tikzpicture}
-\caption{\textit{The PDF of chi-square distribution with 2, 5 and 10 degrees of freedom.}}
-\end{figure}
-
-%\textbf{Proof:} The moment generating function of $Z^2$ where $Z \sim \mathcal{N}(0,1)$ is:
-%\begin{align*}
-%M_{Z^2}(t) &= E\left( e^{tZ^2}\right)  = \int_{-\infty}^{\infty} e^{tz^2} \frac{1}{\sqrt{2\pi}} e^{-z^2/2} dz \\
-%&= \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-z^2\left(\frac{1}{2} - t\right)} \, dz
-%\end{align*}
-%
-%We now simplify the exponent by assuming $\alpha = \frac{1}{2} - t$, so $\alpha > 0 \text{ when } t < \dfrac{1}{2}$. Then
-%\[
-%M_{Z^2}(t) = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-\alpha z^2} \, dz
-%\]
-%
-%We recognize this as a Gaussian integral with variance \( \sigma^2 = \frac{1}{2\alpha} \). The general result is:
-%\[
-%\int_{-\infty}^{\infty} e^{-\beta z^2} \, dz = \sqrt{\frac{\pi}{\beta}}, \quad \text{for } \beta > 0
-%\]
-%
-%So:
-%\begin{align*}
-%M_{Z^2}(t) &= \frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{\pi}{\alpha}} = \frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{\pi}{\frac{1}{2} - t}} \\
-%&=\frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{\pi}{\frac{1 - 2t}{2}}} = \frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{2\pi}{1 - 2t}} \\
-%&= (1 - 2t)^{-1/2}
-%\end{align*}
-%Therefore,
-%\[
-%M_{Z^2}(t) = (1 - 2t)^{-1/2}, \quad \text{for } t < \frac{1}{2}
-%\]
-%
-%Now for the variabvle $X = Z_1^2 + Z_2^2 + \cdots + Z_n^2$ each following $\mathcal{N}(0,1)$ distribution:
-%$$M_X(t) = \left( M_{Z_1^2}(t)\cdot M_{Z_2^2}(t) \dots M_{Z_n^2}(t)\right)^n = (1-2t)^{-n/2}$$
-%
-%This is the moment generating function of a distribution with density:
-%$$f_X(x) = \frac{1}{2^{n/2}\Gamma(n/2)} x^{n/2-1} e^{-x/2}$$
-%\hfill $\blacksquare$
-
-\subsubsection{Moment Generating Function}
-
-\begin{textbox}
-\textbf{Theorem:} Let \( X \sim \chi^2_{\nu} \). Then the moment generating function of \( X \), defined by is given by
-\[
-M_X(t) = (1 - 2t)^{-{\nu}/2}, \quad \text{for } t < \frac{1}{2}
-\]
-\end{textbox}
-
-\textbf{Proof:} By definition of the moment generating function:
-\[
-M_X(t) = \mathbb{E}\left( e^{tX}\right)  = \int_0^\infty e^{tx} f_X(x) \, dx
-\]
-
-\begin{align*}
-M_X(t) &= \int_0^\infty e^{tx} \cdot \frac{1}{2^{{\nu}/2} \Gamma({\nu}/2)} x^{{\nu}/2 - 1} e^{-x/2} \, dx\\
-&= \frac{1}{2^{{\nu}/2} \Gamma({\nu}/2)} \int_0^\infty x^{{\nu}/2 - 1} e^{-x(1/2 - t)} \, dx
-\end{align*}
-
-
-This integral converges for \( t < \frac{1}{2} \). Recognizing the integral as the gamma integral:
-\[
-\int_0^\infty x^{a - 1} e^{-bx} \, dx = \dfrac{\Gamma(a)}{b^a}, \quad \text{for } a > 0,\, b > 0,
-\]
-
-we identify \( a = \dfrac{\nu}{2} \), \( b = \dfrac{1}{2} - t \), giving:
-\begin{align*}
-M_X(t) &= \dfrac{1}{2^{{\nu}/2} \Gamma({\nu}/2)} \cdot \dfrac{\Gamma({\nu}/2)}{(1/2 - t)^{{\nu}/2}}\\
-&= \dfrac{1}{2^{{\nu}/2}} \cdot \frac{1}{(1/2 - t)^{{\nu}/2}} = \left( \frac{1}{2(1/2 - t)} \right)^{{\nu}/2}\\
-&=\dfrac{1}{(1 - 2t)^{-{\nu}/2}}
-\end{align*}
-
-Therefore:
-\[
-M_X(t) = (1 - 2t)^{-{\nu}/2}, \quad \text{for } t < \frac{1}{2}.
-\]
-\hfill $\blacksquare$
-
-
-\subsubsection{Mean and Variance of Chi-Square Distribution}
-
-\begin{textbox}
-\textbf{Theorem:} If $X \sim \chi^2_{\nu}$, then:
-\begin{enumerate}
-\item $\mathbb{E}(X) = {\nu}$
-\item $\text{Var}(X) = 2{\nu}$
-%\item The mode is $n-2$ for $n \geq 2$
-\end{enumerate}
-\end{textbox}
-
-\textbf{Proof:} Using the moment generating function $M_X(t) = (1-2t)^{-{\nu}/2}$:
-
-For the mean:
-$$\mathbb{E}(X) = M_X'(0) = \left.\frac{d}{dt}(1-2t)^{-{\nu}/2}\right|_{t=0} = {\nu}$$
-
-For the second moment:
-$$\mathbb{E}(X^2) = M_X''(0) = {\nu}({\nu}+2)$$
-
-Therefore:
-$$\text{Var}(X) = \mathbb{E}(X^2) - \left[ \mathbb{E}(X)\right]^2 = {\nu}({\nu}+2) - {\nu}^2 = 2{\nu}$$
-
-\hfill $\blacksquare$
-
-%The mode is found by setting $f'_X(x) = 0$, which yields $x = n-2$ for $n \geq 2$.
-
-\subsection{The Student's $t$-Distribution}
-
-The Student's $t$-distribution (or, $t$-distribution in short) is also a family of distributions, each defined by its degrees of freedom.
-
-\begin{textbox}
-\textbf{Theorem:} Let $Z \sim \mathcal{N}(0,1)$ and $Y \sim \chi^2_{\nu}$ be independent random variables. Then the random variable
-$$T = \dfrac{Z}{\sqrt{Y/\nu}}$$
-follows a Student's $t$-distribution with $\nu$ degrees of freedom, denoted by $T \sim t_{\nu}$.
-\end{textbox}
-
-
-\subsubsection{Probability Density Function}
-\begin{textbox}
-\textbf{The PDF of $t$ distribution for $\nu$ degree of freedom:} The probability density function of $T \sim t_{\nu}$ is
-$$f_T(t) = \dfrac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\,\Gamma(\nu/2)} \left(1 + \dfrac{t^2}{\nu}\right)^{-(\nu+1)/2}, \quad -\infty < t < \infty$$
-\end{textbox}
-
-\textbf{Proof:} Let $Z \sim \mathcal{N}(0,1)$ and $Y \sim \chi^2_{\nu}$ be independent random variables. We want to find the density of $T = \dfrac{Z}{\sqrt{Y/\nu}}$.
-
-The joint density of $(Z,Y)$ is:
-$$f_{Z,Y}(z,y) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2} \cdot \frac{1}{2^{\nu/2}\Gamma(\nu/2)} v^{\nu/2-1} e^{-y/2}$$
-
-in the domain $\infty < z < \infty, 0 < y < \infty$.
-
-Using the transformation
-\begin{align*}
-t &= \dfrac{z}{\sqrt{y/\nu}}\\
-w &= y
-\end{align*}
-we have $$z = t\sqrt{w/\nu} \text{  and  } y = w$$
-where the domain is $\infty < t < \infty, 0 < w < \infty$.
-
-The Jacobian of this transformation is:
-\begin{align*}
-J &= \dfrac{\partial (z,y)}{\partial (t,w)}= \begin{vmatrix}
-\dfrac{\partial z}{\partial t} & \dfrac{\partial z}{\partial z} \\[0.6em]
-\dfrac{\partial y}{\partial t} & \dfrac{\partial y}{\partial w}
-\end{vmatrix}
-=\begin{vmatrix}
-\sqrt{w/\nu} & \dfrac{t}{2\sqrt{w\nu}} \\[0.6em]
-0 & 1
-\end{vmatrix} = \sqrt{w/\nu}
-\end{align*}
-
-Thus $|J| = \sqrt{w/\nu}$. Therefore the joint density of $(T,W)$ is:
-$$f_{T,W}(t,w) = \frac{1}{\sqrt{2\pi}} e^{-t^2w/(2\nu)} \cdot \frac{1}{2^{\nu/2}\Gamma(\nu/2)} w^{\nu/2-1} e^{-w/2} \cdot \sqrt{\frac{w}{\nu}}$$
-
-Integrating out $w$:
-\begin{align*}
-f_T(t) &= \int_0^{\infty} f_{T,W}(t,w) \,dw\\
-&= \frac{1}{\sqrt{2\pi\nu}} \cdot \frac{1}{2^{\nu/2}\Gamma(\nu/2)} \int_0^{\infty} w^{(\nu+1)/2-1} e^{-w(1+t^2/\nu)/2} \,dw
-\end{align*}
-
-Using the integral representation of the gamma function:
-$$\int_0^{\infty} w^{a-1} e^{-bw} dw = \dfrac{\Gamma(a)}{b^a}$$
-
-We get:
-\begin{align*}
-f_T(t) &= \dfrac{1}{\sqrt{2\pi\nu}} \cdot \dfrac{1}{2^{\nu/2}\Gamma(\nu/2)} \cdot \dfrac{\Gamma((\nu+1)/2)}{(1+t^2/\nu)^{(\nu+1)/2} \cdot 2^{(\nu+1)/2}}\\
-&= \dfrac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\,\Gamma(\nu/2)} \left(1 + \dfrac{t^2}{\nu}\right)^{-(\nu+1)/2}
-\end{align*}
-\hfill $\blacksquare$
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-    domain=-5:5,
-    samples=200,
-    axis lines=middle,
-    xlabel={$t$},
-    ylabel={$f(t)$},
-    legend style={at={(1.07,0.95)}, anchor=north east},
-    % grid=both,
-    width=12cm,
-    height=6cm,
-    xtick={-4,-2,0,2,4},
-    ytick=\empty,
-    enlargelimits=upper,
-    clip=false
-]
-
-% t-distribution with 5 degrees of freedom
-% Formula: Gamma((ν+1)/2) / [sqrt(νπ) * Gamma(ν/2)] * (1 + x^2/ν)^{- (ν+1)/2}
-% For ν = 5:
-\addplot [blue, very thick] {0.37960669 * (1 + x^2 / 5)^(-3)};
-\addlegendentry{\( t \)-distribution, \( \nu = 5 \)}
-
-% Standard normal distribution: 1/sqrt(2pi) * e^{-x^2 / 2}
-\addplot [red, dashed, very thick] {1/sqrt(2*pi) * exp(-x^2/2)};
-\addlegendentry{Standard normal \( \mathcal{N}(0,1) \)}
-
-\end{axis}
-\end{tikzpicture}
-\caption{\textit{Comparison of $t$-distribution ($\nu = 5$) and standard normal distribution.}}
-\label{pic:t-distribution}
-\end{figure}
-
-\subsubsection{Properties of $t$-Distribution}
-\begin{itemize}
-\item The overall shape of the \( t \)-distribution closely resembles that of the standard normal distribution: both are bell-shaped and symmetric about the mean as shown in Figure~\ref{pic:t-distribution}. Like the standard normal distribution, the \( t \)-distribution has a mean of 0.
-
-\item As $\nu \to \infty$, the $t$-distribution converges to the standard normal distribution.
-
-\item The critical point \(t_{\alpha, \nu}\) is defined as the point so that the area to its right under the \(t\)-distribution with \(\nu\) degrees of freedom equals \(\alpha\) i.e.
-$$P\left(t > t_{\alpha, \nu} \right)= \alpha$$
-By symmetry, $t_{1-\alpha, \nu} = -\,t_{\alpha, \nu}$. So the critical point for a left‐tail area of \(\alpha\) is \(-t_{\alpha, \nu}\).
-\end{itemize}
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-  \begin{axis}[
-    domain=-3.5:3.5,
-    samples=100,
-    axis lines=middle,
-    xlabel={$t$}, ylabel={$f(t)$},
-    width=10cm, height=5cm,
-    ymin=0, ymax=0.5,
-    xtick=\empty,
-    ytick=\empty,
-    tick style={draw=none},
-    clip=false,
-  ]
-    % Full t_5 PDF curve
-    \addplot [very thick, blue] {0.379*(1 + x^2/5)^(-3)};
-
-    % Shaded right tail beyond t_{0.05} ≈ 2.015
-    \addplot [
-      domain=2.015:3.5,
-      samples=100,
-      draw=none,
-      fill=blue!30
-    ] {0.379*(1 + x^2/5)^(-3)} \closedcycle;
-
-    % Vertical line at t_{0.05}
-    \addplot [black, thick] coordinates
-      {(2.015,0) (2.015,{0.379*(1 + 2.015^2/5)^(-3)})};
-
-    % Annotations
-    \node[black, below] at (axis cs:2.015,0) {\(\displaystyle t_{\alpha, \nu}\)};
-    \node[black] at (axis cs:2.5,0.07) {\(\alpha\)};
-  \end{axis}
-\end{tikzpicture}
-\caption{\textit{The $\alpha$ critical point of $t$-distribution.}}
-\end{figure}
-
-\subsubsection{Mean and Variance of $t$-Distribution}
-
-\begin{textbox}
-\textbf{Theorem:} If $T \sim t(\nu)$, then:
-\begin{enumerate}
-\item $\mathbb{E}(T) = 0$ for $\nu > 1$
-\item $\text{Var}(T) = \dfrac{\nu}{\nu-2}$ for $\nu > 2$
-\end{enumerate}
-\end{textbox}
-
-\textbf{Proof:} The symmetry of the density function around zero immediately gives $\mathbb{E}(T) = 0$ when the expectation exists.
-
-For the variance, using integration by parts and properties of the gamma function\footnote{The detailed derivation of this integration is skipped as it is unnecessary for this text.}:
-$$\text{Var}(T) = \mathbb{E}(T^2) = \int_{-\infty}^{\infty} t^2 f_T(t)\, dt = \dfrac{\nu}{\nu-2}$$ for $\nu > 2$.
-
-\hfill $\blacksquare$
-
-
-\subsection{The F-Distribution}
-
-\subsubsection{Definition and Derivation}
-
-The F-distribution arises when comparing variances of two normal populations or in analysis of variance.
-
-\begin{textbox}
-Let $U \sim \chi^2(\nu_1)$ and $V \sim \chi^2(\nu_2)$ be independent chi-square random variables. Then the random variable
-$$F = \frac{U/\nu_1}{V/\nu_2}$$
-follows an F-distribution with $\nu_1$ and $\nu_2$ degrees of freedom, denoted $F \sim F(\nu_1, \nu_2)$.
-\end{textbox}
-
-\begin{textbox}
-The probability density function of $F \sim F(\nu_1, \nu_2)$ is
-$$f_F(x) = \frac{\Gamma((\nu_1+\nu_2)/2)}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} \frac{x^{\nu_1/2-1}}{(1+\nu_1 x/\nu_2)^{(\nu_1+\nu_2)/2}}, \quad x > 0$$
-\end{textbox}
-
-\textbf{Proof:} Let $U \sim \chi^2(\nu_1)$ and $V \sim \chi^2(\nu_2)$ be independent. We seek the density of $F = (U/\nu_1)/(V/\nu_2)$.
-
-The joint density of $(U,V)$ is:
-$$f_{U,V}(u,v) = \frac{1}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} u^{\nu_1/2-1} v^{\nu_2/2-1} e^{-(u+v)/2}$$
-
-Using the transformation $F = (U/\nu_1)/(V/\nu_2)$ and $W = V$, we have:
-$$U = F \cdot \frac{\nu_1 W}{\nu_2}, \quad V = W$$
-
-The Jacobian is $|J| = \frac{\nu_1 W}{\nu_2}$.
-
-The joint density of $(F,W)$ becomes:
-$$f_{F,W}(f,w) = \frac{1}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \left(\frac{\nu_1 f w}{\nu_2}\right)^{\nu_1/2-1} w^{\nu_2/2-1} e^{-w(1+\nu_1 f/\nu_2)/2} \cdot \frac{\nu_1 w}{\nu_2}$$
-
-Simplifying:
-$$f_{F,W}(f,w) = \frac{\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} f^{\nu_1/2-1}}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} w^{(\nu_1+\nu_2)/2-1} e^{-w(1+\nu_1 f/\nu_2)/2}$$
-
-Integrating out $w$:
-\begin{align*}
-f_F(f) &= \int_0^{\infty} f_{F,W}(f,w) dw\\
-&= \frac{\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} f^{\nu_1/2-1}}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \int_0^{\infty} w^{(\nu_1+\nu_2)/2-1} e^{-w(1+\nu_1 f/\nu_2)/2} dw
-\end{align*}
-
-Using the gamma function integral:
-$$f_F(f) = \frac{\Gamma((\nu_1+\nu_2)/2)}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} \frac{f^{\nu_1/2-1}}{(1+\nu_1 f/\nu_2)^{(\nu_1+\nu_2)/2}}$$
-
-
-\subsubsection{Properties of the F-Distribution}
-
-\begin{textbox}
-If $F \sim F(\nu_1, \nu_2)$, then:
-\begin{enumerate}
-\item $E[F] = \frac{\nu_2}{\nu_2-2}$ for $\nu_2 > 2$
-\item $\text{Var}(F) = \frac{2\nu_2^2(\nu_1+\nu_2-2)}{\nu_1(\nu_2-2)^2(\nu_2-4)}$ for $\nu_2 > 4$
-\item If $F \sim F(\nu_1, \nu_2)$, then $1/F \sim F(\nu_2, \nu_1)$
-\end{enumerate}
-\end{textbox}
-
-\begin{textbox}
-If $T \sim t(\nu)$, then $T^2 \sim F(1, \nu)$.
-\end{textbox}
-
-\textbf{Proof:} Let $T = Z/\sqrt{V/\nu}$ where $Z \sim N(0,1)$ and $V \sim \chi^2(\nu)$ are independent.
-
-Then:
-$$T^2 = \frac{Z^2}{V/\nu} = \frac{Z^2/1}{V/\nu}$$
-
-Since $Z^2 \sim \chi^2(1)$, we have $T^2 \sim F(1, \nu)$ by definition.
-
-
 \chapter{Sampling Theory}
 \section{Introduction}
 Sampling theory is a part of statistics that helps us understand how to learn about a large group by looking at just a small part of it. For example, imagine a company makes a new type of battery and wants to know how long the batteries last. Testing every single battery would take too much time and money, so the company picks a few batteries to test. These few batteries are called a \textbf{sample}, and all the batteries made by the company are called the \textbf{population}.
@@ -10210,9 +9783,6 @@ The probability of a Type II error ($\beta$) is not fixed; it varies depending o
 We generally write $\beta$ as a function of the parameter value $\theta_1$ under alternative hypothesis denoted by $\beta(\theta)$.
 
 \subsection{Dependence on Sample Size}
-Earlier, we discussed that one can choose a low $\alpha$ or a low $\beta$ depending on which type of error is more serious. But what if both Type I and Type II errors are costly, and we want to minimize both? The only effective way to achieve this is by improving the reliability of the evidence—primarily by increasing the sample size. As the sample size $n$ increases, the sampling distributions under both $H_0$ and $H_1$ become narrower (i.e., have smaller variance), which makes it easier to distinguish between them. This shrinkage leads to a reduction in both $\alpha$ and $\beta$. Therefore, when minimizing both types of error is important, increasing the sample size is the most practical solution.
-
-
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}
@@ -10255,7 +9825,7 @@ Earlier, we discussed that one can choose a low $\alpha$ or a low $\beta$ depend
 	\label{fig:alpha_beta_sample_size}
 \end{figure}
 
-
+Earlier, we discussed that one can choose a low $\alpha$ or a low $\beta$ depending on which type of error is more serious. But what if both Type I and Type II errors are costly, and we want to minimize both? The only effective way to achieve this is by improving the reliability of the evidence—primarily by increasing the sample size. As the sample size $n$ increases, the sampling distributions under both $H_0$ and $H_1$ become narrower (i.e., have smaller variance), which makes it easier to distinguish between them. This shrinkage leads to a reduction in both $\alpha$ and $\beta$. Therefore, when minimizing both types of error is important, increasing the sample size is the most practical solution.
 
 \subsection{$p$‐Value in Hypothesis Testing}
 
@@ -12150,15 +11720,15 @@ Mean squares are obtained by dividing the sums of squares by their respective de
 \textbf{Theorem}: Under the null hypothesis $H_0: \mu_1 = \mu_2 = \cdots = \mu_k$:
 
 \begin{equation*}
-\mathbb{E}[\text{MST}] = \sigma^2, \quad \mathbb{E}[\text{MSE}] = \sigma^2
+\mathbb{E}(\text{MST}) = \sigma^2, \quad \mathbb{E}(\text{MSE}) = \sigma^2
 \end{equation*}
 
 Under the alternative hypothesis:
 
 \begin{equation*}
-\mathbb{E}[\text{MST}] = \sigma^2 + \frac{\sum_{i=1}^k n_i(\mu_i - \mu)^2}{k-1}, \quad \mathbb{E}[\text{MSE}] = \sigma^2
+\mathbb{E}(\text{MST}) = \sigma^2 + \frac{\sum_{i=1}^k n_i(\mu_i - \mu)^2}{k-1}, \quad \mathbb{E}(\text{MSE}) = \sigma^2
 \end{equation*}
-where $\mu = \dfrac{1}{N}\sum_{i=1}^k n_i \mu_i$ is the weighted grand mean.
+where $\mu = \dfrac{1}{N}\displaystyle \sum_{i=1}^k n_i \mu_i$ is the weighted grand mean.
 \end{textbox}
 \textbf{Proof}: Consider the one-way ANOVA model:
 \begin{equation*}
@@ -18968,6 +18538,457 @@ Common acceleration models include:
 \item \textbf{Power law model}: For mechanical stress.
 \item \textbf{Eyring model}: For multiple stress factors.
 \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+%=========================================================
+% Start of Appendices
+\appendix
+\renewcommand{\chaptername}{Appendix}
+\renewcommand{\thechapter}{\Alph{chapter}}
+
+\chapter*{Appendices}
+\addcontentsline{toc}{chapter}{Appendices}
+
+\chapter{$\chi^2$, $t$, and $F$ Distributions}
+When working with samples from normal populations, several important probability distributions naturally emerge. These distributions form the theoretical foundation for statistical inference procedures such as confidence intervals and hypothesis testing. In this section, we dexamine three fundamental distributions: the $\chi^2$-distribution, the Student's $ t $-distribution, and the $F$-distribution.
+
+\section{$\chi^2$ (Chi-Square) Distribution}
+
+The $\chi^2$ (chi-square) distribution arises when we consider the sum of squares of independent standard normal random variables. The chi-square distribution is not a single distribution but a family of distributions, each defined by its \textbf{degrees of freedom} ($ df $), which determine its shape and spread.
+
+\begin{textbox}
+\textbf{Theorem:} Let $Z_1, Z_2, \ldots, Z_{\nu}$ be independent random variables, each following the standard normal distribution $\mathcal{N}(0,1)$. Then the random variable
+$$Y = Z_1^2 + Z_2^2 + \cdots + Z_{\nu}^2 = \sum_{i=1}^{\nu} Z_i^2$$
+follows a chi-square distribution with $n$ degrees of freedom, denoted by $Y \sim \chi^2_{\nu}$.
+\end{textbox}
+
+\subsection{Probability Density Function}
+
+To derive the probability density function, we begin with the case ${\nu} = 1$.
+
+\begin{textbox}
+\textbf{The PDF of chi-square distribution for one degree of freedom:} If $Z \sim \mathcal{N}(0,1)$, then $Y = Z^2$ has the probability density function
+$$f_Y(y) = \frac{1}{\sqrt{2\pi y}} e^{-y/2}, \quad y > 0$$
+\end{textbox}
+
+\textbf{Proof:} Let $Y = Z^2$ where $Z \sim \mathcal{N}(0,1)$. Using the transformation method, we have:
+$$P(Y \leq y) = P(Z^2 \leq y) = P(-\sqrt{y} \leq Z \leq \sqrt{y})$$
+
+For $y > 0$:
+\begin{align*}
+F_Y(y) &= \int_{-\sqrt{y}}^{\sqrt{y}} \frac{1}{\sqrt{2\pi}} e^{-z^2/2} dz\\
+&= 2\int_{0}^{\sqrt{y}} \frac{1}{\sqrt{2\pi}} e^{-z^2/2} dz
+\end{align*}
+
+Taking the derivative with respect to $y$:
+\begin{align*}
+f_Y(y) &= \frac{d}{dy} F_Y(y)\\
+&= 2 \cdot \frac{1}{\sqrt{2\pi}} e^{-y/2} \cdot \frac{1}{2\sqrt{y}}\\
+&= \frac{1}{\sqrt{2\pi y}} e^{-y/2}
+\end{align*}
+\hfill $\blacksquare$
+
+
+For the general case of $n$ degrees of freedom, we can write the following statement about the PDF for the $\chi^2$ distribution:
+
+\begin{textbox}
+\textbf{The PDF of chi-square distribution for ${\nu}$ degrees of freedom:} The probability density function of $X \sim \chi^2_{\nu}$ is
+$$f_X(x) = \frac{1}{2^{{\nu}/2}\Gamma({\nu}/2)} x^{{\nu}/2-1} e^{-x/2}, \quad x > 0$$
+where $\Gamma(\cdot)$ is the gamma function.
+\end{textbox}
+
+The detailed derivation of this formula is skipped as it is outside the scope of the text.
+
+\subsection{Properties of Chi-square Distribution}
+A Chi-squared distribution has the following properties:
+\begin{itemize}
+    \item The chi-squared distribution is not symmetric; it is skewed to the right, especially for small degrees of freedom.
+    \item As the degrees of freedom increases (\( n \to \infty \)), the distribution becomes more symmetric and approaches normality.
+%    \item The expected value of the distribution is \( \mathbb{E}(\chi^2) = n \).
+    \item The critical point (upper) \(\chi^2_{\alpha,{\nu}}\) is defined as a point such that
+\[
+P\bigl(\chi^2_{\nu} > \chi^2_{\alpha,{\nu}}\bigr) \;=\;\alpha
+\]
+where \(\chi^2_{\nu}\) denotes a chi-square random variable with \(df = {\nu}\). The lower critical point is denoted by \(\chi^2_{1-\alpha,{\nu}}\).
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=12cm, height=7cm,
+    domain=0:25, samples=200,
+    axis lines=left,
+    xlabel={$x$},
+    ylabel={$f(x)$},
+    legend style={at={(0.97,0.95)}, anchor=north east},
+    % title={\small Chi-Squared Distributions for Different Degrees of Freedom},
+    % grid=major,
+    thick,
+]
+
+% ν = 2: f(x) = (1/2) * exp(-x/2)
+\addplot [blue, very thick] {(1/2) * exp(-x/2)};
+\addlegendentry{${\nu} = 2$}
+
+% ν = 5: f(x) = (1 / (2^{5/2} * Γ(5/2))) * x^{3/2} * exp(-x/2)
+% Γ(5/2) = 1.3293..., 2^{5/2} = 5.6568...
+% Constant = 1 / (5.6568 * 1.3293) ≈ 0.133
+\addplot [red, very thick, dashed] {0.133 * x^(1.5) * exp(-x/2)};
+\addlegendentry{${\nu} = 5$}
+
+% ν = 10: f(x) = (1 / (2^5 * Γ(5))) * x^4 * exp(-x/2)
+% Γ(5) = 24, 2^5 = 32
+% Constant = 1 / (32 * 24) = 1 / 768 ≈ 0.0013
+\addplot [green!50!black, very thick, dashdotted] {0.0013 * x^4 * exp(-x/2)};
+\addlegendentry{${\nu} = 10$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{The PDF of chi-square distribution with 2, 5 and 10 degrees of freedom.}}
+\end{figure}
+
+%\textbf{Proof:} The moment generating function of $Z^2$ where $Z \sim \mathcal{N}(0,1)$ is:
+%\begin{align*}
+%M_{Z^2}(t) &= E\left( e^{tZ^2}\right)  = \int_{-\infty}^{\infty} e^{tz^2} \frac{1}{\sqrt{2\pi}} e^{-z^2/2} dz \\
+%&= \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-z^2\left(\frac{1}{2} - t\right)} \, dz
+%\end{align*}
+%
+%We now simplify the exponent by assuming $\alpha = \frac{1}{2} - t$, so $\alpha > 0 \text{ when } t < \dfrac{1}{2}$. Then
+%\[
+%M_{Z^2}(t) = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-\alpha z^2} \, dz
+%\]
+%
+%We recognize this as a Gaussian integral with variance \( \sigma^2 = \frac{1}{2\alpha} \). The general result is:
+%\[
+%\int_{-\infty}^{\infty} e^{-\beta z^2} \, dz = \sqrt{\frac{\pi}{\beta}}, \quad \text{for } \beta > 0
+%\]
+%
+%So:
+%\begin{align*}
+%M_{Z^2}(t) &= \frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{\pi}{\alpha}} = \frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{\pi}{\frac{1}{2} - t}} \\
+%&=\frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{\pi}{\frac{1 - 2t}{2}}} = \frac{1}{\sqrt{2\pi}} \cdot \sqrt{\frac{2\pi}{1 - 2t}} \\
+%&= (1 - 2t)^{-1/2}
+%\end{align*}
+%Therefore,
+%\[
+%M_{Z^2}(t) = (1 - 2t)^{-1/2}, \quad \text{for } t < \frac{1}{2}
+%\]
+%
+%Now for the variabvle $X = Z_1^2 + Z_2^2 + \cdots + Z_n^2$ each following $\mathcal{N}(0,1)$ distribution:
+%$$M_X(t) = \left( M_{Z_1^2}(t)\cdot M_{Z_2^2}(t) \dots M_{Z_n^2}(t)\right)^n = (1-2t)^{-n/2}$$
+%
+%This is the moment generating function of a distribution with density:
+%$$f_X(x) = \frac{1}{2^{n/2}\Gamma(n/2)} x^{n/2-1} e^{-x/2}$$
+%\hfill $\blacksquare$
+
+\subsection{Moment Generating Function}
+
+\begin{textbox}
+\textbf{Theorem:} Let \( X \sim \chi^2_{\nu} \). Then the moment generating function of \( X \), defined by is given by
+\[
+M_X(t) = (1 - 2t)^{-{\nu}/2}, \quad \text{for } t < \frac{1}{2}
+\]
+\end{textbox}
+
+\textbf{Proof:} By definition of the moment generating function:
+\[
+M_X(t) = \mathbb{E}\left( e^{tX}\right)  = \int_0^\infty e^{tx} f_X(x) \, dx
+\]
+
+\begin{align*}
+M_X(t) &= \int_0^\infty e^{tx} \cdot \frac{1}{2^{{\nu}/2} \Gamma({\nu}/2)} x^{{\nu}/2 - 1} e^{-x/2} \, dx\\
+&= \frac{1}{2^{{\nu}/2} \Gamma({\nu}/2)} \int_0^\infty x^{{\nu}/2 - 1} e^{-x(1/2 - t)} \, dx
+\end{align*}
+
+
+This integral converges for \( t < \frac{1}{2} \). Recognizing the integral as the gamma integral:
+\[
+\int_0^\infty x^{a - 1} e^{-bx} \, dx = \dfrac{\Gamma(a)}{b^a}, \quad \text{for } a > 0,\, b > 0,
+\]
+
+we identify \( a = \dfrac{\nu}{2} \), \( b = \dfrac{1}{2} - t \), giving:
+\begin{align*}
+M_X(t) &= \dfrac{1}{2^{{\nu}/2} \Gamma({\nu}/2)} \cdot \dfrac{\Gamma({\nu}/2)}{(1/2 - t)^{{\nu}/2}}\\
+&= \dfrac{1}{2^{{\nu}/2}} \cdot \frac{1}{(1/2 - t)^{{\nu}/2}} = \left( \frac{1}{2(1/2 - t)} \right)^{{\nu}/2}\\
+&=\dfrac{1}{(1 - 2t)^{-{\nu}/2}}
+\end{align*}
+
+Therefore:
+\[
+M_X(t) = (1 - 2t)^{-{\nu}/2}, \quad \text{for } t < \frac{1}{2}.
+\]
+\hfill $\blacksquare$
+
+
+\subsection{Mean and Variance of Chi-Square Distribution}
+
+\begin{textbox}
+\textbf{Theorem:} If $X \sim \chi^2_{\nu}$, then:
+\begin{enumerate}
+\item $\mathbb{E}(X) = {\nu}$
+\item $\text{Var}(X) = 2{\nu}$
+%\item The mode is $n-2$ for $n \geq 2$
+\end{enumerate}
+\end{textbox}
+
+\textbf{Proof:} Using the moment generating function $M_X(t) = (1-2t)^{-{\nu}/2}$:
+
+For the mean:
+$$\mathbb{E}(X) = M_X'(0) = \left.\frac{d}{dt}(1-2t)^{-{\nu}/2}\right|_{t=0} = {\nu}$$
+
+For the second moment:
+$$\mathbb{E}(X^2) = M_X''(0) = {\nu}({\nu}+2)$$
+
+Therefore:
+$$\text{Var}(X) = \mathbb{E}(X^2) - \left[ \mathbb{E}(X)\right]^2 = {\nu}({\nu}+2) - {\nu}^2 = 2{\nu}$$
+
+\hfill $\blacksquare$
+
+%The mode is found by setting $f'_X(x) = 0$, which yields $x = n-2$ for $n \geq 2$.
+
+\section{Student's $t$-Distribution}
+
+The Student's $t$-distribution (or, $t$-distribution in short) is also a family of distributions, each defined by its degrees of freedom.
+
+\begin{textbox}
+\textbf{Theorem:} Let $Z \sim \mathcal{N}(0,1)$ and $Y \sim \chi^2_{\nu}$ be independent random variables. Then the random variable
+$$T = \dfrac{Z}{\sqrt{Y/\nu}}$$
+follows a Student's $t$-distribution with $\nu$ degrees of freedom, denoted by $T \sim t_{\nu}$.
+\end{textbox}
+
+
+\subsection{Probability Density Function}
+\begin{textbox}
+\textbf{The PDF of $t$ distribution for $\nu$ degree of freedom:} The probability density function of $T \sim t_{\nu}$ is
+$$f_T(t) = \dfrac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\,\Gamma(\nu/2)} \left(1 + \dfrac{t^2}{\nu}\right)^{-(\nu+1)/2}, \quad -\infty < t < \infty$$
+\end{textbox}
+
+\textbf{Proof:} Let $Z \sim \mathcal{N}(0,1)$ and $Y \sim \chi^2_{\nu}$ be independent random variables. We want to find the density of $T = \dfrac{Z}{\sqrt{Y/\nu}}$.
+
+The joint density of $(Z,Y)$ is:
+$$f_{Z,Y}(z,y) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2} \cdot \frac{1}{2^{\nu/2}\Gamma(\nu/2)} v^{\nu/2-1} e^{-y/2}$$
+
+in the domain $\infty < z < \infty, 0 < y < \infty$.
+
+Using the transformation
+\begin{align*}
+t &= \dfrac{z}{\sqrt{y/\nu}}\\
+w &= y
+\end{align*}
+we have $$z = t\sqrt{w/\nu} \text{  and  } y = w$$
+where the domain is $\infty < t < \infty, 0 < w < \infty$.
+
+The Jacobian of this transformation is:
+\begin{align*}
+J &= \dfrac{\partial (z,y)}{\partial (t,w)}= \begin{vmatrix}
+\dfrac{\partial z}{\partial t} & \dfrac{\partial z}{\partial z} \\[0.6em]
+\dfrac{\partial y}{\partial t} & \dfrac{\partial y}{\partial w}
+\end{vmatrix}
+=\begin{vmatrix}
+\sqrt{w/\nu} & \dfrac{t}{2\sqrt{w\nu}} \\[0.6em]
+0 & 1
+\end{vmatrix} = \sqrt{w/\nu}
+\end{align*}
+
+Thus $|J| = \sqrt{w/\nu}$. Therefore the joint density of $(T,W)$ is:
+$$f_{T,W}(t,w) = \frac{1}{\sqrt{2\pi}} e^{-t^2w/(2\nu)} \cdot \frac{1}{2^{\nu/2}\Gamma(\nu/2)} w^{\nu/2-1} e^{-w/2} \cdot \sqrt{\frac{w}{\nu}}$$
+
+Integrating out $w$:
+\begin{align*}
+f_T(t) &= \int_0^{\infty} f_{T,W}(t,w) \,dw\\
+&= \frac{1}{\sqrt{2\pi\nu}} \cdot \frac{1}{2^{\nu/2}\Gamma(\nu/2)} \int_0^{\infty} w^{(\nu+1)/2-1} e^{-w(1+t^2/\nu)/2} \,dw
+\end{align*}
+
+Using the integral representation of the gamma function:
+$$\int_0^{\infty} w^{a-1} e^{-bw} dw = \dfrac{\Gamma(a)}{b^a}$$
+
+We get:
+\begin{align*}
+f_T(t) &= \dfrac{1}{\sqrt{2\pi\nu}} \cdot \dfrac{1}{2^{\nu/2}\Gamma(\nu/2)} \cdot \dfrac{\Gamma((\nu+1)/2)}{(1+t^2/\nu)^{(\nu+1)/2} \cdot 2^{(\nu+1)/2}}\\
+&= \dfrac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\,\Gamma(\nu/2)} \left(1 + \dfrac{t^2}{\nu}\right)^{-(\nu+1)/2}
+\end{align*}
+\hfill $\blacksquare$
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    domain=-5:5,
+    samples=200,
+    axis lines=middle,
+    xlabel={$t$},
+    ylabel={$f(t)$},
+    legend style={at={(1.07,0.95)}, anchor=north east},
+    % grid=both,
+    width=12cm,
+    height=6cm,
+    xtick={-4,-2,0,2,4},
+    ytick=\empty,
+    enlargelimits=upper,
+    clip=false
+]
+
+% t-distribution with 5 degrees of freedom
+% Formula: Gamma((ν+1)/2) / [sqrt(νπ) * Gamma(ν/2)] * (1 + x^2/ν)^{- (ν+1)/2}
+% For ν = 5:
+\addplot [blue, very thick] {0.37960669 * (1 + x^2 / 5)^(-3)};
+\addlegendentry{\( t \)-distribution, \( \nu = 5 \)}
+
+% Standard normal distribution: 1/sqrt(2pi) * e^{-x^2 / 2}
+\addplot [red, dashed, very thick] {1/sqrt(2*pi) * exp(-x^2/2)};
+\addlegendentry{Standard normal \( \mathcal{N}(0,1) \)}
+
+\end{axis}
+\end{tikzpicture}
+\caption{\textit{Comparison of $t$-distribution ($\nu = 5$) and standard normal distribution.}}
+\label{pic:t-distribution}
+\end{figure}
+
+\subsection{Properties of $t$-Distribution}
+\begin{itemize}
+\item The overall shape of the \( t \)-distribution closely resembles that of the standard normal distribution: both are bell-shaped and symmetric about the mean as shown in Figure~\ref{pic:t-distribution}. Like the standard normal distribution, the \( t \)-distribution has a mean of 0.
+
+\item As $\nu \to \infty$, the $t$-distribution converges to the standard normal distribution.
+
+\item The critical point \(t_{\alpha, \nu}\) is defined as the point so that the area to its right under the \(t\)-distribution with \(\nu\) degrees of freedom equals \(\alpha\) i.e.
+$$P\left(t > t_{\alpha, \nu} \right)= \alpha$$
+By symmetry, $t_{1-\alpha, \nu} = -\,t_{\alpha, \nu}$. So the critical point for a left‐tail area of \(\alpha\) is \(-t_{\alpha, \nu}\).
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    domain=-3.5:3.5,
+    samples=100,
+    axis lines=middle,
+    xlabel={$t$}, ylabel={$f(t)$},
+    width=10cm, height=5cm,
+    ymin=0, ymax=0.5,
+    xtick=\empty,
+    ytick=\empty,
+    tick style={draw=none},
+    clip=false,
+  ]
+    % Full t_5 PDF curve
+    \addplot [very thick, blue] {0.379*(1 + x^2/5)^(-3)};
+
+    % Shaded right tail beyond t_{0.05} ≈ 2.015
+    \addplot [
+      domain=2.015:3.5,
+      samples=100,
+      draw=none,
+      fill=blue!30
+    ] {0.379*(1 + x^2/5)^(-3)} \closedcycle;
+
+    % Vertical line at t_{0.05}
+    \addplot [black, thick] coordinates
+      {(2.015,0) (2.015,{0.379*(1 + 2.015^2/5)^(-3)})};
+
+    % Annotations
+    \node[black, below] at (axis cs:2.015,0) {\(\displaystyle t_{\alpha, \nu}\)};
+    \node[black] at (axis cs:2.5,0.07) {\(\alpha\)};
+  \end{axis}
+\end{tikzpicture}
+\caption{\textit{The $\alpha$ critical point of $t$-distribution.}}
+\end{figure}
+
+\subsection{Mean and Variance of $t$-Distribution}
+
+\begin{textbox}
+\textbf{Theorem:} If $T \sim t(\nu)$, then:
+\begin{enumerate}
+\item $\mathbb{E}(T) = 0$ for $\nu > 1$
+\item $\text{Var}(T) = \dfrac{\nu}{\nu-2}$ for $\nu > 2$
+\end{enumerate}
+\end{textbox}
+
+\textbf{Proof:} The symmetry of the density function around zero immediately gives $\mathbb{E}(T) = 0$ when the expectation exists.
+
+For the variance, using integration by parts and properties of the gamma function\footnote{The detailed derivation of this integration is skipped as it is unnecessary for this text.}:
+$$\text{Var}(T) = \mathbb{E}(T^2) = \int_{-\infty}^{\infty} t^2 f_T(t)\, dt = \dfrac{\nu}{\nu-2}$$ for $\nu > 2$.
+
+\hfill $\blacksquare$
+
+
+\section{$F$-Distribution}
+
+\subsection{Definition and Derivation}
+
+The F-distribution arises when comparing variances of two normal populations or in analysis of variance.
+
+\begin{textbox}
+Let $U \sim \chi^2(\nu_1)$ and $V \sim \chi^2(\nu_2)$ be independent chi-square random variables. Then the random variable
+$$F = \frac{U/\nu_1}{V/\nu_2}$$
+follows an F-distribution with $\nu_1$ and $\nu_2$ degrees of freedom, denoted $F \sim F(\nu_1, \nu_2)$.
+\end{textbox}
+
+\begin{textbox}
+The probability density function of $F \sim F(\nu_1, \nu_2)$ is
+$$f_F(x) = \frac{\Gamma((\nu_1+\nu_2)/2)}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} \frac{x^{\nu_1/2-1}}{(1+\nu_1 x/\nu_2)^{(\nu_1+\nu_2)/2}}, \quad x > 0$$
+\end{textbox}
+
+\textbf{Proof:} Let $U \sim \chi^2(\nu_1)$ and $V \sim \chi^2(\nu_2)$ be independent. We seek the density of $F = (U/\nu_1)/(V/\nu_2)$.
+
+The joint density of $(U,V)$ is:
+$$f_{U,V}(u,v) = \frac{1}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} u^{\nu_1/2-1} v^{\nu_2/2-1} e^{-(u+v)/2}$$
+
+Using the transformation $F = (U/\nu_1)/(V/\nu_2)$ and $W = V$, we have:
+$$U = F \cdot \frac{\nu_1 W}{\nu_2}, \quad V = W$$
+
+The Jacobian is $|J| = \frac{\nu_1 W}{\nu_2}$.
+
+The joint density of $(F,W)$ becomes:
+$$f_{F,W}(f,w) = \frac{1}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \left(\frac{\nu_1 f w}{\nu_2}\right)^{\nu_1/2-1} w^{\nu_2/2-1} e^{-w(1+\nu_1 f/\nu_2)/2} \cdot \frac{\nu_1 w}{\nu_2}$$
+
+Simplifying:
+$$f_{F,W}(f,w) = \frac{\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} f^{\nu_1/2-1}}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} w^{(\nu_1+\nu_2)/2-1} e^{-w(1+\nu_1 f/\nu_2)/2}$$
+
+Integrating out $w$:
+\begin{align*}
+f_F(f) &= \int_0^{\infty} f_{F,W}(f,w) dw\\
+&= \frac{\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} f^{\nu_1/2-1}}{2^{(\nu_1+\nu_2)/2}\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \int_0^{\infty} w^{(\nu_1+\nu_2)/2-1} e^{-w(1+\nu_1 f/\nu_2)/2} dw
+\end{align*}
+
+Using the gamma function integral:
+$$f_F(f) = \frac{\Gamma((\nu_1+\nu_2)/2)}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)} \left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2} \frac{f^{\nu_1/2-1}}{(1+\nu_1 f/\nu_2)^{(\nu_1+\nu_2)/2}}$$
+
+
+\subsection{Properties of the F-Distribution}
+
+\begin{textbox}
+If $F \sim F(\nu_1, \nu_2)$, then:
+\begin{enumerate}
+\item $E[F] = \frac{\nu_2}{\nu_2-2}$ for $\nu_2 > 2$
+\item $\text{Var}(F) = \frac{2\nu_2^2(\nu_1+\nu_2-2)}{\nu_1(\nu_2-2)^2(\nu_2-4)}$ for $\nu_2 > 4$
+\item If $F \sim F(\nu_1, \nu_2)$, then $1/F \sim F(\nu_2, \nu_1)$
+\end{enumerate}
+\end{textbox}
+
+\begin{textbox}
+If $T \sim t(\nu)$, then $T^2 \sim F(1, \nu)$.
+\end{textbox}
+
+\textbf{Proof:} Let $T = Z/\sqrt{V/\nu}$ where $Z \sim N(0,1)$ and $V \sim \chi^2(\nu)$ are independent.
+
+Then:
+$$T^2 = \frac{Z^2}{V/\nu} = \frac{Z^2/1}{V/\nu}$$
+
+Since $Z^2 \sim \chi^2(1)$, we have $T^2 \sim F(1, \nu)$ by definition.
+
+\newpage
+\thispagestyle{empty}  % Optional: removes page number
+\vspace*{\fill}
 
 \end{document}
 
