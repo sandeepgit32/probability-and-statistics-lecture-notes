@@ -2495,8 +2495,9 @@ So, the probability of \( A \cup B \) is:
 \[
 P(A \cup B) = 0.5 + 0.5 - \frac{1}{3} = 1 - \frac{1}{3} = \frac{2}{3}
 \]
-Thus, the probability of rolling a die and getting either an odd number or a number greater than or equal to 4 is \( \frac{2}{3} \).
+Thus, the probability of rolling a die and getting either an odd number or a number greater than or equal to 4 is \( \dfrac{2}{3} \).
 
+\hfill\(\blacksquare\)
 
 \begin{textbox}
 \textbf{Theorem}: For any three events $A$, $B$ and $C$ (not necessarily mutually exclusive),
@@ -2626,6 +2627,7 @@ Applying the induction hypothesis to \( P(B) \):
 P(B \cup A_{k+1}) \leq \sum_{i=1}^{k} P(A_i) + P(A_{k+1}) = \sum_{i=1}^{k+1} P(A_i)
 \]
 Thus, the inequality holds for \( n = k+1 \). By the principle of mathematical induction, the inequality holds for all \( n \in \mathbb{N} \).
+
 \hfill\(\blacksquare\)
 
 Boole's inequality provides a simple and conservative upper bound for the probability of the union of multiple events. This is important because, without detailed knowledge of the relationships between the events (e.g., how much they overlap), we can still estimate the probability that at least one of the events occurs by adding their individual probabilities.
@@ -2639,6 +2641,8 @@ but you don’t know the intersections between them, Boole’s inequality will t
 P(A_1 \cup A_2 \cup A_3) \leq 0.3 + 0.5 + 0.7 = 1.5
 \]
 Since probabilities cannot exceed 1, this shows that the bound is very loose, but it is still useful for getting a rough estimate.
+
+\hfill\(\blacksquare\)
 
 \begin{textbox}
 \textbf{Bonferroni's inequality}: Let \( A_1, A_2, \ldots, A_n \) be events of a random experiment. Then:
@@ -2800,9 +2804,7 @@ P(A) = \sum_{i=1}^n P(A \mid B_i)P(B_i)
 \]
 \hfill\(\blacksquare\)
 
-\subsubsection{Example}
-
-Suppose a factory has three machines:
+\textbf{Example:} Suppose a factory has three machines:
 
 \begin{itemize}
     \item Machine \( M_1 \) produces 30\% of the items, with a defect rate of 1\%.
@@ -2824,21 +2826,21 @@ Substituting the known values:
 
 The probability that a randomly chosen item is defective is $0.019$ or $1.9$\%.
 
----
+\hfill\(\blacksquare\)
 
 \section{Bayes' Theorem}
 Bayes' Theorem is a fundamental result in probability theory that arises directly from the definition of conditional probability and the Rule of Total Probability.
 \begin{textbox}
     \textbf{Bayes' Theorem}: Let \( B_1, B_2, \ldots, B_n \) be a partition of the sample space (i.e., mutually exclusive and collectively exhaustive events) and none of which has zero probability i.e. \( P(B_i) > 0 \) for all \( i \), then for any event \( A \) with \( P(A) > 0 \), the probability of \( B_r \) given \( A \) is:
 \[
-P(B_r \mid A) = \frac{P(B_r) \cdot P(A \mid B_r)}{\sum_{i=1}^{n} P(B_i) \cdot P(A \mid B_i)}
+P(B_r \mid A) = \frac{P(B_r) \cdot P(A \mid B_r)}{\displaystyle \sum_{i=1}^{n} P(B_i) \cdot P(A \mid B_i)}
 \]
 for \( r = 1, 2, \ldots, n \).
 \end{textbox}
 \textbf{Proof}: Let \( B_1, B_2, \ldots, B_n \) be a partition of the sample space \( S \) such that:
 \begin{itemize}
     \item The events \( B_i \) are mutually exclusive: \( B_i \cap B_j = \emptyset \) for \( i \neq j \),
-    \item The union of the \( B_i \)'s covers the whole sample space: \( \bigcup_{i=1}^n B_i = S \),
+    \item The union of the \( B_i \)'s covers the whole sample space: \(\displaystyle \bigcup_{i=1}^n B_i = S \),
     \item \( P(B_i) > 0 \) for all \( i \).
 \end{itemize}
 
@@ -2860,13 +2862,11 @@ P(A) = \sum_{i=1}^n P(B_i) \cdot P(A \mid B_i)
 \]
 Substitute this into the denominator:
 \[
-P(B_r \mid A) = \frac{P(B_r) \cdot P(A \mid B_r)}{\sum_{i=1}^{n} P(B_i) \cdot P(A \mid B_i)}
+P(B_r \mid A) = \frac{P(B_r) \cdot P(A \mid B_r)}{\displaystyle \sum_{i=1}^{n} P(B_i) \cdot P(A \mid B_i)}
 \]
 \hfill\(\blacksquare\)
 
-\subsubsection{Example}
-
-Suppose in a dataset of 1000 emails, 200 are identified as spam and 800 as non-spam. Among the spam emails, 80 contain the word `discount', while 80 of the non-spam emails also contain this word. We need to calculate the probability that an email is spam given that it contains the word `discount'.
+\textbf{Example:} Suppose in a dataset of 1000 emails, 200 are identified as spam and 800 as non-spam. Among the spam emails, 80 contain the word `discount', while 80 of the non-spam emails also contain this word. We need to calculate the probability that an email is spam given that it contains the word `discount'.
 \begin{itemize}
     \item \( P(S) = \dfrac{200}{1000} = 0.2 \): Probability that an email is spam.
     \item \( P(\overline{S}) = \dfrac{800}{1000} = 0.8 \): Probability that an email is not spam.
@@ -2888,7 +2888,7 @@ P(S \mid D) = \frac{0.2 \times 0.4}{0.2 \cdot 0.4 + 0.8 \cdot 0.1}
 \]
 So, the probability that the email is spam given it contains the word ``discount'' is \( 50\% \). Even though only \(20\%\) of all emails are spam, once we see the word ``discount'' the chance the email is spam rises to \(50\%\), because that word is much more common in spam than in legitimate messages.
 
----
+\hfill\(\blacksquare\)
 
 \subsection{Importance of Bayes' Theorem and Updating Probability}
 
@@ -2952,9 +2952,7 @@ P(\text{COVID} \mid \text{Positive}) = \frac{0.99 \times 0.01}{0.0594} \approx \
 
 That is, even with a \textbf{positive test result}, the probability of actually having COVID is only around \textbf{16.7\%}. Most people wrongly assume that a positive result from a highly accurate test means they almost certainly have the disease. However, because COVID-19 is relatively rare in the population (a low base rate), even highly accurate tests produce many false positives. This is the essence of the \textbf{base rate fallacy}: ignoring the background prevalence (base rate) of the disease and overestimating the significance of the test result.
 
-\subsubsection{Example}
-
-Imagine testing 10{,}000 people:
+\textbf{Example:} Imagine testing 10{,}000 people:
 
 \begin{itemize}
     \item 1\% are infected $\Rightarrow$ 100 people have COVID.
@@ -2973,7 +2971,7 @@ So, total positive tests = 99 (true) + 495 (false) = 594
 
 Probability of actually having COVID given a positive test = $ \dfrac{99}{594} \approx 16.7\% $
 
----
+\hfill $\blacksquare$
 
 \section{Statistical Independence of Events}
 
@@ -3036,6 +3034,8 @@ Since
 P(A \cap B) = P(A) \cdot P(B) = \frac{1}{6} \cdot \frac{1}{6} = \frac{1}{36},
 \]
 we conclude that the events \( A \) and \( B \) are \textbf{independent}.
+
+\hfill $\blacksquare$
 
 \begin{textbox}
 \textbf{Theorem:}
