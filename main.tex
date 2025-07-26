@@ -867,9 +867,9 @@ It is important to note where to use GM and where to use HM. GM is useful for av
     &= 0.5829 = \log 1.1436 \\
     \Rightarrow x_G &= 1.1436
 \end{align*}
+\hfill $\blacksquare$
 
-
-GM is also useful if one wants to determine the values of a variable at the midpoint of a time interval when the variable changes over time exponentially. Thus if the value at two points $0$ and $t$ be $a$ and $ar^t$, then its value at the midpoint $\frac{t}{2}$ is $(a \times ar^t)^{1/2} = ar^{t/2}$.
+GM is also useful if one wants to determine the values of a variable at the midpoint of a time interval when the variable changes over time exponentially. Thus if the value at two points $0$ and $t$ be $a$ and $ar^t$, then its value at the midpoint $\dfrac{t}{2}$ is $(a \times ar^t)^{1/2} = ar^{t/2}$.
 
 Now consider the following example:
 
@@ -879,13 +879,15 @@ If we use AM, then the average speed is
 $$\frac{1}{2}(20+24) = 22 \text{ km/h}$$
 But is this correct?
 
-Consider the total distance between $X$ and $Y$ is $1$ km for the sake of simplicity. So the total distance covered = $2$ km. The time taken for the person to go from $X$ to $Y$ is $\frac{1}{20} = 0.05$ hr and the time taken to return is $\frac{1}{24} = 0.04166$ hr.
+Consider the total distance between $X$ and $Y$ is $1$ km for the sake of simplicity. So the total distance covered = $2$ km. The time taken for the person to go from $X$ to $Y$ is $\dfrac{1}{20} = 0.05$ hr and the time taken to return is $\dfrac{1}{24} = 0.04166$ hr.
 
 Therefore average speed = $\dfrac{\text{Total distance}}{\text{Total time}} = \dfrac{2}{0.05+0.04166} = 21.8$ km/h.
 
-Clearly, the AM value of $22$ km/h overestimates the actual average speed. Now consider the harmonic mean (HM) of the two speeds: $$\dfrac{2}{\frac{1}{20}+\frac{1}{24}} = 21.8 \text{ km/h}$$
+Clearly, the AM value of $22$ km/h overestimates the actual average speed. Now consider the harmonic mean (HM) of the two speeds: $$\dfrac{2}{\dfrac{1}{20}+\dfrac{1}{24}} = 21.8 \text{ km/h}$$
 
 This matches the correct value.
+
+\hfill $\blacksquare$
 
 Now where to use the HM? The harmonic mean is particularly useful when dealing with quantities expressed in the form ``$x$ per unit $y$'', such as ``km per hour'', ``rupees per kg'', and similar rates. Here $x$ and $y$ are unit of measures, not numeric variables.
 
@@ -901,7 +903,7 @@ Now where to use the HM? The harmonic mean is particularly useful when dealing w
 
 \medskip
 
-This principle can be illustrated with the following example.
+This principle can be illustrated with the following example:
 
 \textbf{Example}: Suppose a train covers \textbf{\( n \) equal distances}, each of \( s \) kilometers, with speeds \( v_1, v_2, \dots, v_n \) km/h. The average speed is the total distance divided by the total time taken. Thus,
 
@@ -929,6 +931,8 @@ and the total time is \( nt \). So, the average speed is:
 \]
 
 which is the \textbf{arithmetic mean (AM)} of the given speeds.
+
+\hfill $\blacksquare$
 
 
 \begin{textbox}
@@ -1158,6 +1162,7 @@ Since there are 5 values (odd), the median is the 3rd value:
 \[
 \text{Median} = 5
 \]
+\hfill $\blacksquare$
 
 \item \textbf{Median in a Simple Frequency Distribution}
 
@@ -1192,6 +1197,8 @@ In a simple frequency distribution, each data value is associated with a frequen
 N = 3 + 5 + 7 + 5 = 20 \quad \Rightarrow \dfrac{N}{2} = 10
 \]
 Since 10 is between 8 and 15, the Median is 6. This works regardless of whether $N$ is odd or even.
+
+\hfill $\blacksquare$
 
 \item \textbf{Median in a Grouped Frequency Distribution}
 
@@ -1292,6 +1299,8 @@ $$L = 20, F = 13, f = 12, h = 10$$
 \[
 \text{Median} = 20 + \left( \frac{15.5 - 13}{12} \right) \cdot 10 = 20 + \left( \frac{2.5}{12} \right) \cdot 10 = 20 + 2.08 = 22.08
 \]
+\hfill $\blacksquare$
+
 \end{enumerate}
 
 \begin{textbox}
@@ -1358,14 +1367,15 @@ In both cases—odd and even number of observations—the value of \( A \) that 
 
     \hfill $\blacksquare$
 
+\subsubsection{Mean vs. Median}
+
 \begin{textbox}
 The median is a better measure of central tendency than the mean (AM) in the presence of outliers in the observations.
 \end{textbox}
 
 The \textbf{mean} (AM) is sensitive to extreme values or outliers, while the \textbf{median} (the middle value) is more robust and resistant to such anomalies. This makes the median a better measure of central tendency in the presence of outliers or skewed data.
 
-Consider the marks obtained by 5 students:
-
+\textbf{Example:} Consider the marks obtained by 5 students:
 \[
 \text{Scores} = \{10, 70, 75, 80, 90\}
 \]
@@ -1384,6 +1394,8 @@ Now suppose one student scored unusually low:
 \]
 
 The mean drops to 65 due to the outlier (10), even though most students scored 70 or above. The median stays at 75 and gives a better picture of the typical student performance.
+
+\hfill $\blacksquare$
 
 \subsection{Mode}
 \begin{textbox}
@@ -1437,6 +1449,7 @@ The highest frequency is 7, corresponding to the value 5. Hence:
 \[
 \text{Mode} = 5
 \]
+\hfill $\blacksquare$
 
 \item \textbf{Mode in a Grouped Frequency Distribution}
 
@@ -1547,23 +1560,22 @@ L = 20, \quad f_0 = 6, \quad f_1 = 10, \quad f_2 = 8, \quad h = 10
 \[
 \text{Mode} = 20 + \left( \frac{10 - 6}{2(10) - 6 - 8} \right) \cdot 10 = 20 + \left( \frac{4}{6} \right) \cdot 10 = 20 + 6.67 = 26.67
 \]
-
+\hfill $\blacksquare$
 \end{enumerate}
 
 
 \subsection{Comparison and When to Use Each}
 
 \begin{itemize}
-    \item \textbf{Mean} is sensitive to outliers and skewed data. It is best used for symmetric, continuous data without extreme values.
+    \item \textbf{Arithmatic Mean} is sensitive to outliers and skewed data. It is best used for symmetric, continuous data without extreme values.
+    
+    \item \textbf{Geometric Mean} is appropriate when dealing with ratios, growth rates, or multiplicative processes (e.g., population growth, interest rates).
+    
+    \item \textbf{Harmonic Mean} is best for averaging rates, such as speed or price per unit when quantities vary.
 
     \item \textbf{Median} is more robust to outliers and skewed distributions. It is ideal when the data contain extreme values or are not symmetrically distributed.
 
     \item \textbf{Mode} is useful for categorical or discrete data, especially when identifying the most frequent category is of interest.
-
-    \item \textbf{Geometric Mean} is appropriate when dealing with ratios, growth rates, or multiplicative processes (e.g., population growth, interest rates).
-
-    \item \textbf{Harmonic Mean} is best for averaging rates, such as speed or price per unit when quantities vary.
-
 \end{itemize}
 
 Each measure gives a different perspective of the `center' of the data. The choice of measure should be guided by the nature and scale of the data, and the specific analysis objective.
@@ -1607,12 +1619,16 @@ Q_k = \left( \frac{k(n+1)}{4} \right)\text{th value}, \quad k = 1, 2, 3
 
 \begin{itemize}
     \item Number of observations $ n = 9$
-    \item $Q_1 = \left( \frac{1(9+1)}{4} \right) = \text{3rd value} = 8$
-    \item $Q_2 = \left( \frac{2(9+1)}{4} \right) = \text{5th value} = 13$
-    \item $Q_3 = \left( \frac{3(9+1)}{4} \right) = \text{7th value} = 16$
+    \item $Q_1 = \left( \dfrac{1(9+1)}{4} \right) = \text{3rd value} = 8$
+    \item $Q_2 = \left( \dfrac{2(9+1)}{4} \right) = \text{5th value} = 13$
+    \item $Q_3 = \left( \dfrac{3(9+1)}{4} \right) = \text{7th value} = 16$
 \end{itemize}
+\hfill $\blacksquare$
 
-\textbf{Interquartile Range (IQR)}: The {Interquartile Range (IQR)} is a measure of statistical dispersion, which describes the spread of the middle 50\% of a data set. It is the difference between the third quartile (\(Q_3\)) and the first quartile (\(Q_1\)).
+
+\subsubsection{Interquartile Range (IQR)}
+
+The {Interquartile Range (IQR)} is a measure of statistical dispersion, which describes the spread of the middle 50\% of a data set. It is the difference between the third quartile (\(Q_3\)) and the first quartile (\(Q_1\)).
 
 \begin{textbox}
     \[
@@ -1685,7 +1701,7 @@ Measures of dispersion are broadly classified into two types:
 \begin{enumerate}
     \item \textbf{Range}: Difference between the largest and smallest observations.
     \begin{textbox}
-        \[
+    \[
     \text{Range} = L - S
     \]
     \end{textbox}
@@ -1693,7 +1709,6 @@ Measures of dispersion are broadly classified into two types:
 
     Consider the data set: \{10, 15, 18, 22, 25\}.
 Here, the largest value \( L = 25 \) and the smallest value \( S = 10 \).
-
 \[
 \text{Range} = 25 - 10 = 15
 \]
@@ -1748,7 +1763,7 @@ For weighted data, the Mean Deviation about the mean is given by:
 
 \begin{textbox}
 \[
-\text{Mean Deviation about mean} = \frac{\sum_{i=1}^{n} f_i \left| x_i - \overline{x} \right|}{\sum_{i=1}^{n} f_i}
+\text{Mean Deviation about mean} = \frac{\displaystyle \sum_{i=1}^{n} f_i \left| x_i - \overline{x} \right|}{\displaystyle\sum_{i=1}^{n} f_i}
 \]
 \end{textbox}
 
@@ -1756,10 +1771,10 @@ where:
 \begin{itemize}
     \item \( x_i \) are the data values,
     \item \( f_i \) are their corresponding frequencies (weights),
-    \item \( \overline{x} = \dfrac{\sum_i f_i x_i}{\sum_i f_i} \) is the weighted mean.
+    \item \( \overline{x} = \dfrac{\displaystyle\sum_{i=1}^n f_i x_i}{\displaystyle\sum_{i=1}^n f_i} \) is the weighted mean.
 \end{itemize}
 
-    \item \textbf{Standard Deviation}: In considering the deviations $x_i-A$ for obtaining a measure of dispersion, we may also get rid of their signs by taking their squares $(x_i-A)^2$, instead of taking their absolute values $|x_i-A|$. The square root of the arithmetic mean of these squares i.e. $\sqrt{\dfrac{1}{n}\sum_{i=1}^n(x_i-A)^2}$ which is called the \textbf{root mean square deviation} about $A$, may be accepted as a measure of dispersion. When $A=\overline{x}$, the measure of dispersion is called the standard deviation.
+    \item \textbf{Standard Deviation}: In considering the deviations $x_i-A$ for obtaining a measure of dispersion, we may also get rid of their signs by taking their squares $(x_i-A)^2$, instead of taking their absolute values $|x_i-A|$. The square root of the arithmetic mean of these squares i.e. $\sqrt{\dfrac{1}{n}\displaystyle\sum_{i=1}^n(x_i-A)^2}$ which is called the \textbf{root mean square deviation} about $A$, may be accepted as a measure of dispersion. When $A=\overline{x}$, the measure of dispersion is called the standard deviation.
     \begin{textbox}
     \[
     \text{Standard deviation} = \sigma = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \overline{x})^2}
@@ -1789,7 +1804,7 @@ For weighted data, the standard deviation is calculated as:
 
 \begin{textbox}
 \[
-\text{Standard deviation} = \sigma = \sqrt{\frac{\sum_{i=1}^n f_i (x_i - \overline{x})^2}{\sum_{i=1}^n f_i}}
+\text{Standard deviation} = \sigma = \sqrt{\frac{\displaystyle \sum_{i=1}^n f_i (x_i - \overline{x})^2}{\displaystyle \sum_{i=1}^n f_i}}
 \]
 \end{textbox}
 
@@ -1797,7 +1812,7 @@ where,
 \begin{itemize}
     \item \(x_i\) are the data values,
     \item \(f_i\) are the corresponding frequencies (weights),
-    \item \(\overline{x} = \dfrac{\sum_{i=1}^n f_i x_i}{\sum_{i=1}^n f_i}\) is the weighted mean,
+    \item \(\overline{x} = \dfrac{\displaystyle \sum_{i=1}^n f_i x_i}{\displaystyle\sum_{i=1}^n f_i}\) is the weighted mean,
 \end{itemize}
 
 \begin{textbox}
@@ -1810,9 +1825,8 @@ where,
 \]
 The standard deviation is
 \begin{align*}
-\sigma_x &= \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2} = \sqrt{\frac{1}{n} \sum_{i=1}^n (a - a)^2} = \sqrt{0} = 0.
+\sigma_x &= \sqrt{\frac{1}{n} \displaystyle\sum_{i=1}^n (x_i - \overline{x})^2} = \displaystyle\sqrt{\frac{1}{n} \sum_{i=1}^n (a - a)^2} = \sqrt{0} = 0
 \end{align*}
-
 \hfill $\blacksquare$
 
 \begin{textbox}
@@ -1832,7 +1846,6 @@ The standard deviation of \( y \) is
          &= \sqrt{\frac{1}{n} \sum_{i=1}^n \left(b (x_i - \overline{x})\right)^2} = \sqrt{\frac{1}{n} \sum_{i=1}^n b^2 (x_i - \overline{x})^2} \\
          &= |b| \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2} = |b| \sigma_x
 \end{align*}
-
 \hfill $\blacksquare$
 
 \begin{textbox}
@@ -1868,19 +1881,18 @@ The variance of the combined data set is
 Expanding the first term:
 \begin{align*}
 \sum_{j=1}^{n_1} (x_{ij} - \overline{x})^2 &= \sum_{j=1}^{n_1} \left[(x_{1j} - \overline{x}_1) + (\overline{x}_1 - \overline{x})\right]^2 \\
-&= \underbrace{\sum_{j=1}^{n_1} (x_{1j} - \overline{x}_1)^2}_{= n_1\sigma_1^2} + 2(\overline{x}_1 - \overline{x}) \underbrace{\sum_{j=1}^{n_1} (x_{1j} - \overline{x}_1)}_{= 0} + \sum_{j=1}^{n_1} (\overline{x}_1 - \overline{x})^2 \\
-&= n_1 \sigma_1^2 + n_1 (\overline{x}_1 - \overline{x})^2,
+&= \underbrace{\sum_{j=1}^{n_1} (x_{1j} - \overline{x}_1)^2}_{n_1\sigma_1^2} + 2(\overline{x}_1 - \overline{x}) \underbrace{\sum_{j=1}^{n_1} (x_{1j} - \overline{x}_1)}_{0} + \sum_{j=1}^{n_1} (\overline{x}_1 - \overline{x})^2 \\
+&= n_1 \sigma_1^2 + n_1 (\overline{x}_1 - \overline{x})^2
 \end{align*}
 Similarly,
 \[
-\sum_{j=1}^{n_2} (x_{2j} - \overline{x})^2 = n_2 \sigma_2^2 + n_2 (\overline{x}_2 - \overline{x})^2.
+\sum_{j=1}^{n_2} (x_{2j} - \overline{x})^2 = n_2 \sigma_2^2 + n_2 (\overline{x}_2 - \overline{x})^2
 \]
 
 Thus,
 \begin{align*}
 \sigma^2 &= \frac{n_1 \sigma_1^2 + n_2 \sigma_2^2}{n_1 + n_2} + \frac{n_1 (\overline{x}_1 - \overline{x})^2 + n_2 (\overline{x}_2 - \overline{x})^2}{n_1 + n_2}
 \end{align*}
-
 \hfill $\blacksquare$
 
 \end{enumerate}
@@ -1935,7 +1947,7 @@ In descriptive statistics, \textbf{moments} are used to describe various charact
 \end{textbox}
     \begin{itemize}
         \item First raw moment: $\mu'_1 = \overline{x}$ (sample mean)
-        \item Second raw moment: $\mu'_2 = \frac{1}{n} \sum x_i^2$
+        \item Second raw moment: $\mu'_2 = \frac{1}{n} \displaystyle\sum_{i=1}^n x_i^2$
     \end{itemize}
     \item \textbf{Central moments} (moments about the mean): The $r$-th \textbf{central moment} is the average of the $r$-th powers of deviations from the mean:
 \begin{textbox}
@@ -1945,7 +1957,7 @@ In descriptive statistics, \textbf{moments} are used to describe various charact
 \end{textbox}
 \begin{itemize}
     \item First central moment: $\mu_1 = 0$ (since the mean deviation is zero)
-    \item Second central moment: $\mu_2 = \dfrac{1}{n} \sum_{i=1}^{n} (x_i - \overline{x})^2$ is the {variance}.
+    \item Second central moment: $\mu_2 = \dfrac{1}{n} \displaystyle\sum_{i=1}^{n} (x_i - \overline{x})^2$ is the {variance}.
 \end{itemize}
 \end{itemize}
 
@@ -1970,6 +1982,7 @@ In descriptive statistics, \textbf{moments} are used to describe various charact
 \end{align*}
 
 \end{itemize}
+\hfill $\blacksquare$
 
 \subsection{Relationship Between Raw and Central Moments}
 
@@ -2116,7 +2129,7 @@ The sample skewness is defined as:
 \text{Skewness} (\gamma_1) = \frac{1}{n} \sum_{i=1}^n \left( \frac{x_i - \overline{x}}{\sigma} \right)^3 = \frac{\mu_3}{\sigma^3}
 \]
 \end{textbox}
-where \(\mu_3 = \dfrac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^3\) is the third central moment.
+where \(\mu_3 = \dfrac{1}{n} \displaystyle\sum_{i=1}^n (x_i - \overline{x})^3\) is the third central moment.
 
 The value of skewness determines the shape of the frequency curve:
 \begin{itemize}
@@ -2140,7 +2153,7 @@ Dividing by the cube of the standard deviation $\sigma^3$ standardizes the measu
     xlabel={$x$}, ylabel={$f(x)$},
     domain=-8:8, samples=200,
     every axis plot post/.append style={very thick},
-    clip=false            % allow arrows/nodes outside the plot area
+    clip=false, thick        % allow arrows/nodes outside the plot area
   ]
     % Symmetric (Normal)
     \addplot[blue, very thick] {1/sqrt(2*pi)*exp(-x^2/2)};
@@ -2181,6 +2194,7 @@ Dividing by the cube of the standard deviation $\sigma^3$ standardizes the measu
 
 Since skewness \(> 0\), the distribution is \textbf{positively skewed}.
 
+\hfill $\blacksquare$
 
 In most unimodal distributions\footnote{A dataset is said to have a \textbf{unimodal distribution} if its values tend to cluster around a single (not multiple) central peak when plotted as a histogram or a frequency curve.}, the following ``rule of thumb'' holds regarding the ordering of Mean, Median, and Mode under skewness:
 
@@ -2209,7 +2223,7 @@ In most unimodal distributions\footnote{A dataset is said to have a \textbf{unim
 \text{Absolute Kurtosis} \;=\;\frac{\mu_4}{\sigma^4}
 \]
 \end{textbox}
-where \(\mu_4 = \dfrac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^4\) is the fourth central moment.
+where \(\mu_4 = \dfrac{1}{n} \displaystyle\sum_{i=1}^n (x_i - \overline{x})^4\) is the fourth central moment.
 
 The absolute kurtosis of a normal distribution, which we will learn in later chapter, is 3. The value 3 is taken as a datum (reference point) to calculate the relative kurtosis.
 \begin{textbox}
@@ -2232,7 +2246,7 @@ The absolute kurtosis of a normal distribution, which we will learn in later cha
     ymin=0, ymax=0.65,
     xlabel={$x$}, ylabel={$f(x)$},
     domain=-6:6, samples=200,
-    clip=false,
+    clip=false, thick,
     every axis plot post/.append style={very thick},
   ]
     % Platykurtic: wider Gaussian (σ=2)
@@ -2264,7 +2278,7 @@ Also, dividing the fourth central moment by $\sigma^4$ makes kurtosis a \textbf{
 
 
 
-\textbf{Example}: Using the same data \(x = \{2,3,4,5,8\}\):
+\textbf{Example:} Using the same data \(x = \{2,3,4,5,8\}\):
 \begin{itemize}
   \item Mean \(\overline{x}=4.4\), \quad Standard deviation \(\sigma\approx2.058\).
   \item Fourth central moment:
@@ -2276,7 +2290,7 @@ Also, dividing the fourth central moment by $\sigma^4$ makes kurtosis a \textbf{
         \(\text{Relative Kurtosis}\approx -0.71\).
         This dataset is \textbf{platykurtic}.
 \end{itemize}
-
+\hfill $\blacksquare$
 
 \chapter{Theory of Probability}
 \section{Some Notation and Terminology}
@@ -2334,10 +2348,12 @@ Consider the random experiment of rolling a die. The sample space is
 \[
 S = \{1, 2, 3, 4, 5, 6\}
 \]
+
 Let
 \[
 A = \{2, 4, 6\}
 \]
+
 be an event, which can be described as ``an even number appears when the die is rolled.''
 
 There are various types of events:
@@ -2363,6 +2379,7 @@ There are various types of events:
     \[
     A_1 \cap A_2 = \emptyset
     \]
+    
     When tossing a coin, the events `Head' and `Tail' are mutually exclusive because both cannot occur at the same time. If we get a head, we cannot get a tail in that toss.
 
     \subsection{Exhaustive Set of Events}
@@ -2370,6 +2387,7 @@ There are various types of events:
     \[
     A_1 \cup A_2 \cup \dots \cup A_n = S
     \]
+    
     When rolling a die, the events \{$1$\}, \{$2$\}, \{$3$\}, \{$4$\}, \{$5$\}, and \{$6$\} form an exhaustive set because they cover all possible outcomes of the die roll. One of these events must occur when the die is thrown.
 
 \section{Definition of Probability}
@@ -2437,7 +2455,8 @@ $$P(\emptyset) = 1-P(S) = 1-1 = 0$$
 \end{textbox}
 
 \textbf{Proof}: From the Venn diagram, we can see that the event $A \cup B$ consists of three mutually exclusive events (subsets) $A \cap \overline{B}$, $A \cap B$ and $\overline{A} \cap B$.
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
     % Draw set A
     \begin{scope}
@@ -2456,7 +2475,8 @@ $$P(\emptyset) = 1-P(S) = 1-1 = 0$$
     \node at (3.9,2) {$\overline{A} \cap B$};
     \node at (2.7,2) {$A \cap B$};
 \end{tikzpicture}
-\end{center}
+\caption{\textit{Venn diagram of two overlapping sets $A$ and $B$.}}
+\end{figure}
 
 
 The event $A$ consists of two mutually exclusive events $A \cap \overline{B}$ and $A \cap B$. Therefore
@@ -2516,6 +2536,7 @@ Also, apply distributivity to expand \( P(A \cap (B \cup C)) \):
 P(A \cap (B \cup C)) &= P((A \cap B) \cup (A \cap C)) \\
 &= P(A \cap B) + P(A \cap C) - P(A \cap B \cap C)
 \end{align*}
+
 Substituting back into the original expression:
 \begin{align*}
 P(A \cup B \cup C) &= P(A) + \big[ P(B) + P(C) - P(B \cap C) \big] \\
@@ -2565,7 +2586,8 @@ The proof of this theorem is left as an exercise.
 % P(\text{exactly one of } A \text{ or } B) = P(A) + P(B) - 2P(A \cap B)
 % \]
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
     % Draw set A
     \begin{scope}
@@ -2584,7 +2606,8 @@ The proof of this theorem is left as an exercise.
     \node at (3.9,2) {$\overline{A} \cap B$};
     \node at (2.7,2) {$A \cap B$};
 \end{tikzpicture}
-\end{center}
+\caption{\textit{Venn diagram of two overlapping sets $A$ and $B$.}}
+\end{figure}
 
 We can see it from the Venn diagram:
 \begin{align*}
@@ -2694,6 +2717,8 @@ P(A_1 \cap A_2 \cap A_3) \geq 0.6 + 0.5 + 0.7 - 2 = 0.8
 \]
 Thus, the probability that all three events occur simultaneously is at least \( 0.8 \).
 
+\hfill $\blacksquare$
+
 \section{Conditional Probability}
 
 Conditional probability is the probability of an event occurring given that another event has already occurred.
@@ -2707,9 +2732,7 @@ P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{provided} \, P(B) \neq 0
 
 This formula tells us how likely event \( A \) is, given that we know event \( B \) has happened. The idea is that we restrict our sample space to the outcomes where \( B \) occurs, and then we compute the probability of \( A \) within this restricted sample space.
 
-\subsubsection{Example}
-
-Let's define two events when rolling a fair six-sided die:
+\textbf{Example:} Let's define two events when rolling a fair six-sided die:
 
 \begin{itemize}
     \item \( A \): The event that the die shows an \textit{even face}, i.e., \( A = \{2, 4, 6\} \).
@@ -2725,10 +2748,13 @@ The conditional probability of \( A \) given \( B \) is:
 \begin{align*}
 P(A \mid B) = \frac{P(A \cap B)}{P(B)} = \dfrac{1/6}{1/3}  = \dfrac{1}{2}
 \end{align*}
+
 The conditional probability of \( B \) given \( A \) is:
 \[
 P(B \mid A) = \frac{P(A \cap B)}{P(A)} =\frac{\frac{1}{6}}{\frac{1}{2}} = \frac{1}{3}
 \]
+\hfill $\blacksquare$
+
 \begin{textbox}
 \textbf{Multiplication Rule of Probabilities}: If \( A \) and \( B \) are any events in the sample space \( S \), then:
 \begin{align*}
@@ -2783,7 +2809,7 @@ P(A) = \sum_{i=1}^{n} P(A \mid B_i)P(B_i)
 
 \begin{itemize}
     \item The events \( B_i \) are mutually exclusive: \( B_i \cap B_j = \emptyset \) for \( i \ne j \)
-    \item The events \( B_i \) are collectively exhaustive: \( \bigcup_{i=1}^n B_i = S \)
+    \item The events \( B_i \) are collectively exhaustive: \( \displaystyle\bigcup_{i=1}^n B_i = S \)
 \end{itemize}
 
 Then for any event \( A \subseteq S \):
@@ -2979,28 +3005,34 @@ If $A$ and $B$ are any two events in a sample space $S$, we say that ``$A$ is in
 $$
 P(A \mid B) = P(A)
 $$
+
 This means that knowing whether or not $B$ has occurred ``does not change'' the probability of $A$ occurring.
 
 From the definition of conditional probability:
 $$
 P(A \mid B) = \frac{P(A \cap B)}{P(B)},
 $$
+
 if we substitute and rearrange the condition $P(A \mid B) = P(A)$, we get:
 $$
 \frac{P(A \cap B)}{P(B)} = P(A) \quad \Rightarrow \quad P(A \cap B) = P(A) \cdot P(B)
 $$
+
 Thus, another equivalent definition of independence is:
 $$
 P(A \cap B) = P(A) \cdot P(B)
 $$
+
 Now, to check whether $B$ is independent of $A$, we look at:
 $$
 P(B \mid A) = \frac{P(B \cap A)}{P(A)} = \frac{P(A \cap B)}{P(A)}
 $$
+
 Since we just showed that $P(A \cap B) = P(A) \cdot P(B)$, substitute:
 $$
 P(B \mid A) = \frac{P(A) \cdot P(B)}{P(A)} = P(B)
 $$
+
 Thus, $B$ is also independent of $A$.
 
 \begin{textbox}
@@ -3145,19 +3177,21 @@ Two events \( A \) and \( B \) cannot be both mutually exclusive and independent
 
 In terms of a Venn diagram, the independence of events implies that the overlap between sets \( A \) and \( B \) (i.e., \( A \cap B \)) should be such that its area (probability) equals the product of the areas (probabilities) of each individual circle.
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
   % Draw event A
-  \draw[fill=blue!30, opacity=0.5] (2,2) circle (1.2) node[left=20pt, above=20pt] {\(A\)};
+  \draw[fill=blue!30, opacity=0.6] (2,2) circle (1.2) node[left=20pt, above=20pt] {\(A\)};
 
   % Draw event B
-  \draw[fill=red!30, opacity=0.5] (3.5,2) circle (1.2) node[right=20pt, above=20pt] {\(B\)};
+  \draw[fill=red!30, opacity=0.6] (3.5,2) circle (1.2) node[right=20pt, above=20pt] {\(B\)};
 \end{tikzpicture}
-\end{center}
+\caption{\textit{Venn diagram of two overlapping sets $A$ and $B$.}}
+\end{figure}
 
 This is different from mutually exclusive events, where the sets do not overlap at all. Both the condition will be satisfied if the area of at least one of the circle is zero.
 
-\subsection{Reliability Analysis using Statistical Independence}
+\subsection{Reliability Analysis Using Statistical Independence}
 
 Reliability analysis is the branch of engineering concerned with estimating the failure
 rates of systems. If a machine has a reliability of $0.95$ over $1$ year, it means there is a $95\%$ chance that it will work without failure for the entire year. In many systems, components are arranged either in \textit{series} or in \textit{parallel}, and the system's reliability depends on the configuration.
@@ -3168,7 +3202,8 @@ rates of systems. If a machine has a reliability of $0.95$ over $1$ year, it mea
 
 Consider a system with two components, \( A \) and \( B \), connected in \textbf{series}. In this setup, the system will work only if \textbf{both} components function properly.
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}[thick]
   % Draw lines before and after the blocks
   \draw (0,0) -- (1,0);
@@ -3183,14 +3218,14 @@ Consider a system with two components, \( A \) and \( B \), connected in \textbf
   \draw (3, -0.5) rectangle (4, 0.5);
   \node at (3.5, 0) {\textbf{B}};
 \end{tikzpicture}
-\end{center}
+\caption{\textit{Two components $A$ and $B$ connected in series.}}
+\end{figure}
 
 Suppose the probability that $A$ functions is given by $P(A) = 0.96$, and the probability that $B$ functions is given by
 $P(B) = 0.92$. Assuming that the components function independently, the probability that the system works is:
 \[
 \begin{aligned}
-P(\text{System functions}) &= P(A \cap B) \\
-&= P(A) \cdot P(B) \\
+P(\text{System functions}) &= P(A \cap B) = P(A) \cdot P(B) \\
 &= 0.96\times 0.92 = 0.8832
 \end{aligned}
 \]
@@ -3200,7 +3235,8 @@ Since both components must function, the system's reliability is lower than that
 
 Now consider a system with two components, \( C \) and \( D \), connected in \textbf{parallel}. In this case, the system will function as long as \textbf{at least one} component functions.
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}[thick]
   % Input and output lines
   \draw (-2,0) -- (-1,0);
@@ -3216,7 +3252,8 @@ Now consider a system with two components, \( C \) and \( D \), connected in \te
   \draw (0,-0.9) -- (1,0);
   \draw (0,-0.5) node[draw, fill=white, minimum size=8mm] {\textbf{D}};
 \end{tikzpicture}
-\end{center}
+\caption{\textit{Two components $C$ and $D$ connected in parallel.}}
+\end{figure}
 
 Suppose the probabilities that the components function are:
 \[
@@ -3251,7 +3288,7 @@ X : S \rightarrow \mathbb{R}
 where each outcome \( s \in S \) is mapped to a real number \( X(s) \).
 
 \end{textbox}
-\textbf{Note}: A random variable is denoted by an uppercase letter such as $X$ and $Y$. After experiment is conducted, the measured value of the random variable is denoted by a lowercase letter such as $x$
+\textbf{Note}: A random variable is denoted by uppercase letters such as $X$ and $Y$. After experiment is conducted, the measured value of the random variable is denoted by lowercase letters such as $x$
 and $y$.
 
 \subsection{Random Variable Types}
@@ -3290,23 +3327,24 @@ where \( x_k \) is a specific value of the random variable \( X \). The PMF sati
 
 \begin{enumerate}
     \item \( 0 \leq p_X(x_k) \leq 1 \) for all \( k \)
-    \item \( \sum_{k} p_X(x_k) = 1 \)
+    \item \( \displaystyle\sum_{k} p_X(x_k) = 1 \)
 \end{enumerate}
 
-\textbf{Example}: Consider a discrete random variable \( X \) with the following distribution:
+Consider a discrete random variable \( X \) with the following distribution:
 \[
 p_X(x) = P(X = x) =
 \begin{cases}
-\frac{1}{4}, & \text{if } x = 1 \\
-\frac{1}{2}, & \text{if } x = 2 \\
-\frac{1}{4}, & \text{if } x = 3 \\
+1/4, & \text{if } x = 1 \\
+1/2, & \text{if } x = 2 \\
+1/4, & \text{if } x = 3 \\
 0, & \text{otherwise}
 \end{cases}
 \]
 
 The PMF is visualized as follows:
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
 \begin{axis}[
     width=10cm,
@@ -3325,7 +3363,7 @@ The PMF is visualized as follows:
     % ymajorgrids=true,
     enlargelimits=0.1,
     domain=1:3,
-    samples=3,
+    samples=3, thick
     % every axis plot/.append style={
     %     ycomb,
     %     mark=*,
@@ -3336,7 +3374,9 @@ The PMF is visualized as follows:
 \addplot+[] coordinates {(1,0.25) (2,0.5) (3,0.25)};
 \end{axis}
 \end{tikzpicture}
-\end{center}
+\caption{\textit{Visualization of the PMF of a discrete random variable.}}
+\end{figure}
+
 
 \subsection{Probability Density Function (PDF)}
 
@@ -3350,10 +3390,10 @@ where \( f_X(x) \) is the PDF of \( X \). The PDF satisfies the following proper
 
 \begin{enumerate}
     \item \( f_X(x) \geq 0 \) for all \( x \)
-    \item \( \int_{-\infty}^{\infty} f_X(x) \, dx = 1 \)
+    \item \( \displaystyle\int_{-\infty}^{\infty} f_X(x) \, dx = 1 \)
 \end{enumerate}
 
-\textbf{Example}: Consider a continuous random variable with the following distribution:
+Consider a continuous random variable with the following distribution:
 \[
 f_X(x) =
 \begin{cases}
@@ -3364,7 +3404,8 @@ f_X(x) =
 The PDF can be visualised as follows:
 
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
 \begin{axis}[
     width=10cm,
@@ -3378,7 +3419,7 @@ The PDF can be visualised as follows:
     ymin=0, ymax=1.2,
     % grid=major,
     % ymajorgrids=true,
-    enlargelimits=0.05
+    enlargelimits=0.05, thick
 ]
 
 \addplot[
@@ -3418,7 +3459,8 @@ The PDF can be visualised as follows:
 };
 \end{axis}
 \end{tikzpicture}
-\end{center}
+\caption{\textit{Visualization of the PDF of a continuous random variable.}}
+\end{figure}
 
 \subsection{Cumulative Distribution}
 
@@ -3430,7 +3472,7 @@ F_X(x) = P(X \leq x)
 \end{textbox}
 This function gives the probability that \( X \) takes a value less than or equal to \( x \).
 
-\textbf{CDF for Discrete Random Variables}
+\subsubsection{CDF for Discrete Random Variables}
 
 For a discrete random variable \( X \), the CDF is given by the sum of the probabilities for all values less than or equal to \( x \). If \( X \) takes the values \( x_1, x_2, \dots, x_n \), the CDF is:
 \begin{textbox}
@@ -3440,21 +3482,21 @@ F_X(x) = \sum_{x_k \leq x} P(X = x_k)
 \end{textbox}
 This sum includes all the probabilities up to and including \( x \).
 
-\textbf{Example:} Consider the random variable \( X \) representing the outcome of a fair six-sided die roll. The CDF for \( X \) is:
+Consider the random variable \( X \) representing the outcome of a fair six-sided die roll. The CDF for \( X \) is:
 \[
 F_X(x) =
 \begin{cases}
 0, & \text{if } x < 1 \\
-\frac{1}{6}, & \text{if } 1 \leq x < 2 \\
-\frac{2}{6}, & \text{if } 2 \leq x < 3 \\
-\frac{3}{6}, & \text{if } 3 \leq x < 4 \\
-\frac{4}{6}, & \text{if } 4 \leq x < 5 \\
-\frac{5}{6}, & \text{if } 5 \leq x < 6 \\
+1/6, & \text{if } 1 \leq x < 2 \\
+2/6, & \text{if } 2 \leq x < 3 \\
+3/6, & \text{if } 3 \leq x < 4 \\
+4/6, & \text{if } 4 \leq x < 5 \\
+5/6, & \text{if } 5 \leq x < 6 \\
 1, & \text{if } x \geq 6
 \end{cases}
 \]
 
-\begin{center}
+\begin{figure}[H]
 \begin{tikzpicture}
 \begin{axis}[
     width=10cm,
@@ -3465,7 +3507,7 @@ F_X(x) =
     xtick={0,1,2,3,4,5,6,7},
     ytick={0,1/6,2/6,3/6,4/6,5/6,1},
     xmin=0, xmax=7,
-    ymin=0, ymax=1.1,
+    ymin=0, ymax=1.1,thick
     % grid=major,
 ]
 
@@ -3562,10 +3604,11 @@ F_X(x) =
 };
 \end{axis}
 \end{tikzpicture}
-\end{center}
+\caption{\textit{Visualization of the CDF of a discrete random variable representing the outcome of a six-sided die roll.}}
+\end{figure}
 
 
-\textbf{CDF for Continuous Random Variables}
+\subsubsection{CDF for Continuous Random Variables}
 
 For a continuous random variable \( X \), the CDF is obtained by integrating the probability density function (PDF) up to \( x \):
 \begin{textbox}
@@ -3575,7 +3618,7 @@ F_X(x) = \int_{-\infty}^{x} f_X(t) \, dt
 \end{textbox}
 This represents the area under the PDF curve from \( -\infty \) to \( x \), giving the cumulative probability up to \( x \).
 
-\textbf{Example:} Consider a continuous random variable \( X \) with a probability density function (PDF) \( f_X(x) = 1 \) for \( 0 \leq x \leq 1 \) (uniform distribution). The CDF is given by:
+Consider a continuous random variable \( X \) with a probability density function (PDF) \( f_X(x) = 1 \) for \( 0 \leq x \leq 1 \) (uniform distribution). The CDF is given by:
 \[
 F_X(x) =
 \begin{cases}
@@ -3589,7 +3632,8 @@ This is obtained by integrating the PDF:
 F_X(x) = \int_0^x 1 \,\cdot dt = x \quad \text{for} \quad 0 \leq x \leq 1
 \]
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
 \begin{axis}[
     width=10cm,
@@ -3600,9 +3644,9 @@ F_X(x) = \int_0^x 1 \,\cdot dt = x \quad \text{for} \quad 0 \leq x \leq 1
     xtick={-1, 0, 0.5, 1, 2},
     ytick={0, 0.5, 1},
     xmin=-1, xmax=2,
-    ymin=0, ymax=1.2,
+    ymin=-0.01, ymax=1.2,
     domain=-1:2,
-    samples=200
+    samples=200, thick
 ]
 
 % F(x) = 0 for x < 0
@@ -3628,7 +3672,8 @@ F_X(x) = \int_0^x 1 \,\cdot dt = x \quad \text{for} \quad 0 \leq x \leq 1
 
 \end{axis}
 \end{tikzpicture}
-\end{center}
+\caption{\textit{Visualization of the CDF of a continuous random variable.}}
+\end{figure}
 
 \textbf{Properties of the CDF}
 \begin{enumerate}
@@ -3666,6 +3711,7 @@ The \textbf{mean} or \textbf{expected value} of a random variable \( X \), denot
 \[
 \mathbb{E}(X) = \sum_{i=1}^{6} x_i \cdot \frac{1}{6} = \frac{1}{6} \cdot (1 + 2 + 3 + 4 + 5 + 6) = \frac{21}{6} = 3.5
 \]
+\hfill $\blacksquare$
 
 \item \textbf{Continuous Random Variable}: For a continuous random variable \( X \) with probability density function \( f_X(x) \), the expected value is given by the integral of \( x \) weighted by the probability density function:
 \[
@@ -3682,6 +3728,7 @@ The expected value is:
 \mathbb{E}(X) = \int_0^1 x \cdot 1 \, dx = \left[ \frac{x^2}{2} \right]_0^1 = \frac{1}{2}
 \]
 \end{enumerate}
+\hfill $\blacksquare$
 
 \begin{textbox}
 \textbf{Theorem} If \( X = a \), where \( a \in \mathbb{R} \) is a constant, then
@@ -3755,6 +3802,7 @@ Alternatively, it can be computed as:
 \[
 = \frac{1}{6} \cdot (6.25 + 2.25 + 0.25 + 0.25 + 2.25 + 6.25) = \frac{17.5}{6} \approx 2.92
 \]
+\hfill $\blacksquare$
 
 \item \textbf{Continuous Random Variable}: For a continuous random variable \( X \) with probability density function \( f_X(x) \), the variance is given by:
 \[
@@ -3769,6 +3817,7 @@ Alternatively, it can be computed as:
 \[
 \text{Var}(X) = \int_0^1 x^2 \cdot 1 \, dx - \left(\frac{1}{2}\right)^2 = \left[ \frac{x^3}{3} \right]_0^1 - \frac{1}{4} = \frac{1}{3} - \frac{1}{4} = \frac{1}{12}
 \]
+\hfill $\blacksquare$
 \end{enumerate}
 
 \begin{textbox}
@@ -3780,7 +3829,7 @@ Alternatively, it can be computed as:
 
 \textbf{Proof.}
 \[
-\mathrm{Var}(X) = \mathbb{E}[(X - \mathbb{E}(X))^2] = \mathbb{E}[(a - a)^2] = \mathbb{E}[0] = 0
+\mathrm{Var}(X) = \mathbb{E}[(X - \mathbb{E}(X))^2] = \mathbb{E}[(a - a)^2] = \mathbb{E}(0) = 0
 \]
 \hfill\(\blacksquare\)
 
@@ -3806,9 +3855,8 @@ Alternatively, it can be computed as:
 \section{Joint Distribution of Two random Variables}
 Let \( X \) and \( Y \) be two random variables defined on the same probability space. The joint distribution of \( X \) and \( Y \) describes the probability behavior of the pair \( (X, Y) \). It can be either discrete or continuous depending on the nature of \( X \) and \( Y \).
 
-\begin{itemize}
 
-\item \textbf{Discrete Case}:
+\subsubsection{Discrete Case}
 
 If \( X \) and \( Y \) are discrete random variables, then their joint distribution is defined by the \textbf{joint probability mass function (PMF)}:
 \[
@@ -3819,7 +3867,7 @@ which gives the probability that \( X = x \) and \( Y = y \) simultaneously.
 The PMF must satisfy:
 \begin{itemize}
   \item \( p_{X,Y}(x, y) \geq 0 \) for all \( x, y \)
-  \item \( \sum_{x} \sum_{y} p_{X,Y}(x, y) = 1 \)
+  \item \( \displaystyle\sum_{x} \displaystyle\sum_{y} p_{X,Y}(x, y) = 1 \)
 \end{itemize}
 
 The \textbf{marginal distributions} can be obtained by summing out the other variable:
@@ -3859,7 +3907,7 @@ F_{X,Y}(x, y) = P(X \leq x, Y \leq y) = \sum_{x_i \leq x} \sum_{y_j \leq y} p_{X
 
 It sums over all values $(x_i,y_j)$ such that $x_i \leq x$ and $y_j \leq y$. This gives the total probability that the random pair \( (X, Y) \) falls within the region \( X \leq x, Y \leq y \).
 
-\item \textbf{Continuous Case}:
+\subsubsection{Continuous Case}
 
 If \( X \) and \( Y \) are continuous random variables, then their joint distribution is described by the \textbf{joint probability density function}:
 \[
@@ -3874,7 +3922,7 @@ for any region \( A \subset \mathbb{R}^2 \).
 The joint PDF must satisfy:
 \begin{itemize}
   \item \( f_{X,Y}(x, y) \geq 0 \) for all \( x, y \)
-  \item \( \iint_{\mathbb{R}^2} f_{X,Y}(x, y) \, dx \, dy = 1 \)
+  \item \( \displaystyle\iint_{\mathbb{R}^2} f_{X,Y}(x, y) \, dx \, dy = 1 \)
 \end{itemize}
 
 The \textbf{marginal PDFs} are obtained by integrating out the other variable:
@@ -3892,8 +3940,8 @@ F_{X,Y}(x, y) = P(X \leq x, Y \leq y) = \int_{-\infty}^{x} \int_{-\infty}^{y} f_
 \]
 
 This function gives the probability that the random vector \( (X, Y) \) falls within the region defined by \( X \leq x, Y \leq y \).
-\end{itemize}
 
+\subsubsection{Expectation of The Sum of Two Random Variables}
 \begin{textbox}
 \textbf{Theorem}: If \( Z = X + Y \), then
 \[
@@ -4035,7 +4083,7 @@ Thus,
 \end{align*}
 \hfill\(\blacksquare\)
 
-\textbf{Note}: The converse is not necessarily true. Two random variables may have \( \mathrm{Cov}(X, Y) = 0 \) and yet not be independent.
+\textbf{Note}: The converse is not necessarily true. Two random variables may have \( \mathrm{Cov}(X, Y) = 0 \) and yet may not be independent.
 
 \begin{textbox}
 \textbf{Theorem}: For any random variable \( X \),
