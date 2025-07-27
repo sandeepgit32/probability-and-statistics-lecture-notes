@@ -4913,7 +4913,9 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
 \[
 P(|X - 50| \geq 15) \leq \frac{1}{3^2} = \frac{1}{9} \approx 0.1111.
 \]
-Thus, we can say that at least $1 - \frac{1}{9} = \frac{8}{9} \approx 88.89\%$ of the probability mass lies within three standard deviations of the mean.
+Thus, we can say that at least $1 - \dfrac{1}{9} = \dfrac{8}{9} \approx 88.89\%$ of the probability mass lies within three standard deviations of the mean.
+
+\hfill $\blacksquare$
 
 \section{Moments of a Distribution}
 
@@ -4926,7 +4928,7 @@ Moments can be calculated about the origin (raw moments) or about the mean (cent
 The \textbf{$k$-th raw moment} (also called the moment about the origin) of a random variable $X$ is defined as:
 \begin{textbox}
     \[
-\mu'_k = \mathbb{E}[X^k]
+\mu'_k = \mathbb{E}\left( X^k\right) 
 \]
 \end{textbox}
 
@@ -5209,7 +5211,8 @@ defined and finite for all $t$ in an open interval $(-h, h)$ for some $h > 0$. T
 \]
 \end{textbox}
 
-\begin{example}
+\vspace{2mm}
+
 \textbf{Example:} Let $X_1 \sim \text{Binomial}(3, 0.5)$ and $X_2 \sim \text{Binomial}(5, 0.5)$ be two independent Binomial\footnote{The details of the Binomial distribution is given in the next chapter. So it is advised to revisit this example again after you have gone through it in the next chapter.} random variables. Define:
 \[
 X = X_1 + X_2
@@ -5238,7 +5241,8 @@ X = X_1 + X_2 \sim \text{Binomial}(8, 0.5)
 \]
 
 The sum of two independent binomial random variables with the same success probability $p = 0.5$ and respective trials $n_1 = 3$ and $n_2 = 5$ is again a binomial random variable with $n = 8$ trials and success probability $p = 0.5$.
-\end{example}
+
+\hfill $\blacksquare$
 
 
 %\subsection{Binomial Distribution as Sum of Bernoulli Distributions}
@@ -5268,8 +5272,6 @@ The sum of two independent binomial random variables with the same success proba
 %\]
 %
 %By the uniqueness theorem for MGFs, since the MGF of $S_n$ matches that of the Binomial$(n, p)$ distribution, we conclude that $S_n \sim \text{Binomial}(n, p)$.
-
-
 
 \chapter{Common Distributions}
 
@@ -5921,14 +5923,12 @@ That is, the probability density is constant between $a$ and $b$, and zero elsew
 
 A continuous uniform distribution models situations where every outcome in an interval is equally likely—such as the exact time (within an hour) a bus arrives, or the position of a point randomly placed on a stick.
 
-
-\subsubsection{Example}
-Suppose that a variable $X$ is uniformly distributed over the interval $[2, 5]$. Then:
+\textbf{Example:} Suppose that a variable $X$ is uniformly distributed over the interval $[2, 5]$. Then:
 
 \[
 f_X(x) =
 \begin{cases}
-\frac{1}{5 - 2} = \frac{1}{3}, & 2 \le x \le 5 \\
+\dfrac{1}{5 - 2} = \dfrac{1}{3}, & 2 \le x \le 5 \\
 0, & \text{otherwise}
 \end{cases}
 \]
@@ -5939,7 +5939,7 @@ f_X(x) =
 \begin{axis}[
     width=10cm,
     height=5cm,
-    ymin=0, ymax=0.5,
+    ymin=-0.001, ymax=0.5,
     xmin=1, xmax=6,
     axis lines=left,
     xlabel={$x$},
@@ -5989,7 +5989,7 @@ f_X(x) =
 };
 \end{axis}
 \end{tikzpicture}
-\caption{\textit{Uniform distribution: $a = 2$, $b = 5$.}}
+\caption{\textit{PDF of uniform distribution: $a = 2$, $b = 5$.}}
 \end{center}
 \end{figure}
 
@@ -5997,7 +5997,7 @@ We can compute probabilities over intervals by integrating the density. For exam
 \[
 P(3 \le X \le 4) = \int_{3}^{4} \frac{1}{3} dx = \frac{1}{3}(4 - 3) = \frac{1}{3}
 \]
----
+\hfill $\blacksquare$
 
 \subsection{Mean and Variance of the Uniform Distribution}
 
@@ -6035,14 +6035,37 @@ Let $X \sim \text{Uniform}(a, b)$.
     \end{textbox}
 \end{itemize}
 
-\subsubsection{Example}
-For $X \sim \text{Uniform}(2, 5)$:
-
+\textbf{Example:} For $X \sim \text{Uniform}(2, 5)$:
 \[
 \mathbb{E}(X) = \frac{2 + 5}{2} = 3.5, \quad \text{Var}(X) = \frac{(5 - 2)^2}{12} = \frac{9}{12} = 0.75
 \]
 
----
+\hfill $\blacksquare$
+
+\subsection{MGF of the Uniform Distribution}
+The moment generating function of $X \sim \text{Uniform}(a, b)$ is:
+\begin{align*}
+M_X(t) &= \mathbb{E}(e^{tX})  = \int_{a}^{b} e^{tx} \cdot f_X(x) dx \\
+&= \int_{a}^{b} e^{tx} \cdot \frac{1}{b - a} \, dx \\
+&= \frac{1}{b - a} \int_{a}^{b} e^{tx} \, dx \\
+&= \frac{1}{b - a} \left[ \frac{e^{tx}}{t} \right]_{x = a}^{x = b} \quad \text{(for } t \ne 0\text{)} \\
+&= \frac{1}{(b - a)t} \left( e^{tb} - e^{ta} \right)
+\end{align*}
+
+For $t = 0$, use the limit:
+\[
+M_X(0) = \lim_{t \to 0} \frac{e^{tb} - e^{ta}}{(b - a)t} = \frac{1}{b - a} (b - a) = 1
+\]
+
+\begin{textbox}
+\[
+M_X(t) = 
+\begin{cases}
+1, & \text{if } t = 0 \\[6pt]
+\dfrac{e^{tb} - e^{ta}}{(b - a) t}, & \text{if } t \neq 0
+\end{cases}
+\]
+\end{textbox}
 
 \section{Normal Distribution}
 
@@ -6060,8 +6083,7 @@ f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2}
 
 The distribution is completely determined by the parameters $\mu$ and $\sigma^2$. In future, we will show that the mean and variance of the normal distribution are those parameters $\mu$ and $\sigma^2$ respectively.
 
-\subsubsection{Example}
-Let $X \sim \mathcal{N}(2, 1^2)$, i.e., a normal distribution with mean $\mu = 2$ and standard deviation $\sigma = 1$.
+\textbf{Example:} Let $X \sim \mathcal{N}(2, 1^2)$, i.e., a normal distribution with mean $\mu = 2$ and standard deviation $\sigma = 1$.
 We want to compute the value of the probability density function (PDF) at $x = 1.5$.
 
 The PDF of a normal distribution is:
@@ -6104,7 +6126,7 @@ Now compute numerically:
 f_X(1.5) \approx 0.3989 \times 0.8825 \approx 0.3521
 \]
 
----
+\hfill $\blacksquare$
 
 \subsection{Mean and Variance of the Normal Distribution}
 
@@ -6184,16 +6206,16 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
 
     Now, using the Gamma integral formula\footnote{Gamma integral formula:
     $$\int_{0}^{\infty} x^n e^{-a x^2}dx
-         = \tfrac12\,a^{-\frac{n+1}{2}}\Gamma\!\bigl(\tfrac{n+1}{2}\bigr)$$
-         $$\Gamma(n+1) = n\Gamma(n), \quad \Gamma(\tfrac12) = \sqrt{\pi}$$
+         = \frac12\,a^{-(n+1)/2}\Gamma\left( \frac{n+1}{2}\right) $$
+         $$\Gamma(n+1) = n\Gamma(n), \quad \Gamma\left( \frac12\right)  = \sqrt{\pi}$$
          },
     \begin{align*}
     \int_{0}^{\infty} u^2\,e^{-u^2/2}\,du
-    &= \frac{1}{2}\,\Bigl(\tfrac12\Bigr)^{-\frac{3}{2}}
-       \,\Gamma\!\Bigl(\tfrac{3}{2}\Bigr)\\
-    &= \frac{1}{2}\,\cdot 2^{3/2}\,\cdot \frac{1}{2}\sqrt{\pi}
-    &&\bigl((\tfrac12)^{-3/2}=2^{3/2},\ \Gamma(\tfrac32)=\tfrac12\Gamma(\tfrac12) = \tfrac12\sqrt\pi\bigr)\\
-    &= \frac{\sqrt{2\pi}}{2}
+    &= \dfrac{1}{2}\,\left( \dfrac12\right)^{-3/2}
+       \,\Gamma\left( \dfrac{3}{2}\right) \\
+    &= \dfrac{1}{2}\,\cdot 2^{3/2}\,\cdot \dfrac{1}{2}\sqrt{\pi}
+    &&\left( \left( \dfrac12\right)^{-3/2}=2^{3/2},\ \Gamma\left( \dfrac32\right) =\dfrac12\Gamma\left( \dfrac12\right)  = \dfrac12\sqrt\pi\right) \\
+    &= \dfrac{\sqrt{2\pi}}{2}
     \end{align*}
 
     Therefore,
@@ -6209,7 +6231,7 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$.
         \end{textbox}
 \end{itemize}
 
-\subsection{Moment Generating Function of the Normal Distribution}
+\subsection{MGF of the Normal Distribution}
 
 Let \( X \sim \mathcal{N}(\mu, \sigma^2) \) be a normal random variable with mean \(\mu\) and variance \(\sigma^2\). The moment generating function (MGF) of \(X\) is defined as
 \begin{align*}
@@ -6237,7 +6259,7 @@ M_X(t) = \frac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^\infty \exp\left(-\frac{
 
 Factor out terms that do not depend on \(x\):
 \[
-M_X(t) = \exp\left(\mu t + \frac{1}{2} \sigma^2 t^2\right) \cdot \underbrace{\frac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^\infty \exp\left(-\frac{(x - (\mu + \sigma^2 t))^2}{2\sigma^2}\right) dx}_{= 1}
+M_X(t) = \exp\left(\mu t + \frac{1}{2} \sigma^2 t^2\right) \cdot \underbrace{\frac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^\infty \exp\left(-\frac{(x - (\mu + \sigma^2 t))^2}{2\sigma^2}\right) dx}_{1}
 \]
 
 The integral is the integral of a normal pdf with mean \(\mu + \sigma^2 t\) and variance \(\sigma^2\), and is equal to 1.
@@ -6326,6 +6348,8 @@ This moment generating function exists for all real values of \(t\) and uniquely
           \item About 99.73\% of the values lie within $3\sigma$ of mean ($\mu \pm 3\sigma$).
       \end{itemize}
     \end{textbox}
+    
+    \vspace{2mm}
 
     \begin{figure}[H]
     \begin{center}
@@ -6585,7 +6609,7 @@ Now,
 The \textbf{standard normal table} (or $Z$-table)  shown in Table~\ref{table:Ztable} is used to quickly find cumulative probabilities for the standard normal distribution \(Z\sim\mathcal{N}(0,1)\) without evaluating the integral $$\int_{-\infty}^z \dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt$$ by hand.  By converting any normal random variable \(X\sim \mathcal{N}(\mu,\sigma^2)\) into the standard form \(Z=(X-\mu)/\sigma\), one can look up probabilities such as \(P(X\le x)\) in a single, universal table, greatly simplifying calculations in statistical inference and hypothesis testing.
 
 
-\begin{table}[!h]
+\begin{table}[h]
 \centering
 \footnotesize
 \begin{tabular}{l|*{10}{r}}
@@ -6667,8 +6691,7 @@ To look up \(\Phi(k)\), follow the following steps:
   $$P(k_1 \leq Z \leq k_2) = P(Z \leq k_2) - P(Z \leq k_1) = \Phi(k_2) - \Phi(k_1)$$
 \end{enumerate}
 
-\subsubsection{Example}
-Suppose the heights of adult males are normally distributed with mean $\mu = 175$ cm and standard deviation $\sigma = 10$ cm. Let $X$ denote the height of a randomly chosen male. Then:
+\textbf{Example:} Suppose the heights of adult males are normally distributed with mean $\mu = 175$ cm and standard deviation $\sigma = 10$ cm. Let $X$ denote the height of a randomly chosen male. Then:
 \[
 X \sim \mathcal{N}(175, 100)
 \]
@@ -6712,7 +6735,7 @@ Thus, approximately $6.68\%$ of adult males are taller than 190 cm.
   \caption{\textit{Distribution of the heights of adult males.}}
 \end{figure}
 
----
+\hfill $\blacksquare$
 
 \subsection{Critical Points of the Standard Normal Distribution}
 
