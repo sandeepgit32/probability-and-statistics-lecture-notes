@@ -3497,6 +3497,7 @@ F_X(x) =
 \]
 
 \begin{figure}[H]
+\centering
 \begin{tikzpicture}
 \begin{axis}[
     width=10cm,
@@ -3855,8 +3856,7 @@ Alternatively, it can be computed as:
 \section{Joint Distribution of Two random Variables}
 Let \( X \) and \( Y \) be two random variables defined on the same probability space. The joint distribution of \( X \) and \( Y \) describes the probability behavior of the pair \( (X, Y) \). It can be either discrete or continuous depending on the nature of \( X \) and \( Y \).
 
-
-\subsubsection{Discrete Case}
+\subsection{Discrete Case}
 
 If \( X \) and \( Y \) are discrete random variables, then their joint distribution is defined by the \textbf{joint probability mass function (PMF)}:
 \[
@@ -3865,10 +3865,10 @@ p_{X,Y}(x, y) = P(X = x, Y = y)
 which gives the probability that \( X = x \) and \( Y = y \) simultaneously.
 
 The PMF must satisfy:
-\begin{itemize}
+\begin{enumerate}
   \item \( p_{X,Y}(x, y) \geq 0 \) for all \( x, y \)
   \item \( \displaystyle\sum_{x} \displaystyle\sum_{y} p_{X,Y}(x, y) = 1 \)
-\end{itemize}
+\end{enumerate}
 
 The \textbf{marginal distributions} can be obtained by summing out the other variable:
 \[
@@ -3907,7 +3907,7 @@ F_{X,Y}(x, y) = P(X \leq x, Y \leq y) = \sum_{x_i \leq x} \sum_{y_j \leq y} p_{X
 
 It sums over all values $(x_i,y_j)$ such that $x_i \leq x$ and $y_j \leq y$. This gives the total probability that the random pair \( (X, Y) \) falls within the region \( X \leq x, Y \leq y \).
 
-\subsubsection{Continuous Case}
+\subsection{Continuous Case}
 
 If \( X \) and \( Y \) are continuous random variables, then their joint distribution is described by the \textbf{joint probability density function}:
 \[
@@ -3941,7 +3941,7 @@ F_{X,Y}(x, y) = P(X \leq x, Y \leq y) = \int_{-\infty}^{x} \int_{-\infty}^{y} f_
 
 This function gives the probability that the random vector \( (X, Y) \) falls within the region defined by \( X \leq x, Y \leq y \).
 
-\subsubsection{Expectation of The Sum of Two Random Variables}
+\subsection{Expectation of The Sum of Two Random Variables}
 \begin{textbox}
 \textbf{Theorem}: If \( Z = X + Y \), then
 \[
@@ -3972,8 +3972,10 @@ This function gives the probability that the random vector \( (X, Y) \) falls wi
 
 Two random variables \( X \) and \( Y \) are \textbf{independent} if and only if:
 \begin{itemize}
-  \item In the discrete case: $$p_{X,Y}(x, y) = p_X(x) \cdot p_Y(y) \text{ for all } ( x, y )$$
-  \item In the continuous case: $$f_{X,Y}(x, y) = f_X(x) \cdot f_Y(y) \text{ for all } ( x, y )$$
+  \item In the discrete case: $$p_{X,Y}(x, y) = p_X(x) \cdot p_Y(y) \text{ for all } x, y$$
+  
+  \item In the continuous case: $$f_{X,Y}(x, y) = f_X(x) \cdot f_Y(y) \text{ for all } x, y$$
+  
 \end{itemize}
 
 \begin{textbox}
@@ -4164,7 +4166,7 @@ Then
 
 Since expectation is linear,
 \[
-\mathbb{E}\left[\sum_{i=1}^n X_i\right] = \sum_{i=1}^n \mathbb{E}[X_i]
+\mathbb{E}\left(\sum_{i=1}^n X_i\right) = \sum_{i=1}^n \mathbb{E}\left( X_i\right) 
 \]
 So,
 \[
@@ -4307,29 +4309,31 @@ What is the expected lifetime of a randomly chosen bulb?
 
 Let the random variable \( L \) denote the lifetime of a randomly chosen bulb. Let \( F \in \{X, Y\} \) be the factory that produced the bulb.
 
-We are asked to find the expected lifetime \( \mathbb{E}[L] \).
+We are asked to find the expected lifetime \( \mathbb{E}\left( L\right)  \).
 
 Given,
 
-$$\mathbb{E}[L \mid F = X] = 2000$$
-$$\mathbb{E}[L \mid F = Y] = 3000$$
+$$\mathbb{E}\left( L \mid F = X\right)  = 2000$$
+$$\mathbb{E}\left( L \mid F = Y\right)  = 3000$$
 $$P(F=X) = \dfrac{70}{100} = 0.7$$
 $$P(F=X) = \dfrac{30}{100} = 0.3$$
 
 Using the \textbf{Law of Total Expectation}:
 \[
-\mathbb{E}[L] = \mathbb{E}[\mathbb{E}[L \mid F]]
+\mathbb{E}\left( L\right)  = \mathbb{E}\left[ \mathbb{E}\left( L \mid F\right) \right]
 \]
 
 We compute:
 \begin{align*}
-\mathbb{E}[L]
-&= P(F = X) \cdot \mathbb{E}[L \mid F = X] + P(F = Y) \cdot \mathbb{E}[L \mid F = Y] \\
+\mathbb{E}\left( L\right) 
+&= P(F = X) \cdot \mathbb{E}\left( L \mid F = X\right)  + P(F = Y) \cdot \mathbb{E}\left( L \mid F = Y\right)  \\
 &= 0.7 \times 2000 + 0.3 \times 3000 \\
 &= 1400 + 900 = 2300
 \end{align*}
 
 So, the expected lifetime of a randomly chosen bulb is $2300$ hours.
+
+\hfill $\blacksquare$
 
 % \vspace{3mm}
 % \textbf{Example}: Let \(Y\) be a continuous random variable with PDF \(f_Y(y)\) uniform on \([0,1]\), and given \(Y=y\), let \(X\) be uniformly distributed on \([0, y]\).
@@ -4359,7 +4363,7 @@ In many practical scenarios, we are interested not just in a random variable $X$
 
 \subsection{Discrete Case}
 
-If $X$ is a discrete random variable with known probability mass function (PMF) $p_X(x) = P(X=x)$, and $Y = g(X)$, then the PMF of $Y$ is computed as:
+If $X$ is a discrete random variable with known PMF $p_X(x) = P(X=x)$, and $Y = g(X)$, then the PMF of $Y$ is computed as:
 
 \begin{textbox}
 \[
@@ -4380,10 +4384,11 @@ f_Y(0) = P(Y = 0) = P(X \in \{2, 4, 6\}) = \frac{3}{6} = 0.5
 \[
 f_Y(1) = P(Y = 1) = P(X \in \{1, 3, 5\}) = \frac{3}{6} = 0.5
 \]
+\hfill $\blacksquare$
 
 \subsection{Continuous Case}
 
-If $X$ is a continuous random variable with probability density function (PDF) $f_X(x)$, and $Y = g(X)$ is a function of $X$, then the PDF of $Y$ depends on whether $g$ is monotonic\footnote{A function $g(x)$ is called \textbf{monotonic} if it never ``switches direction'' as $x$ moves along its domain. In plain english it is either strictly increasing or strictly decreasing function. If $g$ is strictly increasing or decreasing, then it’s \textbf{one-to-one and onto}, so there is a well-defined inverse function $g^{-1}$  that `undoes' g i.e.
+If $X$ is a continuous random variable with PDF $f_X(x)$, and $Y = g(X)$ is a function of $X$, then the PDF of $Y$ depends on whether $g$ is monotonic\footnote{A function $g(x)$ is called \textbf{monotonic} if it never ``switches direction'' as $x$ moves along its domain. In plain english it is either strictly increasing or strictly decreasing function. If $g$ is strictly increasing or decreasing, then it’s \textbf{one-to-one and onto}, so there is a well-defined inverse function $g^{-1}$  that `undoes' g i.e.
   $$g^{-1}(g(x)) = x$$} or not.
 
 \subsubsection*{Monotonic Transformation}
@@ -4452,7 +4457,7 @@ This formula ensures that the total probability is preserved under the transform
     Since $g^{-1}$ is increasing, its derivative is positive i.e. $\dfrac{d}{dy}\,g^{-1}(y) > 0$, and so
     \[
       f_Y(y)
-      = f_X\bigl(g^{-1}(y)\bigr)\;\Bigl|\tfrac{d}{dy}\,g^{-1}(y)\Bigr|
+      = f_X\bigl(g^{-1}(y)\bigr)\;\Bigl|\dfrac{d}{dy}\,g^{-1}(y)\Bigr|
     \]
 
 
@@ -4482,21 +4487,19 @@ This formula ensures that the total probability is preserved under the transform
       = \frac{d}{dy}\Bigl[\,1 - F_X\bigl(g^{-1}(y)\bigr)\Bigr]
       = -f_X\bigl(g^{-1}(y)\bigr)\;\frac{d}{dy}\,g^{-1}(y)
     \]
-    Since $g^{-1}$ is decreasing, $\tfrac{d}{dy}\,g^{-1}(y)<0$, so the two negatives cancel:
+    Since $g^{-1}$ is decreasing, $\frac{d}{dy}\,g^{-1}(y)<0$, so the two negatives cancel:
     \[
       f_Y(y)
-      = f_X\bigl(g^{-1}(y)\bigr)\;\Bigl|\tfrac{d}{dy}\,g^{-1}(y)\Bigr|
+      = f_X\bigl(g^{-1}(y)\bigr)\;\left|\frac{d}{dy}\,g^{-1}(y)\right|
     \]
 \end{itemize}
 \medskip
 \noindent In both cases we arrive at the same formula:
 \[
   f_Y(y)
-  = f_X\bigl(g^{-1}(y)\bigr)\;\Bigl|\tfrac{d}{dy}\,g^{-1}(y)\Bigr|
+  = f_X\bigl(g^{-1}(y)\bigr)\;\left|\frac{d}{dy}\,g^{-1}(y)\right|
 \]
 \hfill\(\blacksquare\)
-
-\vspace{2mm}
 
 \textbf{Example:} Let $X$ has the following PDF:
 \[
@@ -4518,6 +4521,7 @@ The PDF of $X$ is $f_X(x) = 1$ for $x \in (0,1)$, so:
 \[
 f_Y(y) = f_X(e^{-y}) \cdot e^{-y} = 1 \cdot e^{-y} = e^{-y}, \quad y > 0
 \]
+\hfill\(\blacksquare\)
 
 \subsubsection*{Non-Monotonic Transformation}
 
@@ -4541,6 +4545,8 @@ f_Y(y) = \frac{1}{\sqrt{2\pi}} \left( \frac{1}{\sqrt{y}} \exp\left( -\frac{y}{2}
 
 This is the PDF of a chi-squared distribution with 1 degree of freedom.
 
+\hfill\(\blacksquare\)
+
 \section{Transformation of Joint Distribution of Two Random Variables}
 
 When dealing with two random variables $X$ and $Y$, we often need to find the joint distribution of their transformations
@@ -4562,9 +4568,7 @@ p_{U,V}(u,v) = P(U = u, V = v) = \sum_{\{(x,y) \,\mid \, g_1(x,y) = u, g_2(x,y) 
 That is, for each possible pair $(u,v)$, sum the joint probabilities of all pairs $(x,y)$ that are mapped to $(u,v)$ by the transformation functions.
 
 
-\subsubsection{Example}
-
-Let $(X,Y)$ be independent discrete uniform random variables on $\{1,2,3\}$, so $$P(X=i, Y=j) = \dfrac{1}{9} \text{ for } i,j \in \{1,2,3\}$$
+\textbf{Example:} Let $(X,Y)$ be independent discrete uniform random variables on $\{1,2,3\}$, so $$P(X=i, Y=j) = \dfrac{1}{9} \text{ for } i,j \in \{1,2,3\}$$
 Define transformation: $$ U = X + Y, \quad V = X - Y $$
 
 \begin{itemize}
@@ -4574,6 +4578,8 @@ Thus: $p_{U,V}(3,1) = p_{X,Y}(2,1) = \dfrac{1}{9}$.
 \item For $(u,v) = (4,0)$, we need $x + y = 4$ and $x - y = 0$, giving $x = y = 2$.
 Thus: $p_{U,V}(4,0) = p_{X,Y}(2,2) = \dfrac{1}{9}$.
 \end{itemize}
+
+\hfill\(\blacksquare\)
 
 \subsection{Continuous Case}
 
@@ -4594,7 +4600,7 @@ then the joint PDF of $(U,V)$ is:
 \[
 f_{U,V}(u,v) = f_{X,Y}\big(h_1(u,v), h_2(u,v)\big) \cdot |J|
 \]
-where $J$ is the \textbf{Jacobian} of the transformation:
+where $J$ is the \textbf{Jacobian} of the transformation given by:
 \[
 J = \dfrac{\partial(x, y)}{\partial(u, v)} = \begin{vmatrix}
 \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\[0.6em]
@@ -4631,7 +4637,7 @@ this rectangle maps to a region $S$ in the $(x, y)$ plane. We want to understand
         \draw[<->, black] (1.2,1) -- (1.2,2) node[midway, left] {$\Delta v$};
 
         % Plane label
-        \node[font=\large] at (1.8,-0.8) {$(u,v)$ plane};
+        \node[font=\small] at (1.8,-0.8) {$(u,v)$ plane};
 
         % Area formula
         \node[align=center] at (2, 2.8) {Area of $R = \Delta u \Delta v$};
@@ -4660,7 +4666,7 @@ this rectangle maps to a region $S$ in the $(x, y)$ plane. We want to understand
         \node[black, font=\large\bfseries] at (2.1,1.55) {$S$};
 
         % Plane label
-        \node[font=\large] at (1.8,-0.8) {$(x,y)$ plane};
+        \node[font=\small] at (1.8,-0.8) {$(x,y)$ plane};
 
         % Area formula
         \node[align=center] at (2, 2.8) {Area of $S \approx |\Delta u \Delta v \cdot J|$};
@@ -4723,13 +4729,11 @@ The Jacobian $|J|$ represents the factor by which areas are scaled under the tra
 \hfill$\blacksquare$
 
 
-\subsubsection{Example:}
-Let $(X,Y)$ have joint PDF $f_{X,Y}(x,y) = 1$ for $0 \leq x \leq 1, 0 \leq y \leq 1$ (uniform on the unit square). Define $U = X + Y$ and $V = X - Y$.
+\textbf{Example:} Let $(X,Y)$ have joint PDF $f_{X,Y}(x,y) = 1$ for $0 \leq x \leq 1, 0 \leq y \leq 1$ (uniform on the unit square). Define $U = X + Y$ and $V = X - Y$.
 
 The inverse transformation is:
 \begin{align*}
-X &= \dfrac{U + V}{2} \\
-Y &= \dfrac{U - V}{2}
+X = \dfrac{U + V}{2}, \quad Y = \dfrac{U - V}{2}
 \end{align*}
 
 The Jacobian is:
@@ -4751,6 +4755,8 @@ This defines a diamond-shaped region in the $(u,v)$ plane. The joint PDF of $(U,
 f_{U,V}(u,v) = f_{X,Y}\left(\frac{u+v}{2}, \frac{u-v}{2}\right) \cdot \frac{1}{2} = \frac{1}{2}
 \]
 for $(u,v)$ in the transformed domain.
+
+\hfill$\blacksquare$
 
 
 \subsubsection*{Many-to-One Transformation}
@@ -4778,13 +4784,15 @@ x_2 = -\sqrt{\frac{u}{1+v^2}}, \quad y_2 = -v\sqrt{\frac{u}{1+v^2}}
 
 Computing the Jacobians and applying the formula yields the joint PDF of $(U,V)$.
 
-\subsection{Special Case: Linear Transformations}
+\hfill$\blacksquare$
+
+\subsubsection{Special Case: Linear Transformations}
 
 For linear transformations of the form:
-\begin{align}
+\begin{align*}
 U &= aX + bY \\
 V &= cX + dY
-\end{align}
+\end{align*}
 where $ad - bc \neq 0$, the Jacobian is constant:
 
 \begin{textbox}
@@ -4793,15 +4801,16 @@ where $ad - bc \neq 0$, the Jacobian is constant:
 \]
 \end{textbox}
 
-\vspace{2mm}
-
-\textbf{Example:} If $(X,Y) \sim \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ (bivariate normal), then any linear transformation $(U,V) = \mathbf{A}(X,Y)^T + \mathbf{b}$ is also bivariate normal with:
-\[
-(U,V) \sim \mathcal{N}(\mathbf{A}\boldsymbol{\mu} + \mathbf{b}, \mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^T)
-\]
-
-This property makes linear transformations particularly tractable for multivariate normal distributions.
-
+%\vspace{2mm}
+%
+%\textbf{Example:} If $(X,Y) \sim \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ (bivariate normal), then any linear transformation $(U,V) = \mathbf{A}(X,Y)^T + \mathbf{b}$ is also bivariate normal with:
+%\[
+%(U,V) \sim \mathcal{N}(\mathbf{A}\boldsymbol{\mu} + \mathbf{b}, \mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^T)
+%\]
+%
+%This property makes linear transformations particularly tractable for multivariate normal distributions.
+%
+%\hfill$\blacksquare$
 
 \section{Standardized Random Variable}
 
