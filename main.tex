@@ -108,6 +108,9 @@
 }
 
 \usepackage{tocloft}
+\usetikzlibrary{shapes,patterns,decorations.pathreplacing}
+\usepackage[dvipsnames]{xcolor}
+
 
 \usepackage{titlesec}
 \usepackage{etoolbox}
@@ -1568,9 +1571,9 @@ L = 20, \quad f_0 = 6, \quad f_1 = 10, \quad f_2 = 8, \quad h = 10
 
 \begin{itemize}
     \item \textbf{Arithmatic Mean} is sensitive to outliers and skewed data. It is best used for symmetric, continuous data without extreme values.
-    
+
     \item \textbf{Geometric Mean} is appropriate when dealing with ratios, growth rates, or multiplicative processes (e.g., population growth, interest rates).
-    
+
     \item \textbf{Harmonic Mean} is best for averaging rates, such as speed or price per unit when quantities vary.
 
     \item \textbf{Median} is more robust to outliers and skewed distributions. It is ideal when the data contain extreme values or are not symmetrically distributed.
@@ -2379,7 +2382,7 @@ There are various types of events:
     \[
     A_1 \cap A_2 = \emptyset
     \]
-    
+
     When tossing a coin, the events `Head' and `Tail' are mutually exclusive because both cannot occur at the same time. If we get a head, we cannot get a tail in that toss.
 
     \subsection{Exhaustive Set of Events}
@@ -2387,7 +2390,7 @@ There are various types of events:
     \[
     A_1 \cup A_2 \cup \dots \cup A_n = S
     \]
-    
+
     When rolling a die, the events \{$1$\}, \{$2$\}, \{$3$\}, \{$4$\}, \{$5$\}, and \{$6$\} form an exhaustive set because they cover all possible outcomes of the die roll. One of these events must occur when the die is thrown.
 
 \section{Definition of Probability}
@@ -3274,6 +3277,406 @@ P(\text{System functions}) &= P(C \cup D) \\
 In parallel systems, the system is more reliable than the individual components. This configuration adds redundancy, improving fault tolerance.
 \end{enumerate}
 
+\section{Examples}
+
+\textbf{Problem: An urn contains \(N\) balls, of which \(Np\) are black and \(Nq\) are white, where \(Np,Nq\) are integers and \(p+q=1\). We draw \(n\) balls without and with replacement. Compute the probability that exactly \(k\) of the drawn balls are black (and therefore \(n-k\) are white). Assume \(0\le k\le n\).}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\small}]
+    % Rectangular urn open at the top
+    \draw[thick] (-2,-1) -- (-2,-3) -- (2,-3) -- (2,-1); % no top line
+
+    % Dark balls (filled grey/black)
+    \foreach \x/\y in {
+        -1.4/-2.7, -0.5/-2.7, 0.4/-2.7, 1.3/-2.7,
+        -1.4/-2.0, -0.5/-2.0, 0.4/-2.0, 1.3/-2.0,
+        -0.9/-1.35, 0.0/-1.35, 0.9/-1.35
+    }{
+        \fill[black!70] (\x,\y) circle (0.25);
+        \draw (\x,\y) circle (0.25);
+    }
+
+    % Replace some with white balls
+    \foreach \x/\y in { -1.4/-2.0, 0.4/-2.0, 0.0/-1.35 }{
+        \fill[white] (\x,\y) circle (0.25);
+        \draw (\x,\y) circle (0.25);
+    }
+
+    % Label for urn
+    \node at (0,-3.4) {Urn with $Np$ dark and $Nq$ white balls};
+
+    % Arrow for drawing balls
+    \draw[thick,->] (1.5,-1.2) -- (4,0.5);
+
+    % Drawn balls
+    \fill[black!70] (4.5,0.5) circle (0.25); \draw (4.5,0.5) circle (0.25);
+    \fill[black!70] (5.2,0.5) circle (0.25); \draw (5.2,0.5) circle (0.25);
+    \fill[white]    (5.9,0.5) circle (0.25); \draw (5.9,0.5) circle (0.25);
+
+    % Bracket and label for sample
+    \draw[decorate,decoration={brace,amplitude=6pt,mirror}] (4.25,0.25) -- (6.15,0.25);
+    \node[below] at (5.2,0.1) {Sample of size $n$};
+
+\end{tikzpicture}
+\caption{\textit{Drawing black and white balls from an urn.}}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{Without replacement:} List all equally likely samples of size \(n\). The total number of distinct size-\(n\) samples (unordered draws) is
+\[
+\#\text{(all samples)}=\binom{N}{n}
+\]
+To get exactly \(k\) black balls we must (i) choose which \(k\) red balls come (from the \(Np\) black ones) and (ii) choose which \(n-k\) white balls come (from the \(Nq\) white ones). The number of favourable samples is therefore
+\[
+\#\text{(favourable)}=\binom{Np}{k}\,\binom{Nq}{\,n-k\,}
+\]
+Since all samples of size \(n\) are equally likely, the desired probability is
+\[
+\;P(\text{exactly }k\text{ red})=\dfrac{\displaystyle\binom{Np}{k}\,\displaystyle\binom{Nq}{\,n-k\,}}{\displaystyle \binom{N}{n}}
+\]
+with the obvious feasibility bounds \(\max(0,n-Nq)\le k\le\min(n,Np)\).
+
+\item \textbf{With replacement:} Consider any fixed ordered sequence of $n$ draws that contains exactly $k$ red results and $n-k$ white results — for instance the order
+\[
+\underbrace{\text{R},\text{R},\dots,\text{R}}_{k\ \text{times}},\underbrace{\text{W},\dots,\text{W}}_{n-k\ \text{times}}
+\]
+Because we replace the ball after every draw, the probability of a black on any single draw is
+\[
+P(\text{red on one draw})=\dfrac{Np}{N}=p
+\]
+and the probability of a white on any single draw is $q=1-p$. For the fixed ordered sequence above the draws are independent (due to replacement), so the probability of that exact ordered sequence is the product
+\[
+p\cdot p\cdots p \;(\text{$k$ factors})\;\times\;
+q\cdot q\cdots q \;(\text{$n-k$ factors})
+= p^{k} q^{\,n-k}
+\]
+
+The number of distinct orderings (permutations) of $k$ black results (and $n-k$ white results) among $n$ positions is:
+\[
+\binom{n}{k}
+\]
+
+Each of those orderings has the same probability $p^{k}q^{\,n-k}$, so summing (or multiplying and counting) gives the total probability of exactly $k$ black draws in any order:
+\[
+\,P(\text{exactly }k\text{ red (with replacement)})=\binom{n}{k}\,p^{k}\,q^{\,n-k}\,,\qquad 0\le k\le n
+\]
+\end{itemize}
+
+\hfill $\blacksquare$
+
+\textbf{Problem: Four persons are chosen at random from a group of 3 men, 5 women, and 4 children. What is the probability that exactly two of them are men?}
+
+\begin{itemize}
+\item \textbf{Without replacement:}
+Total number of persons = $3 + 5 + 4 = 12$.
+
+Number of ways to choose 4 persons:
+\[
+\binom{12}{4}
+\]
+
+Number of ways to choose exactly 2 men:
+\[
+P(\text{2 men selected} \cup \text{2 women/children selected}) = \binom{3}{2} \times \binom{9}{2}
+\]
+
+Hence, the probability is:
+\[
+P = \dfrac{\displaystyle\binom{3}{2} \displaystyle\binom{9}{2}}{\displaystyle\binom{12}{4}} = \dfrac{12}{55}
+\]
+
+\item \textbf{With replacement:}
+
+Since selection is with replacement, each draw is independent. Probability of choosing a man in one draw is:
+\[
+p = \frac{3}{12} = \frac{1}{4}
+\]
+
+Probability of choosing a non-man (women or children) is:
+\[
+q = 1 - p = \frac{3}{4}
+\]
+
+Probability of exactly 2 men in 4 draws (binomial distribution):
+\[
+P = \binom{4}{2} p^{2} q^{2} = \binom{4}{2} \left(\frac{1}{4}\right)^2 \left(\frac{3}{4}\right)^2 = \dfrac{27}{128}
+\]
+
+\end{itemize}
+
+\hfill $\blacksquare$
+
+\textbf{Problem: In an interview, the probabilities of selection are: Praveen 0.4, Geeta 0.5, Sam 0.6, and Suresh 0.8. What is the probability that at least two of them are selected?}
+
+Let the selection events be independent. Define $X$ = number selected. We want:
+\[
+P(\text{At least 2 selection}) = 1 - P(\text{No selection}) - P(\text{One selection})
+\]
+
+Calculate:
+\[
+P(\text{No selection}) = (1-0.4)(1-0.5)(1-0.6)(1-0.8) = 0.6 \times 0.5 \times 0.4 \times 0.2 = 0.024
+\]
+
+\begin{align*}
+P(\text{One selection}) &= \sum_{\text{each person}} \left( P(\text{that person selected}) \prod_{\text{others}} P(\text{not selected})\right) \\
+&=0.4 \times (1-0.5) \times (1-0.6) \times (1-0.8)\\
+&=(1-0.4) \times 0.5 \times (1-0.6) \times (1-0.8)\\
+&=(1-0.4) \times (1-0.5) \times 0.6 \times (1-0.8)\\
+&=(1-0.4) \times (1-0.5) \times (1-0.6) \times 0.8\\
+&=0.172
+\end{align*}
+
+Therefore,
+\[
+P(\text{At least 2 selection}) = 1 - 0.024 - 0.172 = 0.804
+\]
+
+\hfill $\blacksquare$
+
+\textbf{A bag contains 8 apples and 6 oranges. Four fruits are drawn one by one without replacement. What is the probability that they alternate in type?}
+
+\textbf{Solution:}  There are two alternating sequences possible for 4 fruits:
+\begin{center}
+Apple, Orange, Apple, Orange
+
+Orange, Apple, Orange, Apple
+\end{center}
+
+Number of apples: 8, number of oranges: 6
+
+Number of ways to draw fruits alternating starting with apple:
+\[
+8 \times 6 \times 7 \times 5
+\]
+
+Explanation:
+
+- 1st pick: any of 8 apples
+
+- 2nd pick: any of 6 oranges
+
+- 3rd pick: remaining apples ($ 8 -1 =7 $)
+
+- 4th pick: remaining oranges ($ 6 -1 =5 $)
+
+Similarly for sequence starting with orange:
+\[
+6 \times 8 \times 5 \times 7
+\]
+
+Total number of ways to draw any 4 fruits in order (without replacement)\footnote{We need to use permutation instead of combination as the sequence is important here.}:
+\[
+\frac{14!}{(14-4)!} = 14 \times 13 \times 12 \times 11
+\]
+
+Hence probability:
+\[
+P = \frac{8 \times 6 \times 7 \times 5 + 6 \times 8 \times 5 \times 7}{14 \times 13 \times 12 \times 11} = \frac{2 \times 8 \times 6 \times 7 \times 5}{14 \times 13 \times 12 \times 11} = \dfrac{20}{143}
+\]
+
+\hfill $\blacksquare$
+
+\textbf{A basket contains 10 red balls and 15 white balls. Out of these, 3 red and 4 white balls are damaged. If two balls are selected at random without replacement, what is the probability that both are white or both are damaged?}
+
+\textbf{Solution:}
+
+Total balls = 25
+Number of white balls = 15
+Number of damaged balls = 3 + 4 = 7
+
+We want:
+\[
+P(\text{both white} \cup \text{both damaged}) = P(\text{both white}) + P(\text{both damaged}) - P(\text{both white and damaged}).
+\]
+
+Note: Both white and damaged means both white damaged balls (4 balls).
+
+Calculate each:
+
+\[
+P(\text{both white}) = \frac{\binom{15}{2}}{\binom{25}{2}}.
+\]
+
+\[
+P(\text{both damaged}) = \frac{\binom{7}{2}}{\binom{25}{2}}.
+\]
+
+\[
+P(\text{both white and damaged}) = \frac{\binom{4}{2}}{\binom{25}{2}}.
+\]
+
+Hence,
+\[
+P = \frac{\binom{15}{2} + \binom{7}{2} - \binom{4}{2}}{\binom{25}{2}}.
+\]
+
+\hfill $\blacksquare$
+
+\textbf{The chance that Sam tells the truth is 35\% and Ram tells the truth is 75\%. What is the probability that they contradict each other on the same question?}
+
+\textbf{Solution:}
+
+Let $T_S$ be "Sam tells truth", $T_R$ be "Ram tells truth".
+
+They contradict if one tells truth and the other lies. Thus:
+\[
+P = P(T_S \cap \overline{T}_R) + P(\overline{T}_S \cap T_R).
+\]
+
+Calculate:
+\[
+= (0.35)(1-0.75) + (1-0.35)(0.75) = 0.35 \times 0.25 + 0.65 \times 0.75 = 0.0875 + 0.4875 = 0.575.
+\]
+
+\hfill $\blacksquare$
+
+\textbf{Twelve persons are seated around a round table. What is the probability that two particular persons are seated together?}
+
+\textbf{Solution:}
+
+Number of ways to arrange 12 persons around a round table:
+\[
+(12 - 1)! = 11!.
+\]
+
+Consider the two particular persons as one block, then number of arrangements:
+\[
+(11 - 1)! \times 2! = 10! \times 2.
+\]
+
+Hence, probability:
+\[
+P = \frac{10! \times 2}{11!} = \frac{2}{11}.
+\]
+
+\hfill $\blacksquare$
+
+\textbf{A 5-letter word is to be formed using all the letters 'S', 'A', 'P', 'T', 'E'. What is the probability that the word formed contains all vowels together?}
+
+\textbf{Solution:}
+
+Vowels: A, E (2 vowels)
+Consonants: S, P, T (3 consonants)
+
+Treat vowels as a single block:
+Number of letters to arrange = 4 (vowel block + 3 consonants)
+Number of arrangements:
+\[
+4! \times 2! \quad \text{(vowels can swap inside the block)}.
+\]
+
+Total number of arrangements of 5 distinct letters:
+\[
+5!.
+\]
+
+Hence probability:
+\[
+P = \frac{4! \times 2!}{5!} = \frac{24 \times 2}{120} = \frac{48}{120} = \frac{2}{5}.
+\]
+
+\hfill $\blacksquare$
+
+\textbf{Find the probability of throwing a 6 at least once in at least two throws of a single die.}
+
+\textbf{Solution:}
+
+Total throws: 2
+Probability of no 6 in one throw: $\frac{5}{6}$.
+
+Probability of no 6 in two throws:
+\[
+\left(\frac{5}{6}\right)^2 = \frac{25}{36}.
+\]
+
+Probability of at least one 6 in two throws:
+\[
+1 - \frac{25}{36} = \frac{11}{36}.
+\]
+
+\hfill $\blacksquare$
+
+\textbf{A and B stand in a ring with 10 other persons. If the arrangement of the persons is random, find the probability that there are exactly 3 persons between A and B.}
+
+\textbf{Solution:}
+
+Total persons = 12
+
+Number of ways to arrange around a round table:
+\[
+(12 - 1)! = 11!.
+\]
+
+Fix A’s position.
+
+Positions for B that have exactly 3 persons between A and B: two possible spots (clockwise or counterclockwise).
+
+Number of favorable arrangements for B = 2.
+
+Arrange remaining 10 persons:
+\[
+10!.
+\]
+
+Hence probability:
+\[
+P = \frac{2 \times 10!}{11!} = \frac{2}{11}.
+\]
+
+\hfill $\blacksquare$
+
+\textbf{In communication theory, consider a symbol consisting of $n$ bits transmitted over a noisy channel where each bit has probability $p$ of error independently. What is the probability that the entire $n$-bit symbol is received incorrectly (at least one bit in error)?}
+
+\textbf{Solution:}
+
+Probability a bit is correct: $1 - p$.
+
+Probability all $n$ bits are correct:
+\[
+(1-p)^n.
+\]
+
+Therefore probability at least one bit error (symbol incorrect):
+\[
+1 - (1-p)^n.
+\]
+
+\hfill $\blacksquare$
+
+\textbf{A bag contains 3 black and 4 white balls. Two balls are drawn at random without replacement. What is the probability that the second ball selected is white?}
+
+\textbf{Solution:}
+
+Let $W_2$ be the event that the second ball is white.
+
+By total probability:
+\[
+P(W_2) = P(W_2 | B_1) P(B_1) + P(W_2 | W_1) P(W_1),
+\]
+where $B_1$ means first ball black, $W_1$ means first ball white.
+
+Calculate:
+
+- $P(B_1) = \frac{3}{7}$, then
+\[
+P(W_2|B_1) = \frac{4}{6}
+\]
+(since one black removed, 6 balls left, 4 white left).
+
+- $P(W_1) = \frac{4}{7}$, then
+\[
+P(W_2|W_1) = \frac{3}{6}
+\]
+(one white removed, 6 balls left, 3 white left).
+
+Hence,
+\[
+P(W_2) = \frac{3}{7} \times \frac{4}{6} + \frac{4}{7} \times \frac{3}{6} = \frac{12}{42} + \frac{12}{42} = \frac{24}{42} = \frac{4}{7}.
+\]
+
+
 \chapter{Random Variables and Probability Distributions}
 \section{What is a Random Variable?}
 In most cases, we can associate a real number with each elementary event in a sample space. For example, in a coin toss, we may assign the number \(1\) to the outcome `Head' and \(0\) to the outcome `Tail'. Similarly, when a die is thrown, the outcomes correspond to the numbers \(1, 2, 3, \dots, 6\), depending on which face appears on top.
@@ -3973,9 +4376,9 @@ This function gives the probability that the random vector \( (X, Y) \) falls wi
 Two random variables \( X \) and \( Y \) are \textbf{independent} if and only if:
 \begin{itemize}
   \item In the discrete case: $$p_{X,Y}(x, y) = p_X(x) \cdot p_Y(y) \text{ for all } x, y$$
-  
+
   \item In the continuous case: $$f_{X,Y}(x, y) = f_X(x) \cdot f_Y(y) \text{ for all } x, y$$
-  
+
 \end{itemize}
 
 \begin{textbox}
@@ -4166,7 +4569,7 @@ Then
 
 Since expectation is linear,
 \[
-\mathbb{E}\left(\sum_{i=1}^n X_i\right) = \sum_{i=1}^n \mathbb{E}\left( X_i\right) 
+\mathbb{E}\left(\sum_{i=1}^n X_i\right) = \sum_{i=1}^n \mathbb{E}\left( X_i\right)
 \]
 So,
 \[
@@ -4325,7 +4728,7 @@ Using the \textbf{Law of Total Expectation}:
 
 We compute:
 \begin{align*}
-\mathbb{E}\left( L\right) 
+\mathbb{E}\left( L\right)
 &= P(F = X) \cdot \mathbb{E}\left( L \mid F = X\right)  + P(F = Y) \cdot \mathbb{E}\left( L \mid F = Y\right)  \\
 &= 0.7 \times 2000 + 0.3 \times 3000 \\
 &= 1400 + 900 = 2300
@@ -4937,7 +5340,7 @@ Moments can be calculated about the origin (raw moments) or about the mean (cent
 The \textbf{$k$-th raw moment} (also called the moment about the origin) of a random variable $X$ is defined as:
 \begin{textbox}
     \[
-\mu'_k = \mathbb{E}\left( X^k\right) 
+\mu'_k = \mathbb{E}\left( X^k\right)
 \]
 \end{textbox}
 
@@ -6068,7 +6471,7 @@ M_X(0) = \lim_{t \to 0} \frac{e^{tb} - e^{ta}}{(b - a)t} = \frac{1}{b - a} (b - 
 
 \begin{textbox}
 \[
-M_X(t) = 
+M_X(t) =
 \begin{cases}
 1, & \text{if } t = 0 \\[6pt]
 \dfrac{e^{tb} - e^{ta}}{(b - a) t}, & \text{if } t \neq 0
@@ -6357,7 +6760,7 @@ This moment generating function exists for all real values of \(t\) and uniquely
           \item About 99.73\% of the values lie within $3\sigma$ of mean ($\mu \pm 3\sigma$).
       \end{itemize}
     \end{textbox}
-    
+
     \vspace{2mm}
 
     \begin{figure}[H]
