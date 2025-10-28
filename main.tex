@@ -11,6 +11,7 @@
 %\usepackage{newtxtext,newtxmath}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{tfrupee}
 \usepackage{changepage}
 \allowdisplaybreaks[1]
 \usepackage{array}
@@ -64,6 +65,8 @@
 }
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -428,7 +431,7 @@ In statistics, the \textbf{frequency} of a value is the number of times that val
 \caption{\textit{Simple frequency distribution of maximum temperatures (°C).}}
 \end{table}
 
-This table immediately shows, for example, for example, that 30 °C was recorded on three days, while 28 °C and 33 °C each occurred only once. Sometimes, to express them proportionally, we also compute \textbf{relative frequencies} and accumulate them in a \textbf{cumulative frequency distribution}.The \emph{relative frequency} is calculated as
+This table immediately shows, for example, for example, that 30°C was recorded on three days, while 28°C and 33°C each occurred only once. Sometimes, to express them proportionally, we also compute \textbf{relative frequencies} and accumulate them in a \textbf{cumulative frequency distribution}.The \emph{relative frequency} is calculated as
 \[
 \text{Relative frequency} = \dfrac{\text{Frequency}}{\text{Total no. of days}} \times 100\%,
 \]
@@ -450,7 +453,7 @@ Cumulative frequency\  & 1    & 3     & 6     & 8     & 10    & 11    & 12    \\
 
 \subsubsection{2. Grouped Frequency Distribution}
 
-When dealing with larger datasets or continuous measurements, listing every unique value becomes impractical. Instead, we group data into multiple groups or {classes} with definite boundaries, and then tabulate frequencies for each class. Suppose we choose class boundaries with an intervals of 2 °C each to cover the range of our data:
+When dealing with larger datasets or continuous measurements, listing every unique value becomes impractical. Instead, we group data into multiple groups or {classes} with definite boundaries, and then tabulate frequencies for each class. Suppose we choose class boundaries with an intervals of 2°C each to cover the range of our data:
 \[
 [28,\,30),\quad [30,\,32),\quad [32,\,34),\quad [34,\,36)
 \]
@@ -468,7 +471,7 @@ Cumulative frequency\       & 3         & 8         & 11        & 12        \\
 \caption{\textit{Grouped frequency distribution with relative and cumulative frequencies.}}
 \end{table}
 
-We notice the interval \([30,32)\) contains \(\{30,30,31,31,32\}\), giving a frequency of 5 which is the maximum among all classes. Its relative frequency is \(5/12\approx41.7\%\), and its cumulative frequency of 8 indicates that 8 observations are below 32 °C.
+We notice the interval \([30,32)\) contains \(\{30,30,31,31,32\}\), giving a frequency of 5 which is the maximum among all classes. Its relative frequency is \(5/12\approx41.7\%\), and its cumulative frequency of 8 indicates that 8 observations are below 32°C.
 
 
 \subsection{Diagrammatic (Graphical) Representation}
@@ -8542,7 +8545,7 @@ The MLE estimator tends to underestimate the true variance.
 
 Bayesian estimation is a method of statistical inference in which the unknown parameter $\theta$ is modeled as a random variable $\Theta$ with a probability distribution $\pi_{\Theta}(\theta)$, known as the \textbf{prior distribution}. It is  intended to reflect our knowledge of the parameter $\theta$, before we gather data.
 
-Let \(\mathbf{X} = (X_1, X_2, \dots, X_n)\) be random variables representing the observations in the sample data with joint PDF (PMF) given $\Theta = \theta$ is given by $f_{\textbf{X}}(\textbf{x} \mid \theta)$ which is also known as the \textbf{likelihood}. When data $ \textbf{X}=\textbf{x} $ are observed, the extra information about $ \theta $ is combined with the prior distribution to obtain the \textbf{posterior distribution} $\pi_{\Theta}(\theta \mid \textbf{x})$ for $ θ $ given $ \textbf{X}=\textbf{x} $ using Bayes theorem as follows:
+Let \(\mathbf{X} = (X_1, X_2, \dots, X_n)\) be random variables representing the observations in the sample data with joint PDF (PMF) given $\Theta = \theta$ is given by $f_{\textbf{X}}(\textbf{x} \mid \theta)$ which is also known as the \textbf{likelihood}. When data $ \textbf{X}=\textbf{x} $ are observed, the extra information about $ \theta $ is combined with the prior distribution to obtain the \textbf{posterior distribution} $\pi_{\Theta}(\theta \mid \textbf{x})$ for $ \theta $ given $ \textbf{X}=\textbf{x} $ using Bayes theorem as follows:
 
 \[
 \pi_{\Theta}(\theta\mid\mathbf{X}) = \frac{f_{\textbf{X}}(\mathbf{x}\mid\theta) \pi_{\Theta}(\theta)}{f_{\textbf{X}}(\mathbf{x})}
@@ -10378,7 +10381,7 @@ The Figure \ref{fig:alpha_beta_tradeoff} shows one typical example of the relati
 
 Hence, a balance must be struck depending on the consequences of making Type I vs.\ Type II errors. To arrive at a fair compromise we should know the cost of each type of error. In practice, these costs depend on the true (but unknown) parameter and are hard to quantify exactly, so we adopt one of three conventional values—1\%, 5\%, or 10\%—based on the relative severity of each error.
 
-For example, consider the design of an email spam filter. A \textbf{Type~I error} here means flagging a legitimate email as spam, potentially causing the user to miss important messages. A \textbf{Type~II error} would allow a spam message into the inbox, usually a minor nuisance. Thus, in this case, the cost of a Type I error is considered more serious than that of a Type II error, and the filter should be designed to minimize $\alpha$, the probability of Type~I error, even at the expense of a slightly higher $\beta$. A common choice might be $\alpha = 1\%$, to ensure that almost no valid emails are incorrectly filtered out.
+For example, consider the design of an email spam filter. A \textbf{Type~I error} here means flagging a legitimate email as spam, potentially causing the user to miss important messages. A \textbf{Type~II error} would allow a spam message into the inbox, usually a minor nuisance. Thus, in this case, the cost of a Type~I error is considered more serious than that of a Type~II error, and the filter should be designed to minimize $\alpha$, the probability of Type~I error, even at the expense of a slightly higher $\beta$. A common choice might be $\alpha = 1\%$, to ensure that almost no valid emails are incorrectly filtered out.
 
 On the other hand, imagine a public health agency conducting virus screening at airports during an outbreak of a contagious disease. A \textbf{Type~I error} in this context would mean falsely identifying a healthy traveler as infected, leading to temporary quarantine and inconvenience. A \textbf{Type~II error} would allow an infected traveler to enter the general population, potentially triggering a wider outbreak. In this scenario, the cost of a Type~II error is far more serious. To minimize this risk, we may choose a higher significance level, such as $\alpha = 10\%$, accepting more false positives in order to reduce the probability of missing actual infections.
 
@@ -11290,7 +11293,7 @@ meaning there’s a 99.7\% chance (very sensitive) of detecting this 0.2‑unit 
 
   \end{axis}
 \end{tikzpicture}
-\caption{\textit{Density curves for \(H_0: \mu=5\) and \(H_1: \mu=4.8\) with \(\sigma=0.3\), \(n=50\).  The dashed lines at 4.9168 and 5.0832 are the critical cutoffs; the shaded regions under the \(H_1\) curve indicate the power ($\approx$ 99.7\%).}}
+\caption{\textit{Density curves for \(H_0: \mu=5\) and \(H_1: \mu=4.8\) with \(\sigma=0.3\), \(n=50\).  The dashed lines at 4.9168 and 5.0832 are the critical cutoffs; the shaded regions under the \(H_1\) curve indicate the power ($\approx$99.7\%).}}
 \end{figure}
 
 
@@ -15025,8 +15028,8 @@ If we want to understand how much prices have risen overall, it would be mislead
 Assume the consumer bought 30 kg of rice and 10 litres of oil in the base year. Then:
 
 \begin{itemize}
-    \item Cost in base year = \( 40 \times 30 + 100 \times 10 = ₹2200 \)
-    \item Cost in current year for the same quantities = \( 50 \times 30 + 120 \times 10 = ₹2700 \)
+    \item Cost in base year = \( 40 \times 30 + 100 \times 10 = \rupee~2200 \)
+    \item Cost in current year for the same quantities = \( 50 \times 30 + 120 \times 10 = \rupee~2700 \)
 \end{itemize}
 
 The \textbf{price index number} is calculated as:
