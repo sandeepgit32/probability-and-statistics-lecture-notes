@@ -3282,7 +3282,7 @@ In parallel systems, the system is more reliable than the individual components.
 
 \section{Examples}
 
-\textbf{Problem: An urn contains \(N\) balls, of which \(Np\) are black and \(Nq\) are white, where \(Np,Nq\) are integers and \(p+q=1\). We draw \(n\) balls without and with replacement. Compute the probability that exactly \(k\) of the drawn balls are black (and therefore \(n-k\) are white). Assume \(0\le k\le n\).}
+\textbf{An urn contains \(N\) balls, of which \(Np\) are black and \(Nq\) are white, where \(Np,Nq\) are integers and \(p+q=1\). We draw \(n\) balls without and with replacement. Compute the probability that exactly \(k\) of the drawn balls are black (and therefore \(n-k\) are white). Assume \(0\le k\le n\).}
 
 \begin{figure}[H]
 \centering
@@ -3324,6 +3324,8 @@ In parallel systems, the system is more reliable than the individual components.
 \end{tikzpicture}
 \caption{\textit{Drawing black and white balls from an urn.}}
 \end{figure}
+
+\textbf{Solution:}
 
 \begin{itemize}
 \item \textbf{Without replacement:} List all equally likely samples of size \(n\). The total number of distinct size-\(n\) samples (unordered draws) is
@@ -3410,9 +3412,9 @@ P = \binom{4}{2} p^{2} q^{2} = \binom{4}{2} \left(\frac{1}{4}\right)^2 \left(\fr
 
 \hfill $\blacksquare$
 
-\textbf{Problem: In an interview, the probabilities of selection are: Praveen 0.4, Geeta 0.5, Sam 0.6, and Suresh 0.8. What is the probability that at least two of them are selected?}
+\textbf{In an interview, the probabilities of selection are: Praveen 0.4, Geeta 0.5, Sam 0.6, and Suresh 0.8. What is the probability that at least two of them are selected?}
 
-Let the selection events be independent. Define $X$ = number selected. We want:
+\textbf{Solution:} Let the selection events be independent. Define $X$ = number selected. We want:
 \[
 P(\text{At least 2 selection}) = 1 - P(\text{No selection}) - P(\text{One selection})
 \]
@@ -3483,15 +3485,15 @@ P = \frac{8 \times 6 \times 7 \times 5 + 6 \times 8 \times 5 \times 7}{14 \times
 
 \textbf{A basket contains 10 red balls and 15 white balls. Out of these, 3 red and 4 white balls are damaged. If two balls are selected at random without replacement, what is the probability that both are white or both are damaged?}
 
-\textbf{Solution:}
+\textbf{Solution:} Total balls = 25
 
-Total balls = 25
 Number of white balls = 15
+
 Number of damaged balls = 3 + 4 = 7
 
 We want:
 \[
-P(\text{both white} \cup \text{both damaged}) = P(\text{both white}) + P(\text{both damaged}) - P(\text{both white and damaged}).
+P(\text{both white } \cup \text{ both damaged}) = P(\text{both white}) + P(\text{both damaged}) - P(\text{both white and damaged}).
 \]
 
 Note: Both white and damaged means both white damaged balls (4 balls).
@@ -3499,164 +3501,152 @@ Note: Both white and damaged means both white damaged balls (4 balls).
 Calculate each:
 
 \[
-P(\text{both white}) = \frac{\binom{15}{2}}{\binom{25}{2}}.
+P(\text{both white}) = \frac{\displaystyle\binom{15}{2}}{\displaystyle\binom{25}{2}}
 \]
 
 \[
-P(\text{both damaged}) = \frac{\binom{7}{2}}{\binom{25}{2}}.
+P(\text{both damaged}) = \frac{\displaystyle\binom{7}{2}}{\displaystyle\binom{25}{2}}
 \]
 
 \[
-P(\text{both white and damaged}) = \frac{\binom{4}{2}}{\binom{25}{2}}.
+P(\text{both white and damaged}) = \frac{\displaystyle\binom{4}{2}}{\displaystyle\binom{25}{2}}
 \]
 
 Hence,
 \[
-P = \frac{\binom{15}{2} + \binom{7}{2} - \binom{4}{2}}{\binom{25}{2}}.
+P = \frac{\displaystyle\binom{15}{2} + \displaystyle\binom{7}{2} - \binom{4}{2}}{\displaystyle\binom{25}{2}}
 \]
 
 \hfill $\blacksquare$
 
 \textbf{The chance that Sam tells the truth is 35\% and Ram tells the truth is 75\%. What is the probability that they contradict each other on the same question?}
 
-\textbf{Solution:}
-
-Let $T_S$ be "Sam tells truth", $T_R$ be "Ram tells truth".
+\textbf{Solution:} Let $T_S$ be ``Sam tells truth'', $T_R$ be ``Ram tells truth''.
 
 They contradict if one tells truth and the other lies. Thus:
 \[
-P = P(T_S \cap \overline{T}_R) + P(\overline{T}_S \cap T_R).
+P = P(T_S \cap \overline{T}_R) + P(\overline{T}_S \cap T_R)
 \]
 
-Calculate:
+Calculate $P$:
 \[
-= (0.35)(1-0.75) + (1-0.35)(0.75) = 0.35 \times 0.25 + 0.65 \times 0.75 = 0.0875 + 0.4875 = 0.575.
+= (0.35)(1-0.75) + (1-0.35)(0.75) = 0.35 \times 0.25 + 0.65 \times 0.75 = 0.0875 + 0.4875 = 0.575
 \]
 
 \hfill $\blacksquare$
 
 \textbf{Twelve persons are seated around a round table. What is the probability that two particular persons are seated together?}
 
-\textbf{Solution:}
-
-Number of ways to arrange 12 persons around a round table:
+\textbf{Solution:} Number of ways to arrange 12 persons around a round table:
 \[
-(12 - 1)! = 11!.
+(12 - 1)! = 11!
 \]
 
 Consider the two particular persons as one block, then number of arrangements:
 \[
-(11 - 1)! \times 2! = 10! \times 2.
+(11 - 1)! \times 2! = 10! \times 2
 \]
 
 Hence, probability:
 \[
-P = \frac{10! \times 2}{11!} = \frac{2}{11}.
+P = \frac{10! \times 2}{11!} = \frac{2}{11}
 \]
 
 \hfill $\blacksquare$
 
 \textbf{A 5-letter word is to be formed using all the letters 'S', 'A', 'P', 'T', 'E'. What is the probability that the word formed contains all vowels together?}
 
-\textbf{Solution:}
+\textbf{Solution:} Vowels: A, E (2 vowels)
 
-Vowels: A, E (2 vowels)
 Consonants: S, P, T (3 consonants)
 
 Treat vowels as a single block:
 Number of letters to arrange = 4 (vowel block + 3 consonants)
 Number of arrangements:
 \[
-4! \times 2! \quad \text{(vowels can swap inside the block)}.
+4! \times 2! \quad \text{(vowels can swap inside the block)}
 \]
 
 Total number of arrangements of 5 distinct letters:
 \[
-5!.
+5!
 \]
 
 Hence probability:
 \[
-P = \frac{4! \times 2!}{5!} = \frac{24 \times 2}{120} = \frac{48}{120} = \frac{2}{5}.
+P = \frac{4! \times 2!}{5!} = \frac{24 \times 2}{120} = \frac{48}{120} = \frac{2}{5}
 \]
 
 \hfill $\blacksquare$
 
 \textbf{Find the probability of throwing a 6 at least once in at least two throws of a single die.}
 
-\textbf{Solution:}
+\textbf{Solution:} Total throws: 2
 
-Total throws: 2
-Probability of no 6 in one throw: $\frac{5}{6}$.
+Probability of no 6 in one throw: $\frac{5}{6}$
 
 Probability of no 6 in two throws:
 \[
-\left(\frac{5}{6}\right)^2 = \frac{25}{36}.
+\left(\frac{5}{6}\right)^2 = \frac{25}{36}
 \]
 
 Probability of at least one 6 in two throws:
 \[
-1 - \frac{25}{36} = \frac{11}{36}.
+1 - \frac{25}{36} = \frac{11}{36}
 \]
 
 \hfill $\blacksquare$
 
 \textbf{A and B stand in a ring with 10 other persons. If the arrangement of the persons is random, find the probability that there are exactly 3 persons between A and B.}
 
-\textbf{Solution:}
-
-Total persons = 12
+\textbf{Solution:} Total persons = 12
 
 Number of ways to arrange around a round table:
 \[
-(12 - 1)! = 11!.
+(12 - 1)! = 11!
 \]
 
-Fix A’s position.
+Fix A's position.
 
 Positions for B that have exactly 3 persons between A and B: two possible spots (clockwise or counterclockwise).
 
-Number of favorable arrangements for B = 2.
+Number of favorable arrangements for B = 2
 
 Arrange remaining 10 persons:
 \[
-10!.
+10!
 \]
 
 Hence probability:
 \[
-P = \frac{2 \times 10!}{11!} = \frac{2}{11}.
+P = \frac{2 \times 10!}{11!} = \frac{2}{11}
 \]
 
 \hfill $\blacksquare$
 
 \textbf{In communication theory, consider a symbol consisting of $n$ bits transmitted over a noisy channel where each bit has probability $p$ of error independently. What is the probability that the entire $n$-bit symbol is received incorrectly (at least one bit in error)?}
 
-\textbf{Solution:}
-
-Probability a bit is correct: $1 - p$.
+\textbf{Solution:} Probability a bit is correct: $1 - p$
 
 Probability all $n$ bits are correct:
 \[
-(1-p)^n.
+(1-p)^n
 \]
 
 Therefore probability at least one bit error (symbol incorrect):
 \[
-1 - (1-p)^n.
+1 - (1-p)^n
 \]
 
 \hfill $\blacksquare$
 
 \textbf{A bag contains 3 black and 4 white balls. Two balls are drawn at random without replacement. What is the probability that the second ball selected is white?}
 
-\textbf{Solution:}
-
-Let $W_2$ be the event that the second ball is white.
+\textbf{Solution:} Let $W_2$ be the event that the second ball is white.
 
 By total probability:
 \[
-P(W_2) = P(W_2 | B_1) P(B_1) + P(W_2 | W_1) P(W_1),
+P(W_2) = P(W_2 | B_1) P(B_1) + P(W_2 | W_1) P(W_1)
 \]
 where $B_1$ means first ball black, $W_1$ means first ball white.
 
@@ -3676,7 +3666,7 @@ P(W_2|W_1) = \frac{3}{6}
 
 Hence,
 \[
-P(W_2) = \frac{3}{7} \times \frac{4}{6} + \frac{4}{7} \times \frac{3}{6} = \frac{12}{42} + \frac{12}{42} = \frac{24}{42} = \frac{4}{7}.
+P(W_2) = \frac{3}{7} \times \frac{4}{6} + \frac{4}{7} \times \frac{3}{6} = \frac{12}{42} + \frac{12}{42} = \frac{24}{42} = \frac{4}{7}
 \]
 
 
